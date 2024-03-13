@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OpportunityActivityPanel__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Opportunity 상황판 Click 동작 여부, unchecked : 상황판 클릭 불가</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Opportunity 상황판 Click 동작 여부, unchecked : 상황판 클릭 불가</inlineHelpText>
+    <label>OpportunityActivityPanel</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,323 @@
+<!--
+  @author            : divyam.gupta@samsung.com
+  @description       : Change Account/Opportunity Owner Screen. 
+  @last modified on  : 2022-09-03
+  @last modified by  : divyam.gupta@samsung.com
+  Modifications Log 
+  Ver   Date         Author                   	Modification
+  1.0   2022-08-09   Divyam.gupta@samsung.com       Initial Version
+-->
+<aura:component implements="force:appHostable" controller="ChangeAccountOppOwnerController" 
+                access="global" >
+    <aura:attribute name="attribute1" type="boolean" default="false"/>
+    <aura:attribute name="attribute2" type="boolean" default="false"/>
+    <aura:attribute name="EnterAccNumber" type="String" default=""/>
+    <aura:attribute name="EnterOpportunityCode" type="Integer" default=""/>
+    <aura:attribute name="eAccountName" type="String" default=""/>
+    <aura:attribute name="accOwnerName" type="String" default=""/>
+    <aura:attribute name="OwnerId" type="Integer"/>
+    <aura:attribute name="OpportunityName" type="String" default=""/>
+     <aura:attribute name="OpportunityName1" type="String" default=""/>
+    <aura:attribute name="CompanyCode" type="String"/>
+    <aura:attribute name="CompanyCode1" type="String"/>
+    <aura:attribute name="SalesRep" type="String"/>
+    <aura:attribute name="SalesRep1" type="String"/>
+    <aura:attribute name="editButtonAcc" type="boolean" default="false" />
+    <aura:attribute name="editButtonOpp" type="boolean" default="false" />
+    <aura:attribute name="NameList" type="List" default="[]"/>
+    <aura:attribute name="NameOppList" type="List" default="[]"/>
+    <aura:attribute name="SearchUserAcc" type="String" default=""/>
+    <aura:attribute name="SearchUserOpp" type="String" default=""/>
+    <aura:attribute name="showTable" type="Boolean" default="false"/>
+    <aura:attribute name="showTableopp" type="Boolean" default="false"/>
+    <aura:attribute name="Firsteditopp" type="Boolean" default="true"/>
+    <aura:attribute name="Secondeditopp" type="Boolean" default="true"/>
+    <aura:attribute name="SecondTableopp" type="Boolean" default="false"/>
+    <aura:attribute name="ShowSecondTableopp" type="Boolean" default="false"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false"/>
+    <aura:attribute name="noUserSelected" type="Boolean" default="false"/>
+    <aura:attribute name="selectedValue" type="Object" default="{}"/>
+    <aura:attribute name="selectedLookUpRecord" type="user"/>
+    <aura:attribute name="selectedLookUpRecord1" type="user"/>
+    <!-- [Handler] -->
+    <lightning:card >	
+        <div class="slds-m-left_large slds-page-header slds-text-heading--medium slds-m-bottom_medium">
+            {!$Label.c.Change_Owner}</div>
+        <div class="slds-size--7-of-8 slds-m-left_large">
+            <dl class="slds-list_horizontal slds-wrap slds-m-bottom_medium">
+                <lightning:button label="{!$Label.c.Change_Account_OwnerBtn}" variant="brand" onclick="{!c.ChangeAccountOwner}" />
+                <div class ="slds-wrap slds-m-left_large">
+                    <lightning:button label="{!$Label.c.Change_Opportunity_OwnerBtn}" variant="brand" onclick="{!c.ChangeOpportunityOwner}" />
+                </div>
+            </dl>
+            <!--Component Start-->
+            <!--aura:if Change Account Owner-->
+            <aura:if  isTrue="{!v.attribute1}" >
+                <div class="slds-text-heading--small">{!$Label.c.Account_Number}</div>
+                
+                <lightning:layout >
+                    <dl class="slds-list_horizontal slds-wrap">
+                        <lightning:layoutItem>
+                            <lightning:input name="Account Number" value="{!v.EnterAccNumber}"  placeholder="{!$Label.c.Change_Account_Number}"/>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem >    
+                            <div  class = "slds-p-top_medium slds-p-left_medium">
+                                <lightning:button label="Search" iconName="utility:search" variant="brand" iconPosition="left" class="slds-size_full"  onclick="{!c.SearchAcc}" />                
+                            </div>    
+                        </lightning:layoutItem>
+                        
+                    </dl>
+                </lightning:layout>                              
+                <aura:if isTrue="{!v.showTable}">
+                    <div class="slds-grid slds-gutters slds-m-top_medium">
+                        <div class="slds-form slds-col slds-size_1-of-2">
+                            <h1 class="slds-page-header slds-page-header__title padding_less">{!$Label.c.Account_Information}</h1>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-form slds-col slds-size_1-of-2">
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                <tbody>
+                                    <tr>
+                                        <td >{!$Label.c.Account_Name}
+                                        </td>
+                                        <td class="slds-cell-edit">
+                                            <span class="slds-truncate" title="AccName">{!v.eAccountName}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td >{!$Label.c.Account_Owner_Name}
+                                        </td>
+                                        <td class="slds-cell-edit">
+                                            <span class="slds-truncate" title="Accowner">{!v.accOwnerName}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <aura:if isTrue="{!v.OwnerId}" > 
+                            <div class="slds-p-top_x-large">
+                                <lightning:buttonIcon iconName="utility:edit" variant="bare" onclick="{! c.editActionAcc }" alternativeText="Edit" />
+                            </div>
+                        </aura:if>
+                        
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{!v.editButtonAcc}">
+                    <div class="slds-text-heading--small slds-p-top_medium">{!$Label.c.Change_Account_Owner}</div>
+                    <div>
+                        <lightning:layout class='search_layout' verticalAlign="center" >
+                            <lightning:layoutItem size='6' padding='around-small'>
+                                <c:customLookup aura:id="clookup"
+                                                iconName="standard:avatar"
+                                                objectName="User"
+                                                label=""
+                                                additionalDisplay="UserInfo__c"
+                                                searchFields="Email"
+                                                filterFields = "IsActive"
+                                                filterValues = "TRUE"
+                                                filterConditions = "eq"
+                                                minimum="1" 
+                                                numOfQuery="20"
+                                                selectedRecord="{!v.selectedLookUpRecord}"/>
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        
+                    </div>
+                    <div class="slds-p-top_medium ">
+                        <lightning:button label="{!$Label.c.Cancel}" onclick="{!c.CancelAll}" />
+                        <lightning:button label="{!$Label.c.Change_OwnerBtn}" variant="brand" onclick="{!c.ChangeOwnerAcc}" />
+                        
+                    </div>
+                </aura:if>
+                
+                
+            </aura:if>
+            
+            <!--aura:if Change Oportunity Owner-->
+            <aura:if  isTrue="{!v.attribute2}" >
+                <div class="slds-text-heading--small">{!$Label.c.Opportunity_Code}</div>
+                <dl class="slds-list_horizontal slds-wrap">
+                    <lightning:layout >
+                        <lightning:layoutItem >
+                            <lightning:input name="{!$Label.c.Opportunity_Code}" value="{!v.EnterOpportunityCode}"  placeholder="{!$Label.c.Opportunity_Code_label}"/>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem >
+                            <div class="slds-p-top_medium slds-p-left_medium">
+                                <lightning:button label="Search" iconName="utility:search" variant="brand" iconPosition="left" class="slds-size_full" title="" onclick="{!c.searchOpp}" />
+                            </div>    
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </dl>
+                
+                <div>
+                    
+                    <aura:if isTrue="{!v.showTableopp}">
+                        
+                        
+                        <div class="slds-grid slds-gutters slds-m-top_medium">
+                            <div class="slds-form slds-col slds-size_1-of-2">
+                                <h1 class="slds-page-header slds-page-header__title  padding_less">Opportunity Information</h1>
+                            </div>
+                            <aura:if isTrue="{!v.ShowSecondTableopp}">
+                                
+                                <div class="slds-form slds-col slds-size_1-of-2 slds-m-left_medium">
+                                    <h1 class="slds-page-header slds-page-header__title  padding_less">Opportunity Information</h1>
+                                </div>
+                            </aura:if>
+                        </div>  
+                        
+                        
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-form slds-col slds-size_1-of-2">
+                                
+                                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                    <tbody>
+                                        <tr>
+                                            <td >{!$Label.c.Oppportunity_Name_label}
+                                            </td>
+                                            <td class="slds-cell-edit">
+                                                <span class="slds-truncate" title="OppName">{!v.OpportunityName}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >{!$Label.c.Company_code_label}
+                                            </td>
+                                            <td class="slds-cell-edit">
+                                                <span class="slds-truncate" title="Compcode">{!v.CompanyCode}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >{!$Label.c.Sales_Rep_label}
+                                            </td>
+                                            <td class="slds-cell-edit">
+                                                <span class="slds-truncate" title="Salesrep">{!v.SalesRep}</span>
+                                            </td>
+                                        </tr>     
+                                    </tbody>
+                                    
+                                </table>
+                                
+                            </div>
+                            
+                            <aura:if isTrue="{!v.SalesRep}">  
+                                <div class="slds-p-top_xx-large">
+                                    <aura:if isTrue ="{!v.Firsteditopp}">
+                                        <lightning:buttonIcon iconName="utility:edit" variant="bare" onclick="{! c.editActionOpp }" alternativeText="Edit" />
+                                    </aura:if>
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!v.ShowSecondTableopp}">
+                                
+                                <div class="slds-form slds-col slds-size_1-of-2">
+                                    
+                                    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                        <tbody>
+                                            <tr>
+                                                <td >{!$Label.c.Oppportunity_Name_label}
+                                                </td>
+                                                <td class="slds-cell-edit">
+                                                    <span class="slds-truncate" title="OppName">{!v.OpportunityName1}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td >{!$Label.c.Company_code_label}
+                                                </td>
+                                                <td class="slds-cell-edit">
+                                                    <span class="slds-truncate" title="Compcode">{!v.CompanyCode1}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td >{!$Label.c.Sales_Rep_label}
+                                                </td>
+                                                <td class="slds-cell-edit">
+                                                    <span class="slds-truncate" title="Salesrep1">{!v.SalesRep1}</span>
+                                                </td>
+                                            </tr>     
+                                        </tbody>
+                                        
+                                    </table>
+                                    
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!v.SalesRep1}">  
+                                <div class="slds-p-top_xx-large">
+                                    <aura:if isTrue ="{!v.Secondeditopp}">
+                                        <lightning:buttonIcon iconName="utility:edit" variant="bare" onclick="{!c.editActionOpp1}" alternativeText="Edit" />
+                                    </aura:if> 
+                                </div>
+                            </aura:if>
+                        </div>
+                        
+                    </aura:if>
+                    <aura:if isTrue="{!v.editButtonOpp}">
+                        <div>
+                            <div class="slds-text-heading--small slds-p-top_medium">{!$Label.c.Change_Opportunity_Owner}</div>
+                            <div>
+                                <lightning:layout class='search_layout' verticalAlign="center" > <!--  verticalAlign="center" class="x-large" -->
+                                    <lightning:layoutItem size='6' padding='around-small'>
+                                        <c:customLookup aura:id="clookup"
+                                                        iconName="standard:avatar"
+                                                        objectName="User"
+                                                        label=""
+                                                        additionalDisplay="UserInfo__c"
+                                                        searchFields="Email"
+                                                        filterFields = "IsActive"
+                                                        filterValues = "TRUE"
+                                                        filterConditions = "eq"
+                                                        minimum="1" 
+                                                        numOfQuery="20"
+                                                        selectedRecord="{!v.selectedLookUpRecord}"/>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                                
+                            </div>
+                            <div class="slds-p-top_medium">
+                                <lightning:button label="{!$Label.c.Cancel}" onclick="{!c.CancelAll}" />
+                                <lightning:button label="{!$Label.c.Change_OwnerBtn}" variant="brand" onclick="{!c.ChangeOwnerOpp}" />
+                            </div>
+                            
+                        </div>
+                    </aura:if>            
+                </div>
+                
+                <aura:if isTrue="{!v.SecondTableopp}">
+                    <div>
+                        <div class="slds-text-heading--small slds-p-top_medium">{!$Label.c.Change_Opportunity_Owner}</div>
+                        <div>
+                            <lightning:layout class='search_layout' verticalAlign="center" > <!--  verticalAlign="center" class="x-large" -->
+                                <lightning:layoutItem size='6' padding='around-small'>
+                                    <c:customLookup aura:id="clookup"
+                                                    iconName="standard:avatar"
+                                                    objectName="User"
+                                                    label=""
+                                                    additionalDisplay="UserInfo__c"
+                                                    searchFields="Email"
+                                                    filterFields = "IsActive"
+                                                    filterValues = "TRUE"
+                                                    filterConditions = "eq"
+                                                    minimum="1" 
+                                                    numOfQuery="20"
+                                                    selectedRecord="{!v.selectedLookUpRecord1}"/>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            
+                        </div>
+                        <div class="slds-p-top_medium">
+                            <lightning:button label="{!$Label.c.Cancel}" onclick="{!c.CancelAll}" />
+                            <lightning:button label="{!$Label.c.Change_OwnerBtn}" variant="brand" onclick="{!c.ChangeOwnerOpp1}" />
+                        </div>
+                        
+                    </div>
+                </aura:if>    
+
+            </aura:if>
+                           </div>
+
+                    <aura:if isTrue="{!v.showSpinner}">
+            <div class="spinnerClass">
+                <lightning:spinner alternativeText="Loading" size="medium" />
+            </div>
+        </aura:if>
+    </lightning:card>
+</aura:component>

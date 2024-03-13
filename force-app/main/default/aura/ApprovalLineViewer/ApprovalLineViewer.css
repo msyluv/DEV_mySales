@@ -1,0 +1,131 @@
+.THIS{
+    height: 100%;
+}
+.THIS .LayoutItem_Header{
+    height: 4rem;
+    background-color: #F3F2F2;
+    padding-top: 0;
+    border-radius: 4px;
+}
+.THIS .Header_Icon{
+    margin-right: 5px;
+}
+/* 
+.THIS .Header_Right{
+    text-align: right;
+} 
+*/
+.THIS .SearchValue{
+    display: inline-block;
+    margin-right: 5px;
+}
+.THIS .SearchBtn{
+    margin-top: -5px;
+}
+.THIS .LayoutItem_Body{
+    height: calc(100% - 4rem);
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+.THIS .LayoutItem_Body .slds-grid{
+    height: 100%;
+}
+.THIS .Body_Left{
+    padding-right: 5px;
+}
+.THIS .Body_Right{
+    padding-left: 5px;
+}
+.THIS .Card_Left{
+    height: 100%;
+}
+.THIS .Card_Left .slds-card__header{
+    height: 10%;
+    margin: 0;
+    background-color: #F3F2F2;
+}
+.THIS .Card_Left .slds-card__body{
+    height: 90%;
+    margin: 0;
+    overflow: auto;
+}
+.THIS .Card_Right{
+    height: 100%;
+}
+.THIS .Card_Right .slds-card__header{
+    height: 10%;
+    margin: 0;
+    background-color: #F3F2F2;
+}
+.THIS .Card_Right .slds-card__body{
+    height: 90%;
+    margin: 0;
+    overflow: auto;
+}
+
+
+
+/*
+.THIS{
+    height: 100%;
+}
+.THIS .wrapperCard{
+    height: 100%;
+}
+.THIS .slds-card__header{
+    display: none;
+}
+.THIS .slds-card__body{
+    height: 100%;
+    margin: 0;
+}
+.THIS .slds-wrap{
+    height: 100%;
+}
+.THIS .LayoutItem_Header{
+    height: 4rem;
+    background-color: #F3F2F2;
+    padding-top: 0;
+}
+.THIS .Header_Icon{
+    margin-right: 5px;
+}
+.THIS .Header_Right{
+    text-align: right;
+}
+.THIS .SearchValue{
+    display: inline-block;
+    margin-right: 5px;
+}
+.THIS .LayoutItem_Body{
+    height: calc(100% - 4rem);
+}
+.THIS .LayoutItem_Body .slds-grid{
+    height: 100%;
+}
+.THIS .Body_Left{
+    height: 100%;
+    padding-right: 5px;
+}
+.THIS .Card_Left{
+    height: 100%;
+    border: 1px solid darkgray;
+}
+.THIS .Body_Right{
+    height: 100%;
+    padding-left: 5px;
+}
+.THIS .Card_Right{
+    height: 100%;
+    border: 1px solid darkgray;
+}
+.THIS .Body_Header{
+    height: 3rem;
+    background-color: #F3F2F2;
+    padding-top: 0;
+}
+.THIS .Body_Body{
+    height: calc(100% - 3rem);
+}
+*/

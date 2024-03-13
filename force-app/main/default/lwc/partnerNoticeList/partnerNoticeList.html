@@ -1,0 +1,31 @@
+<template>
+    <div style="width:100%;">
+    <h2 class="partnerNoticeHeader">{listTile}</h2>
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered " style ="table-layout: fixed; width:100%;" >
+        <thead>
+            <tr class="slds-line-height_reset">
+                <template if:true={partnerNoticeLabels.data}>
+                    <th>{noticeNumber}</th>
+                    <th>{subject}</th>
+                    <th>{startDate}</th>
+                    <th>{endDate}</th>
+                </template>
+            </tr>
+        </thead>
+        <tbody>
+            <template for:each={partnerNoticeList} for:item="data">
+                <tr class="slds-hint-parent" key={data.Id}>
+                    <td><a href={data.recordUrl}>{data.Name}</a></td>
+                    <td class= "partnertexwrap">
+                        {data.Subject__c}</td>
+                    <td>{data.formattedStartDate}</td>
+                    <td>{data.formattedEndDate}</td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+    <div class="view-all">
+        <a onclick={handleListView}>{viewAll}</a>
+    </div>
+</div>
+</template>

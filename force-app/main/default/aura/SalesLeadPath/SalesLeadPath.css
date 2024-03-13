@@ -1,0 +1,16 @@
+.THIS .colorWhite svg{
+    fill : white;
+    text-decoration: none;
+}
+.THIS .convert{
+    padding: 20px 50px 10px 50px;
+}
+.THIS .noneconvert{
+    height: auto;
+}
+.THIS .slds-path__title{
+    text-decoration: none;
+}
+.THIS .nonedisplay{
+    display: none;
+}

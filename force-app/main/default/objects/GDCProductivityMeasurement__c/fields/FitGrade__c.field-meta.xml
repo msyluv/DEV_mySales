@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FitGrade__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( Text(DevType__c)+Text(ObjectType__c)+Text(UIType__c), 
+&apos;목록StandardStandard&apos;,&apos;Standard-OOTB&apos;,
+&apos;신규StandardStandard&apos;,&apos;Configuration-Light&apos;,
+&apos;수정StandardStandard&apos;,&apos;Configuration-Light&apos;,
+&apos;조회StandardStandard&apos;,&apos;Configuration-Light&apos;,
+&apos;삭제StandardStandard&apos;,&apos;Standard-OOTB&apos;,
+&apos;보고서StandardStandard&apos;,&apos;Configuration-Heavy&apos;,
+&apos;대시보드StandardStandard&apos;,&apos;Configuration-Heavy&apos;,
+&apos;신규StandardCustom&apos;,&apos;Customization-Heavy&apos;,
+&apos;수정StandardCustom&apos;,&apos;Customization-Heavy&apos;,
+&apos;보고서StandardCustom&apos;,&apos;Customization-Heavy&apos;,
+&apos;대시보드StandardCustom&apos;,&apos;Customization-Heavy&apos;,
+&apos;목록CustomStandard&apos;,&apos;Standard-OOTB&apos;,
+&apos;삭제CustomStandard&apos;,&apos;Standard-OOTB&apos;,
+&apos;보고서CustomStandard&apos;,&apos;Configuration-Heavy&apos;,
+&apos;대시보드CustomStandard&apos;,&apos;Configuration-Heavy&apos;,
+&apos;신규CustomCustom&apos;,&apos;Customization-Heavy&apos;,
+&apos;수정CustomCustom&apos;,&apos;Customization-Heavy&apos;,
+&apos;보고서CustomCustom&apos;,&apos;Customization-Heavy&apos;,
+&apos;대시보드CustomCustom&apos;,&apos;Customization-Heavy&apos;,
+&apos;Customization-Light&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Fit Grade</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

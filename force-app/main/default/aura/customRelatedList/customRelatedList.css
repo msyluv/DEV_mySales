@@ -1,0 +1,65 @@
+/**
+ * @description       : Custom Related List Component (SCP Account)
+ * @author            : gitesh.s@samsung.com
+ * @group             : 
+ * @last modified on  : 20-12-2022
+ * @last modified by  : gitesh.s@smsung.com
+ * Modifications Log 
+ * Ver   Date         Author                 Modification
+ * 1.0   20-12-2022   gitesh.s@samsung.com   Initial Version
+**/
+.THIS .modal-container {
+    width: 100% !important;
+    max-width: 840px !important;
+    min-width: 480px;
+}
+
+.THIS .custom-record-form {
+    padding: 8px;
+    position: relative;
+}
+
+.THIS .custom-record-form .slds-grid {
+    padding: 8px 30px;
+}
+
+.THIS .custom-record-form .form-header {
+    background: #f3f3f3;
+    line-height: 30px;
+    padding: 0 12px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.THIS .custom-record-form .slds-col {
+    padding: 0 12px;
+}
+
+.THIS .custom-modal-footer .slds-button-group-row {
+    display: flex;
+    justify-content: center;
+}
+
+.THIS .slds-form-element_horizontal {
+    display: inline-table;
+}
+
+.THIS .error-message .slds-input, .THIS .error-message .slds-input:focus {
+    border-color: #ea001e;
+    box-shadow: 0 0 0 1px #ea001e;
+}
+
+.THIS .slds-backdrop {
+    display: block;
+}
+
+.THIS .relatedRecords .slds-th__action .slds-th__action-button, 
+.THIS .relatedRecords .slds-resizable__divider {
+    display: none;
+}
+
+.THIS .slds-table_header-fixed_container,
+.THIS .slds-table_header-fixed_container .slds-scrollable_y,
+.THIS .slds-table_header-fixed_container .slds-table_header-fixed {
+    width: 100% !important;
+}

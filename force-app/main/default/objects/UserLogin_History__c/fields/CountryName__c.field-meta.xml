@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CountryName__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(CountryCode__c, 
+						&quot;KOR&quot;, &quot;South Korea&quot;, 
+						&quot;USA&quot;, &quot;United States of America&quot;,
+						&quot;CHN&quot;, &quot;China&quot;,
+						&quot;GBR&quot;, &quot;United Kingdom&quot;,
+						&quot;IND&quot;, &quot;India&quot;,
+						&quot;VNM&quot;, &quot;Vietnam&quot;,
+						&quot;BRA&quot;, &quot;Brazil&quot;,
+					&quot;SGP&quot;, &quot;Singapore&quot;,
+						&quot;&quot;)</formula>
+    <label>Country Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

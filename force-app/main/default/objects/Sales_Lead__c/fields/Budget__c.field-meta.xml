@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Budget__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>예산확보 여부</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Whether to have a customer budget (change the stage to Hot when satisfying two or more BANTs)</inlineHelpText>
+    <label>Budget</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

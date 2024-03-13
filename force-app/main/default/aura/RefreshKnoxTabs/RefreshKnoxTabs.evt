@@ -1,0 +1,13 @@
+<!--
+  @description       : 
+  @author            : dongyoung.kim@dkbmc.com
+  @group             : 
+  @last modified on  : 30-01-2024
+  @last modified by  : anish.jain@partner.samsung.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   30-01-2024   anish.jain@partner.samsung.com  Initial Version -MS 418
+-->
+<aura:event type="APPLICATION" access="global" description="Event template" >
+    <aura:attribute name="isConfirmed" type="boolean" default="false" />
+</aura:event>

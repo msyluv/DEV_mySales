@@ -1,0 +1,429 @@
+<html>
+<head>
+<title>Samsung SDS</title>
+
+<!--
+<meta charset="UTF-8">
+<title>Samsung SDS</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<style type="text/css">
+@charset "utf-8";
+
+.mailing_wrap{width:980px; border:solid 1px #a3a9b1;}
+.mailing_wrap .tit_wrap{height:55px;
+line-height:55px; background-color: #1c2637;
+background-image: -webkit-linear-gradient(left, #112860, #145675);
+background-image: -moz-linear-gradient(left, #112860, #145675);
+background-image: -o-linear-gradient(left, #112860, #145675);
+background-image: -ms-linear-gradient(left, #112860, #145675);
+background-image: linear-gradient(to right, #112860, #145675);}
+.mailing_wrap .tit_wrap h1{float:left; margin:0 10px 0 40px; font-size:20px; color:#fff;}
+.mailing_wrap .tit_wrap h2{float:left; font-size:20px; color:#fff;}
+.mailing_wrap .tit_wrap span{float:right; margin:0 40px 0 0; color:#fff;}
+.mailing_wrap .cont_wrap{padding:35px 40px;}
+.mailing_wrap .cont_wrap h3{font-size:24px; text-align:center; margin:0 0 35px 0;}
+.mailing_wrap .desc{line-height:1.5;}
+.mailing_wrap .desc_s{font-size:11px; line-height:1.4; color:#666;}
+.mailing_wrap .desc_s_blue{font-size:11px; line-height:1.4; color:#597385; text-align:right;}
+.mailing_wrap .box_info{background-color:#f2f5f9; padding:20px; color:#666; line-height:1.5; }
+.mailing_wrap
+.box_info strong.tit{display:block; margin:0 0 10px 0; font-size:15px; color:#325179; }
+.mailing_wrap .box_info span.c_orange{font-weight:bold; color:#ff575a;}
+.mailing_wrap .list_type_dot li{padding:1px 0 2px 5px;}
+.mailing_wrap .list_type_dot li a:hover{text-decoration:underline;}
+.mailing_wrap .link_line{text-decoration:underline; color:#4d6da7;}
+.mailing_wrap .link_line:hover{text-decoration:underline;}
+
+.mailing_wrap .tbl_tit{margin:35px 0 10px; font-weight:bold; font-size:13px; color:#333;}
+.mailing_wrap table th, table td{vertical-align:top; font-size:12px;}
+.mailing_wrap table td{position:relative;}
+.mailing_wrap table td a:hover{text-decoration:underline;}
+.mailing_wrap table td.tit a{display:block; overflow:hidden; white-space:nowrap;
+text-overflow:ellipsis; -o-text-overflow:ellipsis;}
+.mailing_wrap table td.a_l{text-align:left; padding:0 0 0 10px;}
+.mailing_wrap table td.a_c{text-align:center; padding:0;}
+.mailing_wrap table td.a_r{text-align:right; padding:0 10px 0 0;}
+.mailing_wrap table td.a_m{vertical-align:middle;}
+.mailing_wrap table td.date{text-align:right; color:#93a2b2;}
+.mailing_wrap table td.c_gray{color:#838383;}
+.mailing_wrap table td.c_blue{color:#597385;}
+.mailing_wrap table td.c_sky{color:#7eaad4;}
+.mailing_wrap table th.f_normal{font-weight:normal;}
+.mailing_wrap table textarea{width:100%; resize:none; line-height:1.5;}
+.mailing_wrap table button{display:inline-block; height:20px; line-height:18px; padding:0 5px;
+border-radius:4px; background-color:#eef1f5;
+border:solid 1px #cbd0d7; color:#606772; text-decoration:none;}
+.mailing_wrap table button:hover{background-color:#eef1f5;
+border:solid 1px #94b9de; color:#1584ef;}
+.mailing_wrap table button:active{background-color:#81baf2;
+border:solid 1px #1584ef; color:#fff;}
+.mailing_wrap table button:disabled{background-color:#f9fafb;
+border:solid 1px #eff0f2; color:#cdcdce ;}
+.mailing_wrap .tbl_type01 table{border:solid 1px #a3a9b1;}
+.mailing_wrap
+.tbl_type01 table tr th,
+.mailing_wrap .tbl_type01 table tr td{border-top:dashed 1px #cfd3d7;}
+.mailing_wrap .tbl_type01 table tr.noline th,
+.mailing_wrap .tbl_type01 table tr.noline td{border-top:0 none;}
+.mailing_wrap .tbl_type01 table th{width:300px;
+vertical-align:top; padding:13px 0 12px 20px;
+text-align:left;     background-color: rgb(244, 246, 249); color:#4d6da7;}
+.mailing_wrap .tbl_type01 table td{padding:12px 20px 10px 0;
+line-height:1.4;}
+.mailing_wrap .tbl_type02 table{border-spacing:0;
+border:solid 1px #a3a9b1; border-right:0;}
+.mailing_wrap .tbl_type02 table th{padding:6px 10px;
+vertical-align:middle;
+background-color:#fafafa; border-bottom:solid 1px #a3a9b1;
+border-right:solid 1px #cfd3d7; color:#597385;}
+.mailing_wrap .tbl_type02 table td{padding:8px 10px 6px;
+border-top:solid 1px #cfd3d7; border-right:solid 1px #cfd3d7; vertical-align:middle;}
+.mailing_wrap .tbl_type02 table td span{color:#8c8c8c;}
+.mailing_wrap .tbl_type02 table tr.select td{background-color:#dcedfd;}
+.mailing_wrap .tbl_type02 .scroll{border-bottom:solid 1px #a3a9b1;}
+.mailing_wrap .tbl_type02 .scroll table{border-top:0;}
+.mailing_wrap .tbl_type02 table tr td input[type="checkbox"]{margin:0;}
+.mailing_wrap .tbl_type02 table tr.total_sub td{border-top:solid 1px #a3a9b1;
+background-color:#f2f5f9; font-weight:bold; color:#4d6da7;}
+.mailing_wrap .tbl_type02 table tr.total td{background-color:#e6ebf3;
+font-weight:bold; color:#325179;}
+.mailing_wrap .tbl_type02 table tr.tr_line td{border-bottom:solid 1px #a3a9b1;}
+.mailing_wrap
+.tbl_type02 table .noline td, .mailing_wrap .tbl_type02 table .noline th{border-top:0 none;}
+.mailing_wrap .tbl_type02 table .noline{border-bottom:0 none;}
+.mailing_wrap .tbl_type02 table .total_sub.noline td{border-top:0 none;}
+.mailing_wrap .link_wrap{padding:15px 20px; background-color:#f8f9fa;}
+.mailing_wrap .link_wrap strong{display:inline-block; padding:5px 0 0 0; color:#325179;}
+.mailing_wrap .link_wrap .link_go{float:right; display:inline-block; height:22px;
+line-height:22px; padding:0 12px 0 8px; border-radius:4px;
+text-decoration:none; border:solid 1px #cbd0d7; color:#606772;}
+.mailing_wrap .link_wrap .link_go:hover{background-color:#eef1f5;
+border:solid 1px #94b9de; color:#1584ef;}
+.mailing_wrap .link_wrap .link_go:active{background-color:#81baf2;
+border:solid 1px #1584ef; color:#fff;}
+.mailing_wrap .link_wrap .link_go:disabled{background-color:#f9fafb;
+border:solid 1px #eff0f2; color:#cdcdce ;}
+.mailing_wrap .link_multi_wrap table{border-collapse:collapse;}
+.mailing_wrap .link_multi_wrap table th{width:140px; vertical-align:middle;
+text-align:center; color:#325179; background-color:#e6ebf3;}
+.mailing_wrap .link_multi_wrap table td{padding:15px 20px 10px;
+background-color:#f2f5f9;}
+.mailing_wrap .link_multi_wrap table td a{display:inline-block;
+margin:0 20px 5px 0; text-decoration:underline; color:#4d6da7;}
+.mailing_wrap .footer_wrap{padding:10px 0; text-align:center;
+background-color:#eef1f5;}
+
+/* RESET */
+html,body {width:100%; height:100%; }
+html {overflow-y:scroll;}
+body{background-color:#fff;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,form,fieldset,p,button
+{margin:0; padding:0;}
+body,h1,h2,h3,h4,input,button {font-family:arial,'##',Dotum,
+Helvetica, Sans-serif; font-size:12px; color:#000;}
+img,fieldset,iframe {border:0 none;}
+li {list-style:none;}
+input,select,button {vertical-align:middle;}
+img {vertical-align:top;}
+i,em,address {font-style:normal;}
+label,button {cursor:pointer;}
+button {margin:0; padding:0;}
+label input{margin:-3px 0 0 0;}
+a {color:#000; text-decoration:none;}
+a:hover {text-decoration:none;}
+hr {display:none;}
+table { width:100%; border-spacing:0;}
+
+legend,.blind,caption {display:block; overflow:hidden; position:absolute; top:-1000em; left:0;}
+.ellipsis {overflow:hidden; white-space:nowrap;
+text-overflow:ellipsis; -o-text-overflow:ellipsis;}
+
+input[type=text], input[type=password]{height:18px; line-height:18px; padding:2px 0 2px 4px;
+font-size:12px; border:1px solid #bababa; border-radius:3px;
+font-family:'##',Dotum, arial,Helvetica, Sans-serif;}
+input[type="radio"], input[type="checkbox"]{margin:0; padding:0;}
+select{height:22px; border:1px solid #bababa; border-radius:3px;}
+
+/* */
+.fL { float:left;}
+.fR { float:right;}
+.a_left{ text-align:left;}
+.a_center{ text-align:center;}
+.a_right{ text-align:right;}
+
+.clear {clear:both;}
+.fix { zoom:1;}
+.fix:after { content:"."; display:block; font-size:0; height:0px; line-height:0; clear:both;}
+
+.frm_small{width:65px;}
+.frm_basic{width:135px;}
+.frm_double{width:170px;}
+.frm_wide {width:200px;}
+.frm_widest{width:310px;}
+.frm_max{width:95%;}
+
+.space_mt0{margin-top:0px;}
+.space_mt5{margin-top:5px;}
+.space_mt10{margin-top:10px;}
+.space_mt15{margin-top:15px;}
+.space_mt20{margin-top:20px;}
+.space_mt25{margin-top:25px;}
+.space_mt30{margin-top:30px;}
+.space_mt35{margin-top:35px;}
+.space_mt40{margin-top:40px;}
+.space_mt45{margin-top:45px;}
+.space_mt50{margin-top:50px;}
+
+select{padding:2px 0 2px 5px;}
+
+.scroll{overflow-y:auto;}
+
+/* layout */
+.body_wrap{width:900px;}
+.body_wrap .tit_wrap{padding:35px 0;}
+.body_wrap .tit_wrap h1{text-align:center; font-size:24px; color:#000;}
+.body_wrap .cont_wrap{padding:35px 40px;}
+.body_wrap .cont_wrap h3{font-size:24px; text-align:center; margin:0 0 35px 0;}
+
+/* module */
+.body_wrap .tit_con{margin:35px 0 10px; font-size:16px; color:#333;}
+.body_wrap .desc{line-height:1.5;}
+.body_wrap .desc_s{font-size:11px; line-height:1.4; color:#666;}
+.body_wrap .desc_s_blue{font-size:11px; line-height:1.4; color:#597385; text-align:right;}
+
+.body_wrap .box_info{background-color:#f2f5f9; padding:20px; color:#666; line-height:1.5; }
+.body_wrap .box_info strong.tit{display:block; margin:0 0 10px 0; padding:0 0 0 18px;
+font-size:15px; color:#325179;
+background:url('http://iedh1201.sds.samsung.net:50000/crm/images/icon_approval.png') no-repeat 0 5px; }
+.body_wrap .box_info strong.info{display:block; margin:0 0 10px 0; padding:0 0 0 18px;
+font-size:15px; color:#325179;
+background:url('http://iedh1201.sds.samsung.net:50000/crm/images/icon_approval_info.png') no-repeat 0 3px; }
+.body_wrap .box_info span.c_orange{font-weight:bold; color:#ff575a;}
+.body_wrap .list_type_dot li{ padding:1px 10px 2px;
+background:url('http://iedh1201.sds.samsung.net:50000/crm/images/icon_dot.png') no-repeat 0 9px;}
+.body_wrap .list_type_dot li a:hover{text-decoration:underline;}
+
+.body_wrap .link_line{text-decoration:underline; color:#4d6da7;}
+.body_wrap .link_line:hover{text-decoration:underline;}
+
+/*table*/
+.body_wrap table th, table td{vertical-align:top;}
+.body_wrap table td{position:relative;}
+.body_wrap table td > a:hover{text-decoration:underline;}
+.body_wrap table td.tit a{display:block; overflow:hidden; white-space:nowrap;
+text-overflow:ellipsis; -o-text-overflow:ellipsis;}
+.body_wrap table td.a_l{text-align:left; padding:0 0 0 10px;}
+.body_wrap table td.a_c{text-align:center; padding:0;}
+.body_wrap table td.a_r{text-align:right; padding:0 10px 0 0;}
+.body_wrap table td.a_t{vertical-align:top;}
+.body_wrap table td.date{text-align:right; color:#93a2b2;}
+.body_wrap table td.c_gray{color:#838383;}
+.body_wrap table td.c_blue{color:#597385;}
+.body_wrap table td.c_sky{color:#7eaad4;}
+.body_wrap table th.f_normal{font-weight:normal;}
+
+.body_wrap
+.tbl_type01 > table{border-top:solid 1px #a3a9b1;
+border-left:solid 1px #a3a9b1; border-right:solid 1px #a3a9b1;}
+.body_wrap
+.tbl_type01 table tr
+{background:url('http://iedh1201.sds.samsung.net:50000/crm/images/bg_tbl_dash.png') repeat-x bottom;}
+.body_wrap .tbl_type01 table tr:last-child{background:none;}
+.body_wrap .tbl_type01 table tr:last-child th, .body_wrap .tbl_type01 table tr:last-child td
+{border-bottom:solid 1px #a3a9b1;}
+.body_wrap .tbl_type01 table th
+{width:140px; vertical-align:top; padding:13px 0 12px 20px; text-align:left; color:#4d6da7;}
+.body_wrap .tbl_type01 table td{padding:12px 20px 10px 0; line-height:1.4;}
+
+.body_wrap .tbl_type02 > table{border-top:solid 1px #a3a9b1; border-bottom:solid 1px #a3a9b1;
+border-left:solid 1px #cfd3d7; border-right:solid 1px #cfd3d7;}
+.body_wrap .tbl_type02 table th{padding:6px 10px; vertical-align:middle;
+background-color:#fafafa; border-bottom:solid 1px #a3a9b1;
+border-right:solid 1px #cfd3d7; color:#597385;}
+.body_wrap .tbl_type02 table td{padding:8px 10px 6px;
+border-right:solid 1px #cfd3d7; border-bottom:solid 1px #cfd3d7;}
+.body_wrap .tbl_type02 table td span{color:#8c8c8c;}
+.body_wrap .tbl_type02 table tr th:last-child{border-right:0;}
+.body_wrap .tbl_type02 table tr td:last-child{border-right:0;}
+.body_wrap .tbl_type02 table tr:last-child td{border-bottom:0;}
+.body_wrap .tbl_type02 table tr.select td{background-color:#dcedfd;}
+.body_wrap .tbl_type02 .scroll{border-bottom:solid 1px #a3a9b1;}
+.body_wrap .tbl_type02 .scroll table{border-top:0;}
+.body_wrap .tbl_type02 table tr td input[type="checkbox"]{margin:0;}
+.body_wrap .tbl_type02 table tr.total_sub td{border-bottom:solid 1px #a3a9b1;
+background-color:#f2f5f9; font-weight:bold; color:#4d6da7;}
+.body_wrap .tbl_type02 table tr.total td{background-color:#e6ebf3; font-weight:bold; color:#325179;}
+.body_wrap .tbl_type02 table tr.tr_line td{border-bottom:solid 1px #a3a9b1;}
+.body_wrap .tbl_type02 table .noline{border-bottom:0 none;}
+.body_wrap .tbl_type02 table .total_sub.noline td{border-bottom:0 none;}
+
+.body_wrap .link_wrap{padding:15px 20px; background-color:#f8f9fa;}
+.body_wrap .link_wrap strong{display:inline-block; padding:5px 0 0 0; color:#325179;}
+.body_wrap .link_wrap .link_go{float:right; display:inline-block; height:22px; line-height:22px;
+padding:0 12px 0 8px; border-radius:4px; text-decoration:none;
+background:#eef1f5 url('http://iedh1201.sds.samsung.net:50000/crm/images/icon_link_arrow.png') no-repeat right;
+border:solid 1px #cbd0d7; color:#606772;}
+.body_wrap .link_wrap .link_go:hover{background-color:#eef1f5;
+border:solid 1px #94b9de; color:#1584ef;}
+.body_wrap .link_wrap .link_go:active{background-color:#81baf2;
+border:solid 1px #1584ef; color:#fff;}
+.body_wrap .link_wrap .link_go:disabled{background-color:#f9fafb;
+border:solid 1px #eff0f2; color:#cdcdce ;}
+.body_wrap .link_multi_wrap table th{width:140px; vertical-align:middle;
+text-align:center; color:#325179; background-color:#e6ebf3;}
+.body_wrap .link_multi_wrap table td{padding:15px 20px 10px; background-color:#f2f5f9;}
+.body_wrap .link_multi_wrap table td > a{display:inline-block;
+margin:0 20px 5px 0; text-decoration:underline; color:#4d6da7;}
+
+.td_txtIndent{padding-left:17px; text-indent: -17px; color: #000 !important; display: block; margin: 5px 0}
+.td_txtIndent:first-letter{font-weight: bold;}
+table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse !important;
+            text-align:center;
+            font-size: 13px !important;; 
+            }
+            .link_button {
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            border: solid 1px #20538D;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+            -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+            background: #4479BA;
+            color: #FFF;
+            padding: 2px 7px;
+            text-decoration: none;
+            }
+</style>
+
+</head>
+<body>
+
+
+<!-- mailing -->
+<div  class="mailing_wrap">
+    <div class="tit_wrap">
+        <h1>SAMSUNG SDS</h1>
+        <h2>mySales</h2>
+    </div>
+    <p><br/></p>
+    <p><br/></p>
+
+    <!-- contents -->
+    <div class="cont_wrap">
+        <!-- title -->
+        <h3>Weekly Sales Report</h3>
+        <!--// title -->
+
+        <div class="tbl_tit">Email Sent on  {!DateValue} 오전 8시</div>
+            
+
+<!--<c:BOReport orgNameParam="SDSAE"/>-->
+<!-- First Table Setup-->
+    <div class="tbl_type01">
+        <table width="auto" >
+            <tbody>
+                <tr>
+                    <td colspan="6" rowspan="3" style="text-align: left; padding-left: 5px;">
+                        안녕하세요.<br/>
+                        금주 Weekly mySales Report 를 하기 메일과 같이 송부 드립니다.</td>   
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  
+    
+    <!-- 1st Table -->
+    <div class="tbl_tit">1. 연간 누적 사업기회 수주 현황<br/>- 금액 : 백만단위 (KRW) </div>
+<table  class="tbl_type01"> {!tableString1}</table><br/> 
+    
+    <!-- 2nd Table -->
+    <div class="tbl_tit"> 2.지연 BO 및 수주 예상일 도래 BO<br/>- 금액 단위: 백만단위 (KRW)<br/>
+i. 지연 BO
+    </div>
+    
+    
+    <table  class="tbl_type01">{!tableString2}</table>
+    
+    <br/> 
+    
+    <!-- 3rd Table -->
+    <div class="tbl_tit">ii. 수주예상일 도래 BO  </div>
+    
+    
+    <table  class="tbl_type01">  {!tableString3} </table>
+    
+    <br/> 
+    
+    <!-- 4th Table -->
+    <div class="tbl_tit"> 3. 사업수행 사전준비<br/>
+   - 금액 단위: 백만단위 (KRW)<br/>
+   i. 수전위 사전준비</div>
+    
+    
+   <!--  <table  class="tbl_type01">  {!tableString4} </table> -->
+
+    
+    <!-- 5th Table -->    
+    <table  class="tbl_type01">  {!tableString5} </table>
+    
+    <br/> 
+    
+    <!-- 6th Table -->
+    <div class="tbl_tit">ii. 인력투입 계획 수립 요청</div>
+    
+    
+    <table  class="tbl_type01">  {!tableString6} </table>
+    
+    
+    <!-- 7th Table -->
+    <!--<div class="tbl_tit">iii. 고객 정보 update, 고객정보 제공 - 대외만 제공 : account 객체의 대/내외 중 대외인 것만 --> <!-- <br/> 고객 정보 <br/>. opendart 정보가 원청고객/계약고객에 대해 현행화 되었으므로 이를 확인하시어 고객 정보를 현행화 하시기 바랍니다--> </div>
+    
+    
+    <!-- <table  class="tbl_type01">  {!tableString7} </table> -->
+   
+    
+    <!-- 8th Table -->
+    <!--<div class="tbl_tit">iv. SCP 견적 등록 요청<br/> </div>
+    
+    
+    <table  class="tbl_type01"> {!tableString8}</table> -->
+    
+    <br/> 
+  
+  <!-- 9th Table -->
+    <div class="tbl_tit">4. 유사 사업기회 정보<br/>
+- 금액 : 백만단위 (KRW)<br/>
+    </div>
+    
+    <table  class="tbl_type01"> 
+    {!tableString9}
+    </table>
+    
+    <br/> 
+  
+  
+</div>
+<br/>
+
+
+
+
+</div>
+
+
+<!-- footer -->
+<div class="footer_wrap">
+Copyright <strong>SAMSUNG SDS.</strong>   All Rights Reserved.
+</div>
+<!--// footer -->
+
+</div>
+<!--// mailing -->
+
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Read</caseAccessLevel>
+    <contactAccessLevel>None</contactAccessLevel>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>서비스사업1그룹(서비스/EPC AM)</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>EPC_AM_Staff</parentRole>
+</Role>

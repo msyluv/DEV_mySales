@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LeadStage__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>Lead Stage</description>
+    <externalId>false</externalId>
+    <label>Lead Stage</label>
+    <required>true</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cold</fullName>
+                <color>#33CCFF</color>
+                <default>false</default>
+                <label>Cold</label>
+            </value>
+            <value>
+                <fullName>Warm</fullName>
+                <color>#FF9900</color>
+                <default>false</default>
+                <label>Warm</label>
+            </value>
+            <value>
+                <fullName>Hot</fullName>
+                <color>#FF0000</color>
+                <default>false</default>
+                <label>Hot</label>
+            </value>
+            <value>
+                <fullName>Converted</fullName>
+                <color>#BBBBBB</color>
+                <default>false</default>
+                <label>Converted</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

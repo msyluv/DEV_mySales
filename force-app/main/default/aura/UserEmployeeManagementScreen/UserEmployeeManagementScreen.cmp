@@ -1,0 +1,1024 @@
+<!--
+  @author            : akash.g@samsung.com
+  @group             : 
+  @description       : User Employee Management Screen. 
+  @last modified on  : 2023-10-30
+  @last modified by  : sarthak.j1@samsung.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2021-12-01   akash.g@samsung.com       Initial Version
+  1.1   2023-10-30	 sarthak.j1@samsung.com    UserEmployee Management function enhancement -> MYSALES-338
+-->
+<aura:component implements="force:appHostable" controller="UserEmployeeManagementScreenController" access="global" >
+    <aura:attribute name="enteredEmail" type="String" default=""/>
+    <aura:attribute name="empName" type="String" default=""/>
+    <aura:attribute name="email" type="String" default=""/>
+    <aura:attribute name="compCode" type="String" default=""/>
+    <aura:attribute name="compName" type="String" default=""/>
+    <aura:attribute name="title" type="String" default=""/>
+    <aura:attribute name="SAPEmpNumber" type="String" default=""/>
+    <aura:attribute name="deptName" type="String" default=""/>
+    <aura:attribute name="epId" type="String" default=""/>
+    <aura:attribute name="showTable" type="Boolean" default="false"/>
+    <aura:attribute name="profileList" type="List" default="[]"/>
+    <aura:attribute name="roleList" type="List" default="[]"/>
+    <aura:attribute name="isActive" type="Boolean" default="true"/>
+    <aura:attribute name="isMFA" type="Boolean" default="true"/>
+    <aura:attribute name="selectedProfile" type="String" default=""/>
+    <aura:attribute name="selectedRole" type="String" default=""/>
+    <aura:attribute name="empInfo" type="Object"/>
+    <aura:attribute name="userListSize" type="Integer" default=""/>
+    <aura:attribute name="isActive1" type="Boolean" default="true"/>
+    <aura:attribute name="isMFA1" type="Boolean" default="true"/>
+    <aura:attribute name="selectedProfile1" type="String" default=""/>
+    <aura:attribute name="selectedRole1" type="String" default=""/>
+    <aura:attribute name="userId" type="String" default=""/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false"/>
+    <aura:attribute name="lastNameCreateUser" type="String" default=""/>
+    <aura:attribute name="firstNameCreateUser" type="String" default=""/>
+    <aura:attribute name="lastNameUpdateUser" type="String" default=""/>
+    <aura:attribute name="firstNameUpdateUser" type="String" default=""/>
+    <aura:attribute name="totalLicence" type="String" default=""/>
+    <aura:attribute name="usedLicence" type="String" default=""/>
+    <aura:attribute name="remainedLicence" type="String" default=""/>
+    <aura:attribute name="editMode" type="boolean" default="false" />
+    <aura:attribute name="showButton" type="boolean" default="false" />
+    <!-- Start v 1.1 (MYSALES-338)-->
+    <aura:attribute name="showTable2" type="Boolean" default="false"/>
+    <aura:attribute name="empName2" type="String" default=""/>
+    <aura:attribute name="email2" type="String" default=""/>
+    <aura:attribute name="compCode2" type="String" default=""/>
+    <aura:attribute name="compName2" type="String" default=""/>
+    <aura:attribute name="title2" type="String" default=""/>
+    <aura:attribute name="SAPEmpNumber2" type="String" default=""/>
+    <aura:attribute name="deptName2" type="String" default=""/>
+    <aura:attribute name="epId2" type="String" default=""/>    
+    <aura:attribute name="userCompName" type="String" default=""/> 
+    <aura:attribute name="userCompCode" type="String" default=""/> 
+    <aura:attribute name="companyCodesList" type="List" default="R,G,B"/>
+    <aura:attribute name='selectedCompCode' type="String" default=""/>
+    <aura:attribute name="userCompDetail" type="Boolean" default="false"/>
+	<!--End v 1.1 (MYSALES-338)-->
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <lightning:card>
+        <lightning:layout class='search_layout title' verticalAlign="center" >
+            <lightning:layoutItem size='12' padding='around-small'>
+                <lightning:icon iconName="standard:opportunity" title="{!$Label.c.UserEmployeeManagement_heading}" class='headerIcon'/>
+                <h1 style='font-size:18px; font-weight:bold; display: inline-block;'>{!$Label.c.UserEmployeeManagement_heading}</h1>
+            </lightning:layoutItem>
+        </lightning:layout>
+        <lightning:layout verticalAlign="center" >
+            <lightning:layoutItem size='3' padding='around-small'>
+                <lightning:input name="Email" value="{!v.enteredEmail}" label="{!$Label.c.Email_Address}" placeholder='{!$Label.c.EmailAddressPlaceHolder}'/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size='3' padding='around-small'>
+                <label class="slds-form-element__label slds-no-flex"></label>
+                <lightning:button variant="brand" label="{!$Label.c.BOSEARCH_BTN_SEARCH}" iconName="utility:search" iconPosition="left" class="slds-size_full" title="Search" onclick="{!c.search}" />
+            </lightning:layoutItem>
+            <lightning:layoutItem>
+                <div>
+                    <h1 style='font-weight:bold;'>{!$Label.c.User_Licenses}</h1>
+                </div>
+                <div>
+                    {!$Label.c.Total_Licences}:&nbsp;
+                    <ui:outputText value="{!v.totalLicence}"></ui:outputText>&nbsp;&nbsp;&nbsp;&nbsp;
+                    /&nbsp;&nbsp;&nbsp;&nbsp;
+                    {!$Label.c.Used_Licences}:&nbsp;
+                    <ui:outputText  value="{!v.usedLicence}" ></ui:outputText>&nbsp;&nbsp;&nbsp;&nbsp;
+                    /&nbsp;&nbsp;&nbsp;&nbsp;
+                    {!$Label.c.Remaining_Licences}:&nbsp;
+                    <ui:outputText value="{!v.remainedLicence}"></ui:outputText>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+        <aura:if isTrue="{!v.showTable}">
+            <!--Heading Section-->
+            <div class="slds-grid slds-gutters">
+                <div class="slds-form slds-col slds-size_1-of-2">
+                    <h1 class="slds-page-header slds-page-header__title padding_less">{!$Label.c.Employee_Information}</h1>
+                </div>
+                <div class="slds-form slds-col slds-size_1-of-2">
+                    <h2 class="slds-page-header slds-page-header__title padding_less">User Information</h2>
+                </div>
+            </div>
+            <!--Table Section-->
+            <div class="slds-grid slds-gutters">
+                <!--Employee Information Section-->
+                <div class="slds-form slds-col slds-size_1-of-2">
+                    <!--Start v 1.1 (MYSALES-338)-->
+                    <!--added slds-table_fixed-layout to resolve UI issue-->
+                    <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_fixed-layout">
+                    <!--End v 1.1 (MYSALES-338)-->
+                        <tbody>
+                            <tr>
+                                <td >{!$Label.c.Employee_Name}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="empName">{!v.empName}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.Email_Address}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="email">{!v.email}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.Company_Code}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="compCode">{!v.compCode}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.Company_Name}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="compName">{!v.compName}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.Title}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="title">{!v.title}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.SAP_Employee_Number}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="SAPEmpNumber">{!v.SAPEmpNumber}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.Department_Name}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="deptName">{!v.deptName}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.EP_ID}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="epId">{!v.epId}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--User Information Section-->
+                <div class="slds-form slds-col slds-size_1-of-2">
+                    <!--Section to Create user in case of no user information is available-->
+                    <!--Start v 1.1 (MYSALES-338)-->
+                    <!--Commented out below 1 line-->
+                    <!--<aura:if isTrue="{!v.userListSize == 0}">-->
+                    <aura:if isTrue="{!and(v.userListSize == 0,v.userCompDetail == false)}">
+                    <!--End v 1.1 (MYSALES-338)-->
+                        <div>{!$Label.c.NoRegisterUserLabel}</div><br/>
+                        <div class="slds-form slds-col slds-size_2-of-2">
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                <tbody>
+                                    <tr>
+                                        <td>Last Name
+                                            <abbr class="slds-required" title="required">* </abbr>
+                                        </td>
+                                        <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="Name">{!v.lastNameCreateUser}
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                            <div class="slds-form-element__control">
+                                                                <lightning:input id="horizontal-input-id-02" value="{!v.lastNameCreateUser}" placeholder='{!$Label.c.lastNamePlaceholder}'></lightning:input>
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Name
+                                        </td>
+                                        <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="Name">{!v.firstNameCreateUser}
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                            <div class="slds-form-element__control">
+                                                                <lightning:input id="horizontal-input-id-03" value="{!v.firstNameCreateUser}" placeholder='{!$Label.c.firstNamePlaceholder}'></lightning:input>
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    <!--Start v 1.1 (MYSALES-338)-->
+                                    </tr><!--removed '*'-->
+                                    <!--End v 1.1 (MYSALES-338)-->
+                                    <tr>
+                                        <td>Role
+                                            <abbr class="slds-required" title="required">* </abbr>
+                                        </td>
+                                        <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="Name">{!v.selectedRole}
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                            <div class="slds-form-element__control ">
+                                                                <lightning:select value="{!v.selectedRole}">
+                                                                    <option value="">--None--</option>        
+                                                                    <aura:iteration items="{!v.roleList}" var="i">
+                                                                        <option text="{!i}" value="{!i}" />
+                                                                    </aura:iteration>
+                                                                </lightning:select>
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Profile
+                                            <abbr class="slds-required" title="required">* </abbr>
+                                        </td>
+                                        <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="Name">{!v.selectedProfile}
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                            <div class="slds-form-element__control">
+                                                                <lightning:select value="{!v.selectedProfile}">
+                                                                    <option value="">--None--</option>
+                                                                    <aura:iteration items="{!v.profileList}" var="i">
+                                                                        <option text="{!i}" value="{!i}" />
+                                                                    </aura:iteration>
+                                                                </lightning:select>
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Active
+                                        </td>
+                                        <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="Active">
+                                                        <ui:outputCheckbox aura:id="checkbox" value="{!v.isActive}"/>
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -115px">
+                                                            <div class="slds-form-element__control" >
+                                                                <ui:inputCheckbox aura:id="checkbox" value="{!v.isActive}"/>  
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>MFA Permission
+                                        </td>
+                                        <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="Active">
+                                                        <ui:outputCheckbox aura:id="checkbox" value="{!v.isMFA}"/>
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit MFA Permission">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -115px">
+                                                            <div class="slds-form-element__control" >
+                                                                <ui:inputCheckbox aura:id="checkbox" value="{!v.isMFA}"/>  
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <aura:if isTrue="{!v.showButton}"><br/>
+                                <div class="slds-button slds-align_absolute-center">
+                                    <lightning:button class="slds-button_brand" label="Cancel" onclick="{!c.cancelCreateUser}"/>
+                                    <lightning:button class="slds-button_brand" label="{!$Label.c.CreateUser}" onclick="{!c.createUser}" disabled="{!v.isDisableCreateBtn}"/>
+                                </div>
+                            </aura:if>                            
+                        </div>
+                    </aura:if>
+					<!--Start v 1.1 (MYSALES-338)-->
+					<!--Section to Create user in case of no user information is available and 2 Employees are present-->
+                    <aura:if isTrue="{!and(v.userListSize == 0,v.userCompDetail == true)}"> 
+                        <div>{!$Label.c.NoRegisterUserLabel}</div><br/>
+                        <div class="slds-form slds-col slds-size_2-of-2">
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                <tbody>
+                                    <tr>
+                                        <td>Last Name
+                                            <abbr class="slds-required" title="required">* </abbr>
+                                        </td>
+                                        <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="Name">{!v.lastNameCreateUser}
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                            <div class="slds-form-element__control">
+                                                                <lightning:input id="horizontal-input-id-02" value="{!v.lastNameCreateUser}" placeholder='{!$Label.c.lastNamePlaceholder}'></lightning:input>
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Name
+                                        </td>
+                                        <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="Name">{!v.firstNameCreateUser}
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                            <div class="slds-form-element__control">
+                                                                <lightning:input id="horizontal-input-id-03" value="{!v.firstNameCreateUser}" placeholder='{!$Label.c.firstNamePlaceholder}'></lightning:input>
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    <!--Start v 1.1 (MYSALES-338)-->
+                                    </tr><!--removed '*'-->
+                                    <!--End v 1.1 (MYSALES-338)-->
+                                    <tr>
+                                        <td>Role
+                                            <abbr class="slds-required" title="required">* </abbr>
+                                        </td>
+                                        <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="Name">{!v.selectedRole}
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                            <div class="slds-form-element__control ">
+                                                                <lightning:select value="{!v.selectedRole}">
+                                                                    <option value="">--None--</option>        
+                                                                    <aura:iteration items="{!v.roleList}" var="i">
+                                                                        <option text="{!i}" value="{!i}" />
+                                                                    </aura:iteration>
+                                                                </lightning:select>
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Profile
+                                            <abbr class="slds-required" title="required">* </abbr>
+                                        </td>
+                                        <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="Name">{!v.selectedProfile}
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                            <div class="slds-form-element__control">
+                                                                <lightning:select value="{!v.selectedProfile}">
+                                                                    <option value="">--None--</option>
+                                                                    <aura:iteration items="{!v.profileList}" var="i">
+                                                                        <option text="{!i}" value="{!i}" />
+                                                                    </aura:iteration>
+                                                                </lightning:select>
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Active
+                                        </td>
+                                        <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="Active">
+                                                        <ui:outputCheckbox aura:id="checkbox" value="{!v.isActive}"/>
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -115px">
+                                                            <div class="slds-form-element__control" >
+                                                                <ui:inputCheckbox aura:id="checkbox" value="{!v.isActive}"/>  
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>MFA Permission
+                                        </td>
+                                        <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="Active">
+                                                        <ui:outputCheckbox aura:id="checkbox" value="{!v.isMFA}"/>
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit MFA Permission">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -115px">
+                                                            <div class="slds-form-element__control" >
+                                                                <ui:inputCheckbox aura:id="checkbox" value="{!v.isMFA}"/>  
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    <td> Company Code
+                                        <abbr class="slds-required" title="required">*</abbr>
+                                    </td>	
+									<td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                            <span class="slds-grid slds-grid_align-spread">
+                                                <aura:if isTrue="{!v.editMode == false}">
+                                                    <span class="slds-truncate" title="selectedCompCode" required="true">{!v.selectedCompCode}
+                                                    </span>
+                                                    <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                    </button>
+                                                    <!-- Inline Edit Section in else case--> 
+                                                    <aura:set attribute="else">
+                                                        <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                            <div class="slds-form-element__control ">
+                                                                <lightning:select value="{!v.selectedCompCode}">
+                                                                    <option value="">--None--</option>        
+                                                                    <aura:iteration items="{!v.companyCodesList}" var="i">
+                                                                        <option text="{!i}" value="{!i}" />
+                                                                    </aura:iteration>
+                                                                </lightning:select>
+                                                            </div>
+                                                        </div>
+                                                    </aura:set> 
+                                                </aura:if>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <aura:if isTrue="{!v.showButton}"><br/>
+                                <div class="slds-button slds-align_absolute-center">
+                                    <lightning:button class="slds-button_brand" label="Cancel" onclick="{!c.cancelCreateUser}"/>
+                                    <lightning:button class="slds-button_brand" label="{!$Label.c.CreateUser}" onclick="{!c.createUser1}" disabled="{!v.isDisableCreateBtn}"/>
+                                </div>
+                            </aura:if>            
+                        </div>
+                    </aura:if>
+					<!--End v 1.1 (MYSALES-338)-->                     
+                    <!--Section to Update user in case of user information is available-->                    
+                    <!--Start v 1.1 (MYSALES-338)-->
+                    <!--Commented out below 1 line-->
+                    <!--<aura:if isTrue="{!v.userListSize == 1}">-->
+                    <aura:if isTrue="{!and(v.userListSize == 1,v.userCompDetail == false)}">
+                    <!--End v 1.1 (MYSALES-338)-->
+                        <div>{!$Label.c.Register_user_Information}
+                        	<lightning:button class="slds-button_brand btncl" label="{!$Label.c.Reset_Passoword}" onclick="{!c.resetPassword}"/>
+                        </div><br/>
+                        <div class="slds-grid slds-gutters"> 
+                            <div class="slds-form slds-col slds-size_2-of-2">
+                                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                    <tbody>
+                                        <tr>
+                                            <td >Last Name
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate" title="Name">{!v.lastNameUpdateUser}</span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                                <div class="slds-form-element__control">
+                                                                    <lightning:input id="horizontal-input-id-01" value="{!v.lastNameUpdateUser}" ></lightning:input>
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>First Name
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate" title="Name">{!v.firstNameUpdateUser}</span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                                <div class="slds-form-element__control">
+                                                                    <lightning:input id="horizontal-input-id-02" value="{!v.firstNameUpdateUser}" ></lightning:input>
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Role
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate" aura:id="RoleId" title="Name">{!v.selectedRole1}</span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                                <div class="slds-form-element__control" >
+                                                                    <lightning:select value="{!v.selectedRole1}" aura:id="RoleId">
+                                                                        <aura:iteration items="{!v.roleList}" var="i">
+                                                                            <option text="{!i}" value="{!i}" />
+                                                                        </aura:iteration>
+                                                                    </lightning:select>
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Profile
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate"  aura:id="ProfileId" title="Name">{!v.selectedProfile1}</span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                                <div class="slds-form-element__control">
+                                                                    <lightning:select value="{!v.selectedProfile1}" aura:id="ProfileId">
+                                                                        <aura:iteration items="{!v.profileList}" var="i">
+                                                                            <option text="{!i}" value="{!i}" />
+                                                                        </aura:iteration>
+                                                                    </lightning:select>
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Active
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate" title="Active">
+                                                            <ui:outputCheckbox aura:id="checkbox" value="{!v.isActive1}" /> 
+                                                        </span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -115px">
+                                                                <div class="slds-form-element__control">
+                                                                    <ui:inputCheckbox aura:id="checkbox" value="{!v.isActive1}" change="{!c.onActiveChange}"/>  
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>MFA Permission
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate" title="Active">
+                                                            <ui:outputCheckbox aura:id="checkbox" value="{!v.isMFA1}" /> 
+                                                        </span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit MFA Permission">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -115px">
+                                                                <div class="slds-form-element__control">
+                                                                    <ui:inputCheckbox aura:id="checkbox" value="{!v.isMFA1}" />  
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <aura:if isTrue="{!v.showButton}"><br/>
+                                    <div class="slds-button slds-align_absolute-center">
+                                        <lightning:button class="slds-button_brand" label="Cancel" onclick="{!c.cancelUpdateUser}"/>
+                                        <lightning:button class="slds-button_brand" label="{!$Label.c.SaveButton}" onclick="{!c.save}" disabled="{!v.isDisableSave}"/>
+                                    </div>
+                                </aura:if>
+                            </div>
+                        </div>
+                    </aura:if>
+                    <!--Start v 1.1 (MYSALES-338)-->
+					<!--Section to Update user in case of user information is available and 2 Employees are present-->
+					<aura:if isTrue="{!and(v.userListSize == 1,v.userCompDetail == true)}"> 
+                        <div>{!$Label.c.Register_user_Information}
+                        	<lightning:button class="slds-button_brand btncl" label="{!$Label.c.Reset_Passoword}" onclick="{!c.resetPassword}"/>
+                        </div><br/>
+                        <div class="slds-grid slds-gutters"> 
+                            <div class="slds-form slds-col slds-size_2-of-2">
+                                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                    <tbody>
+                                        <tr>
+                                            <td >Last Name
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate" title="Name">{!v.lastNameUpdateUser}</span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                                <div class="slds-form-element__control">
+                                                                    <lightning:input id="horizontal-input-id-01" value="{!v.lastNameUpdateUser}" ></lightning:input>
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>First Name
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate" title="Name">{!v.firstNameUpdateUser}</span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                                <div class="slds-form-element__control">
+                                                                    <lightning:input id="horizontal-input-id-02" value="{!v.firstNameUpdateUser}" ></lightning:input>
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Role
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate" aura:id="RoleId" title="Name">{!v.selectedRole1}</span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                                <div class="slds-form-element__control" >
+                                                                    <lightning:select value="{!v.selectedRole1}" aura:id="RoleId">
+                                                                        <aura:iteration items="{!v.roleList}" var="i">
+                                                                            <option text="{!i}" value="{!i}" />
+                                                                        </aura:iteration>
+                                                                    </lightning:select>
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Profile
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate"  aura:id="ProfileId" title="Name">{!v.selectedProfile1}</span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                                <div class="slds-form-element__control">
+                                                                    <lightning:select value="{!v.selectedProfile1}" aura:id="ProfileId">
+                                                                        <aura:iteration items="{!v.profileList}" var="i">
+                                                                            <option text="{!i}" value="{!i}" />
+                                                                        </aura:iteration>
+                                                                    </lightning:select>
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Active
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate" title="Active">
+                                                            <ui:outputCheckbox aura:id="checkbox" value="{!v.isActive1}" /> 
+                                                        </span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Name">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -115px">
+                                                                <div class="slds-form-element__control">
+                                                                    <ui:inputCheckbox aura:id="checkbox" value="{!v.isActive1}" change="{!c.onActiveChange}"/>  
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>MFA Permission
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate" title="Active">
+                                                            <ui:outputCheckbox aura:id="checkbox" value="{!v.isMFA1}" /> 
+                                                        </span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit MFA Permission">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -115px">
+                                                                <div class="slds-form-element__control">
+                                                                    <ui:inputCheckbox aura:id="checkbox" value="{!v.isMFA1}" />  
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Company Name
+                                            </td>
+                                            <td class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate" title="userCompName" disabled="true">{!v.userCompName}</span>
+                                                        <!--<button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Company Code">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>-->
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -115px">
+                                                                <div class="slds-form-element__control" >
+                                                        			<span class="slds-truncate" title="userCompName" disabled="true">{!v.userCompName}</span>
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+ 										<tr>
+                                            <td>Company Code
+                                            </td>
+                                            <td ondblclick="{!c.editMode}" class="slds-cell-edit">
+                                                <span class="slds-grid slds-grid_align-spread">
+                                                    <aura:if isTrue="{!v.editMode == false}">
+                                                        <span class="slds-truncate" aura:id="compCodeId" title="userCompCode" required="true">{!v.userCompCode}</span>
+                                                        <button onclick="{!c.editMode}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Company Code">
+                                                            <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                                                        </button>
+                                                        <!-- Inline Edit Section in else case--> 
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-form-element slds-form-element_horizontal"  style = "margin-left : -125px">
+                                                                <div class="slds-form-element__control" >
+                                                                    <lightning:select value="{!v.userCompCode}" aura:id="compCodeId">
+                                                                        <aura:iteration items="{!v.companyCodesList}" var="i">
+                                                                            <option text="{!i}" value="{!i}" />
+                                                                        </aura:iteration>
+                                                                    </lightning:select>
+                                                                </div>
+                                                            </div>
+                                                        </aura:set> 
+                                                    </aura:if>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <aura:if isTrue="{!v.showButton}"><br/>
+                                    <div class="slds-button slds-align_absolute-center">
+                                        <lightning:button class="slds-button_brand" label="Cancel" onclick="{!c.cancelUpdateUser}"/>
+                                        <lightning:button class="slds-button_brand" label="{!$Label.c.SaveButton}" onclick="{!c.save1}" disabled="{!v.isDisableSave}"/>
+                                    </div>
+                                </aura:if>
+                            </div>
+                        </div>
+                    </aura:if>
+					<!--End v 1.1 (MYSALES-338)-->                      
+                    <!--Section to display text that more user is available with entered email ID-->
+                    <aura:if isTrue="{!v.userListSize > 1}">
+                        <div>
+                            {!$Label.c.MoreUserError}
+                        </div>
+                    </aura:if>
+                </div>
+            </div>
+        </aura:if>
+                    <!-- Start v 1.1 (MYSALES-338)-->
+					<!--Employee 2 Information Section-->
+					<aura:if isTrue="{!v.showTable2}"> 
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-form slds-col slds-size_1-of-2">
+                                <h1 class="slds-page-header slds-page-header__title padding_less">{!$Label.c.Employee_Information}</h1>
+                            </div>
+                        </div>    
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-form slds-col slds-size_1-of-2">
+                    <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_fixed-layout">
+                        <tbody>
+                            <tr>
+                                <td >{!$Label.c.Employee_Name}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="empName2">{!v.empName2}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.Email_Address}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="email2">{!v.email2}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.Company_Code}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="compCode2">{!v.compCode2}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.Company_Name}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="compName2">{!v.compName2}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.Title}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="title2">{!v.title2}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.SAP_Employee_Number}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="SAPEmpNumber2">{!v.SAPEmpNumber2}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.Department_Name}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="deptName2">{!v.deptName2}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >{!$Label.c.EP_ID}
+                                </td>
+                                <td class="slds-cell-edit">
+                                    <span class="slds-truncate" title="epId2">{!v.epId2}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                   </div>
+                  </div>
+				</aura:if>
+				<!--End v 1.1 (MYSALES-338)-->
+        <aura:if isTrue="{!v.showSpinner}">
+            <div class="spinnerClass">
+                <lightning:spinner alternativeText="Loading" size="medium" />
+            </div>
+        </aura:if>
+    </lightning:card>
+</aura:component>

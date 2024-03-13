@@ -1,0 +1,82 @@
+.THIS .input-contact label,.THIS .hide-label label{
+    display : none;
+    
+}
+.THIS .slds-email__header{
+    position: absolute !important;
+    top: 0 !important;
+    width: 100% !important;
+}
+
+.THIS .quick-email__content{
+    padding: 59px 0 !important;
+}
+
+.THIS .email__footer{
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100% !important;
+}
+.THIS .ligt-layout{
+    overflow: hidden;
+    /* height: 100%; */
+    width: 100%;
+    height: 730px;
+    overflow-y: auto;
+    padding: 0 24px;
+}
+.THIS .div-radiobutton .slds-button{
+    line-height: 1.2rem !important;
+}
+.THIS .table_tbody_Wrapper{
+    max-height: 200px;
+    overflow-y: auto;
+}
+.THIS .table_tbody{
+    border-top: 0px solid rgb(221, 219, 218);
+}
+
+
+.THIS .slds-hidden{
+    padding:0; 
+    margin:0; 
+    width:0; 
+    height:0;
+}
+
+.THIS .slds-hidden .slds-input{
+    padding:0; 
+    margin:0; 
+    width:0; 
+    height:0;
+}
+
+.THIS .forceStyle .slds-is-editing .slds-form-element.slds-hidden{
+    padding:0; 
+    margin:0; 
+    width:0; 
+    height:0;
+}
+/*
+.THIS .div-radiobutton{
+    padding: 0 0 .5rem 0;
+}
+*/
+.THIS .div-radiobutton .slds-form-element{
+    margin: 0;
+}
+
+.THIS table { 
+    table-layout: fixed;
+}
+
+.THIS td {
+    overflow:hidden;
+    white-space : nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.THIS th {
+    text-align: left;
+}

@@ -1,0 +1,8 @@
+.THIS .uiInput--input {
+    min-height: calc(1.875rem + (1px * 2)) !important;
+}
+
+.THIS .input[disabled] {
+    background-color : #FFFFFF !important;
+	border: 1px solid rgb(216, 221, 230);
+}

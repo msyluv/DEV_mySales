@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Read</caseAccessLevel>
+    <contactAccessLevel>Read</contactAccessLevel>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>전자본사사업그룹(전자본사/SET사업)-Staff</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>TEAM_SEC_HQ_BIZGROUP</parentRole>
+</Role>

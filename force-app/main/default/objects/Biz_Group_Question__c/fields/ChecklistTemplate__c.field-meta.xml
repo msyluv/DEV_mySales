@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ChecklistTemplate__c</fullName>
+    <externalId>false</externalId>
+    <label>Checklist Template</label>
+    <referenceTo>Checklist_Template__c</referenceTo>
+    <relationshipLabel>Biz. Group Question</relationshipLabel>
+    <relationshipName>Biz_Group_Question</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

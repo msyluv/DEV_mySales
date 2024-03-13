@@ -1,0 +1,363 @@
+<!-- 
+	** Knox Approval Component **
+	* 설명 : EPID기준으로 Knox Api를 호출하며 상신자, 결재선의 EPID가 필수 임
+	* 기능 : 템플릿 선택 기능 > Template을 선택하여 해당하는 Template에 결재 정보, 결재선 정보를 임시 저장 할 수 있음.
+			 팀 불러오기 기능 > 결재가 붙어있는 Object의 팀 정보를 불러와 결재선에 추가할 수 있음.
+			 파일 첨부 기능 > File Component에서 첨부 갯수 제한
+			 임직원 검색 기능 > Employee__c Object에 들어있는 삼성 임직원 정보를 검색
+			 결재선 기능 > 추가한 결재자 순서, 병렬결재, 전결, 본문편집등의 기능 사용 가능
+			 모바일 화면 > init에서 모바일 여부를 확인 후 화면에 맞는 css를 적용
+-->
+<aura:component controller="KnoxApprovalNewController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global">
+    
+    <aura:attribute name="ApprovalData" type="Object" default="" />
+    <aura:attribute name="EmployeeList" type="List" default="[]" />
+    <aura:attribute name="UserKnoxInfo" type="String" default="" /> 
+    
+    <aura:attribute name="toast" type="Object" default="{}" />
+    <aura:attribute name="toastMessage" type="String" default="" />
+    <aura:attribute name="toastType" type="String" default="" />
+    <aura:attribute name="isCloseModal" type="Boolean" default="true" />
+    
+    <aura:attribute name="sobjecttype" type="String" default="{!v.sObjectName}"/>
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="ProductReqeustCnt" type="Boolean" />
+    
+    <!-- 병렬 결재, 및 선택 추가기능 관련-->
+    <aura:attribute name="selectRecords" type="List" /> 
+    
+    <aura:attribute name="buttonType1" type="List" default="[]"/>
+    <aura:attribute name="buttonType2" type="List" default="[]"/>
+    
+    <!-- 결재 타입 -->
+    <aura:attribute name="templateOptions" type="List" default="[{label: '-- None --' , value : '-'}]"/>
+    <aura:attribute name="templateOptionValue" type="String" default="-"/>
+    
+    <!-- 파일 -->
+    <aura:attribute name="FileList" type="List" default="[]"/>
+    <aura:attribute name="nFileList" type="List" default="[]"/>
+    <aura:attribute name="FileLimitSize" type="Integer" default="3000000"/> 
+
+    <!-- Select EVENT-->  
+    <aura:handler name="recordSelectedEvent" event="c:customLookupSelectedEvent" action="{!c.handleComponentEvent}"/>
+    
+    <force:recordData layoutType="FULL"
+                      recordId="{!v.recordId}"
+                      targetFields="{!v.record}" 
+                      recordUpdated="{!c.init}"  />  
+    
+    <div class="slds-col modal-header slds-modal__header modal-header-custom ">
+        <h2 class="title slds-text-heading--medium">{!$Label.c.APPR_LAB_CREATEAPPROVER}</h2>
+    </div>
+    <div aura:id="body" class="slds-is-relative quick-modal_container">
+        <!-- Modal Header -->
+
+        <c:customToastModal toastHeightPostion="10%" isStack="true" toast="{!v.toast}" />    
+
+        <!-- Modal Contents -->
+        <div class="quick-modal__content slds-grid slds-grid_vertical slds-nowrap slds-p-around_large slds-scrollable_y">
+            <div class="slds-form slds-form_stacked slds-is-editing cover-custom" srole="list" style="padding:5px 25px 5px 25px;">
+                <!-- Title -->
+                <div class="slds-form-element slds-hint-parent custom-lookup" style="margin-bottom: 0;">
+                    <label class="slds-form-element__label" for="lookup-348">
+                        <abbr class="slds-required" title="required">*</abbr>
+                        {!$Label.c.COMM_LAB_TITLE}
+                    </label>                    
+                    <ui:inputText updateOn="keyup" maxlength="80" class="slds-lookup__search-input slds-input" value="{!v.ApprovalData.KnoxApproval.Name}"/>
+                </div>
+                
+                <!-- Field Area-->
+                <div class="slds-form-element slds-hint-parent custom-lookup" style="margin-bottom: 0;">
+                    <div class="slds-form-element__control">
+                        <!-- To -->
+
+                        <c:customLookup aura:id="clookup"
+                                        lookupType="MultiHide"
+                                        iconName="standard:user"
+                                        label="{!$Label.c.APPR_LAB_APPROVER}"
+                                        objectName="Employee__c" 
+                                        minimum="2"
+                                        additionalDisplay="EvMailAddr__c"
+                                        additionalSelect="EvUniqID__c, EvSdeptNM__c"
+                                        filterFields="EvStatus__c"
+                                        filterConditions="eq"
+                                        filterValues="1"
+                                        required="True"
+                                        enableMultiRecord="True"
+                                        isIgnoredDuplicatedRule="True" />
+                        <!--
+                            <div class="my-approve-button">
+                                <lightning:button variant="neutral" disabled="true">내 결재 라인</lightning:button>
+                            </div>
+                            -->
+                    </div>
+                </div>
+                
+                
+                    <!-- [S] : 추가 List -->
+                    <div class="slds-card__body table_Wrapper">
+                        <table class="slds-table slds-table--bordered slds-table--cell-buffer table_thead">
+                            <colgroup>
+                                <col width="4%"></col>
+                                <col width="26%"></col>
+                                <col width="18%"></col>
+                                <col width="22%"></col>
+                                <col width="26%"></col>                            
+                                <col width="3%"></col>
+                                <col width="1%"></col>
+                            </colgroup>
+                            <thead>
+                                <tr class="slds-line-height">
+                                    <th scope="col" class="name" style="padding-left:8px !important">
+                                        <ui:outputText value="No." class="slds-truncate" />
+                                    </th>
+                                    <th scope="col" class="name slds-border_left btnGroupHead">
+                                        
+                                        <a onclick="{!c.mergeApproval}" class="slds-p-right_x-small slds-text-link_reset">
+                                            <lightning:buttonIcon iconName="utility:contract"  variant="bare" alternativeText="contract" />      
+                                            {!$Label.c.APPR_BTN_PARALLEL}
+                                        </a>
+                                        <a onclick="{!c.mergeCancelApproval}" class="slds-p-right_x-small slds-text-link_reset">
+                                            <lightning:buttonIcon iconName="utility:expand_alt"  variant="bare" alternativeText="contract" />    
+                                            {!$Label.c.APPR_BTN_CANCELPARALLEL}
+                                        </a>                                    
+                                        
+                                        <div class="slds-button-group" role="group">
+                                            <a onclick="{!c.moveItem}" data-itemid="itemDownBtn" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                <lightning:buttonIcon iconName="utility:down"  variant="bare" alternativeText="down" />                                        
+                                            </a>
+                                            
+                                            <a onclick="{!c.moveItem}" data-itemid="itemUpBtn" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                <lightning:buttonIcon iconName="utility:up"  variant="bare" alternativeText="up" />
+                                            </a>     
+                                        </div>                                   
+                                        
+                                    </th>
+                                    
+                                    <th scope="col" class="name slds-border_left">
+                                        <ui:outputText value="{!$Label.c.COMM_LAB_NAME}" class="slds-truncate" />
+                                    </th>
+                                    <th scope="col" class="name ">
+                                        <ui:outputText value="{!$Label.c.COMM_LAB_DEPARTMENT}" class="slds-truncate" />
+                                    </th>
+                                    <th scope="col" class="name ">
+                                        <ui:outputText value="{!$Label.c.COMM_LAB_EMAIL}" class="slds-truncate" />
+                                    </th>
+                                    
+                                    <th scope="col" class="name">
+                                        
+                                    </th>
+                                    <th scope="col" class="name">
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="table_tbody_Wrapper">
+                            <table class="slds-table slds-table--bordered slds-table--cell-buffer table_tbody">
+                                <colgroup>
+                                    <col width="4%"></col>
+                                    <col width="26%"></col>
+                                    <col width="18%"></col>
+                                    <col width="22%"></col>
+                                    <col width="26%"></col>
+                                    
+                                    <col width="3%"></col>
+                                    <col width="1%"></col>
+                                </colgroup>
+                                <tbody>
+                                    
+                                    <aura:iteration items="{!v.EmployeeList}" var="emps" indexVar="index">
+                                        <aura:iteration items="{!emps}" var="item" indexVar="idx" >
+                                            <tr class="{!item.check  ? 'selected-emp' : ''}" onclick="{!c.clickApprover}" aura-id="{!index + '-' +idx + '_employee'}" data-itemid="{!index + '-' +idx + '_employee'}">
+                                                <td style="padding-left:8px !important">
+                                                    <div class="slds-truncate " >
+                                                        <ui:outputText value="{!index}" title="{!index}" />
+                                                    </div>
+                                                </td>
+                                                <td calss="appType-button">      
+                                                    <c:customRadioBtnGroup aura:name="{!index + '_radio_' + idx}"
+                                                                           buttonName="{!index + '_radio_' + idx}"
+                                                                           sOptions="{!emps.length > 1 ? v.buttonType2 : v.buttonType1}"
+                                                                           sOptions1="{!v.buttonType1}"
+                                                                           sOptions2="{!v.buttonType2}"
+                                                                           emple="{!emps.length}"
+                                                                           
+                                                                           defaultValue="{!item.ApproverType__c}"
+                                                                           resultValue="{!item.ApproverType__c}"
+                                                                           />       
+                                                    <!-- defaultValue="{!not(empty(item.ApproverType__c)) ? item.ApproverType__c : emps.length > 1 ? '7' : '1' }" -->
+                                                    
+                                                </td>
+                                                
+                                                <td >
+                                                    <div class="slds-truncate " >
+                                                        <ui:outputText value="{!item.Name + (item.EvEName__c == null ? '' : ' - ' + item.EvEName__c)}" title="{!item.Name + (item.EvEName__c == null ? '' : ' - ' + item.EvEName__c)}" /> 
+                                                    </div>
+                                                </td>
+                                                <td >
+                                                    <div class="slds-truncate " >
+                                                        <ui:outputText value="{!item.EvSdeptNM__c + ( item.EvSdeptNM__c == null || item.EnEvSdeptNM__c == null ? '' : ' - ')  +  item.EnEvSdeptNM__c}" 
+                                                                       title="{!item.EvSdeptNM__c + ( item.EvSdeptNM__c == null || item.EnEvSdeptNM__c == null ? '' : ' - ')  +  item.EnEvSdeptNM__c}"/>
+                                                    </div>
+                                                </td>
+                                                <td >                                            
+                                                    <div class="slds-truncate " >
+                                                        <ui:outputText value="{!item.EvMailAddr__c}" title="{!item.EvMailAddr__c}"  />
+                                                    </div>
+                                                    <div class="approval-typeBtn">
+                                                        
+                                                        <a onclick="{!c.clickTypeBtn}" data-itemid="{!index + '-' +idx + '_path'}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                            <lightning:buttonIcon iconName="utility:change_owner"  variant="bare" alternativeText="{!$Label.c.APPR_BTN_CHANGELINE}"  class="{!item.IsChangeLine__c ? 'click-button-img' : '' }"/>
+                                                        </a>
+                                                        <a onclick="{!c.clickTypeBtn}" data-itemid="{!index + '-' +idx + '_mod' }" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                            <lightning:buttonIcon iconName="utility:new_direct_message"  variant="bare" alternativeText="{!$Label.c.APPR_BTN_EDITTEXT}" class="{!item.IsEditText__c ? 'click-button-img' : '' }"/>
+                                                        </a>
+                                                        <a onclick="{!c.clickTypeBtn}" data-itemid="{!index + '-' +idx + '_dec'}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                            <lightning:buttonIcon iconName="utility:brush"  variant="bare" alternativeText="{!$Label.c.APPR_BTN_ARBITARYDECISION}" class="{!item.IsArbitraryDecision__c ? 'click-button-img' : '' }"/>
+                                                        </a>	
+                                                        
+                                                    </div>
+                                                </td>
+                                                
+                                                
+                                                <td style="padding:0; margin:0;">
+                                                    <div data-itemId="{!item.EvUniqID__c}" onclick="{!c.removeItem}" style="cursor:pointer;float: right; padding-right:.5rem;">
+                                                        <lightning:buttonIcon iconName="utility:close" variant="bare" alternativeText="Delete"/>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:0; margin:0; width:0; height:0;">                                                
+                                                    <lightning:input value="{!item.EvUniqID__c}" class="slds-hidden"/>
+                                                </td>
+                                            </tr>                                    
+                                        </aura:iteration>
+                                    </aura:iteration>
+                                    <aura:if isTrue="{!not(empty(v.EmployeeList))}">
+                                        <aura:set attribute="else">
+                                            <tr>
+                                                <td colspan='6' class="notselectUser">
+                                                    <ui:outputText value="{!$Label.c.APPR_MSG_0001}" class="slds-truncate" /> 
+                                                    <!-- 승인자를 추가하여 주세요. -->
+                                                </td>
+                                            </tr>                                            
+                                        </aura:set>                                        
+                                    </aura:if>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- [E] : 추가 List --> 
+                
+                
+                <!-- Description -->
+                <div class="slds-form-element slds-hint-parent">
+                        <!--<label class="slds-form-element__label font-red-custom" for="lookup-348">                            
+                                <abbr class="slds-required" title="required">*</abbr>
+                                <label class="font-red-custom" >                            
+                                        ({!$Label.c.COMM_MSG_0011})
+                                    </label> 
+                        </label>-->   
+                    <div class="slds-form-element__control">
+                        <!--<lightning:inputRichText value="{!v.ApprovalData.KnoxApproval.Description__c}" label="{!$Label.c.APPR_LAB_APPROVALCONTENTS}">
+                            <lightning:insertImageButton/>
+                        </lightning:inputRichText>-->
+                        <lightning:textarea value="{!v.ApprovalData.KnoxApproval.Opinion__c}" class="textarea" label="{!$Label.c.APPR_LAB_OPINION}" required="true"/>
+                    </div>
+                </div>
+                
+                <!-- [S] File Area -->
+                <div class="slds-form-element slds-hint-parent" style="margin-bottom: 0;">
+                    <c:FileUpload FileList="{!v.FileList}" maximumFileSize="{!v.FileLimitSize}"/>
+                </div>
+
+                <div class="slds-file-selector__dropzone fileArea">
+                    <aura:iteration items="{!v.nFileList}" var="file" indexVar="index">
+                        <div class="slds-grid slds-p-around--x-small slds-align--absolute-center fileListArea">
+                            <div class="slds-grid slds-size--1-of-1 slds-no-space slds-p-right--x-large">
+                                <div class="slds-avatar slds-avatar--x-small slds-pill__icon_container slds-p-right--large">
+                                    <div>
+                                        <lightning:icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" iconName="doctype:image" size="x-small" alternativeText="icon"/>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-truncate">
+                                    <!--a rel="theater" title="View File"-->
+                                        <span class="slds-pill__label uiOutputText" title="Preview file">{!file.name}</span>
+                                    <!--/a-->
+                                </div>
+                            </div>
+                            <div class="right" title="Remove file">
+                                <div class="slds-button slds-button--icon slds-pill__remove" data-itemIdx="{!index}" onclick="{!c.removefile}" style="cursor:pointer;">
+                                    <lightning:icon class="slds-button__icon" iconName="utility:close" size="x-small" alternativeText="search"/>  
+                                    <span class="slds-assistive-text">Remove</span>
+                                </div>
+                            </div>
+                        </div>
+                    </aura:iteration>
+                </div>
+                <!-- [E] File Area -->
+                
+            </div>
+        </div>
+            <!-- Modal Footer -->
+            <div class="slds-col modal-footer slds-modal__footer">  
+                
+                <!--<lightning:button variant="brand" label="{!$Label.c.APPR_BTN_GETTEAMMEMBER}" onclick="{!c.getTeamMember}"  class="slds-float_left" />-->
+                <!--<lightning:button variant="neutral" label="{!$Label.c.APPR_BTN_TEMPSAVE}" onclick="{!c.tempSave}" />-->
+                <lightning:button variant="neutral" label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{!c.clickCancel}" />
+                <lightning:button variant="brand" label="{!$Label.c.APPR_BTN_SUBMIT}" onclick="{!c.clickApprove}" />
+            </div>            
+        <lightning:spinner aura:id="spinner" variant="brand" size="large" class="slds-hide"/>
+    </div>
+
+    <!-- [Style] -->
+    <aura:html tag="style">
+        .font-red-custom {
+            color: red;
+            font-weight: bold;
+        }
+        
+        .quick-modal__content {
+            height: 533px;
+        
+        }
+        
+        .modal-body.slds-modal__content.slds-p-around--medium {
+            padding: 0 !important;
+        }
+        
+        .cuf-content {
+            height: 100%;
+            padding: 0 0rem !important;
+        }
+        
+        .cuf-content .slds-modal__content.slds-p-around--medium,
+        .appType-button {
+            padding: 0rem !important;
+        }
+        
+        .cuf-content .slds-modal__content.scrollable {
+            overflow: hidden !important;
+        }
+        
+        .modal-container.slds-modal__container {
+            width: 100% !important;
+            max-width: 60rem !important;
+            min-width: 650px !important;
+            padding-top: 5rem !important;
+        }
+        
+        .slds-rich-text-area__content {
+            min-height: 10rem;
+        }
+        
+        .table_tbody {
+            table-layout: fixed;
+        }
+        
+        .notselectUser {
+            height: 3.5rem;
+            text-align: center;
+        }
+    </aura:html>
+</aura:component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_StartDate_EndDate</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF ( CONTAINS($User.Username, &apos;if_user&apos;)
+, false
+, StartDate__c &gt; EndDate__c)</errorConditionFormula>
+    <errorDisplayField>StartDate__c</errorDisplayField>
+    <errorMessage>Start date cannot be greater than the end date.</errorMessage>
+</ValidationRule>

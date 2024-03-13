@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SCP_Account_ID_Prefix_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(REGEX(SCP_Account_ID__c, &quot;^ACCOUNT-+[a-zA-Z0-9_]*$&quot;))</errorConditionFormula>
+    <errorDisplayField>SCP_Account_ID__c</errorDisplayField>
+    <errorMessage>SCP Account ID must begin with ACCOUNT-</errorMessage>
+</ValidationRule>

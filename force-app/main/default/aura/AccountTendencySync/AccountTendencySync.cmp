@@ -1,0 +1,12 @@
+<!--
+  @description       : 
+  @author            : minhye.park@dkbmc.com
+  @group             : 
+  @last modified on  : 2022-05-24
+  @last modified by  : younghoon.kim@dkbmc.com
+-->
+
+<aura:component controller="MDGAccountNewController" Implements="flexipage:availableForRecordHome,force:appHostable,force:lightningQuickActionWithoutHeader,force:hasRecordId" access="global" >
+	<!-- [Handler] -->
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+</aura:component>

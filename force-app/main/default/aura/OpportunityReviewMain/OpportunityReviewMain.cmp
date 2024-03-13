@@ -1,0 +1,189 @@
+<!--
+  @description       : 
+  @author            : ukhyeon.lee@samsung.com
+  @group              : 
+  @last modified on  : 11-05-2023
+  @last modified by  : anish.jain@partner.samsung.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   06-21-2021   ukhyeon.lee@samsung.com   Initial Version
+  1.1   09-01-2021   seonju.jin@dkbmc.com      hasEditAccess 추가
+  1.2   10-25-2023   rakshit.s@samsung.com     MySales-336
+  1.3   11-05-2023   anish.jain@partner.samsung.com  MySales - 216
+-->
+<aura:component controller="OpportunityReviewMainController" implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+	<lightning:overlayLibrary aura:id="overlayLib" />
+
+	<!--[Handler]-->
+	<aura:handler name="init" value="{!this}" action="{!c.init}" />
+	<aura:handler event="lightning:tabClosed" action="{! c.onTabClosed }"/>
+	<aura:handler name="sendToReviewConfirmEvt" event="c:opportunityReviewConfirmDataEvent" action="{!c.confirm}"/>
+
+	<!-- [Picklist Attribute] -->
+    <aura:attribute name="contentDocumentId" type="String" default="" /> <!-- Added by Anish - v 1.3 -->
+	<aura:attribute name="vrbPickList" type="List" default="[]"/>
+	<aura:attribute name="vrbLabelList" type="List" default="[]"/><!--사업심의유형(VRB Method) 레이블-->
+	<aura:attribute name="vrbCount" type="String" default=""/><!--사업심의유형(VRB Method) 레이블-->
+	
+	<aura:attribute name="consortiumYn" type="String" />
+	<aura:attribute name="consortiumList" type="List" default="[{'label': 'Y', 'value': 'Y'}, {'label': 'N', 'value': 'N'}]"/>
+	<!-- [Attribute] -->
+	<aura:attribute name="showSpinner" type="Boolean" default="true" />
+	<aura:attribute name="recordId" type="String" access="public" />
+	<aura:attribute name="opptyData" type="Opportunity"/><!-- BO조회데이터 -->
+	<aura:attribute name="opptyData_origin" type="Opportunity"/><!-- 화면종료시 변경여부 체크용도 -->
+	<aura:attribute name="boCheckText" type="String" /><!--BO점검결과 입력값-->
+	<aura:attribute name="isAdmin" type="Boolean" default="false"/><!--PI, System Admin 여부-->
+	<aura:attribute name="origin_Opportunity_Review_VRB_Type__c" type="String" default=""/><!--화면 최초 조회시 사업심의유형(변경여부 확인 용도)-->
+	<aura:attribute name="isTabDisabled" type="Boolean" default="true"/><!--버튼 활성화 여부-->
+	<aura:attribute name="isSearchDisabled" type="Boolean" default="true"/><!--검색 전 비활성화 대상들-->
+	<aura:attribute name="isExcDisabled" type="Boolean" default="true"/><!--검색 전 비활성화 대상들-->
+	<aura:attribute name="hasEditAccess" type="Boolean" default="false" description="Opportunity 프로필 편집 권한 유무" />
+	<aura:attribute name="isAmtDisabled" type="Boolean" default="true"/><!-- 수주예상금액 변경 가능 여부 -->
+	<aura:attribute name="isSaveDisabled" type="Boolean" default="false"/><!-- 저장버튼 사용가능 여부 -->
+  
+	<!-- 임시저장 알림 팝업 FLAG -->
+	<aura:attribute name="isModalOpen" type="boolean" default="false"/>
+		<!-- 1.2 changes -->
+    <aura:attribute name="descLabelDynamicValue" type="String"></aura:attribute>
+    <aura:attribute name="dynamicToolTip" type="String" /><!--Added by Anish v 1.3-->
+    <!--Added by Anish v 1.3-->
+	<aura:registerEvent name="myApplicationEvent" type="c:RefreshActivityTabs"/><!--Added by Anish v 1.3-->
+	<div class="slds-col modal-body scrollable modal-content">
+		<div class="tab-content">
+			<aura:if isTrue="{!v.showSpinner}">
+				<lightning:spinner />
+			</aura:if>
+			<div class="slds-form_vertical slds-scrollable_y slds-card__body slds-p-around_small">
+				<lightning:layout multipleRows="true" verticalAlign="center">     
+					<!-- 사업규모 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+						<lightning:input disabled="{!v.isTabDisabled}" type="number" aura:id="bizType" name="bizType" label="{!$Label.c.OPPTYACT_BO_REVIEW_BIZ_AMOUNT + '(' + v.opptyData.CurrencyIsoCode + ')'}" variant="label-stacked" value="{!v.opptyData.Opportunity_Review_Biz_Amount__c}" onchange="{! c.onCheck }" fieldLevelHelp="{!$Label.c.OPPTYACT_BO_REVIEW_AMOUNT_CAPTION}" required="true" step="0.01"/>
+					</lightning:layoutItem>         
+					<!-- 수주예상금액 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+						<lightning:input type="number" aura:id="amount" name="amount" label="{!$Label.c.OPPTYACT_BO_REVIEW_AMOUNT + '(' + v.opptyData.CurrencyIsoCode + ')'}" variant="label-stacked" value="{!v.opptyData.Amount}" disabled="{!v.isAmtDisabled}" onchange="{! c.onCheck }" step="0.01"/>
+					</lightning:layoutItem>  
+					<!-- 컨소시움 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+						<lightning:combobox readonly="{!v.isTabDisabled}" aura:id="checkbox4" name="checkbox4" label="{!$Label.c.OPPTYACT_BO_REVIEW_CONSORTIUM}" variant="label-stacked" dropdownAlignment="auto" options="{!v.consortiumList}" value="{!v.consortiumYn}" onchange="{!c.onCheck}"/>
+					</lightning:layoutItem>
+					<!-- 업종 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+						<lightning:input aura:id="bizType" name="bizType" label='{!$Label.c.OPPTYACT_BO_REVIEW_BIZ_TYPE}' variant="label-stacked" value="{!v.opptyData.cOriginAcc__r.mBizTypeL2Code__c}" disabled="true"/>
+					</lightning:layoutItem> 
+                    <!-- 고객사 신용등급 --> 
+                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+						<lightning:input aura:id="accLoan" name="accLoan" label="{!$Label.c.OPPTYACT_BO_REVIEW_ACCLOAN}" variant="label-stacked" value="{!v.opptyData.Account.mBizLoan__c}" disabled="true"/>
+					</lightning:layoutItem>
+                    <!-- 원청사 신용등급 --> 
+                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+						<lightning:input aura:id="originLoan" name="originLoan" label="{!$Label.c.OPPTYACT_BO_REVIEW_ORIGINLOAN}" variant="label-stacked" value="{!v.opptyData.cOriginAcc__r.mBizLoan__c}" disabled="true"/>
+					</lightning:layoutItem>
+					<!-- 신용등급(미사용) -->
+					<!-- <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="2" class="right-align">
+						<lightning:helptext content="{!$Label.c.OPPTYACT_BO_REVIEW_BIZ_LOAN_CAPTION}" class="helptext2"/>
+					</lightning:layoutItem> -->          
+					<!-- 공백 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+						<br/>
+					</lightning:layoutItem>
+					<!-- 컴플라이언스 안내 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+						<lightning:formattedRichText  class="formattedRichText" value="{!$Label.c.OPPTYACT_BO_REVIEW_COMPLIANCE}" /><!-- Compliance -->
+					</lightning:layoutItem>
+					<!-- 컴플라이언스 체크박스 1 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+						<lightning:input disabled="{!v.isTabDisabled}" type="checkbox" class="checkbox" aura:id="checkbox1" name="checkbox1" label='{!$Label.c.OPPTYACT_BO_REVIEW_COMPLIANCE_CHECK1}' checked="{!v.opptyData.Opportunity_Review_Checkbox1__c}" onchange="{! c.onCheck }"/><!-- Checkbox1 -->
+					</lightning:layoutItem>
+					<!-- 컴플라이언스 체크박스 2 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+						<lightning:input disabled="{!v.isTabDisabled}" type="checkbox" class="checkbox" aura:id="checkbox2" name="checkbox2" label='{!$Label.c.OPPTYACT_BO_REVIEW_COMPLIANCE_CHECK2}' checked="{!v.opptyData.Opportunity_Review_Checkbox2__c}" onchange="{! c.onCheck }"/><!-- Checkbox2 -->
+					</lightning:layoutItem>           
+					<!-- 공백 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+						<br/>
+					</lightning:layoutItem>
+					<!-- 검색버튼 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+						<aura:if isTrue="{!v.hasEditAccess}">
+						<lightning:button disabled="{!v.isTabDisabled}" class="slds-float_right" variant="brand" label="{!$Label.c.OPPTYACT_BO_REVIEW_SEARCH_BTN}" onclick="{!c.retrieveCheckType}"></lightning:button>
+						</aura:if>
+					</lightning:layoutItem>
+					<lightning:layout multipleRows="true" verticalAlign="center"> 
+						<lightning:layoutItem>
+							<aura:renderIf isTrue="{!v.opptyData.Opportunity_Review_Temp_Save__c}">
+								<aura:if isTrue="{!v.opptyData.Opportunity_Review_Temp_Save__c}">
+									<span style="color: #888585;position: absolute;right: 20px;top: 10px;">
+										<lightning:icon iconName="utility:info" alternativeText="info" variant="error" size="x-small" title="info" />{!$Label.c.OPPTYACT_BO_REVIEW_TEMP_SAVE_MSG}
+									</span>
+								</aura:if>
+							</aura:renderIf>
+						</lightning:layoutItem>    
+					</lightning:layout>
+					<!-- 공백 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+						<br/>
+					</lightning:layoutItem>
+					<!-- 사업심의유형 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+						<lightning:combobox readonly="{!v.isSearchDisabled}" name="businessType" class="selectRole" label="{!$Label.c.OPPTYACT_BO_REVIEW_TYPE}" variant="label-stacked" dropdownAlignment="auto" options="{!v.vrbPickList}" value="{!v.opptyData.Opportunity_Review_VRB_Type__c}" onchange="{!c.checkReviewExc}"/>
+					</lightning:layoutItem>
+					<!-- 위험고객여부 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+						<lightning:input label="{!$Label.c.OPPTYACT_BO_REVIEW_DANGEROUS}" variant="label-stacked" value="{!v.opptyData.Opportunity_Review_Dangerous__c}"  disabled="true" />
+					</lightning:layoutItem>                  
+					<!-- 공백 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+						<br/>
+					</lightning:layoutItem>
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+						<lightning:formattedRichText class="formattedRichText" value="{!v.descLabelDynamicValue}"  />
+					</lightning:layoutItem>
+					<!-- 공백 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+						<br/>
+					</lightning:layoutItem>
+					<!-- BO 점검결과 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+								<lightning:formattedText class="formattedText" value="{!$Label.c.OPPTYACT_BO_REVIEW_RESULT}" />
+					</lightning:layoutItem>
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+						<lightning:textarea disabled="{!v.isSearchDisabled}" name="textArea1" variant="label-hidden" required="false" value="{!v.opptyData.Opportunity_Review_Result__c}" 
+															maxlength="10000" messageWhenTooLong="{!$Label.c.OPPTYACT_BO_REVIEW_RESULT_LIMIT}" messageWhenValueMissing="{!$Label.c.OPPTYACT_BO_REVIEW_RESULT_NULL}"
+															placeholder = "{!$Label.c.OPPTYACT_BO_REVIEW_RESULT_DESC}" />
+					</lightning:layoutItem>
+					<!-- 공백 -->
+					<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+						<br/>
+					</lightning:layoutItem>
+					<!-- PI Admin에게만 보임-->
+					<aura:if isTrue="{!v.isAdmin}" >
+						<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+							<lightning:input disabled="true" type="checkbox" class="checkbox" aura:id="checkbox3" name="checkbox3" label="{!$Label.c.OPPTYACT_BO_REVIEW_EXCEPTION}" checked="{!v.opptyData.Opportunity_Review_Exception__c}" onchange="{! c.onCheck }"/>
+						</lightning:layoutItem>
+						<lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+							<lightning:textarea disabled="{!v.isExcDisabled}" name="textArea2" variant="label-hidden" required="false" value="{!v.opptyData.Opportunity_Review_Exception_Reason__c}" 
+																maxlength="10000" messageWhenTooLong="{!$Label.c.OPPTYACT_BO_REVIEW_EXCEPTION_LIMIT}" messageWhenValueMissing="{!$Label.c.OPPTYACT_BO_REVIEW_EXCEPTION_NULL}"
+																placeholder = "{!$Label.c.OPPTYACT_BO_REVIEW_EXCEPTION_DESC}"/>
+						</lightning:layoutItem>
+					</aura:if>
+				</lightning:layout>
+			</div> 
+			<div class="modal-footer slds-modal__footer" style="height:58px;">
+				<aura:if isTrue="{!v.hasEditAccess}">
+					<lightning:button disabled="{!v.isSearchDisabled}" class="slds-float_left" variant="brand" label='{!$Label.c.OPPTYACT_BO_REVIEW_TYPE_CONFIRM}' title='{!$Label.c.OPPTYACT_BO_REVIEW_TYPE_CONFIRM}' onclick="{!c.confirm}"></lightning:button>
+                    <lightning:button  class="slds-float_left" variant="brand" label='BO점검 체크리스트(HQ only)' title='BO점검 체크리스트(HQ only)' onclick="{!c.download}"></lightning:button> <!-- Added by Anish - v 1.3 -->
+				</aura:if>
+				<lightning:button label='{!$Label.c.COMM_BTN_CANCEL}' title='{!$Label.c.COMM_BTN_CANCEL}' onclick="{!c.cancel}"></lightning:button>
+				<aura:if isTrue="{!v.hasEditAccess}">
+					<lightning:button disabled="{!v.isSaveDisabled}" variant="brand" label="{!$Label.c.COMM_BTN_SAVE}" title="Save" onclick="{!c.save}" ></lightning:button>
+				</aura:if>
+			</div>
+		</div>
+	</div>
+	<!-- 임시저장시 알림팝업 -->
+	<aura:if isTrue="{!v.isModalOpen}">
+		<c:opportunityReviewSolPopup openModal="{!v.isModalOpen}" />
+	</aura:if>
+</aura:component>

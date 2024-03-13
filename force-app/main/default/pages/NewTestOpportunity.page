@@ -1,0 +1,49 @@
+<!--
+  @description       : 
+  @author            : chae_ho.yang@samsung.com
+  @group             : 
+  @last modified on  : 07-07-2023
+  @last modified by  : chae_ho.yang@samsung.com
+-->
+<apex:page standardController="Opportunity"
+    recordSetVar="records"
+    extensions="NewTestOpportunity">
+    
+   <apex:form >
+        <script>
+            function LogiCheck(istrue)
+                {
+                    var logi = document.getElementById("logi")
+                    var hq = document.getElementById("hq")
+                    if(istrue.checked ) {   
+                        logi.style.display='block';
+                        hq.style.display='none';
+                    } else {
+                        logi.style.display='none';
+                        hq.style.display='block';
+                    }
+                }
+        </script>
+      <apex:pageBlock >
+
+        TEST TEST TEST Is Logi BO? &nbsp; <apex:inputCheckbox id="checkbox" onchange="LogiCheck(this);"/>
+
+        <apex:pageBlockSection >
+            <apex:inputField value="{!newOpportunity.Name}" label="Opportunity Name"/>
+        </apex:pageBlockSection>
+        
+        <div id="hq">
+        <apex:commandButton action="{!createOpportunity}" value="Create Opportunity Only"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:commandButton action="{!createOpportunityServSol}" value="Create Opportunity w Serv/Sol"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <div id="logi" style="display:none">
+            <apex:commandButton action="{!createOpportunityLogi}" value="Create Opportunity Logi"/>
+        </div>
+      </apex:pageBlock>
+
+      <br/><br/>
+      <apex:commandButton action="{!back}" value="Back" immediate="true"/>
+   </apex:form>
+</apex:page>

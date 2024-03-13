@@ -1,0 +1,53 @@
+<!--
+  @description       : 주소검색( 컴포넌트
+  @author            : seonju.jin@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-08-26
+  @last modified by  : younghoon.kim@dkbmc.com
+  @link http://www.juso.go.kr/addrlink/devAddrLinkRequestUse.do?menu=roadPop
+  Modifications Log 
+  Ver   Date         Author                 Modification
+  1.0   2020-11-03   seonju.jin@dkbmc.com   Initial Version
+-->
+<aura:component
+    controller="SearchRoadAddressController"
+    implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasSObjectName,force:hasRecordId"
+    access="global" >
+
+    <aura:html tag='style'>
+      .popupbody > div > div.modal-body{
+        padding: 0px !important;
+      }
+    </aura:html>
+
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+    <!-- [Attribute] -->
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="gcmp" type="Object" />
+    <aura:attribute name="isLocaleKR" type="Boolean" default="true"/>
+    <aura:attribute name="isMobile" type="Boolean" default="false"/>
+    <aura:attribute name="userProfile" type="Boolean" default="false"/>
+
+    <!-- [Library] -->
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <!-- Customer 360 -->
+    <aura:if isTrue="{!!v.isMobile}">
+		<lightning:card>
+			<div class='btn_wrap'>
+				<lightning:button class="slds-size_11-of-12 slds-button slds-button_neutral slds-button_stretch" variant="brand" label="{!$Label.c.ACCT_LAB_CUSTOMER360}" title="{!$Label.c.ACCT_LAB_CUSTOMER360}" onclick="{!c.click360}" />
+			</div>
+		</lightning:card>
+    </aura:if>
+    
+    <!-- Address Search -->
+    <aura:if isTrue="{! and(v.isLocaleKR, !v.isMobile)}">
+      	<lightning:card>
+          	<div class='btn_wrap'>
+          		<lightning:button class="slds-size_11-of-12 slds-button slds-button_neutral slds-button_stretch" variant="brand-outline" label="{!$Label.c.ACCT_LAB_ADDRSEARCH}" title="{!$Label.c.ACCT_LAB_ADDRSEARCH}" onclick="{!c.clickSearch}" />
+        	</div>
+    	</lightning:card>
+  	</aura:if>
+</aura:component>

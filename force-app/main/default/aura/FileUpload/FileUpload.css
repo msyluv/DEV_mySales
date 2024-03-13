@@ -1,0 +1,18 @@
+.THIS .fileListArea{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.THIS .file {
+    margin-bottom: 5px;
+    display: block;
+}
+
+.THIS .slds-file-selector__text {
+    display: none;
+}
+
+
+.THIS .slds-notify .slds-icon{
+    fill : white;
+}

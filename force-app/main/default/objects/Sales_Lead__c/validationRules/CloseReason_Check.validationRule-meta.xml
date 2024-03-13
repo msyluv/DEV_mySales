@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CloseReason_Check</fullName>
+    <active>true</active>
+    <description>사업기회 변환이 아닌 종결을 하는경우 종결의견 입력 여부 확인</description>
+    <errorConditionFormula>AND(TEXT(LeadStage__c) != &apos;Converted&apos;, TEXT(LeadStatus__c) = &apos;Close&apos;, ISBLANK(CloseReason__c))</errorConditionFormula>
+    <errorDisplayField>CloseReason__c</errorDisplayField>
+    <errorMessage>Please enter a Close reason for closing.</errorMessage>
+</ValidationRule>

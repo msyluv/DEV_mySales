@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ComplianceGuide__c</fullName>
+    <defaultValue>&quot;경쟁사, 발주처 로부터 비공식적으로 취득한 정보의 사용 또는 경쟁사와 정보를 교환하는 행위는&quot; 
+&amp; BR() &amp;
+&quot;영업비밀 침해, 담합 등 compliance 위반에 해당될 수 있으므로 유의하시기 바랍니다.&quot;
+&amp; BR() &amp;
+&quot;※ 교환 금지 정보&quot;
+&amp; BR() &amp;
+&quot; ① 원가 정보, ② 판매량/출고량/재고, ③ 상품ㆍ용역 거래조건 및 대금ㆍ대가 지급 조건&quot;
+&amp; BR() &amp; BR() &amp;
+&quot;Please note that the use of information obtained unofficially from competitors and clients or the exchange information with competitors may constitute a violation of laws and regulations such as infringement of trade secrets or illegal cartel.&quot;
+&amp; BR() &amp;
+&quot;※ Not allowed to exchange&quot;
+&amp; BR() &amp;
+&quot;  ① Cost of goods and services,  ② Sales/Forwarding volume, inventory, ③ Terms of transaction of payment and consideration&quot;</defaultValue>
+    <externalId>false</externalId>
+    <label>Compliance Guide</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>20</visibleLines>
+</CustomField>

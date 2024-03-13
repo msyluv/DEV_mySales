@@ -1,0 +1,11 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+	
+    Hi
+    <ltng:require scripts="{!$Resource.cafe + '/2.3.27/cafe_2.3.27.min.js'}"
+                  afterScriptsLoaded="{!c.afterScript}"
+                  beforeLoadingResources ="{!c.beforeScript}"/>
+    Hello Test
+    <!--<aura:handler name="init" value="{!this}" action="{!c.init}" />-->
+    <div aura:id="cafeDemo"></div>
+    
+</aura:component>

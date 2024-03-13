@@ -1,0 +1,268 @@
+<!--
+  @description       : 
+  @author            : yeongju.baek@dkbmc.com
+  @group             : 
+  @last modified on  : 06-04-2021
+  @last modified by  : yeongju.baek@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                   Modification
+  1.0   05-21-2021   yeongju.baek@dkbmc.com   Initial Version
+-->
+<aura:component
+ controller="testCalendar"
+ implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,lightning:actionOverride"
+ access="global" >
+
+
+<!--
+
+controller="IF_KnoxGetCalendarsController"
+-->
+<!-- [SearchAttribute]-->
+
+<aura:attribute name="System-ID" type="String" default=""/>
+<aura:attribute name="userId" type="String" default=""/>
+
+<aura:attribute name="searchWord" type="String" />
+
+<!-- [Attribute]-->
+
+<aura:attribute name="defaultYn" type="String" default=""/>
+<aura:attribute name="displayType" type="String" default=""/>
+<aura:attribute name="calendarId" type="String" default=""/>
+<aura:attribute name="color" type="String" default=""/>
+<aura:attribute name="subject" type="String" default=""/>
+<aura:attribute name="timezone" type="String" default=""/>
+<aura:attribute name="authority" type="String" default=""/>
+<aura:attribute name="description" type="String" default=""/>
+<aura:attribute name="type" type="String" default=""/>
+<aura:attribute name="seq" type="String" default=""/>
+
+<!--
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+-->
+
+
+<div aura:id="main" class="slds-card">
+    <div class="slds-card__body slds-card__body_inner">
+        <div class="slds-card"> 
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <lightning:input type="text" value="{!v.searchWord}" />
+                </div>
+            </div>
+            <div class="slds-form-element">
+                <lightning:button class="btn" variant="brand" label="Search" onclick="{!c.doSearch}"/>
+            </div>
+            
+            <table class="table">
+                
+                <tr>
+                    <th>
+                        <ui:outputText value="System_ID" />
+                    </th>
+                    <td>
+                        <ui:outputText value="{! v.System_ID }" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <ui:outputText value="userId" />
+                    </th>
+                    <td>
+                        <ui:outputText value="{! v.userId }" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <ui:outputText value="defaultYn" />
+                    </th>
+                    <td>
+                        <ui:outputText value="{! v.defaultYn }" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <ui:outputText value="displayType" />
+                    </th>
+                    <td>
+                        <ui:outputText value="{! v.displayType}" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <ui:outputText value="calendarId" />
+                    </th>
+                    <td>
+                        <ui:outputText value="{! v.calendarId }" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <ui:outputText value="color" />
+                    </th>
+                    <td>
+                        <ui:outputText value="{! v.color }" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <ui:outputText value="subject" />
+                    </th>
+                    <td>
+                        <ui:outputText value="{! v.subject }" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <ui:outputText value="timezone" />
+                    </th>
+                    <td>
+                        <ui:outputText value="{! v.timezone}" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <ui:outputText value="authority" />
+                    </th>
+                    <td>
+                        <ui:outputText value="{! v.authority }" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <ui:outputText value="description" />
+                    </th>
+                    <td>
+                        <ui:outputText value="{! v.description }" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <ui:outputText value="type" />
+                    </th>
+                    <td>
+                        <ui:outputText value="{! v.type }" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <ui:outputText value="seq" />
+                    </th>
+                    <td>
+                        <ui:outputText value="{! v.seq}" />
+                    </td>
+                </tr>
+            </table>
+            <!--
+
+            
+            <aura:if isTrue="{!(v.userId)}">
+                <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                        <label class="slds-form-element__label" for="single-form-element-id-09">defaultYn</label>
+                        <div class="slds-form-element__control  slds-form-element__no-label">
+                            <ui:outputText class="slds-input"  value="{! v.defaultYn }" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                        <label class="slds-form-element__label" for="single-form-element-id-09">displayType</label>
+                        <div class="slds-form-element__control  slds-form-element__no-label">
+                            <ui:outputText class="slds-input"  value="{! v.displayType }" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                        <label class="slds-form-element__label" for="single-form-element-id-09">calendarId</label>
+                        <div class="slds-form-element__control  slds-form-element__no-label">
+                            <ui:outputText class="slds-input"  value="{! v.calendarId }" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                        <label class="slds-form-element__label" for="single-form-element-id-09">color</label>
+                        <div class="slds-form-element__control  slds-form-element__no-label">
+                            <ui:outputText class="slds-input"  value="{! v.color }" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                        <label class="slds-form-element__label" for="single-form-element-id-09">subject</label>
+                        <div class="slds-form-element__control  slds-form-element__no-label">
+                            <ui:outputText class="slds-input"  value="{! v.subject }" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                        <label class="slds-form-element__label" for="single-form-element-id-09">timezone</label>
+                        <div class="slds-form-element__control  slds-form-element__no-label">
+                            <ui:outputText class="slds-input"  value="{! v.timezone }" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                        <label class="slds-form-element__label" for="single-form-element-id-09">authority</label>
+                        <div class="slds-form-element__control  slds-form-element__no-label">
+                            <ui:outputText class="slds-input"  value="{! v.authority }" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                        <label class="slds-form-element__label" for="single-form-element-id-09">description</label>
+                        <div class="slds-form-element__control  slds-form-element__no-label">
+                            <ui:outputText class="slds-input"  value="{! v.description }" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                        <label class="slds-form-element__label" for="single-form-element-id-09">type</label>
+                        <div class="slds-form-element__control  slds-form-element__no-label">
+                            <ui:outputText class="slds-input"  value="{! v.type }" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                        <label class="slds-form-element__label" for="single-form-element-id-09">userId</label>
+                        <div class="slds-form-element__control  slds-form-element__no-label">
+                            <ui:outputText class="slds-input"  value="{! v.userId }" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="slds-form__item" role="listitem">
+                    <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                        <label class="slds-form-element__label" for="single-form-element-id-09">seq</label>
+                        <div class="slds-form-element__control  slds-form-element__no-label">
+                            <ui:outputText class="slds-input"  value="{! v.seq }" />
+                        </div>
+
+                    </div>
+                </div>
+            </aura:if>
+            -->
+        </div>
+
+    </div>
+
+</div>
+
+</aura:component>

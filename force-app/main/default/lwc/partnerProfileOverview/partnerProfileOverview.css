@@ -1,0 +1,9 @@
+@import 'c/commonStyle';
+
+.main_top .wrap_top,
+.main_bottom .wrap_bottom,
+.wrap_marketing .marketing {
+    width: 1580px !important;
+    max-width: 1580px !important;
+    padding: 0 !important;
+}

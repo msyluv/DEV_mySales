@@ -1,0 +1,48 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2021-07-29
+  @last modified by  : younghoon.kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2021-06-15   younghoon.kim@dkbmc.com   Initial Version
+-->
+<aura:component implements="force:appHostable" controller="CostCenterMergeController" access="global">
+	<!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <!-- [Attribute] -->
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <aura:attribute name="migUser" type="Boolean" default="false" />
+    <aura:attribute name="proceeding" type="Boolean" default="true" />
+    <aura:attribute name="batchSize" type="Integer" default="0" />
+    <aura:attribute name="message" type="String" default="" />
+    <aura:attribute name="ccmList" type="List" default="[]" />
+    <aura:attribute name="columns" type="List" default="[]" />
+    
+    <!-- [Spinner] -->
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+
+    <lightning:card iconName="standard:forecasts" title="Cost Center Merge" class="wrapperCard">
+        <aura:set attribute="actions">
+            <lightning:button variant="brand" label="Start" title="Start" onclick="{!c.start}" disabled="{!and(v.migUser, !v.proceeding)}"/>
+            <lightning:buttonIcon iconName="utility:refresh"  variant="border-filled" alternativeText="Refresh" title="Refresh" onclick="{!c.refresh}"/>
+        </aura:set>
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem padding="around-small" size="12" class="LayoutItem_Header">
+                <span style="font-size: large;">{!v.message}</span>
+                <lightning:progressBar value="{!v.batchSize}" size="large" />
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" size="12" class="LayoutItem_Body">
+                <lightning:datatable
+                    keyField="id"
+                    data="{!v.ccmList}"
+                    columns="{!v.columns}"
+                    hideCheckboxColumn="true" />
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:card>
+</aura:component>

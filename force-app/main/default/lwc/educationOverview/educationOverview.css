@@ -1,0 +1,250 @@
+/* @description       : 
+  @author            : zenith21c@test.com
+  @group             : 
+  @last modified on  : 09-05-2023
+  @last modified by  : gitesh.s@samsung.com
+  Modifications Log 
+  Ver   Date         Author                 Modification
+  1.0   03-18-2022   zenith21c@test.com     Initial Version
+  1.1   09-05-2023   gitesh.s@samsung.com   Practitioner box title alignment issue fixed    
+*/
+@import 'c/commonStyle';
+@import 'c/resetStyle';
+
+.wrap_program h2,
+.wrap_education h2 {color: #fff;}
+.wrap_program .text,
+.wrap_education .text {
+    font-size: 24px;
+    color: #fff;
+    line-height: 44px;
+    padding-top: 14px;
+}
+.wrap_education {
+    height: 446px;
+    background: url(/s/sfsites/c/resource/imagesLA/images/img_education.png) no-repeat right 12% bottom 20px #242843;
+}
+.wrap_education .education {
+    margin: 0 auto;
+    max-width: 1580px;
+    width: 100%;
+    height: 446px;
+    position: relative;
+}
+.wrap_program .wrap_text,
+.wrap_education .wrap_text {
+    position: absolute;
+    top: 106px;
+    left: 20px;
+}
+.wrap_partner,
+.wrap_benefit {
+    margin: 0 auto;
+    max-width: 1580px;
+    width: 100%;
+    text-align: center;
+    padding: 120px 0;
+}
+.wrap_blue {background-color: #E1E6FF;}
+.wrap_blue .blue {
+    margin: 0 auto;
+    max-width: 1580px;
+    width: 100%;
+    text-align: center;
+    padding: 60px 0 100px 0;
+}
+.wrap_blue .box{
+    display: inline-block;
+    width: 368px;
+    padding: 58px 45px;
+    text-align: center;
+    box-sizing: border-box;
+    letter-spacing: -1px;
+}
+.wrap_partner .text {padding-top: 8px; font-size: 24px; color: #242843;}
+.wrap_btton {
+    display: flex; 
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 1580px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 145px;
+    padding: 0 20px;
+}
+.wrap_btton .link_btn:first-of-type {margin-right: 89px;}
+.link_btn {
+    font-size: 22px;
+    color: #242843;
+    border: 2px solid #242843;
+    border-radius: 4px;
+    background: url(/s/sfsites/c/resource/imagesLA/images/ico_btn_arrow.png) no-repeat center right 36px;
+    width: 740px;
+    text-align: left;
+    padding: 24px 0 24px 36px;
+}
+
+/* box */
+.wrap_box {display: flex; justify-content: space-between; margin-top: 40px;}
+.wrap_benefit .box {
+    display: inline-block;
+    background-color: #F8F8FB;
+    width: 368px;
+    padding: 58px 45px;
+    text-align: center;
+    box-sizing: border-box;
+    letter-spacing: -1px;
+}
+.wrap_benefit .box .circle,
+.wrap_blue .box .circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 100%;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto;
+}
+.wrap_blue .box .circle.education01 {background-image: url(/s/sfsites/c/resource/imagesLA/images/ico_education01.png);}
+.wrap_blue .box .circle.education02 {background-image: url(/s/sfsites/c/resource/imagesLA/images/ico_education02.png);}
+.wrap_blue .box .circle.education03 {background-image: url(/s/sfsites/c/resource/imagesLA/images/ico_education03.png);}
+.wrap_blue .box .circle.education04 {background-image: url(/s/sfsites/c/resource/imagesLA/images/ico_education04.png);}
+.wrap_benefit .box ul,
+.wrap_blue .box .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 30px;
+}
+.wrap_benefit .box ul li {
+    background: url(/s/sfsites/c/resource/imagesLA/images/list_dot2.png) no-repeat left 12px;
+    color: #5D67AF;
+    font-size: 18px;
+    text-align: left;
+    line-height: 28px;
+    padding-left: 15px;
+    padding-bottom: 20px;
+}
+.wrap_benefit .box ul li:first-of-type {margin-top: 54px;}
+.wrap_benefit .box ul li ul li {
+    line-height: 6px;
+    font-size: 14px;
+    list-style-type: none;
+    background: none;
+    margin-left: 0;
+    letter-spacing: 0;
+}
+.wrap_benefit .box ul li ul li:first-of-type {margin-top: -16px;}
+.wrap_blue .box .text {
+    font-size: 18px;
+    line-height: 28px;
+    text-align: left;
+    margin-top: 30px;
+    color: #666;
+}
+
+/* suggest */
+.education_suggest .suggest {
+    max-width: 1580px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px 0 20px;
+    display: table;
+}
+.education_suggest .box {
+    padding: 40px;
+    width: 365px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #DEDEDE;
+    text-align: left;
+    display: table-cell;
+}
+/* v1.1 - Gitesh Saini */
+.education_suggest .box .title {
+    color: #001828;
+    font-size: 24px;
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 16px;
+    width: calc(100% - 68px);
+    vertical-align: middle;
+}
+.education_suggest .box .number {
+    width: 51px;
+    height: 51px;
+    border: 2px solid #001828;
+    text-align: center;
+    border-radius: 100%;
+    font-size: 20px;
+    line-height: 46px;
+    display: inline-block;
+    vertical-align: middle;
+}
+/* v1.1 */
+.education_suggest hr {
+    border-top: 1px solid #DEDEDE;
+    margin: 20px 0 26px;
+}
+.education_suggest .suggest .text {
+    font-size: 18px;
+    color: #666;
+    line-height: 28px;
+    letter-spacing: -0.5px;
+}
+.suggest_text .bottom_text {font-size: 16px; text-align: left;}
+.suggest_text {
+    max-width: 1580px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 18px 0 20px 40px;
+}
+.education_suggest .arrow {
+    width: 42px;
+    height: 32px;
+    background: url(/s/sfsites/c/resource/imagesLA/images/img_arrow.png) no-repeat center;
+    display: table-cell;
+}
+.education_suggest.big .bow {width: 500px;}
+.education_suggest .box {border: none;}
+.education_suggest .box,
+.education_suggest .box .number {background-color: #F8F8FB;}
+.education_suggest .box .number {
+    border-color: #333;
+    color: #333;
+}
+.education_suggest .text li {
+    font-size: 16px;
+    color: #5D67AF;
+    padding-bottom: 20px;
+    list-style: disc;
+    margin-left: 22px;
+}
+
+@media screen and (max-width: 1440px) {
+    .education_suggest .box {
+        padding: 25px;
+        width: 290px;
+    }
+    .education_suggest .box .title {
+        font-size: 19px;
+    }
+    .education_suggest .suggest .text {
+        font-size: 16px;
+    }
+    .education_suggest .arrow {
+        background-size: 80%;
+    }
+}
+
+@media screen and (max-width: 1180px) {
+    .education_suggest .box {
+        padding: 20px;
+    }
+    .education_suggest .box .number {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+        line-height: 32px;
+    }
+}

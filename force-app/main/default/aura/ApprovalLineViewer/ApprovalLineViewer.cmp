@@ -1,0 +1,58 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2021-05-14
+  @last modified by  : younghoon.kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2021-05-13   younghoon.kim@dkbmc.com   Initial Version
+-->
+<aura:component implements="force:appHostable" controller="ApprovalLineViewerController" access="global" >
+	<!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <!-- [Attribute] -->
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <aura:attribute name="searchValue" type="Object" default="{}" />
+    <aura:attribute name="approvalType" type="List" default="[]"/>
+
+    <aura:attribute name="approvalHTML" type="String" default="" />
+    <aura:attribute name="approvalLine" type="List" default="[]"/>
+    <aura:attribute name="columns" type="List" default="[]"/>
+
+    <!-- [Spinner] -->
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner/>
+    </aura:if>
+
+    <lightning:layout multipleRows="true">
+        <lightning:layoutItem padding="around-small" size="12" class="LayoutItem_Header">
+            <lightning:layout>
+                <lightning:layoutItem size="8" class="slds-p-vertical_medium Header_Left">
+                    <lightning:icon iconName="standard:search" title="{!$Label.c.APPRVIEWER_LAB_HEADER}" class='Header_Icon'/>
+                    <h1 style='font-size:18px; font-weight:bold; display: inline-block;'>{!$Label.c.APPRVIEWER_LAB_HEADER}</h1>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="4" class="Header_Right">
+                    <lightning:input class="SearchValue" label="{!$Label.c.APPRVIEWER_LAB_OPPTYCODE}" placeholder="Enter the code" value="{!v.searchValue.OpportunityCode}"/>
+                    <lightning:combobox class="SearchValue" options="{!v.approvalType}" dropdownAlignment="auto" value="{!v.searchValue.ApprovalType}" label="{!$Label.c.APPRVIEWER_LAB_APPRTYPE}"/>
+                    <lightning:button class="SearchBtn" variant="brand" label="{!$Label.c.BOSEARCH_BTN_SEARCH}" title="{!$Label.c.BOSEARCH_BTN_SEARCH}" onclick="{!c.search}"/>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="around-small" size="12" class="LayoutItem_Body">
+            <lightning:layout>
+                <lightning:layoutItem size="8" class="Body_Left">
+                    <lightning:card title="{!$Label.c.APPRVIEWER_LAB_PREVIEW}" class="Card_Left" iconName="standard:search">
+                        <aura:unescapedHtml value="{!v.approvalHTML}"/>
+                    </lightning:card>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="4" class="Body_Right">
+                    <lightning:card title="{!$Label.c.APPRVIEWER_LAB_APPRLINE}" class="Card_Right" iconName="standard:search">
+                        <lightning:datatable keyField="id" data="{!v.approvalLine}" columns="{!v.columns}" hideCheckboxColumn="true"/>
+                    </lightning:card>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LogType__c</fullName>
+    <description>Log Type은 Interface를 구분하는 것으로 Callout, Batch, WebService로 구분</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Log Type은 Interface를 구분하는 것으로 Callout, Batch, WebService로 구분</inlineHelpText>
+    <label>LogType</label>
+    <length>50</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

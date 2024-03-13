@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Basic</fullName>
+    <fields>Name</fields>
+    <fields>Code__c</fields>
+    <fields>Use__c</fields>
+    <fields>ValidityStartDate__c</fields>
+    <fields>ValidityEndDate__c</fields>
+    <label>Basic</label>
+</CompactLayout>

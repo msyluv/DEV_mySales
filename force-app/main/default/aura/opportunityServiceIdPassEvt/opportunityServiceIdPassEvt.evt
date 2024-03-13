@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Event template" >
+    <aura:attribute name="serviceId" type="String" description="service select Id"/>
+    <aura:attribute name="serviceIdx" type="String" description="service select Index"/>
+</aura:event>

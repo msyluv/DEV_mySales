@@ -1,0 +1,86 @@
+<!--
+  @description       : CSP/MSP Section to display fields only for those profiles having  Read only permission on Opportunity Object.
+  @author            : akash.g@samsung.com
+  @group             : 
+  @last modified on  : 30-05-2022
+  @last modified by  : akash.g@samsung.com
+  Modifications Log 
+  Ver   Date         Author                           Modification
+  1.0   2022-05-30   akash.g@samsung.com             Initial Version
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <lightning:card iconName="standard:opportunity" title="CSP/MSP Detail">
+        
+        <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="Opportunity">
+            <div class="slds-form" role="list">
+                <div class="slds-form__row">
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <lightning:outputField fieldName="CspMspType__c"></lightning:outputField>
+                        </div>
+                    </div>
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <lightning:outputField fieldName="CMBizType__c"></lightning:outputField>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <lightning:outputField fieldName="ConversionType__c"></lightning:outputField>
+                        </div>
+                    </div>
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <lightning:outputField fieldName="ServiceSales__c"></lightning:outputField>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <lightning:outputField fieldName="PartnerAccount__c"></lightning:outputField>
+                        </div>
+                    </div>
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <lightning:outputField fieldName="CMCollaboDept1__c"></lightning:outputField>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <lightning:outputField fieldName="SCPScale__c"></lightning:outputField>
+                        </div>
+                    </div>
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <lightning:outputField fieldName="CMCollaboDept2__c"></lightning:outputField>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <lightning:outputField fieldName="SCP_DC__c"></lightning:outputField>
+                        </div>
+                    </div>
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <lightning:outputField fieldName="MSP_Amount__c"></lightning:outputField>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form__row">
+                    <div class="slds-form__item" role="listitem">
+                        <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked slds-hint-parent">
+                            <lightning:outputField fieldName="OtherCSP__c"></lightning:outputField>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </lightning:recordViewForm >
+    </lightning:card>    
+</aura:component>

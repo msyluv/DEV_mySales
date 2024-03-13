@@ -1,0 +1,5378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Translations xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>CxO</label>
+        <name>CxO</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>CxO Mobile</label>
+        <name>CxOMobile</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- File --></label>
+        <name>File</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>마케팅리드 생성</label>
+        <name>Lead_Generation</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- MSP Admin --></label>
+        <name>MSP_Admin</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>Marketing</label>
+        <name>Marketing</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>관계 관리</label>
+        <name>Relationship_Management</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>Sales Representative</label>
+        <name>Sales</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>Sales Executive</label>
+        <name>SalesExecutive</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>Sales Executive Mobile</label>
+        <name>SalesExecutiveMobile</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>Sales Manager</label>
+        <name>SalesManager</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>Sales Team Manager</label>
+        <name>SalesTeamManager</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>Sales Team Manager Mobile</label>
+        <name>SalesTeamManagerMobile</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>영업 리더</label>
+        <name>Sales_Leadership</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>Sales Manager Mobile</label>
+        <name>Sales_Manager_Mobile</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>Sales Mobile</label>
+        <name>Sales_Mobile</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>영업 업무</label>
+        <name>Sales_Operations</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>Strategy Committee</label>
+        <name>Strategy_Committee</name>
+    </customApplications>
+    <customLabels>
+        <label>권한</label>
+        <name>ACCTEAM_LAB_ACCOUNTACCESS</name>
+    </customLabels>
+    <customLabels>
+        <label>액션</label>
+        <name>ACCTEAM_LAB_ACTION</name>
+    </customLabels>
+    <customLabels>
+        <label>고객 팀 등록</label>
+        <name>ACCTEAM_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>--없음--</label>
+        <name>ACCTEAM_LAB_NONE</name>
+    </customLabels>
+    <customLabels>
+        <label>역할</label>
+        <name>ACCTEAM_LAB_TEAMROLE</name>
+    </customLabels>
+    <customLabels>
+        <label>사용자</label>
+        <name>ACCTEAM_LAB_USER</name>
+    </customLabels>
+    <customLabels>
+        <label>권한이 없습니다.</label>
+        <name>ACCTEAM_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>팀원을 저장하였습니다.</label>
+        <name>ACCTEAM_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>값을 입력해주세요.</label>
+        <name>ACCTEAM_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>도로명 주소검색(국내)</label>
+        <name>ACCT_LAB_ADDRSEARCH</name>
+    </customLabels>
+    <customLabels>
+        <label>Customer 360(고객 상세정보)</label>
+        <name>ACCT_LAB_CUSTOMER360</name>
+    </customLabels>
+    <customLabels>
+        <label>최근 고객</label>
+        <name>ACCT_LAB_RECENT_ACCOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>사업자번호는 최대 10자입니다.</label>
+        <name>ACCT_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>이미 등록된 사업자 번호입니다.</label>
+        <name>ACCT_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>필수 항목을 입력해 주세요</label>
+        <name>ACCT_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>MDG 고객은 삭제가 불가능합니다.</label>
+        <name>ACCT_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>삭제 권한이 없습니다. 고객 소유자 및 관리자만 삭제가 가능합니다.</label>
+        <name>ACCT_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCT_URL_C360 --></label>
+        <name>ACCT_URL_C360</name>
+    </customLabels>
+    <customLabels>
+        <label>기본 사업리드 팀 구성원 추가</label>
+        <name>ADSLTM_Header</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- API_ADDR_CONFMKEY --></label>
+        <name>API_ADDR_CONFMKEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- API_ADDR_ENG_CONFMKEY --></label>
+        <name>API_ADDR_ENG_CONFMKEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- API_ADDR_EVENT_URL --></label>
+        <name>API_ADDR_EVENT_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- API_ADDR_URL --></label>
+        <name>API_ADDR_URL</name>
+    </customLabels>
+    <customLabels>
+        <label>결재선</label>
+        <name>APPRVIEWER_LAB_APPRLINE</name>
+    </customLabels>
+    <customLabels>
+        <label>결재 유형</label>
+        <name>APPRVIEWER_LAB_APPRTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>부서</label>
+        <name>APPRVIEWER_LAB_DEPARTMENT</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일</label>
+        <name>APPRVIEWER_LAB_EMAIL</name>
+    </customLabels>
+    <customLabels>
+        <label>결재선 검색</label>
+        <name>APPRVIEWER_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>이름</label>
+        <name>APPRVIEWER_LAB_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 코드</label>
+        <name>APPRVIEWER_LAB_OPPTYCODE</name>
+    </customLabels>
+    <customLabels>
+        <label>결재 본문</label>
+        <name>APPRVIEWER_LAB_PREVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label>유형</label>
+        <name>APPRVIEWER_LAB_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 코드를 입력하세요.</label>
+        <name>APPRVIEWER_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>결재유형을 선택하세요.</label>
+        <name>APPRVIEWER_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>사업유형을 확인하세요.</label>
+        <name>APPRVIEWER_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 액티비티가 없습니다.</label>
+        <name>APPRVIEWER_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 코드를 확인하세요.</label>
+        <name>APPRVIEWER_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_APPROVAL --></label>
+        <name>APPR_BTN_APPROVAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_APPR_ADD --></label>
+        <name>APPR_BTN_APPR_ADD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_ARBITARYDECISION --></label>
+        <name>APPR_BTN_ARBITARYDECISION</name>
+    </customLabels>
+    <customLabels>
+        <label>병렬해제</label>
+        <name>APPR_BTN_CANCELPARALLEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_CHANGELINE --></label>
+        <name>APPR_BTN_CHANGELINE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_CONSENT --></label>
+        <name>APPR_BTN_CONSENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_CONSENT_ADD --></label>
+        <name>APPR_BTN_CONSENT_ADD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_EDITTEXT --></label>
+        <name>APPR_BTN_EDITTEXT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_GETTEAM --></label>
+        <name>APPR_BTN_GETTEAM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_GETTEAMMEMBER --></label>
+        <name>APPR_BTN_GETTEAMMEMBER</name>
+    </customLabels>
+    <customLabels>
+        <label>결재경로 가져오기</label>
+        <name>APPR_BTN_GET_APPROVAL_LINE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_NOTIFICATION --></label>
+        <name>APPR_BTN_NOTIFICATION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_NOTIFICATION_ADD --></label>
+        <name>APPR_BTN_NOTIFICATION_ADD</name>
+    </customLabels>
+    <customLabels>
+        <label>병렬</label>
+        <name>APPR_BTN_PARALLEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_PARAPPROVAL --></label>
+        <name>APPR_BTN_PARAPPROVAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_PARCONSENT --></label>
+        <name>APPR_BTN_PARCONSENT</name>
+    </customLabels>
+    <customLabels>
+        <label>최신 상태 가져오기</label>
+        <name>APPR_BTN_REFRESH_STATUS</name>
+    </customLabels>
+    <customLabels>
+        <label>상신</label>
+        <name>APPR_BTN_SUBMIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_TEMPSAVE --></label>
+        <name>APPR_BTN_TEMPSAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>결재자 추가</label>
+        <name>APPR_LAB_ADD_APPROVER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_APPROVALCONTENTS --></label>
+        <name>APPR_LAB_APPROVALCONTENTS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_APPROVAL_LINE --></label>
+        <name>APPR_LAB_APPROVAL_LINE</name>
+    </customLabels>
+    <customLabels>
+        <label>[결재선 조회 I/F Message]</label>
+        <name>APPR_LAB_APPROVAL_LINE_ERR</name>
+    </customLabels>
+    <customLabels>
+        <label>결재경로</label>
+        <name>APPR_LAB_APPROVER</name>
+    </customLabels>
+    <customLabels>
+        <label>기존 사업 등급</label>
+        <name>APPR_LAB_BIZ_LEVEL_BEFORE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_CREATEAPPROVER --></label>
+        <name>APPR_LAB_CREATEAPPROVER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_GETAPPROVALSTATUS --></label>
+        <name>APPR_LAB_GETAPPROVALSTATUS</name>
+    </customLabels>
+    <customLabels>
+        <label>결재본문 가져오기</label>
+        <name>APPR_LAB_GET_APPROVAL_BODY</name>
+    </customLabels>
+    <customLabels>
+        <label>작성자</label>
+        <name>APPR_LAB_HISTORYCREATEDBYNAME</name>
+    </customLabels>
+    <customLabels>
+        <label>작성일자</label>
+        <name>APPR_LAB_HISTORYCREATEDDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Knox 결재 제목</label>
+        <name>APPR_LAB_HISTORYNAME</name>
+    </customLabels>
+    <customLabels>
+        <label>상태</label>
+        <name>APPR_LAB_HISTORYSTATUS</name>
+    </customLabels>
+    <customLabels>
+        <label>상신 의견</label>
+        <name>APPR_LAB_OPINION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_TEMPLATECATEGORY --></label>
+        <name>APPR_LAB_TEMPLATECATEGORY</name>
+    </customLabels>
+    <customLabels>
+        <label>결재자를 추가해주세요.</label>
+        <name>APPR_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>내용을 입력해주세요.</label>
+        <name>APPR_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>선택된 직원이 없습니다.</label>
+        <name>APPR_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>병렬은 결재 또는 합의자만 지정 가능합니다.</label>
+        <name>APPR_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>병렬 해제 후 다시 시도해주세요.</label>
+        <name>APPR_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label>자신을 추가 할 수 없습니다.</label>
+        <name>APPR_MSG_0006</name>
+    </customLabels>
+    <customLabels>
+        <label>이미 입력 한 정보입니다.</label>
+        <name>APPR_MSG_0007</name>
+    </customLabels>
+    <customLabels>
+        <label>사용자 EPID가 없습니다. 관리자에게 문의해주세요.</label>
+        <name>APPR_MSG_0008</name>
+    </customLabels>
+    <customLabels>
+        <label>임시 저장 데이터가로드되었습니다.</label>
+        <name>APPR_MSG_0009</name>
+    </customLabels>
+    <customLabels>
+        <label>중복 된 직원이 있습니다.</label>
+        <name>APPR_MSG_0010</name>
+    </customLabels>
+    <customLabels>
+        <label>결재 상신이 성공하였습니다.</label>
+        <name>APPR_MSG_0011</name>
+    </customLabels>
+    <customLabels>
+        <label>결재 상신에 실패하였습니다. 잠시 후에 다시 시도하십시오.</label>
+        <name>APPR_MSG_0012</name>
+    </customLabels>
+    <customLabels>
+        <label>동의와 합의가 없습니다.</label>
+        <name>APPR_MSG_0013</name>
+    </customLabels>
+    <customLabels>
+        <label>임시 저장되었습니다.</label>
+        <name>APPR_MSG_0014</name>
+    </customLabels>
+    <customLabels>
+        <label>이미 보류중인 승인이 있습니다.</label>
+        <name>APPR_MSG_0015</name>
+    </customLabels>
+    <customLabels>
+        <label>Knox 결재 소유자 또는 기안자만 상신 취소를 할 수 있습니다.</label>
+        <name>APPR_MSG_0016</name>
+    </customLabels>
+    <customLabels>
+        <label>결재 이름을 입력하십시오.</label>
+        <name>APPR_MSG_0017</name>
+    </customLabels>
+    <customLabels>
+        <label>총 파일 크기는 7MB를 초과 할 수 없습니다.</label>
+        <name>APPR_MSG_0018</name>
+    </customLabels>
+    <customLabels>
+        <label>승인 할 권한이 없습니다. 소유자 또는 관리자에게 문의하십시오.</label>
+        <name>APPR_MSG_0019</name>
+    </customLabels>
+    <customLabels>
+        <label>승인 정보를 수동으로 업데이트하십시오.</label>
+        <name>APPR_MSG_0020</name>
+    </customLabels>
+    <customLabels>
+        <label>승인 정보는 15 분 및 45 분마다 자동으로 업데이트 됩니다.</label>
+        <name>APPR_MSG_0021</name>
+    </customLabels>
+    <customLabels>
+        <label>시스템 상황에 따라 최대 1 분 이상 지연 될 수 있습니다.</label>
+        <name>APPR_MSG_0022</name>
+    </customLabels>
+    <customLabels>
+        <label>{0} 분 {1} 초 후에 새로 고침 할 수 있습니다.</label>
+        <name>APPR_MSG_0023</name>
+    </customLabels>
+    <customLabels>
+        <label>답변이 아직 완료되지 않았습니다. 답변을 완료 한 후 제출해주십시오.</label>
+        <name>APPR_MSG_0024</name>
+    </customLabels>
+    <customLabels>
+        <label>제출 전에 결정 필드를 선택해야합니다.</label>
+        <name>APPR_MSG_0025</name>
+    </customLabels>
+    <customLabels>
+        <label>설정된 결재 본문이 없습니다. 관리자에게 문의하십시오.</label>
+        <name>APPR_MSG_0026</name>
+    </customLabels>
+    <customLabels>
+        <label>결재 본문이 없습니다. 결재 미리보기를 확인 후 상신하십시오.</label>
+        <name>APPR_MSG_0027</name>
+    </customLabels>
+    <customLabels>
+        <label>요청 사업 등급을 선택해주십시오.</label>
+        <name>APPR_MSG_0028</name>
+    </customLabels>
+    <customLabels>
+        <label>기존과 동일한 사업등급으로 요청할 수 없습니다. 요청 사업 등급을 확인해주세요.</label>
+        <name>APPR_MSG_0029</name>
+    </customLabels>
+    <customLabels>
+        <label>결재 상태가 동기화되지 않았습니다. 관리자에게 문의하십시오.</label>
+        <name>APPR_MSG_0030</name>
+    </customLabels>
+    <customLabels>
+        <label>Knox 결재 탭을 조회하세요.</label>
+        <name>APPR_MSG_0031</name>
+    </customLabels>
+    <customLabels>
+        <label>수주전략위원회 담당자만 승인을 제출 할 수 있습니다.</label>
+        <name>APPR_MSG_0032</name>
+    </customLabels>
+    <customLabels>
+        <label>Knox 결재가 상신되었습니다.</label>
+        <name>APPR_MSG_0033</name>
+    </customLabels>
+    <customLabels>
+        <label>비활성화된 결재선은 병렬할 수 없습니다.</label>
+        <name>APPR_MSG_0034</name>
+    </customLabels>
+    <customLabels>
+        <label>비활성화된 결재선은 변경할 수 없습니다.</label>
+        <name>APPR_MSG_0035</name>
+    </customLabels>
+    <customLabels>
+        <label>협업 기회에 대한 읽기권한이 없습니다. 협업 기회의 팀원 액세스를 확인해주세요.</label>
+        <name>APPR_MSG_0036</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0037 --></label>
+        <name>APPR_MSG_0037</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0038 --></label>
+        <name>APPR_MSG_0038</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0039 --></label>
+        <name>APPR_MSG_0039</name>
+    </customLabels>
+    <customLabels>
+        <label>자세히</label>
+        <name>APPR_MSG_MORE_DETAIL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_NUM_HISLOOKUP_DURATION --></label>
+        <name>APPR_NUM_HISLOOKUP_DURATION</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드 팀 구성원</label>
+        <name>ASLTM_Salesleadteammember</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Account Information --></label>
+        <name>Account_Information</name>
+    </customLabels>
+    <customLabels>
+        <label>고객사</label>
+        <name>Account_Name</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Account Number --></label>
+        <name>Account_Number</name>
+    </customLabels>
+    <customLabels>
+        <label>고객 소유자</label>
+        <name>Account_Owner_Name</name>
+    </customLabels>
+    <customLabels>
+        <label>이 사업리드에 대한 팀 구성원의 액세스 레벨이 조직의 기본 사업리드 액세스 설정보다 클 수 있습니다.</label>
+        <name>AddSalesTeamMemberCmpMessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Admin Profile ID --></label>
+        <name>Admin_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>종결/실주 사유 분석</label>
+        <name>Analysis_of_Competition_Results</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의유형을 확정 후 품의가 가능합니다.</label>
+        <name>BOReviewMessage</name>
+    </customLabels>
+    <customLabels>
+        <label>새로 만들기</label>
+        <name>BOSEARCH_BTN_NEW</name>
+    </customLabels>
+    <customLabels>
+        <label>아니오(취소)</label>
+        <name>BOSEARCH_BTN_NO_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label>예(전송)</label>
+        <name>BOSEARCH_BTN_OK_SEND</name>
+    </customLabels>
+    <customLabels>
+        <label>검색</label>
+        <name>BOSEARCH_BTN_SEARCH</name>
+    </customLabels>
+    <customLabels>
+        <label>최초수주일자</label>
+        <name>BOSEARCH_LAB_1STCLOSEDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>최초수주일자(종료)</label>
+        <name>BOSEARCH_LAB_1STENDDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>최초수주일자(시작)</label>
+        <name>BOSEARCH_LAB_1STSTARTDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>고객사</label>
+        <name>BOSEARCH_LAB_ACCOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>고객 번호</label>
+        <name>BOSEARCH_LAB_ACCOUNTCODE</name>
+    </customLabels>
+    <customLabels>
+        <label>모두</label>
+        <name>BOSEARCH_LAB_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label>사업등급</label>
+        <name>BOSEARCH_LAB_BIZLEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label>사업 유형1</label>
+        <name>BOSEARCH_LAB_BIZTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 코드</label>
+        <name>BOSEARCH_LAB_BOCODE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회명</label>
+        <name>BOSEARCH_LAB_BONAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_BULK_MAIL_BODY --></label>
+        <name>BOSEARCH_LAB_BULK_MAIL_BODY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_BULK_MAIL_SUBJECT --></label>
+        <name>BOSEARCH_LAB_BULK_MAIL_SUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 예상일</label>
+        <name>BOSEARCH_LAB_CLOSEDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>협업여부</label>
+        <name>BOSEARCH_LAB_COLLABORATION</name>
+    </customLabels>
+    <customLabels>
+        <label>협업 O</label>
+        <name>BOSEARCH_LAB_COLLABO_O</name>
+    </customLabels>
+    <customLabels>
+        <label>협업 X</label>
+        <name>BOSEARCH_LAB_COLLABO_X</name>
+    </customLabels>
+    <customLabels>
+        <label>법인명</label>
+        <name>BOSEARCH_LAB_COMPANYCODE</name>
+    </customLabels>
+    <customLabels>
+        <label>법인코드</label>
+        <name>BOSEARCH_LAB_COMPANYID</name>
+    </customLabels>
+    <customLabels>
+        <label>Deal Break</label>
+        <name>BOSEARCH_LAB_DEALBREAK</name>
+    </customLabels>
+    <customLabels>
+        <label>주 실행 부서 (Lv.3)</label>
+        <name>BOSEARCH_LAB_DELIVERYDEPT</name>
+    </customLabels>
+    <customLabels>
+        <label>주 실행 부서 (Lv.1)</label>
+        <name>BOSEARCH_LAB_DELIVERYDEVISION</name>
+    </customLabels>
+    <customLabels>
+        <label>국내 여부</label>
+        <name>BOSEARCH_LAB_DOMESTIC</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 예상일(종료)</label>
+        <name>BOSEARCH_LAB_ENDDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회코드 입력...</label>
+        <name>BOSEARCH_LAB_ENTERBOCODE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회명 입력...</label>
+        <name>BOSEARCH_LAB_ENTERBONAME</name>
+    </customLabels>
+    <customLabels>
+        <label>일괄 엑셀 다운로드 기능은 8,000건 이하에 대해서만 사용가능하며, &lt;br/&gt;사용자의 이메일({0})로 전송됩니다.  전송하시겠습니까?</label>
+        <name>BOSEARCH_LAB_EXPORT_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 리스트 Export 실패.</label>
+        <name>BOSEARCH_LAB_EXPORT_FAIL</name>
+    </customLabels>
+    <customLabels>
+        <label>1000건까지 다운로드 할 수 있습니다. 검색결과를 줄여 다운로드를 해주세요.</label>
+        <name>BOSEARCH_LAB_EXPORT_LIMIT</name>
+    </customLabels>
+    <customLabels>
+        <label>{0}건까지 다운로드 할 수 있습니다. 검색결과를 줄여 다운로드를 해주세요.</label>
+        <name>BOSEARCH_LAB_EXPORT_LIMIT_COUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>조회된 사업기회 정보가 없습니다. 1건 이상부터 다운로드가 가능합니다.</label>
+        <name>BOSEARCH_LAB_EXPORT_NO_OPPTY</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 리스트 Export 성공.</label>
+        <name>BOSEARCH_LAB_EXPORT_SUCCESS</name>
+    </customLabels>
+    <customLabels>
+        <label>그룹외</label>
+        <name>BOSEARCH_LAB_EXTERNALBIZ</name>
+    </customLabels>
+    <customLabels>
+        <label>그룹 내 사업 여부</label>
+        <name>BOSEARCH_LAB_GROUPINTERNAL</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 검색</label>
+        <name>BOSEARCH_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>그룹내</label>
+        <name>BOSEARCH_LAB_INTERNALBIZ</name>
+    </customLabels>
+    <customLabels>
+        <label>원청사</label>
+        <name>BOSEARCH_LAB_ORIGNACCOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>원청사 번호</label>
+        <name>BOSEARCH_LAB_ORIGNACCOUNTCODE</name>
+    </customLabels>
+    <customLabels>
+        <label>영업대표</label>
+        <name>BOSEARCH_LAB_OWNER</name>
+    </customLabels>
+    <customLabels>
+        <label>프로젝트 코드 (ex:SIA-12345678-A0)</label>
+        <name>BOSEARCH_LAB_PROJECTCODE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 레코드 유형</label>
+        <name>BOSEARCH_LAB_RECORDTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>주 영업 부서 (Lv.3)</label>
+        <name>BOSEARCH_LAB_SALESDEPT</name>
+    </customLabels>
+    <customLabels>
+        <label>주 영업 부서 (Lv.1)</label>
+        <name>BOSEARCH_LAB_SALESDIVISION</name>
+    </customLabels>
+    <customLabels>
+        <label>서비스</label>
+        <name>BOSEARCH_LAB_SERVICE</name>
+    </customLabels>
+    <customLabels>
+        <label>솔루션</label>
+        <name>BOSEARCH_LAB_SOLUTION</name>
+    </customLabels>
+    <customLabels>
+        <label>단계</label>
+        <name>BOSEARCH_LAB_STAGE</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 예상일(시작)</label>
+        <name>BOSEARCH_LAB_STARTDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 상태</label>
+        <name>BOSEARCH_LAB_STATUS</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 예상일(종료)를 입력하세요.</label>
+        <name>BOSEARCH_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 예상일(시작)을 입력하세요.</label>
+        <name>BOSEARCH_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>최초수주일자(종료)를 입력하세요</label>
+        <name>BOSEARCH_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>최초수주일자(시작) 를 입력하세요</label>
+        <name>BOSEARCH_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>전략고객여부</label>
+        <name>BOSEARCH_Strategic_Account</name>
+    </customLabels>
+    <customLabels>
+        <label>프로젝트가 존재하므로 &apos;주 실행 부서(L3)&apos;에 대해 BA가 다른 부서로 변경할 수 없습니다.</label>
+        <name>BO_Primary_Delivery_Dept_Lv_3_Validation</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO REPORT SDSAE --></label>
+        <name>BO_REPORT_SDSAE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO REPORT SDSEG --></label>
+        <name>BO_REPORT_SDSEG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO REPORT SDSI-CNL --></label>
+        <name>BO_REPORT_SDSI_CNL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO REPORT SDSI-NDL --></label>
+        <name>BO_REPORT_SDSI_NDL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO REPORT SDSTR --></label>
+        <name>BO_REPORT_SDSTR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO REPORT SDSZA --></label>
+        <name>BO_REPORT_SDSZA</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO_REVIEW_URL --></label>
+        <name>BO_REVIEW_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table A UrlSDSAE --></label>
+        <name>BO_Report_table_A_Url</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table A UrlSDSEG --></label>
+        <name>BO_Report_table_A_UrlSDSEG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table A UrlSDSI-CNL --></label>
+        <name>BO_Report_table_A_UrlSDSI_CNL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table A UrlSDSI-NDL --></label>
+        <name>BO_Report_table_A_UrlSDSI_NDL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table A UrlSDSTR --></label>
+        <name>BO_Report_table_A_UrlSDSTR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table A UrlSDSZA --></label>
+        <name>BO_Report_table_A_UrlSDSZA</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table C UrlSDSAE --></label>
+        <name>BO_Report_table_C_Url</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table C UrlSDSEG --></label>
+        <name>BO_Report_table_C_UrlSDSEG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table C UrlSDSI-CNL --></label>
+        <name>BO_Report_table_C_UrlSDSI_CNL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table C UrlSDSI-NDL --></label>
+        <name>BO_Report_table_C_UrlSDSI_NDL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table C UrlSDSTR --></label>
+        <name>BO_Report_table_C_UrlSDSTR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table C UrlSDSZA --></label>
+        <name>BO_Report_table_C_UrlSDSZA</name>
+    </customLabels>
+    <customLabels>
+        <label>청구 담당자는 사업기회의 법인코드와 동일한 법인 소속이어야 합니다.</label>
+        <name>BO_Team_Mamber_Billing_Manager_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Batch_Employee_Deletion_User --></label>
+        <name>Batch_Employee_Deletion_User</name>
+    </customLabels>
+    <customLabels>
+        <label>닫기</label>
+        <name>CALEANDER_BTN_CLOSE</name>
+    </customLabels>
+    <customLabels>
+        <label>자세히</label>
+        <name>CALEANDER_BTN_GODETAIL</name>
+    </customLabels>
+    <customLabels>
+        <label>목록</label>
+        <name>CALEANDER_BTN_LIST</name>
+    </customLabels>
+    <customLabels>
+        <label>월</label>
+        <name>CALEANDER_BTN_MONTH</name>
+    </customLabels>
+    <customLabels>
+        <label>AP세션</label>
+        <name>CALEANDER_LAB_ACCPLAN</name>
+    </customLabels>
+    <customLabels>
+        <label>설명</label>
+        <name>CALEANDER_LAB_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>종료시간</label>
+        <name>CALEANDER_LAB_EDATETIME</name>
+    </customLabels>
+    <customLabels>
+        <label>일정</label>
+        <name>CALEANDER_LAB_EVENT</name>
+    </customLabels>
+    <customLabels>
+        <label>금</label>
+        <name>CALEANDER_LAB_FRI</name>
+    </customLabels>
+    <customLabels>
+        <label>월</label>
+        <name>CALEANDER_LAB_MON</name>
+    </customLabels>
+    <customLabels>
+        <label>나의 활동</label>
+        <name>CALEANDER_LAB_MYACTIVITIES</name>
+    </customLabels>
+    <customLabels>
+        <label>내 달력</label>
+        <name>CALEANDER_LAB_MYCALENDAR</name>
+    </customLabels>
+    <customLabels>
+        <label>나의 팀</label>
+        <name>CALEANDER_LAB_MYTEAM</name>
+    </customLabels>
+    <customLabels>
+        <label>다음 월</label>
+        <name>CALEANDER_LAB_NEXTMONTH</name>
+    </customLabels>
+    <customLabels>
+        <label>결과 없음</label>
+        <name>CALEANDER_LAB_NORESULT</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 액티비티</label>
+        <name>CALEANDER_LAB_OPPTYACTIVITY</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 Act</label>
+        <name>CALEANDER_LAB_OPPTYACTIVITY2</name>
+    </customLabels>
+    <customLabels>
+        <label>작성자</label>
+        <name>CALEANDER_LAB_OWNER</name>
+    </customLabels>
+    <customLabels>
+        <label>이전 월</label>
+        <name>CALEANDER_LAB_PREMONTH</name>
+    </customLabels>
+    <customLabels>
+        <label>관련 항목</label>
+        <name>CALEANDER_LAB_RELATEDTO</name>
+    </customLabels>
+    <customLabels>
+        <label>토</label>
+        <name>CALEANDER_LAB_SAT</name>
+    </customLabels>
+    <customLabels>
+        <label>시작시간</label>
+        <name>CALEANDER_LAB_SDATETIME</name>
+    </customLabels>
+    <customLabels>
+        <label>제목</label>
+        <name>CALEANDER_LAB_SUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>일</label>
+        <name>CALEANDER_LAB_SUN</name>
+    </customLabels>
+    <customLabels>
+        <label>태스크</label>
+        <name>CALEANDER_LAB_TASK</name>
+    </customLabels>
+    <customLabels>
+        <label>목</label>
+        <name>CALEANDER_LAB_THU</name>
+    </customLabels>
+    <customLabels>
+        <label>당일</label>
+        <name>CALEANDER_LAB_TODAY</name>
+    </customLabels>
+    <customLabels>
+        <label>화</label>
+        <name>CALEANDER_LAB_TUE</name>
+    </customLabels>
+    <customLabels>
+        <label>유형</label>
+        <name>CALEANDER_LAB_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>수</label>
+        <name>CALEANDER_LAB_WED</name>
+    </customLabels>
+    <customLabels>
+        <label>상신 취소 설명</label>
+        <name>CAPP_LAB_CANCELCOMMENTS</name>
+    </customLabels>
+    <customLabels>
+        <label>상신 취소</label>
+        <name>CAPP_LAB_CANCELSUBMISSION</name>
+    </customLabels>
+    <customLabels>
+        <label>Knox Portal 에서 상신취소해주세요.</label>
+        <name>CAPP_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>상신 취소 되었습니다.</label>
+        <name>CAPP_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>취소하지 못했습니다.</label>
+        <name>CAPP_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>이관 데이터입니다. 상신취소를 할 수 없습니다.</label>
+        <name>CAPP_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>제출 취소 의견을 입력하십시오.</label>
+        <name>CAPP_MSG_CANCELCOMMENTS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CCBS_PRD_TOKEN --></label>
+        <name>CCBS_PRD_TOKEN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CCBS_QA_TOKEN --></label>
+        <name>CCBS_QA_TOKEN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CELLO_AES_METHOD --></label>
+        <name>CELLO_AES_METHOD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CELLO_AES_SECRET_KEY --></label>
+        <name>CELLO_AES_SECRET_KEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CELLO_MENU_URL --></label>
+        <name>CELLO_MENU_URL</name>
+    </customLabels>
+    <customLabels>
+        <label>고객사</label>
+        <name>COLLABO_LAB_ACCNAME</name>
+    </customLabels>
+    <customLabels>
+        <label>고객</label>
+        <name>COLLABO_LAB_ACCOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>금액</label>
+        <name>COLLABO_LAB_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 예상일</label>
+        <name>COLLABO_LAB_CLOSEDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>협업기회 상세조회</label>
+        <name>COLLABO_LAB_COLLABOINFO</name>
+    </customLabels>
+    <customLabels>
+        <label>협업 사업기회</label>
+        <name>COLLABO_LAB_COLLABOOPPTY</name>
+    </customLabels>
+    <customLabels>
+        <label>법인 코드(SAP)</label>
+        <name>COLLABO_LAB_COMPANYCODE</name>
+    </customLabels>
+    <customLabels>
+        <label>법인명</label>
+        <name>COLLABO_LAB_COMPANYNAME</name>
+    </customLabels>
+    <customLabels>
+        <label>통화</label>
+        <name>COLLABO_LAB_CURRENCY</name>
+    </customLabels>
+    <customLabels>
+        <label>협업</label>
+        <name>COLLABO_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>내 사업기회</label>
+        <name>COLLABO_LAB_MYOPPTY</name>
+    </customLabels>
+    <customLabels>
+        <label>검색 결과 없음</label>
+        <name>COLLABO_LAB_NORESULT</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회코드</label>
+        <name>COLLABO_LAB_OPPTYCODE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 상세조회</label>
+        <name>COLLABO_LAB_OPPTYINFO</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회명</label>
+        <name>COLLABO_LAB_OPPTYNAME</name>
+    </customLabels>
+    <customLabels>
+        <label>협업 사업기회 검색</label>
+        <name>COLLABO_LAB_SEARCHHEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>단계</label>
+        <name>COLLABO_LAB_STAGE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 상태</label>
+        <name>COLLABO_LAB_STATUS</name>
+    </customLabels>
+    <customLabels>
+        <label>사용자</label>
+        <name>COLLABO_LAB_USER</name>
+    </customLabels>
+    <customLabels>
+        <label>협업BO를 성공적으로 저장했습니다.</label>
+        <name>COLLABO_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>사용자를 입력해주세요.</label>
+        <name>COLLABO_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>종료된 영업기회는 협업할 수 없습니다.</label>
+        <name>COLLABO_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>본사는 협업을 요청할 수 없습니다.</label>
+        <name>COLLABO_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 영업기회는 이미 협업중입니다.</label>
+        <name>COLLABO_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label>사기검이 완료된 영업기회는 협업할 수 없습니다.</label>
+        <name>COLLABO_MSG_0006</name>
+    </customLabels>
+    <customLabels>
+        <label>로딩중...</label>
+        <name>COLLABO_MSG_0007</name>
+    </customLabels>
+    <customLabels>
+        <label>Company Code가 없습니다.</label>
+        <name>COLLABO_MSG_0008</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 사용자는 지정할 수 없습니다. 공식 영업 부서에 소속된 영업대표로 지정하세요.</label>
+        <name>COLLABO_MSG_0009</name>
+    </customLabels>
+    <customLabels>
+        <label>CSP 유형 BO는 협업 BO를 생성할 수 없습니다.</label>
+        <name>COLLABO_MSG_0010</name>
+    </customLabels>
+    <customLabels>
+        <label>닫기</label>
+        <name>COMM_BTN_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_CONFIRM --></label>
+        <name>COMM_BTN_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label>삭제</label>
+        <name>COMM_BTN_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label>끝냈다</label>
+        <name>COMM_BTN_DONE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_OK --></label>
+        <name>COMM_BTN_OK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_REFRESH --></label>
+        <name>COMM_BTN_REFRESH</name>
+    </customLabels>
+    <customLabels>
+        <label>저장</label>
+        <name>COMM_BTN_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>Create/Change Project Code</label>
+        <name>COMM_BTN_SEND_SAP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_USER_MANUAL --></label>
+        <name>COMM_BTN_USER_MANUAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_AES256KEY --></label>
+        <name>COMM_LAB_AES256KEY</name>
+    </customLabels>
+    <customLabels>
+        <label>알림</label>
+        <name>COMM_LAB_ALERT</name>
+    </customLabels>
+    <customLabels>
+        <label>첨부파일</label>
+        <name>COMM_LAB_ATTACHMENT</name>
+    </customLabels>
+    <customLabels>
+        <label>부서</label>
+        <name>COMM_LAB_DEPARTMENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_DOWNLOAD --></label>
+        <name>COMM_LAB_DOWNLOAD</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일</label>
+        <name>COMM_LAB_EMAIL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_ERROR --></label>
+        <name>COMM_LAB_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label>이름</label>
+        <name>COMM_LAB_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>소유자</label>
+        <name>COMM_LAB_OWNER</name>
+    </customLabels>
+    <customLabels>
+        <label>서버 또는 클라이언트의 응답이 오프라인 상태입니다.</label>
+        <name>COMM_LAB_RESPONSE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_SUCCESS --></label>
+        <name>COMM_LAB_SUCCESS</name>
+    </customLabels>
+    <customLabels>
+        <label>제목</label>
+        <name>COMM_LAB_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>나중에 다시 시도하거나 관리자에게 문의하십시오.</label>
+        <name>COMM_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>성공적으로 저장되었습니다.</label>
+        <name>COMM_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>Manual Sharing 사용 권한이 없습니다. 관리자에게 문의하여 주세요.</label>
+        <name>COMM_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>모바일에서는 사용할 수 없습니다.</label>
+        <name>COMM_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>본문에 첨부 파일로 전송 된 이미지는 Salesforce 사용자가 아닌 사용자에게 표시되지 않습니다.</label>
+        <name>COMM_MSG_0011</name>
+    </customLabels>
+    <customLabels>
+        <label>알 수 없는 JavaScript Controller/Helper 오류!</label>
+        <name>COMM_MSG_0020</name>
+    </customLabels>
+    <customLabels>
+        <label>잠긴 레코드는 수정할 수 없습니다.</label>
+        <name>COMM_MSG_RECORD_LOCKED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_VAL_PREACTVALID_AFTER_DATE --></label>
+        <name>COMM_VAL_PREACTVALID_AFTER_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_VAL_TEST_DATE --></label>
+        <name>COMM_VAL_TEST_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>[Compliance 가이드]&lt;br/&gt;
+&lt;br/&gt;
+주간보고 내용 작성시 취득한 정보는 공개된 내용을 근거로 작성해야 하며, 경쟁사 또는 발주처 로부터 취득한 비공식 정보의 사용 또는 정보 교환 행위는 영업비밀 침해, 담합 등 compliance 위반에 해당될 수 있으므로 유의하시기 바랍니다.&lt;br/&gt;
+&lt;br/&gt;
+※ 담합 해당 정보교환 유형(경쟁을 제한하는 목적인 경우)&lt;br/&gt;
+&amp;nbsp;&amp;nbsp;  - 상품ㆍ용역의 원가&lt;br/&gt;
+&amp;nbsp;&amp;nbsp;  - 출고량ㆍ재고량ㆍ판매량&lt;br/&gt;
+&amp;nbsp;&amp;nbsp;  - 상품ㆍ용역의 거래조건 및 대금ㆍ대가 지급 조건&lt;br/&gt;</label>
+        <name>COMPLIANCE_GUIDE_01</name>
+    </customLabels>
+    <customLabels>
+        <label>레코드 소유자만 상세 정보를 볼 수 있습니다.</label>
+        <name>CONTACT_OWNER_ONLY</name>
+    </customLabels>
+    <customLabels>
+        <label>변환</label>
+        <name>CONVERT_LAB_CONVERT</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드 변환</label>
+        <name>CONVERT_LAB_CONVERTLEAD</name>
+    </customLabels>
+    <customLabels>
+        <label>변환 실패</label>
+        <name>CONVERT_LAB_FAILCONVERT</name>
+    </customLabels>
+    <customLabels>
+        <label>마케팅리드</label>
+        <name>CONVERT_LAB_LEAD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_LEAD_API --></label>
+        <name>CONVERT_LAB_LEAD_API</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 예상일이 입력되지 않았습니다.</label>
+        <name>CONVERT_LAB_MSG01</name>
+    </customLabels>
+    <customLabels>
+        <label>예상 금액이 입력되지 않았습니다.</label>
+        <name>CONVERT_LAB_MSG02</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드명이 입력되지 않았습니다.</label>
+        <name>CONVERT_LAB_MSG03</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회가 생성되었습니다.</label>
+        <name>CONVERT_LAB_MSG04</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드로 이미 변환되었습니다.</label>
+        <name>CONVERT_LAB_MSG05</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드의 단계가 Hot상태가 아닙니다. BANT정보를 체크해주세요(2개 항목 이상 체크시 변환 가능합니다.)</label>
+        <name>CONVERT_LAB_MSG06</name>
+    </customLabels>
+    <customLabels>
+        <label>레코드 소유자가 없습니다.</label>
+        <name>CONVERT_LAB_MSG07</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드로 이미 변환되었습니다.</label>
+        <name>CONVERT_LAB_MSG08</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드로 변환되었습니다.</label>
+        <name>CONVERT_LAB_MSG09</name>
+    </customLabels>
+    <customLabels>
+        <label>고객명이 없습니다.</label>
+        <name>CONVERT_LAB_MSG10</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 사업리드는 이미 사업기회로 변환되었습니다.</label>
+        <name>CONVERT_LAB_MSG11</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 고객은 MDG고객이 아닙니다.</label>
+        <name>CONVERT_LAB_MSG12</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG13 --></label>
+        <name>CONVERT_LAB_MSG13</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG14 --></label>
+        <name>CONVERT_LAB_MSG14</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG15 --></label>
+        <name>CONVERT_LAB_MSG15</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG16 --></label>
+        <name>CONVERT_LAB_MSG16</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG17 --></label>
+        <name>CONVERT_LAB_MSG17</name>
+    </customLabels>
+    <customLabels>
+        <label>마케팅 리드의 유형이 사업 혹은 기술지원/문의 인 경우만 사업리드로 변환이 가능합니다.</label>
+        <name>CONVERT_LAB_MSG18</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드의 유형이 사업 혹은 기술 지원/문의인 경우에만 사업기회로 변환 가능합니다.</label>
+        <name>CONVERT_LAB_MSG19</name>
+    </customLabels>
+    <customLabels>
+        <label>종결된 마케팅리드는 변환할 수 없습니다.</label>
+        <name>CONVERT_LAB_MSG20</name>
+    </customLabels>
+    <customLabels>
+        <label>마케팅리드의 단계는 역행할 수 없습니다.</label>
+        <name>CONVERT_LAB_MSG21</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드 변환이 완료된 마케팅리드는 리드상태, 종결사유, 리드유형 변경 불가능합니다.</label>
+        <name>CONVERT_LAB_MSG22</name>
+    </customLabels>
+    <customLabels>
+        <label>종결된 사업리드는 변환할 수 없습니다.</label>
+        <name>CONVERT_LAB_MSG23</name>
+    </customLabels>
+    <customLabels>
+        <label>단계를 Hot으로 변경하려면 BANT를 2개 이상 체크해야 합니다.</label>
+        <name>CONVERT_LAB_MSG24</name>
+    </customLabels>
+    <customLabels>
+        <label>소유자를 변경하기 위해서는 리드 유형을 선택해야 합니다.</label>
+        <name>CONVERT_LAB_MSG25</name>
+    </customLabels>
+    <customLabels>
+        <label>고객컨택일자를 입력하세요. 현재 일자보다 이후의 날짜는 입력할 수 없습니다.</label>
+        <name>CONVERT_LAB_MSG26</name>
+    </customLabels>
+    <customLabels>
+        <label>마케팅 리드에서 전환시에만 선택 가능합니다.</label>
+        <name>CONVERT_LAB_MSG27</name>
+    </customLabels>
+    <customLabels>
+        <label>마케팅 리드에서 전환된 리드는, 리드 채널 변경이 불가능합니다.</label>
+        <name>CONVERT_LAB_MSG28</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드의 유형이 PJT 시스템 개선, PJT 신규 시스템 구축, 솔루션/서비스, 컨설팅인 경우에만 사업기회로 변환 가능합니다</label>
+        <name>CONVERT_LAB_MSG29</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회</label>
+        <name>CONVERT_LAB_OPPORTUNITY</name>
+    </customLabels>
+    <customLabels>
+        <label>소유자</label>
+        <name>CONVERT_LAB_RECORDOWNER</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드</label>
+        <name>CONVERT_LAB_SALESLEAD</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 변환</label>
+        <name>CONVERT_LAB_SALESLEADCONVERT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_SALES_LEAD_API --></label>
+        <name>CONVERT_LAB_SALES_LEAD_API</name>
+    </customLabels>
+    <customLabels>
+        <label>변환 성공</label>
+        <name>CONVERT_LAB_SUCCESSCONVERT</name>
+    </customLabels>
+    <customLabels>
+        <label>닫기</label>
+        <name>CONVER_BTN_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label>변환</label>
+        <name>CONVER_BTN_CONVERT</name>
+    </customLabels>
+    <customLabels>
+        <label>확정 하시겠습니까?</label>
+        <name>CPReviewConfirmMessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cancel --></label>
+        <name>Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label>취급 화물 상세 입력 정보를 저장 해 주세요</label>
+        <name>CargoesErrormessage</name>
+    </customLabels>
+    <customLabels>
+        <label>취급 화물 상세 입력</label>
+        <name>Cargoeslabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ChangeOwner --></label>
+        <name>ChangeOwner</name>
+    </customLabels>
+    <customLabels>
+        <label>고객번호를 넣으세요</label>
+        <name>Change_Account_Number</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Change Account Owner --></label>
+        <name>Change_Account_Owner</name>
+    </customLabels>
+    <customLabels>
+        <label>고객 소유자</label>
+        <name>Change_Account_OwnerBtn</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Change Opportunity Owner --></label>
+        <name>Change_Opportunity_Owner</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 소유자 변경</label>
+        <name>Change_Opportunity_OwnerBtn</name>
+    </customLabels>
+    <customLabels>
+        <label>소유자 변경</label>
+        <name>Change_Owner</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Change_OwnerBtn --></label>
+        <name>Change_OwnerBtn</name>
+    </customLabels>
+    <customLabels>
+        <label>완료예정일에 오늘 이후 날짜를 입력하세요.</label>
+        <name>CheckCompletionDate</name>
+    </customLabels>
+    <customLabels>
+        <label>비중은 0 이상 이어야 합니다</label>
+        <name>Check_Rate_Value</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Class Code --></label>
+        <name>Class_Code</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Class Name --></label>
+        <name>Class_Name</name>
+    </customLabels>
+    <customLabels>
+        <label>단계 변경 시 기존 입력 내용이 지워집니다. 삭제 하시겠습니까?</label>
+        <name>Clear_Lost_Drop_Type</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- set of CompanyName for CompanyAverageLogin Class --></label>
+        <name>CompanyAverageLogin_CompanyNames</name>
+    </customLabels>
+    <customLabels>
+        <label>물류</label>
+        <name>CompanyAverageLogin_Logistics</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- set of Profiles for CompanyAverageLogin class --></label>
+        <name>CompanyAverageLogin_Profiles</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CompanyAverageLogin_UserType --></label>
+        <name>CompanyAverageLogin_UserType</name>
+    </customLabels>
+    <customLabels>
+        <label>회사코드</label>
+        <name>Company_Code</name>
+    </customLabels>
+    <customLabels>
+        <label>회사명</label>
+        <name>Company_Name</name>
+    </customLabels>
+    <customLabels>
+        <label>회사코드</label>
+        <name>Company_code_label</name>
+    </customLabels>
+    <customLabels>
+        <label>완료예정일</label>
+        <name>Completion_Date</name>
+    </customLabels>
+    <customLabels>
+        <label>[일반 취급금지 품목]</label>
+        <name>ContentHeading</name>
+    </customLabels>
+    <customLabels>
+        <label>[사업부 절대 취급금지 위험물]</label>
+        <name>ContentHeading1</name>
+    </customLabels>
+    <customLabels>
+        <label>[사업부 취급제한 위험물]</label>
+        <name>ContentHeading2</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Convert --></label>
+        <name>Convert</name>
+    </customLabels>
+    <customLabels>
+        <label>실주사유 복사</label>
+        <name>Copy</name>
+    </customLabels>
+    <customLabels>
+        <label>기존에 입력된 내용이 지워집니다. 그래도 복사하시겠습니까?</label>
+        <name>Copy_Analysis_of_Comp_Data</name>
+    </customLabels>
+    <customLabels>
+        <label>종결사유 복사</label>
+        <name>Copy_Drop_Type</name>
+    </customLabels>
+    <customLabels>
+        <label>성공적으로 복사 되었습니다.</label>
+        <name>Copy_Success_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label>&apos;주 영업 부서 (L3)&apos; 정보가 유효하지 않습니다.</label>
+        <name>Cost_Center_001</name>
+    </customLabels>
+    <customLabels>
+        <label>&apos;**주 실행 부서 (L3)&apos; 정보가 유효하지 않습니다.</label>
+        <name>Cost_Center_002</name>
+    </customLabels>
+    <customLabels>
+        <label>&apos;주 영업 부서 (L3)&apos;와 &apos;**주 실행 부서 (L3)&apos; 정보가 유효하지 않습니다.</label>
+        <name>Cost_Center_003</name>
+    </customLabels>
+    <customLabels>
+        <label>대책</label>
+        <name>CounterMeasure</name>
+    </customLabels>
+    <customLabels>
+        <label>Post-Mortem 결과</label>
+        <name>Countermeasures</name>
+    </customLabels>
+    <customLabels>
+        <label>사용자생성하기</label>
+        <name>CreateUser</name>
+    </customLabels>
+    <customLabels>
+        <label>Critical Lost Reason</label>
+        <name>Critical_LOST_003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Custom System Administrator Profile ID --></label>
+        <name>Custom_System_Administrator_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>기한</label>
+        <name>Deadline</name>
+    </customLabels>
+    <customLabels>
+        <label>데이터 삭제 권한이 없습니다.</label>
+        <name>Deleteoppserivedesk</name>
+    </customLabels>
+    <customLabels>
+        <label>닫기</label>
+        <name>DeliveryProbabilityCancel</name>
+    </customLabels>
+    <customLabels>
+        <label>표시할 활동이 없습니다.</label>
+        <name>DeliveryProbabilityDefault</name>
+    </customLabels>
+    <customLabels>
+        <label>사전 영업 활동</label>
+        <name>DeliveryProbabilityHeading</name>
+    </customLabels>
+    <customLabels>
+        <label>예정 및 기한 초과</label>
+        <name>DeliveryProbabilitySecondHeading</name>
+    </customLabels>
+    <customLabels>
+        <label>모두 보기</label>
+        <name>DeliveryProbabilityViewAll</name>
+    </customLabels>
+    <customLabels>
+        <label>부서명</label>
+        <name>Department_Name</name>
+    </customLabels>
+    <customLabels>
+        <label>담당부서</label>
+        <name>Dept_in_Charge</name>
+    </customLabels>
+    <customLabels>
+        <label>Description</label>
+        <name>Description_LOST_003</name>
+    </customLabels>
+    <customLabels>
+        <label>상세 내용 (50자 이상 입력하세요)</label>
+        <name>Detail</name>
+    </customLabels>
+    <customLabels>
+        <label>50자 이상 입력하세요.</label>
+        <name>Detail_Character_validation</name>
+    </customLabels>
+    <customLabels>
+        <label>상세</label>
+        <name>Details</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Division Name --></label>
+        <name>Division_Name</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Divison Code --></label>
+        <name>Divison_Code</name>
+    </customLabels>
+    <customLabels>
+        <label>[중도종결 사유]</label>
+        <name>Drop_Formula_label</name>
+    </customLabels>
+    <customLabels>
+        <label>종결 사유</label>
+        <name>Drop_Type</name>
+    </customLabels>
+    <customLabels>
+        <label>성공적으로 저장되었습니다. 
+종결/실주 사유 분석 탭을 입력해주세요</label>
+        <name>Dtrop_Lost_Activity_Success_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label>삭제</label>
+        <name>EFSS_COMP_BUTTON_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label>다운로드</label>
+        <name>EFSS_COMP_BUTTON_DOWNLOAD</name>
+    </customLabels>
+    <customLabels>
+        <label>, onerror 핸들러 오류.</label>
+        <name>EFSS_COMP_DELETE_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label>서버가 응답하지 않습니다!</label>
+        <name>EFSS_COMP_ERR_MSG_SERVER_NOT_RESPONDED</name>
+    </customLabels>
+    <customLabels>
+        <label>XHR 응답 오류</label>
+        <name>EFSS_COMP_ERR_MSG_XHR_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label>파일</label>
+        <name>EFSS_COMP_LABEL</name>
+    </customLabels>
+    <customLabels>
+        <label>Javascript에서 알 수 없는 오류.</label>
+        <name>EFSS_COMP_UNKNOWN_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label>이 기기는 뷰어를 지원하지 않습니다.</label>
+        <name>EFSS_COMP_VIEWER_NOT_SUPPORTED</name>
+    </customLabels>
+    <customLabels>
+        <label>PC에서는 뷰어를 사용할 수 없습니다. 다운로드하십시오.</label>
+        <name>EFSS_COMP_VIEWER_PC_NOT_SUPPORTED</name>
+    </customLabels>
+    <customLabels>
+        <label>791c9a0918dfec9d-649ada965ad78f30-34ac02f9ad748e34</label>
+        <name>EFSS_VAULT_AUTHKEY</name>
+    </customLabels>
+    <customLabels>
+        <label>https://vault-ext-stg.efss.samsung.net</label>
+        <name>EFSS_VAULT_AUTHURL</name>
+    </customLabels>
+    <customLabels>
+        <label>https://vault-stg.efss.samsung.net</label>
+        <name>EFSS_VAULT_FILEURL</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일</label>
+        <name>EMAIL_LAB_EMAIL</name>
+    </customLabels>
+    <customLabels>
+        <label>보내는 사람</label>
+        <name>EMAIL_LAB_FROM</name>
+    </customLabels>
+    <customLabels>
+        <label>받는 사람</label>
+        <name>EMAIL_LAB_RECIPIENTS</name>
+    </customLabels>
+    <customLabels>
+        <label>템플릿</label>
+        <name>EMAIL_LAB_REPORT_TEMPLATE</name>
+    </customLabels>
+    <customLabels>
+        <label>발신</label>
+        <name>EMAIL_LAB_SEND</name>
+    </customLabels>
+    <customLabels>
+        <label>제목</label>
+        <name>EMAIL_LAB_SUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>[사전 경쟁 예측 및 전략]</label>
+        <name>EMAIL_LOST_001</name>
+    </customLabels>
+    <customLabels>
+        <label>[입찰 후 결과]</label>
+        <name>EMAIL_LOST_002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_LOST_003 --></label>
+        <name>EMAIL_LOST_003</name>
+    </customLabels>
+    <customLabels>
+        <label>최대 % [MSG1] % To가 허용됩니다.</label>
+        <name>EMAIL_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>최대 % [MSG1] % CC가 허용됩니다.</label>
+        <name>EMAIL_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>최대 % [MSG1] % BCC가 허용됩니다.</label>
+        <name>EMAIL_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>제목을 입력하세요.</label>
+        <name>EMAIL_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>설명을 입력하십시오.</label>
+        <name>EMAIL_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label>메일을 보내지 못했습니다.</label>
+        <name>EMAIL_MSG_0006</name>
+    </customLabels>
+    <customLabels>
+        <label>메일이 전송되었습니다.</label>
+        <name>EMAIL_MSG_0007</name>
+    </customLabels>
+    <customLabels>
+        <label>첨부 파일이 % [MSG1] % 용량을 초과했습니다.</label>
+        <name>EMAIL_MSG_0008</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일을 보낼 수신자를 추가하십시오.</label>
+        <name>EMAIL_MSG_0009</name>
+    </customLabels>
+    <customLabels>
+        <label>수신자를 추가 하시겠습니까?</label>
+        <name>EMAIL_MSG_0010</name>
+    </customLabels>
+    <customLabels>
+        <label>수신자를 추가하십시오.</label>
+        <name>EMAIL_MSG_0011</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일 주소가 잘못되었습니다.</label>
+        <name>EMAIL_MSG_0012</name>
+    </customLabels>
+    <customLabels>
+        <label>이 이메일은 사용할 수 없습니다.</label>
+        <name>EMAIL_MSG_0013</name>
+    </customLabels>
+    <customLabels>
+        <label>메일이 취소되었습니다.</label>
+        <name>EMAIL_MSG_0014</name>
+    </customLabels>
+    <customLabels>
+        <label>이 이메일은 이미 취소되었습니다.</label>
+        <name>EMAIL_MSG_0015</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_USER_LOGISTICS_GROUP --></label>
+        <name>EMAIL_USER_LOGISTICS_GROUP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_USER_PRICING_GROUP --></label>
+        <name>EMAIL_USER_PRICING_GROUP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EP ID --></label>
+        <name>EP_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>주소</label>
+        <name>EXINFO_LAB_ADDRESS</name>
+    </customLabels>
+    <customLabels>
+        <label>대표자 이름</label>
+        <name>EXINFO_LAB_CEONAME</name>
+    </customLabels>
+    <customLabels>
+        <label>고객명(영문)</label>
+        <name>EXINFO_LAB_ENNAME</name>
+    </customLabels>
+    <customLabels>
+        <label>팩스</label>
+        <name>EXINFO_LAB_FAX</name>
+    </customLabels>
+    <customLabels>
+        <label>외부정보</label>
+        <name>EXINFO_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>정보 출처</label>
+        <name>EXINFO_LAB_INFOSOURCE</name>
+    </customLabels>
+    <customLabels>
+        <label>고객명(국문)</label>
+        <name>EXINFO_LAB_KRNAME</name>
+    </customLabels>
+    <customLabels>
+        <label>전화번호</label>
+        <name>EXINFO_LAB_PHONE</name>
+    </customLabels>
+    <customLabels>
+        <label>홈페이지</label>
+        <name>EXINFO_LAB_WEBSITE</name>
+    </customLabels>
+    <customLabels>
+        <label>열을 선택해주세요.</label>
+        <name>EXINFO_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>사업자등록번호를 입력해주세요.</label>
+        <name>EXINFO_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>인터페이스 오류 (IF-026)</label>
+        <name>EXINFO_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>고객 정보 업데이트 성공</label>
+        <name>EXINFO_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일 주소를 입력하세요.</label>
+        <name>EmailAddressMandate</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일 주소를 넣으세요</label>
+        <name>EmailAddressPlaceHolder</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일</label>
+        <name>Email_Address</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Employee Information --></label>
+        <name>Employee_Information</name>
+    </customLabels>
+    <customLabels>
+        <label>임직원 성명</label>
+        <name>Employee_Name</name>
+    </customLabels>
+    <customLabels>
+        <label>비중의 합은 100%이어야 합니다</label>
+        <name>ErrorTotal100Value</name>
+    </customLabels>
+    <customLabels>
+        <label>Level1-Level3 에 중복된 값이 있습니다.</label>
+        <name>Error_Duplicate_Value</name>
+    </customLabels>
+    <customLabels>
+        <label>선택한 실주 유형에 대해 모든 상세정보가 입력되어야 합니다</label>
+        <name>Error_Mandatory_Fields</name>
+    </customLabels>
+    <customLabels>
+        <label>모든 필수 필드(*)에 값을 입력해야 합니다</label>
+        <name>Error_Mandatory_Fields_Table2</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의 예외된 사업기회는 수정이 불가합니다.</label>
+        <name>Exceptional_opportunities_for_business_review_cannot_be_modified</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FILE_0002 --></label>
+        <name>FILE_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>최대 1 개의 파일을 첨부 할 수 있습니다.</label>
+        <name>FILE_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>파일 크기는</label>
+        <name>FILE_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>바이트를 초과 할 수 없습니다. 선택한 파일의 크기</label>
+        <name>FILE_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>최대 {0} 개의 파일을 첨부 할 수 있습니다.</label>
+        <name>FILE_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>파일을 첨부하세요.</label>
+        <name>FILE_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FILE_MSG_0006 --></label>
+        <name>FILE_MSG_0006</name>
+    </customLabels>
+    <customLabels>
+        <label>파일 첨부 제한 용량을 초과했습니다.</label>
+        <name>FILE_MSG_0007</name>
+    </customLabels>
+    <customLabels>
+        <label>첨부파일, 첨부파일이 없습니다.</label>
+        <name>File_Attachment_Label</name>
+    </customLabels>
+    <customLabels>
+        <label>취급 품목이 국제규칙에서 정한 위험물입니까?</label>
+        <name>FirstPopupmainHeading</name>
+    </customLabels>
+    <customLabels>
+        <label>※ 위 Check 항목 중 ‘Yes’ 또는 ‘Need To Review’ 가 있는 경우 물류 CP 사업 심의 대상입니다.</label>
+        <name>FooterMessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- GOOGLENEWS_KEYWORD --></label>
+        <name>GOOGLENEWS_KEYWORD</name>
+    </customLabels>
+    <customLabels>
+        <label>뉴스 검색어 설정</label>
+        <name>GOOGLENEWS_KEYWORD_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>뉴스</label>
+        <name>GOOGLENEWS_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group_Hierarchy_100M_Label --></label>
+        <name>Group_Hierarchy_100M_Label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Amount Column --></label>
+        <name>Group_Hierarchy_Amount_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy And Column --></label>
+        <name>Group_Hierarchy_And_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy BO Column --></label>
+        <name>Group_Hierarchy_BO_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Category Column --></label>
+        <name>Group_Hierarchy_Category_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Close Date Elapsed Column --></label>
+        <name>Group_Hierarchy_Close_Date_Elapsed_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Group Column --></label>
+        <name>Group_Hierarchy_Group_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Near To Close Column --></label>
+        <name>Group_Hierarchy_Near_To_Close_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Sub Total label --></label>
+        <name>Group_Hierarchy_Sub_Total_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Team Column --></label>
+        <name>Group_Hierarchy_Team_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Total Label --></label>
+        <name>Group_Hierarchy_Total_Label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group_Hierarchy_Total_Sum_Label --></label>
+        <name>Group_Hierarchy_Total_Sum_Label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy more Column --></label>
+        <name>Group_Hierarchy_more_Column</name>
+    </customLabels>
+    <customLabels>
+        <label>확인</label>
+        <name>Handle_Yes_LostDrop</name>
+    </customLabels>
+    <customLabels>
+        <label>취소</label>
+        <name>Handle_no</name>
+    </customLabels>
+    <customLabels>
+        <label>복사</label>
+        <name>Handle_yes</name>
+    </customLabels>
+    <customLabels>
+        <label>데이터 전송이 원할하지 않습니다.
+관리자에게 문의하세요</label>
+        <name>IF_ADMIN_MSG_001</name>
+    </customLabels>
+    <customLabels>
+        <label>개선방안</label>
+        <name>Improvement</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- JITTERBIT_IFERROR_Last_Minutes --></label>
+        <name>JITTERBIT_IFERROR_Last_Minutes</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- JITTERBIT_IFERROR_MAIL_RECIPIENT --></label>
+        <name>JITTERBIT_IFERROR_MAIL_RECIPIENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- JITTERBIT_IFERROR_MAIL_RECIPIENT_SANDBOX --></label>
+        <name>JITTERBIT_IFERROR_MAIL_RECIPIENT_SANDBOX</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- KNOX_ADDR_NEXT_URL --></label>
+        <name>KNOX_ADDR_NEXT_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- KNOX_ADDR_PREV_URL --></label>
+        <name>KNOX_ADDR_PREV_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- KNOX_ADDR_SHARE_URL --></label>
+        <name>KNOX_ADDR_SHARE_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- KNOX_ADDR_URL --></label>
+        <name>KNOX_ADDR_URL</name>
+    </customLabels>
+    <customLabels>
+        <label>통화를 KRW에서 &quot;{0}&quot;으로 변경하는 것이 확실합니까?</label>
+        <name>KRW_NOTICE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Knox PJT Alert --></label>
+        <name>Knox_PJT_Alert</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Knox_PJT_Alert_In_Korean --></label>
+        <name>Knox_PJT_Alert_In_Korean</name>
+    </customLabels>
+    <customLabels>
+        <label>녹스에 mySales 캘린더이 없습니다.</label>
+        <name>Knox_calendar_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>결재선 유형을 찾을 수 없습니다. 시스템 관리자에게 문의하십시오.</label>
+        <name>LAPP_MSG_001</name>
+    </customLabels>
+    <customLabels>
+        <label>결재선이 존재하지 않습니다.</label>
+        <name>LAPP_MSG_002</name>
+    </customLabels>
+    <customLabels>
+        <label>결재 본문이 없습니다.</label>
+        <name>LAPP_MSG_003</name>
+    </customLabels>
+    <customLabels>
+        <label>임직원 정보에 사원번호(Employee Number)가 없습니다.</label>
+        <name>LAPP_MSG_004</name>
+    </customLabels>
+    <customLabels>
+        <label>임직원 정보에 회사 코드(Company Code)가 없습니다.</label>
+        <name>LAPP_MSG_005</name>
+    </customLabels>
+    <customLabels>
+        <label>결재선 조회가 성공하였습니다.</label>
+        <name>LAPP_MSG_006</name>
+    </customLabels>
+    <customLabels>
+        <label>결재선 조회가 완료되지 않았습니다.</label>
+        <name>LAPP_MSG_007</name>
+    </customLabels>
+    <customLabels>
+        <label>마지막 로그인 시간</label>
+        <name>LOGIN_LAB_LASTLOGIN</name>
+    </customLabels>
+    <customLabels>
+        <label>로그인 사용자 정보</label>
+        <name>LOGIN_LAB_LOGINUSERINFO</name>
+    </customLabels>
+    <customLabels>
+        <label>이름</label>
+        <name>LOGIN_LAB_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>(Bidding Logistcis CP Review) 신청 이후 (Bidding LBS) 진행 바랍니다.</label>
+        <name>LOGISTICS_CPSTATUS_MSG_BID</name>
+    </customLabels>
+    <customLabels>
+        <label>(Final Logistics CP Review) 신청 이후 (Final LBS) 진행 바랍니다.</label>
+        <name>LOGISTICS_CPSTATUS_MSG_FIN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGISTICS_CP_BTN_CONFIRM --></label>
+        <name>LOGISTICS_CP_BTN_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGISTICS_CP_BTN_NEEDTOREVIEW --></label>
+        <name>LOGISTICS_CP_BTN_NEEDTOREVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGISTICS_CP_BTN_NO --></label>
+        <name>LOGISTICS_CP_BTN_NO</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGISTICS_CP_BTN_YES --></label>
+        <name>LOGISTICS_CP_BTN_YES</name>
+    </customLabels>
+    <customLabels>
+        <label>[실주 사유]</label>
+        <name>Lost_Formula_label</name>
+    </customLabels>
+    <customLabels>
+        <label>**주 실행 부서 (L3) 필드값이 없습니다. 값을 넣어주세요.</label>
+        <name>Lost_Opportunity_Field_Validation_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>실주요인</label>
+        <name>Lost_Reason</name>
+    </customLabels>
+    <customLabels>
+        <label>실주 사유</label>
+        <name>Lost_Type</name>
+    </customLabels>
+    <customLabels>
+        <label>Level 1, Level 2, Level 3 값을 입력 하세요.</label>
+        <name>Lvl_check_error</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MAIN_NOTICE_ENDDATE --></label>
+        <name>MAIN_NOTICE_ENDDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MAIN_NOTICE_FLAG --></label>
+        <name>MAIN_NOTICE_FLAG</name>
+    </customLabels>
+    <customLabels>
+        <label>□ 본사 조직개편 작업 안내
+
+본사 조직개편 작업으로 인해 mySales 서비스가 아래와 같이 제한되오니 
+본사 임직원 께서는 업무에 참고하시기 바랍니다.
+mySales는 데이터 조회만 가능합니다.
+
+1. 작업 내용 : 본사 조직개편
+2. 서비스 제한 일시 : &apos;23.12.4(월) 20시 ~ 12.13(수) 24시 (한국 시간 기준)</label>
+        <name>MAIN_NOTICE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MAIN_NOTICE_STARTDATE --></label>
+        <name>MAIN_NOTICE_STARTDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>&lt;시스템 작업 안내&gt;</label>
+        <name>MAIN_NOTICE_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MAIN_NOTICE_URL --></label>
+        <name>MAIN_NOTICE_URL</name>
+    </customLabels>
+    <customLabels>
+        <label>MDG 고객 등록</label>
+        <name>MDG_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>MDG 고객 등록은 아래의 모든 필수값이 입력된 경우에만 가능합니다.</label>
+        <name>MDG_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>MDG 고객 생성 성공.</label>
+        <name>MDG_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>주소의 글자수를 확인해주세요.</label>
+        <name>MDG_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>임직원 정보가 없습니다.</label>
+        <name>MDG_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MISID_EMAIL_CONTENT --></label>
+        <name>MISID_EMAIL_CONTENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MISID_EMAIL_SENDER --></label>
+        <name>MISID_EMAIL_SENDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MISID_EMAIL_SUBJECT --></label>
+        <name>MISID_EMAIL_SUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MISID_EMAIL_TOLIST --></label>
+        <name>MISID_EMAIL_TOLIST</name>
+    </customLabels>
+    <customLabels>
+        <label>MES 등 제조지능화 솔루션/플랫폼 제공 및 구축사업</label>
+        <name>MS_20000001</name>
+    </customLabels>
+    <customLabels>
+        <label>물류자동화, 플랜트 지능화 솔루션/플랫폼 제공 및 구축사업</label>
+        <name>MS_20000002</name>
+    </customLabels>
+    <customLabels>
+        <label>PLM, 3D 등 제품개발 분야 솔루션/플랫폼 제공 및 구축사업</label>
+        <name>MS_20000003</name>
+    </customLabels>
+    <customLabels>
+        <label>환경/보건/안전/에너지 분야의 컨설팅 및 IT 인프라 구축사업</label>
+        <name>MS_20000004</name>
+    </customLabels>
+    <customLabels>
+        <label>SCM 솔루션 공급/구축사업, 물류 Cello 서비스 공급사업</label>
+        <name>MS_20000005</name>
+    </customLabels>
+    <customLabels>
+        <label>통합 물류 플랫폼 Cello기반 글로벌 4PL(4th Party Logistics) 서비스 공급사업</label>
+        <name>MS_20000006</name>
+    </customLabels>
+    <customLabels>
+        <label>업무 협업 솔루션 공급 및 구축사업 (문서/파일 공유 Knox EFSS)</label>
+        <name>MS_20000007</name>
+    </customLabels>
+    <customLabels>
+        <label>업무 협업 솔루션 공급 및 구축사업 (메일/결제 중심 그룹웨어 Knox Portal, 기업용 영상회의 Knox Meeting)</label>
+        <name>MS_20000009</name>
+    </customLabels>
+    <customLabels>
+        <label>대외 Portal 솔루션 구축사업</label>
+        <name>MS_20000010</name>
+    </customLabels>
+    <customLabels>
+        <label>모바일용 어플리케이션 운영사업</label>
+        <name>MS_20000011</name>
+    </customLabels>
+    <customLabels>
+        <label>스마트홈, 스마트락, 스마트액세스 공급 및 구축사업</label>
+        <name>MS_20000012</name>
+    </customLabels>
+    <customLabels>
+        <label>리테일 솔루션(Nexshop) 공급 및 구축사업</label>
+        <name>MS_20000014</name>
+    </customLabels>
+    <customLabels>
+        <label>Cardio(S-패치) 및 EHR(의료서비스 운영 효율향상) 공급 및 구축사업</label>
+        <name>MS_20000015</name>
+    </customLabels>
+    <customLabels>
+        <label>기업교육/외국어교육/지식서비스 사업 (멀티캠퍼스)</label>
+        <name>MS_20000016</name>
+    </customLabels>
+    <customLabels>
+        <label>데이터센터 설계/전환 구축 및 운영사업, 종량제 인프라 사업</label>
+        <name>MS_20000019</name>
+    </customLabels>
+    <customLabels>
+        <label>네트워크 인프라 및 회선서비스 설계/구축/운영 컨설팅 및 구축사업</label>
+        <name>MS_20000020</name>
+    </customLabels>
+    <customLabels>
+        <label>클라우드 서비스 공급 및 구축사업</label>
+        <name>MS_20000021</name>
+    </customLabels>
+    <customLabels>
+        <label>보안 관제서비스, 보안 솔루션 공급 및 구축사업</label>
+        <name>MS_20000022</name>
+    </customLabels>
+    <customLabels>
+        <label>4G/5G등 이동통신 인프라 설계/구축 사업</label>
+        <name>MS_20000023</name>
+    </customLabels>
+    <customLabels>
+        <label>컨택센터 및 텔레포니 구축사업</label>
+        <name>MS_20000025</name>
+    </customLabels>
+    <customLabels>
+        <label>어플리케이션 운영 사업</label>
+        <name>MS_20000026</name>
+    </customLabels>
+    <customLabels>
+        <label>고객사 프로세스/시스템 혁신 서비스를 위한 IT전략 컨설팅 및 프로세스 컨설팅 사업</label>
+        <name>MS_20000027</name>
+    </customLabels>
+    <customLabels>
+        <label>Smart ERP 지식자산 기반 컨설팅/구축/운영사업</label>
+        <name>MS_20000028</name>
+    </customLabels>
+    <customLabels>
+        <label>CRM(Salesforce) 및 이커머스 솔루션 공급/구축사업</label>
+        <name>MS_20000029</name>
+    </customLabels>
+    <customLabels>
+        <label>Brightics AI 솔루션 공급 및 구축사업</label>
+        <name>MS_20000030</name>
+    </customLabels>
+    <customLabels>
+        <label>경영정보시스템 구축 등 비 솔루션 기반 SI사업</label>
+        <name>MS_20000031</name>
+    </customLabels>
+    <customLabels>
+        <label>모바일 보안솔루션(EMM) 공급 및 구축사업</label>
+        <name>MS_22000001</name>
+    </customLabels>
+    <customLabels>
+        <label>사내 아이디어 공모를 통한 신사업</label>
+        <name>MS_22000002</name>
+    </customLabels>
+    <customLabels>
+        <label>기업용 블록체인 솔루션 공급 및 구축사업</label>
+        <name>MS_22000003</name>
+    </customLabels>
+    <customLabels>
+        <label>Brightics IoT 솔루션 공급 및 구축사업</label>
+        <name>MS_22000004</name>
+    </customLabels>
+    <customLabels>
+        <label>AI기반 컨택센터 솔루션 공급 및 구축사업</label>
+        <name>MS_22000005</name>
+    </customLabels>
+    <customLabels>
+        <label>AI 솔루션 공급/구축사업</label>
+        <name>MS_22000006</name>
+    </customLabels>
+    <customLabels>
+        <label>아키텍처/공통서비스/표준 개발환경을 제공하는 Application 개발 플랫폼 공급/구축사업</label>
+        <name>MS_22000007</name>
+    </customLabels>
+    <customLabels>
+        <label>클라우드 기반 어플리케이션 운영사업</label>
+        <name>MS_22000008</name>
+    </customLabels>
+    <customLabels>
+        <label>타사 CSP 서비스 공급 및 매니지드 사업</label>
+        <name>MS_22000009</name>
+    </customLabels>
+    <customLabels>
+        <label>SaaS기반 솔루션 구축사업(CRM, SCM, HCM, Workday, o9등)</label>
+        <name>MS_22000010</name>
+    </customLabels>
+    <customLabels>
+        <label>클라우드 전환 및 구축 사업</label>
+        <name>MS_22000011</name>
+    </customLabels>
+    <customLabels>
+        <label>고객 전용 클라우드 서비스 공급 사업</label>
+        <name>MS_22000012</name>
+    </customLabels>
+    <customLabels>
+        <label>SCP 서비스 공급 사업</label>
+        <name>MS_22000013</name>
+    </customLabels>
+    <customLabels>
+        <label>VDI 서비스 공급 사업</label>
+        <name>MS_22000014</name>
+    </customLabels>
+    <customLabels>
+        <label>기업 영상회의 솔루션 공급 및 구축 사업 (웹/오디오/비디오 컨퍼런싱 제공)</label>
+        <name>MS_22000015</name>
+    </customLabels>
+    <customLabels>
+        <label>모바일 통합관리/보안 솔루션 공급 사업</label>
+        <name>MS_22000016</name>
+    </customLabels>
+    <customLabels>
+        <label>e-Biz 및 이커머스 솔루션 기반 구축 및 운영사업</label>
+        <name>MS_22000017</name>
+    </customLabels>
+    <customLabels>
+        <label>RPA 솔루션 공급/구축/ BPS 사업</label>
+        <name>MS_22000018</name>
+    </customLabels>
+    <customLabels>
+        <label>디지털 플랫폼 Cello Square 기반 물류 서비스를 제공하는 사업</label>
+        <name>MS_22000019</name>
+    </customLabels>
+    <customLabels>
+        <label>금융분야 시스템 구축</label>
+        <name>MS_22000021</name>
+    </customLabels>
+    <customLabels>
+        <label>TA(Technical Attribute) 속성을 선택하면, DT관련 사업(Brightics AI, Blockchain 등)의 솔루션 목록이 조회됩니다.</label>
+        <name>MS_TA_001</name>
+    </customLabels>
+    <customLabels>
+        <label>주관부서</label>
+        <name>Managing_dept</name>
+    </customLabels>
+    <customLabels>
+        <label>한명 이상의 사용자가 등록되어 있습니다. mySales팀에 문의하세요.</label>
+        <name>MoreUserError</name>
+    </customLabels>
+    <customLabels>
+        <label>동일한 이메일을 가진 임직원 정보가 한명 이상 존재합니다</label>
+        <name>More_than_one_employee</name>
+    </customLabels>
+    <customLabels>
+        <label>기본 팀을 추가할 수 없습니다. 기본 사업리드 팀을 설정 후 다시 시도하십시오.</label>
+        <name>NoDefaultSalesLeadTeam</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 이메일을 가진 임직원이 존재하지 않습니다.</label>
+        <name>NoEmployeeMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>등록된 User 정보가 없습니다. 권한을 선택하세요.</label>
+        <name>NoRegisterUserLabel</name>
+    </customLabels>
+    <customLabels>
+        <label>저장된 데이터가 없습니다</label>
+        <name>No_Data_Saved_Countermeasure</name>
+    </customLabels>
+    <customLabels>
+        <label>다음 단계 진행을 위해 현재 정보를 저장해주세요.</label>
+        <name>OPPTYACTY_ERR_MSG001</name>
+    </customLabels>
+    <customLabels>
+        <label>종결/실주 사유 분석&apos; 값을 저장해주세요.</label>
+        <name>OPPTYACTY_ERR_MSG002</name>
+    </customLabels>
+    <customLabels>
+        <label>제안 제출일</label>
+        <name>OPPTYACT_BO_PROPOSAL_SUBMIT_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>고객사 여신 등급</label>
+        <name>OPPTYACT_BO_REVIEW_ACCLOAN</name>
+    </customLabels>
+    <customLabels>
+        <label>수주예상금액</label>
+        <name>OPPTYACT_BO_REVIEW_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>사업규모: 고객 사업수행예산(추정)
+수주예상: 당사 수주예상금액</label>
+        <name>OPPTYACT_BO_REVIEW_AMOUNT_CAPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>입찰결정 수전위 결과</label>
+        <name>OPPTYACT_BO_REVIEW_BID_APPRTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업규모</label>
+        <name>OPPTYACT_BO_REVIEW_BIZ_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>고객 사업규모는 수주예상금액보다 커야 합니다.</label>
+        <name>OPPTYACT_BO_REVIEW_BIZ_AMOUNT_CHECK</name>
+    </customLabels>
+    <customLabels>
+        <label>사업참여 수전위 결과</label>
+        <name>OPPTYACT_BO_REVIEW_BIZ_APPRTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>고객사 신용등급</label>
+        <name>OPPTYACT_BO_REVIEW_BIZ_LOAN</name>
+    </customLabels>
+    <customLabels>
+        <label>협업 사업일 경우 원청사의 신용등급 기준</label>
+        <name>OPPTYACT_BO_REVIEW_BIZ_LOAN_CAPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>업종</label>
+        <name>OPPTYACT_BO_REVIEW_BIZ_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>컨소시엄이 아닌 경우, 사업규모는 수주예상금액보다 크거나 같아야 합니다.</label>
+        <name>OPPTYACT_BO_REVIEW_CHECK_CONSORTIUM_01</name>
+    </customLabels>
+    <customLabels>
+        <label>컨소시엄인 경우, 사업규모는 수주예상금액보다 커야 합니다.</label>
+        <name>OPPTYACT_BO_REVIEW_CHECK_CONSORTIUM_02</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의 유형을 선택하세요.</label>
+        <name>OPPTYACT_BO_REVIEW_CHOOSE_REVIEW_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>&lt;b&gt;◎ Compliance 자가점검 및 불참업종 (해당 될 경우 체크)&lt;/b&gt;</label>
+        <name>OPPTYACT_BO_REVIEW_COMPLIANCE</name>
+    </customLabels>
+    <customLabels>
+        <label>하도급법, 부당한 공동행위(담합 등), 대기업 참여제한, 인허가/면허 등 Compliance 규제에 해당사항이 있는가?</label>
+        <name>OPPTYACT_BO_REVIEW_COMPLIANCE_CHECK1</name>
+    </customLabels>
+    <customLabels>
+        <label>사행성, 대부/사채업, 성인물 업종인가?</label>
+        <name>OPPTYACT_BO_REVIEW_COMPLIANCE_CHECK2</name>
+    </customLabels>
+    <customLabels>
+        <label>Compliance 자가점검 및 불참업종을 체크하셨습니다. 본 BO는 Drop 처리하셔야 합니다.</label>
+        <name>OPPTYACT_BO_REVIEW_COMPLIANCE_DROP</name>
+    </customLabels>
+    <customLabels>
+        <label>수전위 시행일</label>
+        <name>OPPTYACT_BO_REVIEW_CONDUCTDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>컨소시엄 여부</label>
+        <name>OPPTYACT_BO_REVIEW_CONSORTIUM</name>
+    </customLabels>
+    <customLabels>
+        <label>위험고객</label>
+        <name>OPPTYACT_BO_REVIEW_DANGEROUS</name>
+    </customLabels>
+    <customLabels>
+        <label>변경된 데이터가 있습니다, 종료하겠습니까?</label>
+        <name>OPPTYACT_BO_REVIEW_DATA_CHANGED</name>
+    </customLabels>
+    <customLabels>
+        <label>&lt;b&gt;◎ 하기의 경우는 전사 관점에서의 의사결정이 필요하므로 전사 Staff이 참여하는 수주전략위원회에 상정하여 사업심의 진행&lt;/b&gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp; ⅰ) 참여대상 사업이 아니거나 고위험고객에 해당되는 사업&lt;br&gt;
+&amp;nbsp;&amp;nbsp; ⅱ) 사업부間 자원요청, 이견조율 등 전사적 지원이 필요한 사업&lt;br&gt;
+&amp;nbsp;&amp;nbsp; ⅲ) 사전 검토시 중대한 리스크가 있어 전사적 검토가 필요한 사업&lt;br&gt;
+&amp;nbsp;&amp;nbsp; ⅳ) 사업부 심의 대상 사업 중 영업이익률 10% 미만 사업&lt;br&gt;
+&amp;nbsp;&amp;nbsp; ※ 영업이익률 10% 미만 사업은 사업규모와 관계없이 경영지원실 사전협의</label>
+        <name>OPPTYACT_BO_REVIEW_DESC</name>
+    </customLabels>
+    <customLabels>
+        <label>사업규모 금액을 입력하세요.</label>
+        <name>OPPTYACT_BO_REVIEW_ENTER_BUDGET</name>
+    </customLabels>
+    <customLabels>
+        <label>사업 유형 1 값은 필수입니다. 시스템 관리자에게 문의해주세요.</label>
+        <name>OPPTYACT_BO_REVIEW_ERRORMSG</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 Read권한이 없습니다. 협업 사업기회의 팀멤버를 추가해주세요.</label>
+        <name>OPPTYACT_BO_REVIEW_ERR_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의 예외여부</label>
+        <name>OPPTYACT_BO_REVIEW_EXCEPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의 예외된 사업기회는 수정이 불가합니다.</label>
+        <name>OPPTYACT_BO_REVIEW_EXCEPTION_CANNOT_MODIFIED</name>
+    </customLabels>
+    <customLabels>
+        <label>예외사유를 입력하세요.</label>
+        <name>OPPTYACT_BO_REVIEW_EXCEPTION_DESC</name>
+    </customLabels>
+    <customLabels>
+        <label>예외사유는 10000자 이하만 입력 가능합니다.</label>
+        <name>OPPTYACT_BO_REVIEW_EXCEPTION_LIMIT</name>
+    </customLabels>
+    <customLabels>
+        <label>예외사유를 입력해주세요.</label>
+        <name>OPPTYACT_BO_REVIEW_EXCEPTION_NULL</name>
+    </customLabels>
+    <customLabels>
+        <label>Project Code 생성 후 BO 점검을 진행할 수 있습니다.</label>
+        <name>OPPTYACT_BO_REVIEW_NO_PROJECT_CODE</name>
+    </customLabels>
+    <customLabels>
+        <label>판매형/서비스형의 사업유형은 BO점검결과를 입력할 수 없습니다.</label>
+        <name>OPPTYACT_BO_REVIEW_NO_SERVICE_SALES</name>
+    </customLabels>
+    <customLabels>
+        <label>원청사 여신 등급</label>
+        <name>OPPTYACT_BO_REVIEW_ORIGINLOAN</name>
+    </customLabels>
+    <customLabels>
+        <label>수전위 요청일</label>
+        <name>OPPTYACT_BO_REVIEW_REQDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>BO점검결과</label>
+        <name>OPPTYACT_BO_REVIEW_RESULT</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의유형이 BO점검회의인 경우 아래 항목을 중심으로 BO점검결과를 입력하세요.                                                    
+- 사업참여분야/업종, 인력투입, 고객Risk, 전문협력사, 예상영업이익률, S/W개발Risk 등</label>
+        <name>OPPTYACT_BO_REVIEW_RESULT_DESC</name>
+    </customLabels>
+    <customLabels>
+        <label>점검결과는 10000자 이하만 입력 가능합니다.</label>
+        <name>OPPTYACT_BO_REVIEW_RESULT_LIMIT</name>
+    </customLabels>
+    <customLabels>
+        <label>BO점검결과를 입력해주세요.</label>
+        <name>OPPTYACT_BO_REVIEW_RESULT_NULL</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의유형이 확정되었습니다.</label>
+        <name>OPPTYACT_BO_REVIEW_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의유형 조회</label>
+        <name>OPPTYACT_BO_REVIEW_SEARCH_BTN</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의유형 조회 완료</label>
+        <name>OPPTYACT_BO_REVIEW_SEARCH_COMPLETED</name>
+    </customLabels>
+    <customLabels>
+        <label>수전위 정보수신을 실패하였습니다.
+다시 시도해주시길 바랍니다.</label>
+        <name>OPPTYACT_BO_REVIEW_SEARCH_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label>조회 결과</label>
+        <name>OPPTYACT_BO_REVIEW_SEARCH_RESULT</name>
+    </customLabels>
+    <customLabels>
+        <label>BO 점검결과</label>
+        <name>OPPTYACT_BO_REVIEW_TAB</name>
+    </customLabels>
+    <customLabels>
+        <label>임시저장 되었습니다. 사업심의유형 확정 버튼을 눌러야 최종 확정 됩니다.</label>
+        <name>OPPTYACT_BO_REVIEW_TEMP_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>임시저장중인 정보가 있습니다.</label>
+        <name>OPPTYACT_BO_REVIEW_TEMP_SAVE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의유형</label>
+        <name>OPPTYACT_BO_REVIEW_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>전사 수주전략위원회</label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_10</name>
+    </customLabels>
+    <customLabels>
+        <label>사업부 수주전략위원회</label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_20</name>
+    </customLabels>
+    <customLabels>
+        <label>BO 점검회의</label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_30</name>
+    </customLabels>
+    <customLabels>
+        <label>사업불참</label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_40</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의유형이 {0} 에서 {1} 로 상향되었습니다. 해당 프로세스로 사업심의를 진행하십시오.</label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_CHANGE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의유형이 {0} 에서 {1} 로 하향되었습니다. 해당 프로세스로 사업심의를 진행하십시오.</label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_CHANGE_DOWN</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의유형 확정</label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의유형 변동 없습니다</label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_EQUAL</name>
+    </customLabels>
+    <customLabels>
+        <label>RFP 공고일</label>
+        <name>OPPTYACT_BO_RFP_ANNOUNCE_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_SUBSIDIARY_LIST --></label>
+        <name>OPPTYACT_BO_SUBSIDIARY_LIST</name>
+    </customLabels>
+    <customLabels>
+        <label>CP 심의</label>
+        <name>OPPTYACT_BTN_BIDDING_LOGISTICS_CP_REVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label>수전위 원가</label>
+        <name>OPPTYACT_BTN_COMMITTEE_COST_PLAN</name>
+    </customLabels>
+    <customLabels>
+        <label>사업참여결정 수주전략위원회 원가</label>
+        <name>OPPTYACT_BTN_COMMITTEE_COST_PLAN_01</name>
+    </customLabels>
+    <customLabels>
+        <label>입찰결정 수주전략위원회 원가</label>
+        <name>OPPTYACT_BTN_COMMITTEE_COST_PLAN_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_CONTRACT_PL --></label>
+        <name>OPPTYACT_BTN_CONTRACT_PL</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 원가 확정</label>
+        <name>OPPTYACT_BTN_CONTRACT_P_L</name>
+    </customLabels>
+    <customLabels>
+        <label>신용평가</label>
+        <name>OPPTYACT_BTN_CREDIT_ASSESSMENT</name>
+    </customLabels>
+    <customLabels>
+        <label>사전 영업 원가</label>
+        <name>OPPTYACT_BTN_PRE_SALES_COST</name>
+    </customLabels>
+    <customLabels>
+        <label>솔루션 가격 시뮬레이션</label>
+        <name>OPPTYACT_BTN_PRICE_SIMULATION</name>
+    </customLabels>
+    <customLabels>
+        <label>계약서 입고</label>
+        <name>OPPTYACT_BTN_REG_CONTRACT</name>
+    </customLabels>
+    <customLabels>
+        <label>제안서 등록</label>
+        <name>OPPTYACT_BTN_REG_PROPOSAL</name>
+    </customLabels>
+    <customLabels>
+        <label>인력투입계획수립</label>
+        <name>OPPTYACT_BTN_REG_RESOURCE_DEMAND</name>
+    </customLabels>
+    <customLabels>
+        <label>사업참여결정 수주전략위원회 품의</label>
+        <name>OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_01</name>
+    </customLabels>
+    <customLabels>
+        <label>입찰결정 수주전략위원회 품의</label>
+        <name>OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_02</name>
+    </customLabels>
+    <customLabels>
+        <label>진행상태 확인</label>
+        <name>OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_LIST_01</name>
+    </customLabels>
+    <customLabels>
+        <label>진행상태 확인</label>
+        <name>OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_LIST_02</name>
+    </customLabels>
+    <customLabels>
+        <label>수주전략위원회</label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업참여결정 수주전략위원회 요청</label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_01</name>
+    </customLabels>
+    <customLabels>
+        <label>입찰결정 수주전략위원회 요청</label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_02</name>
+    </customLabels>
+    <customLabels>
+        <label>체크리스트</label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_01</name>
+    </customLabels>
+    <customLabels>
+        <label>체크리스트</label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_02</name>
+    </customLabels>
+    <customLabels>
+        <label>진행상태 조회</label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_LIST_01</name>
+    </customLabels>
+    <customLabels>
+        <label>진행상태 조회</label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_LIST_02</name>
+    </customLabels>
+    <customLabels>
+        <label>AP요청(APS)</label>
+        <name>OPPTYACT_BTN_REQ_AP_RATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Bidding LBS 요청</label>
+        <name>OPPTYACT_BTN_REQ_BIDDING_LBS</name>
+    </customLabels>
+    <customLabels>
+        <label>Final LBS 요청</label>
+        <name>OPPTYACT_BTN_REQ_FINAL_LBS</name>
+    </customLabels>
+    <customLabels>
+        <label>법무검토 요청</label>
+        <name>OPPTYACT_BTN_REQ_LEGAL_REVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label>제안PM요청</label>
+        <name>OPPTYACT_BTN_REQ_PROPOSAL_PM</name>
+    </customLabels>
+    <customLabels>
+        <label>Rate Change LBS 요청</label>
+        <name>OPPTYACT_BTN_REQ_RATE_CHANGE_LBS</name>
+    </customLabels>
+    <customLabels>
+        <label>Request Test 요청</label>
+        <name>OPPTYACT_BTN_REQ_TEST_SHIPMENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_STRATEGY_COMMITTEE --></label>
+        <name>OPPTYACT_BTN_STRATEGY_COMMITTEE</name>
+    </customLabels>
+    <customLabels>
+        <label>입찰결정 수주전략위원회 품의결과가 &quot;참여&quot;가 아닐경우 수주품의를 진행할 수 없습니다.</label>
+        <name>OPPTYACT_CONTRACT_APPROVAL_CANNOT_PROCEED</name>
+    </customLabels>
+    <customLabels>
+        <label>CP 심의 결과</label>
+        <name>OPPTYACT_CP_REVIEW_RESULT</name>
+    </customLabels>
+    <customLabels>
+        <label>CP 심의 상태</label>
+        <name>OPPTYACT_CP_REVIEW_STATUS</name>
+    </customLabels>
+    <customLabels>
+        <label>사업참여 수주전략위원회 품의결과가 &quot;참여&quot;가 아닐경우 입찰결정 액티비티를 진행할 수 없습니다.</label>
+        <name>OPPTYACT_DECISION_CANNOT_PROCEED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_ACCOUNT --></label>
+        <name>OPPTYACT_LAB_ACCOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>액티비티</label>
+        <name>OPPTYACT_LAB_ACT</name>
+    </customLabels>
+    <customLabels>
+        <label>사업등급</label>
+        <name>OPPTYACT_LAB_BUSINESS_LEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_COLLABORATION --></label>
+        <name>OPPTYACT_LAB_COLLABORATION</name>
+    </customLabels>
+    <customLabels>
+        <label>작성 일자</label>
+        <name>OPPTYACT_LAB_CREATED_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>설명</label>
+        <name>OPPTYACT_LAB_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>설명(200자 이상 입력하세요.)</label>
+        <name>OPPTYACT_LAB_DESC_200</name>
+    </customLabels>
+    <customLabels>
+        <label>요청 일자</label>
+        <name>OPPTYACT_LAB_DUE_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Knox 결재</label>
+        <name>OPPTYACT_LAB_KNOX_APPROVAL</name>
+    </customLabels>
+    <customLabels>
+        <label>결재 이력</label>
+        <name>OPPTYACT_LAB_KNOX_APPROVAL_HISTORY</name>
+    </customLabels>
+    <customLabels>
+        <label>결재 미리보기</label>
+        <name>OPPTYACT_LAB_KNOX_PREVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label>사업 심의 유형</label>
+        <name>OPPTYACT_LAB_METHOD</name>
+    </customLabels>
+    <customLabels>
+        <label>새</label>
+        <name>OPPTYACT_LAB_NEW</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 액티비티</label>
+        <name>OPPTYACT_LAB_OPPTYACT</name>
+    </customLabels>
+    <customLabels>
+        <label>수전위 담당자</label>
+        <name>OPPTYACT_LAB_OWNER</name>
+    </customLabels>
+    <customLabels>
+        <label>프로젝트/WBS</label>
+        <name>OPPTYACT_LAB_PRJ_WBS</name>
+    </customLabels>
+    <customLabels>
+        <label>요청자</label>
+        <name>OPPTYACT_LAB_REQUEST</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드 생성일자</label>
+        <name>OPPTYACT_LAB_SALES_LEAD</name>
+    </customLabels>
+    <customLabels>
+        <label>수주전략위원회</label>
+        <name>OPPTYACT_LAB_STRATEGY_COMMITTEE</name>
+    </customLabels>
+    <customLabels>
+        <label>수주전략위원회 요청</label>
+        <name>OPPTYACT_LAB_STRATEGY_COMMITTEE_REQUEST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_USER --></label>
+        <name>OPPTYACT_LAB_USER</name>
+    </customLabels>
+    <customLabels>
+        <label>등록된 Master Activity가 없습니다.</label>
+        <name>OPPTYACT_MSG_001</name>
+    </customLabels>
+    <customLabels>
+        <label>완료하기 위해 처리 할 수 ​​없습니다. 작업을 완료하십시오.</label>
+        <name>OPPTYACT_MSG_002</name>
+    </customLabels>
+    <customLabels>
+        <label>선행 액티비티 &quot;{0}&quot;(이)가 완료되지 않았습니다.</label>
+        <name>OPPTYACT_MSG_003</name>
+    </customLabels>
+    <customLabels>
+        <label>협업 Opportunity의 사업기회 검토가 완료되지 않아 진행이 불가능합니다.</label>
+        <name>OPPTYACT_MSG_004</name>
+    </customLabels>
+    <customLabels>
+        <label>현재 기회 단계에서 해당 Activity에 접근할 수 없습니다.</label>
+        <name>OPPTYACT_MSG_005</name>
+    </customLabels>
+    <customLabels>
+        <label>상태, 단계 입력 후 저장 해 주세요.</label>
+        <name>OPPTYACT_MSG_006</name>
+    </customLabels>
+    <customLabels>
+        <label>계약 대행 예외 사유를 저장하세요.</label>
+        <name>OPPTYACT_MSG_007</name>
+    </customLabels>
+    <customLabels>
+        <label>긴급성 또는 보안성을 입력해주십시오.</label>
+        <name>OPPTYACT_MSG_008</name>
+    </customLabels>
+    <customLabels>
+        <label>수주예상일이 지난 경우 오늘날짜 이후로 변경해주세요.</label>
+        <name>OPPTYACT_MSG_009</name>
+    </customLabels>
+    <customLabels>
+        <label>진행중인 결재가 있어 Drop/Lost Stage를 변경할 수 없습니다. 상신취소 후 변경하십시오.</label>
+        <name>OPPTYACT_MSG_010</name>
+    </customLabels>
+    <customLabels>
+        <label>&quot;{0}&quot; 액티비티가 완료되어 수행할 수 없습니다.</label>
+        <name>OPPTYACT_MSG_011</name>
+    </customLabels>
+    <customLabels>
+        <label>&quot;{0}&quot; {1}에서 수행할 수 없습니다.</label>
+        <name>OPPTYACT_MSG_012</name>
+    </customLabels>
+    <customLabels>
+        <label>법인 사업기회의 최초 {0}가 완료되지 않아 수행할 수 없습니다.</label>
+        <name>OPPTYACT_MSG_013</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 Activity를 수행할 수 없습니다.</label>
+        <name>OPPTYACT_MSG_014</name>
+    </customLabels>
+    <customLabels>
+        <label>이 필드를 완료하십시오.</label>
+        <name>OPPTYACT_MSG_015</name>
+    </customLabels>
+    <customLabels>
+        <label>액티비티 탭화면의 정보를 입력 후 저장해 주세요.</label>
+        <name>OPPTYACT_MSG_016</name>
+    </customLabels>
+    <customLabels>
+        <label>제안서가 등록되지 않아 품의를 진행할 수 없습니다. 
+(대외 : 구축, 경쟁입찰 사업, 대내 : 구축, 경쟁입찰, S/A/B 등급 사업 → 제안서 등록 필수)
+제안서 등록 불가시, 제안서 등록 예외요청 SR을 신청해주세요. 
+- 메뉴: Knox &gt; 퀵링크 &gt; 업무지원 &gt; 서비스 데스크 &gt; 새 SR신청하기 &gt; 영업/구매 &gt; mySales(Salesforce) 선택 
+- 요청유형: 제안서 등록 예외
+- 전결: 부서장 결재 → 아리샘 운영자 통보(arisam.sds@samsung.com)</label>
+        <name>OPPTYACT_MSG_017</name>
+    </customLabels>
+    <customLabels>
+        <label>상태를 입력한 후 저장해주세요.</label>
+        <name>OPPTYACT_MSG_018</name>
+    </customLabels>
+    <customLabels>
+        <label>&quot;{0}&quot; 엑티비티가 완료되지 않으면 진행 불가능합니다.</label>
+        <name>OPPTYACT_MSG_019</name>
+    </customLabels>
+    <customLabels>
+        <label>※ 상신 후 한달이상 미결인 결재건은 자동으로 Cancel 처리됩니다.</label>
+        <name>OPPTYACT_MSG_020</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_CREDIT --></label>
+        <name>OPPTYACT_MSG_CREDIT</name>
+    </customLabels>
+    <customLabels>
+        <label>활동이 생성되지 않았습니다.</label>
+        <name>OPPTYACT_MSG_EXIST</name>
+    </customLabels>
+    <customLabels>
+        <label>프로젝트 코드를 생성하세요. 
+  - 사업기회검토&gt;서비스/솔루션탭&gt;서비스/솔루션 선택 후 Create/Change Project Code 버튼 클릭</label>
+        <name>OPPTYACT_PJT_CODE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업참여 수주전략위원회 품의결과가 &quot;참여&quot;가 아닐경우 사전영업 자원요청을 진행할 수 없습니다.</label>
+        <name>OPPTYACT_REQUEST_RESOURCES_CANNOT_PROCEED</name>
+    </customLabels>
+    <customLabels>
+        <label>BO 리뷰 결과가 없습니다. 결과 입력 후 진행하시면 됩니다.</label>
+        <name>OPPTYACT_REQUEST_RESOURCES_CANNOT_PROCEED_NULL</name>
+    </customLabels>
+    <customLabels>
+        <label>수주예정일이 지난 경우 오늘날짜 이후로 변경해주세요.</label>
+        <name>OPPTYACT_REQUEST_RESOURCES_CONTRACT_APPROVAL1</name>
+    </customLabels>
+    <customLabels>
+        <label>&quot;{0}&quot; 액티비티를 먼저 종료하시기 바랍니다.</label>
+        <name>OPPTYACT_REQUEST_RESOURCES_CONTRACT_APPROVAL2</name>
+    </customLabels>
+    <customLabels>
+        <label>Collaboration Opportunity의 비즈니스 기회 검토가 완료되지 않았으며 진행할 수 없습니다.</label>
+        <name>OPPTYACT_REQUEST_RESOURCES_CONTRACT_APPROVAL3</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_COMMITTEE_COST_PLAN --></label>
+        <name>OPPTYACT_URL_COMMITTEE_COST_PLAN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_COMMITTEE_COST_PLAN_01 --></label>
+        <name>OPPTYACT_URL_COMMITTEE_COST_PLAN_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_COMMITTEE_COST_PLAN_02 --></label>
+        <name>OPPTYACT_URL_COMMITTEE_COST_PLAN_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_CONTRACT_PL --></label>
+        <name>OPPTYACT_URL_CONTRACT_PL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_CONTRACT_P_L --></label>
+        <name>OPPTYACT_URL_CONTRACT_P_L</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_PRE_SALES_COST --></label>
+        <name>OPPTYACT_URL_PRE_SALES_COST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_PRICE_SIMULATION --></label>
+        <name>OPPTYACT_URL_PRICE_SIMULATION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REG_CONTRACT --></label>
+        <name>OPPTYACT_URL_REG_CONTRACT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REG_PROPOSAL --></label>
+        <name>OPPTYACT_URL_REG_PROPOSAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REG_RESOURCE_DEMAND --></label>
+        <name>OPPTYACT_URL_REG_RESOURCE_DEMAND</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_01 --></label>
+        <name>OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_02 --></label>
+        <name>OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_LIST_01 --></label>
+        <name>OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_LIST_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_LIST_02 --></label>
+        <name>OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_LIST_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_01 --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_02 --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_01 --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_02 --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_LIST_01 --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_LIST_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_LIST_02 --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_LIST_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQ_LEGAL_REVIEW --></label>
+        <name>OPPTYACT_URL_REQ_LEGAL_REVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQ_PROPOSAL_PM --></label>
+        <name>OPPTYACT_URL_REQ_PROPOSAL_PM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_STRATEGY_COMMITTEE --></label>
+        <name>OPPTYACT_URL_STRATEGY_COMMITTEE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_VAL_BTN_HIDDEN_DATE --></label>
+        <name>OPPTYACT_VAL_BTN_HIDDEN_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회의 영업대표와 동일한 팀 구성원 추가는 불가합니다.</label>
+        <name>OPPTYTMMB_MSG_001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY BTN Architect Search --></label>
+        <name>OPPTY_BTN_Architect_Search</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_BTN_BR_CREATE --></label>
+        <name>OPPTY_BTN_BR_CREATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_BTN_GUIDE --></label>
+        <name>OPPTY_BTN_GUIDE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_BTN_NOTICE --></label>
+        <name>OPPTY_BTN_NOTICE</name>
+    </customLabels>
+    <customLabels>
+        <label>TXP(인력투입계획)</label>
+        <name>OPPTY_BTN_TXP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_BTN_WEEKLY_REPORT --></label>
+        <name>OPPTY_BTN_WEEKLY_REPORT</name>
+    </customLabels>
+    <customLabels>
+        <label>복제가 완료되었습니다. &quot;다음&quot; 버튼을 클릭하여 복제된 사업기회 화면으로 이동합니다.</label>
+        <name>OPPTY_CLONE_COMPLETED</name>
+    </customLabels>
+    <customLabels>
+        <label>(복사본)</label>
+        <name>OPPTY_CLONE_NAME_FALG</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 단계의 조건이 충족되지 않았습니다.</label>
+        <name>OPPTY_ERR_001</name>
+    </customLabels>
+    <customLabels>
+        <label>&quot;{0}&quot; BO 액티비티가 진행되지 않았습니다.</label>
+        <name>OPPTY_ERR_002</name>
+    </customLabels>
+    <customLabels>
+        <label>&quot;{0}&quot; BO 액티비티가 완료되지 않았습니다.</label>
+        <name>OPPTY_ERR_003</name>
+    </customLabels>
+    <customLabels>
+        <label>{date1}은 {date2} 보다 작아야 합니다.</label>
+        <name>OPPTY_ERR_004</name>
+    </customLabels>
+    <customLabels>
+        <label>Closed/Won된 사업기회는 다음 필드를 업데이트 할 수 없습니다.</label>
+        <name>OPPTY_ERR_005</name>
+    </customLabels>
+    <customLabels>
+        <label>중도종결/실주 사유를 입력해주세요.</label>
+        <name>OPPTY_ERR_006</name>
+    </customLabels>
+    <customLabels>
+        <label>품의를 완료하지않은 사업기회는 {0}단계로 변경할 수 없습니다.</label>
+        <name>OPPTY_ERR_007</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 BO로 생성된 Project/WBS Code가 존재하므로 단계를 변경할 수 없습니다.</label>
+        <name>OPPTY_ERR_008</name>
+    </customLabels>
+    <customLabels>
+        <label>Cleansed 단계는 관리자만 변경 가능합니다.</label>
+        <name>OPPTY_ERR_009</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회를 최초 생성할때는 Identified 단계만 선택 가능합니다.</label>
+        <name>OPPTY_ERR_010</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_011 --></label>
+        <name>OPPTY_ERR_011</name>
+    </customLabels>
+    <customLabels>
+        <label>Final LBS가 완료되야, 사업 수주 단계(Won)로 변경할 수 있습니다.</label>
+        <name>OPPTY_ERR_012</name>
+    </customLabels>
+    <customLabels>
+        <label>AR-AP Gap Knox 결재 파일을 첨부 업로드해야, 사업 수주 단계(Won)로 변경할 수 있습니다.</label>
+        <name>OPPTY_ERR_013</name>
+    </customLabels>
+    <customLabels>
+        <label>CSP/MSP 유형은 본사만 입력 가능합니다. &apos;해당없음&apos;으로 값을 변경해 주세요.</label>
+        <name>OPPTY_ERR_014</name>
+    </customLabels>
+    <customLabels>
+        <label>SCP규모는 CSP/MSP 유형이 CSP 일때만 입력 가능합니다.</label>
+        <name>OPPTY_ERR_015</name>
+    </customLabels>
+    <customLabels>
+        <label>타사 CSP는 CSP/MSP 유형이 MSP 일때만 입력 가능합니다.</label>
+        <name>OPPTY_ERR_016</name>
+    </customLabels>
+    <customLabels>
+        <label>BO 세부사항 하단에 CSP/MSP 상세값을 저장하세요.</label>
+        <name>OPPTY_ERR_017</name>
+    </customLabels>
+    <customLabels>
+        <label>CSP 유형의 경우 MSP 수주금액은 입력 할 수 없습니다.</label>
+        <name>OPPTY_ERR_018</name>
+    </customLabels>
+    <customLabels>
+        <label>MSP 유형의 경우 MSP 수주금액은 필수 입력값 입니다.</label>
+        <name>OPPTY_ERR_019</name>
+    </customLabels>
+    <customLabels>
+        <label>생성 시 단계는 Identified만 선택 가능합니다.</label>
+        <name>OPPTY_ERR_020</name>
+    </customLabels>
+    <customLabels>
+        <label>CSP/MSP Detail의 MSP수주금액을 업데이트하시기 바랍니다.</label>
+        <name>OPPTY_ERR_021</name>
+    </customLabels>
+    <customLabels>
+        <label>CSP/MSP Detail 정보를 업데이트 하세요. MSP유형의 경우, MSP수주금액을 확인해 주십시오.</label>
+        <name>OPPTY_ERR_022</name>
+    </customLabels>
+    <customLabels>
+        <label>제안PM의 사번이 유효하지 않습니다.</label>
+        <name>OPPTY_ERR_023</name>
+    </customLabels>
+    <customLabels>
+        <label>선택하신 영업대표의 부서 정보가 유효하지 않아 협업BO를 생성할 수 없습니다.</label>
+        <name>OPPTY_ERR_024</name>
+    </customLabels>
+    <customLabels>
+        <label>주 실행 부서 (Lv.3) 를 입력해 주세요.</label>
+        <name>OPPTY_ERR_025</name>
+    </customLabels>
+    <customLabels>
+        <label>협업 BO에서는 CSP 유형을 선택할 수 없습니다</label>
+        <name>OPPTY_ERR_026</name>
+    </customLabels>
+    <customLabels>
+        <label>&apos;{0}&apos; 정보가 유효하지 않습니다.</label>
+        <name>OPPTY_ERR_027</name>
+    </customLabels>
+    <customLabels>
+        <label>&apos;{0}&apos; 와 &apos;{1}&apos; 정보가 유효하지 않습니다.</label>
+        <name>OPPTY_ERR_028</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 금액이 1,000만 달러 이상입니다. 다시 한 번 확인 해주세요.</label>
+        <name>OPPTY_ERR_029</name>
+    </customLabels>
+    <customLabels>
+        <label>Final 물류 컴플라이언스 심의 확정 후에 WON으로 변경 가능합니다.</label>
+        <name>OPPTY_ERR_20</name>
+    </customLabels>
+    <customLabels>
+        <label>사업참여결정 수주전략위원회 요청이 완료되었습니다. 고객사, 원청사는 변경할 수 없습니다.</label>
+        <name>OPPTY_ERR_OriginnAccountChange001</name>
+    </customLabels>
+    <customLabels>
+        <label>수주품의 상신 후에는 고객사, 원청사를 변경할 수 없습니다.</label>
+        <name>OPPTY_ERR_OriginnAccountChange002</name>
+    </customLabels>
+    <customLabels>
+        <label>BO점검품의 결재가 진행 중이어서 고객사, 원청사를 변경할 수 없습니다.</label>
+        <name>OPPTY_ERR_OriginnAccountChange003</name>
+    </customLabels>
+    <customLabels>
+        <label>성공 확률(%)이 0과 100 사이여야 합니다.</label>
+        <name>OPPTY_ERR_SUC_PB</name>
+    </customLabels>
+    <customLabels>
+        <label>성공 확률(%)은 null일 수 없습니다.</label>
+        <name>OPPTY_ERR_SUC_PB_NULL</name>
+    </customLabels>
+    <customLabels>
+        <label>고객사, 원청사를 변경하면 사업심의유형이 초기화되므로 재확정해야 합니다.
+사업기회검토 &gt; BO 리뷰 탭</label>
+        <name>OPPTY_Info_OriginnAccountChange003</name>
+    </customLabels>
+    <customLabels>
+        <label>협업 기회는 삭제할 수 없습니다.</label>
+        <name>OPPTY_MSG_001</name>
+    </customLabels>
+    <customLabels>
+        <label>Identified 이외의 단계 인 경우 삭제할 수 없습니다.</label>
+        <name>OPPTY_MSG_002</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 BO로 생성된 Project/WBS Code가 존재하므로 BO를 삭제할 수 없습니다.
+
+해당 BO에 대해서는 Drop/Lost처리를 해주시기 바랍니다.</label>
+        <name>OPPTY_MSG_003</name>
+    </customLabels>
+    <customLabels>
+        <label>CSP/MSP Detail 정보를 업데이트 하세요. MSP유형의 경우, MSP수주금액을 확인해 주십시오</label>
+        <name>OPPTY_MSG_004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY URL Architect Search --></label>
+        <name>OPPTY_URL_Architect_Search</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_URL_BR_CREATE --></label>
+        <name>OPPTY_URL_BR_CREATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_URL_TXP --></label>
+        <name>OPPTY_URL_TXP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_URL_WEEKLY_REPORT --></label>
+        <name>OPPTY_URL_WEEKLY_REPORT</name>
+    </customLabels>
+    <customLabels>
+        <label>집중사업</label>
+        <name>OPP_SEARCH_INTENSIVE_BO</name>
+    </customLabels>
+    <customLabels>
+        <label>수주예상일 보다 계약시작일이 빠릅니다. 필요시 계약기간도 변경하세요</label>
+        <name>Opp_Close_Date_Warning_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label>데이터 수정 권한이 없습니다.</label>
+        <name>OpportunityRegisError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Opportunity Code --></label>
+        <name>Opportunity_Code</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 코드를 넣으세요</label>
+        <name>Opportunity_Code_label</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회명</label>
+        <name>Oppportunity_Name_label</name>
+    </customLabels>
+    <customLabels>
+        <label>실주 경쟁결과 분석 정보가 저장되었습니다</label>
+        <name>Oppty_Analysis_Temp_Success_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label>입력하신 고객이 존재하지 않습니다</label>
+        <name>OwnerAccErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>입력하신 BO가 존재하지 않습니다</label>
+        <name>OwnerOppErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>소유자 변경이 완료되었습니다</label>
+        <name>OwnerUpdateSuccessMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>비즈니스 현황</label>
+        <name>PARTNER_BUSINESS_LABEL</name>
+    </customLabels>
+    <customLabels>
+        <label>파트너 고객과 연결된 SDS PDM 정보가 없습니다</label>
+        <name>PARTNER_COM_ERROR_001</name>
+    </customLabels>
+    <customLabels>
+        <label>파트너 고객을 선택해 주세요</label>
+        <name>PARTNER_COM_ERROR_002</name>
+    </customLabels>
+    <customLabels>
+        <label>파트너 고객 선택 후 저장해 주세요</label>
+        <name>PARTNER_COM_ERROR_003</name>
+    </customLabels>
+    <customLabels>
+        <label>비활성화된 공지사항은 이메일 전송이 불가능합니다.</label>
+        <name>PARTNER_NOTICE_EMAIL_ERROR_INACTIVE</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일 전송을 실패하였습니다.</label>
+        <name>PARTNER_NOTICE_EMAIL_ERROR_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일 전송 정보 조회를 실패하였습니다.</label>
+        <name>PARTNER_NOTICE_EMAIL_ERROR_RETRIEVAL</name>
+    </customLabels>
+    <customLabels>
+        <label>비밀참조대상(명)</label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_BCCCNT</name>
+    </customLabels>
+    <customLabels>
+        <label>취소</label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일 제목</label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_EMAIL_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일 제목을 입력하세요.</label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_EMAIL_TITLE_PLACEHOLDER</name>
+    </customLabels>
+    <customLabels>
+        <label>최근 이메일 전송일자</label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_LAST_EMAIL_SENT_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>전송</label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_SEND</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일 전송횟수</label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_SENDCNT</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일 발신자</label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_SENDER</name>
+    </customLabels>
+    <customLabels>
+        <label>공지사항 이메일 전송</label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>수신대상(명)</label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_TOCNT</name>
+    </customLabels>
+    <customLabels>
+        <label>[Samsung SDS Partner Network 신규 공지]</label>
+        <name>PARTNER_NOTICE_EMAIL_SUBJECT_PREFIX</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일 전송을 성공하였습니다.</label>
+        <name>PARTNER_NOTICE_EMAIL_SUCCESS_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label>새소식</label>
+        <name>PARTNER_NOTICE_LABEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PI (Biz. Owner) Profile ID --></label>
+        <name>PI_Biz_Owner_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>프로젝트</label>
+        <name>PJT_LAB_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- POC_Users --></label>
+        <name>POC_Users</name>
+    </customLabels>
+    <customLabels>
+        <label>제안 PM 등록</label>
+        <name>PPM_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>제안 PM을 선택해주세요.</label>
+        <name>PPM_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>이미 등록되어있는 Proposal PM이 있습니다. 바꾸시겠습니까?</label>
+        <name>PPM_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>제안 PM 저장 완료</label>
+        <name>PPM_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>Post-Mortem 결과</label>
+        <name>Postmortem</name>
+    </customLabels>
+    <customLabels>
+        <label>사전 경쟁 예측 및 전략</label>
+        <name>Pre_Competition_Prediction_and_Strategy</name>
+    </customLabels>
+    <customLabels>
+        <label>보안 정책상 Chatter에 파일을 업로드 할 수 없습니다.</label>
+        <name>Prevent_FileUpload_Chatter</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Prod Knox Bearer --></label>
+        <name>Prod_Knox_Bearer</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Prod Knox System Id --></label>
+        <name>Prod_Knox_System_Id</name>
+    </customLabels>
+    <customLabels>
+        <label>PI (Biz. Owner),Sales Rep.(HQ),Sales Rep.(Logi),Sales Rep.(Overseas Corp),Sales Rep.(Subs),System Administrator,시스템 관리자</label>
+        <name>ProfileCheck</name>
+    </customLabels>
+    <customLabels>
+        <label>취소</label>
+        <name>REVENUE_SCHEDULE_COMP_BTN_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label>리셋</label>
+        <name>REVENUE_SCHEDULE_COMP_BTN_RESET</name>
+    </customLabels>
+    <customLabels>
+        <label>저장</label>
+        <name>REVENUE_SCHEDULE_COMP_BTN_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>금액</label>
+        <name>REVENUE_SCHEDULE_COMP_COL_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>날짜</label>
+        <name>REVENUE_SCHEDULE_COMP_COL_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>설명</label>
+        <name>REVENUE_SCHEDULE_COMP_COL_DESC</name>
+    </customLabels>
+    <customLabels>
+        <label>차이</label>
+        <name>REVENUE_SCHEDULE_COMP_DIFFERENCE</name>
+    </customLabels>
+    <customLabels>
+        <label>변경된 값이 원본값과 차이가있습니다!</label>
+        <name>REVENUE_SCHEDULE_COMP_ERROR_DIFFERENCE</name>
+    </customLabels>
+    <customLabels>
+        <label>매출 분할</label>
+        <name>REVENUE_SCHEDULE_COMP_LABEL</name>
+    </customLabels>
+    <customLabels>
+        <label>새로운 값</label>
+        <name>REVENUE_SCHEDULE_COMP_NEW_VALUE</name>
+    </customLabels>
+    <customLabels>
+        <label>이전 값</label>
+        <name>REVENUE_SCHEDULE_COMP_OLD_VALUE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 리드의 매출 분할을 사업기회 매출 분할로 변환하는데 실패하였습니다.</label>
+        <name>REVENUE_SCHEDULE_CON_ERROR_CONVERT</name>
+    </customLabels>
+    <customLabels>
+        <label>계약 금액/시작일/종료일을 입력해 주세요</label>
+        <name>REVENUE_SCHEDULE_CON_ERROR_INVALID</name>
+    </customLabels>
+    <customLabels>
+        <label>단일 레코드를 수정하거나 편집할 수 없습니다.
+정의된 기능을 사용하십시오.</label>
+        <name>REVENUE_SCHEDULE_REJECT_ACTION</name>
+    </customLabels>
+    <customLabels>
+        <label>실행 PM 등록</label>
+        <name>RPM_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>실행 PM을 선택하세요.</label>
+        <name>RPM_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>이미 등록되어있는 Representative PM이 있습니다. 바꾸시겠습니까?</label>
+        <name>RPM_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>실행 PM이 저장되었습니다.</label>
+        <name>RPM_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>PJT Code 생성 후에 실행 PM 등록이 가능합니다.</label>
+        <name>RPM_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>Won 상태에서는 실행PM 수정이 불가합니다.</label>
+        <name>RPM_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label>실행PM 요청</label>
+        <name>RPM_MSG_0006</name>
+    </customLabels>
+    <customLabels>
+        <label>비중(%)</label>
+        <name>RatePerc</name>
+    </customLabels>
+    <customLabels>
+        <label>종결/실주 사유</label>
+        <name>Reason_Drop_Lost</name>
+    </customLabels>
+    <customLabels>
+        <label>원인 / 개선방안</label>
+        <name>Reason_Improvement</name>
+    </customLabels>
+    <customLabels>
+        <label>종결 사유</label>
+        <name>Reason_for_Drop</name>
+    </customLabels>
+    <customLabels>
+        <label>실주 사유</label>
+        <name>Reason_for_Lost</name>
+    </customLabels>
+    <customLabels>
+        <label>실주/종결 사유</label>
+        <name>Reason_for_drop_lost</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Ref Refresh --></label>
+        <name>Ref_Refresh</name>
+    </customLabels>
+    <customLabels>
+        <label>시스템 관리자만 목록 보기를 새로 고칠 수 있음</label>
+        <name>Reference_Access_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>등록된 User 정보입니다.</label>
+        <name>Register_user_Information</name>
+    </customLabels>
+    <customLabels>
+        <label>유관부서</label>
+        <name>Relevant_Dept</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Remaining Licences --></label>
+        <name>Remaining_Licences</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_PrimaryDeliveryTeamList --></label>
+        <name>ReportViewer_PrimaryDeliveryTeamList</name>
+    </customLabels>
+    <customLabels>
+        <label>주 실행 부서 (L2)</label>
+        <name>ReportViewer_Primary_Delivery_Dept</name>
+    </customLabels>
+    <customLabels>
+        <label>합계 Revenue(/100000000)(변환됨)</label>
+        <name>ReportViewer_Sum_Revenue</name>
+    </customLabels>
+    <customLabels>
+        <label>전체</label>
+        <name>ReportViewer_Total</name>
+    </customLabels>
+    <customLabels>
+        <label>총 Revenue(/100000000)(변환됨)</label>
+        <name>ReportViewer_Total_Revenue</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_firstCloseDate --></label>
+        <name>ReportViewer_firstCloseDate</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_firstScheduleMonth --></label>
+        <name>ReportViewer_firstScheduleMonth</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_lastCloseDate --></label>
+        <name>ReportViewer_lastCloseDate</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_lastScheduleMonth --></label>
+        <name>ReportViewer_lastScheduleMonth</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_stageList --></label>
+        <name>ReportViewer_stageList</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Report_URL_Prod --></label>
+        <name>Report_URL_Prod</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Report_URL_Qa --></label>
+        <name>Report_URL_Qa</name>
+    </customLabels>
+    <customLabels>
+        <label>암호 다시 설정</label>
+        <name>Reset_Passoword</name>
+    </customLabels>
+    <customLabels>
+        <label>이 사용자의 암호를 재설정하시겠습니까?</label>
+        <name>Reset_Passoword_Alert</name>
+    </customLabels>
+    <customLabels>
+        <label>입찰 후 결과</label>
+        <name>Result_after_bidding</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- RevenueScheduleNote2 --></label>
+        <name>RevenueScheduleNote2</name>
+    </customLabels>
+    <customLabels>
+        <label>Role,Profile &amp; Last Name은 필수입력값입니다.</label>
+        <name>Role_ProfileMandatoryErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>Role,Profile,Last Name &amp; Company Code 은 필수입력값입니다.</label>
+        <name>Role_Profile_LastName_CompanyCodeMandatoryErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>Knox 결재 상태 조회가 완료되었습니다.</label>
+        <name>SAPP_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>이관 데이터입니다. 결재 상태 조회를 할 수 없습니다.</label>
+        <name>SAPP_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>사번</label>
+        <name>SAP_Employee_Number</name>
+    </customLabels>
+    <customLabels>
+        <label>액세스 수준</label>
+        <name>SHARING_LAB_ACCESSLEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label>추가됨</label>
+        <name>SHARING_LAB_ALEADYADD</name>
+    </customLabels>
+    <customLabels>
+        <label>정보</label>
+        <name>SHARING_LAB_INFORMATION</name>
+    </customLabels>
+    <customLabels>
+        <label>공유</label>
+        <name>SHARING_LAB_MANUALSHARING</name>
+    </customLabels>
+    <customLabels>
+        <label>읽기</label>
+        <name>SHARING_LAB_READ</name>
+    </customLabels>
+    <customLabels>
+        <label>읽기 쓰기</label>
+        <name>SHARING_LAB_READWRITE</name>
+    </customLabels>
+    <customLabels>
+        <label>정보 검색</label>
+        <name>SHARING_LAB_SEARCH</name>
+    </customLabels>
+    <customLabels>
+        <label>공유 대상</label>
+        <name>SHARING_LAB_SHAREWITH</name>
+    </customLabels>
+    <customLabels>
+        <label>타입</label>
+        <name>SHARING_LAB_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>액세스 할 수 있는 사람</label>
+        <name>SHARING_LAB_WHO_CAN_ACCESS</name>
+    </customLabels>
+    <customLabels>
+        <label>금액</label>
+        <name>SIMILARBO_LAB_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>사업등급</label>
+        <name>SIMILARBO_LAB_BIZLEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label>수주예상일</label>
+        <name>SIMILARBO_LAB_CLOSEDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 코드</label>
+        <name>SIMILARBO_LAB_CODE</name>
+    </customLabels>
+    <customLabels>
+        <label>[유사사업기회 선정기준]</label>
+        <name>SIMILARBO_LAB_FILTER</name>
+    </customLabels>
+    <customLabels>
+        <label>유사 사업기회</label>
+        <name>SIMILARBO_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회</label>
+        <name>SIMILARBO_LAB_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>영업대표</label>
+        <name>SIMILARBO_LAB_OWNER</name>
+    </customLabels>
+    <customLabels>
+        <label>제안서</label>
+        <name>SIMILARBO_LAB_PROPOSAL</name>
+    </customLabels>
+    <customLabels>
+        <label>제안PM</label>
+        <name>SIMILARBO_LAB_PROPOSALPM</name>
+    </customLabels>
+    <customLabels>
+        <label>서비스</label>
+        <name>SIMILARBO_LAB_SERVICE</name>
+    </customLabels>
+    <customLabels>
+        <label>솔루션</label>
+        <name>SIMILARBO_LAB_SOLUTION</name>
+    </customLabels>
+    <customLabels>
+        <label>단계</label>
+        <name>SIMILARBO_LAB_STAGE</name>
+    </customLabels>
+    <customLabels>
+        <label>원청사 표준업종L1/L2</label>
+        <name>SIMILARBO_LAB_TYPE1</name>
+    </customLabels>
+    <customLabels>
+        <label>업종2</label>
+        <name>SIMILARBO_LAB_TYPE2</name>
+    </customLabels>
+    <customLabels>
+        <label>사업 심의 유형</label>
+        <name>SIMILARBO_LAB_VRBCONFIRMTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>중복된 사용자를 포함하고 있습니다.</label>
+        <name>SLTM_DuplicateUserError</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드 액세스 수준</label>
+        <name>SLTM_LAB_ACCESSLEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label>액션</label>
+        <name>SLTM_LAB_ACTION</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드 팀 구성원 추가</label>
+        <name>SLTM_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>읽기</label>
+        <name>SLTM_LAB_READ</name>
+    </customLabels>
+    <customLabels>
+        <label>읽기/쓰기</label>
+        <name>SLTM_LAB_READWRITE</name>
+    </customLabels>
+    <customLabels>
+        <label>사용자</label>
+        <name>SLTM_LAB_USER</name>
+    </customLabels>
+    <customLabels>
+        <label>기본 사업리드 팀 구성 완료</label>
+        <name>SLTM_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>값을 입력해주세요.</label>
+        <name>SLTM_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>팀 역할</label>
+        <name>SLT_TeamRole</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 필드의 값을 입력하십시오. &apos;예상금액&apos;, &apos;고객명&apos;, &apos;대내/대외&apos;.</label>
+        <name>SL_ERR_NULL_CHK</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 필드의 값을 입력하십시오. &apos;고객명&apos;</label>
+        <name>SL_ERR_NULL_CHK_ACC</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 필드의 값을 입력하십시오. &apos;예상금액&apos;</label>
+        <name>SL_ERR_NULL_CHK_AMT</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 필드의 값을 입력하십시오. &apos;대내/대외&apos;</label>
+        <name>SL_ERR_NULL_CHK_IE</name>
+    </customLabels>
+    <customLabels>
+        <label>해당 필드의 값을 입력하십시오. &apos;영업 부서 (L3)&apos;</label>
+        <name>SL_ERR_NULL_CHK_SD</name>
+    </customLabels>
+    <customLabels>
+        <label>동일한 PS Type으로만 변경 가능합니다. PS Type이 변경될 경우 기존 솔루션을 삭제하시고 새로운 서비스를 추가하여 생성해주세요</label>
+        <name>SOL_CHANGE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label>추가하시려는 솔루션은 이미 존재합니다.</label>
+        <name>SOL_DUPLICACY_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label>서비스 {0}에 솔루션을 등록하지 않았습니다.</label>
+        <name>SOL_ERR_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label>동일한 Solution Type (Professional Service)을 중복 등록 할 수 없습니다. 서비스 No.{0}</label>
+        <name>SOL_ERR_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label>&apos;{0}&apos;의 WBSClass정보가 없습니다.  서비스 No.{1}
+관리자에게 문의하십시오.</label>
+        <name>SOL_ERR_MSG_03</name>
+    </customLabels>
+    <customLabels>
+        <label>서비스 하위에 등록된 솔루션이 하나밖에 없습니다. 솔루션을 삭제하시려면 서비스를 삭제해 주세요.</label>
+        <name>SOL_ERR_MSG_04</name>
+    </customLabels>
+    <customLabels>
+        <label>Service NO {0} 데이터가 중복됩니다.</label>
+        <name>SOL_ERR_MSG_05</name>
+    </customLabels>
+    <customLabels>
+        <label>Professional Service의 솔루션을 추가하려면 새로운 서비스를 추가하여 솔루션을 등록해 주세요.</label>
+        <name>SOL_ERR_MSG_06</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_ACT --></label>
+        <name>SOL_LAB_ACT</name>
+    </customLabels>
+    <customLabels>
+        <label>Attribute</label>
+        <name>SOL_LAB_ATTR</name>
+    </customLabels>
+    <customLabels>
+        <label>Biz. Type</label>
+        <name>SOL_LAB_BIZ_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_NO --></label>
+        <name>SOL_LAB_NO</name>
+    </customLabels>
+    <customLabels>
+        <label>PLC Status</label>
+        <name>SOL_LAB_PLC</name>
+    </customLabels>
+    <customLabels>
+        <label>PS Type</label>
+        <name>SOL_LAB_PS_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>Sales Type</label>
+        <name>SOL_LAB_SALES_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>솔루션</label>
+        <name>SOL_LAB_SOL</name>
+    </customLabels>
+    <customLabels>
+        <label>Solution Type</label>
+        <name>SOL_LAB_SOLUTION_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label>솔루션</label>
+        <name>SOL_LAB_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>WBS Class</label>
+        <name>SOL_LAB_WBS_CLASS</name>
+    </customLabels>
+    <customLabels>
+        <label>평가자 추가</label>
+        <name>STRATEGY_COMMITTEE_BTN_ADDUSER</name>
+    </customLabels>
+    <customLabels>
+        <label>답변</label>
+        <name>STRATEGY_COMMITTEE_BTN_ANSWER</name>
+    </customLabels>
+    <customLabels>
+        <label>이전</label>
+        <name>STRATEGY_COMMITTEE_BTN_BACK</name>
+    </customLabels>
+    <customLabels>
+        <label>취소</label>
+        <name>STRATEGY_COMMITTEE_BTN_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_CHECK_ANSWER --></label>
+        <name>STRATEGY_COMMITTEE_BTN_CHECK_ANSWER</name>
+    </customLabels>
+    <customLabels>
+        <label>닫기</label>
+        <name>STRATEGY_COMMITTEE_BTN_CLOSE</name>
+    </customLabels>
+    <customLabels>
+        <label>확정</label>
+        <name>STRATEGY_COMMITTEE_BTN_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_CREATE --></label>
+        <name>STRATEGY_COMMITTEE_BTN_CREATE</name>
+    </customLabels>
+    <customLabels>
+        <label>질문 상세</label>
+        <name>STRATEGY_COMMITTEE_BTN_DETAIL</name>
+    </customLabels>
+    <customLabels>
+        <label>다음</label>
+        <name>STRATEGY_COMMITTEE_BTN_NEXT</name>
+    </customLabels>
+    <customLabels>
+        <label>저장</label>
+        <name>STRATEGY_COMMITTEE_BTN_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>임시저장</label>
+        <name>STRATEGY_COMMITTEE_BTN_SAVE2</name>
+    </customLabels>
+    <customLabels>
+        <label>전체</label>
+        <name>STRATEGY_COMMITTEE_LAB_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label>평가완료</label>
+        <name>STRATEGY_COMMITTEE_LAB_ANSWERED</name>
+    </customLabels>
+    <customLabels>
+        <label>평가 완료</label>
+        <name>STRATEGY_COMMITTEE_LAB_ANSWER_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label>평가자</label>
+        <name>STRATEGY_COMMITTEE_LAB_ANSWER_USER</name>
+    </customLabels>
+    <customLabels>
+        <label>결제 상태</label>
+        <name>STRATEGY_COMMITTEE_LAB_APPROVAL_STATUS</name>
+    </customLabels>
+    <customLabels>
+        <label>분류</label>
+        <name>STRATEGY_COMMITTEE_LAB_CATEGORY</name>
+    </customLabels>
+    <customLabels>
+        <label>체크리스트</label>
+        <name>STRATEGY_COMMITTEE_LAB_CHECKLIST</name>
+    </customLabels>
+    <customLabels>
+        <label>수주전략위원회 체크리스트 상세정보</label>
+        <name>STRATEGY_COMMITTEE_LAB_CHECKLIST_DETAIL</name>
+    </customLabels>
+    <customLabels>
+        <label>확인 날짜</label>
+        <name>STRATEGY_COMMITTEE_LAB_CONFIRM_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>마감일</label>
+        <name>STRATEGY_COMMITTEE_LAB_DEADLINE</name>
+    </customLabels>
+    <customLabels>
+        <label>전체, 최근 6개월, 최근 1년, 최근 2년, 최근 3년</label>
+        <name>STRATEGY_COMMITTEE_LAB_DEADLINE_PICK</name>
+    </customLabels>
+    <customLabels>
+        <label>결정</label>
+        <name>STRATEGY_COMMITTEE_LAB_DECISION</name>
+    </customLabels>
+    <customLabels>
+        <label>개요</label>
+        <name>STRATEGY_COMMITTEE_LAB_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_DESCRIPTIONs --></label>
+        <name>STRATEGY_COMMITTEE_LAB_DESCRIPTIONs</name>
+    </customLabels>
+    <customLabels>
+        <label>수주전략위원회 체크리스트 수정</label>
+        <name>STRATEGY_COMMITTEE_LAB_EDIT_STARTEGY_LIST</name>
+    </customLabels>
+    <customLabels>
+        <label>수전위 담당자</label>
+        <name>STRATEGY_COMMITTEE_LAB_MANAGER</name>
+    </customLabels>
+    <customLabels>
+        <label>수주전략 위원회</label>
+        <name>STRATEGY_COMMITTEE_LAB_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_NOTIFICATION_BODY --></label>
+        <name>STRATEGY_COMMITTEE_LAB_NOTIFICATION_BODY</name>
+    </customLabels>
+    <customLabels>
+        <label>수주전략위원회 체크리스트가 생성되었습니다.</label>
+        <name>STRATEGY_COMMITTEE_LAB_NOTIFICATION_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>미승인</label>
+        <name>STRATEGY_COMMITTEE_LAB_NOT_APPROVAL</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회</label>
+        <name>STRATEGY_COMMITTEE_LAB_OPPORTUNITY</name>
+    </customLabels>
+    <customLabels>
+        <label>PM 답변</label>
+        <name>STRATEGY_COMMITTEE_LAB_PMANSWER</name>
+    </customLabels>
+    <customLabels>
+        <label>PM 평가완료</label>
+        <name>STRATEGY_COMMITTEE_LAB_PM_ANSWERED</name>
+    </customLabels>
+    <customLabels>
+        <label>PM 평가완료</label>
+        <name>STRATEGY_COMMITTEE_LAB_PM_ANSWERED_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_PM_BASIS --></label>
+        <name>STRATEGY_COMMITTEE_LAB_PM_BASIS</name>
+    </customLabels>
+    <customLabels>
+        <label>PM 점수</label>
+        <name>STRATEGY_COMMITTEE_LAB_PM_SCORE</name>
+    </customLabels>
+    <customLabels>
+        <label>질문</label>
+        <name>STRATEGY_COMMITTEE_LAB_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label>평가 상세</label>
+        <name>STRATEGY_COMMITTEE_LAB_QUESTION_DETAIL</name>
+    </customLabels>
+    <customLabels>
+        <label>평가부서</label>
+        <name>STRATEGY_COMMITTEE_LAB_REVIEWDIVISION</name>
+    </customLabels>
+    <customLabels>
+        <label>점수</label>
+        <name>STRATEGY_COMMITTEE_LAB_SCORE</name>
+    </customLabels>
+    <customLabels>
+        <label>평가자 선택</label>
+        <name>STRATEGY_COMMITTEE_LAB_SELECT_ANSWER_USER</name>
+    </customLabels>
+    <customLabels>
+        <label>수주전략위원회 체크리스트 생성</label>
+        <name>STRATEGY_COMMITTEE_LAB_SELECT_STARTEGY_LIST</name>
+    </customLabels>
+    <customLabels>
+        <label>수주전략위원회 체크리스트</label>
+        <name>STRATEGY_COMMITTEE_LAB_STRATEGY_COMMITTEE_LIST</name>
+    </customLabels>
+    <customLabels>
+        <label>총 PM 점수</label>
+        <name>STRATEGY_COMMITTEE_LAB_TOTAL_PM_SCORE</name>
+    </customLabels>
+    <customLabels>
+        <label>총 문제</label>
+        <name>STRATEGY_COMMITTEE_LAB_TOTAL_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label>총 점수</label>
+        <name>STRATEGY_COMMITTEE_LAB_TOTAL_SCORE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_USER --></label>
+        <name>STRATEGY_COMMITTEE_LAB_USER</name>
+    </customLabels>
+    <customLabels>
+        <label>평가자 선택</label>
+        <name>STRATEGY_COMMITTEE_LAB_USERANSWER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_USER_BASIS --></label>
+        <name>STRATEGY_COMMITTEE_LAB_USER_BASIS</name>
+    </customLabels>
+    <customLabels>
+        <label>버전</label>
+        <name>STRATEGY_COMMITTEE_LAB_VERSION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_MSG_CHECKLIST_CONFIRMED --></label>
+        <name>STRATEGY_COMMITTEE_MSG_CHECKLIST_CONFIRMED</name>
+    </customLabels>
+    <customLabels>
+        <label>이 레코드는 수정할 수 없습니다.</label>
+        <name>STRATEGY_COMMITTEE_MSG_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label>체크리스트가 확정되었습니다!</label>
+        <name>STRATEGY_COMMITTEE_MSG_CONFIRM_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>답변 사용자가 선택되지 않았습니다.</label>
+        <name>STRATEGY_COMMITTEE_MSG_NO_ANSWER_USER</name>
+    </customLabels>
+    <customLabels>
+        <label>선택된 질문이 없습니다.</label>
+        <name>STRATEGY_COMMITTEE_MSG_NO_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label>선택된 사용자가 없습니다.</label>
+        <name>STRATEGY_COMMITTEE_MSG_NO_SELECT_USER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_MSG_OPTYID_NULL --></label>
+        <name>STRATEGY_COMMITTEE_MSG_OPTYID_NULL</name>
+    </customLabels>
+    <customLabels>
+        <label>이 레코드는 잠겨 있습니다.</label>
+        <name>STRATEGY_COMMITTEE_MSG_RECORD_LOCK</name>
+    </customLabels>
+    <customLabels>
+        <label>수주전략위원회 답변이 저장되었습니다.</label>
+        <name>STRATEGY_COMMITTEE_MSG_SUCCESS_UPDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVCSOL_DEL_ERR --></label>
+        <name>SVCSOL_DEL_ERR</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 정보를 조회하지 못했습니다.</label>
+        <name>SVCSOL_NO_OPPRTY</name>
+    </customLabels>
+    <customLabels>
+        <label>프로젝트 변경 성공</label>
+        <name>SVCSOL_PJT_CHANGE</name>
+    </customLabels>
+    <customLabels>
+        <label>프로젝트 생성 성공</label>
+        <name>SVCSOL_PJT_CREATE</name>
+    </customLabels>
+    <customLabels>
+        <label>모든 서비스를 삭제했습니다. TA의 상태를 변경하려면 Change Project를 진행하시기 바랍니다.</label>
+        <name>SVC_ALL_DEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_BTN_NEW_GUIDE --></label>
+        <name>SVC_BTN_NEW_GUIDE</name>
+    </customLabels>
+    <customLabels>
+        <label>Save and Create/Change Project Code</label>
+        <name>SVC_BTN_SAVE_SEND</name>
+    </customLabels>
+    <customLabels>
+        <label>TA 속성을 변경하면 입력한 솔루션이 초기화됩니다.</label>
+        <name>SVC_CHANGE_TA</name>
+    </customLabels>
+    <customLabels>
+        <label>서비스를 삭제 하시겠습니까?</label>
+        <name>SVC_DEL_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label>프로젝트 코드 생성 시 아래와 같은 에러가 발생했습니다.</label>
+        <name>SVC_ECC_ERR_01</name>
+    </customLabels>
+    <customLabels>
+        <label>서비스 No. {1}에 {0}가 비어있습니다. 값을 입력해주세요.</label>
+        <name>SVC_ERR_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label>동일한 서비스를 중복 등록 할 수 없습니다.  서비스 No.{0}</label>
+        <name>SVC_ERR_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label>동일한 SolutionType, WBSClass를 서비스에 등록 할 수 없습니다. (서비스 No.{0})</label>
+        <name>SVC_ERR_MSG_03</name>
+    </customLabels>
+    <customLabels>
+        <label>필수값이 필요합니다.</label>
+        <name>SVC_ERR_MSG_04</name>
+    </customLabels>
+    <customLabels>
+        <label>솔루션/BIz.Attribute는 중복될 수 없습니다. 서비스 No.{0}</label>
+        <name>SVC_ERR_MSG_05</name>
+    </customLabels>
+    <customLabels>
+        <label>저장할 서비스 목록이 없습니다.</label>
+        <name>SVC_ERR_MSG_06</name>
+    </customLabels>
+    <customLabels>
+        <label>제안 PM의 임직원 정보가 없습니다. 관리자에게 문의하십시오.</label>
+        <name>SVC_ERR_MSG_07</name>
+    </customLabels>
+    <customLabels>
+        <label>제안 PM의 임직원 정보인 EvSapEmpNo가 없습니다. 관리자에게 문의하십시오.</label>
+        <name>SVC_ERR_MSG_08</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 상황판에서 등록해주세요.</label>
+        <name>SVC_ERR_MSG_09</name>
+    </customLabels>
+    <customLabels>
+        <label>IF-058 실패.</label>
+        <name>SVC_IF_DEL_FAIL</name>
+    </customLabels>
+    <customLabels>
+        <label>[IF-040/IF-050] 에러. 리턴된 정보 ({0}) 가 없습니다.</label>
+        <name>SVC_IF_ERR_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label>[IF 에러] ET_MESSAGE를 받지 못했습니다.</label>
+        <name>SVC_IF_ERR_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label>[IF 오류] ET_WBS_INFO가 비어 있습니다.</label>
+        <name>SVC_IF_ERR_MSG_04</name>
+    </customLabels>
+    <customLabels>
+        <label>SAP으로 전송할 서비스/솔루션 정보가 없습니다.</label>
+        <name>SVC_IF_NO_DATA</name>
+    </customLabels>
+    <customLabels>
+        <label>Action</label>
+        <name>SVC_LAB_ACT</name>
+    </customLabels>
+    <customLabels>
+        <label>실행 부서</label>
+        <name>SVC_LAB_DEPT</name>
+    </customLabels>
+    <customLabels>
+        <label>No.</label>
+        <name>SVC_LAB_NO</name>
+    </customLabels>
+    <customLabels>
+        <label>영업 부서</label>
+        <name>SVC_LAB_SALES</name>
+    </customLabels>
+    <customLabels>
+        <label>옵션을 선택해주세요.</label>
+        <name>SVC_LAB_SELOPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>서비스</label>
+        <name>SVC_LAB_SVC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_LAB_TECH --></label>
+        <name>SVC_LAB_TECH</name>
+    </customLabels>
+    <customLabels>
+        <label>서비스</label>
+        <name>SVC_LAB_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_PJT_TYPE_ETC --></label>
+        <name>SVC_PJT_TYPE_ETC</name>
+    </customLabels>
+    <customLabels>
+        <label>임시저장되었습니다.
+Create/Change Project Code 버튼을 눌러야 변경된 내용이 SAP시스템에 반영됩니다.</label>
+        <name>SVC_POP_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label>프로젝트 코드 생성/변경 버튼을 눌렀을 때만 변경 사항이 SAP 시스템에 반영됩니다.</label>
+        <name>SVC_POP_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label>동일한 솔루션을 추가할 수 없습니다.</label>
+        <name>SVC_SAVE_ERR_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label>임시저장중인 서비스/솔루션 정보가 있습니다.</label>
+        <name>SVC_TEMP_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>(* SAP에 적용되지 않는 서비스 및 솔루션은 삭제됩니다.)</label>
+        <name>SVC_WAR_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label>일치하지않는 서비스/솔루션 데이터가 있습니다. SR을 등록해주세요.</label>
+        <name>SVC_WAR_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드 소유자만이 기본 사업리드 팀을 추가할 수 있습니다.</label>
+        <name>SalesLeadError</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드 소유자만 사업리드 구성원을 삭제할 수 있습니다.</label>
+        <name>SalesLeadOnlyOwnerCanDelete</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드 소유자만 사업리드 구성원을 변경할 수 있습니다.</label>
+        <name>SalesLeadOnlyOwnercanChange</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드 소유자 변경 시, 사업 리드 팀 구성원이 초기화됩니다.</label>
+        <name>SalesLeadOwnerChangeAlertMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>소유자의 기본 사업리드 팀이 추가되었습니다.</label>
+        <name>SalesLeadSuccess</name>
+    </customLabels>
+    <customLabels>
+        <label>이 사업리드 팀 구성원은 이미 존재합니다.</label>
+        <name>SalesLeadTeamAlreadyExist</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드 팀 구성원 업데이트 되었습니다.</label>
+        <name>SalesLeadTeamMemberSuccess</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드 소유자만이 사업리드 구성원을 추가할 수 있습니다.</label>
+        <name>SalesLeadWrongOwner</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sales Rep.(HQ) Profile ID --></label>
+        <name>Sales_Rep_HQ_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sales Rep.(Overseas Corp) Profile ID --></label>
+        <name>Sales_Rep_Overseas_Corp_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sales Rep.(Subs) Profile ID --></label>
+        <name>Sales_Rep_Subs_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>영업대표</label>
+        <name>Sales_Rep_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sandbox Knox Bearer --></label>
+        <name>Sandbox_Knox_Bearer</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sandbox_Knox_Bearer_IF_073 --></label>
+        <name>Sandbox_Knox_Bearer_IF_073</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sandbox Knox Bearer	 IF_196 --></label>
+        <name>Sandbox_Knox_Bearer_IF_196</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sandbox Knox System Id --></label>
+        <name>Sandbox_Knox_System_Id</name>
+    </customLabels>
+    <customLabels>
+        <label>저장</label>
+        <name>SaveButton</name>
+    </customLabels>
+    <customLabels>
+        <label>저장</label>
+        <name>SaveCargoes</name>
+    </customLabels>
+    <customLabels>
+        <label>저장되었습니다</label>
+        <name>Savecargoesmessage</name>
+    </customLabels>
+    <customLabels>
+        <label>성공적으로 저장되었습니다</label>
+        <name>Saved_Success_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label>취급 품목이 사람 또는 환경 및 운송 수단에 영향을 줄 수 있는 다음에 해당하는 화물입니까?</label>
+        <name>SecondPopupMainHeading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SelectuserError --></label>
+        <name>SelectuserError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Service Desk Agency Profile ID --></label>
+        <name>Service_Desk_Agency_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>스마트검색</label>
+        <name>Smart_Search</name>
+    </customLabels>
+    <customLabels>
+        <label>검색어를 입력하세요</label>
+        <name>Smart_Search_Text</name>
+    </customLabels>
+    <customLabels>
+        <label>특수 문자만으로 정보를 입력할 수 없습니다.</label>
+        <name>SpecialCharactersError</name>
+    </customLabels>
+    <customLabels>
+        <label>특수 문자만으로 정보를 입력할 수 없습니다.</label>
+        <name>Special_Char_Err_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- System Administrator Profile ID --></label>
+        <name>System_Administrator_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>가져온 팀원입니다.</label>
+        <name>TEAM_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>모든 팀 구성원이 이미 지불 인의 승인자이거나로드 할 팀 구성원이 없습니다.</label>
+        <name>TEAM_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- List of TXP Manpower Profiles --></label>
+        <name>TXP_Manpower_Profiles</name>
+    </customLabels>
+    <customLabels>
+        <label>취급 품목이 사업부가 규정한 절대 취급금지 품목 또는 일반 취급금지 품목입니까?</label>
+        <name>TableMainHeading</name>
+    </customLabels>
+    <customLabels>
+        <label>[절대 취급금지 품목]</label>
+        <name>TableSubHeading</name>
+    </customLabels>
+    <customLabels>
+        <label>분석결과  저장</label>
+        <name>Temporary</name>
+    </customLabels>
+    <customLabels>
+        <label>수출지 또는 경유지가 미국 수출통제(Embargo) 국가 또는 지역입니까?</label>
+        <name>ThirdPopupmainHeading</name>
+    </customLabels>
+    <customLabels>
+        <label>직책</label>
+        <name>Title</name>
+    </customLabels>
+    <customLabels>
+        <label>합계</label>
+        <name>Total</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Total Licences --></label>
+        <name>Total_Licences</name>
+    </customLabels>
+    <customLabels>
+        <label>에러가 발생 했습니다. 관리자에 문의 해 주세요.</label>
+        <name>TxpErrorMessage</name>
+    </customLabels>
+    <customLabels>
+        <label>TXP 시스템에서 변경된 인력투입계획정보를 받고 있습니다.
+update가 완료되면 화면이 새로고침 됩니다.</label>
+        <name>TxpUpdationMessage</name>
+    </customLabels>
+    <customLabels>
+        <label>유형</label>
+        <name>Type</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Used Licences --></label>
+        <name>Used_Licences</name>
+    </customLabels>
+    <customLabels>
+        <label>사용자가 생성되었습니다.</label>
+        <name>UserCreateSuccessMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- UserEmployeeManagement heading --></label>
+        <name>UserEmployeeManagement_heading</name>
+    </customLabels>
+    <customLabels>
+        <label>사용자가 성공적으로 업데이트되었습니다</label>
+        <name>UserUpdateSuccessMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- User Licenses --></label>
+        <name>User_Licenses</name>
+    </customLabels>
+    <customLabels>
+        <label>협업 BO 결재 사전 점검</label>
+        <name>VAPP_LAB_COLLABO_VALID_CHECK</name>
+    </customLabels>
+    <customLabels>
+        <label>결재 사전 점검</label>
+        <name>VAPP_LAB_VALID_CHECK</name>
+    </customLabels>
+    <customLabels>
+        <label>Knox Portal 승인이 전송 중입니다.</label>
+        <name>VAPP_MSG_001</name>
+    </customLabels>
+    <customLabels>
+        <label>승인 확인 전 오류 발생 (SD)</label>
+        <name>VAPP_MSG_002</name>
+    </customLabels>
+    <customLabels>
+        <label>&apos;비용 계획 준비&apos;는 필수입니다.</label>
+        <name>VAPP_MSG_003</name>
+    </customLabels>
+    <customLabels>
+        <label>&apos;결정&apos;은 필수입니다.</label>
+        <name>VAPP_MSG_004</name>
+    </customLabels>
+    <customLabels>
+        <label>BO / PJT 버전을 생성하십시오.</label>
+        <name>VAPP_MSG_005</name>
+    </customLabels>
+    <customLabels>
+        <label>활동을 새로 고치고 최대 버전 &amp; 1을 선택하십시오.</label>
+        <name>VAPP_MSG_006</name>
+    </customLabels>
+    <customLabels>
+        <label>Knox Portal 승인이 전송 중입니다.</label>
+        <name>VAPP_MSG_007</name>
+    </customLabels>
+    <customLabels>
+        <label>거래 중단 BO는 계약 승인을 할 수 없습니다.</label>
+        <name>VAPP_MSG_008</name>
+    </customLabels>
+    <customLabels>
+        <label>먼저 BO 및 프로젝트 버전을 생성하십시오.</label>
+        <name>VAPP_MSG_009</name>
+    </customLabels>
+    <customLabels>
+        <label>먼저 프로젝트 버전을 만드십시오.</label>
+        <name>VAPP_MSG_010</name>
+    </customLabels>
+    <customLabels>
+        <label>거래 실패 이유가 입력되지 않았습니다.</label>
+        <name>VAPP_MSG_011</name>
+    </customLabels>
+    <customLabels>
+        <label>&quot;Opportunity Code&quot;, &quot;Opportunity Company Code&quot;, &quot;Original Price Version&quot; 값이 있는지 확인해주십시오.</label>
+        <name>VAPP_MSG_012</name>
+    </customLabels>
+    <customLabels>
+        <label>사전 점검이 완료되지 않았습니다. 사전 점검 메시지를 확인하십시오.</label>
+        <name>VAPP_MSG_013</name>
+    </customLabels>
+    <customLabels>
+        <label>협업 BO 사전 점검이 완료되지 않았습니다.</label>
+        <name>VAPP_MSG_014</name>
+    </customLabels>
+    <customLabels>
+        <label>모두보기</label>
+        <name>VIEW_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label>VOC 가 종료(취소) 되었습니다. 답변을 확인 하시기 바랍니다.</label>
+        <name>VOC_Close_Chatter_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label>[영업 전략위원회] 마감</label>
+        <name>VRB_MSG_Notification001</name>
+    </customLabels>
+    <customLabels>
+        <label>- 요청자</label>
+        <name>VRB_MSG_Notification002</name>
+    </customLabels>
+    <customLabels>
+        <label>미리보기</label>
+        <name>ViewALl</name>
+    </customLabels>
+    <customLabels>
+        <label>WBS</label>
+        <name>WBS_LAB_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>주간보고 전송 성공</label>
+        <name>WEEKLYREPORT_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회를 입력해주세요.</label>
+        <name>WEEKLYREPORT_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>작성한 주간보고 내용이 없어 주간보고를 전송할 수 없습니다. 
+주간보고를 전송하시려면 주간보고 내용을 작성하신 후, &apos;주간보고 전송&apos; 버튼을 눌러주세요</label>
+        <name>WEEKLYREPORT_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>보고서를 선택해주세요.</label>
+        <name>WEEKLYREPORT_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>취소</label>
+        <name>WEEKLY_ISSUE_REPORT_BTN_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label>다음</label>
+        <name>WEEKLY_ISSUE_REPORT_BTN_NEXT</name>
+    </customLabels>
+    <customLabels>
+        <label>저장</label>
+        <name>WEEKLY_ISSUE_REPORT_BTN_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>전송</label>
+        <name>WEEKLY_ISSUE_REPORT_BTN_SEND</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일 전송</label>
+        <name>WEEKLY_ISSUE_REPORT_BTN_SENDEMAIL</name>
+    </customLabels>
+    <customLabels>
+        <label>고객사</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_ACCOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>보고 내용</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_CONTENT</name>
+    </customLabels>
+    <customLabels>
+        <label>현안</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_ISSUE</name>
+    </customLabels>
+    <customLabels>
+        <label>제목</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_OPPORTUNITY</name>
+    </customLabels>
+    <customLabels>
+        <label>순서</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_ORDER</name>
+    </customLabels>
+    <customLabels>
+        <label>보고 날짜</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_REPORTDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>코멘트</label>
+        <name>WEEKLY_ISSUE_REPORT_COMMENTS</name>
+    </customLabels>
+    <customLabels>
+        <label>주간 보고 내용</label>
+        <name>WEEKLY_ISSUE_REPORT_CONTENT</name>
+    </customLabels>
+    <customLabels>
+        <label>부서명</label>
+        <name>WEEKLY_ISSUE_REPORT_DEPT_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>표시 순서</label>
+        <name>WEEKLY_ISSUE_REPORT_DISPLAY_ORDER</name>
+    </customLabels>
+    <customLabels>
+        <label>현안 편집</label>
+        <name>WEEKLY_ISSUE_REPORT_EDIT_ISSUE</name>
+    </customLabels>
+    <customLabels>
+        <label>수신자 선택</label>
+        <name>WEEKLY_ISSUE_REPORT_EMPLOYEE</name>
+    </customLabels>
+    <customLabels>
+        <label>Knox 이메일 관련 APEX 컨트롤러 오류!!</label>
+        <name>WEEKLY_ISSUE_REPORT_ERROR_APEX_CONTROLLER</name>
+    </customLabels>
+    <customLabels>
+        <label>주석이 없습니다!!</label>
+        <name>WEEKLY_ISSUE_REPORT_ERROR_COMMENT</name>
+    </customLabels>
+    <customLabels>
+        <label>이메일 수신자를 선택하여야 합니다.</label>
+        <name>WEEKLY_ISSUE_REPORT_ERROR_RECIPIENTS</name>
+    </customLabels>
+    <customLabels>
+        <label>제목을 입력하여야합니다.</label>
+        <name>WEEKLY_ISSUE_REPORT_ERROR_SUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>전체화면으로 보려면 키보드의 F11 키를 누르십시오.</label>
+        <name>WEEKLY_ISSUE_REPORT_FULLSCREEN</name>
+    </customLabels>
+    <customLabels>
+        <label>현안 설명</label>
+        <name>WEEKLY_ISSUE_REPORT_ISSUE_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>주간보고 전송 성공</label>
+        <name>WEEKLY_ISSUE_REPORT_MSG_SUCCESS</name>
+    </customLabels>
+    <customLabels>
+        <label>보고자</label>
+        <name>WEEKLY_ISSUE_REPORT_OWNER_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>미리보기</label>
+        <name>WEEKLY_ISSUE_REPORT_PREVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label>문자열 길이가 최대 값을 초과합니다 : 60000000</label>
+        <name>WEEKLY_ISSUE_REPORT_STRING_EXCEPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>제목</label>
+        <name>WEEKLY_ISSUE_REPORT_SUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>현안 보고</label>
+        <name>WEEKLY_ISSUE_REPORT_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>주간 보고</label>
+        <name>WEEKLY_ISSUE_REPORT_TITLE_WEEKLY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY MAIL LIMIT --></label>
+        <name>WEEKLY_MAIL_LIMIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_MAIL_RECIPIENT --></label>
+        <name>WEEKLY_MAIL_RECIPIENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_MAIL_RECIPIENT_STAGE --></label>
+        <name>WEEKLY_MAIL_RECIPIENT_STAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_MAIL_RECIPIENT_TEST --></label>
+        <name>WEEKLY_MAIL_RECIPIENT_TEST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_MAIL_TITLE --></label>
+        <name>WEEKLY_MAIL_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>현안 보고 내용</label>
+        <name>WEEKLY_REPORT_ISSUE_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>엑셀 다운로드</label>
+        <name>WONLOSTDROP_BTN_EXCEL</name>
+    </customLabels>
+    <customLabels>
+        <label>전체</label>
+        <name>WONLOSTDROP_LAB_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label>제목 입력...</label>
+        <name>WONLOSTDROP_LAB_ENTERTITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>수주실주중도종결</label>
+        <name>WONLOSTDROP_LAB_FILEHEADER</name>
+    </customLabels>
+    <customLabels>
+        <label>이미 등록된 데이터가 있습니다.</label>
+        <name>WONLOSTDROP_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label>엑셀 다운로드 완료</label>
+        <name>WONLOSTDROP_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label>조회된 수주실주중도종결 정보가 업습니다. 1건 이상부터 다운로드가 가능합니다.</label>
+        <name>WONLOSTDROP_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>검색 결과가 1000건 이상입니다. 리포트를 이용해주세요.</label>
+        <name>WONLOSTDROP_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Weekly Manager Report User --></label>
+        <name>Weekly_Manager_Report_User</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Weekly Report Strategy Committee Type --></label>
+        <name>Weekly_Report_Strategy_Committee_Type</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Weekly Report Users --></label>
+        <name>Weekly_Report_Users</name>
+    </customLabels>
+    <customLabels>
+        <label>[수주 사유]</label>
+        <name>Won_Formula_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- 20220727_MH --></label>
+        <name>X20220727_MH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- YearlyRevenueScheduleNote2 --></label>
+        <name>YearlyRevenueScheduleNote2</name>
+    </customLabels>
+    <customLabels>
+        <label>이름을 입력하세요</label>
+        <name>firstNamePlaceholder</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- knox_mySales --></label>
+        <name>knox_mySales</name>
+    </customLabels>
+    <customLabels>
+        <label>경쟁결과 분석 비중의 합은 100%이어야 합니다</label>
+        <name>knoxapprovaltotalmsg</name>
+    </customLabels>
+    <customLabels>
+        <label>성을 입력하세요</label>
+        <name>lastNamePlaceholder</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_email_adm --></label>
+        <name>partner_email_adm</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_email_mkt --></label>
+        <name>partner_email_mkt</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_email_sds --></label>
+        <name>partner_email_sds</name>
+    </customLabels>
+    <customLabels>
+        <label>회사명,회사 전화,회사 팩스,회사 웹사이트</label>
+        <name>partner_enrollment_company_info_fields</name>
+    </customLabels>
+    <customLabels>
+        <label>파트너 구분,제목,내용,파트너 참여 신청 번호,검토단계,검토담당자</label>
+        <name>partner_enrollment_description_label</name>
+    </customLabels>
+    <customLabels>
+        <label>파트너 참여 신청,업체 정보,연락처 정보,신청 내용,개인정보 수집 및 이용 동의</label>
+        <name>partner_enrollment_heading_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner enrollment partner type label --></label>
+        <name>partner_enrollment_partner_type_label</name>
+    </customLabels>
+    <customLabels>
+        <label>이름,성,휴대전화번호,이메일,이메일과 동일,파트너 ID,중복체크,제출내용 확인/수정</label>
+        <name>partner_enrollment_primary_con_fields</name>
+    </customLabels>
+    <customLabels>
+        <label>사용 가능한 이메일 입니다,이미 제출 혹은 리뷰 중인 이메일 입니다,중복된 이메일 입니다,중복 체크 하려면 이메일을 입력하세요,신청이 접수되었습니다. 감사합니다.,저장하기 전 필드 입력값들을 확인하세요.,귀사의 파트너 참여 신청이 성공적으로 등록되었습니다. 진행상황 확인을 위해&lt;br/&gt;등록하신 이메일과 상기 표시된 참여 신청 번호를 기록해 두시기 바랍니다.&lt;br/&gt;&lt;br/&gt;신청 내용을 확인 또는 수정하시거나 파일 첨부를 원하시면 &lt;br/&gt; 아래의 &apos;제출내용 확인/수정&apos; 버튼을 선택해주세요.,올바른 URL을 입력하세요.,올바른 이름을 입력하세요.,이 필드를 완료하십시오.,전화번호를 입력해주세요(예:010-1234-1234),전화번호를 입력해주세요(예:031-123-1234 또는 02-1234-1234).,이메일 중복체크를 하세요.,모든 약관을 체크해주세요.</label>
+        <name>partner_enrollment_request_messages</name>
+    </customLabels>
+    <customLabels>
+        <label>초기화,진행현황조회,제출내용 확인/수정</label>
+        <name>partner_enrollment_status_button_label</name>
+    </customLabels>
+    <customLabels>
+        <label>메일주소,파트너 참여 신청 번호</label>
+        <name>partner_enrollment_status_fields_label</name>
+    </customLabels>
+    <customLabels>
+        <label>파트너 참여 신청 진행현황</label>
+        <name>partner_enrollment_status_heading_label</name>
+    </customLabels>
+    <customLabels>
+        <label>조회 조건을 모두 입력 해주세요.,입력하신 이메일 주소와 파트너 참여 신청 번호를 확인 해주세요.&lt;br&gt;입력하신 정보에 맞는 파트너 참여 신청 내역이 없습니다.,· 삼성클라우드 플랫폼 파트너로 모시기 위한 모든 검토가 완료되었습니다.&lt;br&gt;· 파트너십 체결을 위해 세부 협의를 별도 요청드리겠습니다.,· 추가 정보를 요청 드리고 회신을 기다리고 있습니다.,· 공유해주신 자료에 기반한 검토가 완료되었습니다.&lt;br&gt;· 오프라인으로 뵙고 추가 논의 요청드리겠습니다.,· 검토담당자가 제안주신 내용을 확인중입니다.&lt;br&gt;· 필요 시 추가 정보 요청이 있을 수 있습니다.,· 신청을 확인하고 검토 담당자 배정중입니다.,· 신청하신 내용에 대한 검토 및 협상이 완료되었습니다.,· 파트너 참여 신청이 반려되었습니다.</label>
+        <name>partner_enrollment_status_messages_label</name>
+    </customLabels>
+    <customLabels>
+        <label>모두 동의,개인정보 수집 및 이용 동의(필수),개인정보 위탁 및 국외이전 동의(필수),신청시 유의사항(필수),자세히 보기 &gt;,등록,만 14세 이상 회원입니다(필수)</label>
+        <name>partner_enrollment_tnc_label</name>
+    </customLabels>
+    <customLabels>
+        <label>회사,이름,성,휴대전화번호,이메일,중복 체크</label>
+        <name>partner_signup_request_formbody</name>
+    </customLabels>
+    <customLabels>
+        <label>회원 가입</label>
+        <name>partner_signup_request_header</name>
+    </customLabels>
+    <customLabels>
+        <label>회원가입 신청이 완료됐습니다. 확인이 완료되면 입력하신 이메일 주소로 안내 메일이 발송됩니다.,사용가능한 메일입니다.,중복된 이메일 입니다.,이미 신청중인 이메일입니다.,에러가 발생했습니다. Contact 이메일로 문의하세요.,중복체크 할 이메일을 입력하세요.,모든 입력필드를 입력해주세요.,전화번호를 입력해주세요(예:010-1234-1234),저장하기 전 필드 입력값들을 확인하세요.,이메일 중복체크를 하세요.,이 필드를 완료하십시오.,올바른 이름을 입력하세요.,모든 약관을 체크해주세요.</label>
+        <name>partner_signup_request_messages</name>
+    </customLabels>
+    <customLabels>
+        <label>모두 동의,개인정보 수집 및 이용 동의(필수),개인정보 위탁 및 국외이전 동의(필수),서비스 약관 동의(필수),자세히 보기 &gt;,등록,만 14세 이상 회원입니다(필수)</label>
+        <name>partner_signup_request_tc</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_signup_request_text --></label>
+        <name>partner_signup_request_text</name>
+    </customLabels>
+    <customLabels>
+        <label>회원 정보 입력,개인정보 수집∙이용 및 서비스 약관 동의,서비스 약관이 변경되었으며 다시 동의해야 합니다. &lt;br&gt;변경된 서비스 약관에 동의하지 않을 수 있습니다.&lt;br&gt;동의하지 않으면 SAMSUNG SDS Cloud Partner Network을 사용할 수 없습니다.</label>
+        <name>partner_signup_request_title</name>
+    </customLabels>
+    <customLabels>
+        <label>파일 업로드</label>
+        <name>upload_button_label</name>
+    </customLabels>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Bo_Report_Flow</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>Notice_Text</name>
+                </fields>
+                <name>Notice</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>WarningMessage</name>
+                </fields>
+                <name>Warning</name>
+            </screens>
+        </flows>
+        <fullName>BrowserCheck</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Create_Claimable_Partner_Fund_Claim</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Credit_Member_Points</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>DoNothing</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Enrollment_Bonus_for_New_Partner_Network</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>Only_Submit_Claimable_Fund_Claim_0</name>
+                </fields>
+                <name>Approved_or_Rejected_Claim_Error_0</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>Description_0</name>
+                </fields>
+                <name>Error_Message_0</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>Successfully_Submitted</name>
+                </fields>
+                <name>Success_Message</name>
+            </screens>
+        </flows>
+        <fullName>Fund_Claim_Approval_Process</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>Only_Submit_Draft_Requests</name>
+                </fields>
+                <name>Approved_or_Rejected_Request_Error</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>Submitted_0</name>
+                </fields>
+                <name>Success_Message_0</name>
+            </screens>
+        </flows>
+        <fullName>Fund_Request_Approval_Process</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>screen_LoginFlow_Application</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_Community</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_IpAddress</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_LoginType</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_Platform</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_SessionLevel</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_UserAgent</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_UserId</name>
+                </fields>
+                <name>Display_Variables</name>
+            </screens>
+        </flows>
+        <fullName>IdentityVerification</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>Notice_Text</name>
+                </fields>
+                <name>Notice</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>WarningMessage</name>
+                </fields>
+                <name>Warning</name>
+            </screens>
+        </flows>
+        <fullName>Jitterbit_Agent_Updgrade</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>LM_purchase</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>LogisticsRevenueSplitOpportunity</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>LogisticsRevenueSplitSalesLead</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <choices>
+                <choiceText>하위 사업기회로 복제</choiceText>
+                <name>screenTypeChild</name>
+            </choices>
+            <choices>
+                <choiceText>사업기회 복제</choiceText>
+                <name>screenTypeClone</name>
+            </choices>
+            <screens>
+                <fields>
+                    <fieldText>&lt;pre class=&quot;ql-syntax&quot; spellcheck=&quot;false&quot;&gt;사업기회를 복제할 수 없습니다. 다음의 메시지로 시스템 관리자에게 문의하십시오: {!$Flow.FaultMessage} &lt;/pre&gt;</fieldText>
+                    <name>ErrorMessage</name>
+                </fields>
+                <name>CloneError</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>screenCompleteLabel</name>
+                </fields>
+                <name>Done</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>PrimarySalesDepartmentError</name>
+                </fields>
+                <name>PrimarySalesDepartmentValidity</name>
+            </screens>
+            <screens>
+                <fields>
+                    <fieldText>복제할 유형을 선택</fieldText>
+                    <name>screenCloneType</name>
+                </fields>
+                <name>SelectCloneType</name>
+            </screens>
+            <screens>
+                <fields>
+                    <fieldText>금액</fieldText>
+                    <name>screenNewOpportunityAmount</name>
+                </fields>
+                <fields>
+                    <fieldText>예상 수주일자</fieldText>
+                    <name>screenNewOpportunityCloseDate</name>
+                </fields>
+                <fields>
+                    <fieldText>사업기회명</fieldText>
+                    <name>screenNewOppotunityName</name>
+                </fields>
+                <name>SetNewOpportunityValue</name>
+            </screens>
+            <screens>
+                <fields>
+                    <fieldText>&lt;p&gt;복제를 사용할 권한이 없습니다.&lt;/p&gt;</fieldText>
+                    <name>lblNotPermitted</name>
+                </fields>
+                <name>dialogNotPermitted</name>
+            </screens>
+        </flows>
+        <fullName>OpportunityClone</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Partner_Business_Management_Actions</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Partner_Business_Opportunity_Actions</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Partner_Enrolment_Request_Actions</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Partner_T_C_Check</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Partner_T_C_Uncheck</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>ProcessLogisticsRevenueSplitOpportunity</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>ProcessLogisticsRevenueSplitSalesLead</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Q_A_Action_Flow</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <fieldText>&lt;pre class=&quot;ql-syntax&quot; spellcheck=&quot;false&quot;&gt;사업기회 리드를 지금 복제할 수 없습니다. 시스템 관리자에게 다음의 메시지로 문의하십시오: {!$Flow.FaultMessage} &lt;/pre&gt;</fieldText>
+                    <name>ErrorMessage</name>
+                </fields>
+                <name>CloneError</name>
+            </screens>
+            <screens>
+                <fields>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;변환된 사업기회 리즈를 복제할 수 없습니다.&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <name>ErrorMessage4ConvertedLead</name>
+                </fields>
+                <name>CloneError4ConvertedLead</name>
+            </screens>
+            <screens>
+                <fields>
+                    <fieldText>사업리드명</fieldText>
+                    <name>screenSalesLeadName</name>
+                </fields>
+                <name>CloneSalesLead</name>
+            </screens>
+            <screens>
+                <fields>
+                    <fieldText>&lt;p&gt;복제가 완료되었습니다. &quot;다음&quot; 버튼을 클릭하면 복제된 사업기회 리드 화면으로 이동합니다 .&lt;/p&gt;</fieldText>
+                    <name>screenCompleteLabel</name>
+                </fields>
+                <name>Done</name>
+            </screens>
+        </flows>
+        <fullName>SalesLeadClone</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>ThanksMessage</name>
+                </fields>
+                <name>ReceiveSpecialCoupon</name>
+            </screens>
+        </flows>
+        <fullName>SpecialCoupon</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Test</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Tier_Upgrade_Processing</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Update_OriginAccount</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>fieldApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>objectApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordId</name>
+                        <value/>
+                    </inputParameters>
+                    <name>UserInfo</name>
+                </fields>
+                <name>Select_a_user</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>userValues</name>
+                </fields>
+                <name>Test_Release</name>
+            </screens>
+        </flows>
+        <fullName>User_management_Release_POC</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>VOC_Close_Alert</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>VRBRequest_Notification</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>calculate_FP_for_Task_Performance</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>showDateErrortest</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>showToast</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>name</name>
+                </fields>
+                <name>header</name>
+            </screens>
+        </flows>
+        <fullName>test2</fullName>
+    </flowDefinitions>
+</Translations>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OriginKnoxApproval__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>협업 법인 Original 결재</description>
+    <externalId>false</externalId>
+    <inlineHelpText>협업 법인 Original 결재</inlineHelpText>
+    <label>Origin Knox Approval</label>
+    <referenceTo>KnoxApproval__c</referenceTo>
+    <relationshipLabel>Knox Approval</relationshipLabel>
+    <relationshipName>KnoxApproval</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

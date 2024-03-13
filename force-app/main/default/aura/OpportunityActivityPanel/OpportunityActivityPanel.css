@@ -1,0 +1,58 @@
+.THIS.c-container {
+    
+}
+
+.THIS .panel {
+    border: 1px solid rgb(221, 219, 218);
+    border-radius: 0.25rem;
+    background-color: #FFFFFF; 
+    width:100%;
+    box-sizing: border-box;
+    position: relative;
+    overflow: visible;
+}
+
+.THIS .slds-path__scroller-container {
+    overflow: unset !important;
+    min-width: 0;
+    flex-basis: 1px;
+}
+/*V 1.2 MYSALES-358 Start*/
+.THIS .slds-path__mark-complete-colour{
+    min-width: var(--lwc-pathButtonWidthFixed,13rem);
+    margin-right: 0;
+    color: black;
+    background-color: #dceefa;
+    /*text-decoration: underline;*/
+}
+/*V 1.2 MYSALES-358 End */
+
+.THIS .activity-col {
+    width: calc(100% / 5 - 1.5rem);
+    min-width: 3rem;
+}
+
+.THIS .status-box {
+    flex : 1;
+}
+
+.THIS .slds-spinner_container {
+    z-index: 10 !important;
+}
+
+.THIS .readOnlyScreen {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 20; 
+    visibility: visible;
+    opacity: 1;
+}
+
+@media (max-width: 64em) {
+    .THIS .panel-button {
+        display: none;
+    }
+}

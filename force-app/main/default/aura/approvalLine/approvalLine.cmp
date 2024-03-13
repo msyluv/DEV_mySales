@@ -1,0 +1,69 @@
+<!--
+  @description       : 
+  @author            : hj.lee@dkbmc.com
+  @group             : 
+  @last modified on  : 2023-10-17
+  @last modified by  : atul.k1@samusng.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2020-12-23   hj.lee@dkbmc.com          Initial Version
+  1.1   2023-10-17   atul.k1@samusng.com       Mysales-318
+-->
+<aura:component
+                controller="ApprovalLineController"
+                implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasSObjectName,force:hasRecordId"
+                access="GLOBAL">
+    
+    <aura:attribute name="opptyId"    type="String" />
+    <aura:attribute name="opptyActId" type="String" />
+    <aura:attribute name="bizReviewId" type="String" />
+    
+    <!-- <aura:attribute name="resultObj" type="Object" default="{}" /> -->
+    
+    <aura:attribute name="approvalLineList" type="List" default="[]" />
+    <aura:attribute name="approvalHTML" type="String" default="" />
+    <aura:attribute name="approvalMISID" type="String" default="" />
+    <aura:attribute name="isApprovalHTML" type="Boolean" />
+    <aura:attribute name="isSuccess" type="Boolean" />
+    <aura:attribute name="Minus_Profit" type="String" default=""/> <!--V 1.1 Mysales-318-->
+    <aura:attribute name="isLoading" type="Boolean" />
+    <aura:attribute name="preview" type="Boolean" default="false"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler name="change" value="{!v.opptyActId}" action="{!c.init}"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>
+    
+    <aura:handler event="c:approvalLineGetEvent" action="{!c.getApprovalLine}"/>
+    <aura:registerEvent name="approvalLinePassEvent" type="c:approvalLinePassEvent"/>
+    
+    <aura:if isTrue="{!v.isLoading}">  
+        <lightning:spinner alternativeText="Loading" size="medium" />
+    </aura:if>
+    <!-- 
+        수주품의 단계에서의 인프라 구축(팝업창 생성) 요청의 건
+           -->
+    <aura:if isTrue="{!v.preview}">
+     
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open">
+            
+            <div class="slds-modal__container" style="width:50%;">
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{!$Label.c.APPR_MSG_0039}</h1>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" >
+                    <aura:unescapedHtml value="{!$Label.c.APPR_MSG_0038}"/>
+                    <!--  -->
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.clickClose}">close</button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </aura:if>
+    <!-- 결재 본문 -->
+    <!-- <div style="background:#FFFFFF">
+      <aura:unescapedHtml value="{!v.approvalHTML}"/>
+    </div> -->
+    
+</aura:component>

@@ -1,0 +1,30 @@
+/**
+ * @description       : 
+ * @author            : gitesh.s@samsung.com
+ * @group             : 
+ * @last modified on  : 15-03-2023
+ * @last modified by  : gitesh.s@samsung.com
+ * Modifications Log 
+ * Ver   Date         Author                 Modification
+ * 1.0   15-03-2023   gitesh.s@samsung.com   Initial Version
+**/
+.THIS .report-preview-content .slds-form-element__legend {
+    display: none;
+}
+.THIS .report-preview-content .slds-radio {
+    margin-top: 20px;
+}
+.THIS .report-preview-content .slds-form-element {
+    width: 60%;
+    float: right;
+    margin-bottom: 40px;
+}
+.THIS .slds-th__action .slds-th__action-button, 
+.THIS .slds-resizable__divider {
+    display: none;
+}
+.THIS .slds-table_header-fixed_container,
+.THIS .slds-table_header-fixed_container .slds-scrollable_y,
+.THIS .slds-table_header-fixed_container .slds-table_header-fixed {
+    width: 100% !important;
+}

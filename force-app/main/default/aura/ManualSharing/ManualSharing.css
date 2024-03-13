@@ -1,0 +1,30 @@
+.THIS .click-button-img{
+    color:#0289ff;
+}
+
+.THIS .slds-modal__content{
+	height : 30rem !important;    
+}
+.THIS td {
+    overflow:hidden;
+    white-space : nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+.THIS .table_tbody_Wrapper{
+    overflow-y: auto;
+}
+
+.THIS .slds-list_horizontal .slds-item_detail{
+    width : 100% !important;
+}
+.THIS .slds-table thead th {
+    line-height: 1.8rem !important;
+}
+
+.THIS .attach-to-bottom{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+}

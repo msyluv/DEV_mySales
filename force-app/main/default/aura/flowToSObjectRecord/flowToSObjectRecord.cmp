@@ -1,0 +1,13 @@
+<!--
+  @description       : calling from flow to jump "BO cloned" new record
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 12-10-2020
+  @last modified by  : woomg@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   12-10-2020   woomg@dkbmc.com   Initial Version
+-->
+<aura:component implements="force:lightningQuickAction,lightning:availableForFlowActions">
+    <aura:attribute name="recordId" type="String" />
+</aura:component>

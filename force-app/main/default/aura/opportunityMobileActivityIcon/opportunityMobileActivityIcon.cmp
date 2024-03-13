@@ -1,0 +1,53 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-02-24
+  @last modified by  : wonjune.oh@partner.samsung.com
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   11-20-2020   woomg@dkbmc.com   Initial Version
+-->
+<aura:component>
+	<aura:attribute name="activity" type="Object" default="{}" access="GLOBAL"/>
+	<aura:attribute name="isLast" type="Boolean" default="false" access="GLOBAL"/>
+	<aura:attribute name="disabled" type="Boolean" default="false" access="GLOBAL"/>
+	<aura:attribute name="showModal" type="Boolean" default="false"/>
+	<aura:attribute name="activityItem" type="Object"/>
+	<aura:attribute name="activityType" type="String" default="task" access="GLOBAL"/>
+	
+	<aura:attribute name="isShowMobileDetail" type="Boolean" default="false" />
+
+	<!-- [Library] -->
+	<lightning:overlayLibrary aura:id="overlayLib"/>
+
+	<!-- [registerEvent] -->
+    <aura:registerEvent name="opportunityActivityPanelRefreshEvent" type="c:opportunityActivityPanelRefreshEvent"/>
+
+	
+	<li>
+		<lightning:layout multipleRows="true">
+			<lightning:layoutItem size="12" class="activity-center">
+				<lightning:icon iconName="{!'standard:'+v.activityType}" alternativeText="{!v.activityType}" title="{!v.activityType}" onclick="{!c.showActivity}" 
+				class="{!
+					  (v.activityItem.BoAct.Status__c == 'Not Started' ? ' stat_notStarted' 
+					: (v.activityItem.BoAct.Status__c == 'In Progress' ? ' stat_progress' 
+					: (v.activityItem.BoAct.Status__c == 'Completed' ? ' stat_completed' 
+					: (v.activityItem.BoAct.Status__c == 'N/A' ? ' stat_na' 
+					: 'stat_nostatus') )))
+				}"/>
+			</lightning:layoutItem>
+			<lightning:layoutItem size="6" class="{!'vertical-right ' + (v.isLast ? 'last-activity' : '')}"></lightning:layoutItem>
+			<lightning:layoutItem size="6" class="{!'vertical-left ' + (v.isLast ? 'last-activity' : '')}"></lightning:layoutItem>		
+		</lightning:layout>
+
+		<aura:if isTrue="{!v.isShowMobileDetail}">
+				<c:opportunityMobileActivityDetail activityItem="{!v.activityItem}" isShowMobileDetail="{!v.isShowMobileDetail}" />
+		</aura:if>
+		
+		
+	</li>
+
+
+
+</aura:component>

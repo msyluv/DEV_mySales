@@ -1,0 +1,49 @@
+<!--
+  @description       : 
+  @author            : wonjune.oh@partner.samsung.com
+  @group             : 
+  @last modified on  : 2021-07-08
+  @last modified by  : seonju.jin@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                           Modification
+  1.0   2021-01-05   wonjune.oh@partner.samsung.com   Initial Version
+-->
+<aura:component controller="SvcSolBizAttrSendToEccController"
+                implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasSObjectName,force:hasRecordId" access="GLOBAL">
+    <aura:attribute name="isMobile" type="Boolean"/>
+
+    <aura:attribute name="toastMessage" type="String" default="" />
+    <aura:attribute name="isCloseModal" type="Boolean" default="true" />
+    <aura:attribute name="toastType" type="String" default="" />
+    <aura:attribute name="recordId" type="String" default="SvcSolBizAttr__c.Id" description="SvcSolBizAttr__c.Id" />
+
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+    <aura:html tag="style">
+        /* Hide Modal */
+        <!-- .slds-modal__content {
+          background: unset;
+        }
+        .slds-modal__content:last-child,
+        .slds-modal__content_has-hidden-footer {
+          box-shadow: unset;
+        }    
+        .slds-backdrop, .slds-modal__close.closeIcon{
+          display: none;
+        }        
+        .slds-spinner_container {
+          background-color : unset;
+        } -->
+        <!-- .slds-modal__close{
+          display: none;
+        } -->
+        .slds-spinner_container {
+          background-color : unset;
+        }
+    </aura:html>
+
+    <lightning:spinner aura:id="spinner2" size="medium"/>
+
+
+</aura:component>

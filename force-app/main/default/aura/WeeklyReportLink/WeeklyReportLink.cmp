@@ -1,0 +1,10 @@
+<!--
+  @description       : 
+  @author            : ukhyeon.lee@samsung.com
+  @group             : 
+  @last modified on  : 02-17-2022
+  @last modified by  : ukhyeon.lee@samsung.com
+-->
+<aura:component implements="flexipage:availableForAllPageTypes,lightning:isUrlAddressable" controller="WeeklyReportLinkController">
+   <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+</aura:component>

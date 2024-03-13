@@ -1,0 +1,218 @@
+<apex:page controller="WeeklyReportVFController" action="{!WeeklyReportVFController}" showQuickActionVfHeader="false" docType="html-5.0" lightningStylesheets="true"  contentType="text/html;charset=UTF-8">
+    <apex:includeScript value="{!URLFOR($Resource.cafe + '/2.3.27/cafe_2.3.27.min.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jquery)}"/>
+    <script type="text/javascript" language="javascript">
+    	var imageUpload;
+    	$(function(){  
+        	var fileLenght=0;  
+        	var fileUploading = 0;  
+        	var fileUploaded = 0;  
+        	var ids = new Array(); 
+        	imageUpload = function(fileList,imageArr,bodyInfo,deleteSrcList){
+            	fileLenght = fileList.length;
+            	for(var i = 0 ; i < fileLenght ; i++){
+                	uploadImageFile(fileList[i],function(err,res){
+                    	fileUploading +=1; 
+                    	if(fileLenght === fileUploading){
+                        	console.log('Upload Completed'); 
+                        	console.log('Contentversion Uploaded Ids : ' + ids); 
+                        	saveHTML(ids,imageArr,bodyInfo,deleteSrcList); 
+                    	}
+                	})
+            	}
+        	}; 
+         
+         	var uploadImageFile = function(file, callback) {  
+           		filetoBase64(file, function(err, content){  
+             		var conVer_object = {  
+               								ContentLocation : 'S',  
+               								Origin      : 'H',
+               								VersionData : content,   
+               								PathOnClient : file.name,   
+               								Title : file.name,
+               								FirstPublishLocationId : '{!recordId}'
+            							};  
+            	$.ajax({  
+               			url: '/services/data/v54.0/sobjects/ContentVersion',  
+               			data: JSON.stringify(conVer_object ),  
+               			type: 'POST',  
+               			processData: false,  
+               			contentType: false,  
+               			headers: {'Authorization': 'Bearer {!$Api.Session_ID}', 'Content-Type': 'application/json'}, 
+               			xhr: function(){  
+                 						var xhr = new window.XMLHttpRequest();  
+                 
+                 						xhr.upload.addEventListener("progress", function(evt){  
+                   							if (evt.lengthComputable) {  
+                        						//Upload progress     
+                   							}  
+                 						}, false);  
+                 						return xhr;  
+               				},
+               			success: function(response) {  
+                 										fileUploaded += 1;  
+                 										console.log(response.id); // the id of the attachment  
+                 										ids.push(response.id);   
+                 										callback(null, true)  
+               					},  
+            		});  
+           		}); 
+        	}
+         	//Read file  
+         	var filetoBase64 = function(file, callback){  
+           		var reader = new FileReader();  
+           		reader.onload = function() {  
+             								var myFileContents = reader.result;  
+             								var base64Mark = 'base64,';  
+             								var dataStart = myFileContents.indexOf(base64Mark) + base64Mark.length;  
+             								myFileContents = myFileContents.substring(dataStart);  
+             								callback(null, myFileContents);  
+           						}  
+           		reader.readAsDataURL(file);  
+         	}  
+    	});
+    
+    	var isReadOnly = "{!$CurrentPage.parameters.isReadOnly}";
+        var recordId = "{!$CurrentPage.parameters.id}";
+        var arg = {'format':'html'};
+        
+    	cafe.create("cafeDemo", 
+                    "{!URLFOR($Resource.cafe + '/2.3.27/config.json')}", 
+                    "GET", 
+                    function (){cafe.setContent( "cafeDemo", '{!JSENCODE(issueDescriptionCheck)}', arg);
+                                if(isReadOnly == "Y"){
+                                    					cafe.setReadOnly("cafeDemo", true);
+                                   	 					$("body .pbBottomButtons").css("display", "none");
+                                					}
+                    		   }
+                   );
+    
+    
+        function closeQuickActionPopUp(){
+            sforce.one.back(true);
+            sforce.one.navigateToSObject('{!$CurrentPage.parameters.id}');
+        }
+		
+    	function saveHTML(ids,imageArr,bodyInfo,deleteSrcList){
+        	console.log('Start Save Proces..'); 
+        	console.log(ids); 
+        	var imageArr2 = bodyInfo.getElementsByTagName('img'); // img tag Array 
+        	var j = 0; 
+        	var uploadedImgSrcList = ''; 
+        	for(var i=0;i<imageArr.length;i++){
+            	if(imageArr2[i].src.indexOf('base64') != -1){
+                	imageArr2[i].src = '/sfc/servlet.shepherd/version/download/'+ids[j];
+                 	uploadedImgSrcList += ids[j] + ' '; 
+                 	j+=1; 
+            	}
+            	else continue; 
+        	}
+        	doSave(bodyInfo.innerHTML,deleteSrcList,uploadedImgSrcList);
+    	}
+    	
+    	function buildFile(dataUrl,index){
+        	console.log(dataUrl); 
+            var arr = dataUrl.split(','),
+                mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]), 
+                n = bstr.length, 
+                u8arr = new Uint8Array(n);
+            var extension = ''; 
+            if(mime.toLowerCase().indexOf('jpeg') !== -1 || mime.toLowerCase().indexOf('jpg') !== -1){
+                extension = '.jpg'; 
+            }else if(mime.toLowerCase().indexOf('gif') !== -1){
+                extension = '.gif'; 
+            }else if(mime.toLowerCase().indexOf('png') !== -1){
+                extension = '.png'; 
+            }else if(mime.toLowerCase().indexOf('bmp') !== -1){
+                extension ='.bmp'; 
+            }else{
+                extension ='.jpg'; 
+            }
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            var fileName = 'Editor_'+yyyy+'-'+mm+'-'+dd+'_'+index+extension; 
+            while(n--){
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new File([u8arr], fileName , {type:mime});
+    	}
+    
+    
+        function saveIssueDescription(){
+            var content = cafe.getContent("cafeDemo");
+            let parser = new DOMParser(); 
+            const doc = parser.parseFromString(content,'text/html'); 
+        	var bodyInfo = doc.getElementsByTagName('body')[0];
+            
+            var fileList = []; 
+        	var imageArr = bodyInfo.getElementsByTagName('img'); // img tag Array 
+        	var base64Arr = new Array(); 
+        	for(var i = 0 ; i < imageArr.length; i++){
+            	base64Arr.push(imageArr[i].src+ ' '); 
+            
+            	if(imageArr[i].src.split(',').length>1){
+                	var file = buildFile(imageArr[i].src,i+1); 
+                	fileList.push(file); 
+            	}
+        	}
+            
+            console.log('before Save : '); 
+        	var originSaveHTML = '{!JSENCODE(issueDescriptionCheck)}'; 
+        	const originDoc = parser.parseFromString(originSaveHTML,'text/html'); 
+        	var originSaveImgArr =originDoc.getElementsByTagName('img'); 
+        
+        	var deleteSRC = ''; 
+        	for(var j = 0 ; j < originSaveImgArr.length;j++){
+            	if(originSaveImgArr[j].src.indexOf('servlet.shepherd') != -1){
+                	var check = 0; 
+                    
+                 	for(var i = 0 ; i < imageArr.length; i++){
+                    	if(imageArr[i].src == originSaveImgArr[j].src) check = 1; 
+                 	}
+                    
+                 	if(check == 0) deleteSRC += originSaveImgArr[j].src +' '; 
+            	}
+        	}
+        	console.log('delete List : ' + deleteSRC);
+            
+			var fileLength = fileList.length; 
+        	var uploadedImgSrcList = ''; 
+            
+            
+        	if(fileLength>0) imageUpload(fileList,imageArr,bodyInfo,deleteSRC); 
+        	else doSave(bodyInfo.innerHTML,deleteSRC,uploadedImgSrcList);
+			
+        }
+    
+    </script>
+    <apex:form >
+        <apex:actionFunction name="doSave" action="{!doSave}" reRender="pageMessages,script-block" oncomplete="closeQuickActionPopUp();return false; ">
+            <apex:param id="issueDescription" name="issueDescription" value=""></apex:param>
+            <apex:param id="deleteSrc" name="deleteSrc" value=""></apex:param>
+    		<apex:param id="uploadedImgSrcList" name="uploadedImgSrcList" value=""></apex:param>
+        </apex:actionFunction>
+    	<apex:pageBlock >
+            <apex:pageMessages id="showmsg"/>
+            <apex:pageBlockSection >
+            	<apex:pageBlockSectionItem dataStyle="width:10%">
+                	<apex:outputText value="Issue Description" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                	<div id="cafeDemo"></div>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <div id="buttons">
+               	<apex:pageBlockButtons location="bottom">
+               		<apex:commandButton value="Cancel" immediate="true" onclick="closeQuickActionPopUp()"/>
+               		<apex:commandButton value="Save" reRender="none" onclick="saveIssueDescription();" style="background-color: rgba(23,92,170,1);color: white;border: none;"/>
+    			</apex:pageBlockButtons> 
+            </div>
+			                
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

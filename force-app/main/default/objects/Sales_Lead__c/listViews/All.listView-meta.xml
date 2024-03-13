@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>AccountId__c</columns>
+    <columns>LeadStatus__c</columns>
+    <columns>LeadStage__c</columns>
+    <columns>Amount__c</columns>
+    <columns>CloseDate__c</columns>
+    <columns>RevenueStartDate__c</columns>
+    <columns>RevenueEndDate__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LeadChannel__c</columns>
+    <columns>Description__c</columns>
+    <columns>InterestSubject1__c</columns>
+    <columns>OwnerEmail__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Sales Leads</label>
+</ListView>

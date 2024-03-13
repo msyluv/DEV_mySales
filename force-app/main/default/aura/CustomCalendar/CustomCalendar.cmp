@@ -1,0 +1,196 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 2020-12-11
+  @last modified by  : jiiiiii.park@partner.samsung.com.sds.dev
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   11-03-2020   woomg@dkbmc.com   Initial Version
+-->
+<aura:component controller="CustomCalendarController"
+    
+    implements="force:appHostable,flexipage:availableForAllPageTypes"
+    access="global">
+
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+
+    <aura:attribute name="isMobile"
+        type="Boolean"
+        default="false"
+        access="global"
+        description="Mobile check"/>
+
+    <aura:attribute name="treeTitle"
+        type="String"
+        default="Organization"
+        access="global"                    
+        description="Role Tree Title"/>
+
+    <aura:attribute name="roleTree"
+        type="List"
+        default="[]"
+        access="global"                    
+        description="Role Tree"/>
+
+    <aura:attribute name="roleOrUserIds"
+        type="String[]"
+        default=""
+        access="global"                    
+        description="UserRoles or Ids of Users"/>
+
+    <aura:attribute name="roleOrUserId"
+        type="String"
+        default=""
+        access="global"                    
+        description="UserRole or UserId for RoleTree"/>
+
+    <aura:attribute name="isRoleId"
+        type="Boolean"
+        default="true"
+        access="global"                    
+        description="Check Id is Role or User"/>
+
+    <aura:attribute name="includeUser"
+        type="Boolean"
+        default="false"
+        access="global"                    
+        description="Check Id is Role or User"/>
+
+    <aura:attribute name="selectedKey"
+        type="String"
+        default=""
+        access="global"                    
+        description="ID of selected Node"/>
+    
+    <aura:attribute name="calendarReady"
+        type="Boolean"
+        default="false"
+        access="global"                    
+        description="set true when calendar prepared."/>
+
+    <aura:attribute name="firstCall"
+        type="Boolean"
+        default="true"
+        access="global"                    
+        description="constructor call or not"/>
+
+    <aura:attribute name="checkboxSelected"
+        type="Boolean"
+        default="true"
+        access="global"                    
+        description="checkboxSelected"/>
+
+    <aura:attribute name="options" type="List" default="[]"/>
+    <aura:attribute name="checkedValue" type="List" default="[]"/>
+    <!-- <aura:attribute name="checked" type="Object" default="{}"/> -->
+
+    <!-- <aura:attribute name="checkEvent" type="Boolean" default="true" />
+    <aura:attribute name="checkTask" type="Boolean" default="true" />
+    <aura:attribute name="checkAccPlan" type="Boolean" default="true" />
+    <aura:attribute name="checkOpptyAct" type="Boolean" default="true" /> -->
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.calendarReady}" action="{!c.calendarReady}"/>
+    <aura:handler name="changeCheckbox" value="{!v.checkboxSelected}"  action="{!c.handleChange}"/>
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isMobile}">
+        <lightning:card>
+                <lightning:layout multipleRows="true">
+                    <lightning:layoutItem padding="horizontal-small" size="6" >
+                        <lightning:checkboxGroup name="CalEvent Group"
+                                                 label=" "
+                                                 options="{!v.options}"
+                                                 value="{!v.checkedValue}"
+                                                 onchange="{!c.handleChange}"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="horizontal-small" size="6" >
+                        <lightning:buttonGroup >
+                            <lightning:buttonIcon iconName="utility:chevronleft" onclick="{!c.goPrev}" alternativeText="{!$Label.c.CALEANDER_LAB_PREMONTH}" />
+                            <lightning:button label="{!$Label.c.CALEANDER_LAB_TODAY}" onclick="{!c.goToday}"/>
+                            <lightning:buttonIcon iconName="utility:chevronright" onclick="{!c.goNext}" alternativeText="{!$Label.c.CALEANDER_LAB_NEXTMONTH}" />
+                        </lightning:buttonGroup>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="horizontal-small" size="12" >
+                        <c:customCalendarFull aura:id="fullCalendar" 
+                                            hasCompleteField="false" 
+                                            fieldComplete=""
+                                            isRoleId="{!v.isRoleId}"
+                                            ids="{!v.roleOrUserIds}"
+                                            color="lightblue"
+                                            firstCall="{!v.firstCall}"
+                                            ready="{!v.calendarReady}"/>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:card>
+            
+        <aura:set attribute="else">
+            <lightning:card title="{!$Label.c.CALEANDER_LAB_MYCALENDAR}" iconName="standard:event">
+                <lightning:layout >
+                    <lightning:layoutItem padding="horizontal-small" size="8" >
+                        <c:customCalendarFull aura:id="fullCalendar" 
+                                            hasCompleteField="false" 
+                                            fieldComplete=""
+                                            isRoleId="{!v.isRoleId}"
+                                            ids="{!v.roleOrUserIds}"
+                                            color="lightblue"
+                                            firstCall="{!v.firstCall}"
+                                            ready="{!v.calendarReady}"/><!--  -->
+
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="horizontal-small" size="4" >
+                        <lightning:layout multipleRows="true">
+                            <lightning:layoutItem size="6">
+                                <lightning:buttonGroup >
+                                    <lightning:buttonIcon iconName="utility:chevronleft" onclick="{!c.goPrev}" alternativeText="{!$Label.c.CALEANDER_LAB_PREMONTH}" />
+                                    <lightning:button label="{!$Label.c.CALEANDER_LAB_TODAY}" onclick="{!c.goToday}"/>
+                                    <lightning:buttonIcon iconName="utility:chevronright" onclick="{!c.goNext}" alternativeText="{!$Label.c.CALEANDER_LAB_NEXTMONTH}"/>
+                                </lightning:buttonGroup>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6" class="right-end">
+                                <lightning:buttonGroup >
+                                    <lightning:button label="{!$Label.c.CALEANDER_BTN_MONTH}" onclick="{!c.viewMonth}"/>
+                                    <lightning:button label="{!$Label.c.CALEANDER_BTN_LIST}" onclick="{!c.viewList}"/>
+                                </lightning:buttonGroup>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem padding="horizontal-small" size="12" class="slds-box slds-m-top--x-small">
+                                <div class="tree-box">
+                                    <lightning:tree items="{!v.roleTree}" header="{!v.treeTitle}" onselect="{!c.selectTree}"/>
+                                </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem padding="horizontal-small" size="12" class="slds-box slds-m-top--x-small">
+                                <lightning:layout multipleRows="true">
+                                    <lightning:checkboxGroup 
+                                        name="CalEvent Group"
+                                        label=" "
+                                        options="{!v.options}"
+                                        value="{!v.checkedValue}"
+                                        onchange="{!c.handleChange}"
+                                    />
+                                    <!--
+                                    <lightning:layoutItem padding="vertical-small" size="12" >
+                                        <lightning:input type="checkbox" label="Event" checked="{!v.checked.Event}" onchange="{!c.handleChange}"/>
+                                    </lightning:layoutItem>
+                                    <lightning:layoutItem padding="vertical-small" size="12" >
+                                        <lightning:input type="checkbox" label="Task" checked="{!v.checked.Task}" onchange="{!c.handleChange}"/>
+                                    </lightning:layoutItem>
+                                    <lightning:layoutItem padding="vertical-small" size="12" >
+                                        <lightning:input type="checkbox" label="Account Plan" checked="{!v.checked.AccPlan}" onchange="{!c.handleChange}"/>
+                                    </lightning:layoutItem>
+                                    <lightning:layoutItem padding="vertical-small" size="12" >
+                                        <lightning:input type="checkbox" label="Opportunity Activity" checked="{!v.checked.OpptyAct}" onchange="{!c.handleChange}"/>
+                                    </lightning:layoutItem>
+                                    -->
+                                </lightning:layout>
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:card>
+        </aura:set>
+    </aura:if>
+</aura:component>

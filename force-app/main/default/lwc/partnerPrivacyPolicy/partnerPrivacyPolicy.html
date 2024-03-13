@@ -1,0 +1,25 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <main>
+        <hgroup class="personal_title">
+            <section class="text_wrap">
+                <h2>SAMSUNG SDS Cloud Partner Network 개인정보처리방침</h2>
+            </section>
+        </hgroup>
+        <article class="personal_wrap">
+            <section class="top_wrap">
+                <div class="dropdown_wrapper">
+                    <select class="dropdown_set" onchange={handleVersion} style="width: 250px;">
+                        <template for:each={versionOptions} for:item="version">
+                            <option key={version.id} value={version.key}>{version.versionId}</option>
+                        </template>
+                    </select>
+                    <i class="arrow_down"></i>
+                </div>
+            </section>
+            <section>
+                <lightning-formatted-rich-text value={versionDetail} class="version_detail"></lightning-formatted-rich-text>
+            </section>
+        </article>
+    </main>
+</template>

@@ -1,0 +1,112 @@
+<!-- 
+  @description       : 
+  @author            : Junghwa.Kim@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-10-01
+  @last modified by  : younghoon.kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                  Modification
+  1.0   11-05-2020   Junghwa.Kim@dkbmc.com   Initial Version
+-->
+<aura:component controller="SalesLeadToOppModalController"
+                implements="lightning:isUrlAddressable,lightning:hasPageReference,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:appHostable,force:hasSObjectName,force:hasRecordId" access="global">
+
+    <aura:html tag="style">
+        .slds-modal__container{
+            margin: 0 auto; 
+            width: 100%; 
+            max-width: 55rem; 
+            min-width: 30rem;
+        }
+    </aura:html>
+
+    <aura:attribute name="SalesLeadList" type="List"/>
+    <aura:attribute name="selectedOwner" type="String" description="Store selected Owner Id"/>
+    <aura:attribute name="RecordType" type="List"/>
+    <aura:attribute name="SelectRT" type="String" default="null"/>
+    <aura:attribute name="isRecordType" type="Boolean" default="false"/>
+    <aura:attribute name="RTList" type="List" default="[]"/>
+    <aura:attribute name="HQ" type="String" default=""/>
+    <aura:attribute name="convertBtn" type="Boolean" default="true"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="true"/>
+    
+    <aura:handler name="recordSelectedEvent" event="c:customLookupSelectedEvent" action="{!c.recordSelectedEventHandler}"/>
+    <aura:handler name="init" value="{!this}" action="{! c.init }"/>
+    
+    <ltng:require styles="{!$Resource.multilineToastCSS}" />
+
+    <div>
+        <aura:if isTrue="{!v.showSpinner}">
+            <lightning:spinner />
+        </aura:if>
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate" style="text-align: center;">{!$Label.c.CONVERT_LAB_SALESLEADCONVERT}</h2>
+        <div class="body">
+            <table class="leftTable">
+                <thead>
+                    <tr>
+                        <th class="textCenter">{!$Label.c.CONVERT_LAB_SALESLEAD}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <lightning:recordEditForm objectApiName="Sales_Lead__c" recordId="{!v.recordId}">
+                        <aura:iteration items="{!v.SalesLeadList}" var="obj">
+                            <tr>
+                                <td class="{!obj.sfApi == 'AccountId__c' ? 'inputwidth accTD' : 'inputwidth '}">
+                                    <aura:if isTrue="{!obj.sfApi == 'Amount__c'}">
+        								<lightning:input aura:id = "{!obj.sfApi}" type="number" disabled="true" value="{!obj.sfValue}" label="{!obj.sfLabel}" step="0.01" class="AmountField"/>
+                                        <aura:set attribute="else">                                    
+                                            <lightning:inputField aura:id = "{!obj.sfApi}" fieldName="{!obj.sfApi}" value="{!obj.sfValue}" disabled="true"/>
+                                        </aura:set>
+                                    </aura:if>
+                                </td>
+                                <td class="textCenter pointer">
+                                    <div>
+                                        <lightning:icon iconName="utility:forward" class="slds-icon slds-icon_small" size="x-small"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </lightning:recordEditForm>
+                </tbody>
+            </table>
+            <table class="rightTable">
+                <thead>
+                    <tr>
+                        <th class="textCenter">{!$Label.c.CONVERT_LAB_OPPORTUNITY}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <lightning:recordEditForm objectApiName="Opportunity">
+                        <aura:iteration items="{!v.SalesLeadList}" var="obj">
+                            <tr>
+                                <td class="inputwidth">
+                                    <aura:if isTrue="{!obj.oppApi == 'Amount'}">
+        								<lightning:input aura:id = "{!obj.oppApi}" type="number" disabled="true" value="{!obj.oppValue}" label="{!obj.oppLabel}" step="0.01" class="AmountField"/>
+                                        <aura:set attribute="else">                                    
+                                            <lightning:inputField aura:id = "{!obj.oppApi}" fieldName="{!obj.oppApi}" value="{!obj.oppValue}" disabled="true"/>
+                                        </aura:set>
+                                    </aura:if>
+                                    <aura:if isTrue="{!obj.oppApi == 'AccountId'}">
+                                    	<lightning:inputField fieldName="cOriginAcc__c" value="{!obj.oppValue}" disabled="true"/>	
+                                    </aura:if>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                        <tr> 
+                            <td class="inputwidth">
+                                <lightning:inputField aura:id = "" fieldName="cLeadID__c" value="{!v.recordId}" disabled="true"/>
+                            </td>
+                        </tr>
+                    </lightning:recordEditForm>
+                </tbody>
+            </table>
+        </div>
+        <footer class="footer">
+            <lightning:button variant="brand-outline" label="{!$Label.c.CONVER_BTN_CANCEL}" onclick="{!c.convertCacenlBtn}" />
+            <aura:if isTrue="{!v.convertBtn}">
+                <lightning:button variant="brand" label="{!$Label.c.CONVER_BTN_CONVERT}" onclick="{!c.convertBtn}" />
+            </aura:if>
+        </footer>
+    </div>
+</aura:component>

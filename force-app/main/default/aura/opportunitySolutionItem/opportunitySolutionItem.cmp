@@ -1,0 +1,118 @@
+<!--
+  @description       : 
+  @author            : seonju.jin@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-06-09
+  @last modified by  : seonju.jin@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                 Modification
+  1.0   2020-11-18   seonju.jin@dkbmc.com   Initial Version
+  1.1   2020-01-28   seonju.jin@dkbmc.com   PSType 추가
+-->
+<aura:component 
+    controller="OpportunitySolutionItemController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes"
+    access='global'>
+
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <!-- regi Event -->
+    <aura:registerEvent name="addRowEvt" type="c:opportunityServiceSolutionItemAddEvt"/>
+    <aura:registerEvent name="removeRowEvt" type="c:opportunityServiceSolutionItemRemoveEvt"/>
+    <aura:registerEvent name="rowSelectEvt" type="c:opportunityServiceSelectEvt"/>
+
+    <!-- [Attribute] -->
+    <aura:attribute name="rowIndex" type="String" default = '0'/>
+    <aura:attribute name='sInstance' type="Object"/>
+    <aura:attribute name="isHQ" type="Boolean" access="public" default='false'/>  
+    <aura:attribute name="salesTypeDisable" type="Boolean" access="public" default='true'/>  
+    <aura:attribute name="isCollaboration" type="Boolean" access="public" default='false'/>
+    <aura:attribute name="boId" type="String" access="public" default=''/>
+    <aura:attribute name="locked" type="Boolean" access="public" default='false'/>           <!-- 레코드락 여부 -->
+    <aura:attribute name="attrEmpty" type="Boolean" access="public" default='false'/>           
+
+    <aura:attribute name="solOpt" type="List" access="public" default ='[]' />  <!-- solution select option List -->
+    <aura:attribute name="attrOpt" type="List" access="public" default ='[]' />  <!-- attribute select option List -->
+    <aura:attribute name="salesTypeOpt" type="List" access="public" default ='[]' />  <!-- salesType select option List -->
+    
+    <tr onclick="{!c.rowSelect}" class="{!'svc-check-' + v.sInstance.checked}">
+        <!-- row No -->
+        <td scope="col"  style="width:5%;">
+            <div class="slds-truncate">{!v.rowIndex + 1}</div>
+        </td>
+
+        <!-- soltuion -->
+        <td scope="col"  style="width:15%;text-align: left;">
+            <lightning:combobox  class="selectBox" name="comboSol" placeholder="{!$Label.c.SVC_LAB_SELOPTION}" options="{!v.solOpt}" onchange="{! c.onSolSelectChange }"
+                                        dropdownAlignment="auto" value="{!v.sInstance.solutionId}" label=""/>
+            <!-- <lightning:select  class="selectBox"  aura:id="selSol" onchange="{!c.onSolSelectChange}" value="{!v.sInstance.solutionId}">
+                <aura:iteration items="{!v.solOpt}" var="itemVar">
+                    <option text="{!itemVar.label}" value="{!itemVar.value}"  selected="{!itemVar.selected}" />
+                </aura:iteration>
+            </lightning:select> -->
+        </td>
+
+        <!-- attribute -->
+        <td scope="col"  style="width:15%;text-align: left;">
+            <lightning:combobox  class="selectBox" name="comboAttr" placeholder="" options="{!v.attrOpt}" onchange="{! c.onAttrSelectChange }"
+                                        dropdownAlignment="auto" value="{!v.sInstance.attributeId}" label="" disabled="{!v.attrEmpty}"/>
+            <!-- <lightning:select  class="selectBox"  aura:id="selAttr" onchange="{!c.onAttrSelectChange}" value="{!v.sInstance.attributeId}">
+                <aura:iteration items="{!v.attrOpt}" var="itemVar">
+                    <option text="{!itemVar.label}" value="{!itemVar.value}" selected="{!itemVar.selected}" />
+                </aura:iteration>
+            </lightning:select> -->
+        </td>
+
+        <!-- SalesType -->
+        <td scope="col"  style="width:15%;text-align: left;">
+            <lightning:combobox  class="selectBox" name="comboSaelsType" placeholder="" options="{!v.salesTypeOpt}" onchange="{! c.onSalesTypeSelectChange }"
+                                        dropdownAlignment="auto" value="{!v.sInstance.salesType}" label="" disabled="{!v.salesTypeDisable}"/>
+            <!-- <lightning:select  class="selectBox"  aura:id="selSalesType" disabled="{!v.salesTypeDisable}"  onchange="{!c.onSalesTypeSelectChange}"  value="{!v.sInstance.salesType}">
+                <aura:iteration items="{!v.salesTypeOpt}" var="itemVar">
+                    <option text="{!itemVar.label}" value="{!itemVar.value}" selected="{!itemVar.selected}" />
+                </aura:iteration>
+            </lightning:select> -->
+        </td>
+
+        <!-- Solution Type -->
+        <td scope="col" style="width:10%;">
+            <lightning:input name="input1" disabled="true" value="{!v.sInstance.solutionTypeNm}" title="{!v.sInstance.solutionTypeNm}" />
+        </td>
+
+        <!-- PLC Status -->
+        <td scope="col" style="width:10%;">
+            <lightning:input  name="input2" disabled="true" value="{!v.sInstance.plcStatus}"  title="{!v.sInstance.plcStatus}"/>
+        </td>
+
+        <!-- WBS Class -->
+        <!-- <td scope="col" style="width:10%;">
+            <lightning:input  name="input3" disabled="true" value="{!v.sInstance.wbsClass}"  title="{!v.sInstance.wbsClass}"/>
+        </td> -->
+
+        <!-- PsType -->
+        <td scope="col" style="width:10%;">
+            <lightning:input  name="input3" disabled="true" value="{!v.sInstance.psType}"  title="{!v.sInstance.psType}"/>
+        </td>
+
+        <!-- Biz.Type -->
+        <td scope="col" style="width:10%;">
+            <lightning:input  name="input4" class='input_biztype' disabled="true" value="{!v.sInstance.bizType}"  title="{!v.sInstance.bizType}"/>
+        </td>
+
+        <!-- action -->
+        <td scope="col" style="vertical-align: bottom;width:10%;" data-set="{!v.rowIndex}">
+            <aura:if isTrue="{!!v.locked}">
+                <a onclick="{!c.addRow}" style="padding-right: 10px;">
+                    <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="x-small" alternativeText="add"/>
+                    <span class="slds-assistive-text">Add Icon</span>
+                </a>
+                <a onclick="{!c.removeRow}"  class='icon-del'>
+                    <lightning:icon variant="error" iconName="utility:delete" class="slds-icon slds-icon_small" size="x-small" alternativeText="icon"/>
+                    <span class="slds-assistive-text">Delete Icon</span>
+                </a>    
+            </aura:if>
+        </td> 
+    </tr>
+
+</aura:component>

@@ -1,0 +1,7 @@
+.THIS .selectBox .slds-form-element__label { 
+    display: none; 
+}
+
+.THIS lightning-input > label.slds-form-element__label {
+    display: none;
+}

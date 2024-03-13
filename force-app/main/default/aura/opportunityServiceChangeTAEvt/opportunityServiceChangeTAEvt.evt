@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Event template">
+    <aura:attribute name="serviceIdx" type="Integer" description="service select Index"/>
+</aura:event>

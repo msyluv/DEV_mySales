@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <environments>Default</environments>
+    <formulas>
+        <name>ToRHQ10_Formula</name>
+        <dataType>String</dataType>
+        <expression>CASE({!$Record.To_Country10__c}, &apos;UNITED STATES&apos;, &apos;NORTH AMERICA&apos;, 
+&apos;INDIA&apos;,&apos;MEIA&apos;,
+&apos;VIET NAM&apos;,&apos;PACIFIC&apos;,
+&apos;MEXICO&apos;,&apos;LATIN AMERICA&apos;,
+&apos;BRAZIL&apos;,&apos;LATIN AMERICA&apos;,
+&apos;KOREA, REPUBLIC OF&apos;,&apos;KOREA&apos;,
+&apos;CANADA&apos;,&apos;NORTH AMERICA&apos;,
+&apos;UNITED KINGDOM&apos;,&apos;EUROPE&apos;,
+&apos;GERMANY&apos;,&apos;EUROPE&apos;,
+&apos;GREECE&apos;,&apos;EUROPE&apos;,
+&apos;LATVIA&apos;,&apos;EUROPE&apos;,
+&apos;PORTUGAL&apos;,&apos;EUROPE&apos;,
+&apos;ROMANIA&apos;,&apos;EUROPE&apos;,
+&apos;HUNGARY&apos;,&apos;EUROPE&apos;,
+&apos;SLOVAKIA&apos;,&apos;EUROPE&apos;,
+&apos;POLAND&apos;,&apos;EUROPE&apos;,
+&apos;SWEDEN&apos;,&apos;EUROPE&apos;,
+&apos;FRANCE&apos;,&apos;EUROPE&apos;,
+&apos;ITALY&apos;,&apos;EUROPE&apos;,
+&apos;SPAIN&apos;,&apos;EUROPE&apos;,
+&apos;NETHERLANDS&apos;,&apos;EUROPE&apos;,
+&apos;AUSTRIA&apos;,&apos;EUROPE&apos;,
+&apos;CZECH REPUBLIC&apos;,&apos;EUROPE&apos;,
+&apos;SWITZERLAND&apos;,&apos;EUROPE&apos;,
+&apos;SINGAPORE&apos;,&apos;PACIFIC&apos;,
+&apos;INDONESIA&apos;,&apos;PACIFIC&apos;,
+&apos;PHILIPPINES&apos;,&apos;PACIFIC&apos;,
+&apos;THAILAND&apos;,&apos;PACIFIC&apos;,
+&apos;MALAYSIA&apos;,&apos;PACIFIC&apos;,
+&apos;AUSTRALIA&apos;,&apos;PACIFIC&apos;,
+&apos;CHINA&apos;,&apos;CHINA&apos;,
+&apos;HONG KONG&apos;,&apos;CHINA&apos;,
+&apos;EGYPT&apos;,&apos;MEIA&apos;,
+&apos;SOUTH AFRICA&apos;,&apos;MEIA&apos;,
+&apos;TURKEY&apos;,&apos;MEIA&apos;,
+&apos;UNITED ARAB EMIRATES&apos;,&apos;MEIA&apos;,
+&apos;PANAMA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;CHILE&apos;,&apos;LATIN AMERICA&apos;,
+&apos;PERU&apos;,&apos;LATIN AMERICA&apos;,
+&apos;COLOMBIA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;RUSSIAN FEDERATION&apos;,&apos;EUROPE&apos;,
+&apos;DJIBOUTI&apos;,&apos;MEIA&apos;,
+&apos;KENYA&apos;,&apos;MEIA&apos;,
+&apos;GHANA&apos;,&apos;MEIA&apos;,
+&apos;TANZANIA&apos;,&apos;MEIA&apos;,
+&apos;ISRAEL&apos;,&apos;MEIA&apos;,
+&apos;QATAR&apos;,&apos;MEIA&apos;,
+&apos;KUWAIT&apos;,&apos;MEIA&apos;,
+&apos;MAURITIOUS&apos;,&apos;MEIA&apos;,
+&apos;LEBANON&apos;,&apos;MEIA&apos;,
+&apos;&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>ToRHQ1_Formula</name>
+        <dataType>String</dataType>
+        <expression>CASE({!$Record.To_Country1__c}, &apos;UNITED STATES&apos;, &apos;NORTH AMERICA&apos;, 
+&apos;INDIA&apos;,&apos;MEIA&apos;,
+&apos;VIET NAM&apos;,&apos;PACIFIC&apos;,
+&apos;MEXICO&apos;,&apos;LATIN AMERICA&apos;,
+&apos;BRAZIL&apos;,&apos;LATIN AMERICA&apos;,
+&apos;KOREA, REPUBLIC OF&apos;,&apos;KOREA&apos;,
+&apos;CANADA&apos;,&apos;NORTH AMERICA&apos;,
+&apos;UNITED KINGDOM&apos;,&apos;EUROPE&apos;,
+&apos;GERMANY&apos;,&apos;EUROPE&apos;,
+&apos;GREECE&apos;,&apos;EUROPE&apos;,
+&apos;LATVIA&apos;,&apos;EUROPE&apos;,
+&apos;PORTUGAL&apos;,&apos;EUROPE&apos;,
+&apos;ROMANIA&apos;,&apos;EUROPE&apos;,
+&apos;HUNGARY&apos;,&apos;EUROPE&apos;,
+&apos;SLOVAKIA&apos;,&apos;EUROPE&apos;,
+&apos;POLAND&apos;,&apos;EUROPE&apos;,
+&apos;SWEDEN&apos;,&apos;EUROPE&apos;,
+&apos;FRANCE&apos;,&apos;EUROPE&apos;,
+&apos;ITALY&apos;,&apos;EUROPE&apos;,
+&apos;SPAIN&apos;,&apos;EUROPE&apos;,
+&apos;NETHERLANDS&apos;,&apos;EUROPE&apos;,
+&apos;AUSTRIA&apos;,&apos;EUROPE&apos;,
+&apos;CZECH REPUBLIC&apos;,&apos;EUROPE&apos;,
+&apos;SWITZERLAND&apos;,&apos;EUROPE&apos;,
+&apos;SINGAPORE&apos;,&apos;PACIFIC&apos;,
+&apos;INDONESIA&apos;,&apos;PACIFIC&apos;,
+&apos;PHILIPPINES&apos;,&apos;PACIFIC&apos;,
+&apos;THAILAND&apos;,&apos;PACIFIC&apos;,
+&apos;MALAYSIA&apos;,&apos;PACIFIC&apos;,
+&apos;AUSTRALIA&apos;,&apos;PACIFIC&apos;,
+&apos;CHINA&apos;,&apos;CHINA&apos;,
+&apos;HONG KONG&apos;,&apos;CHINA&apos;,
+&apos;EGYPT&apos;,&apos;MEIA&apos;,
+&apos;SOUTH AFRICA&apos;,&apos;MEIA&apos;,
+&apos;TURKEY&apos;,&apos;MEIA&apos;,
+&apos;UNITED ARAB EMIRATES&apos;,&apos;MEIA&apos;,
+&apos;PANAMA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;CHILE&apos;,&apos;LATIN AMERICA&apos;,
+&apos;PERU&apos;,&apos;LATIN AMERICA&apos;,
+&apos;COLOMBIA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;RUSSIAN FEDERATION&apos;,&apos;EUROPE&apos;,
+&apos;DJIBOUTI&apos;,&apos;MEIA&apos;,
+&apos;KENYA&apos;,&apos;MEIA&apos;,
+&apos;GHANA&apos;,&apos;MEIA&apos;,
+&apos;TANZANIA&apos;,&apos;MEIA&apos;,
+&apos;ISRAEL&apos;,&apos;MEIA&apos;,
+&apos;QATAR&apos;,&apos;MEIA&apos;,
+&apos;KUWAIT&apos;,&apos;MEIA&apos;,
+&apos;MAURITIOUS&apos;,&apos;MEIA&apos;,
+&apos;LEBANON&apos;,&apos;MEIA&apos;,
+&apos;&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>ToRHQ2_Formula</name>
+        <dataType>String</dataType>
+        <expression>CASE({!$Record.To_Country2__c}, &apos;UNITED STATES&apos;, &apos;NORTH AMERICA&apos;, 
+&apos;INDIA&apos;,&apos;MEIA&apos;,
+&apos;VIET NAM&apos;,&apos;PACIFIC&apos;,
+&apos;MEXICO&apos;,&apos;LATIN AMERICA&apos;,
+&apos;BRAZIL&apos;,&apos;LATIN AMERICA&apos;,
+&apos;KOREA, REPUBLIC OF&apos;,&apos;KOREA&apos;,
+&apos;CANADA&apos;,&apos;NORTH AMERICA&apos;,
+&apos;UNITED KINGDOM&apos;,&apos;EUROPE&apos;,
+&apos;GERMANY&apos;,&apos;EUROPE&apos;,
+&apos;GREECE&apos;,&apos;EUROPE&apos;,
+&apos;LATVIA&apos;,&apos;EUROPE&apos;,
+&apos;PORTUGAL&apos;,&apos;EUROPE&apos;,
+&apos;ROMANIA&apos;,&apos;EUROPE&apos;,
+&apos;HUNGARY&apos;,&apos;EUROPE&apos;,
+&apos;SLOVAKIA&apos;,&apos;EUROPE&apos;,
+&apos;POLAND&apos;,&apos;EUROPE&apos;,
+&apos;SWEDEN&apos;,&apos;EUROPE&apos;,
+&apos;FRANCE&apos;,&apos;EUROPE&apos;,
+&apos;ITALY&apos;,&apos;EUROPE&apos;,
+&apos;SPAIN&apos;,&apos;EUROPE&apos;,
+&apos;NETHERLANDS&apos;,&apos;EUROPE&apos;,
+&apos;AUSTRIA&apos;,&apos;EUROPE&apos;,
+&apos;CZECH REPUBLIC&apos;,&apos;EUROPE&apos;,
+&apos;SWITZERLAND&apos;,&apos;EUROPE&apos;,
+&apos;SINGAPORE&apos;,&apos;PACIFIC&apos;,
+&apos;INDONESIA&apos;,&apos;PACIFIC&apos;,
+&apos;PHILIPPINES&apos;,&apos;PACIFIC&apos;,
+&apos;THAILAND&apos;,&apos;PACIFIC&apos;,
+&apos;MALAYSIA&apos;,&apos;PACIFIC&apos;,
+&apos;AUSTRALIA&apos;,&apos;PACIFIC&apos;,
+&apos;CHINA&apos;,&apos;CHINA&apos;,
+&apos;HONG KONG&apos;,&apos;CHINA&apos;,
+&apos;EGYPT&apos;,&apos;MEIA&apos;,
+&apos;SOUTH AFRICA&apos;,&apos;MEIA&apos;,
+&apos;TURKEY&apos;,&apos;MEIA&apos;,
+&apos;UNITED ARAB EMIRATES&apos;,&apos;MEIA&apos;,
+&apos;PANAMA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;CHILE&apos;,&apos;LATIN AMERICA&apos;,
+&apos;PERU&apos;,&apos;LATIN AMERICA&apos;,
+&apos;COLOMBIA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;RUSSIAN FEDERATION&apos;,&apos;EUROPE&apos;,
+&apos;DJIBOUTI&apos;,&apos;MEIA&apos;,
+&apos;KENYA&apos;,&apos;MEIA&apos;,
+&apos;GHANA&apos;,&apos;MEIA&apos;,
+&apos;TANZANIA&apos;,&apos;MEIA&apos;,
+&apos;ISRAEL&apos;,&apos;MEIA&apos;,
+&apos;QATAR&apos;,&apos;MEIA&apos;,
+&apos;KUWAIT&apos;,&apos;MEIA&apos;,
+&apos;MAURITIOUS&apos;,&apos;MEIA&apos;,
+&apos;LEBANON&apos;,&apos;MEIA&apos;,
+&apos;&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>ToRHQ3_Formula</name>
+        <dataType>String</dataType>
+        <expression>CASE({!$Record.To_Country3__c}, &apos;UNITED STATES&apos;, &apos;NORTH AMERICA&apos;, 
+&apos;INDIA&apos;,&apos;MEIA&apos;,
+&apos;VIET NAM&apos;,&apos;PACIFIC&apos;,
+&apos;MEXICO&apos;,&apos;LATIN AMERICA&apos;,
+&apos;BRAZIL&apos;,&apos;LATIN AMERICA&apos;,
+&apos;KOREA, REPUBLIC OF&apos;,&apos;KOREA&apos;,
+&apos;CANADA&apos;,&apos;NORTH AMERICA&apos;,
+&apos;UNITED KINGDOM&apos;,&apos;EUROPE&apos;,
+&apos;GERMANY&apos;,&apos;EUROPE&apos;,
+&apos;GREECE&apos;,&apos;EUROPE&apos;,
+&apos;LATVIA&apos;,&apos;EUROPE&apos;,
+&apos;PORTUGAL&apos;,&apos;EUROPE&apos;,
+&apos;ROMANIA&apos;,&apos;EUROPE&apos;,
+&apos;HUNGARY&apos;,&apos;EUROPE&apos;,
+&apos;SLOVAKIA&apos;,&apos;EUROPE&apos;,
+&apos;POLAND&apos;,&apos;EUROPE&apos;,
+&apos;SWEDEN&apos;,&apos;EUROPE&apos;,
+&apos;FRANCE&apos;,&apos;EUROPE&apos;,
+&apos;ITALY&apos;,&apos;EUROPE&apos;,
+&apos;SPAIN&apos;,&apos;EUROPE&apos;,
+&apos;NETHERLANDS&apos;,&apos;EUROPE&apos;,
+&apos;AUSTRIA&apos;,&apos;EUROPE&apos;,
+&apos;CZECH REPUBLIC&apos;,&apos;EUROPE&apos;,
+&apos;SWITZERLAND&apos;,&apos;EUROPE&apos;,
+&apos;SINGAPORE&apos;,&apos;PACIFIC&apos;,
+&apos;INDONESIA&apos;,&apos;PACIFIC&apos;,
+&apos;PHILIPPINES&apos;,&apos;PACIFIC&apos;,
+&apos;THAILAND&apos;,&apos;PACIFIC&apos;,
+&apos;MALAYSIA&apos;,&apos;PACIFIC&apos;,
+&apos;AUSTRALIA&apos;,&apos;PACIFIC&apos;,
+&apos;CHINA&apos;,&apos;CHINA&apos;,
+&apos;HONG KONG&apos;,&apos;CHINA&apos;,
+&apos;EGYPT&apos;,&apos;MEIA&apos;,
+&apos;SOUTH AFRICA&apos;,&apos;MEIA&apos;,
+&apos;TURKEY&apos;,&apos;MEIA&apos;,
+&apos;UNITED ARAB EMIRATES&apos;,&apos;MEIA&apos;,
+&apos;PANAMA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;CHILE&apos;,&apos;LATIN AMERICA&apos;,
+&apos;PERU&apos;,&apos;LATIN AMERICA&apos;,
+&apos;COLOMBIA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;RUSSIAN FEDERATION&apos;,&apos;EUROPE&apos;,
+&apos;DJIBOUTI&apos;,&apos;MEIA&apos;,
+&apos;KENYA&apos;,&apos;MEIA&apos;,
+&apos;GHANA&apos;,&apos;MEIA&apos;,
+&apos;TANZANIA&apos;,&apos;MEIA&apos;,
+&apos;ISRAEL&apos;,&apos;MEIA&apos;,
+&apos;QATAR&apos;,&apos;MEIA&apos;,
+&apos;KUWAIT&apos;,&apos;MEIA&apos;,
+&apos;MAURITIOUS&apos;,&apos;MEIA&apos;,
+&apos;LEBANON&apos;,&apos;MEIA&apos;,
+&apos;&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>ToRHQ4_Formula</name>
+        <dataType>String</dataType>
+        <expression>CASE({!$Record.To_Country4__c}, &apos;UNITED STATES&apos;, &apos;NORTH AMERICA&apos;, 
+&apos;INDIA&apos;,&apos;MEIA&apos;,
+&apos;VIET NAM&apos;,&apos;PACIFIC&apos;,
+&apos;MEXICO&apos;,&apos;LATIN AMERICA&apos;,
+&apos;BRAZIL&apos;,&apos;LATIN AMERICA&apos;,
+&apos;KOREA, REPUBLIC OF&apos;,&apos;KOREA&apos;,
+&apos;CANADA&apos;,&apos;NORTH AMERICA&apos;,
+&apos;UNITED KINGDOM&apos;,&apos;EUROPE&apos;,
+&apos;GERMANY&apos;,&apos;EUROPE&apos;,
+&apos;GREECE&apos;,&apos;EUROPE&apos;,
+&apos;LATVIA&apos;,&apos;EUROPE&apos;,
+&apos;PORTUGAL&apos;,&apos;EUROPE&apos;,
+&apos;ROMANIA&apos;,&apos;EUROPE&apos;,
+&apos;HUNGARY&apos;,&apos;EUROPE&apos;,
+&apos;SLOVAKIA&apos;,&apos;EUROPE&apos;,
+&apos;POLAND&apos;,&apos;EUROPE&apos;,
+&apos;SWEDEN&apos;,&apos;EUROPE&apos;,
+&apos;FRANCE&apos;,&apos;EUROPE&apos;,
+&apos;ITALY&apos;,&apos;EUROPE&apos;,
+&apos;SPAIN&apos;,&apos;EUROPE&apos;,
+&apos;NETHERLANDS&apos;,&apos;EUROPE&apos;,
+&apos;AUSTRIA&apos;,&apos;EUROPE&apos;,
+&apos;CZECH REPUBLIC&apos;,&apos;EUROPE&apos;,
+&apos;SWITZERLAND&apos;,&apos;EUROPE&apos;,
+&apos;SINGAPORE&apos;,&apos;PACIFIC&apos;,
+&apos;INDONESIA&apos;,&apos;PACIFIC&apos;,
+&apos;PHILIPPINES&apos;,&apos;PACIFIC&apos;,
+&apos;THAILAND&apos;,&apos;PACIFIC&apos;,
+&apos;MALAYSIA&apos;,&apos;PACIFIC&apos;,
+&apos;AUSTRALIA&apos;,&apos;PACIFIC&apos;,
+&apos;CHINA&apos;,&apos;CHINA&apos;,
+&apos;HONG KONG&apos;,&apos;CHINA&apos;,
+&apos;EGYPT&apos;,&apos;MEIA&apos;,
+&apos;SOUTH AFRICA&apos;,&apos;MEIA&apos;,
+&apos;TURKEY&apos;,&apos;MEIA&apos;,
+&apos;UNITED ARAB EMIRATES&apos;,&apos;MEIA&apos;,
+&apos;PANAMA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;CHILE&apos;,&apos;LATIN AMERICA&apos;,
+&apos;PERU&apos;,&apos;LATIN AMERICA&apos;,
+&apos;COLOMBIA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;RUSSIAN FEDERATION&apos;,&apos;EUROPE&apos;,
+&apos;DJIBOUTI&apos;,&apos;MEIA&apos;,
+&apos;KENYA&apos;,&apos;MEIA&apos;,
+&apos;GHANA&apos;,&apos;MEIA&apos;,
+&apos;TANZANIA&apos;,&apos;MEIA&apos;,
+&apos;ISRAEL&apos;,&apos;MEIA&apos;,
+&apos;QATAR&apos;,&apos;MEIA&apos;,
+&apos;KUWAIT&apos;,&apos;MEIA&apos;,
+&apos;MAURITIOUS&apos;,&apos;MEIA&apos;,
+&apos;LEBANON&apos;,&apos;MEIA&apos;,
+&apos;&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>ToRHQ5_Formula</name>
+        <dataType>String</dataType>
+        <expression>CASE({!$Record.To_Country5__c}, &apos;UNITED STATES&apos;, &apos;NORTH AMERICA&apos;, 
+&apos;INDIA&apos;,&apos;MEIA&apos;,
+&apos;VIET NAM&apos;,&apos;PACIFIC&apos;,
+&apos;MEXICO&apos;,&apos;LATIN AMERICA&apos;,
+&apos;BRAZIL&apos;,&apos;LATIN AMERICA&apos;,
+&apos;KOREA, REPUBLIC OF&apos;,&apos;KOREA&apos;,
+&apos;CANADA&apos;,&apos;NORTH AMERICA&apos;,
+&apos;UNITED KINGDOM&apos;,&apos;EUROPE&apos;,
+&apos;GERMANY&apos;,&apos;EUROPE&apos;,
+&apos;GREECE&apos;,&apos;EUROPE&apos;,
+&apos;LATVIA&apos;,&apos;EUROPE&apos;,
+&apos;PORTUGAL&apos;,&apos;EUROPE&apos;,
+&apos;ROMANIA&apos;,&apos;EUROPE&apos;,
+&apos;HUNGARY&apos;,&apos;EUROPE&apos;,
+&apos;SLOVAKIA&apos;,&apos;EUROPE&apos;,
+&apos;POLAND&apos;,&apos;EUROPE&apos;,
+&apos;SWEDEN&apos;,&apos;EUROPE&apos;,
+&apos;FRANCE&apos;,&apos;EUROPE&apos;,
+&apos;ITALY&apos;,&apos;EUROPE&apos;,
+&apos;SPAIN&apos;,&apos;EUROPE&apos;,
+&apos;NETHERLANDS&apos;,&apos;EUROPE&apos;,
+&apos;AUSTRIA&apos;,&apos;EUROPE&apos;,
+&apos;CZECH REPUBLIC&apos;,&apos;EUROPE&apos;,
+&apos;SWITZERLAND&apos;,&apos;EUROPE&apos;,
+&apos;SINGAPORE&apos;,&apos;PACIFIC&apos;,
+&apos;INDONESIA&apos;,&apos;PACIFIC&apos;,
+&apos;PHILIPPINES&apos;,&apos;PACIFIC&apos;,
+&apos;THAILAND&apos;,&apos;PACIFIC&apos;,
+&apos;MALAYSIA&apos;,&apos;PACIFIC&apos;,
+&apos;AUSTRALIA&apos;,&apos;PACIFIC&apos;,
+&apos;CHINA&apos;,&apos;CHINA&apos;,
+&apos;HONG KONG&apos;,&apos;CHINA&apos;,
+&apos;EGYPT&apos;,&apos;MEIA&apos;,
+&apos;SOUTH AFRICA&apos;,&apos;MEIA&apos;,
+&apos;TURKEY&apos;,&apos;MEIA&apos;,
+&apos;UNITED ARAB EMIRATES&apos;,&apos;MEIA&apos;,
+&apos;PANAMA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;CHILE&apos;,&apos;LATIN AMERICA&apos;,
+&apos;PERU&apos;,&apos;LATIN AMERICA&apos;,
+&apos;COLOMBIA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;RUSSIAN FEDERATION&apos;,&apos;EUROPE&apos;,
+&apos;DJIBOUTI&apos;,&apos;MEIA&apos;,
+&apos;KENYA&apos;,&apos;MEIA&apos;,
+&apos;GHANA&apos;,&apos;MEIA&apos;,
+&apos;TANZANIA&apos;,&apos;MEIA&apos;,
+&apos;ISRAEL&apos;,&apos;MEIA&apos;,
+&apos;QATAR&apos;,&apos;MEIA&apos;,
+&apos;KUWAIT&apos;,&apos;MEIA&apos;,
+&apos;MAURITIOUS&apos;,&apos;MEIA&apos;,
+&apos;LEBANON&apos;,&apos;MEIA&apos;,
+&apos;&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>ToRHQ6_Formula</name>
+        <dataType>String</dataType>
+        <expression>CASE({!$Record.To_Country6__c}, &apos;UNITED STATES&apos;, &apos;NORTH AMERICA&apos;, 
+&apos;INDIA&apos;,&apos;MEIA&apos;,
+&apos;VIET NAM&apos;,&apos;PACIFIC&apos;,
+&apos;MEXICO&apos;,&apos;LATIN AMERICA&apos;,
+&apos;BRAZIL&apos;,&apos;LATIN AMERICA&apos;,
+&apos;KOREA, REPUBLIC OF&apos;,&apos;KOREA&apos;,
+&apos;CANADA&apos;,&apos;NORTH AMERICA&apos;,
+&apos;UNITED KINGDOM&apos;,&apos;EUROPE&apos;,
+&apos;GERMANY&apos;,&apos;EUROPE&apos;,
+&apos;GREECE&apos;,&apos;EUROPE&apos;,
+&apos;LATVIA&apos;,&apos;EUROPE&apos;,
+&apos;PORTUGAL&apos;,&apos;EUROPE&apos;,
+&apos;ROMANIA&apos;,&apos;EUROPE&apos;,
+&apos;HUNGARY&apos;,&apos;EUROPE&apos;,
+&apos;SLOVAKIA&apos;,&apos;EUROPE&apos;,
+&apos;POLAND&apos;,&apos;EUROPE&apos;,
+&apos;SWEDEN&apos;,&apos;EUROPE&apos;,
+&apos;FRANCE&apos;,&apos;EUROPE&apos;,
+&apos;ITALY&apos;,&apos;EUROPE&apos;,
+&apos;SPAIN&apos;,&apos;EUROPE&apos;,
+&apos;NETHERLANDS&apos;,&apos;EUROPE&apos;,
+&apos;AUSTRIA&apos;,&apos;EUROPE&apos;,
+&apos;CZECH REPUBLIC&apos;,&apos;EUROPE&apos;,
+&apos;SWITZERLAND&apos;,&apos;EUROPE&apos;,
+&apos;SINGAPORE&apos;,&apos;PACIFIC&apos;,
+&apos;INDONESIA&apos;,&apos;PACIFIC&apos;,
+&apos;PHILIPPINES&apos;,&apos;PACIFIC&apos;,
+&apos;THAILAND&apos;,&apos;PACIFIC&apos;,
+&apos;MALAYSIA&apos;,&apos;PACIFIC&apos;,
+&apos;AUSTRALIA&apos;,&apos;PACIFIC&apos;,
+&apos;CHINA&apos;,&apos;CHINA&apos;,
+&apos;HONG KONG&apos;,&apos;CHINA&apos;,
+&apos;EGYPT&apos;,&apos;MEIA&apos;,
+&apos;SOUTH AFRICA&apos;,&apos;MEIA&apos;,
+&apos;TURKEY&apos;,&apos;MEIA&apos;,
+&apos;UNITED ARAB EMIRATES&apos;,&apos;MEIA&apos;,
+&apos;PANAMA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;CHILE&apos;,&apos;LATIN AMERICA&apos;,
+&apos;PERU&apos;,&apos;LATIN AMERICA&apos;,
+&apos;COLOMBIA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;RUSSIAN FEDERATION&apos;,&apos;EUROPE&apos;,
+&apos;DJIBOUTI&apos;,&apos;MEIA&apos;,
+&apos;KENYA&apos;,&apos;MEIA&apos;,
+&apos;GHANA&apos;,&apos;MEIA&apos;,
+&apos;TANZANIA&apos;,&apos;MEIA&apos;,
+&apos;ISRAEL&apos;,&apos;MEIA&apos;,
+&apos;QATAR&apos;,&apos;MEIA&apos;,
+&apos;KUWAIT&apos;,&apos;MEIA&apos;,
+&apos;MAURITIOUS&apos;,&apos;MEIA&apos;,
+&apos;LEBANON&apos;,&apos;MEIA&apos;,
+&apos;&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>ToRHQ7_Formula</name>
+        <dataType>String</dataType>
+        <expression>CASE({!$Record.To_Country7__c}, &apos;UNITED STATES&apos;, &apos;NORTH AMERICA&apos;, 
+&apos;INDIA&apos;,&apos;MEIA&apos;,
+&apos;VIET NAM&apos;,&apos;PACIFIC&apos;,
+&apos;MEXICO&apos;,&apos;LATIN AMERICA&apos;,
+&apos;BRAZIL&apos;,&apos;LATIN AMERICA&apos;,
+&apos;KOREA, REPUBLIC OF&apos;,&apos;KOREA&apos;,
+&apos;CANADA&apos;,&apos;NORTH AMERICA&apos;,
+&apos;UNITED KINGDOM&apos;,&apos;EUROPE&apos;,
+&apos;GERMANY&apos;,&apos;EUROPE&apos;,
+&apos;GREECE&apos;,&apos;EUROPE&apos;,
+&apos;LATVIA&apos;,&apos;EUROPE&apos;,
+&apos;PORTUGAL&apos;,&apos;EUROPE&apos;,
+&apos;ROMANIA&apos;,&apos;EUROPE&apos;,
+&apos;HUNGARY&apos;,&apos;EUROPE&apos;,
+&apos;SLOVAKIA&apos;,&apos;EUROPE&apos;,
+&apos;POLAND&apos;,&apos;EUROPE&apos;,
+&apos;SWEDEN&apos;,&apos;EUROPE&apos;,
+&apos;FRANCE&apos;,&apos;EUROPE&apos;,
+&apos;ITALY&apos;,&apos;EUROPE&apos;,
+&apos;SPAIN&apos;,&apos;EUROPE&apos;,
+&apos;NETHERLANDS&apos;,&apos;EUROPE&apos;,
+&apos;AUSTRIA&apos;,&apos;EUROPE&apos;,
+&apos;CZECH REPUBLIC&apos;,&apos;EUROPE&apos;,
+&apos;SWITZERLAND&apos;,&apos;EUROPE&apos;,
+&apos;SINGAPORE&apos;,&apos;PACIFIC&apos;,
+&apos;INDONESIA&apos;,&apos;PACIFIC&apos;,
+&apos;PHILIPPINES&apos;,&apos;PACIFIC&apos;,
+&apos;THAILAND&apos;,&apos;PACIFIC&apos;,
+&apos;MALAYSIA&apos;,&apos;PACIFIC&apos;,
+&apos;AUSTRALIA&apos;,&apos;PACIFIC&apos;,
+&apos;CHINA&apos;,&apos;CHINA&apos;,
+&apos;HONG KONG&apos;,&apos;CHINA&apos;,
+&apos;EGYPT&apos;,&apos;MEIA&apos;,
+&apos;SOUTH AFRICA&apos;,&apos;MEIA&apos;,
+&apos;TURKEY&apos;,&apos;MEIA&apos;,
+&apos;UNITED ARAB EMIRATES&apos;,&apos;MEIA&apos;,
+&apos;PANAMA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;CHILE&apos;,&apos;LATIN AMERICA&apos;,
+&apos;PERU&apos;,&apos;LATIN AMERICA&apos;,
+&apos;COLOMBIA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;RUSSIAN FEDERATION&apos;,&apos;EUROPE&apos;,
+&apos;DJIBOUTI&apos;,&apos;MEIA&apos;,
+&apos;KENYA&apos;,&apos;MEIA&apos;,
+&apos;GHANA&apos;,&apos;MEIA&apos;,
+&apos;TANZANIA&apos;,&apos;MEIA&apos;,
+&apos;ISRAEL&apos;,&apos;MEIA&apos;,
+&apos;QATAR&apos;,&apos;MEIA&apos;,
+&apos;KUWAIT&apos;,&apos;MEIA&apos;,
+&apos;MAURITIOUS&apos;,&apos;MEIA&apos;,
+&apos;LEBANON&apos;,&apos;MEIA&apos;,
+&apos;&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>ToRHQ8_Formula</name>
+        <dataType>String</dataType>
+        <expression>CASE({!$Record.To_Country8__c}, &apos;UNITED STATES&apos;, &apos;NORTH AMERICA&apos;, 
+&apos;INDIA&apos;,&apos;MEIA&apos;,
+&apos;VIET NAM&apos;,&apos;PACIFIC&apos;,
+&apos;MEXICO&apos;,&apos;LATIN AMERICA&apos;,
+&apos;BRAZIL&apos;,&apos;LATIN AMERICA&apos;,
+&apos;KOREA, REPUBLIC OF&apos;,&apos;KOREA&apos;,
+&apos;CANADA&apos;,&apos;NORTH AMERICA&apos;,
+&apos;UNITED KINGDOM&apos;,&apos;EUROPE&apos;,
+&apos;GERMANY&apos;,&apos;EUROPE&apos;,
+&apos;GREECE&apos;,&apos;EUROPE&apos;,
+&apos;LATVIA&apos;,&apos;EUROPE&apos;,
+&apos;PORTUGAL&apos;,&apos;EUROPE&apos;,
+&apos;ROMANIA&apos;,&apos;EUROPE&apos;,
+&apos;HUNGARY&apos;,&apos;EUROPE&apos;,
+&apos;SLOVAKIA&apos;,&apos;EUROPE&apos;,
+&apos;POLAND&apos;,&apos;EUROPE&apos;,
+&apos;SWEDEN&apos;,&apos;EUROPE&apos;,
+&apos;FRANCE&apos;,&apos;EUROPE&apos;,
+&apos;ITALY&apos;,&apos;EUROPE&apos;,
+&apos;SPAIN&apos;,&apos;EUROPE&apos;,
+&apos;NETHERLANDS&apos;,&apos;EUROPE&apos;,
+&apos;AUSTRIA&apos;,&apos;EUROPE&apos;,
+&apos;CZECH REPUBLIC&apos;,&apos;EUROPE&apos;,
+&apos;SWITZERLAND&apos;,&apos;EUROPE&apos;,
+&apos;SINGAPORE&apos;,&apos;PACIFIC&apos;,
+&apos;INDONESIA&apos;,&apos;PACIFIC&apos;,
+&apos;PHILIPPINES&apos;,&apos;PACIFIC&apos;,
+&apos;THAILAND&apos;,&apos;PACIFIC&apos;,
+&apos;MALAYSIA&apos;,&apos;PACIFIC&apos;,
+&apos;AUSTRALIA&apos;,&apos;PACIFIC&apos;,
+&apos;CHINA&apos;,&apos;CHINA&apos;,
+&apos;HONG KONG&apos;,&apos;CHINA&apos;,
+&apos;EGYPT&apos;,&apos;MEIA&apos;,
+&apos;SOUTH AFRICA&apos;,&apos;MEIA&apos;,
+&apos;TURKEY&apos;,&apos;MEIA&apos;,
+&apos;UNITED ARAB EMIRATES&apos;,&apos;MEIA&apos;,
+&apos;PANAMA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;CHILE&apos;,&apos;LATIN AMERICA&apos;,
+&apos;PERU&apos;,&apos;LATIN AMERICA&apos;,
+&apos;COLOMBIA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;RUSSIAN FEDERATION&apos;,&apos;EUROPE&apos;,
+&apos;DJIBOUTI&apos;,&apos;MEIA&apos;,
+&apos;KENYA&apos;,&apos;MEIA&apos;,
+&apos;GHANA&apos;,&apos;MEIA&apos;,
+&apos;TANZANIA&apos;,&apos;MEIA&apos;,
+&apos;ISRAEL&apos;,&apos;MEIA&apos;,
+&apos;QATAR&apos;,&apos;MEIA&apos;,
+&apos;KUWAIT&apos;,&apos;MEIA&apos;,
+&apos;MAURITIOUS&apos;,&apos;MEIA&apos;,
+&apos;LEBANON&apos;,&apos;MEIA&apos;,
+&apos;&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>ToRHQ9_Formula</name>
+        <dataType>String</dataType>
+        <expression>CASE({!$Record.To_Country9__c}, &apos;UNITED STATES&apos;, &apos;NORTH AMERICA&apos;, 
+&apos;INDIA&apos;,&apos;MEIA&apos;,
+&apos;VIET NAM&apos;,&apos;PACIFIC&apos;,
+&apos;MEXICO&apos;,&apos;LATIN AMERICA&apos;,
+&apos;BRAZIL&apos;,&apos;LATIN AMERICA&apos;,
+&apos;KOREA, REPUBLIC OF&apos;,&apos;KOREA&apos;,
+&apos;CANADA&apos;,&apos;NORTH AMERICA&apos;,
+&apos;UNITED KINGDOM&apos;,&apos;EUROPE&apos;,
+&apos;GERMANY&apos;,&apos;EUROPE&apos;,
+&apos;GREECE&apos;,&apos;EUROPE&apos;,
+&apos;LATVIA&apos;,&apos;EUROPE&apos;,
+&apos;PORTUGAL&apos;,&apos;EUROPE&apos;,
+&apos;ROMANIA&apos;,&apos;EUROPE&apos;,
+&apos;HUNGARY&apos;,&apos;EUROPE&apos;,
+&apos;SLOVAKIA&apos;,&apos;EUROPE&apos;,
+&apos;POLAND&apos;,&apos;EUROPE&apos;,
+&apos;SWEDEN&apos;,&apos;EUROPE&apos;,
+&apos;FRANCE&apos;,&apos;EUROPE&apos;,
+&apos;ITALY&apos;,&apos;EUROPE&apos;,
+&apos;SPAIN&apos;,&apos;EUROPE&apos;,
+&apos;NETHERLANDS&apos;,&apos;EUROPE&apos;,
+&apos;AUSTRIA&apos;,&apos;EUROPE&apos;,
+&apos;CZECH REPUBLIC&apos;,&apos;EUROPE&apos;,
+&apos;SWITZERLAND&apos;,&apos;EUROPE&apos;,
+&apos;SINGAPORE&apos;,&apos;PACIFIC&apos;,
+&apos;INDONESIA&apos;,&apos;PACIFIC&apos;,
+&apos;PHILIPPINES&apos;,&apos;PACIFIC&apos;,
+&apos;THAILAND&apos;,&apos;PACIFIC&apos;,
+&apos;MALAYSIA&apos;,&apos;PACIFIC&apos;,
+&apos;AUSTRALIA&apos;,&apos;PACIFIC&apos;,
+&apos;CHINA&apos;,&apos;CHINA&apos;,
+&apos;HONG KONG&apos;,&apos;CHINA&apos;,
+&apos;EGYPT&apos;,&apos;MEIA&apos;,
+&apos;SOUTH AFRICA&apos;,&apos;MEIA&apos;,
+&apos;TURKEY&apos;,&apos;MEIA&apos;,
+&apos;UNITED ARAB EMIRATES&apos;,&apos;MEIA&apos;,
+&apos;PANAMA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;CHILE&apos;,&apos;LATIN AMERICA&apos;,
+&apos;PERU&apos;,&apos;LATIN AMERICA&apos;,
+&apos;COLOMBIA&apos;,&apos;LATIN AMERICA&apos;,
+&apos;RUSSIAN FEDERATION&apos;,&apos;EUROPE&apos;,
+&apos;DJIBOUTI&apos;,&apos;MEIA&apos;,
+&apos;KENYA&apos;,&apos;MEIA&apos;,
+&apos;GHANA&apos;,&apos;MEIA&apos;,
+&apos;TANZANIA&apos;,&apos;MEIA&apos;,
+&apos;ISRAEL&apos;,&apos;MEIA&apos;,
+&apos;QATAR&apos;,&apos;MEIA&apos;,
+&apos;KUWAIT&apos;,&apos;MEIA&apos;,
+&apos;MAURITIOUS&apos;,&apos;MEIA&apos;,
+&apos;LEBANON&apos;,&apos;MEIA&apos;,
+&apos;&apos;)</expression>
+    </formulas>
+    <interviewLabel>To(RHQ)AutoUpdate {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>To(RHQ)AutoUpdate</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>LogisticsRecordType</name>
+        <label>LogisticsRecordType</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>To_RHQ_Update</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Opportunity</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Logistics</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>To_RHQ_Update</name>
+        <label>To(RHQ)Update</label>
+        <locationX>176</locationX>
+        <locationY>395</locationY>
+        <filterLogic>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11)</filterLogic>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LogisticsRecordType.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>To_Country1__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>To_Country2__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>To_Country3__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>To_Country4__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>To_Country5__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>To_Country6__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>To_Country7__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>To_Country8__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>To_Country9__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>To_Country10__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>To_RHQ_10__c</field>
+            <value>
+                <elementReference>ToRHQ10_Formula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>To_RHQ_1__c</field>
+            <value>
+                <elementReference>ToRHQ1_Formula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>To_RHQ_2__c</field>
+            <value>
+                <elementReference>ToRHQ2_Formula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>To_RHQ_3__c</field>
+            <value>
+                <elementReference>ToRHQ3_Formula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>To_RHQ_4__c</field>
+            <value>
+                <elementReference>ToRHQ4_Formula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>To_RHQ_5__c</field>
+            <value>
+                <elementReference>ToRHQ5_Formula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>To_RHQ_6__c</field>
+            <value>
+                <elementReference>ToRHQ6_Formula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>To_RHQ_7__c</field>
+            <value>
+                <elementReference>ToRHQ7_Formula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>To_RHQ_8__c</field>
+            <value>
+                <elementReference>ToRHQ8_Formula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>To_RHQ_9__c</field>
+            <value>
+                <elementReference>ToRHQ9_Formula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>LogisticsRecordType</targetReference>
+        </connector>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

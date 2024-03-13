@@ -1,0 +1,147 @@
+<!--
+  @description       : 
+  @author            : jiiiiii.park@partner.samsung.com.sds.dev
+  @group             : 
+  @last modified on  : 2021-05-14
+  @last modified by  : younghoon.kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                                     Modification
+  1.0   2020-11-30   jiiiiii.park@partner.samsung.com.sds.dev   Initial Version
+-->
+<aura:component
+    controller="MDGAccountNewController"
+    implements="flexipage:availableForRecordHome,force:appHostable,force:lightningQuickActionWithoutHeader,force:hasRecordId"
+    access="global" >
+
+    <!-- [Attribute] -->
+	<aura:attribute name="showSpinner" type="Boolean" default="true"/>
+	<aura:attribute name="isKorea" type="Boolean" default="false"/>
+	<aura:attribute name="isMobile" type="Boolean" default="false"/>
+	
+	<!-- [Handler] -->
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+
+	<aura:if isTrue="{!not(v.isMobile)}">
+		<div class="quick-modal">
+			<section class="modal slds-modal slds-fade-in-open">
+				<div class="slds-modal__container modal__container">
+					<!-- [S] Spinner -->
+					<aura:if isTrue="{!v.showSpinner}">
+						<lightning:spinner />
+					</aura:if>
+					<!-- [E] Spinner -->
+					<!-- [S] Header-->
+					<header class="slds-modal__header">
+						<h2 class="title slds-text-heading--medium">{!$Label.c.MDG_LAB_HEADER}</h2>
+					</header>
+					<!-- [E] Header -->
+					<!-- [S] Body-->
+					<div class="slds-modal__content modal__content" id="modal-content-id-1">
+						<div class="modal_body">
+							<ui:message title="" severity="warning">
+								<p style="font-weight: bold">{!$Label.c.MDG_MSG_0001}</p>
+							</ui:message>
+							<lightning:recordViewForm recordId="{!v.recordId}" objectApiName="Account">
+								<div class="slds-box">
+									<div class="slds-grid">
+										<div class="slds-col slds-size_1-of-2">
+											<lightning:outputField fieldName="mCountry__c" />
+											<!-- <lightning:outputField fieldName="BillingState" /> -->
+											<lightning:outputField fieldName="BillingCity" />
+											<lightning:outputField fieldName="BillingStreet" />
+											<lightning:outputField fieldName="BillingPostalCode" />
+											<lightning:outputField fieldName="BillingCountry" />
+										</div>
+										<div class="slds-col slds-size_1-of-2">
+											<aura:if isTrue="{!v.isKorea}">
+												<lightning:outputField fieldName="CorporateNumber__c" />
+												<lightning:outputField fieldName="mCEOName__c" />
+											</aura:if>
+											<lightning:outputField fieldName="mDomesticForeign__c" />
+											<lightning:outputField fieldName="mBizTypeL1Code__c" />
+											<lightning:outputField fieldName="mBizTypeL2Code__c" />
+										</div>
+									</div>
+								</div>
+							</lightning:recordViewForm>
+						</div>
+					</div>
+					<!-- [E] Body-->
+					<!-- [S] Footer Web-->
+					<footer class="slds-modal__footer">
+						<lightning:button label="{!$Label.c.COMM_BTN_CANCEL}" title="Cancel" onclick="{!c.cancel}"></lightning:button>
+					</footer>
+					<!-- [E] Footer Web-->
+				</div>
+			</section>
+		</div>
+	</aura:if>
+
+
+
+
+
+
+
+
+	<aura:if isTrue="{!v.isMobile}">
+		<div class="quick-modal is-mobile">
+			<section class="modal slds-modal slds-fade-in-open">
+				<div class="slds-modal__container modal__container">
+					<!-- [S] Spinner -->
+					<aura:if isTrue="{!v.showSpinner}">
+						<lightning:spinner />
+					</aura:if>
+					<!-- [E] Spinner -->
+					<!-- [S] Header-->
+					<header class="slds-modal__header">
+						<h2 class="title slds-text-heading--medium">{!$Label.c.MDG_LAB_HEADER}</h2>
+					</header>
+					<!-- [E] Header -->
+					<!-- [S] Body-->
+					<div class="mobile_modal_body">
+						<div class="slds-modal__content mobile_modal__content" id="modal-content-id-1">
+							<ui:message title="" severity="warning">
+								<p style="font-weight: bold">{!$Label.c.MDG_MSG_0001}</p>
+							</ui:message>
+							<lightning:recordViewForm recordId="{!v.recordId}" objectApiName="Account">
+								<div class="slds-box">
+									<div class="slds-grid">
+										<div class="slds-col slds-size_1-of-2">
+											<lightning:outputField fieldName="mCountry__c" />
+											<!-- <lightning:outputField fieldName="BillingState" /> -->
+											<lightning:outputField fieldName="BillingCity" />
+											<lightning:outputField fieldName="BillingStreet" />
+											<lightning:outputField fieldName="BillingPostalCode" />
+											<lightning:outputField fieldName="BillingCountry" />
+										</div>
+										<div class="slds-col slds-size_1-of-2">
+											<aura:if isTrue="{!v.isKorea}">
+												<lightning:outputField fieldName="CorporateNumber__c" />
+												<lightning:outputField fieldName="mDomesticForeign__c" />
+												<lightning:outputField fieldName="mCEOName__c" />
+											</aura:if>
+											<lightning:outputField fieldName="mBizTypeL1Code__c" />
+											<lightning:outputField fieldName="mBizTypeL2Code__c" />
+										</div>
+									</div>
+								</div>
+							</lightning:recordViewForm>
+						</div>
+					</div>
+					<!-- [E] Body-->
+					<!-- [S] Footer Mobile-->
+					<div class="modal-footer-custom slds-modal__footer">        
+                        <p style="margin:0 auto;" class="slds-align_absolute-center">
+                            <lightning:icon iconName="action:close" class="footer-button-custom"  variant="bare" onclick="{!c.cancel}" size="xx-small"/>
+                        </p>
+                        <p class="footer-text-custom slds-align_absolute-center">{!$Label.c.COMM_BTN_CANCEL}</p>
+                    </div>
+					<!-- [E] Footer Mobile-->
+				</div>
+			</section>
+		</div>
+	</aura:if>
+			
+</aura:component>

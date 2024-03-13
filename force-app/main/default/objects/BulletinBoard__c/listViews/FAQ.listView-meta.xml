@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FAQ</fullName>
+    <columns>NAME</columns>
+    <columns>Contents__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>BoardType__c</field>
+        <operation>equals</operation>
+        <value>FAQ</value>
+    </filters>
+    <label>FAQ</label>
+</ListView>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Team_Cost_Center__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Team Cost Center</label>
+    <referenceTo>CostCenter__c</referenceTo>
+    <relationshipLabel>Groups Hierarchy (Team Cost Center)</relationshipLabel>
+    <relationshipName>Groups_Hierarchy1</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

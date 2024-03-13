@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Read_Only</fullName>
+    <active>true</active>
+    <description>This record type when active makes the record read only for partner users.</description>
+    <label>Read Only</label>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Working</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Business Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Etc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Tool</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partner Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partner Program</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

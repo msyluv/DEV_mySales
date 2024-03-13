@@ -1,0 +1,102 @@
+<!--
+  @description       : 
+  @author            : wonjune.oh@partner.samsung.com
+  @group             : 
+  @last modified on  : 2021-02-25
+  @last modified by  : wonjune.oh@partner.samsung.com
+  Modifications Log 
+  Ver   Date         Author                           Modification
+  1.0   2020-11-26   wonjune.oh@partner.samsung.com   Initial Version
+-->
+
+<aura:component>
+
+    <aura:attribute name = "activityItem" type = "Object"/>
+    <aura:attribute name = "recordId" type="String" default="{!v.activityItem.BoAct.Id}" />
+
+    <aura:attribute name = "isShowMobileDetail" type="Boolean" />
+    
+
+    <!-- [Library] -->
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <!-- [Style] -->
+    <aura:html tag="style">
+    .slds-p-around_medium, .slds-p-around--medium {
+        padding: 0px !important;
+        vertical-align: "middle"
+    }
+    .slds-modal{
+        position: absolute !important;
+    }
+
+    </aura:html>
+             
+    <aura:if isTrue="{!v.isShowMobileDetail}">
+            <div role="dialog" tabindex="-1" aria-labelledby="event-header" class="slds-modal slds-fade-in-open slds-p-around--medium slds-backdrop slds-backdrop--open">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Part Start From Here ######-->
+                    <div class="slds-modal__header">
+                        <h2 class="title slds-text-heading--medium">{!v.activityItem.MasterAct.toLabel_TransactionName__c}</h2>
+                        <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.closeModal}">
+                            X<span class="slds-assistive-text">Close</span>
+                        </button>
+                    </div>
+                    <!--###### MODAL BOX BODY Part Start From Here ######-->
+                    <div class="slds-modal__content slds-p-around--medium">
+
+
+                        <lightning:recordViewForm   aura:id="recordViewForm" 
+                                        objectApiName="Opportunity_Activity__c" 
+                                        recordId="{!v.recordId}">
+
+                        <aura:if isTrue= "{!v.recordId == null ? false :true }">
+                            <!-- Modal Contents -->
+                            <div class="slds-col modal-body scrollable modal-content ">
+                                <div id="activityRecordForm" class="slds-scrollable_y slds-card__body slds-p-around_small" style="padding: 12px">
+                                            <lightning:layout multipleRows="true">
+                                            <!-- Status -->
+                                            <lightning:layoutItem size="6">
+                                                <lightning:outputField aura:id="fields" fieldName="Status__c" variant="label-stacked"/>
+                                            </lightning:layoutItem>
+
+                                            <!-- Due Date -->
+                                            <lightning:layoutItem size="6">
+                                                <lightning:outputField aura:id="fields" fieldName="DueDate__c" variant="label-stacked"/>
+                                            </lightning:layoutItem>
+
+                                            <!-- Start Date -->
+                                            <lightning:layoutItem size="6">
+                                                <lightning:outputField aura:id="fields" fieldName="StartDate__c" variant="label-stacked"/>
+                                            </lightning:layoutItem>
+                                            
+                                            <!-- End Date -->
+                                            <lightning:layoutItem size="6">
+                                                <lightning:outputField aura:id="fields" fieldName="EndDate__c" variant="label-stacked"/>
+                                            </lightning:layoutItem>
+                                            
+                                            <!-- Description -->
+                                            <lightning:layoutItem size="12">
+                                                <lightning:outputField aura:id="fields" fieldName="Description__c" variant="label-stacked"/>
+                                            </lightning:layoutItem>
+                                        </lightning:layout>
+                                    </div>
+                                </div>
+                                <aura:set attribute="else">
+                                    <div class="slds-card__body slds-p-around_small" style="text-align:center">
+                                        {!$Label.c.OPPTYACT_MSG_EXIST}
+                                    </div>
+                                </aura:set>
+                            </aura:if>
+                        </lightning:recordViewForm>  
+                    
+                    </div>
+
+                </div>
+            </div>
+            
+            
+    </aura:if>
+           
+         
+</aura:component>

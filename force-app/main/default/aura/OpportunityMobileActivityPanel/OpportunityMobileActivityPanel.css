@@ -1,0 +1,14 @@
+.THIS .status-box {
+    flex : 1;
+}
+
+.THIS .activity-col {
+    width: calc(100% / 5 - 1.5rem);
+    min-width: 3rem;
+}
+
+.THIS .slds-path__scroller-container {
+    overflow: unset !important;
+    min-width: 0;
+    flex-basis: 1px;
+}

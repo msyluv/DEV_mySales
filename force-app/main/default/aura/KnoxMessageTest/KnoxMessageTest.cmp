@@ -1,0 +1,71 @@
+<!--
+  @description       : 
+  @author            : zenith21c@test.com
+  @group             : 
+  @last modified on  : 11-11-2021
+  @last modified by  : zenith21c@test.com
+-->
+<aura:component controller="KnoxMessageTestController"
+  implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+  <lightning:overlayLibrary aura:id="overlayLib" />
+
+  <!--[Handler]-->
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+  <!-- [Attribute] -->
+  <aura:attribute name="showSpinner" type="Boolean" default="true" />
+  <aura:attribute name="key" type="String" access="public" />
+  <aura:attribute name="origin" type="String" access="public" />
+  <aura:attribute name="encrypted" type="String" access="public" />
+  <aura:attribute name="encryptedGzip" type="String" access="public" />
+  <aura:attribute name="encryptedGzipBase64" type="String" access="public" />
+  <aura:attribute name="decrytedAll" type="String" access="public" />
+
+
+  <div class="slds-col modal-body scrollable modal-content">
+    <div class="tab-content">
+      <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+      </aura:if>
+      <div class="slds-form_vertical slds-scrollable_y slds-card__body slds-p-around_small">
+        <lightning:layout multipleRows="true" verticalAlign="center">
+          <!-- key+IV -->
+          <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+            <lightning:textarea name="key" variant="label-hidden" required="false" value="{!v.key}" maxlength="10000" placeholder = "enter AES256 KEY + IV" />
+          </lightning:layoutItem>
+          <!-- origin string -->
+          <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+            <lightning:textarea name="origin" variant="label-hidden" required="false" value="{!v.origin}" maxlength="10000" placeholder = "enter original string to be encrypted" />
+          </lightning:layoutItem>
+          <!-- encrpyed string -->
+          <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+            <lightning:textarea name="encrypted" variant="label-hidden" required="false" value="{!v.encrypted}" maxlength="10000" placeholder = "encrypted string" />
+          </lightning:layoutItem>
+          <!-- encrpyed + gzip -->
+          <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+            <lightning:textarea name="encryptedGzip" variant="label-hidden" required="false" value="{!v.encryptedGzip}" maxlength="10000" placeholder = "encrypted + G Zipped string" />
+          </lightning:layoutItem>
+          <!-- encrpyed + gzip + Base64 encoded-->
+          <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+            <lightning:textarea name="encryptedGzipBase64" variant="label-hidden" required="false" value="{!v.encryptedGzipBase64}" maxlength="10000" placeholder = "encrypted + G Zipped + Base64 encoded string" />
+          </lightning:layoutItem>
+          <!-- Base64 decode + unzip + decrypt-->
+          <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+            <lightning:textarea name="decrytedAll" variant="label-hidden" required="false" value="{!v.decrytedAll}" maxlength="10000" placeholder = "decryted string to check" />
+          </lightning:layoutItem>
+        </lightning:layout>
+      </div> 
+      <div class="modal-footer slds-modal__footer" style="height:158px;">
+        <lightning:button class="slds-float_left" label='encrypt test' title='encrypt test' onclick="{!c.goEncrypt2}"></lightning:button>
+        <lightning:button class="slds-float_left" label='48Hours lage test' title='48Hours lage test' onclick="{!c.knoxRegKeyRetrive2}"></lightning:button>
+        <!--<lightning:button class="slds-float_left" label='get senderInfo' title='get senderInfo' onclick="{!c.knoxSenderInfo2}"></lightning:button>
+        <lightning:button class="slds-float_left" label='get receiverInfo' title='get receiverInfo' onclick="{!c.knoxReceiverInfo2}"></lightning:button>
+        <lightning:button class="slds-float_left" label='get AES256Key' title='get AES256Key' onclick="{!c.knoxAESKey2}"></lightning:button>
+        <lightning:button class="slds-float_left" label='create Chat room' title='create Chat room' onclick="{!c.knoxChatRoomRequest2}"></lightning:button>
+        <lightning:button class="slds-float_left" label='do Chat' title='do Chat' onclick="{!c.knoxChatRequest2}"></lightning:button>
+        <lightning:button class="slds-float_left" label='Send Knox App Card' title='Send Knox App Card' onclick="{!c.sendKnoxAppCard2}"></lightning:button>-->
+      </div>
+    </div>
+  </div>
+  
+</aura:component>

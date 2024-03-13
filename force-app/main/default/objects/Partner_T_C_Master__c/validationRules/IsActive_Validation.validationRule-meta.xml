@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsActive_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>Cannot_Uncheck__c = true</errorConditionFormula>
+    <errorMessage>Can’t change the ‘isActive’ value to false. At least one ‘isActive’ value should exist according ‘T&amp;C Type’ and ‘T&amp;C Use’</errorMessage>
+</ValidationRule>

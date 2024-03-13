@@ -1,0 +1,90 @@
+<!--
+  @description       :  Record New Action Button 에서 호출
+                        Button에서 호출 후 Knox Approval 결재선 조회 후 상신
+                       1. Activity Transaction Code 값으로 Opportunity Activity 생성
+                       2. Knox Approval 상신 
+  @author            : hj.lee@dkbmc.com
+  @last modified on  : 2021-01-27
+  @last modified by  : hj.lee@dkbmc.com 
+  Modifications Log 
+  Ver   Date         Author             Modification
+  1.0   2021-01-27   hj.lee@dkbmc.com   Initial Version
+-->
+<aura:component controller="KnoxApprovalActivityNewController"
+                implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasSObjectName,force:hasRecordId"
+                access="GLOBAL">
+
+    <!-- [Attribute] : (부모 Component에서 상속되는 Attribute) Parent inherit attribute  -->
+    <aura:attribute name="transactionName" type="String" description="생성할 Activity Transaction Name Code " />
+    <aura:attribute name="isUsedApprovalLineHTML" type="Boolean" description="I/F 결재선 본문 사용 여부" />
+    <aura:attribute name="recordId" type="String" description="Record Id" />
+
+    <aura:attribute name="opptyId" type="String" />
+    <aura:attribute name="opptyActId" type="String" default="" />
+    <aura:attribute name="bizReviewId" type="String" default="" />
+
+    <aura:attribute name="isPendingKnoxApproval" type="Boolean" default="false" description="결재 진행 중 여부 확인" />
+    <aura:attribute name="isCompletedGetApproval" type="Boolean" default="false" description="결재선 가져오기 성공 여부" />
+    <aura:attribute name="isSelectedApprovalTab" type="Boolean" default="false" description="Knox Approval Tab 선택 여부" />
+    
+    <!-- [Attribute] : UI attribute  -->
+    <aura:attribute name="activeStep" type="String" default="3_1"/>
+    <aura:attribute name="headerName" type="String" default="{!$Label.c.OPPTYACT_LAB_KNOX_APPROVAL}"/>
+    
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{! this }" action="{! c.init }" />
+
+    <!-- [registerEvent]  -->
+    <aura:registerEvent name="approvalLineGetEvent" type="c:approvalLineGetEvent"/> <!-- 결재선 호출 -->
+    <aura:registerEvent name="knoxApprovalPreviewReplaceEvent" type="c:knoxApprovalPreviewReplaceEvent"/> 
+    
+    <!-- [Style] -->
+    <aura:html tag="style">
+    </aura:html>
+
+     <!-- [MarkUp] -->
+    <!-- Modal Header -->
+    <div class="slds-col modal-header slds-modal__header modal-header-custom ">
+        <h2 class="title slds-text-heading--medium">{!v.headerName}</h2>
+    </div>
+    <!-- / Modal Header -->
+  
+    <div aura:id="body" class="slds-is-relative quick-modal_container">
+        <!-- Modal Contents -->
+        <div class="quick-modal__content slds-grid slds-grid_vertical slds-nowrap">
+
+            <!-- Tab Set -->
+            <lightning:tabset selectedTabId="{! v.activeStep }" >
+                
+                <!-- [S] 결재 상신 Form -->
+                <aura:if isTrue="{!not(v.isPendingKnoxApproval)}">
+                    <aura:if isTrue="{!v.opptyActId != ''}"> <!-- opptyActId 가 생성된 후에 Render 되기 위함 -->
+                        <lightning:tab label="{!$Label.c.OPPTYACT_LAB_KNOX_PREVIEW}" id="3_1" onactive="{! c.selectPreviewTab }">
+                            <div class="slds-col modal-body scrollable modal-content">
+                                <c:KnoxApprovalPreview recordId="{!v.recordId}" opptyId="{!v.opptyId}" opptyactId="{!v.opptyActId}" isSelectedApprovalTab="{!v.isSelectedApprovalTab}"/>
+                            </div> 
+                        </lightning:tab>    
+                    
+                        <lightning:tab label="{!$Label.c.OPPTYACT_LAB_KNOX_APPROVAL}" id="3_2" onactive="{! c.selectApprovalTab }">
+                            <div class="slds-col modal-body scrollable modal-content">
+                                    <!-- 결재선 & 결재본문 가져오기 -->
+                                    <c:approvalLine opptyId="{!v.opptyId}" opptyActId="{!v.opptyActId}"  bizReviewId="{!v.bizReviewId}"  />
+                                    <c:KnoxApprovalSubmit recordId="{!v.recordId}" opptyId="{!v.opptyId}" opptyactId="{!v.opptyActId}" bizReviewId="{!v.bizReviewId}"/>
+                            </div>
+                        </lightning:tab>
+
+                    </aura:if>
+                </aura:if>
+                <!-- [E] 결재 상신 Form --> 
+
+                <lightning:tab label="{!$Label.c.OPPTYACT_LAB_KNOX_APPROVAL_HISTORY}" id="3_3">
+                    <div class="slds-col modal-body scrollable modal-content">
+                        <c:KnoxApprovalHistory opptyId="{!v.opptyId}" opptyactId="{!v.opptyActId}"/>
+                    </div>
+                </lightning:tab>
+                
+            </lightning:tabset>
+        </div>
+    </div>
+
+</aura:component>

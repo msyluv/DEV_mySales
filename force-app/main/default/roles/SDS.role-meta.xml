@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Read</caseAccessLevel>
+    <contactAccessLevel>Read</contactAccessLevel>
+    <description>SDS</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>SDS-총괄</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>mySales_Admin</parentRole>
+</Role>

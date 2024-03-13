@@ -1,0 +1,38 @@
+@import 'c/commonStyle';
+@import 'c/resetStyle';
+
+@media screen and (max-width: 1580px) {
+    .link_suggest {
+        width: 200px;
+        height: 200px;
+        background-position: 72px 40px;
+    }
+
+    .link_board {
+        width: 200px;
+        height: 200px;
+        background-position: 70px 43px;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .link_suggest {
+        width: 150px;
+        height: 150px;
+        font-size: 14px;
+        line-height: 20px;
+        background: url(/s/sfsites/c/resource/imagesPPO/images/ico_suggest01.png) no-repeat 52px 20px #2E5ABC;
+        padding-top: 80px;
+        background-size: 35%;
+    }
+
+    .link_board {
+        width: 150px;
+        height: 150px;
+        font-size: 16px;
+        line-height: 20px;
+        background: url(/s/sfsites/c/resource/imagesPPO/images/ico_suggest02.png) no-repeat 50px 20px #0A121E;
+        padding-top: 80px;
+        background-size: 40%;
+    }
+}

@@ -1,0 +1,12 @@
+<apex:page standardController="Opportunity" >
+    <apex:form >
+        <apex:inputField Value="{!Opportunity.Amount}" id="amountField" onchange="passAmount();"/>
+        <!--<apex:outputField value="{!Opportunity.Amount}"/>-->
+    </apex:form>
+    
+    <Script>
+        var amountField = document.getElementById('{!$Component.amountField}');
+        var oppAmount = amountField.value;
+        alert('Opportunity Amount : '+ oppAmount);
+    </Script>
+</apex:page>

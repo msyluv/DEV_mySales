@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Search_125</fullName>
+    <columns>NAME</columns>
+    <columns>ApexName__c</columns>
+    <columns>ApexMethod__c</columns>
+    <columns>InterfaceId__c</columns>
+    <columns>StatusCode__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>ResponseMessage__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>InterfaceId__c</field>
+        <operation>contains</operation>
+        <value>IF-040</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>Search_IF ID로 조회</label>
+</ListView>

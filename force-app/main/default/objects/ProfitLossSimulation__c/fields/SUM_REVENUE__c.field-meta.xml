@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SUM_REVENUE__c</fullName>
+    <externalId>false</externalId>
+    <formula>REVENUE_01__c + REVENUE_02__c + REVENUE_03__c + REVENUE_04__c + REVENUE_05__c + REVENUE_06__c + REVENUE_07__c + REVENUE_08__c + REVENUE_09__c + REVENUE_10__c + REVENUE_11__c + REVENUE_12__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>SUM_REVENUE</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

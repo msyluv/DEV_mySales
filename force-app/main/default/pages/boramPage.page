@@ -1,0 +1,31 @@
+<!--
+  @description       : 
+  @author            : boram85.jung@samsung.com
+  @group             : 
+  @last modified on  : 07-10-2023
+  @last modified by  : boram85.jung@samsung.com
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   07-10-2023   boram85.jung@samsung.com   Initial Version
+-->
+<apex:page controller="BoramController">
+<!-- Begin Default Content REMOVE THIS -->
+<h1>This is test page</h1>
+
+<!-- End Default Content REMOVE THIS -->
+
+<apex:form >
+    <div>
+
+        <apex:commandButton value="생성button" action="{!createData}">
+
+        </apex:commandButton>
+
+        <apex:commandButton value="수정button" action="{!updateData}">
+
+        </apex:commandButton>
+
+    </div>
+</apex:form>
+
+</apex:page>

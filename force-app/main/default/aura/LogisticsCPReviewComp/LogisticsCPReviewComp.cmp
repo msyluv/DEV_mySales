@@ -1,0 +1,343 @@
+<!--
+* @description       : Rest API Callout to Interact with Cello system
+* @author            : Kajal.c@samsung.com
+* @group             : 
+* @last modified on  : 2023-10-05
+* @last modified by  : divyam.gupta@samsung.com
+* Modifications Log 
+* Ver   Date         Author                    Modification
+* 1.0   2022-10-19   Kajal.c@samsung.com   Initial Version
+* 1.2   2023-10-05   divyam.gupta@samsung.com    (Logistics) Mysales-313 (Logistics) CP Review URL error modify.
+-->
+<aura:component controller="LogisticsCPReviewComp" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:attribute name="MasterLogisticsCPReviewList" type="List" default="[]"/>
+    <aura:attribute name="Popup1" type="boolean" default="false"/>
+    <aura:attribute name="Popup2" type="boolean" default="false"/>
+    <aura:attribute name="Popup3" type="boolean" default="false"/>
+    <aura:attribute name="Popup4" type="boolean" default="false"/>
+    <aura:attribute name="CPReviewStatus" type = "boolean" />
+    <aura:attribute name="setLangEng" type="Boolean" default="false"/>
+    <aura:attribute name="setLangKor" type="Boolean" default="false"/>
+    <aura:attribute name="oppId" type="String" default="" access="global"/>
+    <aura:attribute name="lbsType" type="String" default="NEW" access="global"/>
+    <aura:attribute name="billToId" type="String" default="" access="global"/>
+    <aura:attribute name="Level1" type="String" default="" access="global"/>
+    <aura:attribute name="Level2" type="String" default="" access="global"/>
+    <aura:attribute name="Level3" type="String" default="" access="global"/>
+    <aura:attribute name="Level4" type="String" default="" access="global"/>
+    <aura:attribute name="selectedLevelOneYes" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="selectedLevelOneNo" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="selectedLevelOneNeed" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="selectedLevelTwoYes" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="selectedLevelTwoNo" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="selectedLevelTwoNeed" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="selectedLevelThreeYes" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="selectedLevelThreeNo" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="selectedLevelThreeNeed" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="selectedLevelFourYes" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="selectedLevelFourNo" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="isdisabled" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="confirmEnable" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="confirmpopup" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="isconfirmValue" type="Boolean" default="false" access="global"/>
+    <!--V 1.2 Divyam -->
+    <aura:attribute name="oppcode" type="String" default="" access="global"/>
+
+    <!--V1.1 Kajal Start-->
+    <!-- 
+    <aura:attribute name="cargoesval" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="cargoesValue" type="String" default="" access="global"/>
+    <aura:attribute name="cargoesValue1" type="String" default="" access="global"/>
+        <aura:attribute name="oppactsatus" type="String" default="" access="global"/>
+    <aura:attribute name="cargoesdisable" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="cargoessavedisable" type="Boolean" default="false" access="global"/>
+    -->
+    <!--V1.1 Kajal End-->
+
+     <aura:attribute name="openModal" type="Boolean" access="public" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/> 
+    <!-- [Style] -->
+    <lightning:overlayLibrary aura:id="overlayLib1" />
+    <section role="dialog" tabindex="-3" style="margin-top: 2%;height: 90%; margin" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open 
+         slds-border_left slds-border_bottom slds-border_right slds-border_top slds-box slds-box_xx-small">
+        <div class="slds-modal__container" style="min-width: 100% !important;">
+            <!--Header-->
+           <!---BODY-->
+            <div class="slds-scrollable" style=" min-width:100%; max-height:100%;">
+            <div class="slds-modal__content slds-p-around_medium" style="overflow:auto" id="modal-content-id-1" >
+                <lightning:card class="slds-card__body slds-card__body_inner" >
+                  <!--V1.1 Kajal Start--> 
+                    <!--
+                    <lightning:layout>
+							   <lightning:layoutItem size="3" class = "allignment">
+								 <div class="slds-float_left slds-p-right_medium slds-p-top_medium slds-p-bottom_medium slds-text-heading_medium">
+                                  <span style="color: red;">* </span> {!$Label.c.Cargoeslabel}
+                                   </div></lightning:layoutItem>
+								<lightning:layoutItem size="7" class = "slds-p-top_medium" >
+                                  
+                                    <lightning:recordEditForm  objectApiName="Logistics_CP_Review_YesorNo__c" onsubmit="{!c.handlesubmit}">
+                                                        <lightning:inputField aura:id="Mangdept"  fieldName="Cargoes__c" value="{!v.cargoesValue}" variant="label-hidden" disabled="{!v.cargoesdisable}" >
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                    </lightning:layoutItem>
+							<lightning:layoutItem size="2">
+								<div class =" slds-float_left slds-p-top_medium slds-p-left_medium slds-col">
+					   <lightning:button variant="brand" label="{!$Label.c.SaveCargoes}" title="Save" onclick="{!c.savecargoes}" disabled ="{!v.cargoessavedisable}"/></div>
+							</lightning:layoutItem>
+						</lightning:layout>
+                      -->
+                     <!--V1.1 Kajal End-->
+                    <div class = "slds-text-heading_medium slds-text-align_left slds-p-top_medium">
+                       
+                        {!$Label.c.TableMainHeading}<br/><br/></div>
+                        <div class = "slds-text-heading_medium slds-text-align_left slds-p-bottom_small">
+                             {!$Label.c.TableSubHeading}
+                        </div>
+                    
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-border_top slds-border_right slds-border_left slds-table_col-bordered scrollable" >
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Class Code">{!$Label.c.Class_Code}</div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Class Name">{!$Label.c.Class_Name}</div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Class/Divison Code">{!$Label.c.Divison_Code}</div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Class/Divison Name">{!$Label.c.Division_Name}</div>
+                                </th>
+                            </tr>
+                           
+                        </thead>
+                        <aura:if isTrue="{!v.MasterLogisticsCPReviewList.length > 0}">  
+                            <tbody>
+                                <aura:iteration items="{!v.MasterLogisticsCPReviewList}" var="CPReview">  
+                                     <aura:if isTrue="{!v.setLangEng}"> 
+                                    <tr class="slds-hint-parent">
+                                        <td data-label="Class Code" scope="row">
+                                            <div class="slds-truncate" title="{!CPReview.Class_code__c}">
+                                                {!CPReview.Class_code__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="Class Name" scope="row">
+                                            <div class="slds-truncate" title="{!CPReview.Class_Name_English__c}">
+                                                {!CPReview.Class_Name_English__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="Class/Divison Code" scope="row" >
+                                            <div class="slds-truncate" title="{!CPReview.Class_Division_Code__c}">
+                                                {!CPReview.Class_Division_Code__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="Class/Divison Name" scope="row" >
+                                            <div class="slds-truncate" title="{!CPReview.Class_Division_Name_English__c}">
+                                                {!CPReview.Class_Division_Name_English__c}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </aura:if>
+                                     <aura:if isTrue="{!v.setLangKor}">
+                                         <tr class="slds-hint-parent">
+                                        <td data-label="Class Code" scope="row">
+                                            <div class="slds-truncate" title="{!CPReview.Class_code__c}">
+                                                {!CPReview.Class_code__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="Class Name" scope="row">
+                                            <div class="slds-truncate" title="{!CPReview.Class_Name_Korean__c}">
+                                                {!CPReview.Class_Name_Korean__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="Class/Divison Code" scope="row">
+                                            <div class="slds-truncate" title="{!CPReview.Class_Division_Code__c}">
+                                                {!CPReview.Class_Division_Code__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="Class/Divison Name" scope="row">
+                                            <div class="slds-truncate" title="{!CPReview.Class_Division_Name_English__c}">
+                                                {!CPReview.Class_Division_Name_Korean__c}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                   </aura:if>
+                                </aura:iteration>
+                            </tbody>
+                        </aura:if>
+                    
+                    </table>
+                    <div class = "slds-text-heading_medium slds-text-align_left slds-p-top_medium">
+                        {!$Label.c.ContentHeading} </div>
+                    <div class="slds-text-align_left">
+                    	<aura:if isTrue="{!v.setLangEng}">
+                            <p>  -  Human remains or ashes</p>
+                            <p>  -  Cash and cheques, bank notes</p>
+                            <p>  -  Animal parts and Hunting trophies (ivory, shark fin, animal remains/ashes)</p>			
+                            <p>  -  Firearms/Explosive devices (including telescopic sight, gun parts)</p>		
+                            <p>-  Counterfeit</p>	
+                            <p>-  Narcotics</p>		
+                            <p>-  Hazardous wastes</p>	
+                            <p>-  Live animal</p>
+                            <p>-  Bullion (of any precious metal)</p>	
+                            <p>-  Synthesized gemstones for jewelries</p>	
+                            <p>-  Illicit tobacco</p>	
+                            <p>-  Military items (government confidential items)</p>	
+                            <p>-  Personal assets and household goods;
+                                   Commercial goods shipped by an individual;
+                                   Non-commercial donation of goods</p>	
+                            <p>-  Plants (including seeds, soil, and moss. prohibited that cannot be legally traded under CITES)</p>		
+                            <p>-  Laboratory kits (where components cannot be identified)</p>		
+                            <p>-  Items prohibited by law</p>
+                        </aura:if>
+                        <aura:if isTrue="{!v.setLangKor}">
+                            <p>-  사람의 유골 또는 유해 </p>
+                            <p>-  지폐 또는 수표 </p>
+                            <p>-  동물의 부산물 (상아, 상어지느러미, 사체, 사냥 노획물 등) </p>
+                            <p>-  총기/폭발장치 (총기용 망원경, 총신, 격발구조물 등 총기부품 포함)</p>
+                            <p>-  위조품 </p>
+                            <p>-  마약류 </p>
+                            <p>-  유해 폐기물</p>
+                            <p>-  살아있는 동물 </p>
+                            <p>-  금괴 또는 귀금속</p>
+                            <p>-  가공된 보석용 원석</p>
+                            <p>-  불법 담배</p>
+                            <p>-  군사용 물품 (정부 기밀분류물)</p>
+                            <p>-  동산(개인재산)과 집기류; 개인용 상업제품; 비상업용 기부물품 </p>
+                            <p>-  식물 (씨앗,흙,이끼를 포함하되, CITES조약에 따라 불법인 경우만 금지)</p>
+                            <p>-  (성분 확인 불가한) 실험실 키트</p>
+                            <p>-  법으로 금지된 품목</p>
+                        </aura:if>
+                         <!--V1.1 Kajal Start-->
+                        <!--
+                        <div class = "slds-text-heading_medium slds-text-align_left slds-p-top_medium">
+                        {!$Label.c.ContentHeading1} </div>
+                    	<aura:if isTrue="{!v.setLangEng}">
+                            <p>  -  Div. 1.1: Substances and articles which have a mass explosion hazard </p>
+                            <p>  -  Class 7: Radioactive Material, except for the cases where international transport rules do not apply      
+                                    and where there is no local regulations for the cargo (For diagnosis or treatment etc.).</p>
+                        </aura:if>
+                        <aura:if isTrue="{!v.setLangKor}">
+                            <p>-  Div. 1.1: 대폭발 위험성이 있는 물질 및 제품 </p>
+                            <p>-  Class 7: 방사성 물질, 단 국제운송 규칙에 적용되지 않는 경우 및 Local 법령에 의해 취급이 가능한 화물은 제외 (진단 또는 치료용 등). </p>
+                        </aura:if>
+                         <div class = "slds-text-heading_medium slds-text-align_left slds-p-top_medium">
+                        {!$Label.c.ContentHeading2} </div>
+                    	<aura:if isTrue="{!v.setLangEng}">
+                            <p>  -  Div. 1.2: Substances and articles which have a projection hazard but not a mass explosion hazard</p>
+                            <p>  -  Div. 1.3: Substances and articles which have a fire hazard and either a minor blast hazard or a minor projection hazard or both,but not a mass explosion hazard</p>
+                            <p>  -  Div. 1.5: Very insensitive substances which have a mass explosion hazard </p>
+                            <p>  -  Div. 2.3: Toxic Gas </p>
+                            <p>  -  Div. 6.2: Infectious substances: Substances that are easy to transmit toxic substances</p>
+                        </aura:if>
+                        <aura:if isTrue="{!v.setLangKor}">
+                            <p>-  Div. 1.2: 분출 위험성은 있지만 대폭발 위험성은 없는 물질 및 제품</p>
+                            <p>-  Div. 1.3: 화재 위험성이 있으며 또한 약한 폭풍 위험성이나 약한 분출 위험성이 있는 물질</p>
+                            <p>-  Div. 1.5: 대폭발 위험성이 있는 매우 둔감한 물질</p>
+                            <p>-  Div. 2.3: 독성 가스: 인간의 건강을 해칠 만큼의 독성 또는 부식성 가스</p>
+                            <p>-  Div. 6.2: 전염성 물질: 병원체가 포함된 것으로 알려졌거나 합리적으로 예상되는 물질.   (병원체: 인간 또는 동물에게 질병을 유발할 수 있는 미생물)</p>
+                        </aura:if>
+                          -->
+                         <!--V1.1 Kajal End-->
+                    <div class=" slds-p-top_medium slds-p-bottom_medium " style="height: 100%">
+                        <lightning:button label="{!$Label.c.LOGISTICS_CP_BTN_YES}" variant="{!v.selectedLevelOneYes ? 'brand' : 'brand-outline'}"  onclick="{!c.handleURLYes1}" disabled ="{!v.isdisabled}"/>
+                        <lightning:button label="{!$Label.c.LOGISTICS_CP_BTN_NO}" variant="{!v.selectedLevelOneNo ? 'brand' : 'brand-outline'}" onclick="{!c.handleCancel}" disabled ="{!v.isdisabled}"/>
+                        <lightning:button value="{!v.LevelOneNeedCheck}" label="{!$Label.c.LOGISTICS_CP_BTN_NEEDTOREVIEW}" variant="{!v.selectedLevelOneNeed ? 'brand' : 'brand-outline'}" onclick="{!c.handleURLNeed1}" disabled ="{!v.isdisabled}"/>
+                            <div class = "slds-text-heading_medium slds-text-align_left slds-p-top_medium slds-p-bottom_medium">
+                                {!$Label.c.FirstPopupmainHeading}                           
+                            </div>
+                            <lightning:button label="{!$Label.c.LOGISTICS_CP_BTN_YES}" variant="{!v.selectedLevelTwoYes ? 'brand' : 'brand-outline'}" onclick="{!c.handleURLYes2}" disabled ="{!v.isdisabled}"/>
+                            <lightning:button label="{!$Label.c.LOGISTICS_CP_BTN_NO}" variant="{!v.selectedLevelTwoNo ? 'brand' : 'brand-outline'}" onclick="{!c.handleCancelPopup1}" disabled ="{!v.isdisabled}"/>
+                            <lightning:button label="{!$Label.c.LOGISTICS_CP_BTN_NEEDTOREVIEW}" variant="{!v.selectedLevelTwoNeed ? 'brand' : 'brand-outline'}" onclick="{!c.handleURLNeed2}" disabled ="{!v.isdisabled}"/>
+
+                            <div class = "slds-text-heading_medium slds-text-align_left slds-p-top_medium slds-p-bottom_medium">
+                                {!$Label.c.SecondPopupMainHeading}</div>
+                                    <aura:if isTrue="{!v.setLangEng}">
+                                  <div class="slds-text-align_left slds-p-bottom_medium">
+                                    <p> -Items containing parts or materials that may cause explosion or fire.</p>
+                                    <p>- Items injected with toxic, flammable, suffocating, corrosive gas or liquid.</p>
+                                    <p>- Powder-type items with the possibility of spontaneous ignition or heat generation.</p>
+                                    <p>- Items containing mechanical devices or parts that may expand rapidly.
+                                    <p>- Items composed of other dangerous parts or materials (such as products equipped with lithium-ion 
+                                        batteries or lithium-ion batteries)</p>
+                                      </p></div></aura:if>
+                                <aura:if isTrue="{!v.setLangKor}">
+                                    <div class="slds-text-align_left slds-p-bottom_medium">
+                                    <p>- 폭발 또는 화재의 위험성이 있는 부품 또는 물질이 포함된 제품</p>
+                                    <p>- 독성, 가연성, 질식성, 부식성 가스 또는 액체가 주입된 제품</p>
+                                    <p>- 자연 발화 또는 발열 가능성이 있는 분말 형태의 제품</p>
+                                    <p>- 급속한 팽창 가능성이 있는 기계 장치 또는 부품이 포함이 된 제품</p>
+                                    <p>- 기타 위험성을 지닌 부품 또는 물질로 구성된 제품 (리튬-이온 배터리 또는 리튬-이온 배터리가 장착되는 제품 등)</p>
+                                    </div></aura:if>
+                            <lightning:button label="{!$Label.c.LOGISTICS_CP_BTN_YES}" variant="{!v.selectedLevelThreeYes ? 'brand' : 'brand-outline'}" onclick="{!c.handleURLYes3}" disabled ="{!v.isdisabled}"/>
+                            <lightning:button label="{!$Label.c.LOGISTICS_CP_BTN_NO}" variant="{!v.selectedLevelThreeNo ? 'brand' : 'brand-outline'}" onclick="{!c.handleCancelPopup2}" disabled ="{!v.isdisabled}"/>
+                            <lightning:button label="{!$Label.c.LOGISTICS_CP_BTN_NEEDTOREVIEW}" variant="{!v.selectedLevelThreeNeed ? 'brand' : 'brand-outline'}" onclick="{!c.handleURLNeed3}" disabled ="{!v.isdisabled}"/>
+
+                            <div class = "slds-text-heading_medium slds-text-align_left slds-p-top_medium slds-p-bottom_medium">
+                                {!$Label.c.ThirdPopupmainHeading}</div>
+                                 <aura:if isTrue="{!v.setLangEng}">
+                                    <div class="slds-text-align_left slds-p-bottom_medium">  
+                               <div class = "slds-text-heading_medium slds-text-align_left">[The export-controlled countries and regions]
+                                    </div>
+                                <p>- Countries: Cuba, Iraq, North Korea, Iran, Syria, Russia, Belarus, Central African Republic,Congo, Eritrea, Lebanon, Libya, Somalia, and Sudan (14 countries)</p>
+                                <p>- Region: Crimea and the Russia-occupied regions in Ukraine (2)</p>
+                                     </div></aura:if>
+                                <aura:if isTrue="{!v.setLangKor}">
+                                     <div class="slds-text-align_left slds-p-bottom_medium">
+                                    <p>[미국 수출통제 국가 및 지역]</p>
+                                    <p> - 국가 : 쿠바, 이라크, 북한, 이란, 시리아, 러시아, 벨라루스, 중앙아프리카 공화국, 콩고
+                                          에리트리아(Eriteria), 레바논, 리비아, 소말리아, 수단(14개국)</p>
+                                    <p> - 지역 : 크림반도 및 우크라이나의 러시아 점령지역(2개)</p>
+                                    </div>
+                                    
+                                </aura:if>
+                           
+                            <lightning:button label="{!$Label.c.LOGISTICS_CP_BTN_YES}" variant="{!v.selectedLevelFourYes ? 'brand' : 'brand-outline'}" onclick="{!c.handleURLYes4}" disabled ="{!v.isdisabled}"/>
+                            <lightning:button label="{!$Label.c.LOGISTICS_CP_BTN_NO}" variant="{!v.selectedLevelFourNo ? 'brand' : 'brand-outline'}" onclick ="{!c.closeApprovalButtonModalNo}" disabled ="{!v.isdisabled}"/>
+                            
+                      
+                    </div> 
+                    </div>
+                </lightning:card>
+            </div>
+            </div>
+            <aura:if isTrue="{!v.confirmpopup}">
+               <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small svcAlertPopup" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+    <div class="slds-modal__container" style="width: 45%;min-width: 70%; ">
+     <header class="slds-modal__header slds-border_left slds-border_bottom slds-border_right slds-border_top">
+      </header>   
+      <div class="slds-modal__content" id="modal-content-id-1">
+          <div class = "slds-text-heading_medium slds-text-align_left slds-p-left_medium slds-p-top_medium slds-p-bottom_medium">
+                                {!$Label.c.CPReviewConfirmMessage}                           
+                            </div>
+    <footer class="slds-modal__footer">
+    <div class="slds-form-element buttons slds-text-align_center">
+        <lightning:button variant="brand" label='{!$Label.c.LOGISTICS_CP_BTN_YES}' title='{!$Label.c.LOGISTICS_CP_BTN_YES}' onclick="{!c.onConfirmYes}" />
+        <lightning:button variant="brand-outline" label='{!$Label.c.LOGISTICS_CP_BTN_NO}' title='{!$Label.c.LOGISTICS_CP_BTN_NO}' onclick="{!c.close}" />
+        </div>
+          </footer>
+    </div>
+        </div>
+  </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </aura:if>
+           
+            <footer class="slds-modal__footer">
+                
+                    <lightning:formattedText  style="position: relative;/* margin-right: 300px; */color: blue;float: left;" value="{!$Label.c.FooterMessage}"/>
+                    
+                    <lightning:button variant="neutral"
+                                      label="{!$Label.c.LOGISTICS_CP_BTN_CONFIRM}"
+                                      title="{!$Label.c.LOGISTICS_CP_BTN_CONFIRM}"
+                                      onclick ="{!c.handleConfirm}" disabled ="{!v.confirmEnable}"
+                                      />
+                    <lightning:button variant="neutral"
+                                      label="{!$Label.c.PARTNER_NOTICE_EMAIL_POPUP_CANCEL}"
+                                      title="{!$Label.c.PARTNER_NOTICE_EMAIL_POPUP_CANCEL}"
+                                      onclick="{!c.closeApprovalButtonModal}"/>
+            </footer>
+            
+        </div>
+    </section>
+</aura:component>

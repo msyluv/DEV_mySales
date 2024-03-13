@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>특정 기능을 제어 하는 Switch</description>
+    <enableFeeds>false</enableFeeds>
+    <label>FunctionSwitch</label>
+    <visibility>Public</visibility>
+</CustomObject>

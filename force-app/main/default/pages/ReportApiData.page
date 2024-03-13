@@ -1,0 +1,26 @@
+<apex:page lightningStyleSheets="true" Controller="ReportNew" >
+    <script>
+    function afterSendingEmail(){
+     
+       
+        alert('Email has been sent Successfully');  
+       
+    }
+    </script>
+    <apex:slds /> 
+    <div class="slds-page-header">
+        <div class="slds-media__body">    
+            <h1 class="slds-page-header__title slds-truncate slds-align-middle" >Report Detail Page</h1>
+        </div>
+    </div>
+    <div class="slds-scope">
+        <div id="divMainContainer" style="display:flex" class="slds-col slds-size--4-of-4" >
+            <div  class="slds-box slds-box_xx-small slds-text-align_center slds-m-around--xx-Large">
+    <apex:form >
+        <apex:pageMessages id="showmsg"></apex:pageMessages>
+       <tr Style="font-weight: bold;">Report Name</tr>   {!ReportName}<br/>
+    <apex:commandButton action="{!ReportData}" value="Send Mail" id="theButton" onclick="afterSendingEmail()"/>
+    </apex:form>
+    </div> </div>
+    </div>
+</apex:page>

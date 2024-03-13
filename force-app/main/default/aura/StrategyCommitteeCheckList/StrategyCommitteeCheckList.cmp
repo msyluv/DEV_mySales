@@ -1,0 +1,334 @@
+<!--
+  @description       : 
+  @author            : Junghwa.Kim@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-04-12
+  @last modified by  : Junghwa.Kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                  Modification
+  1.0   12-09-2020   Junghwa.Kim@dkbmc.com   Initial Version
+-->
+<aura:component controller="StrategyCommitteeCheckListController"
+                implements="lightning:actionOverride,lightning:isUrlAddressable,lightning:hasPageReference,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:appHostable,force:hasSObjectName,force:hasRecordId" 
+                access="global">
+    
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    <aura:attribute name="isModalLoading" type="Boolean" default="false"/>
+    <aura:attribute name="bizReviewList" type="List" default="[]"/>
+    <aura:attribute name="columns" type="List" default="[]"/>
+    <aura:attribute name="data" type="List"/>
+    <aura:attribute name="isModal" type="Boolean" default="false"/>
+    <aura:attribute name="checkList" type="Object"/>
+    <aura:attribute name="isSave" type="Boolean" default="false"/>
+    <aura:attribute name="checkAnswerCount" type="String" default="0"/>
+    
+    <!-- Infinite Loading attribute -->
+    <aura:attribute name="rowsToLoad" type="Integer"/>
+    <aura:attribute name="loadMoreOffset" type="Integer" default="50"/>
+    <aura:attribute name="totalNumberOfRows" type="Integer" default="2000"/>
+    <aura:attribute name="enableInfiniteLoading" type="Boolean" default="true"/>
+    <aura:attribute name="loding" type="Boolean" default="false"/>
+
+    <!-- search field attribute -->
+    <aura:attribute name="deadline" type="String" default=""/>
+    <aura:attribute name="decision" type="String" default=""/>
+    <aura:attribute name="approval" type="Boolean" default="false"/>
+    <aura:attribute name="dateOptions" type="List" default="[
+                                                            {'label': '전체 기간', 'value': ''},
+                                                            {'label': '6개월', 'value': '6'},
+                                                            {'label': '1년', 'value': '12'},
+                                                            {'label': '2년', 'value': '24'},
+                                                            {'label': '3년', 'value': '36'},
+                                                            ]"/>
+    <aura:attribute name="decisionOption" type="List" default="[
+                                                                {'label': 'None', 'value': ''},
+                                                                {'label': 'Participation', 'value': 'Participation'},
+                                                                {'label': 'Nonparticipation', 'value': 'Nonparticipation'},
+                                                                {'label': 'Deferral', 'value': 'Deferral'},
+                                                                ]"/>
+    
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.reInit}"/>
+    
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    <aura:if isTrue="{!v.isLoading}">
+        <lightning:spinner alternativeText="Loading" size="medium" class="spinner-fixed"/>
+    </aura:if>
+    
+    <section class="slds-card">
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <lightning:icon iconName="standard:contact_list" alternativeText="list" title="XML" />
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title slds-truncate" title="Strategy Committee CheckList">{!$Label.c.STRATEGY_COMMITTEE_LAB_STRATEGY_COMMITTEE_LIST}</span>
+                                    </h1>
+                                </div>
+                            </div>
+                            <p></p>
+                        </div>
+                        
+                        <div class="searchDiv deadlineCombo">
+                            <div>{!$Label.c.STRATEGY_COMMITTEE_LAB_DEADLINE}</div>
+                            <lightning:combobox name="DeadLine" label='{!$Label.c.STRATEGY_COMMITTEE_LAB_DEADLINE}' value="{!v.deadline}" options="{! v.dateOptions }" onchange="{! c.handleSearch }"/>
+                        </div>
+                        <div class="searchDiv deadlineCombo">
+                            <div>{!$Label.c.STRATEGY_COMMITTEE_LAB_DECISION}</div>
+                            <lightning:combobox name="Decision" label='{!$Label.c.STRATEGY_COMMITTEE_LAB_DECISION}' value="{!v.decision}" options="{! v.decisionOption }" onchange="{! c.handleSearch }"/>
+                        </div>
+                        <div class="">
+                            <div class="checkDiv">{!$Label.c.STRATEGY_COMMITTEE_LAB_APPROVAL_STATUS}</div>
+                            <lightning:input type="checkbox" name="Approval" label='{!$Label.c.STRATEGY_COMMITTEE_LAB_NOT_APPROVAL}' checked="{!v.approval}" onchange="{! c.handleSearch }"/>
+                        </div>
+                        <!--
+                        <table class="searchTable">
+                            <tr>
+                                <td>DeadLine</td>
+                                <td>
+                                    <div class="deadlineCombo">
+                                        <lightning:combobox name="DeadLine" value="{!v.deadline}" options="{! v.dateOptions }" onchange="{! c.handleSearch }"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Decision</td>
+                                <td>
+                                    <div class="deadlineCombo">
+                                        <lightning:combobox name="Decision" value="{!v.decision}" options="{! v.decisionOption }" onchange="{! c.handleSearch }"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Not Approval</td>
+                                <td>
+                                    <div class="deadlineCombo">
+                                        <lightning:input type="checkbox" name="Approval" checked="{!v.approval}" onchange="{! c.handleSearch }"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="datatableAuto">
+            <!--
+            <lightning:datatable
+                                 keyField="id"
+                                 data="{! v.data }"
+                                 columns="{! v.columns }"
+                                 showRowNumberColumn="true"
+                                 hideDefaultActions="true"
+                                 hideCheckboxColumn="true"
+                                 onrowaction="{! c.handleRowAction }"/>
+            -->
+            <lightning:datatable
+                                 columns="{! v.columns }"
+                                 data="{! v.data }"
+                                 keyField="id"
+                                 showRowNumberColumn="true"
+                                 hideDefaultActions="true"
+                                 hideCheckboxColumn="true"
+                                 onrowaction="{! c.handleRowAction }"
+                                 enableInfiniteLoading="{! v.enableInfiniteLoading }"
+                                 loadMoreOffset="{! v.loadMoreOffset }"
+                                 onloadmore="{! c.loadMoreData }"
+                                 />
+        </div>
+        <aura:if isTrue="{!v.isModal}">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+                
+                
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                            {!$Label.c.STRATEGY_COMMITTEE_LAB_STRATEGY_COMMITTEE_LIST}
+                        </h2>
+                        {!v.checkList.isPm ? '(PM)' : '(USER)'}
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        
+                        <aura:if isTrue="{!v.isModalLoading}">
+                            <div class="exampleHolder">
+                                <lightning:spinner alternativeText="Loading" size="medium" class="spinner-fixed"/>
+                            </div>
+                        </aura:if>
+                        <div class="caption">
+                            <aura:if isTrue="{!!v.checkList.isPm}">
+                                {!$Label.c.STRATEGY_COMMITTEE_LAB_USERANSWER} : <lightning:icon iconName="utility:check" class="" alternativeText="Success!" variant="Success" title="success variant small" size="x-small" />
+                                <br/>
+                            </aura:if>
+                            {!$Label.c.STRATEGY_COMMITTEE_LAB_PMANSWER} : <lightning:icon iconName="utility:check" class="" alternativeText="Success!" variant="Error" title="success variant small" size="x-small" />
+                            
+                            <span class="lf">
+                                Total/Check : {!v.checkList.questionWrapperList.length}/{!v.checkAnswerCount}
+                            </span>
+                        </div>
+                        <div class="examList">
+                            <lightning:accordion allowMultipleSectionsOpen="true">
+                                <aura:iteration items="{!v.checkList.questionWrapperList}" var="qobj" indexVar="qidx">
+                                    <lightning:accordionSection name="A" label="{!v.checkList.isPm ? (qobj.question.Question__c + ' (' + qobj.question.ReviewDivision__c + ')') : qobj.question.Question__c}"
+                                                                class="{!v.checkList.isPm ? (qobj.question.IsPMAnswer__c != '0' ? 'answered' : '' ) : (qobj.question.IsAnswer__c != '0' ? 'answered' : '' )}">
+                                    <!-- <lightning:accordionSection name="A" label="{!qobj.question.Question__c + ' (' + qobj.question.ReviewDivision__c + ')'}"> -->
+                                    <!-- <lightning:accordionSection name="A" label="{!qobj.question.Question__c}"> -->
+                                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-no-row-hover QuestionTable">
+                                            <colgroup>
+                                                <col width="5%"></col>
+                                                <col width="95%"></col>
+                                            </colgroup>
+                                            <thead>
+                                                <tr class="slds-line-height_reset">
+                                                    <th scope="col" colspan="2" class="qDetail">
+                                                        <div class="slds-truncate">
+                                                            <span class="lf">
+                                                                <ui:outputRichText class="slds-text-longform" value="{!qobj.question.QuestionDetail__c}" /> 
+                                                            </span>
+                                                            <span class="floatRight">
+                                                                <aura:if isTrue="{!!v.checkList.isPm}">
+                                                                    {!$Label.c.STRATEGY_COMMITTEE_LAB_SCORE} :  {!qobj.question.TotalScore__c} 
+                                                                    <br/>
+                                                                </aura:if>
+                                                                {!$Label.c.STRATEGY_COMMITTEE_LAB_PM_SCORE} : {!qobj.question.TotalPMScore__c}
+                                                            </span>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <aura:iteration items="{!qobj.answerList}" var="aobj" indexVar="aidx">
+                                                    <tr class="slds-line-height_reset">
+                                                        <aura:if isTrue="{!aidx == 0}">
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!aobj.AnswerType__c == '주관식'}">
+                                                            <td colspan="2" class="inputInPadding" >
+                                                                <div class="slds-truncate">
+                                                                    <aura:if isTrue="{!!v.checkList.isPm}">
+                                                                        <lightning:input type="number" label="User Answer" name="{!qidx + '-User-' + aidx}" value="{!aobj.ShortAnswer__c}" disabled="{!v.checkList.isPm ? true : false}" onchange="{!c.handleShortAnswer}"/>
+                                                                    </aura:if>
+                                                                    <lightning:input type="number" label="PM Answer" name="{!qidx + '-PM-' + aidx}" value="{!aobj.ShortAnswerPM__c}" disabled="{!v.checkList.isPm ? false : true}" onchange="{!c.handleShortAnswer}"/>
+                                                                </div>
+                                                            </td>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!aobj.AnswerType__c == '다중선택'}">
+                                                            <td style="height: 25px;">
+                                                                <div class="slds-truncate leftPadding checkboxWidth">
+                                                                    <aura:if isTrue="{!!v.checkList.isPm}">
+                                                                        <div>
+                                                                            <lightning:icon iconName="utility:check" class="{!aobj.IsChecked__c ? 'lf' : 'hidden lf'}" alternativeText="Success!" variant="Success" title="success variant small" size="x-small" />
+                                                                        </div>
+                                                                    </aura:if>
+                                                                    <div>
+                                                                        <lightning:icon iconName="utility:check" class="{!aobj.IsPMChecked__c ? 'rf' : 'hidden rf'}" alternativeText="Success!" variant="Error" title="success variant small" size="x-small" />
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td id="{!qidx + '-' + aidx + '-' + aobj.No__c}"  class="{!v.checkList.isPm ? (aobj.IsPMChecked__c ? 'selectAnswerPM answerList' : 'answerList') : (aobj.IsChecked__c ? 'selectAnswer answerList' : 'answerList')}" onclick="{!c.handleSelectAnsMulti}" data-id="{!qidx + '-' + aidx + '-' + aobj.No__c}" data-length="{!qobj.answerList.length}">
+                                                                <div class="slds-truncate">
+                                                                    <span>
+                                                                        <ui:outputRichText class="slds-text-longform" value="{!aobj.Answer__c}" />
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!aobj.AnswerType__c == '법적리스크'}">
+                                                            <td style="height: 25px;">
+                                                                <div class="slds-truncate leftPadding checkboxWidth">
+                                                                    <aura:if isTrue="{!!v.checkList.isPm}">
+                                                                        <div>
+                                                                            <lightning:icon iconName="utility:check" class="{!aobj.IsChecked__c ? 'lf' : 'hidden lf'}" alternativeText="Success!" variant="Success" title="success variant small" size="x-small" />
+                                                                        </div>
+                                                                    </aura:if>
+                                                                    <div>
+                                                                        <lightning:icon iconName="utility:check" class="{!aobj.IsPMChecked__c ? 'rf' : 'hidden rf'}" alternativeText="Success!" variant="Error" title="success variant small" size="x-small" />
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td id="{!qidx + '-' + aidx}"  class="{!v.checkList.isPm ? (aobj.IsPMChecked__c ? 'selectAnswerPM answerList' : 'answerList') : (aobj.IsChecked__c ? 'selectAnswer answerList' : 'answerList')}" onclick="{!c.handleSelectLR}" data-id="{!qidx + '-' + aidx}" data-length="{!qobj.answerList.length}">
+                                                                <div class="slds-truncate">
+                                                                    <span>
+                                                                        <ui:outputRichText class="slds-text-longform" value="{!aobj.AnswerType + aobj.Answer__c}" />
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!aobj.AnswerType__c == '손해배상'}">
+                                                            <td style="height: 25px;">
+                                                                <div class="slds-truncate leftPadding checkboxWidth">
+                                                                    <aura:if isTrue="{!!v.checkList.isPm}">
+                                                                        <div>
+                                                                            <lightning:icon iconName="utility:check" class="{!aobj.IsChecked__c ? 'lf' : 'hidden lf'}" alternativeText="Success!" variant="Success" title="success variant small" size="x-small" />
+                                                                        </div>
+                                                                    </aura:if>
+                                                                    <div>
+                                                                        <lightning:icon iconName="utility:check" class="{!aobj.IsPMChecked__c ? 'rf' : 'hidden rf'}" alternativeText="Success!" variant="Error" title="success variant small" size="x-small" />
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td id="{!qidx + '-' + aidx}"  class="{!v.checkList.isPm ? (aobj.IsPMChecked__c ? 'selectAnswerPM answerList' : 'answerList') : (aobj.IsChecked__c ? 'selectAnswer answerList' : 'answerList')}" onclick="{!c.handleSelectCFD}" data-id="{!qidx + '-' + aidx}" data-length="{!qobj.answerList.length}">
+                                                                <div class="slds-truncate">
+                                                                    <span>
+                                                                        <ui:outputRichText class="slds-text-longform" value="{!aobj.AnswerType__c + aobj.Answer__c}" />
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!aobj.AnswerType__c == '객관식'}">
+                                                            <td style="height: 25px;">
+                                                                <div class="slds-truncate leftPadding checkboxWidth">
+                                                                    <aura:if isTrue="{!!v.checkList.isPm}">
+                                                                        <div>
+                                                                            <lightning:icon iconName="utility:check" class="{!aobj.IsChecked__c ? 'lf' : 'hidden lf'}" alternativeText="Success!" variant="Success" title="success variant small" size="x-small" />
+                                                                        </div>
+                                                                    </aura:if>
+                                                                    <div>
+                                                                        <lightning:icon iconName="utility:check" class="{!aobj.IsPMChecked__c ? 'rf' : 'hidden rf'}" alternativeText="Success!" variant="Error" title="success variant small" size="x-small" />
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td id="{!qidx + '-' + aidx}"  class="{!v.checkList.isPm ? (aobj.IsPMChecked__c ? 'selectAnswerPM answerList' : 'answerList') : (aobj.IsChecked__c ? 'selectAnswer answerList' : 'answerList')}" onclick="{!c.handleSelectAns}" data-id="{!qidx + '-' + aidx}" data-length="{!qobj.answerList.length}">
+                                                                <div class="slds-truncate">
+                                                                    <span>
+                                                                        <ui:outputRichText class="slds-text-longform" value="{!aobj.Answer__c}" />
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                        </aura:if>
+                                                    </tr>
+                                                </aura:iteration>
+                                                <aura:if isTrue="{!!v.checkList.isPm}">
+                                                    <tr>
+                                                        <td colspan="2" class="inputInPadding" >
+                                                            <lightning:input label="{!$Label.c.STRATEGY_COMMITTEE_LAB_USER_BASIS}" disabled="{!v.checkList.isPm ? true : false}" value="{!qobj.BasisMap.User}"/>
+                                                        </td>
+                                                    </tr>
+                                                </aura:if>
+                                                <tr>
+                                                    <td colspan="2" class="inputInPadding" >
+                                                        <lightning:input label="{!$Label.c.STRATEGY_COMMITTEE_LAB_PM_BASIS}" disabled="{!v.checkList.isPm ? false : true}" value="{!qobj.BasisMap.PM}"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </lightning:accordionSection>
+                                </aura:iteration>
+                            </lightning:accordion>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer slds-modal__footer_directional">
+                        <lightning:button variant="brand" class="rightBtn"  label="{!$Label.c.STRATEGY_COMMITTEE_BTN_SAVE}" title="Save Answer" onclick="{! c.handleSaveAnswer }" />
+                        <lightning:button variant="brand-outline" class="rightBtn"  label="{!$Label.c.STRATEGY_COMMITTEE_BTN_CLOSE}" title="Close" onclick="{! c.handleClose }" />
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
+    </section>
+</aura:component>

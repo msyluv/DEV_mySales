@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Needs__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>요구 구체화</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Whether to specify customer requirements &amp; business scope (change the stage to Hot when satisfying two or more BANTs)</inlineHelpText>
+    <label>Needs</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

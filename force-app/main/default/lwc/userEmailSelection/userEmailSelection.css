@@ -1,0 +1,21 @@
+.pillclass {border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 4px;
+    display: block;
+    white-space: nowrap;}
+
+    /* Add top and bottom margins to the table to create boundaries */
+table.slds-table_bordered {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Set cell padding to provide space between table cells */
+td {
+  padding: 0.5rem;
+}
+
+/* Set header background color */
+thead {
+  background-color: #f3f2f2;
+}

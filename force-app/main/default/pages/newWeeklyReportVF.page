@@ -1,0 +1,311 @@
+<apex:page standardController="WeeklyReport__c" extensions="newWeeklyReportVFController" showQuickActionVfHeader="false" docType="html-5.0" lightningStylesheets="true"  contentType="text/html;charset=UTF-8">
+    
+    <apex:includeScript value="{!URLFOR($Resource.cafe + '/2.3.27/cafe_2.3.27.min.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jquery)}"/>
+    <script type="text/javascript" language="javascript">
+    	var imageUpload;
+    	$(function(){  
+        	var fileLenght=0;  
+        	var fileUploading = 0;  
+        	var fileUploaded = 0;  
+        	var ids = new Array(); 
+        	imageUpload = function(fileList,imageArr,bodyInfo,deleteSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder){
+            	fileLenght = fileList.length;
+            	for(var i = 0 ; i < fileLenght ; i++){
+                	uploadImageFile(fileList[i],function(err,res){
+                    	fileUploading +=1; 
+                    	if(fileLenght === fileUploading){
+                        	console.log('Upload Completed'); 
+                        	console.log('Contentversion Uploaded Ids : ' + ids); 
+                        	saveHTML(ids,imageArr,bodyInfo,deleteSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder); 
+                    	}
+                	})
+            	}
+        	}; 
+         
+         	var uploadImageFile = function(file, callback) {  
+           		filetoBase64(file, function(err, content){  
+             		var conVer_object = {  
+               								ContentLocation : 'S',  
+               								Origin      : 'H',
+               								VersionData : content,   
+               								PathOnClient : file.name,   
+               								Title : file.name,
+               								FirstPublishLocationId : '{!recordId}'
+            							};  
+            	$.ajax({  
+               			url: '/services/data/v54.0/sobjects/ContentVersion',  
+               			data: JSON.stringify(conVer_object ),  
+               			type: 'POST',  
+               			processData: false,  
+               			contentType: false,  
+               			headers: {'Authorization': 'Bearer {!$Api.Session_ID}', 'Content-Type': 'application/json'}, 
+               			xhr: function(){  
+                 						var xhr = new window.XMLHttpRequest();  
+                 
+                 						xhr.upload.addEventListener("progress", function(evt){  
+                   							if (evt.lengthComputable) {  
+                        						//Upload progress     
+                   							}  
+                 						}, false);  
+                 						return xhr;  
+               				},
+               			success: function(response) {  
+                 										fileUploaded += 1;  
+                 										console.log(response.id); // the id of the attachment  
+                 										ids.push(response.id);   
+                 										callback(null, true)  
+               					},  
+            		});  
+           		}); 
+        	}
+         	//Read file  
+         	var filetoBase64 = function(file, callback){  
+           		var reader = new FileReader();  
+           		reader.onload = function() {  
+             								var myFileContents = reader.result;  
+             								var base64Mark = 'base64,';  
+             								var dataStart = myFileContents.indexOf(base64Mark) + base64Mark.length;  
+             								myFileContents = myFileContents.substring(dataStart);  
+             								callback(null, myFileContents);  
+           						}  
+           		reader.readAsDataURL(file);  
+         	}  
+    	});
+    
+    	var isReadOnly = "{!$CurrentPage.parameters.isReadOnly}";
+        var recordId = "{!$CurrentPage.parameters.id}";
+        var arg = {'format':'html'};
+        
+    	cafe.create("cafeDemo", 
+                    "{!URLFOR($Resource.cafe + '/2.3.27/config.json')}", 
+                    "GET", 
+                    function (){cafe.setContent( "cafeDemo", '{!JSENCODE(issueDescriptionCheck)}', arg);
+                                if(isReadOnly == "Y"){
+                                    					cafe.setReadOnly("cafeDemo", true);
+                                   	 					$("body .pbBottomButtons").css("display", "none");
+                                					}
+                    		   }
+                   );
+    
+    
+        function closeQuickActionPopUp(){
+            sforce.one.back(true);
+            sforce.one.navigateToSObject('{!$CurrentPage.parameters.id}');
+        }
+		
+    	function saveHTML(ids,imageArr,bodyInfo,deleteSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder){
+        	console.log('Start Save Proces..'); 
+        	console.log(ids); 
+        	var imageArr2 = bodyInfo.getElementsByTagName('img'); // img tag Array 
+        	var j = 0; 
+        	var uploadedImgSrcList = ''; 
+        	for(var i=0;i<imageArr.length;i++){
+            	if(imageArr2[i].src.indexOf('base64') != -1){
+                	imageArr2[i].src = '/sfc/servlet.shepherd/version/download/'+ids[j];
+                 	uploadedImgSrcList += ids[j] + ' '; 
+                 	j+=1; 
+            	}
+            	else continue; 
+        	}
+        	doSave(bodyInfo.innerHTML,deleteSrcList,uploadedImgSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder);
+    	}
+    	
+    	function buildFile(dataUrl,index){
+        	console.log(dataUrl); 
+            var arr = dataUrl.split(','),
+                mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]), 
+                n = bstr.length, 
+                u8arr = new Uint8Array(n);
+            var extension = ''; 
+            if(mime.toLowerCase().indexOf('jpeg') !== -1 || mime.toLowerCase().indexOf('jpg') !== -1){
+                extension = '.jpg'; 
+            }else if(mime.toLowerCase().indexOf('gif') !== -1){
+                extension = '.gif'; 
+            }else if(mime.toLowerCase().indexOf('png') !== -1){
+                extension = '.png'; 
+            }else if(mime.toLowerCase().indexOf('bmp') !== -1){
+                extension ='.bmp'; 
+            }else{
+                extension ='.jpg'; 
+            }
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            var fileName = 'Editor_'+yyyy+'-'+mm+'-'+dd+'_'+index+extension; 
+            while(n--){
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new File([u8arr], fileName , {type:mime});
+    	}
+    
+    
+        function saveIssueDescription(){
+            var content = cafe.getContent("cafeDemo");
+            let parser = new DOMParser(); 
+            const doc = parser.parseFromString(content,'text/html'); 
+        	var bodyInfo = doc.getElementsByTagName('body')[0];
+            var ReportingName = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem1.ReportingName}').value;
+            console.log('Inside SaveDesc function ReportingName : ', ReportingName);
+            var ReportingDate111 = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem2.ReportingDate}').value;
+            console.log('Inside SaveDesc function ReportingDate111 : ', ReportingDate111);
+            var ReportingDate11 = ReportingDate111.split('/');
+            console.log('Inside SaveDesc function ReportingDate11 : ', ReportingDate11);
+            var ReportingDate1 = new Date(ReportingDate11[2], ReportingDate11[1]-1, ReportingDate11[0]);
+            console.log('Inside SaveDesc function ReportingDate1 : ', ReportingDate1);
+            var ReportingDate = ReportingDate1.getFullYear() + '-' + ('0' + (ReportingDate1.getMonth() + 1)).slice(-2) + '-' + ('0' + ReportingDate1.getDate()).slice(-2);
+            console.log('Inside SaveDesc function ReportingDate : ', ReportingDate);
+            //var ReportingDate1 = new Date(ReportingDate11[0], ReportingDate11[1] - 1, ReportingDate11[2]);
+            //console.log('Inside SaveDesc function ReportingDate1 : ', ReportingDate1);
+            //var ReportingDate = ReportingDate1.getFullYear() + '-' + ('0' + (ReportingDate1.getMonth() + 1)).slice(-2) + '-' + ('0' + ReportingDate1.getDate()).slice(-2);
+            //console.log('Inside SaveDesc function ReportingDate : ', ReportingDate);
+            var Critical = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem3.Critical}').checked;
+            console.log('Inside SaveDesc function Critical : ', Critical);
+            var Account = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem4.Account}').value;
+            console.log('Inside SaveDesc function Account : ', Account);
+            var Opportunity = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem5.Opportunity}').value;
+            console.log('Inside SaveDesc function Opportunity : ', Opportunity);
+            var SalesLead = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem6.SalesLead}').value;
+            console.log('Inside SaveDesc function SalesLead : ', SalesLead);
+            var IssueReport = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem7.IssueReport}').checked;
+            console.log('Inside SaveDesc function IssueReport : ', IssueReport);
+            var Flag = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem8.Flag}').value;
+            console.log('Inside SaveDesc function Flag : ', Flag);
+            var ComplianceGuide = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem9.ComplianceGuide}').value;
+            console.log('Inside SaveDesc function ComplianceGuide : ', ComplianceGuide);
+            var ReportContent = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem10.ReportContent}').value;
+            console.log('Inside SaveDesc function ReportContent : ', ReportContent);
+            var IssueDescription1 = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem11.IssueDescription1}').value;
+            console.log('Inside SaveDesc function IssueDescription1 : ', IssueDescription1);
+            var DisplayOrder = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem12.DisplayOrder}').value;
+            console.log('Inside SaveDesc function DisplayOrder : ', DisplayOrder);
+            
+            var fileList = []; 
+        	var imageArr = bodyInfo.getElementsByTagName('img'); // img tag Array 
+        	var base64Arr = new Array(); 
+        	for(var i = 0 ; i < imageArr.length; i++){
+            	base64Arr.push(imageArr[i].src+ ' '); 
+            
+            	if(imageArr[i].src.split(',').length>1){
+                	var file = buildFile(imageArr[i].src,i+1); 
+                	fileList.push(file); 
+            	}
+        	}
+            
+            console.log('before Save : '); 
+        	var originSaveHTML = '{!JSENCODE(issueDescriptionCheck)}'; 
+        	const originDoc = parser.parseFromString(originSaveHTML,'text/html'); 
+        	var originSaveImgArr =originDoc.getElementsByTagName('img'); 
+        
+        	var deleteSRC = ''; 
+        	for(var j = 0 ; j < originSaveImgArr.length;j++){
+            	if(originSaveImgArr[j].src.indexOf('servlet.shepherd') != -1){
+                	var check = 0; 
+                    
+                 	for(var i = 0 ; i < imageArr.length; i++){
+                    	if(imageArr[i].src == originSaveImgArr[j].src) check = 1; 
+                 	}
+                    
+                 	if(check == 0) deleteSRC += originSaveImgArr[j].src +' '; 
+            	}
+        	}
+        	console.log('delete List : ' + deleteSRC);
+            
+			var fileLength = fileList.length; 
+        	var uploadedImgSrcList = ''; 
+            
+            
+        	if(fileLength>0) imageUpload(fileList,imageArr,bodyInfo,deleteSRC,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder); 
+        	else doSave(bodyInfo.innerHTML,deleteSRC,uploadedImgSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder);
+			
+        }  
+    </script>
+
+    <apex:form id="form1" >  
+        <apex:actionFunction name="doSave" action="{!doSave}" reRender="pageMessages,script-block" oncomplete="closeQuickActionPopUp();return false; ">
+            <apex:param id="issueDescription" name="issueDescription" value=""></apex:param>
+            <apex:param id="deleteSrc" name="deleteSrc" value=""></apex:param>
+    		<apex:param id="uploadedImgSrcList" name="uploadedImgSrcList" value=""></apex:param>
+            <apex:param id="ReportingName" name="ReportingName" value=""></apex:param>
+            <apex:param id="ReportingDate" name="ReportingDate" value=""></apex:param>
+    		<apex:param id="Critical" name="Critical" value=""></apex:param>
+            <apex:param id="Account" name="Account" value=""></apex:param>
+            <apex:param id="Opportunity" name="Opportunity" value=""></apex:param>
+    		<apex:param id="SalesLead" name="SalesLead" value=""></apex:param>
+            <apex:param id="IssueReport" name="IssueReport" value=""></apex:param>
+    		<apex:param id="Flag" name="Flag" value=""></apex:param>
+            <apex:param id="ComplianceGuide" name="ComplianceGuide" value=""></apex:param>
+            <apex:param id="ReportContent" name="ReportContent" value=""></apex:param>
+    		<apex:param id="IssueDescription1" name="IssueDescription1" value=""></apex:param>
+            <apex:param id="DisplayOrder" name="DisplayOrder" value=""></apex:param>
+        </apex:actionFunction>
+
+    	<apex:pageBlock id="pageBlock1">
+            <apex:pageBlockSection title="Information" collapsible="false" id="pageBlockSection1">
+                <apex:pageBlockSectionItem id="pageBlockSectionItem1">	
+                    <apex:outputLabel value="Reporting Name" for="ReportingName" />
+                    <apex:inputField value="{!WeeklyReport__c.Name}" id="ReportingName" required="true" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem2">	
+                    <apex:outputLabel value="Reporting Date" for="ReportingDate" />
+                    <apex:inputField value="{!WeeklyReport__c.ReportingDate__c}" id="ReportingDate" required="true" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem3">	
+                    <apex:outputLabel value="Weekly Report" for="Critical" />
+                    <apex:inputField value="{!WeeklyReport__c.Critical__c}" id="Critical"/>
+                </apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem id="pageBlockSectionItem4">	
+                    <apex:outputLabel value="Account" for="Account" />
+                    <apex:inputField value="{!WeeklyReport__c.Account__c}" id="Account"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem5">	
+                    <apex:outputLabel value="Opportunity" for="Opportunity" />
+                    <apex:inputField value="{!WeeklyReport__c.Opportunity__c}" id="Opportunity"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem6">	
+                    <apex:outputLabel value="Sales Lead" for="SalesLead" />
+                    <apex:inputField value="{!WeeklyReport__c.SalesLead__c}" id="SalesLead"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem7">	
+                    <apex:outputLabel value="Issue Report" for="IssueReport" />
+                    <apex:inputField value="{!WeeklyReport__c.CheckedforIssue__c}" id="IssueReport"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem8">	
+                    <apex:outputLabel value="Flag" for="Flag" />
+                    <apex:inputField value="{!WeeklyReport__c.Flag__c}" id="Flag"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Description" collapsible="false" columns="1" id="pageBlockSection2">                
+				<apex:pageBlockSectionItem dataStyle="width:80%" id="pageBlockSectionItem9">
+                	<apex:outputLabel value="Compliance Guide" for="ComplianceGuide" />
+                    <apex:inputField value="{!WeeklyReport__c.ComplianceGuide__c}" id="ComplianceGuide" style="width:100%" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem10">
+                	<apex:outputLabel value="Report Content" for="ReportContent" />
+                    <apex:inputField value="{!WeeklyReport__c.Contents__c}" id="ReportContent" style="width:100%" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem11">
+                	<apex:outputLabel value="Issue Description" for="IssueDescription1" />
+                    <apex:inputTextarea value="{!WeeklyReport__c.IssueDescription__c}" id="IssueDescription1" richText="true" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputText value="Issue Description Check" />
+                	<div id="cafeDemo"></div>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem12">
+                	<apex:outputLabel value="Display Order" for="DisplayOrder" />
+                    <apex:inputField value="{!WeeklyReport__c.DisplayOrder__c}" id="DisplayOrder" style="width:100%" />
+                </apex:pageBlockSectionItem>               
+            </apex:pageBlockSection>
+            <div id="buttons">
+               	<apex:pageBlockButtons location="bottom">
+               		<!--apex:commandButton value="Cancel" immediate="true" onclick="closeQuickActionPopUp()"/-->
+               		<apex:commandButton value="Save" reRender="none" onclick="saveIssueDescription();" style="background-color: rgba(23,92,170,1);color: white;border: none;"/>
+    			</apex:pageBlockButtons> 
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,4 @@
+.THIS td:first-child{
+    position: sticky;
+    left:0;
+}

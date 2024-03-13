@@ -1,0 +1,121 @@
+.THIS .category-custom{
+    width:40%;
+}
+
+.THIS .quick-modal__content{
+    padding: 1em;
+}
+
+.THIS .approve-contents{
+    margin-top: 1.5rem;
+}
+
+.THIS .slds-is-close.slds-form-element.slds-lookup.cCustomLookup{
+    margin-bottom: 0;
+}
+
+.THIS .custom-lookup{
+    margin-bottom: 0;
+    height: 70px;
+}
+
+.THIS .my-approve-button{
+    float: right;
+    margin-top: 0.2rem;
+    margin-bottom:0.2rem;
+}
+
+.THIS .slds-rich-text-editor{
+    /* height: 232px; */
+}
+
+.THIS .table_tbody_Wrapper{
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.THIS .table_tbody{
+    border-top: 0px solid rgb(221, 219, 218);
+}
+
+.THIS .slds-hidden{
+    padding:0; 
+    margin:0; 
+    width:0; 
+    height:0;
+}
+
+.THIS .slds-hidden .slds-input{
+    padding:0; 
+    margin:0; 
+    width:0; 
+    height:0;
+}
+
+.THIS .forceStyle .slds-is-editing .slds-form-element.slds-hidden{
+    padding:0; 
+    margin:0; 
+    width:0; 
+    height:0;
+}
+/*
+.THIS .div-radiobutton{
+    padding: 0 0 .5rem 0;
+}
+*/
+.THIS .div-radiobutton .slds-form-element{
+    margin: 0;
+}
+
+.THIS table { 
+    table-layout: fixed;
+}
+
+.THIS td {
+    overflow:hidden;
+    white-space : nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.THIS th {
+    text-align: left;
+}
+
+.THIS .slds-notify .slds-icon{
+    fill : white;
+}
+
+.THIS .selected-emp {
+    background-color: rgba(21, 137, 238, 0.08);
+}
+
+.THIS .div-radiobutton .slds-button{
+    line-height: 1.2rem !important;
+}
+.THIS .approval-typeBtn{
+    display: none;
+    background-color: rgb(243, 242, 242);
+}
+.THIS tr:hover .approval-typeBtn{
+    display: block;
+    position: absolute;
+    top :50%;
+    right: 0;
+    transform: translate(0,-50%);
+    height: 23px;
+}
+.THIS .click-button-img{
+    color:#0289ff;
+}
+.THIS .btnGroupHead {
+    font-size: 10px;
+}
+
+.THIS .leftPaddingClass {
+    padding-left: 2rem;
+}
+.THIS .test{
+    color : rebeccapurple;
+    font-size: 10rem;
+}

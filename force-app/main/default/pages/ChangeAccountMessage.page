@@ -1,0 +1,28 @@
+<!--
+@description       : 
+@author            : akash.g@samsung.com
+@group             : 
+@last modified on  : 2022-05-25
+@last modified by  : akash.g@samsung.com
+Modifications Log 
+Ver   Date         Author                 Modification
+1.0   2022-05-25   akash.g@samsung.com   Initial Version
+-->
+<apex:page standardController="Opportunity" >
+    <apex:includeLightning />
+
+    <div id="lightning" />
+
+    <script>
+        $Lightning.use("c:ChangeAccountMessageApp", function() {
+        $Lightning.createComponent("c:ChangeAccountMessage",
+          { 
+             "recordId" :"{!$CurrentPage.parameters.Id}"
+          },
+          "lightning",
+          function(cmp) {
+             console.log('Display Lightning component in visualforce page');
+          });
+    });
+    </script>
+</apex:page>

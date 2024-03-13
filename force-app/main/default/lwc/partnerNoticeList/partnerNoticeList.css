@@ -1,0 +1,21 @@
+.partnerNoticeHeader {
+    font-size: 32px;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+.slds-table_cell-buffer {
+    border-top: 0;
+}
+.slds-table_cell-buffer tr>th:first-child, .slds-table_cell-buffer tr>td:first-child {
+    padding-left: 0;
+}
+.view-all {
+    padding: 16px 0;
+}
+.slds-table_bordered tbody tr:hover>td {
+    box-shadow: none;
+}
+.partnertexwrap{
+    white-space: normal;
+
+}

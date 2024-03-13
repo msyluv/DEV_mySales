@@ -1,0 +1,73 @@
+<!--
+Name: ContactList.cmp
+-->
+<aura:component controller="userAuraController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <!--Declare Event Handlers--> 
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+     
+    <!--Declare Attributes-->
+    <aura:attribute name="contactList" type="list" />   
+    <aura:attribute name="isSelectAll" type="boolean" default="false"/>
+     
+    <div class="slds-m-around_xx-large">
+        <h1 class="slds-text-heading--medium">Contacts</h1>
+        <br/>
+        <!--Contact List Table-->
+        <table class="slds-table slds-table--bordered slds-table--cell-buffer" role="grid">      
+            <thead>  
+                <tr class="slds-text-title--caps">
+                    <th>           
+                        <label class="slds-checkbox">
+                            <ui:inputCheckbox value="{!v.isSelectAll}" change="{!c.handleSelectAllContact}" aura:id="selectAll"/>
+                            <span class="slds-checkbox--faux" />
+                            <span class="slds-form-element__label"></span>
+                        </label>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Name">Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Account">Account</div>
+                    </th>
+                     
+                    <th scope="col">
+                        <div class="slds-truncate" title="Phone">Phone</div>
+                    </th>
+                     
+                    <th scope="col">
+                        <div class="slds-truncate" title="Email">Email</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>        
+                <aura:iteration items="{!v.contactList}" var="con">
+                    <tr>
+                        <th>
+                            <label class="slds-checkbox">
+                                <ui:inputCheckbox aura:id="checkContact" value="" text="{!con.Id}"/>
+                                <span class="slds-checkbox--faux" />
+                                <span class="slds-form-element__label"></span>
+                            </label>
+                        </th>
+                        <th scope="row">
+                            <div class="slds-truncate" title="{!con.Name}">{!con.Name}</div>
+                        </th>
+                        <td>
+                            <div class="slds-truncate" title="{!con.Account.Name}">{!con.Account.Name}</div>
+                        </td>
+                        <th scope="row">
+                            <div class="slds-truncate" title="{!con.Phone}">{!con.Phone}</div>
+                        </th>
+                        <td>
+                            <div class="slds-truncate" title="{!con.Email}">{!con.Email}</div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+        <div>
+            <br/>
+            <lightning:button label="Submit" class="slds-button_brand" onclick="{!c.handleSelectedContacts }"  />
+        </div>
+    </div>
+</aura:component>

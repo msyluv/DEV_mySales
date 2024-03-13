@@ -1,0 +1,9 @@
+.THIS .modal-content {
+    min-height: calc(85vh - 6rem);
+    max-height: calc(85vh - 6rem);
+    height: calc(85vh - 6rem);
+    /* overflow-y: auto; */
+}
+.THIS .slds-card__body { 
+    height: auto !important;
+}

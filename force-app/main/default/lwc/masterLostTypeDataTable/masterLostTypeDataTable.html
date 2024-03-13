@@ -1,0 +1,30 @@
+<!--
+  @description       : This is used to render the dynamic custom Javascript HTML String for Master Lost Type Data in a merged form for duplidate cells.
+  @author            : rakshit.s@samsung.com
+  @group             : 
+  @last modified on  : 02-20-2023
+  @last modified by  : rakshit.s@samsung.com
+-->
+<template>
+  
+     
+   <!-- <template if:true={showModal}> -->
+        
+                    <template if:true={showTable}>
+                <table class="elementHoldingHTMLContent slds-table forceRecordLayout slds-table--header-fixed slds-table--edit  resizable-cols slds-table--resizable-cols uiVirtualDataTable slds-no-row-hover slds-no-row-hover"  lwc:dom="manual">
+
+                </table>
+                    </template>
+         
+ <!-- </template> -->
+    
+    
+ <template if:true={renderAgain}>
+  
+  <div></div>
+ </template>
+
+ <template if:true={noDataPopup}>
+    <b>{noDataMessage}</b>
+ </template>
+</template>

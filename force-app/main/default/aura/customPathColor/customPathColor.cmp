@@ -1,0 +1,31 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<aura:html tag="style">
+        :root {
+            --lwc-colorBackgroundPathActive: rgb(0, 95, 178) !important;
+            --lwc-colorBackgroundPathActiveHover: rgb(0, 57, 107) !important;
+            --lwc-colorBackgroundPathComplete: rgb(75, 202, 129) !important;
+            --lwc-colorBackgroundPathCompleteHover: rgb(4, 132, 75) !important;
+            --lwc-colorBackgroundPathCurrent: rgb(255, 255, 255) !important;
+            --lwc-colorBackgroundPathCurrentHover: rgb(255, 255, 255) !important;
+            --lwc-colorBackgroundPathExpanded: rgb(255, 255, 255) !important;
+            --lwc-colorBackgroundPathIncomplete: rgb(236, 235, 234) !important;
+            --lwc-colorBackgroundPathIncompleteHover: rgb(221, 219, 218) !important;
+            --lwc-colorBackgroundPathLost: rgb(194, 57, 52) !important;
+            --lwc-colorBackgroundPathStepActionActive: rgb(6, 28, 63) !important;
+            --lwc-colorBackgroundPathStepActionCurrent: rgb(0, 95, 178) !important;
+            --lwc-colorBackgroundPathWon: rgb(4, 132, 75) !important;
+        }  
+        
+        .slds-path__nav .slds-is-complete {
+        	background: var(--lwc-colorBackgroundPathComplete,rgb(75, 202, 129));
+		}
+        
+        .slds-path__nav .slds-is-current {
+        	background-color: var(--lwc-colorBackgroundPathCurrent,rgb(255, 255, 255));
+		}
+        
+        .slds-path__nav .slds-is-active {
+        	background-color: var(--lwc-colorBackgroundPathActive,rgb(0, 95, 178));
+		}
+    </aura:html>
+</aura:component>

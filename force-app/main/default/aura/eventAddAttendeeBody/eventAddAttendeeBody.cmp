@@ -1,0 +1,71 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 01-20-2021
+  @last modified by  : woomg@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   01-14-2021   woomg@dkbmc.com   Initial Version
+-->
+<aura:component 
+    controller="EventAttendeeController"
+    access="global">
+
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="isMobile" type="Boolean"/>
+
+    <aura:attribute name="selType" type="String" default="user"/>
+	<aura:attribute name="existing" type="List" default="[]"/>
+    <aura:attribute name="available" type="List" default="[]"/>
+    <aura:attribute name="options" type="List" default="[]"/>
+	<aura:attribute name="eventId" type="String" default=""/>
+	<aura:attribute name="ownerId" type="String" default=""/>
+	<aura:attribute name="accountId" type="String" default=""/>
+	<aura:attribute name="hasAccount" type="Boolean" default="false"/>
+
+	<aura:attribute name="existMap" type="Object" default="{}"/>
+
+    <!--aura:attribute name="existMap" type="Object" default="{}"/>
+    <aura:attribute name="availMap" type="Object" default="{}"/>
+    <aura:attribute name="selected" type="List" default="[]"/>
+    <aura:attribute name="selectMap" type="Object" default="{}"/>
+    
+    <aura:attribute name="target" type="String"/>
+	<aura:attribute name="invite" type="String"/-->
+    
+    <aura:method name="addAttendee" action="{!c.addAttendee}" access="PUBLIC"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <div class="modal_body">
+        <aura:if isTrue="{!v.showSpinner}">
+            <div class="slds-is-relative">
+            	<lightning:spinner />
+            </div>
+        </aura:if>
+
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem size="4" smallDeviceSize="12" mediumDeviceSize="4" largeDeviceSize="4">
+                <lightning:select aura:id="type" name="selectType" label="Type" value="{!v.selType}" onchange="{!c.onChangeType}">
+                    <option value="user">User</option>
+                    <aura:if isTrue="{!v.hasAccount}">
+                        <option value="contact">Contact</option>
+                    </aura:if>
+                </lightning:select>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="8" smallDeviceSize="12" mediumDeviceSize="8" largeDeviceSize="8" class="slds-p-left_small">
+                <lightning:input label="Name" aura:id="searchText" name="searchText" placeholder="Enter the search text" onchange="{!c.onChangeSearch}"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12" class="slds-p-top_small">
+                <lightning:dualListbox 
+                    aura:id="listbox"
+                    label= "Select Attendee"
+                    sourceLabel="Available"
+                    selectedLabel="Invite"
+                    disableReordering="true"
+                    options="{!v.options}"/>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+</aura:component>

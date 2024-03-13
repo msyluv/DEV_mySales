@@ -1,0 +1,23 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:lightningQuickActionWithoutHeader"
+ access="global" >
+    
+<section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small svcAlertPopup" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+    <div class="slds-modal__container" style="width: 10%;min-width: 10%; ">
+     <header class="slds-modal__header slds-border_left slds-border_bottom slds-border_right slds-border_top">
+      </header>   
+      <div class="slds-modal__content" id="modal-content-id-1">
+          <div class = "slds-text-heading_medium slds-text-align_left slds-p-left_medium slds-p-top_medium slds-p-bottom_medium">
+                                {!$Label.c.CPReviewConfirmMessage}   
+              {!$Label.c.CPReviewConfirmMessage} 
+                            </div>
+    <footer class="slds-modal__footer">
+    <div class="slds-form-element buttons slds-text-align_center">
+        <lightning:button variant="brand" label='{!$Label.c.LOGISTICS_CP_BTN_YES}' title='{!$Label.c.LOGISTICS_CP_BTN_YES}' />
+        <lightning:button variant="brand-outline" label='{!$Label.c.LOGISTICS_CP_BTN_NO}' title='{!$Label.c.LOGISTICS_CP_BTN_NO}'/>
+        </div>
+          </footer>
+    </div>
+        </div>
+  </section>
+	
+</aura:component>

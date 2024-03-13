@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IF_Service_PS_40_42_50_58</fullName>
+    <columns>NAME</columns>
+    <columns>ApexName__c</columns>
+    <columns>InterfaceId__c</columns>
+    <columns>ApexMethod__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>StatusCode__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>ErrorMessage__c</columns>
+    <columns>ExceptionType__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>InterfaceId__c</field>
+        <operation>contains</operation>
+        <value>040,050,058</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterOrEqual</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>IF-Service(PS : 40,42,50,58)</label>
+</ListView>

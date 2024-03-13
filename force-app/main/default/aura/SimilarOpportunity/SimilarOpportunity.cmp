@@ -1,0 +1,192 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" controller="SimilarOpportunityController" access="global" >
+	
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <!-- [Attribute] -->
+    <aura:attribute name="searchKeyword" type="String" default=""/>
+    <aura:attribute name="OpptyList" type="List" default="[]"/>
+    <aura:attribute name="loading" type="Boolean" default="true"/>
+    <aura:attribute name="nowPage" type="Integer" default="1"/>
+    <aura:attribute name="totalPage" type="Integer" default="1"/>
+    <aura:attribute name="totalCount" type="String" default=""/>
+    <aura:attribute name="Service" type="String" default=""/>
+    <aura:attribute name="Solution" type="String" default=""/>
+    <aura:attribute name="Type1" type="String" default=""/>
+    <aura:attribute name="Type2" type="String" default=""/>
+    <aura:attribute name="BizLevel" type="String" default=""/>
+    
+    <!-- datatable attribute -->
+    <aura:attribute name="selectedCurrValue" type="Object" default="{}"/>
+    <aura:attribute name="data" type="Object" default="{}"/>
+    <aura:attribute name="columns" type="List" default="[]"/>
+
+    <aura:attribute name="loginUserId" type="String" default=""/>
+    <aura:attribute name="recordId" type="String" />
+	<aura:attribute name="textVal" type="String" />   
+    
+    <lightning:card >   
+    
+        <lightning:layout class='search_layout title' verticalAlign="center" >
+            <!-- [S] Title -->
+            <lightning:layoutItem size='12' padding='around-small' class='customHeader'>
+                
+                <!--<lightning:icon iconName="standard:opportunity" title="{!$Label.c.SIMILARBO_LAB_HEADER}" class="headerIcon"/>-->
+                <h1 style='font-weight:bold; display: inline-block; position: relative; top: 2px;'>{!$Label.c.SIMILARBO_LAB_FILTER}&nbsp;&nbsp;&nbsp;&nbsp;</h1>            	
+                    
+            </lightning:layoutItem>
+                
+            <!-- [E] Title -->
+        </lightning:layout>  
+        
+        <!--<aura:if isTrue="{!not(empty(v.Solution))}">-->
+        <div>
+        <lightning:layout class='search_layout title' verticalAlign="center" >
+            <lightning:layoutItem size='12' padding='around-small' class='customHeader'>                          
+                <div class="FilterCondition"> - &nbsp; {!$Label.c.SIMILARBO_LAB_BIZLEVEL}:</div>	<div class="FilterConditionResult">&nbsp;{!v.BizLevel},&nbsp;&nbsp;</div>
+                <div class="FilterCondition">{!$Label.c.SIMILARBO_LAB_TYPE1}:</div> <div class="FilterConditionResult">&nbsp;{!v.Type1}/{!v.Type2}&nbsp;&nbsp;</div>
+                <!--<div class="FilterCondition">{!$Label.c.SIMILARBO_LAB_TYPE2}:</div> <div class="FilterConditionResult">&nbsp;{!v.Type2}&nbsp;&nbsp;</div>-->
+                <br/>
+        		<div class="FilterCondition"> - &nbsp; {!$Label.c.SIMILARBO_LAB_SERVICE}:</div> <div class="FilterConditionResult">&nbsp;{!v.Service},&nbsp;&nbsp;</div>
+    			<div class="FilterCondition">{!$Label.c.SIMILARBO_LAB_SOLUTION}:</div> <div class="FilterConditionResult">&nbsp;{!v.Solution}&nbsp;&nbsp;</div>
+            </lightning:layoutItem>
+        </lightning:layout>
+        </div>
+        <!--</aura:if>-->
+
+        <lightning:layout multipleRows='true' class='data_layout'>
+        	<!-- [S] Datatable -->
+            <lightning:layoutItem size='12' padding='around-small' class='item_table'>
+                <div class="slds-grid slds-wrap">
+                	<aura:if isTrue="{!v.loading}">
+                        <lightning:spinner />
+                    	<aura:set attribute="else">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SIMILARBO_LAB_CODE}">{!$Label.c.SIMILARBO_LAB_CODE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SIMILARBO_LAB_NAME}">{!$Label.c.SIMILARBO_LAB_NAME}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SIMILARBO_LAB_CLOSEDATE}">{!$Label.c.SIMILARBO_LAB_CLOSEDATE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SIMILARBO_LAB_STAGE}">{!$Label.c.SIMILARBO_LAB_STAGE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SIMILARBO_LAB_AMOUNT}">{!$Label.c.SIMILARBO_LAB_AMOUNT}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SIMILARBO_LAB_VRBCONFIRMTYPE}">{!$Label.c.SIMILARBO_LAB_VRBCONFIRMTYPE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SIMILARBO_LAB_PROPOSAL}">{!$Label.c.SIMILARBO_LAB_PROPOSAL}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SIMILARBO_LAB_OWNER}">{!$Label.c.SIMILARBO_LAB_OWNER}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SIMILARBO_LAB_PROPOSALPM}">{!$Label.c.SIMILARBO_LAB_PROPOSALPM}</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody style='overflow-y: auto;'>
+                                    <aura:if isTrue="{!not(empty(v.OpptyList))}">
+                                        <aura:iteration items="{!v.OpptyList}" var="data">
+                                            <tr class="slds-hint-parent">
+                                                <th data-label="Opportunity Code" scope="row">
+                                                    <aura:if isTrue="{!data.Permission}">
+                                                        <div class="slds-truncate" title="{!data.OpptyCode}">
+                                                            <a href="{!'/' + data.Id}" tabindex="-1" target="_blank">{!data.OpptyCode}</a>
+                                                        </div>
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-truncate" title="{!data.OpptyCode}">{!data.OpptyCode}</div>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </th>
+                                                <th data-label="Opportunity Name" scope="row">
+                                                    <aura:if isTrue="{!data.Permission}">
+                                                        <div class="slds-truncate" title="{!data.Name}">
+                                                            <a href="{!'/' + data.Id}" tabindex="-1" target="_blank">{!data.Name}</a>
+                                                        </div>
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-truncate" title="{!data.Name}">{!data.Name}</div>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </th>
+                                                <td data-label="CloseDate">
+                                                    <div class="slds-truncate" title="{!data.CloseDate}">{!data.CloseDate}</div>
+                                                </td>
+                                                <td data-label="Stage">
+                                                    <div class="slds-truncate" title="{!data.Stage}">{!data.Stage}</div>
+                                                </td>
+                                                <td data-label="Amount">
+                                                    <div class="slds-truncate" title="{!data.Amount}">{!data.Amount}</div>
+                                                </td>
+                                                <td data-label="VRBConfirmType">
+                                                    <div class="slds-truncate" title="{!data.VRBConfirmType}">{!data.VRBConfirmType}</div>
+                                                </td>
+                                                <td data-label="Proposal">
+                                                    <aura:if isTrue="{!data.Proposal}">
+                                                    	<div class="slds-truncate url" title="{!data.Proposal}">
+                                                            <Lightning:button variant="bare" onclick="{!c.urlopen}" value="{!data.OpptyCode}" aura:Id="someId" class="url_Shadow">•</Lightning:button> <!-- style = "font-size:x-large"-->
+                                                        </div>
+                                                    </aura:if>
+                                                </td>
+                                                <td data-label="OwnerName">
+                                                    <div class="slds-truncate" title="{!data.OwnerName}">{!data.OwnerName}</div>
+                                                </td>
+                                                <td data-label="ProposalPM">
+                                                    <div class="slds-truncate" title="{!data.ProposalPM}">{!data.ProposalPM}</div>
+                                                </td>
+                                            </tr>
+                                        </aura:iteration>   
+                                        <!-- [S] Empty List -->
+                                        <aura:set attribute="else">
+                                            <tr>
+                                                <td colspan='9'>
+                                                    <div style='text-align: center;'>No items to display.</div>
+                                                </td>
+                                            </tr>
+                                        </aura:set>
+                                        <!-- [E] Empty List -->
+                                    </aura:if>
+                                </tbody>
+                        	</table> 
+                    </aura:set>
+                    </aura:if>
+                </div>
+            </lightning:layoutItem>
+            <!-- [E] Datatable -->
+            <hr></hr>
+            <!-- [S] Pagination -->
+            <lightning:layoutItem size='12' class='item_paging'>
+                <lightning:layout verticalAlign="center" horizontalAlign='center' class="x-large">
+                    <!-- [S] Total Number -->
+                    <lightning:layoutItem size='2' flexibility="auto" padding="around-small">
+                        <p style='text-align:center;' class="slds-text-heading_small">Total : {!v.totalCount} Records</p>
+                    </lightning:layoutItem>
+                    <!-- [E] Total Number -->
+                    <!-- [S] Page Number -->
+                    <lightning:layoutItem size='8' flexibility="auto" padding="around-small">
+                        <p style='text-align:center;' class="slds-text-heading_small">Page {!v.nowPage} of {!v.totalPage}</p>
+                    </lightning:layoutItem>
+                    <!-- [E] Page Number -->
+                    <!-- [S] Button -->
+                    <lightning:layoutItem size='2' flexibility="auto" padding="around-small" alignmentBump="left">
+                        <lightning:button iconName="utility:chevronleft" iconPosition="left" onclick="{!c.onPrev}" disabled="{!v.nowPage == 1}"/>
+                        <lightning:button iconName="utility:chevronright" iconPosition="right" onclick="{!c.onNext}" disabled="{!v.nowPage == v.totalPage}"/>
+                    </lightning:layoutItem>
+                    <!-- [E] Button -->
+                </lightning:layout>
+            </lightning:layoutItem>
+            <!-- [E] Pagination -->
+        </lightning:layout>
+        
+    </lightning:card>
+    
+    
+</aura:component>

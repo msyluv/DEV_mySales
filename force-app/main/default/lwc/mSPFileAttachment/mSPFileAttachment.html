@@ -1,0 +1,141 @@
+<!--
+  @description       : 
+  @author            : rakshit.s@samsung.com
+  @group             : 
+  @last modified on  : 05-20-2022
+  @last modified by  : rakshit.s@samsung.com
+-->
+<template>
+   
+   <template if:true={rendercomponent}> 
+    <div >
+        <template if:true={showSpinner}>
+           <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+             </lightning-spinner>
+         </template>
+     </div>
+    <template if:false={showSpinner}>
+        
+       <div  class="slds-box" data-status={usedInCommunity} style="background:white; padding:0%">
+        
+          <div class="slds-grid">
+              
+             <header class="slds-page-header slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                   <span class="slds-icon_container slds-icon-standard-contact" title="contact">
+                      <!---icon here -->
+                      <lightning-icon icon-name="standard:file" size="small" alternative-text="Account" title="Account"></lightning-icon>
+                      <span class="slds-assistive-text">Notes & Attachments({numberOfFiles})</span>
+                   </span>
+                </div>
+                <div class="slds-media__body">
+                   <h2 class="slds-card__header-title">
+                      <span>{heading} {numberOfFiles}</span>                      
+                   </h2>
+                </div>
+                <template if:true={allowUpload}>
+                  <template if:false={doNotAllowUploadForEnrollmentAction}>
+                   <lightning-button label={uploadButtonlabel}  onclick={handleUpload} class="slds-m-left_x-small"></lightning-button>
+                  </template>
+                   <template if:true={uploadAction}>
+                      <!-- Modal/Popup Box LWC starts here -->
+                      <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                         <div class="slds-modal__container">
+                            <!-- Modal/Popup Box LWC header here -->
+                            <header class="slds-modal__header">
+                               <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                                  <lightning-icon icon-name="utility:close"
+                                     alternative-text="close"
+                                     variant="inverse"
+                                     size="small" ></lightning-icon>
+                                  <span class="slds-assistive-text">Close</span>
+                               </button>
+                               <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{uploadButtonlabel}</h2>
+                            </header>
+                            <!-- Modal/Popup Box LWC body starts here -->
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                              
+                               
+                               <lightning-file-upload
+                                  label=""
+                                  name="fileUploader"
+                                  accept={acceptedFormat}
+                                  record-id={myRecordId}
+                                  onuploadfinished={handleUploadFinished}
+                                  data-id="fileUploadButton"
+                                  multiple
+                                  ></lightning-file-upload>
+                                 
+                            </div>
+                            <!-- Modal/Popup Box LWC footer starts here -->
+                            <footer class="slds-modal__footer">
+                               <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">취소</button>
+                            </footer>
+                         </div>
+                      </section>
+                   </template>
+                </template>
+             </header>
+          </div>
+          <template if:true={showEmptyMessage}>
+            <p1 style="font-weight: bold;">{errorMessage}</p1>
+        </template>
+          <template if:false={showEmptyMessage}>
+          <div class="slds-grid slds-wrap ">
+             
+             <template iterator:it={attachmentData}>
+                <div key={it.Id} class="slds-col slds-size_1-of-2">
+                   
+                   <ul key={it.Id} class="slds-has-inline-block-links_space slds-var-p-horizontal_small slds-var-p-vertical_xx-small">
+                      <li class="slds-grid slds-wrap" data-id={it.value.ContentDocumentId} data-filter={it.value.Id}  onclick={previewFile}>
+                        <!-- 2022-05-06 added file delete button -->
+                        <!-- 2022-05-0=26 added condition to file delete button so that only the file owner can see the delete button -->
+                        <template if:true={it.value.isOwner}> 
+                        <div id={it.value.ContentDocumentId} data-id="deleteButton" data-filter={it.value.ContentDocumentId} class="deleteIcon" style="">
+                           <a class='icon-del' style="padding-top:10px;padding-left:0px;padding-right:0px;">
+                              <lightning-icon  style="" variant="error" icon-name="utility:delete" class="slds-icon slds-icon_small" size ="x-small" alternative-text="icon">
+                              </lightning-icon>
+                              <span class="slds-assistive-text">Delete Icon</span>
+                           </a>             
+                        </div>
+                        </template> 
+                        <!-- 2022-05-06 added file delete button -->
+                        
+                        <template if:true={it.value.isPdf} >
+                            <lightning-icon  style="position: relative; padding-top: 1%;" size="medium" icon-name="doctype:pdf" alternative-text="Account" title="Account"></lightning-icon>
+                         </template>
+                         <template if:true={it.value.isCsv} >
+                            <lightning-icon style="position: relative; padding-top: 1%;" size="medium" icon-name="doctype:csv" alternative-text="Account" title="Account"></lightning-icon>
+                         </template>
+                         <template if:true={it.value.isImage} >
+                            <img src={it.value.imageURL} style="padding-top:2%; height: auto; min-width: 30px; max-width: 30px; max-height: 35px;"></img>
+                         </template>
+                         <template if:true={it.value.isUnknown} >
+                            <lightning-icon style="position: relative; padding-top: 1%;" size="medium" icon-name="doctype:unknown" alternative-text="Account" title="Account"></lightning-icon>
+                         </template>
+                         <template if:true={it.value.isText} >
+                            <img src={it.value.textURL} style=" position:relative; padding-top:2%; height: auto; min-width: 30px; max-width: 30px; max-height: 35px;"></img>
+                         </template>
+                         <div class="slds-grid slds-wrap slds-grid_vertical"  style="position:relative">
+                            <a data-id={it.value.ContentDocumentId} class="slds-col slds-size_12-of-12 slds-float_left slds-p-left--x-small " style="padding-top: 0%; padding-bottom: 1%" >{it.value.Title}</a>
+                            <h1 class="slds-col slds-size_12-of-12 slds-float_left slds-p-left--x-small slds-text-body_small " >{it.value.CreatedDate} &#8226; {it.value.ContentSize}{it.value.sizeUnit} &#8226; {it.value.FileType}</h1>
+                           <!-- <lightning-icon  style="position:absolute;right:5%;top:2px" icon-name="utility:close" alternative-text="close" size="xx-small" ></lightning-icon> -->
+                         </div>
+                         
+                     </li>
+                   </ul>
+                </div>
+             </template>
+          </div>
+          </template>
+         <!-- <template if:true={allowUpload}>
+          <footer class="slds-card__footer slds-box" style="padding:1%">
+             <a class="slds-card__footer-action slds-align_absolute-center" onclick={navigateToFilesHome}>View All
+             <span class="slds-assistive-text">Contacts</span>
+             </a>
+          </footer> 
+        </template> -->  
+        </div>
+       </template> 
+ </template>
+ </template>

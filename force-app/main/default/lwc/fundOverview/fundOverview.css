@@ -1,0 +1,107 @@
+@import 'c/commonStyle';
+@import 'c/resetStyle';
+
+.wrap_marketing .marketing {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 8px;
+}
+.wrap_marketing .marketing h2 {
+    font-size: 46px;
+    font-weight: bold;
+    color: #242843;
+}
+.wrap_marketing .marketing .text {
+    color: #242843;
+    font-size: 18px;
+    line-height: 32px;
+    margin-top: 24px;
+}
+.wrap_marketing .wrap_box.big .box {
+    min-width: 500px; 
+    margin-bottom: 145px;
+    padding-bottom: 66px;
+}
+.wrap_marketing .wrap_box.xlarge .box {
+    width: 50%; 
+    margin-bottom: 145px;
+    padding-bottom: 66px;
+    background-position: left 82px center;
+    position: relative;
+}
+.wrap_marketing .wrap_box.xlarge .box:first-child {
+    margin-right: 40px;
+}
+.wrap_marketing .wrap_box.xlarge .box ul {
+    text-align: left;
+    display: inline-block;
+    position: absolute;
+    top: 115px;
+    left: 55%;
+}
+.wrap_marketing .wrap_box.xlarge .box ul li {
+    text-align: left;
+}
+.wrap_marketing .wrap_box .box {
+    display: inline-block;
+    background-color: #F8F8FB;
+    width: 365px;
+    padding: 262px 34px 46px 34px; 
+    background-repeat: no-repeat;
+    background-position: center 64px;
+    letter-spacing: -1.2px;
+}
+.wrap_marketing .wrap_box .box ul {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    letter-spacing: -1.3px;
+}
+.wrap_marketing .wrap_box .box ul li {
+    text-align: center;
+    color: #666;
+    font-size: 18px;
+    line-height: 28px;
+    margin-top: 24px;
+}
+.wrap_marketing .wrap_box.xlarge .box.marketing01 {background-image: url(/s/sfsites/c/resource/imagesLA/images/ico_my.png);}
+.wrap_marketing .wrap_box.xlarge .box.marketing02 {background-image: url(/s/sfsites/c/resource/imagesLA/images/ico_requests.png);}
+.wrap_marketing .wrap_box.xlarge .box.marketing03 {background-image: url(/s/sfsites/c/resource/imagesLA/images/ico_claims.png);}
+.wrap_marketing .btn_wrap {text-align: right; margin: 40px 0 50px 0;}
+.wrap_marketing .marketing .text_bottom {
+    font-size: 14px;
+    line-height: 24px;
+    color: #666;
+    margin: 40px 0 90px 0;
+}
+
+.bluebox_wrap{background: #444E91; padding: 24px 0; margin-top: 24px;}
+.bluebox_wrap + p.text{margin-top: 20px!important;}
+.bluebox_wrap > ul{clear: both;}
+/* 340->306 */
+.bluebox_wrap > ul > li{float: left; width: 21%; padding: 0 30px; border-right: 1px solid rgba(213,220,255,0.4);}
+.bluebox_wrap > ul > li:last-of-type{border-right: none;}
+
+.bluebox_wrap > ul > li > p{text-align: right; font-size: 24px; color: #D5DCFF;}
+.bluebox_wrap > ul > li > span{display: block; text-align: right; font-size: 26px; color: #fff;}
+.bluebox_wrap > ul > li > span > strong{display: inline-block; font-size: 32px; font-weight: 500; margin-right: 4px;}
+/* 540->486 */
+.bluebox_wrap > ul > li:first-of-type{width: 37%; height: 87px;}
+.bluebox_wrap > ul > li:first-of-type > p{float: left; font-size: 32px; text-align: left; line-height: 87px;}
+.bluebox_wrap > ul > li:first-of-type > span{float: right; text-align: right; line-height: 87px;}
+
+.bluebox_wrap.migration > ul > li:first-of-type{width: 50%;}
+.bluebox_wrap.migration > ul > li{width: 25%;}
+
+
+.cursor_default {
+    cursor: default;
+}
+
+@media screen and (max-width: 1280px) {
+    .wrap_marketing .wrap_box.xlarge .box {
+        background-position: left 64px center;
+        background-size: 34%;
+    }
+}

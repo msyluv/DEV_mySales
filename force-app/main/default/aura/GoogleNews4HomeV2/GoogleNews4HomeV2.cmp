@@ -1,0 +1,30 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 12-18-2020
+  @last modified by  : woomg@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   11-13-2020   woomg@dkbmc.com   Initial Version
+-->
+<aura:component 
+    controller="GoogleNewsController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes" 
+    access="global">
+
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="isMobile" type="Boolean"/>
+    <aura:attribute name="displayType" type="String" default="List"/>
+
+    <aura:attribute name="hasNews" type="Boolean" default="false"/>
+    <aura:attribute name="googleNews" type="List" default="[]"/>
+
+    <!-- bridge for sub-modal footer's action to sub-modal body -->
+    <aura:attribute name="modalbody" type="Aura.Component" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+  
+
+</aura:component>

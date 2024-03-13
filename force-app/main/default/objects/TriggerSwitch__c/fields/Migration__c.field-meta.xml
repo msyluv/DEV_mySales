@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Migration__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>해당 필드가 체크되어있는 경우 마이그 로직을 실행하지않음</description>
+    <externalId>false</externalId>
+    <label>Migration</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,170 @@
+.THIS {
+    height: 100%;
+    width: 100%;
+}
+.THIS .slds-card{
+    height: 100%;
+}
+.THIS .questionTable{
+    overflow: auto;
+    height: 94%;
+}
+.THIS .slds-modal__header{
+    height: 10%;
+    width: 100%;
+    font-size: 20px;
+}
+.THIS .slds-modal__footer{
+    height: 10%;
+    width: 100%;
+}
+.THIS .checkBox{
+    float: right;
+    max-width: 10%;
+}
+.THIS .slds-checkbox_faux {
+    background-color: rgba(255, 255, 255, 0) !important;
+}
+.THIS .alignCenter{
+    text-align: center;
+}
+.THIS .paddingLeft{
+    padding-left: 24px;
+}
+.THIS .selectList{
+    max-height: 62%;
+    position: fixed;
+    width: 19%;
+    overflow: auto;
+}
+.THIS .createBtn{
+    position: fixed;
+    width: 7%;
+    bottom: 3%;
+    right: 0%;
+}
+.THIS .hidden{
+    display: none;
+}
+.THIS .questionCheckList{
+    padding-left: 5px;
+    height: 100%;
+    width: 75%;
+    float: left;
+}
+.THIS .tableOverflow{
+    height: 94%;
+    overflow: auto;
+}
+.THIS .ownerSelectSection{
+    padding-left: 10px;
+    padding-right: 5px;
+    height: 100%;
+    width: 25%;
+    float: left;
+}
+.THIS .usercustomLookup{
+    height: 70px;
+    padding-top: 17px;
+}
+.THIS .customLookup{
+    float: left;
+    width: 72%;
+}
+.THIS .saveUserBtn{
+    float: left;
+    width: 26%;
+    margin-left: 5px;
+    margin-top: 2px;
+}
+.THIS .floatLeft{
+    float: left;
+}
+.THIS .floatRight{
+    margin-left: 10px;
+    float: right;
+}
+.THIS .BtnDiv{
+    margin-top: 25px;
+}
+.THIS .highlight{
+    background-color: rgb(243, 242, 242);
+    border-color: rgb(201, 199, 197);
+}
+.THIS .userList{
+    width: 100%;
+    height: 60%;
+    overflow-x: hidden;
+}
+.THIS .userLookup{
+    width : 100%; 
+    height: 100%
+}
+.THIS .colorRed{
+    color: red;
+}
+.THIS .tableCap{
+    text-align: right;
+    width: 100%;
+    padding-right: 20%;
+    height: 3%;
+}
+.THIS .slds-text-longform{
+    float: left;
+    max-width: 90%;
+}
+.THIS .minheight{
+    min-height: 36px;
+}
+.THIS .usercheckbox{
+    float: left;
+}
+.THIS .content{
+    height: 80%;
+}
+.THIS .tableHeader{
+    height: 6%;
+}
+.THIS .slds-textarea {
+    min-height:90px !important;
+    max-height:90px !important;
+}
+.THIS .text-overflow{
+    max-width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.THIS .MselectAnswerUser{
+    height: 250px;
+}
+.THIS .modalQList{
+    height: 77%;
+}
+.THIS .modalCLookup{
+    margin-bottom: 10px;
+}
+.THIS .slds-table tbody tr.slds-is-selected>td{
+    background-color: white;
+}
+.THIS .slds-table tbody tr.slds-is-selected>th{
+    background-color: white;
+}
+.THIS .RDSelect{
+    height: 60px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.THIS .QTable{
+    height: 87%
+}
+.THIS .picList{
+    width: fit-content;
+    float: left;
+}
+.THIS .selectCnt{
+    float: right;
+    width: fit-content;
+    padding-top: 40px;
+
+}

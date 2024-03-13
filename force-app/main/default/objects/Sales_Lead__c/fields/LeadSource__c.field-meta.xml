@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LeadSource__c</fullName>
+    <externalId>false</externalId>
+    <label>Lead Source</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Web Inquiry</fullName>
+                <default>false</default>
+                <label>Web Inquiry</label>
+            </value>
+            <value>
+                <fullName>Asset Download</fullName>
+                <default>false</default>
+                <label>Asset Download</label>
+            </value>
+            <value>
+                <fullName>Newsletter Subscribe</fullName>
+                <default>false</default>
+                <label>Newsletter Subscribe</label>
+            </value>
+            <value>
+                <fullName>EBC Inquiry</fullName>
+                <default>false</default>
+                <label>EBC Inquiry</label>
+            </value>
+            <value>
+                <fullName>Partner apply</fullName>
+                <default>false</default>
+                <label>Partner apply</label>
+            </value>
+            <value>
+                <fullName>global network</fullName>
+                <default>false</default>
+                <label>global network</label>
+            </value>
+            <value>
+                <fullName>Offline Event</fullName>
+                <default>false</default>
+                <label>Offline Event</label>
+            </value>
+            <value>
+                <fullName>Webinar</fullName>
+                <default>false</default>
+                <label>Webinar</label>
+            </value>
+            <value>
+                <fullName>Exhibition/Tradeshow</fullName>
+                <default>false</default>
+                <label>Exhibition/Tradeshow</label>
+            </value>
+            <value>
+                <fullName>MyTrial Members</fullName>
+                <default>false</default>
+                <label>MyTrial Members</label>
+            </value>
+            <value>
+                <fullName>MyTrial User</fullName>
+                <default>false</default>
+                <label>MyTrial User</label>
+            </value>
+            <value>
+                <fullName>Targeted Landingpage</fullName>
+                <default>false</default>
+                <label>Targeted Landingpage</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

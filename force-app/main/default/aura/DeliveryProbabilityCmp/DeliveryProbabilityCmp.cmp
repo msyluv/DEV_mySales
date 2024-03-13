@@ -1,0 +1,25 @@
+<aura:component controller="DeliveryProbabilityCmpController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:attribute name="dpListSize" type="String" default="0"/>
+	<aura:attribute name="DeliveryProbability" type="String" default="No activities to show."/>
+    <aura:attribute name="ViewAll" type="Boolean" default="False"/>
+    
+    <div class="slds-box">
+        <header slot="title" class="slds-page-header_record-home slds-text-heading_small slds-border_bottom" style="font-size: 0.9rem;font-weight: var(--lwc-fontWeightBold,400); background-color: white;padding:12px 4px;margin:0 10px 2px 10px;border-bottom:1px solid black;border-radius: 0px;">
+            <span class="Heading">{!$Label.c.DeliveryProbabilityHeading}</span>
+        </header>
+        <p class="slds-box slds-box_small" style="background-color: #f3f2f2;box-shadow: 0px;border: 0px;border-radius: 0px;font-weight: var(--lwc-fontWeightBold,200);padding:6px 10px;margin: 5px 10px;">
+             {!$Label.c.DeliveryProbabilitySecondHeading}
+        </p>
+        <aura:if isTrue="{!(!v.ViewAll)}">
+            <p class="slds-box slds-box_small slds-p-horizontal_small slds-m-around_xx-small " style="height:5.5rem;overflow:hidden;border: 0px;padding:2px 12px;white-space: pre-wrap;">{!v.DeliveryProbability}</p>
+            <div class=" slds-border_top slds-align_absolute-center">
+                <button class="slds-button" onclick="{!c.View}">{!$Label.c.DeliveryProbabilityViewAll}</button>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{!v.ViewAll}">
+            <p class="slds-box slds-box_small slds-p-horizontal_small slds-m-around_xx-small" style="min-height:5.5rem;border: 0px;padding:2px 12px;white-space: pre-wrap;">{!v.DeliveryProbability}</p>
+        </aura:if>
+    </div>
+</aura:component>

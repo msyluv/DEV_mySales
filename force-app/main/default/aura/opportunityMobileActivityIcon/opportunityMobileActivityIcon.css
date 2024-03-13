@@ -1,0 +1,58 @@
+.THIS .slds-modal__container {
+    height: initial !important;
+ }
+.THIS .activity-center {
+    text-align : center;
+    padding : 2px;
+}
+
+.THIS .vertical-right {
+    border-right : solid 1px #AAAAAA;
+    /* min-height : 1.0rem;
+    max-height : 1.0rem; */
+    min-height : 0.5rem;
+    max-height : 0.5rem;
+}
+.THIS .vertical-left {
+    border-left : solid 1px #AAAAAA;
+    /* min-height : 1.0rem;
+    max-height : 1.0rem; */
+    min-height : 0.5rem;
+    max-height : 0.5rem;
+}
+.THIS .last-activity {
+    display:none;
+}
+
+/* Status Color */
+.THIS .stat_notStarted {
+    background : #f7ce95;
+}
+.THIS .stat_notStarted:hover {
+    background : #dfb985;
+}
+
+.THIS .stat_progress {
+    background : #9eceef;
+}
+.THIS .stat_progress:hover {
+    background : #8cb7d4;
+}
+
+.THIS .stat_completed {
+    background : #50da97;
+}
+.THIS .stat_completed:hover {
+    background : rgb(93, 197, 147)
+}
+
+.THIS .stat_na {
+    background : #afafaf;
+}
+.THIS .stat_na:hover {
+    background : #a1a1a1;
+}
+
+.THIS .stat_nostatus {
+    background-color : rgb(231, 231, 231) !important;
+}

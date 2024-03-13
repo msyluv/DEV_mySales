@@ -1,0 +1,18 @@
+<apex:page controller="ImageController">
+    <script>
+        // Function to fetch the image and convert it to Base64
+        function fetchImageAndConvertToBase64() {
+            ImageController.getImageContent(function(result) {
+                if (result.success) {
+                    // Image content is available in result.content
+                    var base64Image = btoa(result.content);
+                    console.log('Base64 Image: ' + base64Image);
+                } else {
+                    console.error('Failed to fetch the image: ' + result.error);
+                }
+            });
+        }
+    </script>
+
+    <body onload="fetchImageAndConvertToBase64();"></body>
+</apex:page>

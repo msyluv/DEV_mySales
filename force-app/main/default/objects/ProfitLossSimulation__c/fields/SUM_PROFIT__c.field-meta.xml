@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SUM_PROFIT__c</fullName>
+    <externalId>false</externalId>
+    <formula>OPROFIT_01__c + OPROFIT_02__c + OPROFIT_03__c + OPROFIT_04__c + OPROFIT_05__c + OPROFIT_06__c + OPROFIT_07__c + OPROFIT_08__c + OPROFIT_09__c + OPROFIT_10__c + OPROFIT_11__c + OPROFIT_12__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>SUM_PROFIT</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

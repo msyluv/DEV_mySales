@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>JobOwner__c</fullName>
+    <externalId>false</externalId>
+    <label>Job Owner</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>PI</fullName>
+                <default>false</default>
+                <label>PI</label>
+            </value>
+            <value>
+                <fullName>DEV</fullName>
+                <default>false</default>
+                <label>DEV</label>
+            </value>
+            <value>
+                <fullName>IF</fullName>
+                <default>false</default>
+                <label>IF</label>
+            </value>
+            <value>
+                <fullName>LEGACY</fullName>
+                <default>false</default>
+                <label>LEGACY</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

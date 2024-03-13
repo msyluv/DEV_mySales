@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Logo_Brand_Guidelines</fullName>
+    <columns>NAME</columns>
+    <columns>Type__c</columns>
+    <columns>Description__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>Logo &amp; Brand Guideline</value>
+    </filters>
+    <label>Logo &amp; Brand Guideline</label>
+    <sharedTo>
+        <allPartnerUsers></allPartnerUsers>
+        <group>MSP_Admin</group>
+    </sharedTo>
+</ListView>

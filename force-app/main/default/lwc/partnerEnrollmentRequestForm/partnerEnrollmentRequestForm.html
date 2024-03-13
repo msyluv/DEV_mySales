@@ -1,0 +1,275 @@
+<!--
+  @description       : 
+  @author            : rakshit.s@samsung.com.sds.mspdev
+  @group             : 
+  @last modified on  : 06-22-2022
+  @last modified by  : ukhyeon.lee@samsung.com
+-->
+<template>
+   <template if:true={showForm}>
+      <lightning-layout>
+         <lightning-layout-item size="3" padding="around-small"></lightning-layout-item>
+               <div style="padding: 12px 45px 35px 45px; border: 1px solid #D4D4D4; border-radius: 4px; width: 500px; margin: 0 auto;" class="slds-p-vertical_large slds-p-horizontal_small slds-medium-size_6-of-12">
+                  <div class="slds-text-heading--large slds-align_absolute-center" style=" font-weight:500; text-align: center;">{mainHeading}</div>
+                  <template if:true={fromEditContext}>
+                           <!--<lightning-input  style="font:bold" class="slds-form-element__control slds-grow readonly-input" label={reqNoLabel} type="text" name="Req No" 
+                               value={reqNo} read-only=true>
+                               </lightning-input> -->
+
+                                 <p class="slds-form-element__label slds-no-flex">{reqNoLabel}</p> 
+                              <p style="font:bold; background: #e6e5e5; border-radius: 4px; opacity: 0.5;"  class="slds-input" >{reqNo}</p><br>
+                               </template>
+                     <h3 style="margin-top: 35px; padding: 0;  font-size: 16px; font-weight: bold; line-height: 1.19; color: #606864;" class="custom-label slds-form-element__label slds-form-element_stacked slds-form-element">{enrollmentSection}</h3>
+                     <lightning-layout class="slds-grid_align-center form-top">
+                        <lightning-layout-item size="12" class="slds-p-top_x-small">
+                           <!-- Displaying fields to get information. -->
+                           <lightning-combobox
+                              name="progress"
+                              label={prtnerType}
+                              value={typeValue}
+                              placeholder="Select Partner Type"
+                              options={options}
+                              onchange={partnerTypeAction}
+                              required=true
+                              read-only={readOnlyMode}>
+                           </lightning-combobox>
+
+                            
+                           <lightning-input  class="validate slds-form-element__control slds-grow" label={subj} type="text" name="Subject" 
+                              onchange={captureUIValues} value={subject} read-only={readOnlyMode} required>
+                           </lightning-input>
+                           <!--Added max length attribute so as to restrict value upto 32000-->
+                           <lightning-textarea  class="validate slds-form-element__control slds-grow" label={desc}  max-length="32000" name="Description"
+                              onchange={captureUIValues} value={description} read-only={readOnlyMode} required>
+                           </lightning-textarea>
+                           
+                           <h3 style="margin-top: 0px; padding: 0; font-size: 8px; font-weight: bold; line-height: 1.19; color: #606864;text-align:right;" class="custom-label slds-form-element__label slds-form-element_stacked slds-form-element">{descCount}</h3><!--2022-04-25 added Description count-->
+                           <!-- <template if:false={fromEditContext}>
+                           <h3 style="margin-top: 8px; padding: 0; font-size: 14px; font-weight: bold; line-height: 1.19; color: #606864;">※ 파일 첨부는 최초 등록 이후 수정화면에서 가능합니다.</h3>
+                           </template> -->
+                           
+                        </lightning-layout-item>
+                     </lightning-layout>
+                     <h3 style="margin-top: 35px; padding: 0;  font-size: 16px; font-weight: bold; line-height: 1.19; color: #606864;" class="custom-label slds-form-element__label slds-form-element_stacked slds-form-element">{companyInfo}</h3> 
+                     <lightning-layout>
+                        <lightning-layout-item size="12" class="slds-p-top_x-small">
+                           <!-- Displaying fields  to get information. -->
+                           <lightning-input  class="validate slds-form-element__control slds-grow" value={companyName} label={cName} name="CompanyName" 
+                              onchange={captureUIValues} required read-only={readOnlyMode}></lightning-input>
+                           <lightning-input  class="validate slds-form-element__control slds-grow" value={companyPhone} label={cPhone} type="tel"   name="CompanyPhone" 
+                              onchange={captureUIValues} required read-only={readOnlyMode}></lightning-input>
+                           <lightning-input  class=" slds-form-element__control slds-grow" label={cFax} value={companyFax}  type="tel"   name="CompanyFax" 
+                              onchange={captureUIValues} read-only={readOnlyMode}></lightning-input>
+                           <lightning-input  class="validate slds-form-element__control slds-grow" label={cWebsite} value={companyWebsite} name="CompanyWebsite" 
+                              onchange={urlChangeHandler} read-only={readOnlyMode}></lightning-input>
+                        </lightning-layout-item>
+                     </lightning-layout>
+                     <h3 style="margin-top: 35px; padding: 0;  font-size: 16px; font-weight: bold; line-height: 1.19; color: #606864;" class="custom-label slds-form-element__label slds-form-element_stacked slds-form-element" >{primaryContactInfo}</h3>
+                     <lightning-layout>
+                        <lightning-layout-item size="12" class="slds-p-top_x-small">
+                           <!-- Displaying fields to get information. -->
+                           <lightning-input type="text"  class="validate slds-form-element__control slds-grow" label={fName} value={firstName} name="FirstName" 
+                              onchange={firstNameChangedHandler} read-only={readOnlyMode} required></lightning-input>
+                           <lightning-input type="text"  class="validate slds-form-element__control slds-grow" label={lName} value={lastname} name="LastName" 
+                              onchange={lastNameChangedHandler} read-only={readOnlyMode} required></lightning-input>
+                           <lightning-input type="tel"  class="validate slds-form-element__control slds-grow" label={mobile}  value={mobilePhone} name="MobilePhone" 
+                              onchange={captureUIValues} read-only={readOnlyMode} required></lightning-input>
+                           <lightning-layout>
+                              <template if:false={fromEditContext}>
+                              <lightning-layout-item size="7">
+                                 
+                                    <lightning-input type="text" read-only={fromEditContext} style="margin-right:2px;font:bold"  class="slds-form-element__control slds-grow readonly-input" value={emailEntered} data-my-id="email" label={userEmail} name="userEmail" 
+                                 onchange={emailChangedHandler} required></lightning-input> 
+
+                                 </lightning-layout-item>
+                              </template>
+                                
+                                    <template if:true={fromEditContext}>
+                                       <lightning-layout-item size="12">
+                               <p class="slds-form-element__label slds-no-flex"><abbr lightning-input_input="" class="slds-required" title="필수">*</abbr> {userEmail}</p> 
+                               <p style="font:bold; background: #e6e5e5; border-radius: 4px; opacity: 0.5;"  class="slds-input" onchange={emailChangedHandler} data-my-id="email" name="userEmail">{emailEntered}</p><br></br> 
+                              <!-- <input type="text" class="slds-input" onchange={emailChangedHandler} data-my-id="email" required > <br></br> -->
+                              </lightning-layout-item>
+                              </template>
+
+                              
+                              <template if:false={fromEditContext}>
+                              <lightning-layout-item size="5">
+                                 
+                                 <button data-name="FromCheckButton" class="slds-button slds-button_brand slds-button_stretch slds-m-left_x-small" style="float: right; margin-top: 24px;" onclick={validateuserId}>{availabilityButton}</button>
+                                 
+                              </lightning-layout-item>
+                              </template>
+                           </lightning-layout>
+                        </lightning-layout-item>
+                     </lightning-layout>
+
+                     
+                  <template if:true={fromEditContext}>
+
+                     <h3 style="margin-top: 35px; padding: 0;  font-size: 16px; font-weight: bold; line-height: 1.19; color: #606864;" class="custom-label slds-form-element__label slds-form-element_stacked slds-form-element">{statusSection}</h3> 
+                     <lightning-layout>
+                        <lightning-layout-item size="12" class="slds-p-top_x-small">
+                           <!-- Displaying fields  to get information. -->
+                           <!--<lightning-input  style="font:bold; opacity:0.5; pointer-events:none "  class="slds-form-element__control slds-grow readonly-input" label={stageLabel} type="text" name="Req No" 
+                               value={currentStatus} read-only=true>
+                               </lightning-input> --> 
+                              <!-- <p>{stageLabel}</p> 
+                               <lightning-input  style="font:bold; "  class="slds-form-element__control slds-grow readonly-input" label={stageLabel} type="text" name="Req No" 
+                               value={currentStatus} read-only=true>
+                               </lightning-input> -->
+
+                               <p class="slds-form-element__label slds-no-flex">{stageLabel}</p>
+                               <p style="font:bold; background: #e6e5e5; border-radius: 4px; opacity: 0.5;"  class="slds-input" >{currentStatus}</p><br></br>
+
+                               <p class="slds-form-element__label slds-no-flex">{reviewerLabel}</p>
+                               <p style="font:bold; background:#e6e5e5; border-radius: 4px; opacity: 0.5; "  class="slds-input">{reviewerName}</p><br></br><br>
+                              
+                               
+
+                               
+
+                             <!--  <lightning-input  style="font:bold;  opacity:0.5; pointer-events:none"  class="slds-form-element__control slds-grow readonly-input" label={reviewerLabel} type="text" name="Req No" 
+                               value={reviewerName} read-only=true>
+                               </lightning-input> -->
+                           
+                        </lightning-layout-item>
+                     </lightning-layout>
+                     <template if:true={fromEditContext}>
+                            <!--   <lightning-file-upload
+                                  label=""
+                                  name="fileUploader"
+                                  accept={acceptedFormat}
+                                  record-id={myRecordId}
+                                  onuploadfinished={handleUploadFinished}
+                                  data-id="fileUploadButton"
+                                  multiple
+                                  ></lightning-file-upload> -->
+                              <!-- <c-m-s-p-file-attachment record-id={myRecordId} do-not-allow-upload-for-enrollment-action={readOnlyMode}> </c-m-s-p-file-attachment>  -->
+                                  
+                     </template>
+                               </template>
+                     <template if:false={fromEditContext}>
+                     <h3 style="margin-top: 35px; padding: 0; font-size: 16px; font-weight: bold; line-height: 1.19; color: #606864;" class="custom-label slds-form-element__label slds-form-element_stacked slds-form-element">{tnCSection}</h3>
+                     <lightning-layout>
+                        <lightning-layout-item size="12" class="slds-p-top_x-small">
+                           <div class="page-section page-left slds-form-element__control form-bottom">
+                              <ul>
+                                 <li>
+                                    <lightning-input  type="checkbox" style="margin-left: 0.1%;" id="check1" value="allCheckbox" label={agreeAll} onclick={agreeAllAction} > 
+                                    </lightning-input>
+                                 </li>
+                                 <li>
+                                    <lightning-input class="validate" type="checkbox" id="personalInfoCheckbox"  data-id="check" value="personalInfoCheckbox" label={personalUse} >
+                                    </lightning-input>
+                                    <a value="useOfPersonalInfo" data-id="personalInfo" onclick={termAndConditionsViewAction}>{viewDetail}</a>
+                                 </li>
+                                 <li>
+                                    <lightning-input class="validate" type="checkbox" id="check3" data-id="check" value="crossInfoCheckbox" label={crossTransfer} >
+                                    </lightning-input>
+                                    <a value="transferOfPersonalInfo" data-id="crossInfo" onclick={termAndConditionsViewAction}>{viewDetail}</a>
+                                 </li>
+                                 <li>
+                                    <lightning-input class="validate" type="checkbox" id="check4" data-id="check" label={termsOfServ} value="termsCheckbox" >
+                                    </lightning-input>
+                                    <a value="termsOfService" data-id="termOfService" onclick={termAndConditionsViewAction}>{viewDetail}</a>
+                                 </li>
+                                 <li>
+                                    <lightning-input class="validate" type="checkbox" id="check5" data-id="check" label={fourteenYearsLabel} value="fourteenYearsCheckbox" >
+                                    </lightning-input>                                    
+                                 </li>
+                              </ul>
+                           </div>
+                        </lightning-layout-item>
+                        
+                     </lightning-layout>
+                     </template>
+                     <div class="slds-align_absolute-center slds-m-top_small">
+                        <template if:false={fromEditContext}>
+                        <lightning-button data-name="fromRegButton" variant="brand" disabled={disableSave} class="slds-var-m-left_small" type="submit" label={regButton} onclick={createPerRec}></lightning-button>
+                        </template>
+
+                        <template if:true={fromEditContext}>
+                        <lightning-button data-name="fromCancelButton" variant="neutral" disabled={disableSave} class="slds-var-m-left_small"  label="취소" onclick={cancelAction}></lightning-button>
+                        <template if:false={readOnlyMode}>
+                        <lightning-button data-name="fromSaveButton" variant="brand" disabled={disableSave} class="slds-var-m-left_small"  label="저장" onclick={createPerRec}></lightning-button>
+                        </template>
+                        </template>
+                     </div>
+                  </div>
+         <lightning-layout-item size="3" padding="around-small"></lightning-layout-item>
+      </lightning-layout>     
+   </template>
+
+   <template if:true={showInfoScreen}> 
+      <lightning-layout>
+         <lightning-layout-item size="3">
+         </lightning-layout-item>
+         <lightning-layout-item size="6">
+            <lightning-card variant="Narrow">
+               <div class="slds-text-heading_large slds-hyphenate slds-align_absolute-center form-status" style=" font-weight:500 ">{mainHeading}</div>
+                  <lightning-layout style="padding-top:10px">
+                     <lightning-layout-item size="12" style="padding: 10px 40px;">
+                        <div class="slds-is-relative">
+                           <label class="static-label">{emailLabel}</label>
+                           <lightning-input type="email" style="font:bold" variant="label-inline" class="slds-form-element__control slds-grow readonly-input" name="userEmail" 
+                              value={emailEntered} read-only></lightning-input>
+                        </div>
+                        <div class="slds-is-relative">
+                           <label class="static-label">{enrollmentReqLabel}</label>
+                           <lightning-input type="text" style="font:bold"  variant="label-inline" class="slds-form-element__control slds-grow readonly-input" name="reqNo" 
+                              value={enrollmentNumber} read-only></lightning-input>
+                        </div>
+                        <lightning-layout-item size="3">
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                           <lightning-formatted-rich-text  data-status={isError} value={messageVal} class="slds-align_absolute-center" style="font-weight: bold; padding:2%"></lightning-formatted-rich-text>
+                           <!--<lightning-formatted-rich-text  data-status={isError} value="신청 내용을 확인 또는 수정하시거나 파일 첨부를 원하시면 아래의
+                           '제출내용 확인/수정' 버튼을 선택해주세요." class="slds-align_absolute-center" style="font-weight: bold; padding:2%"></lightning-formatted-rich-text> -->
+                           <div class="slds-align_absolute-center slds-m-top_small">
+                        <lightning-button data-name="formEditButton" variant="brand"  class="slds-var-m-left_small" type="submit" label={editButton} onclick={ediTSubmittedForm}></lightning-button>
+                     </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="3">
+
+                           
+                        </lightning-layout-item>
+                     </lightning-layout-item>
+                  </lightning-layout>
+            </lightning-card>
+         </lightning-layout-item>
+         <lightning-layout-item size="3">
+         </lightning-layout-item>
+      </lightning-layout>
+   </template>
+   <template if:true={viewTnC}>
+      <!-- Modal/Popup Box LWC starts here -->
+      <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+          <div class="slds-modal__container">
+              <!-- Modal/Popup Box LWC header here -->
+              <header class="slds-modal__header">
+                  <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closetncAgreementModal}>
+                      <lightning-icon icon-name="utility:close"
+                          alternative-text="close"
+                          variant="inverse"
+                          size="small" ></lightning-icon>
+                      <span class="slds-assistive-text">Close</span>
+                  </button>
+                  <h2 id="modal-heading-01" style="font-weight:900" class="slds-text-heading_medium slds-hyphenate">{tnCheading}</h2>
+              </header>
+              <!-- Modal/Popup Box LWC body starts here -->
+              <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+               <lightning-formatted-rich-text value={tncContent}> </lightning-formatted-rich-text>
+              </div>
+              <!-- Modal/Popup Box LWC footer starts here -->
+          </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+
+  <template if:true={viewStatusForm}>
+
+   <c-partner-enrollment-status></c-partner-enrollment-status>
+  </template>
+
+</template>

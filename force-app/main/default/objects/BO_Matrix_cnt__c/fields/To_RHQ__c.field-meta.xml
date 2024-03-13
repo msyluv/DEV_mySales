@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>To_RHQ__c</fullName>
+    <description>도착 권역
+To RHQ</description>
+    <externalId>false</externalId>
+    <label>To RHQ</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CHINA</fullName>
+                <default>false</default>
+                <label>CHINA</label>
+            </value>
+            <value>
+                <fullName>KOREA</fullName>
+                <default>false</default>
+                <label>KOREA</label>
+            </value>
+            <value>
+                <fullName>EUROPE/CIS</fullName>
+                <default>false</default>
+                <label>EUROPE/CIS</label>
+            </value>
+            <value>
+                <fullName>LATIN AMERICA</fullName>
+                <default>false</default>
+                <label>LATIN AMERICA</label>
+            </value>
+            <value>
+                <fullName>MEIA</fullName>
+                <default>false</default>
+                <label>MEIA</label>
+            </value>
+            <value>
+                <fullName>NORTH AMERICA</fullName>
+                <default>false</default>
+                <label>NORTH AMERICA</label>
+            </value>
+            <value>
+                <fullName>PACIFIC</fullName>
+                <default>false</default>
+                <label>PACIFIC</label>
+            </value>
+            <value>
+                <fullName>CHINA_FROM_SUM</fullName>
+                <default>false</default>
+                <label>CHINA_FROM_SUM</label>
+            </value>
+            <value>
+                <fullName>KOREA_FROM_SUM</fullName>
+                <default>false</default>
+                <label>KOREA_FROM_SUM</label>
+            </value>
+            <value>
+                <fullName>EUROPE_FROM_SUM</fullName>
+                <default>false</default>
+                <label>EUROPE_FROM_SUM</label>
+            </value>
+            <value>
+                <fullName>LATIN_AMERICA_FROM_SUM</fullName>
+                <default>false</default>
+                <label>LATIN_AMERICA_FROM_SUM</label>
+            </value>
+            <value>
+                <fullName>MEIA_FROM_SUM</fullName>
+                <default>false</default>
+                <label>MEIA_FROM_SUM</label>
+            </value>
+            <value>
+                <fullName>NORTH_AMERICA_FROM_SUM</fullName>
+                <default>false</default>
+                <label>NORTH_AMERICA_FROM_SUM</label>
+            </value>
+            <value>
+                <fullName>PACIFIC_FROM_SUM</fullName>
+                <default>false</default>
+                <label>PACIFIC_FROM_SUM</label>
+            </value>
+            <value>
+                <fullName>TOTAL_FROM_TO_SUM</fullName>
+                <default>false</default>
+                <label>TOTAL_FROM_TO_SUM</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

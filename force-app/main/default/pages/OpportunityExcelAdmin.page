@@ -1,0 +1,107 @@
+<!--
+  @description       : 
+  @author            : anish.jain@partner.samsung
+  @group             : 
+  @last modified on  : 2023-09-03
+  @last modified by  : anish.jain@partner.samsung.com
+  Modifications Log 
+  Ver   Date         Author                 Modification
+  1.0   2023-0-03   anish.jain@partner.samsung.com  Initial Version
+-->
+<apex:page controller="OpportunitySearchControllerAdmin"
+    cache="true"
+    showHeader="false"
+    docType="html-5.0"
+    standardStylesheets="false"
+    readOnly="true"
+    sidebar="false"
+    action="{!getOpptyListAll}" >
+    <!-- docType="html-5.0" -->
+    <apex:param name="searchKeywords" assignTo="{!searchKeywords}" value="" />
+    <!-- <apex:param name="opptySearchList" assignTo="{!opptySearchList}" value="" /> -->
+
+    <apex:outputPanel id="mainPanel" layout="none" >
+        <table id="quotePanel" width="100%" cellpadding="0" cellspacing="0" style="table-layout:fixed" >
+            <thead>
+                <tr>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_COMPANYID}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_COMPANYCODE}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_BOCODE}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_BONAME}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_STATUS}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_STAGE}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_ACCOUNTCODE}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_ACCOUNT}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_ORIGNACCOUNTCODE}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_ORIGNACCOUNT}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_BIZLEVEL}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_OWNER}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_SALESDIVISION}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_SALESDEPT}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_DELIVERYDEVISION}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_DELIVERYDEPT}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_COLLABORATION}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_GROUPINTERNAL}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_DOMESTIC}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_BIZTYPE}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_DEALBREAK}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_CLOSEDATE}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_1STCLOSEDATE}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!objList}" var="items">
+                    <apex:repeat value="{!items}" var="item">
+                        <tr>
+                            <td >{!item.CompCode}</td>
+                            <td >{!item.CompName}</td>
+                            <td >{!item.OpptyCode}</td>
+                            <td >{!item.Name}</td>
+                            <td >{!item.Status}</td>
+                            <td >{!item.Stage}</td>
+                            <td >{!item.AccNumber}</td>
+                            <td >{!item.AccName}</td>
+                            <td >{!item.OriginAccNum}</td>
+                            <td >{!item.OriginAcctName}</td>
+                            <td >{!item.BizLevel}</td>
+                            <td >{!item.OwnerName}</td>
+                            <td >{!item.SalesDiv}</td>
+                            <td >{!item.SalesDept}</td>
+                            <td >{!item.DeliveryDiv}</td>
+                            <td >{!item.DeliveryDept}</td>
+                            <td >{!IF(item.Collaboration == TRUE, 'O', 'X')}</td>
+                            <td >{!IF(item.GroupInternal == TRUE, 'O', 'X')}</td>
+                            <td >{!IF(item.KoreaDomestic == TRUE, 'O', 'X')}</td>
+                            <td >{!item.BizType}</td>
+                            <td >{!IF(item.DealBreak == TRUE, 'O', 'X')}</td>
+                            <td >{!item.CloseDate}</td>
+                            <td >{!item.FirstCloseDate}</td>
+                            <!-- <td ><apex:outputField value="{!item.CompanyCode__c}"/></td>
+                            <td ><apex:outputField value="{!item.OpportunityCode__c}"/></td>
+                            <td ><apex:outputField value="{!item.Name}"/></td>
+                            <td ><apex:outputField value="{!item.OpportunityStatus__c}"/></td>
+                            <td ><apex:outputField value="{!item.StageName}"/></td>
+                            <td ><apex:outputField value="{!item.CompanyCode__c}"/></td>
+                            <td ><apex:outputField value="{!item.Account.AccountNumber}"/></td>
+                            <td ><apex:outputField value="{!item.Account.Name}"/></td>
+                            <td ><apex:outputField value="{!item.cOriginAcc__r.AccountNumber}"/></td>
+                            <td ><apex:outputField value="{!item.cOriginAcc__r.Name}"/></td>
+                            <td ><apex:outputField value="{!item.BusinessLevel__c}"/></td>
+                            <td ><apex:outputField value="{!item.Owner.Name}"/></td>
+                            <td ><apex:outputField value="{!item.SalesDivision__c}"/></td>
+                            <td ><apex:outputField value="{!item.SalesDepartment__r.Name}"/></td>
+                            <td ><apex:outputField value="{!item.cPrimaryDeliveryDivision__c}"/></td>
+                            <td ><apex:outputField value="{!item.cPrimarySalesDepartment__r.Name}"/></td>
+                            <td >{!IF(item.Collaboration__c == TRUE, 'O', 'X')}</td>
+                            <td >{!IF(item.GroupInternal__c == TRUE, 'O', 'X')}</td>
+                            <td >{!IF(item.KoreaDomestic__c == TRUE, 'O', 'X')}</td>
+                            <td ><apex:outputField value="{!item.BusinessType__c}"/></td>
+                            <td >{!IF(item.DealBreak__c == TRUE, 'O', 'X')}</td>
+                            <td ><apex:outputField value="{!item.CloseDate}"/></td> -->
+                        </tr>
+                    </apex:repeat>
+                </apex:repeat>
+            </tbody>
+        </table>
+    </apex:outputPanel>
+</apex:page>

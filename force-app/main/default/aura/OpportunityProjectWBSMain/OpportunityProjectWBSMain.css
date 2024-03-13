@@ -1,0 +1,40 @@
+.THIS .custom_footer {
+    margin-bottom: 0;
+}
+.THIS h1{
+    font-weight: bold;
+    font-size: 14px;
+}
+.THIS .slds-card{
+    height: 100%;
+}
+.THIS .slds-card__header.slds-grid{
+    height: 20px;
+}
+.THIS .slds-card__body{
+    height: calc(100% - 20px);
+}
+.THIS lightning-tree-item[aria-level='1']{
+    font-weight: bold;
+    font-size: 12px;
+}
+.THIS lightning-tree-item[aria-level='2']{
+    font-weight: initial;
+    font-size: 11px;
+}
+.THIS div.slds-tree_container{
+    padding-left: 5px;
+}
+.THIS div.treeitem{
+    padding-top:5px;
+}
+.THIS .treeitem > article > .slds-card__header.slds-grid{
+    height:0px;
+}
+.THIS .slds-card__header-title > span{font-size: 12px !important;font-weight: bold;width:100%;}
+.THIS .slds-card__header{
+    padding: 5px 0 0 5px;
+}
+.THIS .slds-table_header-fixed_container{
+    background-color: white;
+}

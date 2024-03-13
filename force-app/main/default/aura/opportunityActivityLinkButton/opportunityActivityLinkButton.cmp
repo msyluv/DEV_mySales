@@ -1,0 +1,299 @@
+<!--
+  @description       : opportunityActivityNew - Footer 외부 시스템 링크 버튼
+  @author            : hj.lee@dkbmc.com
+  @last modified on  : 28-10-2022
+  @last modified by  : gitesh.s@samsung.com
+  Modifications Log 
+  Ver   Date         Author             Modification
+  1.0   2021-03-16   hj.lee@dkbmc.com   Initial Version
+  1.1   2022-10-11   kajal.c@samsung.com  CP Review Activity Added.
+  1.2   28-10-2022   gitesh.s@samsung.com      Legal Review Link Change
+-->
+<aura:component controller="OpportunityActivityLinkButtonController" 
+                implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId"
+                access="global">
+    <aura:attribute name="transactionName" type="String" required="true" />
+    <aura:attribute name="opportunity" type="Object" required="true" />
+   	<!-- 신규추가시작 -->
+    <aura:attribute name="hasEditAccess" type="Boolean" default="false" description="Opportunity 프로필 편집 권한 유무" />
+	<!-- 신규추가종료 -->
+    
+    <aura:attribute name="lbsType" type="String" default="" description="Opportunity.Type 값 기준" />
+    <aura:attribute name="billToId" type="String" default="" description="Account.AccountNumber" />
+    <aura:attribute name="today" type="Date" />
+    <aura:attribute name="buttonHiddenDate" type="Date" />
+    <aura:attribute name="owner" type="Object" />
+    <!--V1.1   2022-10-11   Added by Kajal  CP Review Activity Added-->
+    <aura:attribute name="oppsID" type="String" description="Opportunity.Id" />
+    
+
+    <!-- V1.2 - START - GITESH -->
+    <aura:attribute name="recordTypeHQ" type="String" />
+    <aura:attribute name="recordTypeLogistics" type="String" />
+    <aura:attribute name="checkOrg" type="Boolean" />
+    <!-- V1.2 - END - GITESH -->
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+    <!-- [S] Work Button (외부 시스템 호출 Button) -->
+    <!-- Request Resources(사업영업 자원요청) : [①사전 영업 원가]  [③자원수요등록] -->
+    <aura:if isTrue="{! v.transactionName == 'ZP32'}" >
+        <!-- 신규추가시작 -->
+        <lightning:button aura:id="PRE_SALES_COST" variant="brand" class="slds-float_left" disabled="{!not(v.hasEditAccess)}"
+                            label="{!$Label.c.OPPTYACT_BTN_PRE_SALES_COST}" 
+                            value="{!$Label.c.OPPTYACT_URL_PRE_SALES_COST}" 
+                            onclick="{!c.handleOpenLink}" />
+        <!-- 신규추가종료 -->
+        <aura:if isTrue="{!'T100' == v.opportunity.CompanyCode__c}">
+            <lightning:button aura:id="REG_RESOURCE_DEMAND" variant="brand" class="slds-float_left"
+                                label="{!$Label.c.OPPTYACT_BTN_REG_RESOURCE_DEMAND}" 
+                                value="{!$Label.c.OPPTYACT_URL_REG_RESOURCE_DEMAND}" 
+                                onclick="{!c.handleOpenLink}" />    
+        </aura:if>
+    </aura:if>
+
+    <!-- Strategy Committee Cost Plan(수전위 원가 확정) : [수전위 원가] -->
+    <aura:if isTrue="{! v.transactionName == 'XP32'}" >
+        <lightning:button aura:id="COMMITTEE_COST_PLAN" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_COMMITTEE_COST_PLAN}" 
+                            value="{!$Label.c.OPPTYACT_URL_COMMITTEE_COST_PLAN}" 
+                            onclick="{!c.handleOpenLink}" />
+    </aura:if>
+
+    <!-- Confirm Cost(수주원가 확정) : [①수주원가 확정]  - ① ECC 수주원가 확정 화면으로 이동 -->
+    <aura:if isTrue="{! v.transactionName == 'XP51'}" >
+        <lightning:button aura:id="CONTRACT_P_L" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_CONTRACT_P_L}" 
+                            value="{!$Label.c.OPPTYACT_URL_CONTRACT_P_L}" 
+                            onclick="{!c.handleOpenLink}" />
+    </aura:if>
+	<!-- 신규추가시작 -->
+    <!-- [신규]수전위-사업참여결정-수주전략위원회 요청 -->
+    <aura:if isTrue="{! v.transactionName == 'XP61'}" >
+        <lightning:button aura:id="REQUEST_STRATEGY_COMMITTEE_01" variant="brand" class="slds-float_left" disabled="{!not(v.hasEditAccess)}"
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_01}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_01}" 
+                            onclick="{!c.handleOpenLink}" />
+        <lightning:button aura:id="REQUEST_STRATEGY_COMMITTEE_LIST_01" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_LIST_01}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_LIST_01}" 
+                            onclick="{!c.handleOpenLink}" />
+        <lightning:button aura:id="REQUEST_STRATEGY_COMMITTEE_CHECKLIST_01" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_01}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_01}" 
+                            onclick="{!c.handleOpenLink}" />
+        <lightning:button aura:id="REQUEST_STRATEGY_COMMITTEE" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE}"  
+                            onclick="{!c.handleOpenLink}" />
+    </aura:if>
+    <!-- [신규]수전위-사업참여결정-수주전략위원회 원가 -->
+    <aura:if isTrue="{! v.transactionName == 'XP62'}" >
+        <lightning:button aura:id="COMMITTEE_COST_PLAN_01" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_COMMITTEE_COST_PLAN_01}" 
+                            value="{!$Label.c.OPPTYACT_URL_COMMITTEE_COST_PLAN_01}" 
+                            onclick="{!c.handleOpenLink}" />
+        <lightning:button aura:id="REQUEST_STRATEGY_COMMITTEE" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE}" 
+                            onclick="{!c.handleOpenLink}" />
+    </aura:if>
+    <!-- [신규]수전위-사업참여결정-수주전략위원회 품의 -->
+    <aura:if isTrue="{! v.transactionName == 'XP63'}" >
+        <lightning:button aura:id="REQUEST_COMMITTEE_APPROVAL_01" variant="brand" class="slds-float_left" disabled="{!not(v.hasEditAccess)}"
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_01}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_01}" 
+                            onclick="{!c.handleOpenLink}" />
+        <lightning:button aura:id="REQUEST_COMMITTEE_APPROVAL_LIST_01" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_LIST_01}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_LIST_01}" 
+                            onclick="{!c.handleOpenLink}" />
+        <lightning:button aura:id="REQUEST_STRATEGY_COMMITTEE" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE}"  
+                            onclick="{!c.handleOpenLink}" />
+    </aura:if>
+    <!-- [신규]수전위-입찰결정-수주전략위원회 요청 -->
+    <aura:if isTrue="{! v.transactionName == 'XP71'}" >
+        <lightning:button aura:id="REQUEST_STRATEGY_COMMITTEE_02" variant="brand" class="slds-float_left" disabled="{!not(v.hasEditAccess)}"
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_02}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_02}" 
+                            onclick="{!c.handleOpenLink}" />
+        <lightning:button aura:id="REQUEST_STRATEGY_COMMITTEE_LIST_02" variant="brand" class="slds-float_left"
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_LIST_02}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_LIST_02}" 
+                            onclick="{!c.handleOpenLink}" />
+        <lightning:button aura:id="REQUEST_STRATEGY_COMMITTEE_CHECKLIST_02" variant="brand" class="slds-float_left"
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_02}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_02}" 
+                            onclick="{!c.handleOpenLink}" />
+        <lightning:button aura:id="REQUEST_STRATEGY_COMMITTEE" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE}" 
+                            onclick="{!c.handleOpenLink}" />
+        
+    </aura:if>
+    <!-- [신규]수전위-입찰결정-수주전략위원회 원가 -->
+    <aura:if isTrue="{! v.transactionName == 'XP72'}" >
+        <lightning:button aura:id="COMMITTEE_COST_PLAN_02" variant="brand" class="slds-float_left"
+                            label="{!$Label.c.OPPTYACT_BTN_COMMITTEE_COST_PLAN_02}" 
+                            value="{!$Label.c.OPPTYACT_URL_COMMITTEE_COST_PLAN_02}" 
+                            onclick="{!c.handleOpenLink}" />
+        <lightning:button aura:id="REQUEST_STRATEGY_COMMITTEE" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE}" 
+                            onclick="{!c.handleOpenLink}" />
+    </aura:if>
+    <!-- [신규]수전위-입찰결정-수주전략위원회 품의 -->
+    <aura:if isTrue="{! v.transactionName == 'XP73'}" >
+        <lightning:button aura:id="REQUEST_COMMITTEE_APPROVAL_02" variant="brand" class="slds-float_left" disabled="{!not(v.hasEditAccess)}"
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_02}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_02}" 
+                            onclick="{!c.handleOpenLink}" />
+        <lightning:button aura:id="REQUEST_COMMITTEE_APPROVAL_LIST_02" variant="brand" class="slds-float_left"
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_LIST_02}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_LIST_02}" 
+                            onclick="{!c.handleOpenLink}" />
+        <lightning:button aura:id="REQUEST_STRATEGY_COMMITTEE" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE}"  
+                            onclick="{!c.handleOpenLink}" />
+    </aura:if>
+    <!-- 신규추가종료 -->
+    <!-- Price Simulation (솔루션 가격 시뮬레이션) -->
+    <aura:if isTrue="{! v.transactionName == 'XP51'}" >
+        <!-- 12	E.기능개선	 - 수주원가 액티비티 하단, Price Simulation 버튼 제어 필요
+            프라이싱 수행하려면 원가판이 생성되어 있어야하는데,
+            현재 SFDC 에서는 해당체크를 하고 있지 않음.
+            추가 I/F 개발이 필요하나, 원가판에서 프라이싱 이동이 가능하므로 SFDC 에서는 버튼 삭제 -->
+
+        <!-- <lightning:button aura:id="PRICE_SIMULATION" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_PRICE_SIMULATION}" 
+                            value="{!$Label.c.OPPTYACT_URL_PRICE_SIMULATION}" 
+                            onclick="{!c.handleOpenLink}" /> -->
+    </aura:if>
+
+
+    <!-- Legal Preview(법무 검토) : [①법무검토 요청] -->
+    <aura:if isTrue="{! v.transactionName == 'XP52'}" >
+        <lightning:button aura:id="REQ_LEGAL_REVIEW" variant="brand" class="slds-float_left"
+                            label="{!$Label.c.OPPTYACT_BTN_REQ_LEGAL_REVIEW}" 
+                            value="{!$Label.c.OPPTYACT_URL_REQ_LEGAL_REVIEW}" 
+                            onclick="{!c.handleOpenLink}" />
+    </aura:if>
+
+    <!-- Contract Approval(수주 품의) : [②수주품의 본문생성]  [③결재상신] -->
+    <aura:if isTrue="{! v.transactionName == 'ZP82'}" >
+        
+    </aura:if>
+
+    <!-- Closing(계약서 입고) : [①계약서 입고] - ①법무시스템 계약서 입고 화면으로 이동 (with Opportunity) -->
+    <aura:if isTrue="{! v.transactionName == 'XP57'}" >
+        <lightning:button aura:id="REG_CONTRACT" variant="brand" class="slds-float_left" 
+                            label="{!$Label.c.OPPTYACT_BTN_REG_CONTRACT}" 
+                            value="{!$Label.c.OPPTYACT_URL_REG_CONTRACT}" 
+                            onclick="{!c.handleOpenLink}" />
+    </aura:if>
+
+    <!-- Submit Proposal(견적/제안 제출) : [①제안서 등록] -->
+    <aura:if isTrue="{! v.transactionName == 'ZP61'}" >
+        <!-- only [HQ] -->
+        <aura:if isTrue="{! v.opportunity.RecordType.DeveloperName == 'HQ'}" >
+            <lightning:button aura:id="REG_PROPOSAL" variant="brand" class="slds-float_left" 
+                                label="{!$Label.c.OPPTYACT_BTN_REG_PROPOSAL}" 
+                                value="{!$Label.c.OPPTYACT_URL_REG_PROPOSAL}" 
+                                onclick="{!c.handleOpenLink}" />
+        </aura:if>
+    </aura:if>
+
+
+    <!-- *************************** 물류 버튼 ****************************** -->
+
+
+    
+    <!-- Credit Assessment(신용평가) -->
+        <!-- WKS_CRAS_REG -> billToId (billtoId)
+            Biiling Account MDG Code
+        -->
+    <aura:if isTrue="{! v.transactionName == '2.2.1.'}" >
+        <c:celloMenuCallButton label="{!$Label.c.OPPTYACT_BTN_CREDIT_ASSESSMENT}" buttonStyle="brand" buttonClass="slds-float_left"
+                                menu="WKS_CRAS_REG" opptyId="{!v.opportunity.OpportunityCode__c}"
+                                billToId="{!v.billToId}"
+                                    />
+    </aura:if>
+
+    <!-- Request APS -->
+    <!--2022.10.14 yeongju.baek@dkbmc.com Request AP(APS) Activity 와 연계된 Link의 파라미터 변경 -->
+    <aura:if isTrue="{! v.transactionName == '2.2.2.'}" >
+        <c:celloMenuCallButton label="{!$Label.c.OPPTYACT_BTN_REQ_AP_RATE}" buttonStyle="brand" buttonClass="slds-float_left"
+                                menu="APS_AP_REQ_INFO_NEW" opptyId="{!v.opportunity.OpportunityCode__c}" />
+    </aura:if>
+
+    <!-- Test Shipment -->
+    <aura:if isTrue="{! v.transactionName == '2.3.3.'}" >
+        <c:celloMenuCallButton label="{!$Label.c.OPPTYACT_BTN_REQ_TEST_SHIPMENT}" buttonStyle="brand" buttonClass="slds-float_left"
+                                menu="WKS_TS_REG" opptyId="{!v.opportunity.OpportunityCode__c}"
+                                    />
+    </aura:if>
+
+
+
+    <!-- WKS_LBS_REG 파라미터 값 전달  
+        lbsType (rlbsAddTcd)
+                New         => NEW   ( Oppty.Type)
+                Retention   => RETEN ( Oppty.Type)
+                Rate Change => RACH  (* 고정값)
+
+        lbsCode (rlbsCcd) 
+                Bidding     => BID
+                Final       => FIN
+                (*추가 Rate Change => 고정으로 FIN 값)
+    -->
+    <!-- Bidding LBS -->
+    <aura:if isTrue="{! v.transactionName == '2.3.2.'}" >
+        <c:celloMenuCallButton label="{!$Label.c.OPPTYACT_BTN_REQ_BIDDING_LBS}" buttonStyle="brand" buttonClass="slds-float_left"
+                                menu="WKS_LBS_REG" opptyId="{!v.opportunity.OpportunityCode__c}"
+                                lbsType="{!v.lbsType}"
+                                lbsCode="BID"                        
+                                    />
+    
+    </aura:if>
+
+    <!-- Final LBS --> 
+    <!--V-1.1 - KAJAL Added transactionName = "2.4.5." -->
+    <aura:if isTrue="{! v.transactionName == '2.4.5.'}" >
+        <c:celloMenuCallButton label="{!$Label.c.OPPTYACT_BTN_REQ_FINAL_LBS}" buttonStyle="brand" buttonClass="slds-float_left"
+                                menu="WKS_LBS_REG" opptyId="{!v.opportunity.OpportunityCode__c}"
+                                lbsType="{!v.lbsType}"
+                                lbsCode="FIN" transactionName = "2.4.5."
+                                    />  
+    </aura:if>
+
+    <!-- Rate Change LBS -->
+    <aura:if isTrue="{! v.transactionName == '2.5.3.'}" >
+        <c:celloMenuCallButton label="{!$Label.c.OPPTYACT_BTN_REQ_RATE_CHANGE_LBS}" buttonStyle="brand" buttonClass="slds-float_left"
+                                menu="WKS_LBS_REG" opptyId="{!v.opportunity.OpportunityCode__c}"
+                                lbsType="RACH"
+                                lbsCode="FIN"
+                                    />
+    </aura:if>
+    <!-- // *************************** 물류 버튼 ****************************** -->
+    
+    <!--V-1.1 - KAJAL START - CP Review Activity Added.-->
+    <aura:if isTrue="{! v.transactionName == '2.3.1'}" >
+        <c:celloMenuCallButton label="{!$Label.c.OPPTYACT_BTN_BIDDING_LOGISTICS_CP_REVIEW}" buttonStyle="brand" buttonClass="slds-float_left"
+                                menu="WKS_LOGICP_REG" opptyId="{!v.opportunity.OpportunityCode__c}" oppsID= "{!v.oppsID}"
+                                lbsCode="BID" transactionName = "2.3.1"
+                                    />
+    </aura:if>
+    <aura:if isTrue="{! v.transactionName == '2.4.4'}" >
+        <c:celloMenuCallButton label="{!$Label.c.OPPTYACT_BTN_BIDDING_LOGISTICS_CP_REVIEW}" buttonStyle="brand" buttonClass="slds-float_left"
+                                menu="WKS_LOGICP_REG" opptyId="{!v.opportunity.OpportunityCode__c}" oppsID= "{!v.oppsID}"
+                                lbsCode="FIN"  transactionName = "2.4.4"
+                                    />
+    </aura:if>
+    <!--V-1.1-KAJAL END-->
+
+    <!-- [E] Work Button -->
+
+</aura:component>

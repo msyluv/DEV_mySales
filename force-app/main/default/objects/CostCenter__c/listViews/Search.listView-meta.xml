@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Search</fullName>
+    <columns>NAME</columns>
+    <columns>CompanyCode__c</columns>
+    <columns>CostCenter__c</columns>
+    <columns>Text1__c</columns>
+    <columns>Text2__c</columns>
+    <columns>Text3__c</columns>
+    <columns>Text4__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CompanyCode__c</field>
+        <operation>equals</operation>
+        <value>T100</value>
+    </filters>
+    <filters>
+        <field>Closed__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>ZZCheck__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>RPA</value>
+    </filters>
+    <label>Search</label>
+</ListView>

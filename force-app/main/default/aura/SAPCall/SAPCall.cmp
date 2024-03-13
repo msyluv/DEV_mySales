@@ -1,0 +1,46 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2020-08-25
+  @last modified by  : younghoon.kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2020-08-24   younghoon.kim@dkbmc.com   Initial Version
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" controller="SAPCallController" access="global" >
+	<!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <!-- [Attribute] -->
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="productCode" type="String" default="SDS-15017891"/>
+    <aura:attribute name="loading" type="Boolean" default="false"/>
+    <aura:attribute name="response" type="String"/>
+    
+    <!-- [View] -->
+    <lightning:card title="SAP Call Test">
+        <lightning:layout multipleRows="true" horizontalAlign="center">
+            <!-- [S] Search -->
+            <lightning:layoutItem padding="around-small" size="12">
+                <div class="demo-only demo-only--sizing slds-grid slds-wrap grid-header">
+                    <!-- <lightning:input name="prodCode" label="Enter a Produect Code" /> -->
+                    <lightning:button variant="brand" label="Send to SAP" class="slds-m-vertical_x-small" title="Send to SAP" onclick="{!c.send}" />
+                </div>
+            </lightning:layoutItem>
+            <!-- [E] Search -->
+            <!-- [S] Data Table -->
+            <lightning:layoutItem padding="around-small" size="12">
+                <aura:if isTrue="{!!v.loading}">
+                    <div class="exampleHolder">
+                        <lightning:spinner alternativeText="Loading" size="medium"/>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{!v.loading}">
+                    <lightning:textarea name="response" disabled="true" value="{!v.response}" label="Response" />
+                </aura:if>
+            </lightning:layoutItem>
+            <!-- [E] Data Table -->
+        </lightning:layout>
+    </lightning:card>
+</aura:component>

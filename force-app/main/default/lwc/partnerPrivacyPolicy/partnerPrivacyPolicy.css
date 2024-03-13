@@ -1,0 +1,73 @@
+@import 'c/commonStyle';
+@import 'c/resetStyle';
+
+select {
+    font-family: 'NotoSansKR', '맑은고딕', 'Malgun Gothic', sans-serif;
+}
+.personal_title {
+    background-color: #242843;
+    height: 200px;
+}
+.personal_title .text_wrap {
+    margin: 0 auto;
+    max-width: 1580px;
+    width: 100%;
+    padding: 0 20px;
+}
+.personal_title h2 {
+    font-size: 42px;
+    color: #fff;
+    line-height: 200px;
+}
+.personal_wrap {
+    margin: 0 auto;
+    max-width: 1580px;
+    width: 100%;
+    padding: 0 20px;
+    padding-bottom: 100px;
+}
+.personal_wrap p {font-size: 16px; line-height: 32px;}
+.personal_wrap .blue {
+    font-style: normal;
+    font-size: inherit;
+    line-height: inherit;
+    color: #0049B2;
+}
+.personal_wrap h3 {
+    font-size: 26px;
+    margin: 46px 0 12px 0;
+    font-weight: 600;
+}
+.personal_wrap .top {font-size: 18px; line-height: 36px;}
+.personal_wrap hr {
+    border-bottom: 1px solid #ccc; 
+    width: 100%;
+    margin-top: 40px;
+}
+.personal_wrap br {line-height: 16px;}
+.personal_wrap .top_wrap {margin: 50px 0;}
+.personal_wrap strong {display: block; font-size: 18px;}
+.personal_wrap .padding {padding: 0 32px;}
+.personal_wrap .font_size {
+    font-size: 14px; 
+    line-height: 28px; 
+    margin-top: 10px; 
+    display: block;
+}
+.dropdown_wrapper {
+    position: relative;
+    width: 250px;
+}
+.dropdown_set + .arrow_down{
+    background-image: url(/s/sfsites/c/resource/imagesLA/images/ico_select_down.png);
+}
+.dropdown_set + .arrow_down {
+    position: absolute;
+    right: 5px;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    text-indent: -9999px;
+    font-size: 0;
+}

@@ -1,0 +1,591 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 05-07-2021
+  @last modified by  : woomg@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   01-21-2021   woomg@dkbmc.com   Initial Version
+-->
+<aura:component
+    controller="ProfitLossSimulatorController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes" 
+    access="global">
+
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="isMobile" type="Boolean"/>
+    <aura:attribute name="firstRender" type="Boolean" default="true" />
+    <aura:attribute name="tablePaneLeftWidth" type="Integer" default="500"/>
+
+    <aura:attribute name="pageSizes" type="List" default="[
+        {'label': '100', 'value': '100'},
+        {'label': '50', 'value': '50'},
+        {'label': '25', 'value': '25'},
+    ]"/>
+    <aura:attribute name="pageSize" type="String" default="50"/>
+    <aura:attribute name="pageList" type="List" default="[]"/>
+    <aura:attribute name="pageNum" type="String" default="1"/>
+    <aura:attribute name="totalPage" type="Integer" default="0"/>
+
+    <aura:attribute name="yearList" type="List" default="[
+        {'label': '2019', 'value': '2019'},
+        {'label': '2020', 'value': '2020'},
+        {'label': '2021', 'value': '2021'},
+        {'label': '2022', 'value': '2022'},
+        {'label': '2023', 'value': '2023'},
+        {'label': '2024', 'value': '2024'},
+        {'label': '2025', 'value': '2025'},
+        {'label': '2026', 'value': '2026'},
+        {'label': '2027', 'value': '2027'},
+    ]"/>
+    <aura:attribute name="bizYear" type="String" default=""/>
+
+    <aura:attribute name="employeeInfo" type="CostCenter__c" default=""/>
+    <aura:attribute name="companyList" type="List" default="[]"/>
+    <aura:attribute name="companyCode" type="String" default="" />
+    <aura:attribute name="dept2List" type="List" default="[]"/>
+    <aura:attribute name="dept2Code" type="String" default="" />
+    <aura:attribute name="dept3List" type="List" default="[]"/>
+    <aura:attribute name="dept3Code" type="String" default="" />
+    <aura:attribute name="dept4List" type="List" default="[]"/>
+    <aura:attribute name="dept4Code" type="String" default="" />
+    <aura:attribute name="simulVersionList" type="List" default="[]"/>
+    <aura:attribute name="simulationId" type="String" default="" />
+    <aura:attribute name="bizType1List" type="List" default="[]"/>
+    <aura:attribute name="bizType1" type="String" default="" />
+    <aura:attribute name="closeDate" type="Date" default="" />
+    <aura:attribute name="simulation" type="Object" default="{}" />
+    <aura:attribute name="marginRate" type="Decimal" default="0.0" />
+
+    <aura:attribute name="records" type="List" default="[]"/>
+    <aura:attribute name="recordSum" type="Object" default="{}"/>
+    <aura:attribute name="record" type="List" default="{}"/>
+
+    <aura:attribute name="openInitSimul" type="Boolean" default="false"/>
+    <aura:attribute name="initYear" type="String" default=""/>
+    <aura:attribute name="initCompany" type="String" default=""/>
+    <aura:attribute name="initDept" type="String" default=""/>
+    <aura:attribute name="initTeam" type="String" default=""/>
+    <aura:attribute name="versionList" type="List" default="[]"/>
+    <aura:attribute name="version" type="String" default="" />
+    <aura:attribute name="fromDate" type="Date" default="" />
+    <aura:attribute name="simulationVersion" type="String" default=""/>
+
+    <aura:attribute name="openResetSimul" type="Boolean" default="false"/>
+    <aura:attribute name="openDeleteSimul" type="Boolean" default="false"/>
+    <aura:attribute name="openCalcMargin" type="Boolean" default="false"/>
+    <aura:attribute name="calcMethod" type="String" default="rows"/>
+    <aura:attribute name="openRowEdit" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
+
+    <div aura:id="main-box" class="slds-box">
+        <div aura:id="mainPage" class="slds-modal__container full-size" >
+            <aura:if isTrue="{!v.showSpinner}">
+                <lightning:spinner />
+            </aura:if>
+    
+            <!-- Filter Section -->
+            <lightning:layout multipleRows="true">
+                <lightning:layoutItem size="1">
+                    <lightning:combobox name="bizYear" label="Year" value="{!v.bizYear}" placeholder="Select Year" options="{! v.yearList }" variant="label-stacked" onchange="{!c.changeYear}"/>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="1">
+                    <lightning:combobox name="company" label="Company" value="{!v.companyCode}" placeholder="Select Company" options="{! v.companyList }" variant="label-stacked" disabled="true"/>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="2">
+                    <lightning:combobox name="dept2" label="Department" value="{!v.dept2Code}" placeholder="Select Department" options="{! v.dept2List }" variant="label-stacked" disabled="true"/>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="2">
+                    <lightning:combobox name="dept3" label="Team" value="{!v.dept3Code}" placeholder="Select Team" options="{! v.dept3List }" variant="label-stacked" onchange="{!c.changeDept3}"/>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="2">
+                    <lightning:combobox name="dept4" label="Group" value="{!v.dept4Code}" placeholder="Select Group" options="{! v.dept4List }" variant="label-stacked" onchange="{!c.changeDept4}"/>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="1">
+                    <lightning:combobox name="simulversion" label="Simul Version" value="{!v.simulationId}" placeholder="Select Version" options="{! v.simulVersionList }" variant="label-stacked" onchange="{!c.changeSimulVersion}"/>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="2">
+                    <lightning:combobox name="biztype1" label="Biz Type 1" value="{!v.bizType1}" placeholder="Select Type" options="{! v.bizType1List }" variant="label-stacked" onchange="{!c.changeBizType1}"/>
+                </lightning:layoutItem>
+                <lightning:layoutItem size="1">
+                    <lightning:input type="date" label="Close Date" value="{!v.closeDate}" variant="label-stacked" disabled="true" />
+                </lightning:layoutItem>
+            </lightning:layout>
+            <div class="slds-p-top_xx-small slds-p-bottom_small" style="text-align:right;">
+                <lightning:buttonGroup class="left-buttons">
+                    <lightning:button label="Delete Selected Row" onclick="{!c.clickOpenDeleteSimul}"/>
+                    <lightning:button label="Reset Simulation" onclick="{!c.clickOpenResetSimul}"/>
+                    <!--lightning:button label="call X-Men" onclick="{!c.clickRowEdit}"/-->
+                </lightning:buttonGroup>
+                <lightning:buttonGroup>
+                    <lightning:input type="number" variant="label-hidden" value="{!v.marginRate}" formatter="percent" class="margin" step="0.001"/>
+                    <lightning:button label="Calcurate Margin for Selected" onclick="{!c.clickOpenCalcMarginRows}"/>
+                    <lightning:button label="Calcurate Margin for All" onclick="{!c.clickOpenCalcMarginCondition}"/>
+                </lightning:buttonGroup>
+                <lightning:buttonGroup>
+                    <lightning:button label="Init Simulation" onclick="{!c.clickOpenInitSimul}"/>
+                    <lightning:button label="Get Profit/Loss" onclick="{!c.clickImportProfitLoss}"/>
+                    <lightning:button label="Get Opportunities" onclick="{!c.clickImportOppty}"/>
+                </lightning:buttonGroup>
+            </div>
+            <!-- Table Section -->
+            <div aura:id="uiTablePane" class="uiTablePane" >
+                <!-- left panel -->
+                <div aura:id="uiTablePaneLeft" class="uiTablePaneLeft" >
+                    <div aura:id="uiTablePaneLeftGrid" class="uiTablePaneLeftGrid" style="width:782px;" >
+                        <table style="table-layout:fixed; width:100%;" >
+                            <colgroup><col width="32px"/><col width="150px"/><col width="150px"/><col width="150px"/><col width="150px"/><col width="150px"/></colgroup>
+                            <thead>
+                                <tr>
+                                    <th class="cell-header" colspan="6">&nbsp;</th>
+                                </tr>
+                                <tr>
+                                    <th class="cell-header" ><lightning:input type="checkbox" variant="label-hidden" onchange="{!c.clickAllCheckbox}"/></th>
+                                    <th class="cell-header" >Sales Group</th>
+                                    <th class="cell-header" >Opportunity</th>
+                                    <th class="cell-header" >Delivery 2</th>
+                                    <th class="cell-header" >Delivery 3</th>
+                                    <th class="cell-header" >Delivery 4</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div aura:id="uiTablePaneLeftScroll" class="uiTablePaneLeftScroll" >
+                            <table style="table-layout:fixed; width:100%;" >
+                                <colgroup><col width="32px"/><col width="150px"/><col width="150px"/><col width="150px"/><col width="150px"/><col width="150px"/></colgroup>
+                                <tbody>
+                                    <aura:iteration items="{!v.records}" var="rec">
+                                        <tr >
+                                            <td ><lightning:input type="checkbox" name="{!rec.Id}" checked="{!rec.selected}" variant="label-hidden" onchange="{!c.clickCheckbox}"/></td>
+                                            <td ><div class="slds-truncate" title="{!rec.SALES_DEPTNAME5__c}">{!rec.SALES_DEPTNAME5__c}</div></td>
+                                            <td ><div class="slds-truncate" 
+                                                    name="{!rec.COMPANY_CODE__c}" 
+                                                    title="{!rec.OPPORTUNITY__c}"
+                                                    onclick="{!c.clickOppty}">{!rec.OPPORTUNITY__c}</div></td>
+                                            <td ><div class="slds-truncate" title="{!rec.DEV_DEPT2__c}">{!rec.DEV_DEPT2__c}</div></td>
+                                            <td ><div class="slds-truncate" title="{!rec.DEV_DEPT4__c}">{!rec.DEV_DEPT4__c}</div></td>
+                                            <td ><div class="slds-truncate" title="{!rec.DEV_DEPTNAME__c}">{!rec.DEV_DEPTNAME__c}</div></td>
+                                        </tr>    
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- right panel -->
+                <div aura:id="uiTablePaneRight" class="uiTablePaneRight" >
+                    <!-- right table header -->
+                    <div aura:id="uiTablePaneRightGrid" class="uiTablePaneRightGrid">
+                        <table style="table-layout:fixed;width:4320px" >
+                            <colgroup>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/>
+                                </colgroup>
+                            <thead >
+                                <tr >
+                                    <th class="cell-header" colspan="3">01</th>
+                                    <th class="cell-header" colspan="3">02</th>
+                                    <th class="cell-header" colspan="3">03</th>
+                                    <th class="cell-header" colspan="3">04</th>
+                                    <th class="cell-header" colspan="3">05</th>
+                                    <th class="cell-header" colspan="3">06</th>
+                                    <th class="cell-header" colspan="3">07</th>
+                                    <th class="cell-header" colspan="3">08</th>
+                                    <th class="cell-header" colspan="3">09</th>
+                                    <th class="cell-header" colspan="3">10</th>
+                                    <th class="cell-header" colspan="3">11</th>
+                                    <th class="cell-header" colspan="3">12</th>
+                                </tr>
+                                <tr >
+                                    <th class="cell-header" >CON</th>
+                                    <th class="cell-header" >REV</th>
+                                    <th class="cell-header" >PRO</th>
+                                    <th class="cell-header" >CON</th>
+                                    <th class="cell-header" >REV</th>
+                                    <th class="cell-header" >PRO</th>
+                                    <th class="cell-header" >CON</th>
+                                    <th class="cell-header" >REV</th>
+                                    <th class="cell-header" >PRO</th>
+                                    <th class="cell-header" >CON</th>
+                                    <th class="cell-header" >REV</th>
+                                    <th class="cell-header" >PRO</th>
+                                    <th class="cell-header" >CON</th>
+                                    <th class="cell-header" >REV</th>
+                                    <th class="cell-header" >PRO</th>
+                                    <th class="cell-header" >CON</th>
+                                    <th class="cell-header" >REV</th>
+                                    <th class="cell-header" >PRO</th>
+                                    <th class="cell-header" >CON</th>
+                                    <th class="cell-header" >REV</th>
+                                    <th class="cell-header" >PRO</th>
+                                    <th class="cell-header" >CON</th>
+                                    <th class="cell-header" >REV</th>
+                                    <th class="cell-header" >PRO</th>
+                                    <th class="cell-header" >CON</th>
+                                    <th class="cell-header" >REV</th>
+                                    <th class="cell-header" >PRO</th>
+                                    <th class="cell-header" >CON</th>
+                                    <th class="cell-header" >REV</th>
+                                    <th class="cell-header" >PRO</th>
+                                    <th class="cell-header" >CON</th>
+                                    <th class="cell-header" >REV</th>
+                                    <th class="cell-header" >PRO</th>
+                                    <th class="cell-header" >CON</th>
+                                    <th class="cell-header" >REV</th>
+                                    <th class="cell-header" >PRO</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div aura:id="uiTablePaneRightScroll" class="uiTablePaneRightScroll" >
+                        <table style="table-layout:fixed;width:4320px;" >
+                            <colgroup>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                                <col width="120px"/>
+                                </colgroup>
+                            <tbody >
+                                <aura:iteration items="{!v.records}" var="rec">
+                                    <tr id="{!rec.Id}" name="{!rec.Id}" ondblclick="{!c.clickRowEdit}">
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.CONTRACT_01__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.REVENUE_01__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.OPROFIT_01__c}" maximumFractionDigits="0"/></div></td>
+
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.CONTRACT_02__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.REVENUE_02__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.OPROFIT_02__c}" maximumFractionDigits="0"/></div></td>
+
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.CONTRACT_03__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.REVENUE_03__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.OPROFIT_03__c}" maximumFractionDigits="0"/></div></td>
+
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.CONTRACT_04__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.REVENUE_04__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.OPROFIT_04__c}" maximumFractionDigits="0"/></div></td>
+
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.CONTRACT_05__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.REVENUE_05__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.OPROFIT_05__c}" maximumFractionDigits="0"/></div></td>
+
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.CONTRACT_06__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.REVENUE_06__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.OPROFIT_06__c}" maximumFractionDigits="0"/></div></td>
+
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.CONTRACT_07__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.REVENUE_07__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.OPROFIT_07__c}" maximumFractionDigits="0"/></div></td>
+
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.CONTRACT_08__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.REVENUE_08__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.OPROFIT_08__c}" maximumFractionDigits="0"/></div></td>
+
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.CONTRACT_09__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.REVENUE_09__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.OPROFIT_09__c}" maximumFractionDigits="0"/></div></td>
+
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.CONTRACT_10__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.REVENUE_10__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.OPROFIT_10__c}" maximumFractionDigits="0"/></div></td>
+
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.CONTRACT_11__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.REVENUE_11__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.OPROFIT_11__c}" maximumFractionDigits="0"/></div></td>
+
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.CONTRACT_12__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.REVENUE_12__c}" maximumFractionDigits="0"/></div></td>
+                                        <td ><div class="number-cell" ><lightning:formattedNumber value="{!rec.OPROFIT_12__c}" maximumFractionDigits="0"/></div></td>
+
+                                    </tr>    
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div aura:id="uiTableSumPane" class="uiTableSumPane">
+                <div aura:id="uiTablePaneLeftSum" class="uiTablePaneLeftSum" >
+                    Total Summary :
+                </div>
+                <div aura:id="uiTablePaneRightSum" class="uiTablePaneRightSum" >
+                    <table style="table-layout:fixed;width:4320px;" >
+                        <colgroup>
+                            <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                            <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                            <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                            <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                            <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                            <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                            <col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/><col width="120px"/>
+                            <col width="120px"/>
+                        </colgroup>
+                        <tbody >
+                            <tr >
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumcon01}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumrev01}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumpro01}" maximumFractionDigits="0"/></div></td>
+    
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumcon02}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumrev02}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumpro02}" maximumFractionDigits="0"/></div></td>
+    
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumcon03}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumrev03}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumpro03}" maximumFractionDigits="0"/></div></td>
+    
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumcon04}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumrev04}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumpro04}" maximumFractionDigits="0"/></div></td>
+    
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumcon05}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumrev05}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumpro05}" maximumFractionDigits="0"/></div></td>
+    
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumcon06}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumrev06}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumpro06}" maximumFractionDigits="0"/></div></td>
+    
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumcon07}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumrev07}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumpro07}" maximumFractionDigits="0"/></div></td>
+    
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumcon08}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumrev08}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumpro08}" maximumFractionDigits="0"/></div></td>
+    
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumcon09}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumrev09}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumpro09}" maximumFractionDigits="0"/></div></td>
+    
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumcon10}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumrev10}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumpro10}" maximumFractionDigits="0"/></div></td>
+    
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumcon11}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumrev11}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumpro11}" maximumFractionDigits="0"/></div></td>
+    
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumcon12}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumrev12}" maximumFractionDigits="0"/></div></td>
+                                <td ><div class="number-cell" ><lightning:formattedNumber value="{!v.recordSum.sumpro12}" maximumFractionDigits="0"/></div></td>
+    
+                            </tr>    
+                        </tbody>
+                    </table>
+                </div>    
+            </div>
+
+            <!-- Footer Section -->
+            <div class="uiFooterPane">
+                <lightning:layout class="slds-p-top_x-small" >
+                    <lightning:layoutItem size="2">
+                        <lightning:combobox 
+                            name="psize" 
+                            label="Row Size" 
+                            value="{!v.pageSize}" 
+                            placeholder="Select Rows" 
+                            options="{! v.pageSizes }" 
+                            variant="label-inline" 
+                            dropdownAlignment="bottom-left" 
+                            onchange="{!c.changeRows}"
+                            class="inline-label"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="2">
+                        <lightning:combobox 
+                            name="npage" 
+                            label="Goto Page" 
+                            value="{!v.pageNum}" 
+                            placeholder="Select Page" 
+                            options="{! v.pageList }" 
+                            variant="label-inline" 
+                            dropdownAlignment="bottom-left"
+                            onchange="{!c.changePage}"
+                            class="inline-label"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="8">
+                        &nbsp;
+                    </lightning:layoutItem>
+                </lightning:layout>        
+            </div>
+        </div>
+    </div>
+
+    <aura:if isTrue="{!v.openInitSimul}">
+        <div class="confirm-modal">
+            <section role="dialog" class="slds-modal slds-fade-in-open slds-modal_small" aria-modal="true">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <!--lightning:buttonIcon iconName="utility:close" variant="inverse" class="slds-modal__close" onclick="{!c.clickCancelInitSimul}"/-->
+                        <h2 class="slds-modal__title slds-hyphenate">Create New Simulation</h2>
+                    </header>
+                    <div class="slds-modal__content child-modal slds-p-around_medium">
+                        <lightning:layout multipleRows="true">
+                            <lightning:layoutItem size="6">
+                                <lightning:combobox name="bizYear" label="Year" value="{!v.initYear}" placeholder="Select Year" options="{! v.yearList }" variant="label-inline"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:combobox name="company" label="Company" value="{!v.initCompany}" placeholder="Select Company" options="{! v.companyList }" variant="label-inline" disabled="true"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:combobox name="dept2" label="Dept" value="{!v.initDept}" placeholder="Select Department" options="{! v.dept2List }" variant="label-inline" disabled="true"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:combobox name="dept3" label="Team" value="{!v.initTeam}" placeholder="Select Team" options="{! v.dept3List }" variant="label-inline"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:combobox name="version" label="Version" value="{!v.version}" placeholder="Select Version" options="{! v.versionList }" variant="label-inline"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input type="date" name="from" label="From Date" value="{!v.fromDate}" placeholder="Select Date" variant="label-inline"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="siver" label="Simul Version" value="{!v.simulationVersion}" placeholder="Input Simulation Version..." variant="label-inline"/>
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" variant="neutral" onclick="{!c.clickCancelInitSimul}"/>
+                        <lightning:button label="Create" variant="brand" onclick="{!c.clickCreateInitSimul}"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>    
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.openResetSimul}">
+        <div class="confirm-modal">
+            <section role="dialog" class="slds-modal slds-fade-in-open" aria-modal="true">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <!--lightning:buttonIcon iconName="utility:close" variant="inverse" class="slds-modal__close" onclick="{!c.clickCancelInitSimul}"/-->
+                        <h2 class="slds-modal__title slds-hyphenate">Reset Simulation Version</h2>
+                    </header>
+                    <div class="slds-modal__content child-modal slds-p-around_medium">
+                        It will be remove all data for this version of simulation. Are you sure?
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" variant="neutral" onclick="{!c.clickCancelResetSimul}"/>
+                        <lightning:button label="Reset" variant="brand" onclick="{!c.clickResetSimul}"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>    
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.openDeleteSimul}">
+        <div class="confirm-modal">
+            <section role="dialog" class="slds-modal slds-fade-in-open" aria-modal="true">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <!--lightning:buttonIcon iconName="utility:close" variant="inverse" class="slds-modal__close" onclick="{!c.clickCancelInitSimul}"/-->
+                        <h2 class="slds-modal__title slds-hyphenate">Delete Selected Rows</h2>
+                    </header>
+                    <div class="slds-modal__content child-modal slds-p-around_medium">
+                        It will be remove selected rows for this version of simulation. Are you sure?
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" variant="neutral" onclick="{!c.clickCancelDeleteSimul}"/>
+                        <lightning:button label="Delete" variant="brand" onclick="{!c.clickDeleteSimul}"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>    
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.openCalcMargin}">
+        <div class="confirm-modal">
+            <section role="dialog" class="slds-modal slds-fade-in-open" aria-modal="true">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <!--lightning:buttonIcon iconName="utility:close" variant="inverse" class="slds-modal__close" onclick="{!c.clickCancelInitSimul}"/-->
+                        <h2 class="slds-modal__title slds-hyphenate">Calcurate margins</h2>
+                    </header>
+                    <div class="slds-modal__content child-modal slds-p-around_medium">
+                        It will be calcurate the margins for selected rows or condition for this version of simulation. Are you sure?
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" variant="neutral" onclick="{!c.clickCancelCalcMargin}"/>
+                        <lightning:button label="Calc" variant="brand" onclick="{!c.clickCalcMargin}"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>    
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.openRowEdit}">
+        <div class="confirm-modal">
+            <section role="dialog" class="slds-modal slds-fade-in-open " aria-modal="true">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <!--lightning:buttonIcon iconName="utility:close" variant="inverse" class="slds-modal__close" onclick="{!c.clickCancelInitSimul}"/-->
+                        <h2 class="slds-modal__title slds-hyphenate">Edit Revenue Plan</h2>
+                    </header>
+                    <div class="slds-modal__content child-modal slds-p-around_medium">
+                        <lightning:layout multipleRows="true">
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="01" label="01" value="{!v.record.REVENUE_01__c}" variant="label-inline" class="inline-label"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="02" label="02" value="{!v.record.REVENUE_02__c}" variant="label-inline" class="inline-label"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="03" label="03" value="{!v.record.REVENUE_03__c}" variant="label-inline" class="inline-label"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="04" label="04" value="{!v.record.REVENUE_04__c}" variant="label-inline" class="inline-label"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="05" label="05" value="{!v.record.REVENUE_05__c}" variant="label-inline" class="inline-label"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="06" label="06" value="{!v.record.REVENUE_06__c}" variant="label-inline" class="inline-label"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="07" label="07" value="{!v.record.REVENUE_07__c}" variant="label-inline" class="inline-label"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="08" label="08" value="{!v.record.REVENUE_08__c}" variant="label-inline" class="inline-label"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="09" label="09" value="{!v.record.REVENUE_09__c}" variant="label-inline" class="inline-label"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="10" label="10" value="{!v.record.REVENUE_10__c}" variant="label-inline" class="inline-label"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="11" label="11" value="{!v.record.REVENUE_11__c}" variant="label-inline" class="inline-label"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="6">
+                                <lightning:input name="12" label="12" value="{!v.record.REVENUE_12__c}" variant="label-inline" class="inline-label"/>
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" variant="neutral" onclick="{!c.clickCancelRevenuePlan}"/>
+                        <lightning:button label="Save &amp; Reload" variant="brand" onclick="{!c.saveRowEdit}"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+
+</aura:component>

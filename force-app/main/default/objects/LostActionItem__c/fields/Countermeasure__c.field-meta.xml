@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Countermeasure__c</fullName>
+    <externalId>false</externalId>
+    <label>Countermeasure</label>
+    <referenceTo>Lost_Countermeasure__c</referenceTo>
+    <relationshipLabel>LostActionItems</relationshipLabel>
+    <relationshipName>LostActionItems</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

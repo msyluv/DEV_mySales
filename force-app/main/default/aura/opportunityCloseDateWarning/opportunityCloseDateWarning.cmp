@@ -1,0 +1,20 @@
+<!--
+  @author            : divyam.gupta@samsung.com
+  @description       : Warning if Close Date is later than Contract Start Date. 
+  @last modified on  : 09-18-2023
+  @last modified by  : divyam.gupta@samsung.com
+  Modifications Log 
+  Ver   Date         Author                   	Modification
+  1.0   2023-09-18   Divyam.gupta@samsung.com       Initial Version
+-->
+
+<aura:component controller="opportunityCheckCloseDateCont" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId" access="GLOBAL">
+    <aura:html tag="style">
+        .toastMessage.forceActionsText{
+        white-space : pre-line !important;
+        }
+    </aura:html>
+
+    <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
+    <aura:handler event="force:refreshView" action="{!c.onRender}" />
+</aura:component>

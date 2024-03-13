@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SDS_PDM__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK( SCP_Account_ID__r.SDS_PDM__c , SCP_Account_ID__r.SDS_PDM__r.EvHName__c , &quot;_self&quot; )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>SDS PDM</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

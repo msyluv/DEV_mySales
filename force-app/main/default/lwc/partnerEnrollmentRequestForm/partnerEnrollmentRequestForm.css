@@ -1,0 +1,40 @@
+[data-status=true] {
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+[data-status=false] {
+    pointer-events: all;
+    opacity: 1.00;
+}
+.page-section.page-left ul li, .page-section.page-right ul li a {
+    margin-bottom: 5px;
+}
+
+.page-section.form-bottom lightning-input.slds-form-element {
+    display: inline-block;
+    width: 75%;
+}
+
+.page-section.form-bottom a {
+    vertical-align: middle;
+    float: right;
+}
+
+.static-label {
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    font-weight: bold;
+    font-size: 12px;
+    max-width: 28%;
+}
+
+.form-status:host {
+    --slds-c-input-shadow: none;
+    --slds-c-input-shadow-focus: none;
+}
+
+:host {
+    --sds-c-textarea-sizing-min-height: 300px;
+}

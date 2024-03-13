@@ -1,0 +1,46 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" controller="BizClassMigController" access="global" >
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:attribute name="setOppId" type="String" default=""/>    
+    <aura:attribute name="startDate" type="String" default=""/>
+    <aura:attribute name="endDate" type="String" default=""/>
+    <aura:attribute name="isModified" type="Boolean" default="false"/>
+    
+    <div style="height:150px">
+    <div class="slds-box slds-box_x-small" style="text-align: center;background-color:LightGray;">
+        <div class="slds-grid">
+            <div><lightning:icon iconName="standard:report" alternativeText="Event" size="small"/>
+            </div>
+            <div><h6>&nbsp; Hello 사업분류체계 마이그  </h6></div>
+        </div>
+    </div>
+    <table>
+        <tr>
+            <td>
+                <div class="container-fluid">
+                    <div class="form-group" style="align:left;width:1050px">
+                        <label>1) (Default 조건) 마이그 대상은 2020/01/01 이후 생성, IT(자회사 포함, 물류제외), Cleansed, Drop, Lost 제외 BO. </label><br/>
+                        <label>2) BO Id 입력시 필터조건 추가됨.</label><br/>
+                        <label>&nbsp;&nbsp;ex) 0061s000006Kd72AAC,0061s000006Kd85AAC,0061s000006Kd86AAC</label><br/>
+                        <label>3) Start Date/End Date 입력시 필터조건 추가됨.</label><br/>
+                        <label>4) LastModifiedDate 체크시 필터 시간은 Service/Solution의 LastModifyDate를 기준으로 함.</label><br/>
+                        
+                        <div class="slds-grid slds-m-around_small"> 
+                            <div class="slds-col"><lightning:input type="Text" name="startDate" label="Start Date" value="{!v.startDate}"/></div>
+                            <div class="slds-col">
+                                <lightning:input type="Text" name="endDate" label="End Date" value="{!v.endDate}"/>
+                                <lightning:input type="checkbox" label="Is Modified" aura:id="isModified" name="isModified" onchange="{!c.onChange}"/>
+                            </div>
+                        </div>         
+                        <lightning:textarea name="setOppId" label="BO Id"  value="{!v.setOppId}"/>
+                    </div>
+                </div>
+                <div style="align:right;padding-top:16px;">
+                    <lightning:button class="btn btn-info" variant="brand" label="Export" onclick="{!c.export}" />
+                </div>
+            </td>            
+        </tr>
+    </table>
+
+    </div>
+</aura:component>

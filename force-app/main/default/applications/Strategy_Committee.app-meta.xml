@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <content>StrategyCommitteeHome</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Opportunity_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Opportunity</pageOrSobjectType>
+    </actionOverrides>
+    <brand>
+        <headerColor>#1428A0</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>1. Strategy Committee 용 App</description>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>Strategy Committee</label>
+    <navType>Standard</navType>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>StrategyCommitteeHome</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Strategy Committee(HQ)</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>StrategyCommitteeHome</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Strategy Committee(Logi)</profile>
+    </profileActionOverrides>
+    <tabs>standard-home</tabs>
+    <tabs>BulletinBoard__c</tabs>
+    <tabs>VRBRequest__c</tabs>
+    <tabs>Strategy_Committee_CheckList</tabs>
+    <tabs>Strategy_Committee_Report</tabs>
+    <tabs>VOC__c</tabs>
+    <tabs>Wons_Losts_Drops</tabs>
+    <tabs>IF_Monitoring__c</tabs>
+    <tabs>KnoxApproval__c</tabs>
+    <tabs>SvcSolSyncLog__c</tabs>
+    <tabs>Company__c</tabs>
+    <tabs>MSP_Project__c</tabs>
+    <tabs>Logistics_CP_Review_YesorNo__c</tabs>
+    <tabs>UserInfo_Change_Logs__c</tabs>
+    <tabs>Group_Hierarchy__c</tabs>
+    <tabs>Tier_Upgrade_Target_Member__c</tabs>
+    <tabs>fileTest__c</tabs>
+    <tabs>BO_Activity_Complete__c</tabs>
+    <tabs>ReferenceReportDashboard__c</tabs>
+    <tabs>Report_Detail</tabs>
+    <tabs>Opportunity_MonthlyAmount__c</tabs>
+    <tabs>MenuAccessLowData__c</tabs>
+    <tabs>Menu_Access_Log__c</tabs>
+    <tabs>SCPSimulation__c</tabs>
+    <tabs>OpportunityAmt__c</tabs>
+    <tabs>Home_URL__c</tabs>
+    <tabs>CompanyLoginAverage__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Strategy_Committee_UtilityBar</utilityBar>
+</CustomApplication>

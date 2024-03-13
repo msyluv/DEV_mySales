@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_Email_Sent_Date__c</fullName>
+    <description>최근 이메일 전송일자</description>
+    <externalId>false</externalId>
+    <label>Last Email Sent Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

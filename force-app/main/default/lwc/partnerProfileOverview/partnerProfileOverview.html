@@ -1,0 +1,250 @@
+<!--
+  @description       : 
+  @author            : ukhyeon.lee@samsung.com
+  @group             : 
+  @last modified on  : 08-30-2022
+  @last modified by  : ukhyeon.lee@samsung.com
+-->
+<template>
+    <main class="wrap_marketing">
+        <article class="marketing pp">
+            <h2>Partner Profile</h2>
+            <template if:true={isAdmin}>
+                <lightning-combobox name="adminAccountList" value={accountId} options={adminAccountList} onchange={adminAccountHandleChange} ></lightning-combobox>
+            </template>
+            <div class="graybox_wrap">
+                <table class="tbl_detail title">
+                    <tr>
+                        <th>회사명</th>
+                        <td>{accName}<i class="badge title">{accPartnerType}</i></td>
+                    </tr>
+                </table>
+                <ul>
+                    <li>
+                        <h4>파트너십</h4>
+                        <table class="tbl_detail">
+                            <tr>
+                                <th>계약 시작일</th>
+                                <td>{piContractStartDate}</td>
+                            </tr>
+                            <tr>
+                                <th>계약 만료일</th>
+                                <td>{piContractEndDate}</td>
+                            </tr>
+                            <tr>
+                                <th>파트너 매니저</th>
+                                <td>{piPartnerManager}</td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li>
+                        <h4>비지니스 현황</h4>
+                        <table class="tbl_detail">
+                            <tr>
+                                <th>신규계약</th>
+                                <td>{projectName}</td>
+                            </tr>
+                            <tr>
+                                <th>누적매출</th> 
+                                <td>{totalAmount}원</td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li>
+                        <template if:true={isTOTAL}>
+                            <h4>파트너 재인증 요건<i class="badge blue">{TOTAL}</i><!--달성일때 class blue--></h4>
+                        </template>
+                        <template if:false={isTOTAL}>
+                            <h4>파트너 재인증 요건<i class="badge red">{TOTAL}</i><!--달성일때 class blue--></h4>
+                        </template>
+                        <table class="tbl_detail">
+                            <template for:each={prrList} for:item="prr" for:index="index">
+                                <template if:true={prr.RowspanTF}>
+                                    <tr key={prr.Id}>
+                                        <th>{prr.Category}</th>
+                                        <td>{prr.Goal}</td>
+                                    </tr>
+                                </template>
+                            </template>
+                        </table>
+                    </li>
+                </ul>
+            </div>
+            <div class="view_pp">
+                <h3>회사정보</h3>
+                <table class="tbl_detail">
+                    <colgroup>
+                        <col width="">
+                        <col width="28%">
+                        <col width="">
+                        <col width="25%">
+                        <col width="">
+                        <col width="">
+                    </colgroup>
+                    <tr>
+                        <th>회사명</th>
+                        <td>{accName}</td>
+                        <th>사업자등록번호</th>
+                        <td>{accCorporateNumber}</td>
+                        <th>주소</th>
+                        <td>{accBillingStreet}</td>
+                    </tr>
+                    <tr>
+                        <th>웹사이트</th>
+                        <td>
+                            <lightning-formatted-url value={accWebsite}>
+                                {accWebsite}
+                            </lightning-formatted-url>
+                        </td>
+                        <th>파트너 매니저</th>
+                        <td>{piPartnerManager}</td>
+                        <th>이메일</th>
+                        <td>{piPartnerManagerEmail}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="view_pp">
+                <h3>파트너십 현황</h3>
+                <table class="tbl_detail">
+                    <colgroup>
+                        <col width="">
+                        <col width="28%">
+                        <col width="">
+                        <col width="25%">
+                        <col width="">
+                        <col width="">
+                    </colgroup>
+                    <tr>
+                        <th>파트너 타입</th>
+                        <td>{accPartnerType}</td>
+                        <th>파트너 등급</th>
+                        <td>{piPartnerGrade}</td>
+                        <th>SDS PDM</th>
+                        <td>{piSdsPdm}</td>
+                    </tr>
+                    <tr>
+                        <th>계약 시작일</th>
+                        <td>{piContractStartDate}</td>
+                        <th>계약 종료일</th>
+                        <td>{piContractEndDate}</td>
+                        <th>SDS SA</th>
+                        <td>{piSdsSa}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="view_pp list">
+                <h3>파트너 네트워크 가입자</h3>
+                <table class="tbl_list">
+                    <thead>
+                        <tr>
+                            <th class="align_c">No.</th>
+                            <th>이름</th>
+                            <th>직급</th>
+                            <th>역할</th>
+                            <th>이메일</th>
+                            <th>전화</th>
+                            <th>가입일자</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={userList} for:item="user" for:index="index">
+                            <tr key={user.Id}>
+                                <td class="align_c">{user.key}</td>
+                                <td>{user.Name}</td>
+                                <td>{user.Title}</td>
+                                <td>{user.MSPRole}</td>
+                                <td>{user.Email}</td>
+                                <td>{user.Phone}</td>
+                                <td>{user.CreatedDate}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+            <div class="view_pp list">
+                <h3>파트너 재인증 요건</h3>
+                <table class="tbl_list">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>세부항목</th>
+                            <th class="align_c">달성조건</th>
+                            <th class="align_c">실적</th>
+                            <th class="align_c">달성여부</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={prrList} for:item="prr" for:index="index">
+                            <template if:true={prr.RowspanTF}>
+                                <tr key={prr.Id}>
+                                    <td class="medium" rowspan={prr.rowspan}>{prr.Category}</td>
+                                    <td class="notbb medium">{prr.Detail1}</td>
+                                    <td class="align_c notbb"></td>
+                                    <td class="align_c notbb"></td>
+                                    <td class="align_c notbb">{prr.Performance}</td>
+                                </tr>
+                            </template>
+                            <template if:false={prr.RowspanTF}>
+                                <template if:true={prr.leafTF}>     
+                                    <tr key={prr.Id}>
+                                        <td class="notbb"><i class="blit"></i>{prr.Detail2}</td>
+                                        <td class="align_c notbb">{prr.Goal}</td>
+                                        <td class="align_c notbb">{prr.Performance}</td>
+                                        <td class="align_c notbb">{prr.Achievability}</td>
+                                    </tr>
+                                </template>
+                                <template if:false={prr.leafTF}>
+                                    <tr key={prr.Id}>
+                                        <td class="medium">{prr.Detail1}</td>
+                                        <td class="align_c">{prr.Goal}</td>
+                                        <td class="align_c">{prr.Performance}</td>
+                                        <td class="align_c">{prr.Achievability}</td>
+                                    </tr>
+                                </template>
+                            </template>
+                            
+                        </template>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">종합</td>
+                            <template if:true={isTOTAL}>
+                                <td class="align_c"><i class="badge blue">{TOTAL}</i></td>
+                            </template>
+                            <template if:false={isTOTAL}>
+                                <td class="align_c"><i class="badge red">{TOTAL}</i></td>
+                            </template>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="linebox_wrap">
+                <h3>파트너 혜택</h3>
+                <ul>
+                    <li>
+                        <p>파트너 할인</p>
+                        <span><strong>{partnerDiscount}</strong>원</span>
+                    </li>
+                    <li>
+                        <p>지급된 펀드</p>
+                        <table>
+                            <tr>
+                                <th>마케팅 펀드(MDF)</th>
+                                <td>{paidMarketingFund} 원</td>
+                            </tr>
+                            <tr>
+                                <th>마이그레이션 펀드</th>
+                                <td>{paidMigrationFund} 원</td>
+                            </tr>
+                        </table>
+                        <span><strong>{paidFund}</strong>원</span>
+                    </li>
+                    <li>
+                        <p>인센티브</p>
+                        <span><strong>{incentive}</strong>원</span>
+                    </li>
+                </ul>
+            </div>
+        </article>
+    </main>
+</template>

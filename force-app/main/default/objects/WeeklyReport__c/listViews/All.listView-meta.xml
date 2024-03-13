@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Account_Name__c</columns>
+    <columns>Opportunity__c</columns>
+    <columns>SalesLead__c</columns>
+    <columns>ReportingDate__c</columns>
+    <columns>Critical__c</columns>
+    <columns>Contents__c</columns>
+    <columns>CheckedforIssue__c</columns>
+    <columns>Flag__c</columns>
+    <columns>DisplayOrder__c</columns>
+    <columns>IssueDescription__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Weekly Reports</label>
+</ListView>

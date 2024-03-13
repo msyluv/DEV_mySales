@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template">
+    <aura:attribute name="changeIndex" type="Integer" default="-1"/>
+    <aura:attribute name="changeVal" type="String" default=""/>
+</aura:event>

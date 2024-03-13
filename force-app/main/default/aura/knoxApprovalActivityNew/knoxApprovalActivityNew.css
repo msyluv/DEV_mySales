@@ -1,0 +1,45 @@
+/* =============== Page Card Template =============== */
+.THIS .quick-modal__content {
+    padding: 0em;
+}
+
+.THIS .modal-content {
+    height: 515px !important;
+    /*
+    min-height: calc(85vh - 6rem);
+    max-height: calc(85vh - 6rem);
+    height: calc(85vh - 6rem); */
+    /* overflow-y: auto; */
+}
+
+.THIS .tab-content {
+    min-height: 100%;
+    height: 100%;
+}
+
+.THIS .slds-card__body {
+    height: calc(100% - 58px) !important;
+    margin: 0;
+}
+
+.THIS .input-picklist-disabled {
+    pointer-events: none;
+}
+
+.THIS .input-picklist-disabled .slds-input__icon-group.slds-input__icon-group_right {
+    visibility: hidden;
+}
+
+.THIS .input-picklist-disabled input {
+    background-color: rgb(233, 232, 232);
+}
+
+.THIS .input-disabled input {
+    pointer-events: none;
+    background-color: rgb(233, 232, 232);
+}
+
+.THIS .slds-tabs_default__content,
+.THIS .slds-tabs--default__content  {
+    padding:0!important;
+}

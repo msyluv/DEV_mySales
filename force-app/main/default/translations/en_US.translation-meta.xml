@@ -1,0 +1,5337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Translations xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- CxO --></label>
+        <name>CxO</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- CxO Mobile --></label>
+        <name>CxOMobile</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- File --></label>
+        <name>File</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Lead Generation --></label>
+        <name>Lead_Generation</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- MSP Admin --></label>
+        <name>MSP_Admin</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Marketing --></label>
+        <name>Marketing</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Relationship Management --></label>
+        <name>Relationship_Management</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label>Sales Representative</label>
+        <name>Sales</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Sales Executive --></label>
+        <name>SalesExecutive</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Sales Executive Mobile --></label>
+        <name>SalesExecutiveMobile</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Sales Manager --></label>
+        <name>SalesManager</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Sales Team Manager --></label>
+        <name>SalesTeamManager</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Sales Team Manager Mobile --></label>
+        <name>SalesTeamManagerMobile</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Sales Leadership --></label>
+        <name>Sales_Leadership</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Sales Manager Mobile --></label>
+        <name>Sales_Manager_Mobile</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Sales Mobile --></label>
+        <name>Sales_Mobile</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Sales Operations --></label>
+        <name>Sales_Operations</name>
+    </customApplications>
+    <customApplications>
+        <description xsi:nil="true"/>
+        <label><!-- Strategy Committee --></label>
+        <name>Strategy_Committee</name>
+    </customApplications>
+    <customLabels>
+        <label><!-- ACCTEAM_LAB_ACCOUNTACCESS --></label>
+        <name>ACCTEAM_LAB_ACCOUNTACCESS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCTEAM_LAB_ACTION --></label>
+        <name>ACCTEAM_LAB_ACTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCTEAM_LAB_HEADER --></label>
+        <name>ACCTEAM_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCTEAM_LAB_NONE --></label>
+        <name>ACCTEAM_LAB_NONE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCTEAM_LAB_TEAMROLE --></label>
+        <name>ACCTEAM_LAB_TEAMROLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCTEAM_LAB_USER --></label>
+        <name>ACCTEAM_LAB_USER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCTEAM_MSG_0001 --></label>
+        <name>ACCTEAM_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCTEAM_MSG_0002 --></label>
+        <name>ACCTEAM_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCTEAM_MSG_0003 --></label>
+        <name>ACCTEAM_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>Address Search (Korea Only)</label>
+        <name>ACCT_LAB_ADDRSEARCH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCT_LAB_CUSTOMER360 --></label>
+        <name>ACCT_LAB_CUSTOMER360</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCT_LAB_RECENT_ACCOUNT --></label>
+        <name>ACCT_LAB_RECENT_ACCOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCT_MSG_0001 --></label>
+        <name>ACCT_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCT_MSG_0002 --></label>
+        <name>ACCT_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCT_MSG_0003 --></label>
+        <name>ACCT_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCT_MSG_0004 --></label>
+        <name>ACCT_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCT_MSG_0005 --></label>
+        <name>ACCT_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ACCT_URL_C360 --></label>
+        <name>ACCT_URL_C360</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ADSLTM Header --></label>
+        <name>ADSLTM_Header</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- API_ADDR_CONFMKEY --></label>
+        <name>API_ADDR_CONFMKEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- API_ADDR_ENG_CONFMKEY --></label>
+        <name>API_ADDR_ENG_CONFMKEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- API_ADDR_EVENT_URL --></label>
+        <name>API_ADDR_EVENT_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- API_ADDR_URL --></label>
+        <name>API_ADDR_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_LAB_APPRLINE --></label>
+        <name>APPRVIEWER_LAB_APPRLINE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_LAB_APPRTYPE --></label>
+        <name>APPRVIEWER_LAB_APPRTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_LAB_DEPARTMENT --></label>
+        <name>APPRVIEWER_LAB_DEPARTMENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_LAB_EMAIL --></label>
+        <name>APPRVIEWER_LAB_EMAIL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_LAB_HEADER --></label>
+        <name>APPRVIEWER_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_LAB_NAME --></label>
+        <name>APPRVIEWER_LAB_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_LAB_OPPTYCODE --></label>
+        <name>APPRVIEWER_LAB_OPPTYCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_LAB_PREVIEW --></label>
+        <name>APPRVIEWER_LAB_PREVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_LAB_TYPE --></label>
+        <name>APPRVIEWER_LAB_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_MSG_0001 --></label>
+        <name>APPRVIEWER_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_MSG_0002 --></label>
+        <name>APPRVIEWER_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_MSG_0003 --></label>
+        <name>APPRVIEWER_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_MSG_0004 --></label>
+        <name>APPRVIEWER_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPRVIEWER_MSG_0005 --></label>
+        <name>APPRVIEWER_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_APPROVAL --></label>
+        <name>APPR_BTN_APPROVAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_APPR_ADD --></label>
+        <name>APPR_BTN_APPR_ADD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_ARBITARYDECISION --></label>
+        <name>APPR_BTN_ARBITARYDECISION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_CANCELPARALLEL --></label>
+        <name>APPR_BTN_CANCELPARALLEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_CHANGELINE --></label>
+        <name>APPR_BTN_CHANGELINE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_CONSENT --></label>
+        <name>APPR_BTN_CONSENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_CONSENT_ADD --></label>
+        <name>APPR_BTN_CONSENT_ADD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_EDITTEXT --></label>
+        <name>APPR_BTN_EDITTEXT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_GETTEAM --></label>
+        <name>APPR_BTN_GETTEAM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_GETTEAMMEMBER --></label>
+        <name>APPR_BTN_GETTEAMMEMBER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_GET_APPROVAL_LINE --></label>
+        <name>APPR_BTN_GET_APPROVAL_LINE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_NOTIFICATION --></label>
+        <name>APPR_BTN_NOTIFICATION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_NOTIFICATION_ADD --></label>
+        <name>APPR_BTN_NOTIFICATION_ADD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_PARALLEL --></label>
+        <name>APPR_BTN_PARALLEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_PARAPPROVAL --></label>
+        <name>APPR_BTN_PARAPPROVAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_PARCONSENT --></label>
+        <name>APPR_BTN_PARCONSENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_REFRESH_STATUS --></label>
+        <name>APPR_BTN_REFRESH_STATUS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_SUBMIT --></label>
+        <name>APPR_BTN_SUBMIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_BTN_TEMPSAVE --></label>
+        <name>APPR_BTN_TEMPSAVE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_ADD_APPROVER --></label>
+        <name>APPR_LAB_ADD_APPROVER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_APPROVALCONTENTS --></label>
+        <name>APPR_LAB_APPROVALCONTENTS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_APPROVAL_LINE --></label>
+        <name>APPR_LAB_APPROVAL_LINE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_APPROVAL_LINE_ERR --></label>
+        <name>APPR_LAB_APPROVAL_LINE_ERR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_APPROVER --></label>
+        <name>APPR_LAB_APPROVER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_BIZ_LEVEL_BEFORE --></label>
+        <name>APPR_LAB_BIZ_LEVEL_BEFORE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_CREATEAPPROVER --></label>
+        <name>APPR_LAB_CREATEAPPROVER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_GETAPPROVALSTATUS --></label>
+        <name>APPR_LAB_GETAPPROVALSTATUS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_GET_APPROVAL_BODY --></label>
+        <name>APPR_LAB_GET_APPROVAL_BODY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_HISTORYCREATEDBYNAME --></label>
+        <name>APPR_LAB_HISTORYCREATEDBYNAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_HISTORYCREATEDDATE --></label>
+        <name>APPR_LAB_HISTORYCREATEDDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_HISTORYNAME --></label>
+        <name>APPR_LAB_HISTORYNAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_HISTORYSTATUS --></label>
+        <name>APPR_LAB_HISTORYSTATUS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_OPINION --></label>
+        <name>APPR_LAB_OPINION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_LAB_TEMPLATECATEGORY --></label>
+        <name>APPR_LAB_TEMPLATECATEGORY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0001 --></label>
+        <name>APPR_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0002 --></label>
+        <name>APPR_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0003 --></label>
+        <name>APPR_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0004 --></label>
+        <name>APPR_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0005 --></label>
+        <name>APPR_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0006 --></label>
+        <name>APPR_MSG_0006</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0007 --></label>
+        <name>APPR_MSG_0007</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0008 --></label>
+        <name>APPR_MSG_0008</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0009 --></label>
+        <name>APPR_MSG_0009</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0010 --></label>
+        <name>APPR_MSG_0010</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0011 --></label>
+        <name>APPR_MSG_0011</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0012 --></label>
+        <name>APPR_MSG_0012</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0013 --></label>
+        <name>APPR_MSG_0013</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0014 --></label>
+        <name>APPR_MSG_0014</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0015 --></label>
+        <name>APPR_MSG_0015</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0016 --></label>
+        <name>APPR_MSG_0016</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0017 --></label>
+        <name>APPR_MSG_0017</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0018 --></label>
+        <name>APPR_MSG_0018</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0019 --></label>
+        <name>APPR_MSG_0019</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0020 --></label>
+        <name>APPR_MSG_0020</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0021 --></label>
+        <name>APPR_MSG_0021</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0022 --></label>
+        <name>APPR_MSG_0022</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0023 --></label>
+        <name>APPR_MSG_0023</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0024 --></label>
+        <name>APPR_MSG_0024</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0025 --></label>
+        <name>APPR_MSG_0025</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0026 --></label>
+        <name>APPR_MSG_0026</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0027 --></label>
+        <name>APPR_MSG_0027</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0028 --></label>
+        <name>APPR_MSG_0028</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0029 --></label>
+        <name>APPR_MSG_0029</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0030 --></label>
+        <name>APPR_MSG_0030</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0031 --></label>
+        <name>APPR_MSG_0031</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0032 --></label>
+        <name>APPR_MSG_0032</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0033 --></label>
+        <name>APPR_MSG_0033</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0034 --></label>
+        <name>APPR_MSG_0034</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0035 --></label>
+        <name>APPR_MSG_0035</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0036 --></label>
+        <name>APPR_MSG_0036</name>
+    </customLabels>
+    <customLabels>
+        <label>The Bidding method of BO which you will raise Contract Approval is a &quot;{0}&quot;.
+If the bidding method is not that you intended, please return to the Business Opportunity-Details screen and change the bidding method that you want. 
+Would you like to return to the Business Opportunity-Details screen for the change?</label>
+        <name>APPR_MSG_0037</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0038 --></label>
+        <name>APPR_MSG_0038</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_0039 --></label>
+        <name>APPR_MSG_0039</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_MSG_MORE_DETAIL --></label>
+        <name>APPR_MSG_MORE_DETAIL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- APPR_NUM_HISLOOKUP_DURATION --></label>
+        <name>APPR_NUM_HISLOOKUP_DURATION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ASLTM Salesleadteammember --></label>
+        <name>ASLTM_Salesleadteammember</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Account Information --></label>
+        <name>Account_Information</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Account Name --></label>
+        <name>Account_Name</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Account Number --></label>
+        <name>Account_Number</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Account Owner Name --></label>
+        <name>Account_Owner_Name</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- AddSalesTeamMemberCmp Message --></label>
+        <name>AddSalesTeamMemberCmpMessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Admin Profile ID --></label>
+        <name>Admin_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Analysis of Competition Results --></label>
+        <name>Analysis_of_Competition_Results</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOReviewMessage --></label>
+        <name>BOReviewMessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_BTN_NEW --></label>
+        <name>BOSEARCH_BTN_NEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_BTN_NO_CANCEL --></label>
+        <name>BOSEARCH_BTN_NO_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_BTN_OK_SEND --></label>
+        <name>BOSEARCH_BTN_OK_SEND</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_BTN_SEARCH --></label>
+        <name>BOSEARCH_BTN_SEARCH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_1STCLOSEDATE --></label>
+        <name>BOSEARCH_LAB_1STCLOSEDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_1STENDDATE --></label>
+        <name>BOSEARCH_LAB_1STENDDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_1STSTARTDATE --></label>
+        <name>BOSEARCH_LAB_1STSTARTDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_ACCOUNTCODE --></label>
+        <name>BOSEARCH_LAB_ACCOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_ACCOUNTCODE --></label>
+        <name>BOSEARCH_LAB_ACCOUNTCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_ALL --></label>
+        <name>BOSEARCH_LAB_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_BIZLEVEL --></label>
+        <name>BOSEARCH_LAB_BIZLEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_BIZTYPE --></label>
+        <name>BOSEARCH_LAB_BIZTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_BOCODE --></label>
+        <name>BOSEARCH_LAB_BOCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_BONAME --></label>
+        <name>BOSEARCH_LAB_BONAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_BULK_MAIL_BODY --></label>
+        <name>BOSEARCH_LAB_BULK_MAIL_BODY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_BULK_MAIL_SUBJECT --></label>
+        <name>BOSEARCH_LAB_BULK_MAIL_SUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_CLOSEDATE --></label>
+        <name>BOSEARCH_LAB_CLOSEDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_COLLABORATION --></label>
+        <name>BOSEARCH_LAB_COLLABORATION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_COLLABO_O --></label>
+        <name>BOSEARCH_LAB_COLLABO_O</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_COLLABO_X --></label>
+        <name>BOSEARCH_LAB_COLLABO_X</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_COMPANYCODE --></label>
+        <name>BOSEARCH_LAB_COMPANYCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_COMPANYID --></label>
+        <name>BOSEARCH_LAB_COMPANYID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_DEALBREAK --></label>
+        <name>BOSEARCH_LAB_DEALBREAK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_DELIVERYDEPT --></label>
+        <name>BOSEARCH_LAB_DELIVERYDEPT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_DELIVERYDEVISION --></label>
+        <name>BOSEARCH_LAB_DELIVERYDEVISION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_DOMESTIC --></label>
+        <name>BOSEARCH_LAB_DOMESTIC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_ENDDATE --></label>
+        <name>BOSEARCH_LAB_ENDDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_ENTERBOCODE --></label>
+        <name>BOSEARCH_LAB_ENTERBOCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_ENTERBONAME --></label>
+        <name>BOSEARCH_LAB_ENTERBONAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_EXPORT_CONFIRM --></label>
+        <name>BOSEARCH_LAB_EXPORT_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_EXPORT_FAIL --></label>
+        <name>BOSEARCH_LAB_EXPORT_FAIL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_EXPORT_LIMIT --></label>
+        <name>BOSEARCH_LAB_EXPORT_LIMIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_EXPORT_LIMIT_COUNT --></label>
+        <name>BOSEARCH_LAB_EXPORT_LIMIT_COUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_EXPORT_NO_OPPTY --></label>
+        <name>BOSEARCH_LAB_EXPORT_NO_OPPTY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_EXPORT_SUCCESS --></label>
+        <name>BOSEARCH_LAB_EXPORT_SUCCESS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_EXTERNALBIZ --></label>
+        <name>BOSEARCH_LAB_EXTERNALBIZ</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_GROUPINTERNAL --></label>
+        <name>BOSEARCH_LAB_GROUPINTERNAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_HEADER --></label>
+        <name>BOSEARCH_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_INTERNALBIZ --></label>
+        <name>BOSEARCH_LAB_INTERNALBIZ</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_ORIGNACCOUNT --></label>
+        <name>BOSEARCH_LAB_ORIGNACCOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_ORIGNACCOUNTCODE --></label>
+        <name>BOSEARCH_LAB_ORIGNACCOUNTCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_OWNER --></label>
+        <name>BOSEARCH_LAB_OWNER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_PROJECTCODE --></label>
+        <name>BOSEARCH_LAB_PROJECTCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_RECORDTYPE --></label>
+        <name>BOSEARCH_LAB_RECORDTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_SALESDEPT --></label>
+        <name>BOSEARCH_LAB_SALESDEPT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_SALESDIVISION --></label>
+        <name>BOSEARCH_LAB_SALESDIVISION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_SERVICE --></label>
+        <name>BOSEARCH_LAB_SERVICE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_SOLUTION --></label>
+        <name>BOSEARCH_LAB_SOLUTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_STAGE --></label>
+        <name>BOSEARCH_LAB_STAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_STARTDATE --></label>
+        <name>BOSEARCH_LAB_STARTDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_STATUS --></label>
+        <name>BOSEARCH_LAB_STATUS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_MSG_0001 --></label>
+        <name>BOSEARCH_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_MSG_0002 --></label>
+        <name>BOSEARCH_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_MSG_0003 --></label>
+        <name>BOSEARCH_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_MSG_0004 --></label>
+        <name>BOSEARCH_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_Strategic_Account --></label>
+        <name>BOSEARCH_Strategic_Account</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Primary Delivery Dept.(Lv.3) Validation --></label>
+        <name>BO_Primary_Delivery_Dept_Lv_3_Validation</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO REPORT SDSAE --></label>
+        <name>BO_REPORT_SDSAE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO REPORT SDSEG --></label>
+        <name>BO_REPORT_SDSEG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO REPORT SDSI-CNL --></label>
+        <name>BO_REPORT_SDSI_CNL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO REPORT SDSI-NDL --></label>
+        <name>BO_REPORT_SDSI_NDL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO REPORT SDSTR --></label>
+        <name>BO_REPORT_SDSTR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO REPORT SDSZA --></label>
+        <name>BO_REPORT_SDSZA</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO_REVIEW_URL --></label>
+        <name>BO_REVIEW_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table A UrlSDSAE --></label>
+        <name>BO_Report_table_A_Url</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table A UrlSDSEG --></label>
+        <name>BO_Report_table_A_UrlSDSEG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table A UrlSDSI-CNL --></label>
+        <name>BO_Report_table_A_UrlSDSI_CNL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table A UrlSDSI-NDL --></label>
+        <name>BO_Report_table_A_UrlSDSI_NDL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table A UrlSDSTR --></label>
+        <name>BO_Report_table_A_UrlSDSTR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table A UrlSDSZA --></label>
+        <name>BO_Report_table_A_UrlSDSZA</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table C UrlSDSAE --></label>
+        <name>BO_Report_table_C_Url</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table C UrlSDSEG --></label>
+        <name>BO_Report_table_C_UrlSDSEG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table C UrlSDSI-CNL --></label>
+        <name>BO_Report_table_C_UrlSDSI_CNL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table C UrlSDSI-NDL --></label>
+        <name>BO_Report_table_C_UrlSDSI_NDL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table C UrlSDSTR --></label>
+        <name>BO_Report_table_C_UrlSDSTR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Report table C UrlSDSZA --></label>
+        <name>BO_Report_table_C_UrlSDSZA</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Team Mamber Billing Manager Msg --></label>
+        <name>BO_Team_Mamber_Billing_Manager_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Batch_Employee_Deletion_User --></label>
+        <name>Batch_Employee_Deletion_User</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_BTN_CLOSE --></label>
+        <name>CALEANDER_BTN_CLOSE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_BTN_GODETAIL --></label>
+        <name>CALEANDER_BTN_GODETAIL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_BTN_LIST --></label>
+        <name>CALEANDER_BTN_LIST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_BTN_MONTH --></label>
+        <name>CALEANDER_BTN_MONTH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_ACCPLAN --></label>
+        <name>CALEANDER_LAB_ACCPLAN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_DESCRIPTION --></label>
+        <name>CALEANDER_LAB_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_EDATETIME --></label>
+        <name>CALEANDER_LAB_EDATETIME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_EVENT --></label>
+        <name>CALEANDER_LAB_EVENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_FRI --></label>
+        <name>CALEANDER_LAB_FRI</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_MON --></label>
+        <name>CALEANDER_LAB_MON</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_MYACTIVITIES --></label>
+        <name>CALEANDER_LAB_MYACTIVITIES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_MYCALENDAR --></label>
+        <name>CALEANDER_LAB_MYCALENDAR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_MYTEAM --></label>
+        <name>CALEANDER_LAB_MYTEAM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_NEXTMONTH --></label>
+        <name>CALEANDER_LAB_NEXTMONTH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_NORESULT --></label>
+        <name>CALEANDER_LAB_NORESULT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_OPPTYACTIVITY --></label>
+        <name>CALEANDER_LAB_OPPTYACTIVITY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_OPPTYACTIVITY2 --></label>
+        <name>CALEANDER_LAB_OPPTYACTIVITY2</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_OWNER --></label>
+        <name>CALEANDER_LAB_OWNER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_PREMONTH --></label>
+        <name>CALEANDER_LAB_PREMONTH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_RELATEDTO --></label>
+        <name>CALEANDER_LAB_RELATEDTO</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_SAT --></label>
+        <name>CALEANDER_LAB_SAT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_SDATETIME --></label>
+        <name>CALEANDER_LAB_SDATETIME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_SUBJECT --></label>
+        <name>CALEANDER_LAB_SUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_SUN --></label>
+        <name>CALEANDER_LAB_SUN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_TASK --></label>
+        <name>CALEANDER_LAB_TASK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_THU --></label>
+        <name>CALEANDER_LAB_THU</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_TODAY --></label>
+        <name>CALEANDER_LAB_TODAY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_TUE --></label>
+        <name>CALEANDER_LAB_TUE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_TYPE --></label>
+        <name>CALEANDER_LAB_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CALEANDER_LAB_WED --></label>
+        <name>CALEANDER_LAB_WED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CAPP_LAB_CANCELCOMMENTS --></label>
+        <name>CAPP_LAB_CANCELCOMMENTS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CAPP_LAB_CANCELSUBMISSION --></label>
+        <name>CAPP_LAB_CANCELSUBMISSION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CAPP_MSG_0001 --></label>
+        <name>CAPP_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CAPP_MSG_0002 --></label>
+        <name>CAPP_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CAPP_MSG_0003 --></label>
+        <name>CAPP_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CAPP_MSG_0004 --></label>
+        <name>CAPP_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CAPP_MSG_CANCELCOMMENTS --></label>
+        <name>CAPP_MSG_CANCELCOMMENTS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CCBS_PRD_TOKEN --></label>
+        <name>CCBS_PRD_TOKEN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CCBS_QA_TOKEN --></label>
+        <name>CCBS_QA_TOKEN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CELLO_AES_METHOD --></label>
+        <name>CELLO_AES_METHOD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CELLO_AES_SECRET_KEY --></label>
+        <name>CELLO_AES_SECRET_KEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CELLO_MENU_URL --></label>
+        <name>CELLO_MENU_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_ACCNAME --></label>
+        <name>COLLABO_LAB_ACCNAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_ACCOUNT --></label>
+        <name>COLLABO_LAB_ACCOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_AMOUNT --></label>
+        <name>COLLABO_LAB_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_CLOSEDATE --></label>
+        <name>COLLABO_LAB_CLOSEDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_COLLABOINFO --></label>
+        <name>COLLABO_LAB_COLLABOINFO</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_COLLABOOPPTY --></label>
+        <name>COLLABO_LAB_COLLABOOPPTY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_COMPANYCODE --></label>
+        <name>COLLABO_LAB_COMPANYCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_COMPANYNAME --></label>
+        <name>COLLABO_LAB_COMPANYNAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_CURRENCY --></label>
+        <name>COLLABO_LAB_CURRENCY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_HEADER --></label>
+        <name>COLLABO_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_MYOPPTY --></label>
+        <name>COLLABO_LAB_MYOPPTY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_NORESULT --></label>
+        <name>COLLABO_LAB_NORESULT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_OPPTYCODE --></label>
+        <name>COLLABO_LAB_OPPTYCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_OPPTYINFO --></label>
+        <name>COLLABO_LAB_OPPTYINFO</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_OPPTYNAME --></label>
+        <name>COLLABO_LAB_OPPTYNAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_SEARCHHEADER --></label>
+        <name>COLLABO_LAB_SEARCHHEADER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_STAGE --></label>
+        <name>COLLABO_LAB_STAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_STATUS --></label>
+        <name>COLLABO_LAB_STATUS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_LAB_USER --></label>
+        <name>COLLABO_LAB_USER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_MSG_0001 --></label>
+        <name>COLLABO_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_MSG_0002 --></label>
+        <name>COLLABO_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_MSG_0003 --></label>
+        <name>COLLABO_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_MSG_0004 --></label>
+        <name>COLLABO_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_MSG_0005 --></label>
+        <name>COLLABO_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_MSG_0006 --></label>
+        <name>COLLABO_MSG_0006</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_MSG_0007 --></label>
+        <name>COLLABO_MSG_0007</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_MSG_0008 --></label>
+        <name>COLLABO_MSG_0008</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_MSG_0009 --></label>
+        <name>COLLABO_MSG_0009</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COLLABO_MSG_0010 --></label>
+        <name>COLLABO_MSG_0010</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_CANCEL --></label>
+        <name>COMM_BTN_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_CONFIRM --></label>
+        <name>COMM_BTN_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_DELETE --></label>
+        <name>COMM_BTN_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_DONE --></label>
+        <name>COMM_BTN_DONE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_OK --></label>
+        <name>COMM_BTN_OK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_REFRESH --></label>
+        <name>COMM_BTN_REFRESH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_SAVE --></label>
+        <name>COMM_BTN_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_SEND_SAP --></label>
+        <name>COMM_BTN_SEND_SAP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_BTN_USER_MANUAL --></label>
+        <name>COMM_BTN_USER_MANUAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_AES256KEY --></label>
+        <name>COMM_LAB_AES256KEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_ALERT --></label>
+        <name>COMM_LAB_ALERT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_ATTACHMENT --></label>
+        <name>COMM_LAB_ATTACHMENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_DEPARTMENT --></label>
+        <name>COMM_LAB_DEPARTMENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_DOWNLOAD --></label>
+        <name>COMM_LAB_DOWNLOAD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_EMAIL --></label>
+        <name>COMM_LAB_EMAIL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_ERROR --></label>
+        <name>COMM_LAB_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_NAME --></label>
+        <name>COMM_LAB_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_OWNER --></label>
+        <name>COMM_LAB_OWNER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_RESPONSE --></label>
+        <name>COMM_LAB_RESPONSE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_SUCCESS --></label>
+        <name>COMM_LAB_SUCCESS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_LAB_TITLE --></label>
+        <name>COMM_LAB_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_MSG_0001 --></label>
+        <name>COMM_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_MSG_0002 --></label>
+        <name>COMM_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_MSG_0003 --></label>
+        <name>COMM_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_MSG_0004 --></label>
+        <name>COMM_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_MSG_0011 --></label>
+        <name>COMM_MSG_0011</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_MSG_0020 --></label>
+        <name>COMM_MSG_0020</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_MSG_RECORD_LOCKED --></label>
+        <name>COMM_MSG_RECORD_LOCKED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_VAL_PREACTVALID_AFTER_DATE --></label>
+        <name>COMM_VAL_PREACTVALID_AFTER_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_VAL_TEST_DATE --></label>
+        <name>COMM_VAL_TEST_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>[Compliance guide]&lt;br/&gt;
+&lt;br/&gt;
+Please note that the information acquired when reporting weekly reports should be prepared based on the contents disclosed to the public, and the use or exchange of information from competitors or clients may constitute a violation of laws and regulations such as infringement of trade secrets or illegal cartel.&lt;br/&gt;
+&lt;br/&gt;
+※ Type of information exchange for illegal cartel (in the case of restricting competition)&lt;br/&gt;
+&amp;nbsp;&amp;nbsp;- Cost of goods and services.&lt;br/&gt;
+&amp;nbsp;&amp;nbsp;- Forwarding volume, inventory, sales volume.&lt;br/&gt;
+&amp;nbsp;&amp;nbsp;- Terms of transaction of goods and services and terms of payment.&lt;br/&gt;</label>
+        <name>COMPLIANCE_GUIDE_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONTACT_OWNER_ONLY --></label>
+        <name>CONTACT_OWNER_ONLY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_CONVERT --></label>
+        <name>CONVERT_LAB_CONVERT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_CONVERTLEAD --></label>
+        <name>CONVERT_LAB_CONVERTLEAD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_FAILCONVERT --></label>
+        <name>CONVERT_LAB_FAILCONVERT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_LEAD --></label>
+        <name>CONVERT_LAB_LEAD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_LEAD_API --></label>
+        <name>CONVERT_LAB_LEAD_API</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG01 --></label>
+        <name>CONVERT_LAB_MSG01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG02 --></label>
+        <name>CONVERT_LAB_MSG02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG03 --></label>
+        <name>CONVERT_LAB_MSG03</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG04 --></label>
+        <name>CONVERT_LAB_MSG04</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG05 --></label>
+        <name>CONVERT_LAB_MSG05</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG06 --></label>
+        <name>CONVERT_LAB_MSG06</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG07 --></label>
+        <name>CONVERT_LAB_MSG07</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG08 --></label>
+        <name>CONVERT_LAB_MSG08</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG09 --></label>
+        <name>CONVERT_LAB_MSG09</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG10 --></label>
+        <name>CONVERT_LAB_MSG10</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG11 --></label>
+        <name>CONVERT_LAB_MSG11</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG12 --></label>
+        <name>CONVERT_LAB_MSG12</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG13 --></label>
+        <name>CONVERT_LAB_MSG13</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG14 --></label>
+        <name>CONVERT_LAB_MSG14</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG15 --></label>
+        <name>CONVERT_LAB_MSG15</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG16 --></label>
+        <name>CONVERT_LAB_MSG16</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG17 --></label>
+        <name>CONVERT_LAB_MSG17</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG18 --></label>
+        <name>CONVERT_LAB_MSG18</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG19 --></label>
+        <name>CONVERT_LAB_MSG19</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG20 --></label>
+        <name>CONVERT_LAB_MSG20</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG21 --></label>
+        <name>CONVERT_LAB_MSG21</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG22 --></label>
+        <name>CONVERT_LAB_MSG22</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG23 --></label>
+        <name>CONVERT_LAB_MSG23</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG24 --></label>
+        <name>CONVERT_LAB_MSG24</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG25 --></label>
+        <name>CONVERT_LAB_MSG25</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG26 --></label>
+        <name>CONVERT_LAB_MSG26</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG27 --></label>
+        <name>CONVERT_LAB_MSG27</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG28 --></label>
+        <name>CONVERT_LAB_MSG28</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_MSG29 --></label>
+        <name>CONVERT_LAB_MSG29</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_OPPORTUNITY --></label>
+        <name>CONVERT_LAB_OPPORTUNITY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_RECORDOWNER --></label>
+        <name>CONVERT_LAB_RECORDOWNER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_SALESLEAD --></label>
+        <name>CONVERT_LAB_SALESLEAD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_SALESLEADCONVERT --></label>
+        <name>CONVERT_LAB_SALESLEADCONVERT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_SALES_LEAD_API --></label>
+        <name>CONVERT_LAB_SALES_LEAD_API</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVERT_LAB_SUCCESSCONVERT --></label>
+        <name>CONVERT_LAB_SUCCESSCONVERT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVER_BTN_CANCEL --></label>
+        <name>CONVER_BTN_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CONVER_BTN_CONVERT --></label>
+        <name>CONVER_BTN_CONVERT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CPReviewConfirmMessage --></label>
+        <name>CPReviewConfirmMessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cancel --></label>
+        <name>Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CargoesErrormessage --></label>
+        <name>CargoesErrormessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cargoeslabel --></label>
+        <name>Cargoeslabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ChangeOwner --></label>
+        <name>ChangeOwner</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Change Account Number --></label>
+        <name>Change_Account_Number</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Change Account Owner --></label>
+        <name>Change_Account_Owner</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Change_Account_OwnerBtn --></label>
+        <name>Change_Account_OwnerBtn</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Change Opportunity Owner --></label>
+        <name>Change_Opportunity_Owner</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Change_Opportunity_OwnerBtn --></label>
+        <name>Change_Opportunity_OwnerBtn</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Change Owner --></label>
+        <name>Change_Owner</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Change_OwnerBtn --></label>
+        <name>Change_OwnerBtn</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CheckCompletionDate --></label>
+        <name>CheckCompletionDate</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Check Rate Value --></label>
+        <name>Check_Rate_Value</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Class Code --></label>
+        <name>Class_Code</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Class Name --></label>
+        <name>Class_Name</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Clear Lost/Drop Type --></label>
+        <name>Clear_Lost_Drop_Type</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- set of CompanyName for CompanyAverageLogin Class --></label>
+        <name>CompanyAverageLogin_CompanyNames</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CompanyAverageLogin_Logistics --></label>
+        <name>CompanyAverageLogin_Logistics</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- set of Profiles for CompanyAverageLogin class --></label>
+        <name>CompanyAverageLogin_Profiles</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CompanyAverageLogin_UserType --></label>
+        <name>CompanyAverageLogin_UserType</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Company Code --></label>
+        <name>Company_Code</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Company Name --></label>
+        <name>Company_Name</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Company code label --></label>
+        <name>Company_code_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Completion Date --></label>
+        <name>Completion_Date</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ContentHeading --></label>
+        <name>ContentHeading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ContentHeading1 --></label>
+        <name>ContentHeading1</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ContentHeading2 --></label>
+        <name>ContentHeading2</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Convert --></label>
+        <name>Convert</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Copy --></label>
+        <name>Copy</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Copy Analysis of Comp  Data --></label>
+        <name>Copy_Analysis_of_Comp_Data</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Copy Drop Type --></label>
+        <name>Copy_Drop_Type</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Copy Success Msg --></label>
+        <name>Copy_Success_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cost_Center_001 --></label>
+        <name>Cost_Center_001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cost_Center_002 --></label>
+        <name>Cost_Center_002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Cost_Center_003 --></label>
+        <name>Cost_Center_003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CounterMeasure --></label>
+        <name>CounterMeasure</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Countermeasures --></label>
+        <name>Countermeasures</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CreateUser --></label>
+        <name>CreateUser</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Critical_LOST_003 --></label>
+        <name>Critical_LOST_003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Custom System Administrator Profile ID --></label>
+        <name>Custom_System_Administrator_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Deadline --></label>
+        <name>Deadline</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Deleteoppserivedesk --></label>
+        <name>Deleteoppserivedesk</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- DeliveryProbabilityCancel --></label>
+        <name>DeliveryProbabilityCancel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- DeliveryProbabilityDefault --></label>
+        <name>DeliveryProbabilityDefault</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- DeliveryProbabilityHeading --></label>
+        <name>DeliveryProbabilityHeading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- DeliveryProbabilitySecondHeading --></label>
+        <name>DeliveryProbabilitySecondHeading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- DeliveryProbabilityViewAll --></label>
+        <name>DeliveryProbabilityViewAll</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Department Name --></label>
+        <name>Department_Name</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Dept. in Charge --></label>
+        <name>Dept_in_Charge</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Description_LOST_003 --></label>
+        <name>Description_LOST_003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Detail --></label>
+        <name>Detail</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Detail Character validation --></label>
+        <name>Detail_Character_validation</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Details --></label>
+        <name>Details</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Division Name --></label>
+        <name>Division_Name</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Divison Code --></label>
+        <name>Divison_Code</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Drop_Formula_label --></label>
+        <name>Drop_Formula_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Drop_Type --></label>
+        <name>Drop_Type</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Dtrop/Lost Activity Success Msg --></label>
+        <name>Dtrop_Lost_Activity_Success_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EFSS_COMP_BUTTON_DELETE --></label>
+        <name>EFSS_COMP_BUTTON_DELETE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EFSS_COMP_BUTTON_DOWNLOAD --></label>
+        <name>EFSS_COMP_BUTTON_DOWNLOAD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EFSS_COMP_DELETE_ERROR --></label>
+        <name>EFSS_COMP_DELETE_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EFSS_COMP_ERR_MSG_SERVER_NOT_RESPONDED --></label>
+        <name>EFSS_COMP_ERR_MSG_SERVER_NOT_RESPONDED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EFSS_COMP_ERR_MSG_XHR_ERROR --></label>
+        <name>EFSS_COMP_ERR_MSG_XHR_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label>Files</label>
+        <name>EFSS_COMP_LABEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EFSS_COMP_UNKNOWN_ERROR --></label>
+        <name>EFSS_COMP_UNKNOWN_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EFSS_COMP_VIEWER_NOT_SUPPORTED --></label>
+        <name>EFSS_COMP_VIEWER_NOT_SUPPORTED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EFSS_COMP_VIEWER_PC_NOT_SUPPORTED --></label>
+        <name>EFSS_COMP_VIEWER_PC_NOT_SUPPORTED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EFSS_VAULT_AUTHKEY --></label>
+        <name>EFSS_VAULT_AUTHKEY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EFSS_VAULT_AUTHURL --></label>
+        <name>EFSS_VAULT_AUTHURL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EFSS_VAULT_FILEURL --></label>
+        <name>EFSS_VAULT_FILEURL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_LAB_EMAIL --></label>
+        <name>EMAIL_LAB_EMAIL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_LAB_FROM --></label>
+        <name>EMAIL_LAB_FROM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_LAB_RECIPIENTS --></label>
+        <name>EMAIL_LAB_RECIPIENTS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_LAB_REPORT_TEMPLATE --></label>
+        <name>EMAIL_LAB_REPORT_TEMPLATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_LAB_SEND --></label>
+        <name>EMAIL_LAB_SEND</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_LAB_SUBJECT --></label>
+        <name>EMAIL_LAB_SUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_LOST_001 --></label>
+        <name>EMAIL_LOST_001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_LOST_002 --></label>
+        <name>EMAIL_LOST_002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_LOST_003 --></label>
+        <name>EMAIL_LOST_003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0001 --></label>
+        <name>EMAIL_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0002 --></label>
+        <name>EMAIL_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0003 --></label>
+        <name>EMAIL_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0004 --></label>
+        <name>EMAIL_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0005 --></label>
+        <name>EMAIL_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0006 --></label>
+        <name>EMAIL_MSG_0006</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0007 --></label>
+        <name>EMAIL_MSG_0007</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0008 --></label>
+        <name>EMAIL_MSG_0008</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0009 --></label>
+        <name>EMAIL_MSG_0009</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0010 --></label>
+        <name>EMAIL_MSG_0010</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0011 --></label>
+        <name>EMAIL_MSG_0011</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0012 --></label>
+        <name>EMAIL_MSG_0012</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0013 --></label>
+        <name>EMAIL_MSG_0013</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0014 --></label>
+        <name>EMAIL_MSG_0014</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_MSG_0015 --></label>
+        <name>EMAIL_MSG_0015</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_USER_LOGISTICS_GROUP --></label>
+        <name>EMAIL_USER_LOGISTICS_GROUP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EMAIL_USER_PRICING_GROUP --></label>
+        <name>EMAIL_USER_PRICING_GROUP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EP ID --></label>
+        <name>EP_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_LAB_ADDRESS --></label>
+        <name>EXINFO_LAB_ADDRESS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_LAB_CEONAME --></label>
+        <name>EXINFO_LAB_CEONAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_LAB_ENNAME --></label>
+        <name>EXINFO_LAB_ENNAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_LAB_FAX --></label>
+        <name>EXINFO_LAB_FAX</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_LAB_HEADER --></label>
+        <name>EXINFO_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_LAB_INFOSOURCE --></label>
+        <name>EXINFO_LAB_INFOSOURCE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_LAB_KRNAME --></label>
+        <name>EXINFO_LAB_KRNAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_LAB_PHONE --></label>
+        <name>EXINFO_LAB_PHONE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_LAB_WEBSITE --></label>
+        <name>EXINFO_LAB_WEBSITE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_MSG_0001 --></label>
+        <name>EXINFO_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_MSG_0002 --></label>
+        <name>EXINFO_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_MSG_0003 --></label>
+        <name>EXINFO_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EXINFO_MSG_0004 --></label>
+        <name>EXINFO_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- EmailAddressMandate --></label>
+        <name>EmailAddressMandate</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Email address place holder --></label>
+        <name>EmailAddressPlaceHolder</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Email Address --></label>
+        <name>Email_Address</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Employee Information --></label>
+        <name>Employee_Information</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Employee Name --></label>
+        <name>Employee_Name</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ErrorTotal100Value --></label>
+        <name>ErrorTotal100Value</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error Duplicate Value --></label>
+        <name>Error_Duplicate_Value</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error Mandatory Fields --></label>
+        <name>Error_Mandatory_Fields</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Error Mandatory Fields Table2 --></label>
+        <name>Error_Mandatory_Fields_Table2</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_EXCEPTION_CANNOT_MODIFIED --></label>
+        <name>Exceptional_opportunities_for_business_review_cannot_be_modified</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FILE_0002 --></label>
+        <name>FILE_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FILE_MSG_0001 --></label>
+        <name>FILE_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FILE_MSG_0002 --></label>
+        <name>FILE_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FILE_MSG_0003 --></label>
+        <name>FILE_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FILE_MSG_0004 --></label>
+        <name>FILE_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FILE_MSG_0005 --></label>
+        <name>FILE_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FILE_MSG_0006 --></label>
+        <name>FILE_MSG_0006</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FILE_MSG_0007 --></label>
+        <name>FILE_MSG_0007</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- This Label is used to set the Notes&amp;Attachments heading and error message. --></label>
+        <name>File_Attachment_Label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FirstPopupmainHeading --></label>
+        <name>FirstPopupmainHeading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FooterMessage --></label>
+        <name>FooterMessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- GOOGLENEWS_KEYWORD --></label>
+        <name>GOOGLENEWS_KEYWORD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- GOOGLENEWS_KEYWORD_TITLE --></label>
+        <name>GOOGLENEWS_KEYWORD_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- GOOGLENEWS_TITLE --></label>
+        <name>GOOGLENEWS_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group_Hierarchy_100M_Label --></label>
+        <name>Group_Hierarchy_100M_Label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Amount Column --></label>
+        <name>Group_Hierarchy_Amount_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy And Column --></label>
+        <name>Group_Hierarchy_And_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy BO Column --></label>
+        <name>Group_Hierarchy_BO_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Category Column --></label>
+        <name>Group_Hierarchy_Category_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Close Date Elapsed Column --></label>
+        <name>Group_Hierarchy_Close_Date_Elapsed_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Group Column --></label>
+        <name>Group_Hierarchy_Group_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Near To Close Column --></label>
+        <name>Group_Hierarchy_Near_To_Close_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Sub Total label --></label>
+        <name>Group_Hierarchy_Sub_Total_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Team Column --></label>
+        <name>Group_Hierarchy_Team_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy Total Label --></label>
+        <name>Group_Hierarchy_Total_Label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group_Hierarchy_Total_Sum_Label --></label>
+        <name>Group_Hierarchy_Total_Sum_Label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Group Hierarchy more Column --></label>
+        <name>Group_Hierarchy_more_Column</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Handle Yes LostDrop --></label>
+        <name>Handle_Yes_LostDrop</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Handle no --></label>
+        <name>Handle_no</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Handle yes --></label>
+        <name>Handle_yes</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- IF_ADMIN_MSG_001 --></label>
+        <name>IF_ADMIN_MSG_001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Improvement --></label>
+        <name>Improvement</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- JITTERBIT_IFERROR_Last_Minutes --></label>
+        <name>JITTERBIT_IFERROR_Last_Minutes</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- JITTERBIT_IFERROR_MAIL_RECIPIENT --></label>
+        <name>JITTERBIT_IFERROR_MAIL_RECIPIENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- JITTERBIT_IFERROR_MAIL_RECIPIENT_SANDBOX --></label>
+        <name>JITTERBIT_IFERROR_MAIL_RECIPIENT_SANDBOX</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- KNOX_ADDR_NEXT_URL --></label>
+        <name>KNOX_ADDR_NEXT_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- KNOX_ADDR_PREV_URL --></label>
+        <name>KNOX_ADDR_PREV_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- KNOX_ADDR_SHARE_URL --></label>
+        <name>KNOX_ADDR_SHARE_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- KNOX_ADDR_URL --></label>
+        <name>KNOX_ADDR_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- KRW_NOTICE_MSG --></label>
+        <name>KRW_NOTICE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Knox PJT Alert --></label>
+        <name>Knox_PJT_Alert</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Knox_PJT_Alert_In_Korean --></label>
+        <name>Knox_PJT_Alert_In_Korean</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Knox calendar Message --></label>
+        <name>Knox_calendar_Message</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LAPP_MSG_001 --></label>
+        <name>LAPP_MSG_001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LAPP_MSG_002 --></label>
+        <name>LAPP_MSG_002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LAPP_MSG_003 --></label>
+        <name>LAPP_MSG_003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LAPP_MSG_004 --></label>
+        <name>LAPP_MSG_004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LAPP_MSG_005 --></label>
+        <name>LAPP_MSG_005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LAPP_MSG_006 --></label>
+        <name>LAPP_MSG_006</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LAPP_MSG_007 --></label>
+        <name>LAPP_MSG_007</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGIN_LAB_LASTLOGIN --></label>
+        <name>LOGIN_LAB_LASTLOGIN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGIN_LAB_LOGINUSERINFO --></label>
+        <name>LOGIN_LAB_LOGINUSERINFO</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGIN_LAB_NAME --></label>
+        <name>LOGIN_LAB_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGISTICS_CPSTATUS_MSG_BID --></label>
+        <name>LOGISTICS_CPSTATUS_MSG_BID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGISTICS_CPSTATUS_MSG_FIN --></label>
+        <name>LOGISTICS_CPSTATUS_MSG_FIN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGISTICS_CP_BTN_CONFIRM --></label>
+        <name>LOGISTICS_CP_BTN_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGISTICS_CP_BTN_NEEDTOREVIEW --></label>
+        <name>LOGISTICS_CP_BTN_NEEDTOREVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGISTICS_CP_BTN_NO --></label>
+        <name>LOGISTICS_CP_BTN_NO</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LOGISTICS_CP_BTN_YES --></label>
+        <name>LOGISTICS_CP_BTN_YES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Lost_Formula_label --></label>
+        <name>Lost_Formula_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Lost Opportunity Field Validation Message --></label>
+        <name>Lost_Opportunity_Field_Validation_Message</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Lost Reason --></label>
+        <name>Lost_Reason</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Lost Type --></label>
+        <name>Lost_Type</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Lvl check error --></label>
+        <name>Lvl_check_error</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MAIN_NOTICE_ENDDATE --></label>
+        <name>MAIN_NOTICE_ENDDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MAIN_NOTICE_FLAG --></label>
+        <name>MAIN_NOTICE_FLAG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MAIN_NOTICE_MSG --></label>
+        <name>MAIN_NOTICE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MAIN_NOTICE_STARTDATE --></label>
+        <name>MAIN_NOTICE_STARTDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MAIN_NOTICE_TITLE --></label>
+        <name>MAIN_NOTICE_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MAIN_NOTICE_URL --></label>
+        <name>MAIN_NOTICE_URL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MDG_LAB_HEADER --></label>
+        <name>MDG_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MDG_MSG_0001 --></label>
+        <name>MDG_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MDG_MSG_0002 --></label>
+        <name>MDG_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MDG_MSG_0003 --></label>
+        <name>MDG_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MDG_MSG_0004 --></label>
+        <name>MDG_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MISID_EMAIL_CONTENT --></label>
+        <name>MISID_EMAIL_CONTENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MISID_EMAIL_SENDER --></label>
+        <name>MISID_EMAIL_SENDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MISID_EMAIL_SUBJECT --></label>
+        <name>MISID_EMAIL_SUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MISID_EMAIL_TOLIST --></label>
+        <name>MISID_EMAIL_TOLIST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000001 --></label>
+        <name>MS_20000001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000002 --></label>
+        <name>MS_20000002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000003 --></label>
+        <name>MS_20000003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000004 --></label>
+        <name>MS_20000004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000005 --></label>
+        <name>MS_20000005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000006 --></label>
+        <name>MS_20000006</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000007 --></label>
+        <name>MS_20000007</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000009 --></label>
+        <name>MS_20000009</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000010 --></label>
+        <name>MS_20000010</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000011 --></label>
+        <name>MS_20000011</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000012 --></label>
+        <name>MS_20000012</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000014 --></label>
+        <name>MS_20000014</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000015 --></label>
+        <name>MS_20000015</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000016 --></label>
+        <name>MS_20000016</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000019 --></label>
+        <name>MS_20000019</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000020 --></label>
+        <name>MS_20000020</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000021 --></label>
+        <name>MS_20000021</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000022 --></label>
+        <name>MS_20000022</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000023 --></label>
+        <name>MS_20000023</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000025 --></label>
+        <name>MS_20000025</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000026 --></label>
+        <name>MS_20000026</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000027 --></label>
+        <name>MS_20000027</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000028 --></label>
+        <name>MS_20000028</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000029 --></label>
+        <name>MS_20000029</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000030 --></label>
+        <name>MS_20000030</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_20000031 --></label>
+        <name>MS_20000031</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000001 --></label>
+        <name>MS_22000001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000002 --></label>
+        <name>MS_22000002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000003 --></label>
+        <name>MS_22000003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000004 --></label>
+        <name>MS_22000004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000005 --></label>
+        <name>MS_22000005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000006 --></label>
+        <name>MS_22000006</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000007 --></label>
+        <name>MS_22000007</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000008 --></label>
+        <name>MS_22000008</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000009 --></label>
+        <name>MS_22000009</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000010 --></label>
+        <name>MS_22000010</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000011 --></label>
+        <name>MS_22000011</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000012 --></label>
+        <name>MS_22000012</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000013 --></label>
+        <name>MS_22000013</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000014 --></label>
+        <name>MS_22000014</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000015 --></label>
+        <name>MS_22000015</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000016 --></label>
+        <name>MS_22000016</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000017 --></label>
+        <name>MS_22000017</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000018 --></label>
+        <name>MS_22000018</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000019 --></label>
+        <name>MS_22000019</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_22000021 --></label>
+        <name>MS_22000021</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- MS_TA_001 --></label>
+        <name>MS_TA_001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Managing dept --></label>
+        <name>Managing_dept</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- moreUserError --></label>
+        <name>MoreUserError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- More than one employee --></label>
+        <name>More_than_one_employee</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- No Default Sales Lead Team --></label>
+        <name>NoDefaultSalesLeadTeam</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- There is no employee with that email. --></label>
+        <name>NoEmployeeMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- NoRegisterUserLabel --></label>
+        <name>NoRegisterUserLabel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- No Data Saved Countermeasure --></label>
+        <name>No_Data_Saved_Countermeasure</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACTY_ERR_MSG001 --></label>
+        <name>OPPTYACTY_ERR_MSG001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACTY_ERR_MSG002 --></label>
+        <name>OPPTYACTY_ERR_MSG002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_PROPOSAL_SUBMIT_DATE --></label>
+        <name>OPPTYACT_BO_PROPOSAL_SUBMIT_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_ACCLOAN --></label>
+        <name>OPPTYACT_BO_REVIEW_ACCLOAN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_AMOUNT --></label>
+        <name>OPPTYACT_BO_REVIEW_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_AMOUNT_CAPTION --></label>
+        <name>OPPTYACT_BO_REVIEW_AMOUNT_CAPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_BID_APPRTYPE --></label>
+        <name>OPPTYACT_BO_REVIEW_BID_APPRTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_BIZ_AMOUNT --></label>
+        <name>OPPTYACT_BO_REVIEW_BIZ_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_BIZ_AMOUNT_CHECK --></label>
+        <name>OPPTYACT_BO_REVIEW_BIZ_AMOUNT_CHECK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_BIZ_APPRTYPE --></label>
+        <name>OPPTYACT_BO_REVIEW_BIZ_APPRTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_BIZ_LOAN --></label>
+        <name>OPPTYACT_BO_REVIEW_BIZ_LOAN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_BIZ_LOAN_CAPTION --></label>
+        <name>OPPTYACT_BO_REVIEW_BIZ_LOAN_CAPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_BIZ_TYPE --></label>
+        <name>OPPTYACT_BO_REVIEW_BIZ_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_CHECK_CONSORTIUM_01 --></label>
+        <name>OPPTYACT_BO_REVIEW_CHECK_CONSORTIUM_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_CHECK_CONSORTIUM_02 --></label>
+        <name>OPPTYACT_BO_REVIEW_CHECK_CONSORTIUM_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_CHOOSE_REVIEW_TYPE --></label>
+        <name>OPPTYACT_BO_REVIEW_CHOOSE_REVIEW_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_COMPLIANCE --></label>
+        <name>OPPTYACT_BO_REVIEW_COMPLIANCE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_COMPLIANCE_CHECK1 --></label>
+        <name>OPPTYACT_BO_REVIEW_COMPLIANCE_CHECK1</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_COMPLIANCE_CHECK2 --></label>
+        <name>OPPTYACT_BO_REVIEW_COMPLIANCE_CHECK2</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_COMPLIANCE_DROP --></label>
+        <name>OPPTYACT_BO_REVIEW_COMPLIANCE_DROP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_CONDUCTDATE --></label>
+        <name>OPPTYACT_BO_REVIEW_CONDUCTDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_CONSORTIUM --></label>
+        <name>OPPTYACT_BO_REVIEW_CONSORTIUM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_DANGEROUS --></label>
+        <name>OPPTYACT_BO_REVIEW_DANGEROUS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_DATA_CHANGED --></label>
+        <name>OPPTYACT_BO_REVIEW_DATA_CHANGED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_DESC --></label>
+        <name>OPPTYACT_BO_REVIEW_DESC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_ENTER_BUDGET --></label>
+        <name>OPPTYACT_BO_REVIEW_ENTER_BUDGET</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_ERRORMSG --></label>
+        <name>OPPTYACT_BO_REVIEW_ERRORMSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_ERR_MSG_01 --></label>
+        <name>OPPTYACT_BO_REVIEW_ERR_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_EXCEPTION --></label>
+        <name>OPPTYACT_BO_REVIEW_EXCEPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_EXCEPTION_CANNOT_MODIFIED --></label>
+        <name>OPPTYACT_BO_REVIEW_EXCEPTION_CANNOT_MODIFIED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_EXCEPTION_DESC --></label>
+        <name>OPPTYACT_BO_REVIEW_EXCEPTION_DESC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_EXCEPTION_LIMIT --></label>
+        <name>OPPTYACT_BO_REVIEW_EXCEPTION_LIMIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_EXCEPTION_NULL --></label>
+        <name>OPPTYACT_BO_REVIEW_EXCEPTION_NULL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_NO_PROJECT_CODE --></label>
+        <name>OPPTYACT_BO_REVIEW_NO_PROJECT_CODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_NO_SERVICE_SALES --></label>
+        <name>OPPTYACT_BO_REVIEW_NO_SERVICE_SALES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_ORIGINLOAN --></label>
+        <name>OPPTYACT_BO_REVIEW_ORIGINLOAN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_REQDATE --></label>
+        <name>OPPTYACT_BO_REVIEW_REQDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_RESULT --></label>
+        <name>OPPTYACT_BO_REVIEW_RESULT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_RESULT_DESC --></label>
+        <name>OPPTYACT_BO_REVIEW_RESULT_DESC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_RESULT_LIMIT --></label>
+        <name>OPPTYACT_BO_REVIEW_RESULT_LIMIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_RESULT_NULL --></label>
+        <name>OPPTYACT_BO_REVIEW_RESULT_NULL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_SAVE --></label>
+        <name>OPPTYACT_BO_REVIEW_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_SEARCH_BTN --></label>
+        <name>OPPTYACT_BO_REVIEW_SEARCH_BTN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_SEARCH_COMPLETED --></label>
+        <name>OPPTYACT_BO_REVIEW_SEARCH_COMPLETED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_SEARCH_ERROR --></label>
+        <name>OPPTYACT_BO_REVIEW_SEARCH_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_SEARCH_RESULT --></label>
+        <name>OPPTYACT_BO_REVIEW_SEARCH_RESULT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_TAB --></label>
+        <name>OPPTYACT_BO_REVIEW_TAB</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_TEMP_SAVE --></label>
+        <name>OPPTYACT_BO_REVIEW_TEMP_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_TEMP_SAVE_MSG --></label>
+        <name>OPPTYACT_BO_REVIEW_TEMP_SAVE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_TYPE --></label>
+        <name>OPPTYACT_BO_REVIEW_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_TYPE_10 --></label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_10</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_TYPE_20 --></label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_20</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_TYPE_30 --></label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_30</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_TYPE_40 --></label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_40</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_TYPE_CHANGE --></label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_CHANGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_TYPE_CHANGE_DOWN --></label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_CHANGE_DOWN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_TYPE_CONFIRM --></label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_REVIEW_TYPE_EQUAL --></label>
+        <name>OPPTYACT_BO_REVIEW_TYPE_EQUAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_RFP_ANNOUNCE_DATE --></label>
+        <name>OPPTYACT_BO_RFP_ANNOUNCE_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BO_SUBSIDIARY_LIST --></label>
+        <name>OPPTYACT_BO_SUBSIDIARY_LIST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_BIDDING_LOGISTICS_CP_REVIEW --></label>
+        <name>OPPTYACT_BTN_BIDDING_LOGISTICS_CP_REVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_COMMITTEE_COST_PLAN --></label>
+        <name>OPPTYACT_BTN_COMMITTEE_COST_PLAN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_COMMITTEE_COST_PLAN_01 --></label>
+        <name>OPPTYACT_BTN_COMMITTEE_COST_PLAN_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_COMMITTEE_COST_PLAN_02 --></label>
+        <name>OPPTYACT_BTN_COMMITTEE_COST_PLAN_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_CONTRACT_PL --></label>
+        <name>OPPTYACT_BTN_CONTRACT_PL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_CONTRACT_P_L --></label>
+        <name>OPPTYACT_BTN_CONTRACT_P_L</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_CREDIT_ASSESSMENT --></label>
+        <name>OPPTYACT_BTN_CREDIT_ASSESSMENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_PRE_SALES_COST --></label>
+        <name>OPPTYACT_BTN_PRE_SALES_COST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_PRICE_SIMULATION --></label>
+        <name>OPPTYACT_BTN_PRICE_SIMULATION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REG_CONTRACT --></label>
+        <name>OPPTYACT_BTN_REG_CONTRACT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REG_PROPOSAL --></label>
+        <name>OPPTYACT_BTN_REG_PROPOSAL</name>
+    </customLabels>
+    <customLabels>
+        <label>Register H.R Planning</label>
+        <name>OPPTYACT_BTN_REG_RESOURCE_DEMAND</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_01 --></label>
+        <name>OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_02 --></label>
+        <name>OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_LIST_01 --></label>
+        <name>OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_LIST_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_LIST_02 --></label>
+        <name>OPPTYACT_BTN_REQUEST_COMMITTEE_APPROVAL_LIST_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE --></label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_01 --></label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_02 --></label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_01 --></label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_02 --></label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_LIST_01 --></label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_LIST_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_LIST_02 --></label>
+        <name>OPPTYACT_BTN_REQUEST_STRATEGY_COMMITTEE_LIST_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQ_AP_RATE --></label>
+        <name>OPPTYACT_BTN_REQ_AP_RATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQ_BIDDING_LBS --></label>
+        <name>OPPTYACT_BTN_REQ_BIDDING_LBS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQ_FINAL_LBS --></label>
+        <name>OPPTYACT_BTN_REQ_FINAL_LBS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQ_LEGAL_REVIEW --></label>
+        <name>OPPTYACT_BTN_REQ_LEGAL_REVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQ_PROPOSAL_PM --></label>
+        <name>OPPTYACT_BTN_REQ_PROPOSAL_PM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQ_RATE_CHANGE_LBS --></label>
+        <name>OPPTYACT_BTN_REQ_RATE_CHANGE_LBS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_REQ_TEST_SHIPMENT --></label>
+        <name>OPPTYACT_BTN_REQ_TEST_SHIPMENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_BTN_STRATEGY_COMMITTEE --></label>
+        <name>OPPTYACT_BTN_STRATEGY_COMMITTEE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_CONTRACT_APPROVAL_CANNOT_PROCEED --></label>
+        <name>OPPTYACT_CONTRACT_APPROVAL_CANNOT_PROCEED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_CP_REVIEW_RESULT --></label>
+        <name>OPPTYACT_CP_REVIEW_RESULT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_CP_REVIEW_STATUS --></label>
+        <name>OPPTYACT_CP_REVIEW_STATUS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_DECISION_CANNOT_PROCEED --></label>
+        <name>OPPTYACT_DECISION_CANNOT_PROCEED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_ACCOUNT --></label>
+        <name>OPPTYACT_LAB_ACCOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_ACT --></label>
+        <name>OPPTYACT_LAB_ACT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_BUSINESS_LEVEL --></label>
+        <name>OPPTYACT_LAB_BUSINESS_LEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_COLLABORATION --></label>
+        <name>OPPTYACT_LAB_COLLABORATION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_CREATED_DATE --></label>
+        <name>OPPTYACT_LAB_CREATED_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_DESCRIPTION --></label>
+        <name>OPPTYACT_LAB_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_DESC_200 --></label>
+        <name>OPPTYACT_LAB_DESC_200</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_DUE_DATE --></label>
+        <name>OPPTYACT_LAB_DUE_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_KNOX_APPROVAL --></label>
+        <name>OPPTYACT_LAB_KNOX_APPROVAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_KNOX_APPROVAL_HISTORY --></label>
+        <name>OPPTYACT_LAB_KNOX_APPROVAL_HISTORY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_KNOX_PREVIEW --></label>
+        <name>OPPTYACT_LAB_KNOX_PREVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_METHOD --></label>
+        <name>OPPTYACT_LAB_METHOD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_NEW --></label>
+        <name>OPPTYACT_LAB_NEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_OPPTYACT --></label>
+        <name>OPPTYACT_LAB_OPPTYACT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_OWNER --></label>
+        <name>OPPTYACT_LAB_OWNER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_PRJ_WBS --></label>
+        <name>OPPTYACT_LAB_PRJ_WBS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_REQUEST --></label>
+        <name>OPPTYACT_LAB_REQUEST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_SALES_LEAD --></label>
+        <name>OPPTYACT_LAB_SALES_LEAD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_STRATEGY_COMMITTEE --></label>
+        <name>OPPTYACT_LAB_STRATEGY_COMMITTEE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_STRATEGY_COMMITTEE_REQUEST --></label>
+        <name>OPPTYACT_LAB_STRATEGY_COMMITTEE_REQUEST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_LAB_USER --></label>
+        <name>OPPTYACT_LAB_USER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_001 --></label>
+        <name>OPPTYACT_MSG_001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_002 --></label>
+        <name>OPPTYACT_MSG_002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_003 --></label>
+        <name>OPPTYACT_MSG_003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_004 --></label>
+        <name>OPPTYACT_MSG_004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_005 --></label>
+        <name>OPPTYACT_MSG_005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_006 --></label>
+        <name>OPPTYACT_MSG_006</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_007 --></label>
+        <name>OPPTYACT_MSG_007</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_008 --></label>
+        <name>OPPTYACT_MSG_008</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_009 --></label>
+        <name>OPPTYACT_MSG_009</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_010 --></label>
+        <name>OPPTYACT_MSG_010</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_011 --></label>
+        <name>OPPTYACT_MSG_011</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_012 --></label>
+        <name>OPPTYACT_MSG_012</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_013 --></label>
+        <name>OPPTYACT_MSG_013</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_014 --></label>
+        <name>OPPTYACT_MSG_014</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_015 --></label>
+        <name>OPPTYACT_MSG_015</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_016 --></label>
+        <name>OPPTYACT_MSG_016</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_017 --></label>
+        <name>OPPTYACT_MSG_017</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_018 --></label>
+        <name>OPPTYACT_MSG_018</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_019 --></label>
+        <name>OPPTYACT_MSG_019</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_020 --></label>
+        <name>OPPTYACT_MSG_020</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_CREDIT --></label>
+        <name>OPPTYACT_MSG_CREDIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_MSG_EXIST --></label>
+        <name>OPPTYACT_MSG_EXIST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Guide message for PJT CODE --></label>
+        <name>OPPTYACT_PJT_CODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_REQUEST_RESOURCES_CANNOT_PROCEED --></label>
+        <name>OPPTYACT_REQUEST_RESOURCES_CANNOT_PROCEED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_REQUEST_RESOURCES_CANNOT_PROCEED_NULL --></label>
+        <name>OPPTYACT_REQUEST_RESOURCES_CANNOT_PROCEED_NULL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- for contract approval error message list --></label>
+        <name>OPPTYACT_REQUEST_RESOURCES_CONTRACT_APPROVAL1</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_REQUEST_RESOURCES_CONTRACT_APPROVAL2 --></label>
+        <name>OPPTYACT_REQUEST_RESOURCES_CONTRACT_APPROVAL2</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_REQUEST_RESOURCES_CONTRACT_APPROVAL3 --></label>
+        <name>OPPTYACT_REQUEST_RESOURCES_CONTRACT_APPROVAL3</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_COMMITTEE_COST_PLAN --></label>
+        <name>OPPTYACT_URL_COMMITTEE_COST_PLAN</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_COMMITTEE_COST_PLAN_01 --></label>
+        <name>OPPTYACT_URL_COMMITTEE_COST_PLAN_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_COMMITTEE_COST_PLAN_02 --></label>
+        <name>OPPTYACT_URL_COMMITTEE_COST_PLAN_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_CONTRACT_PL --></label>
+        <name>OPPTYACT_URL_CONTRACT_PL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_CONTRACT_P_L --></label>
+        <name>OPPTYACT_URL_CONTRACT_P_L</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_PRE_SALES_COST --></label>
+        <name>OPPTYACT_URL_PRE_SALES_COST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_PRICE_SIMULATION --></label>
+        <name>OPPTYACT_URL_PRICE_SIMULATION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REG_CONTRACT --></label>
+        <name>OPPTYACT_URL_REG_CONTRACT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REG_PROPOSAL --></label>
+        <name>OPPTYACT_URL_REG_PROPOSAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REG_RESOURCE_DEMAND --></label>
+        <name>OPPTYACT_URL_REG_RESOURCE_DEMAND</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_01 --></label>
+        <name>OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_02 --></label>
+        <name>OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_LIST_01 --></label>
+        <name>OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_LIST_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_LIST_02 --></label>
+        <name>OPPTYACT_URL_REQUEST_COMMITTEE_APPROVAL_LIST_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_01 --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_02 --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_01 --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_02 --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_CHECKLIST_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_LIST_01 --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_LIST_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_LIST_02 --></label>
+        <name>OPPTYACT_URL_REQUEST_STRATEGY_COMMITTEE_LIST_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQ_LEGAL_REVIEW --></label>
+        <name>OPPTYACT_URL_REQ_LEGAL_REVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_REQ_PROPOSAL_PM --></label>
+        <name>OPPTYACT_URL_REQ_PROPOSAL_PM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_URL_STRATEGY_COMMITTEE --></label>
+        <name>OPPTYACT_URL_STRATEGY_COMMITTEE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYACT_VAL_BTN_HIDDEN_DATE --></label>
+        <name>OPPTYACT_VAL_BTN_HIDDEN_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTYTMMB_MSG_001 --></label>
+        <name>OPPTYTMMB_MSG_001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY BTN Architect Search --></label>
+        <name>OPPTY_BTN_Architect_Search</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_BTN_BR_CREATE --></label>
+        <name>OPPTY_BTN_BR_CREATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_BTN_GUIDE --></label>
+        <name>OPPTY_BTN_GUIDE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_BTN_NOTICE --></label>
+        <name>OPPTY_BTN_NOTICE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_BTN_TXP --></label>
+        <name>OPPTY_BTN_TXP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_BTN_WEEKLY_REPORT --></label>
+        <name>OPPTY_BTN_WEEKLY_REPORT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_CLONE_COMPLETED --></label>
+        <name>OPPTY_CLONE_COMPLETED</name>
+    </customLabels>
+    <customLabels>
+        <label>(Copy)</label>
+        <name>OPPTY_CLONE_NAME_FALG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_001 --></label>
+        <name>OPPTY_ERR_001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_002 --></label>
+        <name>OPPTY_ERR_002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_003 --></label>
+        <name>OPPTY_ERR_003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_004 --></label>
+        <name>OPPTY_ERR_004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_005 --></label>
+        <name>OPPTY_ERR_005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_006 --></label>
+        <name>OPPTY_ERR_006</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_007 --></label>
+        <name>OPPTY_ERR_007</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_008 --></label>
+        <name>OPPTY_ERR_008</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_009 --></label>
+        <name>OPPTY_ERR_009</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_010 --></label>
+        <name>OPPTY_ERR_010</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_011 --></label>
+        <name>OPPTY_ERR_011</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_012 --></label>
+        <name>OPPTY_ERR_012</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_013 --></label>
+        <name>OPPTY_ERR_013</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_014 --></label>
+        <name>OPPTY_ERR_014</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_015 --></label>
+        <name>OPPTY_ERR_015</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_016 --></label>
+        <name>OPPTY_ERR_016</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_017 --></label>
+        <name>OPPTY_ERR_017</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_018 --></label>
+        <name>OPPTY_ERR_018</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_019 --></label>
+        <name>OPPTY_ERR_019</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_020 --></label>
+        <name>OPPTY_ERR_020</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_021 --></label>
+        <name>OPPTY_ERR_021</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_022 --></label>
+        <name>OPPTY_ERR_022</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_023 --></label>
+        <name>OPPTY_ERR_023</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_024 --></label>
+        <name>OPPTY_ERR_024</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_025 --></label>
+        <name>OPPTY_ERR_025</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_026 --></label>
+        <name>OPPTY_ERR_026</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_027 --></label>
+        <name>OPPTY_ERR_027</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_028 --></label>
+        <name>OPPTY_ERR_028</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_029 --></label>
+        <name>OPPTY_ERR_029</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_20 --></label>
+        <name>OPPTY_ERR_20</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_OriginnAccountChange001 --></label>
+        <name>OPPTY_ERR_OriginnAccountChange001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_OriginnAccountChange002 --></label>
+        <name>OPPTY_ERR_OriginnAccountChange002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_OriginnAccountChange003 --></label>
+        <name>OPPTY_ERR_OriginnAccountChange003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_SUC_PB --></label>
+        <name>OPPTY_ERR_SUC_PB</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_ERR_SUC_PB_NULL --></label>
+        <name>OPPTY_ERR_SUC_PB_NULL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_Info_OriginnAccountChange003 --></label>
+        <name>OPPTY_Info_OriginnAccountChange003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_MSG_001 --></label>
+        <name>OPPTY_MSG_001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_MSG_002 --></label>
+        <name>OPPTY_MSG_002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_MSG_003 --></label>
+        <name>OPPTY_MSG_003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_MSG_004 --></label>
+        <name>OPPTY_MSG_004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY URL Architect Search --></label>
+        <name>OPPTY_URL_Architect_Search</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_URL_BR_CREATE --></label>
+        <name>OPPTY_URL_BR_CREATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_URL_TXP --></label>
+        <name>OPPTY_URL_TXP</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPPTY_URL_WEEKLY_REPORT --></label>
+        <name>OPPTY_URL_WEEKLY_REPORT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OPP_SEARCH_INTENSIVE_BO --></label>
+        <name>OPP_SEARCH_INTENSIVE_BO</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Opp Close Date Warning Msg --></label>
+        <name>Opp_Close_Date_Warning_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OpportunityRegisError --></label>
+        <name>OpportunityRegisError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Opportunity Code --></label>
+        <name>Opportunity_Code</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Opportunity Code label --></label>
+        <name>Opportunity_Code_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Oppportunity Name label --></label>
+        <name>Oppportunity_Name_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Oppty Analysis Temp Success Msg --></label>
+        <name>Oppty_Analysis_Temp_Success_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OwnerAccErrorMsg --></label>
+        <name>OwnerAccErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OwnerOppErrorMsg --></label>
+        <name>OwnerOppErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OwnerUpdateSuccessMsg --></label>
+        <name>OwnerUpdateSuccessMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>Business Status</label>
+        <name>PARTNER_BUSINESS_LABEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_COM_ERROR_001 --></label>
+        <name>PARTNER_COM_ERROR_001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_COM_ERROR_002 --></label>
+        <name>PARTNER_COM_ERROR_002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_COM_ERROR_003 --></label>
+        <name>PARTNER_COM_ERROR_003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_ERROR_INACTIVE --></label>
+        <name>PARTNER_NOTICE_EMAIL_ERROR_INACTIVE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_ERROR_MESSAGE --></label>
+        <name>PARTNER_NOTICE_EMAIL_ERROR_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_ERROR_RETRIEVAL --></label>
+        <name>PARTNER_NOTICE_EMAIL_ERROR_RETRIEVAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_POPUP_BCCCNT --></label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_BCCCNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_POPUP_CANCEL --></label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_POPUP_EMAIL_TITLE --></label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_EMAIL_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_POPUP_EMAIL_TITLE_PLACEHOLDER --></label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_EMAIL_TITLE_PLACEHOLDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_POPUP_LAST_EMAIL_SENT_DATE --></label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_LAST_EMAIL_SENT_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_POPUP_SEND --></label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_SEND</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_POPUP_SENDCNT --></label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_SENDCNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_POPUP_SENDER --></label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_SENDER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_POPUP_TITLE --></label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_POPUP_TOCNT --></label>
+        <name>PARTNER_NOTICE_EMAIL_POPUP_TOCNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_SUBJECT_PREFIX --></label>
+        <name>PARTNER_NOTICE_EMAIL_SUBJECT_PREFIX</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_EMAIL_SUCCESS_MESSAGE --></label>
+        <name>PARTNER_NOTICE_EMAIL_SUCCESS_MESSAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PARTNER_NOTICE_LABEL --></label>
+        <name>PARTNER_NOTICE_LABEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PI (Biz. Owner) Profile ID --></label>
+        <name>PI_Biz_Owner_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PJT_LAB_TITLE --></label>
+        <name>PJT_LAB_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- POC_Users --></label>
+        <name>POC_Users</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PPM_LAB_HEADER --></label>
+        <name>PPM_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PPM_MSG_0001 --></label>
+        <name>PPM_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PPM_MSG_0002 --></label>
+        <name>PPM_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- PPM_MSG_0003 --></label>
+        <name>PPM_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Postmortem --></label>
+        <name>Postmortem</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Pre-Competition Prediction and Strategy --></label>
+        <name>Pre_Competition_Prediction_and_Strategy</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Prevent_FileUpload_Chatter --></label>
+        <name>Prevent_FileUpload_Chatter</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Prod Knox Bearer --></label>
+        <name>Prod_Knox_Bearer</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Prod Knox System Id --></label>
+        <name>Prod_Knox_System_Id</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ProfileCheck --></label>
+        <name>ProfileCheck</name>
+    </customLabels>
+    <customLabels>
+        <label>Cancel</label>
+        <name>REVENUE_SCHEDULE_COMP_BTN_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label>Reset Plan</label>
+        <name>REVENUE_SCHEDULE_COMP_BTN_RESET</name>
+    </customLabels>
+    <customLabels>
+        <label>Save</label>
+        <name>REVENUE_SCHEDULE_COMP_BTN_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>Amount</label>
+        <name>REVENUE_SCHEDULE_COMP_COL_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>Date</label>
+        <name>REVENUE_SCHEDULE_COMP_COL_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Description</label>
+        <name>REVENUE_SCHEDULE_COMP_COL_DESC</name>
+    </customLabels>
+    <customLabels>
+        <label>Difference</label>
+        <name>REVENUE_SCHEDULE_COMP_DIFFERENCE</name>
+    </customLabels>
+    <customLabels>
+        <label>Changed revenue&apos;s amount is not same as original amount!!!</label>
+        <name>REVENUE_SCHEDULE_COMP_ERROR_DIFFERENCE</name>
+    </customLabels>
+    <customLabels>
+        <label>Revenue Split</label>
+        <name>REVENUE_SCHEDULE_COMP_LABEL</name>
+    </customLabels>
+    <customLabels>
+        <label>New Value</label>
+        <name>REVENUE_SCHEDULE_COMP_NEW_VALUE</name>
+    </customLabels>
+    <customLabels>
+        <label>Old Value</label>
+        <name>REVENUE_SCHEDULE_COMP_OLD_VALUE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- REVENUE_SCHEDULE_CON_ERROR_CONVERT --></label>
+        <name>REVENUE_SCHEDULE_CON_ERROR_CONVERT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- REVENUE_SCHEDULE_CON_ERROR_INVALID --></label>
+        <name>REVENUE_SCHEDULE_CON_ERROR_INVALID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- REVENUE_SCHEDULE_REJECT_ACTION --></label>
+        <name>REVENUE_SCHEDULE_REJECT_ACTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- RPM_LAB_HEADER --></label>
+        <name>RPM_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- RPM_MSG_0001 --></label>
+        <name>RPM_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- RPM_MSG_0002 --></label>
+        <name>RPM_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- RPM_MSG_0003 --></label>
+        <name>RPM_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- RPM_MSG_0004 --></label>
+        <name>RPM_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- RPM_MSG_0005 --></label>
+        <name>RPM_MSG_0005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- RPM_MSG_0006 --></label>
+        <name>RPM_MSG_0006</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- RatePerc --></label>
+        <name>RatePerc</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Reason Drop/Lost --></label>
+        <name>Reason_Drop_Lost</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Reason/Improvement --></label>
+        <name>Reason_Improvement</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Reason for Drop --></label>
+        <name>Reason_for_Drop</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Reason for Lost --></label>
+        <name>Reason_for_Lost</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Reason for drop/lost --></label>
+        <name>Reason_for_drop_lost</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Ref Refresh --></label>
+        <name>Ref_Refresh</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Reference Access Message --></label>
+        <name>Reference_Access_Message</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Register user Information --></label>
+        <name>Register_user_Information</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Relevant Dept. --></label>
+        <name>Relevant_Dept</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Remaining Licences --></label>
+        <name>Remaining_Licences</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_PrimaryDeliveryTeamList --></label>
+        <name>ReportViewer_PrimaryDeliveryTeamList</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_Primary_Delivery_Dept --></label>
+        <name>ReportViewer_Primary_Delivery_Dept</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_Sum_Revenue --></label>
+        <name>ReportViewer_Sum_Revenue</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_Total --></label>
+        <name>ReportViewer_Total</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_Total_Revenue --></label>
+        <name>ReportViewer_Total_Revenue</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_firstCloseDate --></label>
+        <name>ReportViewer_firstCloseDate</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_firstScheduleMonth --></label>
+        <name>ReportViewer_firstScheduleMonth</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_lastCloseDate --></label>
+        <name>ReportViewer_lastCloseDate</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_lastScheduleMonth --></label>
+        <name>ReportViewer_lastScheduleMonth</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ReportViewer_stageList --></label>
+        <name>ReportViewer_stageList</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Report_URL_Prod --></label>
+        <name>Report_URL_Prod</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Report_URL_Qa --></label>
+        <name>Report_URL_Qa</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Reset Passoword --></label>
+        <name>Reset_Passoword</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Reset Passoword Alert --></label>
+        <name>Reset_Passoword_Alert</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Result after bidding --></label>
+        <name>Result_after_bidding</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- RevenueScheduleNote2 --></label>
+        <name>RevenueScheduleNote2</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Role&amp;ProfileMandatoryErrorMsg --></label>
+        <name>Role_ProfileMandatoryErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Role&amp;Profile&amp;LastName&amp;CompanyCodeMandatoryErrorMsg --></label>
+        <name>Role_Profile_LastName_CompanyCodeMandatoryErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SAPP_MSG_0001 --></label>
+        <name>SAPP_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SAPP_MSG_0002 --></label>
+        <name>SAPP_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SAP Employee Number --></label>
+        <name>SAP_Employee_Number</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SHARING_LAB_ACCESSLEVEL --></label>
+        <name>SHARING_LAB_ACCESSLEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SHARING_LAB_ALEADYADD --></label>
+        <name>SHARING_LAB_ALEADYADD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SHARING_LAB_INFORMATION --></label>
+        <name>SHARING_LAB_INFORMATION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SHARING_LAB_MANUALSHARING --></label>
+        <name>SHARING_LAB_MANUALSHARING</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SHARING_LAB_READ --></label>
+        <name>SHARING_LAB_READ</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SHARING_LAB_READWRITE --></label>
+        <name>SHARING_LAB_READWRITE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SHARING_LAB_SEARCH --></label>
+        <name>SHARING_LAB_SEARCH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SHARING_LAB_SHAREWITH --></label>
+        <name>SHARING_LAB_SHAREWITH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SHARING_LAB_TYPE --></label>
+        <name>SHARING_LAB_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SHARING_LAB_WHO_CAN_ACCESS --></label>
+        <name>SHARING_LAB_WHO_CAN_ACCESS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_AMOUNT --></label>
+        <name>SIMILARBO_LAB_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_BIZLEVEL --></label>
+        <name>SIMILARBO_LAB_BIZLEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_CLOSEDATE --></label>
+        <name>SIMILARBO_LAB_CLOSEDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_CODE --></label>
+        <name>SIMILARBO_LAB_CODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_FILTER --></label>
+        <name>SIMILARBO_LAB_FILTER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_HEADER --></label>
+        <name>SIMILARBO_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_NAME --></label>
+        <name>SIMILARBO_LAB_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_OWNER --></label>
+        <name>SIMILARBO_LAB_OWNER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_PROPOSAL --></label>
+        <name>SIMILARBO_LAB_PROPOSAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_PROPOSALPM --></label>
+        <name>SIMILARBO_LAB_PROPOSALPM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_SERVICE --></label>
+        <name>SIMILARBO_LAB_SERVICE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_SOLUTION --></label>
+        <name>SIMILARBO_LAB_SOLUTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_STAGE --></label>
+        <name>SIMILARBO_LAB_STAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_TYPE1 --></label>
+        <name>SIMILARBO_LAB_TYPE1</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_TYPE2 --></label>
+        <name>SIMILARBO_LAB_TYPE2</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SIMILARBO_LAB_VRBCONFIRMTYPE --></label>
+        <name>SIMILARBO_LAB_VRBCONFIRMTYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SLTM DuplicateUserError --></label>
+        <name>SLTM_DuplicateUserError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SLTM_LAB_ACCESSLEVEL --></label>
+        <name>SLTM_LAB_ACCESSLEVEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SLTM_LAB_ACTION --></label>
+        <name>SLTM_LAB_ACTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SLTM_LAB_HEADER --></label>
+        <name>SLTM_LAB_HEADER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SLTM_LAB_READ --></label>
+        <name>SLTM_LAB_READ</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SLTM_LAB_READWRITE --></label>
+        <name>SLTM_LAB_READWRITE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SLTM_LAB_USER --></label>
+        <name>SLTM_LAB_USER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SLTM_MSG_0001 --></label>
+        <name>SLTM_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SLTM_MSG_0002 --></label>
+        <name>SLTM_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SLT TeamRole --></label>
+        <name>SLT_TeamRole</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SL_ERR_NULL_CHK --></label>
+        <name>SL_ERR_NULL_CHK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SL_ERR_NULL_CHK_ACC --></label>
+        <name>SL_ERR_NULL_CHK_ACC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SL_ERR_NULL_CHK_AMT --></label>
+        <name>SL_ERR_NULL_CHK_AMT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SL_ERR_NULL_CHK_IE --></label>
+        <name>SL_ERR_NULL_CHK_IE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SL_ERR_NULL_CHK_SD --></label>
+        <name>SL_ERR_NULL_CHK_SD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_CHANGE_MSG --></label>
+        <name>SOL_CHANGE_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL DUPLICACY MSG --></label>
+        <name>SOL_DUPLICACY_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_ERR_MSG_01 --></label>
+        <name>SOL_ERR_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_ERR_MSG_02 --></label>
+        <name>SOL_ERR_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_ERR_MSG_03 --></label>
+        <name>SOL_ERR_MSG_03</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_ERR_MSG_04 --></label>
+        <name>SOL_ERR_MSG_04</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_ERR_MSG_05 --></label>
+        <name>SOL_ERR_MSG_05</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_ERR_MSG_06 --></label>
+        <name>SOL_ERR_MSG_06</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_ACT --></label>
+        <name>SOL_LAB_ACT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_ATTR --></label>
+        <name>SOL_LAB_ATTR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_BIZ_TYPE --></label>
+        <name>SOL_LAB_BIZ_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_NO --></label>
+        <name>SOL_LAB_NO</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_PLC --></label>
+        <name>SOL_LAB_PLC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_PS_TYPE --></label>
+        <name>SOL_LAB_PS_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_SALES_TYPE --></label>
+        <name>SOL_LAB_SALES_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_SOL --></label>
+        <name>SOL_LAB_SOL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_SOLUTION_TYPE --></label>
+        <name>SOL_LAB_SOLUTION_TYPE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_TITLE --></label>
+        <name>SOL_LAB_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SOL_LAB_WBS_CLASS --></label>
+        <name>SOL_LAB_WBS_CLASS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_ADDUSER --></label>
+        <name>STRATEGY_COMMITTEE_BTN_ADDUSER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_ANSWER --></label>
+        <name>STRATEGY_COMMITTEE_BTN_ANSWER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_BACK --></label>
+        <name>STRATEGY_COMMITTEE_BTN_BACK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_CANCEL --></label>
+        <name>STRATEGY_COMMITTEE_BTN_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_CHECK_ANSWER --></label>
+        <name>STRATEGY_COMMITTEE_BTN_CHECK_ANSWER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_CLOSE --></label>
+        <name>STRATEGY_COMMITTEE_BTN_CLOSE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_CONFIRM --></label>
+        <name>STRATEGY_COMMITTEE_BTN_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_CREATE --></label>
+        <name>STRATEGY_COMMITTEE_BTN_CREATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_DETAIL --></label>
+        <name>STRATEGY_COMMITTEE_BTN_DETAIL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_NEXT --></label>
+        <name>STRATEGY_COMMITTEE_BTN_NEXT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_SAVE --></label>
+        <name>STRATEGY_COMMITTEE_BTN_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_BTN_SAVE2 --></label>
+        <name>STRATEGY_COMMITTEE_BTN_SAVE2</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_ALL --></label>
+        <name>STRATEGY_COMMITTEE_LAB_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_ANSWERED --></label>
+        <name>STRATEGY_COMMITTEE_LAB_ANSWERED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_ANSWER_QUESTION --></label>
+        <name>STRATEGY_COMMITTEE_LAB_ANSWER_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_ANSWER_USER --></label>
+        <name>STRATEGY_COMMITTEE_LAB_ANSWER_USER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_APPROVAL_STATUS --></label>
+        <name>STRATEGY_COMMITTEE_LAB_APPROVAL_STATUS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_CATEGORY --></label>
+        <name>STRATEGY_COMMITTEE_LAB_CATEGORY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_CHECKLIST --></label>
+        <name>STRATEGY_COMMITTEE_LAB_CHECKLIST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_CHECKLIST_DETAIL --></label>
+        <name>STRATEGY_COMMITTEE_LAB_CHECKLIST_DETAIL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_CONFIRM_DATE --></label>
+        <name>STRATEGY_COMMITTEE_LAB_CONFIRM_DATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_DEADLINE --></label>
+        <name>STRATEGY_COMMITTEE_LAB_DEADLINE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_DEADLINE_PICK --></label>
+        <name>STRATEGY_COMMITTEE_LAB_DEADLINE_PICK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_DECISION --></label>
+        <name>STRATEGY_COMMITTEE_LAB_DECISION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_DESCRIPTION --></label>
+        <name>STRATEGY_COMMITTEE_LAB_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_DESCRIPTIONs --></label>
+        <name>STRATEGY_COMMITTEE_LAB_DESCRIPTIONs</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_EDIT_STARTEGY_LIST --></label>
+        <name>STRATEGY_COMMITTEE_LAB_EDIT_STARTEGY_LIST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_MANAGER --></label>
+        <name>STRATEGY_COMMITTEE_LAB_MANAGER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_NAME --></label>
+        <name>STRATEGY_COMMITTEE_LAB_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_NOTIFICATION_BODY --></label>
+        <name>STRATEGY_COMMITTEE_LAB_NOTIFICATION_BODY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_NOTIFICATION_TITLE --></label>
+        <name>STRATEGY_COMMITTEE_LAB_NOTIFICATION_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_NOT_APPROVAL --></label>
+        <name>STRATEGY_COMMITTEE_LAB_NOT_APPROVAL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_OPPORTUNITY --></label>
+        <name>STRATEGY_COMMITTEE_LAB_OPPORTUNITY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_PMANSWER --></label>
+        <name>STRATEGY_COMMITTEE_LAB_PMANSWER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_PM_ANSWERED --></label>
+        <name>STRATEGY_COMMITTEE_LAB_PM_ANSWERED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_PM_ANSWERED_QUESTION --></label>
+        <name>STRATEGY_COMMITTEE_LAB_PM_ANSWERED_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label>PM Evaluation Basis</label>
+        <name>STRATEGY_COMMITTEE_LAB_PM_BASIS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_PM_SCORE --></label>
+        <name>STRATEGY_COMMITTEE_LAB_PM_SCORE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_QUESTION --></label>
+        <name>STRATEGY_COMMITTEE_LAB_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_QUESTION_DETAIL --></label>
+        <name>STRATEGY_COMMITTEE_LAB_QUESTION_DETAIL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_REVIEWDIVISION --></label>
+        <name>STRATEGY_COMMITTEE_LAB_REVIEWDIVISION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_SCORE --></label>
+        <name>STRATEGY_COMMITTEE_LAB_SCORE</name>
+    </customLabels>
+    <customLabels>
+        <label>SELECT ANSWER USER</label>
+        <name>STRATEGY_COMMITTEE_LAB_SELECT_ANSWER_USER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_SELECT_STARTEGY_LIST --></label>
+        <name>STRATEGY_COMMITTEE_LAB_SELECT_STARTEGY_LIST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_STRATEGY_COMMITTEE_LIST --></label>
+        <name>STRATEGY_COMMITTEE_LAB_STRATEGY_COMMITTEE_LIST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_TOTAL_PM_SCORE --></label>
+        <name>STRATEGY_COMMITTEE_LAB_TOTAL_PM_SCORE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_TOTAL_QUESTION --></label>
+        <name>STRATEGY_COMMITTEE_LAB_TOTAL_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_TOTAL_SCORE --></label>
+        <name>STRATEGY_COMMITTEE_LAB_TOTAL_SCORE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_USER --></label>
+        <name>STRATEGY_COMMITTEE_LAB_USER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_USERANSWER --></label>
+        <name>STRATEGY_COMMITTEE_LAB_USERANSWER</name>
+    </customLabels>
+    <customLabels>
+        <label>User Evaluation Basis</label>
+        <name>STRATEGY_COMMITTEE_LAB_USER_BASIS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_LAB_VERSION --></label>
+        <name>STRATEGY_COMMITTEE_LAB_VERSION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_MSG_CHECKLIST_CONFIRMED --></label>
+        <name>STRATEGY_COMMITTEE_MSG_CHECKLIST_CONFIRMED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_MSG_CONFIRM --></label>
+        <name>STRATEGY_COMMITTEE_MSG_CONFIRM</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_MSG_CONFIRM_TITLE --></label>
+        <name>STRATEGY_COMMITTEE_MSG_CONFIRM_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_MSG_NO_ANSWER_USER --></label>
+        <name>STRATEGY_COMMITTEE_MSG_NO_ANSWER_USER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_MSG_NO_QUESTION --></label>
+        <name>STRATEGY_COMMITTEE_MSG_NO_QUESTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_MSG_NO_SELECT_USER --></label>
+        <name>STRATEGY_COMMITTEE_MSG_NO_SELECT_USER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_MSG_OPTYID_NULL --></label>
+        <name>STRATEGY_COMMITTEE_MSG_OPTYID_NULL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_MSG_RECORD_LOCK --></label>
+        <name>STRATEGY_COMMITTEE_MSG_RECORD_LOCK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- STRATEGY_COMMITTEE_MSG_SUCCESS_UPDATE --></label>
+        <name>STRATEGY_COMMITTEE_MSG_SUCCESS_UPDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVCSOL_DEL_ERR --></label>
+        <name>SVCSOL_DEL_ERR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVCSOL_NO_OPPRTY --></label>
+        <name>SVCSOL_NO_OPPRTY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVCSOL_PJT_CHANGE --></label>
+        <name>SVCSOL_PJT_CHANGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVCSOL_PJT_CREATE --></label>
+        <name>SVCSOL_PJT_CREATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_ALL_DEL --></label>
+        <name>SVC_ALL_DEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_BTN_NEW_GUIDE --></label>
+        <name>SVC_BTN_NEW_GUIDE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_BTN_SAVE_SEND --></label>
+        <name>SVC_BTN_SAVE_SEND</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_CHANGE_TA --></label>
+        <name>SVC_CHANGE_TA</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_DEL_MSG --></label>
+        <name>SVC_DEL_MSG</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_ECC_ERR_01 --></label>
+        <name>SVC_ECC_ERR_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_ERR_MSG_01 --></label>
+        <name>SVC_ERR_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_ERR_MSG_02 --></label>
+        <name>SVC_ERR_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_ERR_MSG_03 --></label>
+        <name>SVC_ERR_MSG_03</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_ERR_MSG_04 --></label>
+        <name>SVC_ERR_MSG_04</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_ERR_MSG_05 --></label>
+        <name>SVC_ERR_MSG_05</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_ERR_MSG_06 --></label>
+        <name>SVC_ERR_MSG_06</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_ERR_MSG_07 --></label>
+        <name>SVC_ERR_MSG_07</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_ERR_MSG_08 --></label>
+        <name>SVC_ERR_MSG_08</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_ERR_MSG_09 --></label>
+        <name>SVC_ERR_MSG_09</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_IF_DEL_FAIL --></label>
+        <name>SVC_IF_DEL_FAIL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_IF_ERR_MSG_01 --></label>
+        <name>SVC_IF_ERR_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_IF_ERR_MSG_02 --></label>
+        <name>SVC_IF_ERR_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_IF_ERR_MSG_04 --></label>
+        <name>SVC_IF_ERR_MSG_04</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_IF_NO_DATA --></label>
+        <name>SVC_IF_NO_DATA</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_LAB_ACT --></label>
+        <name>SVC_LAB_ACT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_LAB_DEPT --></label>
+        <name>SVC_LAB_DEPT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_LAB_NO --></label>
+        <name>SVC_LAB_NO</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_LAB_SALES --></label>
+        <name>SVC_LAB_SALES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_LAB_SELOPTION --></label>
+        <name>SVC_LAB_SELOPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_LAB_SVC --></label>
+        <name>SVC_LAB_SVC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_LAB_TECH --></label>
+        <name>SVC_LAB_TECH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_LAB_TITLE --></label>
+        <name>SVC_LAB_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_PJT_TYPE_ETC --></label>
+        <name>SVC_PJT_TYPE_ETC</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_POP_MSG_01 --></label>
+        <name>SVC_POP_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_POP_MSG_02 --></label>
+        <name>SVC_POP_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_SAVE_ERR_MSG_02 --></label>
+        <name>SVC_SAVE_ERR_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_TEMP_SAVE --></label>
+        <name>SVC_TEMP_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_WAR_MSG_01 --></label>
+        <name>SVC_WAR_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SVC_WAR_MSG_02 --></label>
+        <name>SVC_WAR_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SalesLeadError --></label>
+        <name>SalesLeadError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SalesLeadOnlyOwnerCanDelete --></label>
+        <name>SalesLeadOnlyOwnerCanDelete</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sales Lead only Owner can Change Message --></label>
+        <name>SalesLeadOnlyOwnercanChange</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sales Lead Owner Change Alert Message --></label>
+        <name>SalesLeadOwnerChangeAlertMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sales Lead Success Message --></label>
+        <name>SalesLeadSuccess</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SalesLeadTeamAlreadyExist --></label>
+        <name>SalesLeadTeamAlreadyExist</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SalesLeadTeamMember Success --></label>
+        <name>SalesLeadTeamMemberSuccess</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SalesLead Wrong Owner --></label>
+        <name>SalesLeadWrongOwner</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sales Rep.(HQ) Profile ID --></label>
+        <name>Sales_Rep_HQ_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sales Rep.(Overseas Corp) Profile ID --></label>
+        <name>Sales_Rep_Overseas_Corp_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sales Rep.(Subs) Profile ID --></label>
+        <name>Sales_Rep_Subs_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sales Rep label --></label>
+        <name>Sales_Rep_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sandbox Knox Bearer --></label>
+        <name>Sandbox_Knox_Bearer</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sandbox_Knox_Bearer_IF_073 --></label>
+        <name>Sandbox_Knox_Bearer_IF_073</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sandbox Knox Bearer	 IF_196 --></label>
+        <name>Sandbox_Knox_Bearer_IF_196</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Sandbox Knox System Id --></label>
+        <name>Sandbox_Knox_System_Id</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SaveButton --></label>
+        <name>SaveButton</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SaveCargoes --></label>
+        <name>SaveCargoes</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Savecargoesmessage --></label>
+        <name>Savecargoesmessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Saved Success Msg --></label>
+        <name>Saved_Success_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SecondPopupMainHeading --></label>
+        <name>SecondPopupMainHeading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SelectuserError --></label>
+        <name>SelectuserError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Service Desk Agency Profile ID --></label>
+        <name>Service_Desk_Agency_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Smart Search --></label>
+        <name>Smart_Search</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Smart Search Text --></label>
+        <name>Smart_Search_Text</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SpecialCharactersError --></label>
+        <name>SpecialCharactersError</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Special Char Err Msg --></label>
+        <name>Special_Char_Err_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- System Administrator Profile ID --></label>
+        <name>System_Administrator_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TEAM_MSG_0003 --></label>
+        <name>TEAM_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TEAM_MSG_0004 --></label>
+        <name>TEAM_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- List of TXP Manpower Profiles --></label>
+        <name>TXP_Manpower_Profiles</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TableMainHeading --></label>
+        <name>TableMainHeading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TableSubHeading --></label>
+        <name>TableSubHeading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Temporary --></label>
+        <name>Temporary</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ThirdPopupmainHeading --></label>
+        <name>ThirdPopupmainHeading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Title --></label>
+        <name>Title</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Total --></label>
+        <name>Total</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Total Licences --></label>
+        <name>Total_Licences</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TxpErrorMessage --></label>
+        <name>TxpErrorMessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TxpUpdationMessage --></label>
+        <name>TxpUpdationMessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Type --></label>
+        <name>Type</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Used Licences --></label>
+        <name>Used_Licences</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- UserCreateSuccessMsg --></label>
+        <name>UserCreateSuccessMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- UserEmployeeManagement heading --></label>
+        <name>UserEmployeeManagement_heading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- UserUpdateSuccessMsg --></label>
+        <name>UserUpdateSuccessMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- User Licenses --></label>
+        <name>User_Licenses</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_LAB_COLLABO_VALID_CHECK --></label>
+        <name>VAPP_LAB_COLLABO_VALID_CHECK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_LAB_VALID_CHECK --></label>
+        <name>VAPP_LAB_VALID_CHECK</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_001 --></label>
+        <name>VAPP_MSG_001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_002 --></label>
+        <name>VAPP_MSG_002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_003 --></label>
+        <name>VAPP_MSG_003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_004 --></label>
+        <name>VAPP_MSG_004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_005 --></label>
+        <name>VAPP_MSG_005</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_006 --></label>
+        <name>VAPP_MSG_006</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_007 --></label>
+        <name>VAPP_MSG_007</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_008 --></label>
+        <name>VAPP_MSG_008</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_009 --></label>
+        <name>VAPP_MSG_009</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_010 --></label>
+        <name>VAPP_MSG_010</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_011 --></label>
+        <name>VAPP_MSG_011</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_012 --></label>
+        <name>VAPP_MSG_012</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_013 --></label>
+        <name>VAPP_MSG_013</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VAPP_MSG_014 --></label>
+        <name>VAPP_MSG_014</name>
+    </customLabels>
+    <customLabels>
+        <label>View All</label>
+        <name>VIEW_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VOC_Close_Chatter_Msg --></label>
+        <name>VOC_Close_Chatter_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VRB_MSG_Notification001 --></label>
+        <name>VRB_MSG_Notification001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- VRB_MSG_Notification002 --></label>
+        <name>VRB_MSG_Notification002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- ViewALL --></label>
+        <name>ViewALl</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WBS_LAB_TITLE --></label>
+        <name>WBS_LAB_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLYREPORT_MSG_0001 --></label>
+        <name>WEEKLYREPORT_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLYREPORT_MSG_0002 --></label>
+        <name>WEEKLYREPORT_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLYREPORT_MSG_0003 --></label>
+        <name>WEEKLYREPORT_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLYREPORT_MSG_0004 --></label>
+        <name>WEEKLYREPORT_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label>Cancel</label>
+        <name>WEEKLY_ISSUE_REPORT_BTN_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label>Next</label>
+        <name>WEEKLY_ISSUE_REPORT_BTN_NEXT</name>
+    </customLabels>
+    <customLabels>
+        <label>Save</label>
+        <name>WEEKLY_ISSUE_REPORT_BTN_SAVE</name>
+    </customLabels>
+    <customLabels>
+        <label>Send</label>
+        <name>WEEKLY_ISSUE_REPORT_BTN_SEND</name>
+    </customLabels>
+    <customLabels>
+        <label>Send Email</label>
+        <name>WEEKLY_ISSUE_REPORT_BTN_SENDEMAIL</name>
+    </customLabels>
+    <customLabels>
+        <label>Account</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_ACCOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_COL_CONTENT --></label>
+        <name>WEEKLY_ISSUE_REPORT_COL_CONTENT</name>
+    </customLabels>
+    <customLabels>
+        <label>Issue</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_ISSUE</name>
+    </customLabels>
+    <customLabels>
+        <label>Name</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Opportunity</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_OPPORTUNITY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_COL_ORDER --></label>
+        <name>WEEKLY_ISSUE_REPORT_COL_ORDER</name>
+    </customLabels>
+    <customLabels>
+        <label>Report Date</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_REPORTDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>Comments</label>
+        <name>WEEKLY_ISSUE_REPORT_COMMENTS</name>
+    </customLabels>
+    <customLabels>
+        <label>Weekly Report Content</label>
+        <name>WEEKLY_ISSUE_REPORT_CONTENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_DEPT_NAME --></label>
+        <name>WEEKLY_ISSUE_REPORT_DEPT_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Display Order</label>
+        <name>WEEKLY_ISSUE_REPORT_DISPLAY_ORDER</name>
+    </customLabels>
+    <customLabels>
+        <label>Edit Issue</label>
+        <name>WEEKLY_ISSUE_REPORT_EDIT_ISSUE</name>
+    </customLabels>
+    <customLabels>
+        <label>Select Recipients</label>
+        <name>WEEKLY_ISSUE_REPORT_EMPLOYEE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_ERROR_APEX_CONTROLLER --></label>
+        <name>WEEKLY_ISSUE_REPORT_ERROR_APEX_CONTROLLER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_ERROR_COMMENT --></label>
+        <name>WEEKLY_ISSUE_REPORT_ERROR_COMMENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_ERROR_RECIPIENTS --></label>
+        <name>WEEKLY_ISSUE_REPORT_ERROR_RECIPIENTS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_ERROR_SUBJECT --></label>
+        <name>WEEKLY_ISSUE_REPORT_ERROR_SUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_FULLSCREEN --></label>
+        <name>WEEKLY_ISSUE_REPORT_FULLSCREEN</name>
+    </customLabels>
+    <customLabels>
+        <label>Issue Description</label>
+        <name>WEEKLY_ISSUE_REPORT_ISSUE_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_MSG_SUCCESS --></label>
+        <name>WEEKLY_ISSUE_REPORT_MSG_SUCCESS</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_OWNER_NAME --></label>
+        <name>WEEKLY_ISSUE_REPORT_OWNER_NAME</name>
+    </customLabels>
+    <customLabels>
+        <label>Preview</label>
+        <name>WEEKLY_ISSUE_REPORT_PREVIEW</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_STRING_EXCEPTION --></label>
+        <name>WEEKLY_ISSUE_REPORT_STRING_EXCEPTION</name>
+    </customLabels>
+    <customLabels>
+        <label>Subject</label>
+        <name>WEEKLY_ISSUE_REPORT_SUBJECT</name>
+    </customLabels>
+    <customLabels>
+        <label>Issue Reports</label>
+        <name>WEEKLY_ISSUE_REPORT_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_TITLE_WEEKLY --></label>
+        <name>WEEKLY_ISSUE_REPORT_TITLE_WEEKLY</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY MAIL LIMIT --></label>
+        <name>WEEKLY_MAIL_LIMIT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_MAIL_RECIPIENT --></label>
+        <name>WEEKLY_MAIL_RECIPIENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_MAIL_RECIPIENT_STAGE --></label>
+        <name>WEEKLY_MAIL_RECIPIENT_STAGE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_MAIL_RECIPIENT_TEST --></label>
+        <name>WEEKLY_MAIL_RECIPIENT_TEST</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_MAIL_TITLE --></label>
+        <name>WEEKLY_MAIL_TITLE</name>
+    </customLabels>
+    <customLabels>
+        <label>Issue Description</label>
+        <name>WEEKLY_REPORT_ISSUE_DESCRIPTION</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WONLOSTDROP_BTN_EXCEL --></label>
+        <name>WONLOSTDROP_BTN_EXCEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WONLOSTDROP_LAB_ALL --></label>
+        <name>WONLOSTDROP_LAB_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WONLOSTDROP_LAB_ENTERTITLE --></label>
+        <name>WONLOSTDROP_LAB_ENTERTITLE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WONLOSTDROP_LAB_FILEHEADER --></label>
+        <name>WONLOSTDROP_LAB_FILEHEADER</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WONLOSTDROP_MSG_0001 --></label>
+        <name>WONLOSTDROP_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WONLOSTDROP_MSG_0002 --></label>
+        <name>WONLOSTDROP_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WONLOSTDROP_MSG_0003 --></label>
+        <name>WONLOSTDROP_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WONLOSTDROP_MSG_0004 --></label>
+        <name>WONLOSTDROP_MSG_0004</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Weekly Manager Report User --></label>
+        <name>Weekly_Manager_Report_User</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Weekly Report Strategy Committee Type --></label>
+        <name>Weekly_Report_Strategy_Committee_Type</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Weekly Report Users --></label>
+        <name>Weekly_Report_Users</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Won_Formula_label --></label>
+        <name>Won_Formula_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- 20220727_MH --></label>
+        <name>X20220727_MH</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- YearlyRevenueScheduleNote2 --></label>
+        <name>YearlyRevenueScheduleNote2</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- firstNamePlaceholder --></label>
+        <name>firstNamePlaceholder</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- knox_mySales --></label>
+        <name>knox_mySales</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- knoxapprovaltotalmsg --></label>
+        <name>knoxapprovaltotalmsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- lastNamePlaceholder --></label>
+        <name>lastNamePlaceholder</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_email_adm --></label>
+        <name>partner_email_adm</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_email_mkt --></label>
+        <name>partner_email_mkt</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_email_sds --></label>
+        <name>partner_email_sds</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner enrollment company info fields --></label>
+        <name>partner_enrollment_company_info_fields</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner enrollment description label --></label>
+        <name>partner_enrollment_description_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner enrollment heading label --></label>
+        <name>partner_enrollment_heading_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner enrollment partner type label --></label>
+        <name>partner_enrollment_partner_type_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner enrollment primary con fields --></label>
+        <name>partner_enrollment_primary_con_fields</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner enrollment request messages --></label>
+        <name>partner_enrollment_request_messages</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner enrollment status button label --></label>
+        <name>partner_enrollment_status_button_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner enrollment status fields label --></label>
+        <name>partner_enrollment_status_fields_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner enrollment status heading label --></label>
+        <name>partner_enrollment_status_heading_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner enrollment status messages label --></label>
+        <name>partner_enrollment_status_messages_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner enrollment tnc label --></label>
+        <name>partner_enrollment_tnc_label</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_signup_request_formbody --></label>
+        <name>partner_signup_request_formbody</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_signup_request_header --></label>
+        <name>partner_signup_request_header</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_signup_request_messages --></label>
+        <name>partner_signup_request_messages</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_signup_request_tc --></label>
+        <name>partner_signup_request_tc</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_signup_request_text --></label>
+        <name>partner_signup_request_text</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- partner_signup_request_title --></label>
+        <name>partner_signup_request_title</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- upload button label --></label>
+        <name>upload_button_label</name>
+    </customLabels>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Bo_Report_Flow</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>Notice_Text</name>
+                </fields>
+                <name>Notice</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>WarningMessage</name>
+                </fields>
+                <name>Warning</name>
+            </screens>
+        </flows>
+        <fullName>BrowserCheck</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Create_Claimable_Partner_Fund_Claim</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Credit_Member_Points</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>DoNothing</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Enrollment_Bonus_for_New_Partner_Network</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>Only_Submit_Claimable_Fund_Claim_0</name>
+                </fields>
+                <name>Approved_or_Rejected_Claim_Error_0</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>Description_0</name>
+                </fields>
+                <name>Error_Message_0</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>Successfully_Submitted</name>
+                </fields>
+                <name>Success_Message</name>
+            </screens>
+        </flows>
+        <fullName>Fund_Claim_Approval_Process</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>Only_Submit_Draft_Requests</name>
+                </fields>
+                <name>Approved_or_Rejected_Request_Error</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>Submitted_0</name>
+                </fields>
+                <name>Success_Message_0</name>
+            </screens>
+        </flows>
+        <fullName>Fund_Request_Approval_Process</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>screen_LoginFlow_Application</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_Community</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_IpAddress</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_LoginType</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_Platform</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_SessionLevel</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_UserAgent</name>
+                </fields>
+                <fields>
+                    <name>screen_LoginFlow_UserId</name>
+                </fields>
+                <name>Display_Variables</name>
+            </screens>
+        </flows>
+        <fullName>IdentityVerification</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>Notice_Text</name>
+                </fields>
+                <name>Notice</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>WarningMessage</name>
+                </fields>
+                <name>Warning</name>
+            </screens>
+        </flows>
+        <fullName>Jitterbit_Agent_Updgrade</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>LM_purchase</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>LogisticsRevenueSplitOpportunity</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>LogisticsRevenueSplitSalesLead</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <choices>
+                <name>screenTypeChild</name>
+            </choices>
+            <choices>
+                <name>screenTypeClone</name>
+            </choices>
+            <screens>
+                <fields>
+                    <name>ErrorMessage</name>
+                </fields>
+                <name>CloneError</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>screenCompleteLabel</name>
+                </fields>
+                <name>Done</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>PrimarySalesDepartmentError</name>
+                </fields>
+                <name>PrimarySalesDepartmentValidity</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>screenCloneType</name>
+                </fields>
+                <name>SelectCloneType</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>screenNewOpportunityAmount</name>
+                </fields>
+                <fields>
+                    <name>screenNewOpportunityCloseDate</name>
+                </fields>
+                <fields>
+                    <name>screenNewOppotunityName</name>
+                </fields>
+                <name>SetNewOpportunityValue</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>lblNotPermitted</name>
+                </fields>
+                <name>dialogNotPermitted</name>
+            </screens>
+        </flows>
+        <fullName>OpportunityClone</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Partner_Business_Management_Actions</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Partner_Business_Opportunity_Actions</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Partner_Enrolment_Request_Actions</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Partner_T_C_Check</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Partner_T_C_Uncheck</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>ProcessLogisticsRevenueSplitOpportunity</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>ProcessLogisticsRevenueSplitSalesLead</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Q_A_Action_Flow</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>ErrorMessage</name>
+                </fields>
+                <name>CloneError</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>ErrorMessage4ConvertedLead</name>
+                </fields>
+                <name>CloneError4ConvertedLead</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>screenSalesLeadName</name>
+                </fields>
+                <name>CloneSalesLead</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>screenCompleteLabel</name>
+                </fields>
+                <name>Done</name>
+            </screens>
+        </flows>
+        <fullName>SalesLeadClone</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>ThanksMessage</name>
+                </fields>
+                <name>ReceiveSpecialCoupon</name>
+            </screens>
+        </flows>
+        <fullName>SpecialCoupon</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Test</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Tier_Upgrade_Processing</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>Update_OriginAccount</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <inputParameters>
+                        <name>fieldApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>objectApiName</name>
+                        <value/>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>recordId</name>
+                        <value/>
+                    </inputParameters>
+                    <name>UserInfo</name>
+                </fields>
+                <name>Select_a_user</name>
+            </screens>
+            <screens>
+                <fields>
+                    <name>userValues</name>
+                </fields>
+                <name>Test_Release</name>
+            </screens>
+        </flows>
+        <fullName>User_management_Release_POC</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>VOC_Close_Alert</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>VRBRequest_Notification</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>calculate_FP_for_Task_Performance</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>showDateErrortest</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows/>
+        <fullName>showToast</fullName>
+    </flowDefinitions>
+    <flowDefinitions>
+        <flows>
+            <screens>
+                <fields>
+                    <name>name</name>
+                </fields>
+                <name>header</name>
+            </screens>
+        </flows>
+        <fullName>test2</fullName>
+    </flowDefinitions>
+</Translations>

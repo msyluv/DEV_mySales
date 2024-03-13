@@ -1,0 +1,221 @@
+<!--
+* @description       : Aura cmp to generate BO Email Template 
+* @author            : d.ashish@samsung.com
+* @group             : 
+* @last modified on  : 2023-06-21
+* @last modified by  : d.ashish@samsung.com
+* Modifications Log 
+* Ver   Date         Author                   Modification
+* 1.0   2023-06-21   d.ashish@samsung.com   Initial Version
+-->
+<apex:component controller="BOReportCtrl" access="global" >
+    <apex:attribute name="orgNameParam" type="STRING" assignTo="{!orgName}" description="Org Name"/>
+    <header>
+        <style><!--table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align:center;
+            }
+            .link_button {
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            border: solid 1px #20538D;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+            -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+            background: #4479BA;
+            color: #FFF;
+            padding: 2px 7px;
+            text-decoration: none;
+            }-->
+        </style>
+    </header>
+    <!-- First Table Setup-->
+    <div class="tbl_tit">Email Sent on {!datetimeString}</div>
+
+    
+    <div class="tbl_type01">
+        <table width="auto" >
+            <tbody>
+                <tr>
+                    <td colspan="6" rowspan="3" style="text-align: left; padding-left: 5px;">
+                        안녕하세요.<br/>
+                        금주 {!orgName} 거점 Weekly BO Report 를 하기 메일과 같이 송부 드립니다.</td>   
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="tbl_tit">      금주 기준 향후 3개월 간 영업 사원 별 BO 등록 건수 및 금액<br/>
+        - 금액 단위: 억 원 (KRW)
+    </div>
+    <div>
+        <a href="{!reportURL1}" class="link_button" target="_blank">BO Report 바로가기</a>
+        
+    </div>
+    <br/>
+    
+    <table  class="tbl_type01"> 
+        <tr>
+            <th rowspan="2"  style="text-align:center; padding: 13px 0px 12px 0; vertical-align: middle;">Sales Organization</th>
+            <th rowspan="2"  style="text-align:center; padding: 13px 0px 12px 0; vertical-align: middle;">Sales Representative</th>
+            <th colspan="2" style="text-align:center; padding: 13px 0px 12px 0">{!thisMonthyear} {!thisMonthString}</th>
+            <th colspan="2" style="text-align:center; padding: 13px 0px 12px 0">{!nextMonthyear} {!nextMonthString}</th>
+            <th colspan="2" style="text-align:center; padding: 13px 0px 12px 0">{!next1Monthyear} {!next1MonthString}</th>
+            <th colspan="2" style="text-align:center; padding: 13px 0px 12px 0">Total</th>
+        </tr>
+        <tr>
+            <th style="text-align:center; padding: 13px 0px 12px 0">BO count</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0">	
+                BO amount</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0">BO count</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0">	
+                BO amount</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0">BO count</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0">	
+                BO amount</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0">BO count</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0">BO amount</th>
+        </tr>        
+        <apex:repeat value="{!reportAList}" var="aObj">
+            <tr>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!aObj.branchName}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!aObj.repName}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!aObj.BOCountThisMonth}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">
+                    <apex:outputtext value="{0, number,  0.00}">
+                        <apex:param value="{!aObj.BOAmountThisMonth}"/>
+                    </apex:outputtext>
+                </td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!aObj.BOCountNextMonth}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">
+                    <apex:outputtext value="{0, number,   0.00}">
+                        <apex:param value="{!aObj.BOAmountNextMonth}"/>
+                    </apex:outputtext>
+                </td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!aObj.BOCountNext1Month}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">
+                    <apex:outputtext value="{0, number,   0.00}">
+                        <apex:param value="{!aObj.BOAmountNext1Month}"/>
+                    </apex:outputtext>
+                </td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!aObj.BOCountTotal}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">
+                    <apex:outputtext value="{0, number,   0.00}">
+                        <apex:param value="{!aObj.BOAmountTotal}"/>
+                    </apex:outputtext>
+                </td>
+            </tr>
+        </apex:repeat>
+        <tr style="background-color:#d0cece;">
+            <td colspan="2"  style="text-align:center; padding: 12px 0px 10px 0; font-weight:600;">{!orgName}  Total</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOcountThisMonth}</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">
+                <apex:outputtext value="{0, number,   0.00}">
+                    <apex:param value="{!totalBOamtThisMonth}"/>
+                </apex:outputtext>
+            </td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOcountNextMonth}</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">
+                <apex:outputtext value="{0, number,   0.00}">
+                    <apex:param value="{!totalBOamtNextMonth}"/>
+                </apex:outputtext>
+                
+            </td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOcountNext1Month}</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">                             
+                <apex:outputtext value="{0, number,   0.00}">
+                    <apex:param value="{!totalBOamtNext1Month}"/>
+                </apex:outputtext>
+            </td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOcountTotal}</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">
+                <apex:outputtext value="{0, number,   0.00}">
+                    <apex:param value="{!totalBOamtTotal}"/>
+                </apex:outputtext>
+            </td>
+        </tr>
+    </table>
+    
+    
+    <br/> 
+    <!-- Second Table Setup-->
+    <div class="tbl_tit">지난 주 대비 BO 등록 건수 증감률</div>
+    
+    <table class="tbl_type01">
+        <tr>
+            <th rowspan="2"   style="text-align:center; padding: 13px 0px 12px 0; vertical-align: middle;">Sales Organization</th>
+            <th rowspan="2"   style="text-align:center; padding: 13px 0px 12px 0; vertical-align: middle;">Sales Representative</th>
+            <th colspan="3" style="text-align:center; padding: 13px 0px 12px 0;">{!thisMonthyear} {!thisMonthString}</th>
+            <th colspan="3" style="text-align:center; padding: 13px 0px 12px 0;">{!nextMonthyear} {!nextMonthString}</th>
+            <th colspan="3" style="text-align:center; padding: 13px 0px 12px 0;">{!next1Monthyear} {!next1MonthString}</th>
+        </tr>
+        <tr>
+            <th style="text-align:center; padding: 13px 0px 12px 0;">Previous week</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0;">Current week</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0;">Diff</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0;">Previous week</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0;">Current week</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0;">Diff</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0;">Previous week</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0;">Current week</th>
+            <th style="text-align:center; padding: 13px 0px 12px 0;">Diff</th>
+        </tr>        
+        <apex:repeat value="{!reportBList}" var="bObj">
+            <tr>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!bObj.branchName}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!bObj.repName}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!bObj.BOCountLastWeekThisMonth}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!bObj.BOCountThisWeekThisMonth}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!bObj.BOCountDiffThisMonth}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!bObj.BOCountLastWeekNextMonth}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!bObj.BOCountThisWeekNextMonth}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!bObj.BOCountDiffNextMonth}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!bObj.BOCountLastWeekNext1Month}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!bObj.BOCountThisWeekNext1Month}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!bObj.BOCountDiffNext1Month}</td>
+            </tr>
+        </apex:repeat>
+        <tr style="background-color:#d0cece;">
+            <td colspan="2"  style="text-align:center; padding: 12px 0px 10px 0; font-weight:600;">{!orgName} Total</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOCountLastWeekThisMonth}</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOCountThisWeekThisMonth}</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOCountDiffThisMonth}</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOCountLastWeekNextMonth}</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOCountThisWeekNextMonth}</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOCountDiffNextMonth}</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOCountLastWeekNext1Month}</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOCountThisWeekNext1Month}</td>
+            <td style="text-align:center; padding: 12px 0px 10px 0">{!totalBOCountDiffNext1Month}</td>
+        </tr>
+    </table>
+    <br/>
+    
+    <!-- Third Table -->
+    <div class="tbl_tit">지난 주와 금주 업데이트 된 Sales Activity 의 Subject 건수</div>
+    <div>
+        
+        <a href="{!reportURL3}"  class="link_button" target="_blank">상세 Subject Report 바로가기</a>
+    </div> 
+    <br/>
+    
+    <table class="">
+        <tr>
+            <th  style="text-align:center;     padding: 13px 0px 12px 0;">Sales Organization</th>
+            <th  style="text-align:center; padding: 13px 0px 12px 0;">Sales Representative</th>
+            <th  style="text-align:center; padding: 13px 0px 12px 0;">Previous week</th>
+            <th  style="text-align:center; padding: 13px 0px 12px 0;">Current week</th>
+        </tr>
+        <apex:repeat value="{!reportCList}" var="cObj">
+            <tr>
+                <td  style="text-align:center; padding: 12px 0px 10px 0;">{!orgName}</td>
+                <td  style="text-align:center; padding: 12px 0px 10px 0;">{!cObj.repName}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0;">{!cObj.eventCountLastWeek}</td>
+                <td style="text-align:center; padding: 12px 0px 10px 0">{!cObj.eventCountThisWeek}</td>
+            </tr>
+        </apex:repeat>
+    </table>
+    
+</apex:component>

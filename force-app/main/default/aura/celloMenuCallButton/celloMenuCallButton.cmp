@@ -1,0 +1,83 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 2023-10-24
+  @last modified by  : divyam.gupta@samsung.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   12-24-2020   woomg@dkbmc.com      Initial Version
+  1.1   2022-10-29   Kajal.c@samsung.com  Add 'LogisticsCpreview Aura component'.
+  1.2   2o23-10-24   divyam.gupta@samsung.com Mysales-331 (Logistics) CP Review logic change.
+-->
+<aura:component
+                controller="CelloParameterController"
+                access="global" >
+    
+    <aura:attribute name="buttonStyle" type="String" default="label-inline" access="global"/>
+    <aura:attribute name="buttonClass" type="String" default="" access="global"/>
+    
+    <aura:attribute name="config" type="Object" default="{}" access="global"/>
+    <aura:attribute name="label" type="String" default="Cello" access="global"/>
+    <aura:attribute name="menu" type="String" default="" access="global"/>
+    <aura:attribute name="lbsType" type="String" default="NEW" access="global"/>
+    <aura:attribute name="lbsCode" type="String" default="BID" access="global"/>
+    <aura:attribute name="opptyId" type="String" default="" access="global"/>
+    <aura:attribute name="billToId" type="String" default="" access="global"/>
+    <aura:attribute name="disabled" type="String" default="false" access="global"/>
+    <!--START V1.1 Added by Kajal-->
+    <aura:attribute name="oppsID" type="String" default="" access="global"/>
+    <aura:attribute name="transactionName" type="String" default="" access="global"/>
+    <aura:attribute name="getExceptionBooleanValue" type="Boolean"  access="global"/>
+    <aura:attribute name="popUpWindowRedirect" type="Boolean" access="global"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <!-- [Style] -->
+    <aura:html tag="style">
+        .THIS .slds-modal__container {
+        
+        min-width:90% !important;
+        max-width:90% !important;
+        }
+    </aura:html>
+    <!--STOP V1.1 Added by Kajal-->
+    <!-- menu
+        Test Shipment     => WKS_TS_REG
+        LBS               => WKS_LBS_REG
+        Credit Assessment => WKS_CRAS_REG
+        APS               => APS_AP_REQ_INFO
+    -->
+    <!-- WKS_LBS_REG -> lbsType
+        New         => NEW
+        Retention   => RETEN
+        Rate Change => RACH
+    -->
+    <!-- WKS_LBS_REG -> lbsCode
+        Bidding     => BID
+        Final       => FIN
+    -->
+    <!-- WKS_CRAS_REG -> billToId
+        Biiling Account MDG Code
+    -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner alternativeText="Loading" size="medium" />
+    </aura:if>
+    
+    <!--V1.1 Added by Kajal-->
+    <!--
+    <aura:if isTrue="{!v.popUpWindowRedirect}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <c:LogisticsCPReviewComp oppId="{!v.oppsID}" lbsType="{!v.lbsType}" billToId ="{!v.billToId}"/>
+            </div>
+        </section>
+        <aura:set attribute="else">
+            <lightning:button label="{!v.label}" onclick="{!c.callCelloMenu}" variant="{!v.buttonStyle}" class="{!v.buttonClass}" disabled="{!v.disabled}"/>
+        </aura:set>
+    </aura:if>
+     -->
+    <!-- Stop V1.1-->
+    <!--V 1.2 Changes by Divyam-->
+
+            <lightning:button label="{!v.label}" onclick="{!c.callCelloMenu}" variant="{!v.buttonStyle}" class="{!v.buttonClass}" disabled="{!v.disabled}"/>
+</aura:component>

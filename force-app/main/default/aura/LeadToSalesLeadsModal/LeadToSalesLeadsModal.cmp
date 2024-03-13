@@ -1,0 +1,137 @@
+<!--
+@description       : 
+@author            : Junghwa.Kim@dkbmc.com
+@group             : 
+@last modified on  : 2021-11-01
+@last modified by  : younghoon.kim@dkbmc.com
+Modifications Log 
+Ver   Date         Author                  Modification
+1.0   11-03-2020   Junghwa.Kim@dkbmc.com   Initial Version
+-->
+<aura:component controller="LeadToSalesLeadsModalController"
+                implements="lightning:isUrlAddressable,lightning:hasPageReference,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:appHostable,force:hasSObjectName,force:hasRecordId" access="global">
+    
+    <aura:html tag="style">
+        .slds-modal__container{
+            margin: 0 auto; 
+            width: 100%; 
+            max-width: 55rem; 
+            min-width: 30rem;
+        }
+    </aura:html>
+
+    <aura:attribute name="LeadList" type="List"/>
+    <aura:attribute name="lList" type="List"/>
+    <aura:attribute name="slList" type="List"/>
+    <aura:attribute name="selectedOwner" type="String" description="Store selected Owner Id"/>
+    <aura:attribute name="recordType" type="String"/>
+    <aura:attribute name="isAdmin" type="Boolean" default="false"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="true"/>
+    
+    <aura:handler name="recordSelectedEvent" event="c:customLookupSelectedEvent" action="{!c.recordSelectedEventHandler}"/>
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+    <div>
+        <aura:if isTrue="{!v.showSpinner}">
+            <lightning:spinner />
+        </aura:if>
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate" style="text-align: center;">{!$Label.c.CONVERT_LAB_CONVERTLEAD}</h2>
+        <div class="body">
+            <div class="lookup">
+                <div class="lookupInside">
+                    <!-- 모든 활성 사용자 검색 가능 -->
+                    <c:customLookup objectName="User" 
+                                label="{!$Label.c.CONVERT_LAB_RECORDOWNER}" 
+                                iconName="standard:user" 
+                                required="true" 
+                                minimum="2" 
+                                additionalSelect="ProfileId" 
+                                searchFields="Email" 
+                                additionalDisplay="UserInfo__c"
+                                filterFields = "isActive"
+                                filterValues = "true"
+                                filterConditions = "eq"/>
+                </div>
+            </div>
+            <table class="leftTable">
+                <thead>
+                    <tr>
+                        <th class="textCenter">{!$Label.c.CONVERT_LAB_LEAD}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <lightning:recordEditForm objectApiName="Lead">
+                        <aura:iteration items="{!v.lList}" var="value" indexVar="key">
+                            <tr>
+                                <td class="inputwidth">
+                                    <aura:if isTrue="{!value.value.type != 'text'}">
+                                        <lightning:input type="{!value.value.type}" value="{!value.value.value}" label="{!value.key}" disabled="true"/>
+                                        <aura:set attribute="else">
+                                            <lightning:input value="{!value.value.value}" label="{!value.key}" disabled="true"/>
+                                        </aura:set>
+                                    </aura:if>
+                                </td>
+                                <td class="textCenter pointer">
+                                    <div>
+                                        <lightning:icon iconName="utility:forward" class="slds-icon slds-icon_small" size="x-small"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                        <!--
+                        <aura:iteration items="{!v.LeadList}" var="obj">
+                            <tr>
+                                <td class="inputwidth">
+                                    <lightning:inputField fieldName="{!obj.LApi}" value="{!obj.LValue}" disabled="true"/>
+                                </td>
+                                <td class="textCenter pointer">
+                                    <div>
+                                        <lightning:icon iconName="utility:forward" class="slds-icon slds-icon_small" size="x-small"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                        -->
+                    </lightning:recordEditForm>
+                </tbody>
+            </table>
+            <table class="rightTable">
+                <thead>
+                    <tr>
+                        <th class="textCenter">{!$Label.c.CONVERT_LAB_SALESLEAD}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <lightning:recordEditForm objectApiName="Sales_Lead__c">
+                        <aura:iteration items="{!v.slList}" var="value" indexVar="key">
+                            <tr>
+                                <td class="inputwidth">
+                                    <aura:if isTrue="{!value.value.type != 'text'}">
+                                        <lightning:input type="{!value.value.type}" value="{!value.value.value}" label="{!value.key}" disabled="true"/>
+                                        <aura:set attribute="else">
+                                            <lightning:input value="{!value.value.value}" label="{!value.key}" disabled="true"/>
+                                        </aura:set>
+                                    </aura:if>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                        <!--
+                        <aura:iteration items="{!v.LeadList}" var="obj">
+                            <tr>
+                                <td class="inputwidth">
+                                    <lightning:inputField fieldName="{!obj.SLApi}" value="{!obj.SLValue}" disabled="true"/>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                        -->
+                    </lightning:recordEditForm>
+                </tbody>
+            </table>
+        </div>
+        <footer class="footer">
+            <lightning:button variant="brand-outline" label="{!$Label.c.CONVER_BTN_CANCEL}" onclick="{!c.convertCacenlBtn}" />
+            <lightning:button variant="brand" label="{!$Label.c.CONVER_BTN_CONVERT}" onclick="{!c.convertBtn}" />
+        </footer>
+    </div>
+</aura:component>

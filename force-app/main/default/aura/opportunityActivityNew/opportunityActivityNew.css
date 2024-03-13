@@ -1,0 +1,82 @@
+/* =============== Page Card Template =============== */
+.THIS .quick-modal__content {
+    padding: 0em;
+}
+
+.THIS .modal-content {
+    min-height: calc(85vh - 6rem);
+    max-height: calc(85vh - 6rem);
+    height: calc(85vh - 6rem);
+    /* overflow-y: auto; */
+}
+
+.THIS .tab-content {
+    min-height: 100%;
+    height: 100%;
+}
+
+.THIS .slds-card__body {
+    height: calc(100% - 58px) !important;
+    margin: 0;
+}
+
+.THIS .input-picklist-disabled {
+    pointer-events: none;
+}
+
+.THIS .input-picklist-disabled .slds-input__icon-group.slds-input__icon-group_right {
+    visibility: hidden;
+}
+
+.THIS .input-picklist-disabled input {
+    background-color: rgb(233, 232, 232);
+}
+
+.THIS .input-disabled input {
+    pointer-events: none;
+    background-color: rgb(233, 232, 232);
+}
+
+.THIS .slds-tabs_default__content,
+.THIS .slds-tabs--default__content  {
+    padding:0!important;
+}
+
+.THIS li.slds-tabs_default__item.disabled {
+    pointer-events: none;
+    text-decoration: line-through;
+}
+
+/* Lost Type Stage 조절 (--none-- 포함 stage 6개 삭제) */
+.THIS .LostType .slds-media.slds-listbox__option.slds-media_center.slds-media_small.slds-listbox__option_plain:nth-child(n+2):nth-child(-n+6) {
+    display : none !important; 
+}
+/* Lost Type Stage 조절 (Cleansed 삭제) */
+.THIS .LostType .slds-media.slds-listbox__option.slds-media_center.slds-media_small.slds-listbox__option_plain:last-child {
+    display : none !important; 
+}
+
+/* 2022-08-10 yeongju.baek@dkbmc.com Rejected ~ Cancelled 추가 숨김*/
+/* Status 조절 (Not Started ~ Completed 숨김)(Rejected ~ Cancelled 추가 숨김) */
+.THIS .AutoAll .slds-media.slds-listbox__option.slds-media_center.slds-media_small.slds-listbox__option_plain:nth-child(n+2):nth-child(-n+6) {
+    display : none !important; 
+}
+
+/* Status 조절 (In Progress ~ Completed 숨김)(Rejected ~ Cancelled 추가 숨김) */
+.THIS .AutoInProgress .slds-media.slds-listbox__option.slds-media_center.slds-media_small.slds-listbox__option_plain:nth-child(n+3):nth-child(-n+6){
+    display : none !important; 
+}
+
+/* Status 조절 (Completed 숨김)(Rejected ~ Cancelled 추가 숨김) */
+.THIS .AutoCompleted .slds-media.slds-listbox__option.slds-media_center.slds-media_small.slds-listbox__option_plain:nth-child(n+4):nth-child(-n+6) {
+    display : none !important; 
+}
+           
+/* Status 조절 (Rejected ~ Cancelled 숨김) */
+.THIS .AutoCancel .slds-media.slds-listbox__option.slds-media_center.slds-media_small.slds-listbox__option_plain:nth-child(n+5):nth-child(-n+6) {
+    display : none !important; 
+}
+
+.THIS .fontNormal {
+    font-size: 13px;
+}

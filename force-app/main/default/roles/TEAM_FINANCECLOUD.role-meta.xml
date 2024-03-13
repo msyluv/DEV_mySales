@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Read</caseAccessLevel>
+    <contactAccessLevel>Read</contactAccessLevel>
+    <description>Parent : SDS-총괄 &gt; SDS-본사 &gt; 클라우드사업부</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>금융/공공클라우드사업팀</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>DIVISION_CLOUD</parentRole>
+</Role>

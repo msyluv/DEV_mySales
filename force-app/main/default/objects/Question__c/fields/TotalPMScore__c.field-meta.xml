@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalPMScore__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(PMScore__c&lt; 0, IF(PMScore__c&lt; -5, -5, PMScore__c) , IF(PMShortAnswerScore__c &lt; 0, PMShortAnswerScore__c, 0))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total PM Score</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

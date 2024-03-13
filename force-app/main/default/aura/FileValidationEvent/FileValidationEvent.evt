@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="ComponentEvent">
+    <aura:attribute name="fileFlag" type="List" />
+</aura:event>

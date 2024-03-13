@@ -1,0 +1,73 @@
+<!--
+  @author            : akash.g@samsung.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2022-06-16
+  @last modified by  : akash.g@samsung.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2022-06-13   akash.g@samsung.com   Initial Version
+  1.1   2022-06-16   akash.g@samsung.com   Add button with label 'REQ_REGISTRATION_PM'.
+-->
+<aura:component controller="RegistrationProposalPMController"
+    implements="flexipage:availableForRecordHome,force:appHostable,force:lightningQuickActionWithoutHeader,force:hasRecordId"
+    access="global" >
+
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!-- [Attribute] -->
+    <aura:attribute name="opportunity" type="Object" default=""/>
+    <aura:attribute name="recordId" type="String" default=""/>
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <aura:attribute name="selectedEmp" type="Object" default="{}"/>
+    <aura:attribute name="pmCheck" type="Boolean" default="false"/>
+    
+	<div class="quick-modal">
+        <section class="modal slds-modal slds-fade-in-open">
+            <div class="slds-modal__container modal__container">
+                <div class="slds-is-relative">
+                    <!-- [S] Spinner -->
+                    <aura:if isTrue="{!v.showSpinner}">
+                        <lightning:spinner />
+                    </aura:if>
+                    <!-- [E] Spinner -->
+                    <!-- [S] Header-->
+                    <header class="slds-modal__header">
+                        <h2 class="title slds-text-heading--medium">{!$Label.c.RPM_LAB_HEADER}</h2>
+                    </header>
+                    <!-- [E] Header-->
+                    <!-- [S] Body -->
+                    <div class="slds-modal__content modal__content" id="modal-content-id-1">
+                        <div class="modal_body">
+                            <c:customLookup aura:id="clookup"
+                                            iconName="standard:user"
+                                            objectName="Employee__c"
+                                            label=""
+                                            searchFields="EvMailAddr__c"
+                                            additionalDisplay="EvMailAddr__c, EvSapBukrs__c"
+                                            filterFields = "Status__c"
+                                            filterValues = "null"
+                                            filterConditions = "eq"
+                                            minimum="1" 
+                                            numOfQuery="20"
+                                            selectedRecord="{!v.selectedEmp}"/>
+                        </div>
+                    </div>
+                    <!-- [E] Body -->
+                    <!-- [S] Footer -->
+                    <footer class="slds-modal__footer">
+                        <!-- V1.1->  Add button with label 'REQ_REGISTRATION_PM'-->
+                        <lightning:button aura:id="REQ_REGISTRATION_PM" class="slds-float_left"
+                                    label="{!$Label.c.RPM_MSG_0006}" 
+                                    value="{!$Label.c.OPPTYACT_URL_REQ_PROPOSAL_PM}" 
+                                    onclick="{!c.handleOpenLink}" />
+                        <lightning:button label="{!$Label.c.COMM_BTN_CANCEL}" title="Cancel" onclick="{!c.cancel}"></lightning:button>
+                        <lightning:button variant="brand" label="{!$Label.c.COMM_BTN_SAVE}" title="Save" onclick="{!c.save}" ></lightning:button>
+                    </footer>
+                    <!-- [E] Footer -->
+                </div>
+            </div>
+        </section>
+    </div>
+</aura:component>

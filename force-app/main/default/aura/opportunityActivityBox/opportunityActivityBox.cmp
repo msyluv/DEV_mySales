@@ -1,0 +1,90 @@
+<!--
+  @description       : 
+  @author            : wonjune.oh@partner.samsung.com
+  @group             : 
+  @last modified on  : 2023-10-27
+  @last modified by  : gitesh.s@samsung.com
+  Modifications Log 
+  Ver   Date         Author                           Modification
+  1.0   2020-11-16   wonjune.oh@partner.samsung.com   Initial Version
+  1.1   2023-06-30   chae_ho.yang@samsung.com         isSandbox Attribute add
+  1.2   2023-07-05   rakshit.s@samsung.com			  SCP Quotation Disabled Delay fix
+  1.3   2023-10-27   gitesh.s@samsung.com             SCP Quotation Activity color change (MYSALES-339)
+-->
+<aura:component 
+    controller="OpportunityActivityNewController"
+    implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId"
+    access="GLOBAL">
+
+    <!-- [Attribute] -->
+    <aura:attribute name="dbClickProhibition" type="Boolean" default="false" access="global"/>     
+    <aura:attribute name="maximize" type="Boolean" default="false" access="global"/>     
+    <aura:attribute name="parentId" type="String"/>
+    <aura:attribute name="activityItem" type="Object" />
+    <aura:attribute name="isDisabledClick" type="Boolean" default="false" />
+    <aura:attribute name="isAccessible" type="Boolean" default="{!v.activityItem.isAccessible}"/>
+    <aura:attribute name="classCollection" type="String" default=""/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="hasEditAccess" type="Boolean" />
+
+    <!-- v 1.1 add -->
+    <aura:attribute name="isSandbox" type="Boolean" default="false" />
+    
+    <!-- v 1.2 add -->
+    <aura:attribute name="oppValues" type="Object" default="Opportunity Record" access="global"/>
+
+    <!-- v1.3 - Gitesh Saini (MYSALES-339) -->
+    <aura:attribute name="scpSimList" type="Object" />
+
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+    <!-- [registerEvent] -->
+    <aura:registerEvent name="opportunityActivityPanelRefreshEvent" type="c:opportunityActivityPanelRefreshEvent"/>
+
+    <!-- [Library] -->
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    <!-- [Style] -->
+    <aura:html tag="style">
+       
+    </aura:html>
+    
+    <div class="{!v.classCollection}" onclick="{!(v.isDisabledClick) ? null : c.handleActivityClick}">
+        
+        <lightning:layout  multipleRows="true">
+            <lightning:layoutItem size="12">
+                    <div class="slds-text-align_center" >
+                        <aura:if isTrue="{!v.showSpinner}">
+                            <lightning:spinner alternativeText="Loading" size="small" />
+                        </aura:if>
+                        <lightning:layoutItem>
+                            <lightning:layoutItem size="12">
+                                <div class="body-box slds-text-align_center">
+                                    {!v.activityItem.MasterAct.toLabel_TransactionName__c}
+                                </div>
+                            </lightning:layoutItem>
+
+                            <aura:renderIf isTrue="{!v.maximize}">
+                                <div class="date-box slds-text-align_center slds-grid">
+                                    <lightning:layoutItem size="12" largeDeviceSize="7" mediumDeviceSize="7" smallDeviceSize="12">
+                                        <div Id= 'statusDiv'>
+                                            <aura:if isTrue="{!not(empty(v.activityItem.BoAct.Status__c))}">
+                                                {!v.activityItem.BoAct.toLabel_Status__c}
+                                            </aura:if>
+                                        </div>
+                                    </lightning:layoutItem>
+                                    <div Id= 'dateDiv'>
+                                        <lightning:layoutItem size="12" largeDeviceSize="5" mediumDeviceSize="5" smallDeviceSize="0">
+                                            <lightning:formattedDateTime value="{!v.activityItem.DateItem}" year="numeric" month="numeric" day="numeric" />
+                                        </lightning:layoutItem>
+                                    </div>
+                                </div>
+                            </aura:renderIf>
+                            
+                        </lightning:layoutItem>
+                    </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+</aura:component>

@@ -1,0 +1,87 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 2020-12-11
+  @last modified by  : hj.lee@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   11-20-2020   woomg@dkbmc.com   Initial Version
+-->
+<aura:component controller="OpportunityActivityPanelController"
+    implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId"
+    access="GLOBAL">
+
+    <aura:attribute name="isMobile" type="Boolean" default="false" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" access="global" />
+    <aura:attribute name="maximize" type="Boolean" default="true" access="global" />
+    <aura:attribute name="activityItemList" type="List" default="" />
+    <aura:attribute name="activityItemListDetail" type="List" default="" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+
+    <div class="slds-scrollable_x" style="border: 1px solid rgb(221, 219, 218);
+                                        border-radius: 0.25rem;
+                                        background-color: #FFFFFF; width:100%;">
+        <!-- slds-col slds-var-p-horizontal_medium -->
+        <!--aura:if isTrue="{! v.activityItemList.length >0}"-->
+
+            <article class="">
+                <div class="slds-card__body slds-card__body_inner">
+                    <h2 class="slds-assistive-text">Status Panel</h2>
+                    <div class="slds-path slds-path_has-coaching">
+                        <div>
+                            <div class="slds-grid slds-path__track">
+                                <div class="slds-col slds-var-p-horizontal_small activity-col">
+                                    <ul>
+                                        <c:opportunityMobileActivityIcon activityType="task" isLast="true" />
+                                    </ul>    
+                                </div>
+                                <div class="slds-col slds-var-p-horizontal_small activity-col">
+                                    <ul>
+                                        <c:opportunityMobileActivityIcon activityType="account"/>
+                                        <c:opportunityMobileActivityIcon activityType="answer_best" isLast="true" />
+                                    </ul>    
+                                </div>
+                                <div class="slds-col slds-var-p-horizontal_small activity-col">
+                                    <ul>
+                                        <c:opportunityMobileActivityIcon activityType="article" isLast="true" />
+                                    </ul>    
+                                </div>
+                                <div class="slds-col slds-var-p-horizontal_small activity-col">
+                                    <ul>
+                                        <c:opportunityMobileActivityIcon activityType="asset_relationship"/>
+                                        <c:opportunityMobileActivityIcon activityType="activations"/>
+                                        <c:opportunityMobileActivityIcon activityType="actions_and_buttons"/>
+                                        <c:opportunityMobileActivityIcon activityType="branch_merge" disabled="true"/>
+                                        <c:opportunityMobileActivityIcon activityType="assignment" isLast="true" />
+                                    </ul>    
+                                </div>
+                                <div class="slds-col slds-var-p-horizontal_small activity-col">
+                                    <ul>
+                                        <c:opportunityMobileActivityIcon activityType="case"/>
+                                        <c:opportunityMobileActivityIcon activityType="catalog"/>
+                                        <c:opportunityMobileActivityIcon activityType="fulfillment_order"/>
+                                        <c:opportunityMobileActivityIcon activityType="logging" isLast="true" />
+                                    </ul>    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+            </article>
+
+            <!--aura:set attribute="else">
+                <div style="text-align: center; padding-top: 11px; padding-bottom: 11px;">
+                    {!$Label.c.OPPTYACT_MSG_001}
+                </div>
+            </aura:set>
+        </aura:if-->
+    </div>
+</aura:component>

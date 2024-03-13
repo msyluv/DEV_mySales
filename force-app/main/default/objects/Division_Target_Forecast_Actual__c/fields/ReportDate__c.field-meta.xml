@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReportDate__c</fullName>
+    <description>계획/전망/실적을 보고하는 기준이 되는 보고일자
+구체적인 보고일자를 사용하지는 않으며 Report에서 Relative 필터를 사용하기 위해 날짜형 필드를 생성함
+이 날짜형 필드는 반드시 관련된 다른 Report Year, Report Month와도 데이터 정합성이 일치해야 함.</description>
+    <externalId>false</externalId>
+    <label>Report Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

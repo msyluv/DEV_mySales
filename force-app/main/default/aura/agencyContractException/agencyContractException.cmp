@@ -1,0 +1,108 @@
+<!--
+  @description       : 
+  @author            : wonjune.oh@partner.samsung.com
+  @group             : 
+  @last modified on  : 2021-03-17
+  @last modified by  : hj.lee@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                           Modification
+  1.0   2020-11-30   wonjune.oh@partner.samsung.com   Initial Version
+-->
+<aura:component>
+    <aura:attribute name="parentId" type="String" required="true" description="Opportunity.Id"/>
+    <aura:attribute name="hasEditAccess" type="Boolean" default="false" required="true" description="Profile Opportunity Edit 권한 유무" />
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> -->
+
+    <!-- [Library] -->
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <!-- [Attribute] : UI Attribute -->
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <!-- [registerEvent] : Event Handler -->
+    <aura:registerEvent name="opportunityActivityUpdateEvent" type="c:opportunityActivityUpdateEvent"/> 
+
+    <!-- [Opportunity Read Only]-->
+    <aura:if isTrue="{!not(v.hasEditAccess)}">
+        <lightning:recordViewForm aura:id="recordViewForm" 
+                                  objectApiName="Opportunity" 
+                                  recordId="{!v.parentId}" > 
+
+            <!-- Modal Contents -->
+            <div class="slds-col modal-body scrollable modal-content"> 
+                <!-- [View] -->
+                <div class="slds-scrollable_y slds-card__body slds-p-around_small">
+
+                    <aura:if isTrue="{!v.showSpinner}">
+                        <lightning:spinner alternativeText="Loading" size="medium" />
+                    </aura:if>
+
+                    <lightning:layout multipleRows="true" >
+                        <!-- Business Level  -->
+                        <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                            <lightning:outputField aura:id="fields" fieldName="Urgency__c" variant="label-stacked" />
+                        </lightning:layoutItem> 
+
+                        <!-- Method -->
+                        <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                            <lightning:outputField aura:id="fields" fieldName="Security__c" variant="label-stacked" />
+                        </lightning:layoutItem>
+
+                        <!-- Due Date -->
+                        <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                            <lightning:outputField aura:id="fields" fieldName="OurRole__c" variant="label-stacked" />
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="slds-col modal-footer slds-modal__footer">   
+                    <lightning:button label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{! c.cancel }" />
+                    
+                </div>
+            </div>
+        </lightning:recordViewForm> 
+    </aura:if>
+
+    <!-- [Opportunity Edit]-->
+    <aura:if isTrue="{!v.hasEditAccess}">
+        <lightning:recordEditForm aura:id="recordEditForm" 
+                                objectApiName="Opportunity" 
+                                recordId="{!v.parentId}"
+                                onsubmit="{!c.handleSubmit}"
+                                onsuccess="{!c.handleSuccess}"
+                                onerror="{!c.handleError}" > 
+
+            <!-- Modal Contents -->
+            <div class="slds-col modal-body scrollable modal-content"> 
+                <div id="activityRecordForm" class="slds-scrollable_y slds-card__body slds-p-around_small">
+                    <aura:if isTrue="{!v.showSpinner}">
+                        <lightning:spinner alternativeText="Loading" size="medium" />
+                    </aura:if>
+
+                    <lightning:layout multipleRows="true" >
+                        <!-- Business Level  -->
+                        <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                            <lightning:inputField aura:id="fields" fieldName="Urgency__c" variant="label-stacked" />
+                        </lightning:layoutItem> 
+
+                        <!-- Method -->
+                        <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                            <lightning:inputField aura:id="fields" fieldName="Security__c" variant="label-stacked" />
+                        </lightning:layoutItem>
+
+                        <!-- Due Date -->
+                        <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                            <lightning:inputField aura:id="fields" fieldName="OurRole__c" variant="label-stacked" />
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="slds-col modal-footer slds-modal__footer">   
+                    <lightning:button label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{! c.cancel }" />
+                    <lightning:button variant="brand" label="{!$Label.c.COMM_BTN_SAVE}" type="submit" /> 
+                </div>
+            </div>
+        </lightning:recordEditForm> 
+    </aura:if>
+ 
+</aura:component>

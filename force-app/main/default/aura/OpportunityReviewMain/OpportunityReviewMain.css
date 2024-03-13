@@ -1,0 +1,22 @@
+.THIS .formattedRichText{
+    padding-left: 4px;
+}
+.THIS .formattedText{
+    padding-left: 4px;
+}
+.THIS .checkbox{
+    padding-left: 0px;
+}
+.THIS .layoutItemCenter{
+    text-align: center;
+}
+.THIS .slds-accordion__list-item {
+    border-top-width: 0px;
+}
+.THIS .right-align {
+    text-align: right;
+    padding-bottom: 30px;
+}
+.THIS .slds-input{
+    /* background-color: rgb(255, 255, 255); */
+}

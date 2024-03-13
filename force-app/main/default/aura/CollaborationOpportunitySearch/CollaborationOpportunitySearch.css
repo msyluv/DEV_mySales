@@ -1,0 +1,77 @@
+.THIS {
+    height: 100%;
+}
+.THIS .layout-top {
+    height: 30%;
+    overflow-y: hidden;
+}
+.THIS .layout-bottom {
+    height: calc(70% - 0.75rem);
+    overflow-y: hidden;
+}
+.THIS .slds-card {
+    height: 100%;
+}
+.THIS .slds-card .slds-card__header {
+    margin-bottom: 0;
+    height: 70px;
+    background-color: #F3F2F2;
+    border-radius: 4px 4px 4px 4px / 4px 4px 4px 4px;
+}
+.THIS .slds-card .slds-card__body {
+    height: calc(100% - 40px);
+    /* overflow-y: auto; */
+    margin: 0;
+    padding-bottom: 0.75rem;
+}
+.THIS .leftSide{
+    padding-right: 5px;
+}
+
+.THIS .leftSide .slds-card .slds-card__body{
+    height: calc(100% - 50px);
+    overflow-y: auto;
+    margin: 0;
+    /*
+    padding-bottom: 0.75rem;
+    padding-top: 0.75rem;
+    */
+    padding: 0;
+}
+
+.THIS .rightSide{
+    padding-left: 5px;
+}
+
+.THIS .rightSide .slds-card .slds-card__body{
+    height: calc(100% - 50px);
+    overflow-y: auto;
+    margin: 0;
+    /* 
+    padding-bottom: 0.75rem;
+    padding-top: 0.75rem; 
+    */
+    padding: 0;
+}
+
+
+.THIS .selectStage.slds-form-element{
+    display: inline-block !important;
+    padding-right: 10px !important;
+    margin: 0px;
+    font-weight: bold;
+}
+/*
+.THIS .selectStage>.slds-form-element__label{
+    display:none !important;
+}
+*/
+.THIS .newWindow{
+    cursor:pointer;
+}
+.THIS .urllink{
+    cursor:pointer;
+    color: #0070D2;
+    text-decoration: underline;
+    font-weight: bold;
+}

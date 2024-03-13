@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Activity__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Opportunity Activity가 완료될때 해당 Activity의 Id</description>
+    <externalId>false</externalId>
+    <label>Opportunity Activity</label>
+    <referenceTo>Opportunity_Activity__c</referenceTo>
+    <relationshipLabel>Opportunity Activity History</relationshipLabel>
+    <relationshipName>Opportunity_Activity_History</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

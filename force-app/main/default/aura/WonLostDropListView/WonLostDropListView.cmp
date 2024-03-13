@@ -1,0 +1,150 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : 수주/실주/중도종결 검색화면
+  @last modified on  : 2021-11-12
+  @last modified by  : younghoon.kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                           Modification
+  1.0   2021-10-18   younghoon.kim@dkbmc.com          Initial Version
+  1.1   2021-10-29   younghoon.kim@dkbmc.com          스크롤 로딩 기능 추가
+  1.2   2021-11-01   younghoon.kim@dkbmc.com          검색 레이아웃 수정, 엑셀 다운로드 기능 추가
+  1.3   2021-11-12   younghoon.kim@dkbmc.com          정렬 기능 추가
+-->
+<aura:component implements="force:appHostable" controller="WonLostDropListViewController" access="global" >
+	<!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <!-- [Attribute - Loading] -->
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />             <!-- 로딩 스피너 -->
+
+    <aura:attribute name="title" type="String" default=""/>                         <!-- 제목 -->
+    <aura:attribute name="labels" type="Object" default="{}"/>                      <!-- 각 필드들의 라벨 -->
+    <aura:attribute name="selectedValue" type="Object" default="{}"/>               <!-- 실시간으로 선택된 검색조건 -->
+    <aura:attribute name="lastSelectedValue" type="Object" default="{}"/>           <!-- 마지막으로 검색한 검색조건 -->
+    <aura:attribute name="columns" type="List" default="[]"/>                       <!-- 테이블에 표시해줄 항목 -->
+    <aura:attribute name="wldList" type="List" default="[]"/>                       <!-- 조회된 데이터 -->
+
+    <!-- [Attribute - Sorting] -->
+    <aura:attribute name="sortDirection" type="String" default="asc" />             <!-- 현재 정렬 상태 -->
+    <aura:attribute name="defaultSortDirection" type="String" default="asc" />      <!-- 기본 정렬 상태 -->
+    <aura:attribute name="sortedBy" type="String" />                                <!-- 정렬 대상 필드 -->
+
+    <!-- [Attribute - Infinite Loading] -->
+    <aura:attribute name="totalNumberOfRows" type="Integer" default="50"/>          <!-- 조회된 총 레코드 수 -->
+    <aura:attribute name="enableInfiniteLoading" type="Boolean" default="true"/>    <!-- 스크롤에 따른 로딩 가능 여부 -->
+    <aura:attribute name="initialRows" type="Integer" default="50"/>                <!-- 기본 레코드 수 -->
+    <aura:attribute name="rowNumberOffset" type="Integer" default="0"/>             <!-- Offset -->
+    <aura:attribute name="loadMoreStatus" type="String" default=""/>                <!-- 로딩 상태 -->
+
+    <!-- [Attribute - Picklist] -->
+    <aura:attribute name="wldType" type="List" default="[]"/>                       <!-- 수주/실주/중도종결 유형 -->
+    <aura:attribute name="wldReasonType" type="List" default="[]"/>                 <!-- 수주/실주/중도종결 사유 유형 -->
+    <aura:attribute name="wldReasonTypeMap" type="Object" />                        <!-- 선택목록값 종속성용 맵 -->
+
+    <!-- [Excel Export required script] -->
+    <ltng:require 
+        scripts="{!join(',',
+                $Resource.HTML2XLSX + '/html2xlsx/cash.min.js',
+                $Resource.HTML2XLSX + '/html2xlsx/cash.inliner.min.js',
+                $Resource.HTML2XLSX + '/html2xlsx/jszip.min.js',
+                $Resource.HTML2XLSX + '/html2xlsx/FileSaver.min.js',
+                $Resource.HTML2XLSX + '/html2xlsx/better-xlsx.min.js',
+                $Resource.HTML2XLSX + '/html2xlsx/moment.min.js',
+                $Resource.HTML2XLSX + '/html2xlsx/html2xlsx.js')}"/>
+    
+    <!-- [Spinner] -->
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+
+    <!-- [Body] -->
+    <lightning:card class="wrapperCard">
+        <aura:set attribute="title">
+            <lightning:icon iconName="custom:custom83" alternativeText="{!v.title}" title="{!v.title}" />
+            <span style="padding-left: 10px;">{!v.title}</span>
+        </aura:set>
+        <aura:set attribute="actions">
+            <!-- <lightning:layoutItem padding="around-small" size="12" class="Layout_Search"> -->
+            <lightning:layout verticalAlign="center" horizontalAlign='right' class="Layout_Search_Line1 "> <!-- horizontalAlign='center' -->
+                <lightning:layoutItem padding="around-small" class="Custom_Button header-button">
+                    <div class="slds-clearfix test">
+                        <div class="slds-float_right">
+                            <lightning:button variant="brand-outline" label="{!$Label.c.BOSEARCH_BTN_NEW}" title="{!$Label.c.BOSEARCH_BTN_NEW}" onclick="{!c.new}" class="Button_New"/> <!-- class="Button_New" -->
+                            <lightning:button variant="brand-outline" iconName="utility:download" iconPosition="left" title="{!$Label.c.WONLOSTDROP_BTN_EXCEL}" label="{!$Label.c.WONLOSTDROP_BTN_EXCEL}" onclick="{!c.scriptLoaded}"/> <!-- class="slds-size_full" -->
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+            <lightning:layout verticalAlign="center" class="Layout_Search_Line2"> <!-- horizontalAlign='center' -->
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                        <lightning:input label='{!v.labels.title__c}' value="{!v.selectedValue.Title}" placeholder='{!$Label.c.WONLOSTDROP_LAB_ENTERTITLE}'/>
+                    </lightning:layoutItem>                    
+                    <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                        <lightning:combobox options="{!v.wldType}" dropdownAlignment="auto" value="{!v.selectedValue.WLDType}" label="{!v.labels.won_lost_drop_type__c}" onchange="{!c.wldTypeChange}"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                        <lightning:combobox options="{!v.wldReasonType}" dropdownAlignment="auto" value="{!v.selectedValue.WLDReasonType}" label="{!v.labels.won_lost_drop_reason_type__c}" disabled="{!empty(v.wldReasonType)}"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                        <c:customLookup aura:id="clookup"
+                                iconName="standard:avatar"
+                                objectName="User"
+                                label="{!v.labels.ownerid}"
+                                additionalDisplay="UserInfo__c"
+                                searchFields="Email"
+                                filterFields = "IsActive"
+                                filterValues = "TRUE"
+                                filterConditions = "eq"
+                                minimum="1" 
+                                numOfQuery="20"
+                                selectedRecord="{!v.selectedValue.Owner}"/>
+                    </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input label='{!v.labels.opportunity_code__c}' value="{!v.selectedValue.OpptyCode}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBOCODE}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <c:customLookup aura:id="clookup"
+                            iconName="standard:avatar"
+                            objectName="User"
+                            label="{!v.labels.sales_rep__c}"
+                            additionalDisplay="UserInfo__c"
+                            searchFields="Email"
+                            filterFields = "IsActive"
+                            filterValues = "TRUE"
+                            filterConditions = "eq"
+                            minimum="1" 
+                            numOfQuery="20"
+                            selectedRecord="{!v.selectedValue.SalesRep}"/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line Custom_Button">
+                    <lightning:button variant="brand" label="{!$Label.c.BOSEARCH_BTN_SEARCH}" title="{!$Label.c.BOSEARCH_BTN_SEARCH}" onclick="{!c.search}"/> <!-- class="Button_Search" -->
+                </lightning:layoutItem>
+            </lightning:layout>
+            <!-- </lightning:layoutItem> -->
+        </aura:set>
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem padding="around-small" size="12" class="Layout_Body">
+                <lightning:layout verticalAlign="center" horizontalAlign="center" class="Layout_Table">
+                    <lightning:layoutItem size='12' flexibility="auto" padding="around-small" class="LayoutItem_Table">
+                        <div class="Table_Wrapper">
+                            <lightning:datatable 
+                                showRowNumberColumn="true" 
+                                columns="{!v.columns}" 
+                                data="{!v.wldList}" 
+                                keyField="id"
+                                hideCheckboxColumn = "true"
+                                enableInfiniteLoading="{!v.enableInfiniteLoading}"
+                                loadMoreOffset="20"
+                                onloadmore="{!c.loadMoreData}"
+                                defaultSortDirection="{!v.defaultSortDirection}"
+                                sortedDirection="{!v.sortDirection}"
+                                sortedBy="{!v.sortedBy}"
+                                onsort="{!c.handleSort}"/>
+                        </div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:card> 
+</aura:component>

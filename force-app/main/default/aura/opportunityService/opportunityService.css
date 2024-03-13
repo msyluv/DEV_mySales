@@ -1,0 +1,11 @@
+.THIS .selectBox .slds-form-element__label { 
+    display: none; 
+}
+
+.THIS .slds-form-element__label {
+    display: none;
+}
+
+.THIS .slds-checkbox_faux{
+    margin-right: 0px !important;
+}

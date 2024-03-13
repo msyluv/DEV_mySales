@@ -1,0 +1,263 @@
+<!--
+  @description       : 
+  @author            : seonju.jin@dkbmc.com
+  @group             : 
+  @last modified on  : 2022-01-20
+  @last modified by  : seonju.jin@dkbmc.com
+-->
+<aura:component 
+    controller="OpportunityServiceItemController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes"
+    access='global'>
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <!-- <aura:handler name="change" value="{!v.techService}" action="{!c.forceChangeTA}"/> -->
+    <aura:handler name="recordSelectedEvent" event="c:customLookupSelectedEvent" action="{!c.handleSelect}"/>
+    <!-- regi Event -->
+    <aura:registerEvent name="mainActEvt" type="c:OpportunityServiceMainActionEvt" description="MainCmp evt"/>
+
+    <!-- [Attribute - opportunityServiceSolutionMain 컴포넌트 attribute ] -->
+    <aura:attribute name='serviceList'      type="List"     access="public" default='' description="서비스/솔루션 리스트"/>
+    <aura:attribute name="isHQ"             type="Boolean"  access="public" default='false' description="법인/본사여부"/>  
+    <aura:attribute name="isCollaboration"  type="Boolean"  access="public" default='false' description="협엽 여부"/>
+    <aura:attribute name="collaboBoId"      type="String"   access="public" default=''      description="협업 사업기회Id"/>
+    <aura:attribute name="boId"             type="String"   access="public" default=''      description="사업기회Id"/>
+    <aura:attribute name="companyCode"      type="String"   access="public" default=''      description="사업기회 CompanyCode"/>
+    <aura:attribute name="locked"           type="Boolean"  access="public" default='false' description="레코드락 여부"/>
+    <aura:attribute name="itemNumberInfo"   type="List"     access="public" default='[]'    description="서비스 솔루션 itemNumber list"/>
+    <aura:attribute name="isTempSave"       type="Boolean" access="public" default='false'  description="임시저장여부"/>
+    
+    <!-- Attribute -->
+    <aura:attribute name="currIndex"        type="Integer" access="public" default = '0'/>
+    <aura:attribute name="refresh"          type="Boolean" access="public" default ='true' /> 
+    <aura:attribute name="solRefresh"       type="Boolean" access="public" default ='false' /> 
+    <aura:attribute name="svcOpt"           type="List"    access="public" default ='[]'    description="일반 서비스 옵션"/>
+    <aura:attribute name="svcLabelPrefix"   type="String"  access="public" default ='MS_'   description="서비스 커스텀라벨 prefix"/>
+
+    <div class='slds-col' style="max-height: 50%;overflow-y: hidden;">
+        <lightning:card >
+            <!-- Opportunity Service & Department -->
+            <aura:set attribute="title">
+                <div style="width: 100%;" class="slds-grid">
+                    {!$Label.c.SVC_LAB_TITLE}
+                    <aura:renderIf isTrue="{!v.isTempSave}"><aura:if isTrue="{!v.isTempSave}"><span style="color: #888585;position: absolute;right: 20px;">
+                        <lightning:icon iconName="utility:info" alternativeText="info" variant="error" size="x-small" title="info" />{!$Label.c.SVC_TEMP_SAVE}</span></aura:if></aura:renderIf>
+                </div>
+            </aura:set>
+            <div style="height:100%;">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width:5%;">
+                                <div class="slds-truncate"></div>
+                            </th>
+                            <th scope="col" style="width:5%;">
+                                <div class="slds-truncate">{!$Label.c.SVC_LAB_NO}</div>
+                            </th>
+                            <th scope="col" style="width:23%;">
+                                <div class="slds-truncate" title="{!$Label.c.SVC_LAB_SVC}">{!$Label.c.SVC_LAB_SVC}</div>
+                            </th>
+                            <th scope="col" style="width:5%;" >
+                                <div class="slds-truncate" title="{!$Label.c.SVC_LAB_TECH}">
+                                    <p style="float: left;">{!$Label.c.SVC_LAB_TECH}</p>
+                                    <p><c:masterServiceDesc aura:id="svcDesc" customLabelName = "MS_TA_001" /></p>
+                                </div>
+                               
+                            </th>
+                            <th scope="col" style="width:26%;">
+                                <div class="slds-truncate" title="{!$Label.c.SVC_LAB_SALES}">{!$Label.c.SVC_LAB_SALES}</div>
+                            </th>
+                            <th scope="col" style="width:26%;">
+                                <div class="slds-truncate" title="{!$Label.c.SVC_LAB_DEPT}">{!$Label.c.SVC_LAB_DEPT}</div>
+                            </th>
+                            <th scope="col" style="width:10%;">
+                                <div class="slds-truncate" title="{!$Label.c.SVC_LAB_ACT}">{!$Label.c.SVC_LAB_ACT}</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:renderIf isTrue="{!v.serviceList}">
+                            <aura:iteration items="{!v.serviceList}" var="svcItem" indexVar="index">
+                                <aura:if isTrue="{! !svcItem.service.isDeleted}">
+                                    <tr  onclick="{!c.rowSelect}" data-itemId="{!'svc_'+index}" class="{!'svc-' + svcItem.service.checked}">
+                                        <aura:if isTrue="{!v.refresh}">
+                                            <td scope="col" style="width:5%;">
+                                                <ui:inputRadio aura:id="svc-r1" name="others" label="" value="{!svcItem.service.checked}" />
+                                            </td>
+                                            <td scope="col" style="width:5%;">
+                                                <div class="slds-truncate">{!(svcItem.service.itemNumber) * 1}</div>
+                                            </td>
+                                    
+                                            <!-- Service  -->
+                                            <td scope="col" style="width:21%;text-align:left;padding-left:0px;">
+                                                <aura:if isTrue="{! svcItem.service.isSendSAP}">
+                                                    <!-- 확정 서비스는 텍스트만 출력 -->
+                                                    <lightning:input name="inputSvc" disabled="true" value="{!svcItem.service.serviceNm}" title="{!svcItem.service.serviceNm}"/>
+
+                                                    <aura:set attribute="else">
+                                                        <!-- 임시저장 서비스 combobox -->
+                                                        <lightning:combobox data-itemId="{!'comboSvc_'+index}" 
+                                                                        class="selectBox"
+                                                                        name="{!'comboSvc_' + index}" 
+                                                                        placeholder="{!$Label.c.SVC_LAB_SELOPTION}" 
+                                                                        options="{!v.svcOpt}" 
+                                                                        onchange="{! c.onSvcSelectChange }"
+                                                                        dropdownAlignment="auto" 
+                                                                        value="{!svcItem.service.serviceId}" 
+                                                                        label="{!svcItem.service.serviceNm}"  
+                                                                        onfocus ="{!c.onCombofocus}"/>
+                                                    </aura:set>
+                                                </aura:if>
+                                            </td>
+
+                                            <td scope="col" style="width: 2%; padding: 0px 0px 3px 0px;">
+                                                <c:masterServiceDesc aura:id="svcDesc"
+                                                    customLabelName = "{!v.svcLabelPrefix + svcItem.service.serviceCode}"
+                                                />
+                                            </td>
+                                    
+                                            <!-- techAttribute -->
+                                            <td scope="col" style="width:5%;">
+                                                <lightning:input type="checkbox" name="{!'svc_'+index}" id="techyn_Check" aura:id="techyn_Check" class="legend-input" 
+                                                    onchange="{!c.onTechynChange}" 
+                                                    disabled="{! svcItem.service.isSendSAP}" 
+                                                    checked="{!svcItem.service.techyn}" 
+                                                    variant="label-hidden"/>
+                                            </td>
+                                        </aura:if>
+                                    
+                                            <!-- sales dept-->
+                                            <td scope="col" style="width:26%;" onclick="{!c.onClickCustomlookup}">
+                                                <c:customLookup aura:id="{!'sales_lookup' + index}"
+                                                    iconName="standard:custom"
+                                                    objectName="CostCenter__c"
+                                                    minimum="2"
+                                                    numOfQuery="50"
+                                                    enableMultiObject="false"
+                                                    enableMultiRecord="false"
+                                                    selectedRecord="{!svcItem.service.salesRecord}"
+                                                    searchFields="CostCenter__c"
+                                                    additionalDisplay="CostCenter__c"
+                                                    filterFields="CompanyCode__c"
+                                                    filterValues="{!v.companyCode}"
+                                                    filterConditions="eq"
+                                                    filterExpression="( Closed__c = false AND ZZCheck__c = true)"
+                                                    />
+                                            </td>
+                                            <!-- departemnt -->
+                                            <td scope="col"  style="width:26%;text-align:left;" onclick="{!c.onClickCustomlookup}">
+                                                <aura:if isTrue="{!v.companyCode == 'T100'}">
+                                                    <!-- 본사인경우 selectbox -->
+                                                    <aura:if isTrue="{!v.refresh}">
+                                                        <lightning:combobox data-itemId="{!'comboSvc_'+index}" class="selectBox" name="{!'comboSvc_'+index}" placeholder="{!$Label.c.SVC_LAB_SELOPTION}" options="{!svcItem.service.deptOpt}" onchange="{! c.onDeptSelectChange }"
+                                                                                dropdownAlignment="auto" value="{!svcItem.service.deptRecord.Id}" label="{!svcItem.service.deptRecord.Name}"  onfocus ="{!c.onCombofocus}"/>
+                                                    </aura:if>
+                                                    <aura:set attribute="else">
+                                                        <!-- 본사 아닌경우 customlookup -->
+                                                        <c:customLookup aura:id="dept_lookup"
+                                                            iconName="standard:custom"
+                                                            objectName="CostCenter__c"
+                                                            minimum="2"
+                                                            numOfQuery="50"
+                                                            enableMultiObject="false"
+                                                            enableMultiRecord="false"
+                                                            selectedRecord="{!svcItem.service.deptRecord}"
+                                                            searchFields="CostCenter__c"
+                                                            additionalDisplay="CostCenter__c"
+                                                            filterFields="CompanyCode__c"
+                                                            filterValues="{!v.companyCode}"
+                                                            filterConditions="eq"
+                                                            filterExpression="( Closed__c = false AND ZZCheck__c = true)"/>
+                                                    </aura:set>
+                                                </aura:if>
+                                            </td>
+                                    
+                                            <!-- action -->
+                                            <td scope="col" style="vertical-align: bottom;width:10%;" data-set="{!v.rowIndex}">
+                                                <aura:if isTrue="{!!v.locked}">
+                                                    <a onclick="{!c.addRow}" style="padding-right: 10px;" data-itemId="{!'svc_'+index}">
+                                                        <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="x-small" alternativeText="add"/>
+                                                        <span class="slds-assistive-text">Add Icon</span>
+                                                    </a>
+                                                    <a onclick="{!c.removeRow}" class='icon-del' data-itemId="{!'svc_'+index}">
+                                                        <lightning:icon variant="error" iconName="utility:delete" class="slds-icon slds-icon_small" size="x-small" alternativeText="icon"/>
+                                                        <span class="slds-assistive-text">Delete Icon</span>
+                                                    </a>
+                                                </aura:if>
+                                            </td>
+                                        </tr>
+                                    </aura:if>
+                                </aura:iteration>
+                        </aura:renderIf>
+                    </tbody>
+                </table>
+            </div>
+        </lightning:card>
+    </div>
+    <div class="slds-col" style="max-height: 50%;overflow-y: hidden;">
+        <lightning:card >
+            <aura:set attribute="title">
+                <div style="width: 100%;" class="slds-grid">
+                    {!$Label.c.SOL_LAB_TITLE}
+                </div>
+            </aura:set>
+            <div style="height:100%;">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer table_sol">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width:5%;">
+                                <div class="slds-truncate">{!$Label.c.SVC_LAB_NO}</div>
+                            </th>
+                            <th scope="col" style="width:15%;">
+                                <div class="slds-truncate" title="{!$Label.c.SOL_LAB_SOL}">{!$Label.c.SOL_LAB_SOL}</div>
+                            </th>
+                            <th scope="col" style="width:15%;">
+                                <div class="slds-truncate" title="{!$Label.c.SOL_LAB_ATTR}">{!$Label.c.SOL_LAB_ATTR}</div>
+                            </th>
+                            <th scope="col" style="width:15%;">
+                                <div class="slds-truncate" title="{!$Label.c.SOL_LAB_SALES_TYPE}">{!$Label.c.SOL_LAB_SALES_TYPE}</div>
+                            </th>
+                            <th scope="col" style="width:10%;">
+                                <div class="slds-truncate" title="{!$Label.c.SOL_LAB_SOLUTION_TYPE}">{!$Label.c.SOL_LAB_SOLUTION_TYPE}</div>
+                            </th>
+                            <th scope="col" style="width:10%;">
+                                <div class="slds-truncate" title="{!$Label.c.SOL_LAB_PLC}">{!$Label.c.SOL_LAB_PLC}</div>
+                            </th>
+                            <th scope="col" style="width:10%;">
+                                <div class="slds-truncate" title="{!$Label.c.SOL_LAB_PS_TYPE}">{!$Label.c.SOL_LAB_PS_TYPE}</div>
+                            </th>
+                            <th scope="col" style="width:10%;">
+                                <div class="slds-truncate" title="{!$Label.c.SOL_LAB_BIZ_TYPE}">{!$Label.c.SOL_LAB_BIZ_TYPE}</div>
+                            </th>
+                            <th scope="col" style="width:10%;">
+                                <div class="slds-truncate" title="{!$Label.c.SVC_LAB_ACT}">{!$Label.c.SVC_LAB_ACT}</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <aura:if isTrue="{!v.solRefresh}">
+                        <aura:set attribute="else">
+                            <lightning:spinner alternativeText="Loading" size="small" class='solution-spinner' />
+                        </aura:set>
+                        <aura:iteration items="{!v.serviceList}" var="item" indexVar="sIdx">
+                            <aura:if isTrue="{!and((sIdx*1 == v.currIndex*1), !item.service.isDeleted)}">
+                                <c:opportunitySolution 
+                                aura:id="solItemComp" 
+                                service= "{!item.service}" 
+                                solList="{!item.solutionList}" 
+                                svcIndex="{!sIdx}" 
+                                isHQ = "{!v.isHQ}"  
+                                techyn = "{!item.service.techyn}"
+                                isCollaboration = "{!v.isCollaboration}" 
+                                collaboBoId = "{!v.collaboBoId}" 
+                                boId ="{!v.boId}"  
+                                companyCode="{!v.companyCode}" 
+                                locked="{!v.locked}"
+                                />
+                            </aura:if>
+                        </aura:iteration>
+                    </aura:if>
+                </table>
+            </div>
+        </lightning:card>
+    </div>
+</aura:component>

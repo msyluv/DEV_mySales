@@ -1,0 +1,53 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 01-18-2021
+  @last modified by  : woomg@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   01-18-2021   woomg@dkbmc.com   Initial Version
+-->
+<aura:component
+    controller="EventAttendeeController" 
+    access="global" >
+
+	<aura:attribute name="showSpinner" type="Boolean" default="false" />
+	<aura:attribute name="isMobile" type="Boolean"/>
+
+	<aura:attribute name="recordId" type="String" default=""/>
+    <aura:attribute name="name" type="String" default="" />
+    <aura:attribute name="status" type="String" default="" />
+    <aura:attribute name="response" type="Integer" default="0" />
+	<aura:attribute name="onchange" type="Aura.Action" access="global" description="onchange event"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:layoutItem padding="horizontal-small" size="6" mediumDeviceSize="6" class="slds-m-top--x-small">
+        <aura:if isTrue="{!v.showSpinner}">
+            <lightning:spinner />
+        </aura:if>
+        <lightning:buttonMenu iconName="utility:down" 
+                            alternativeText="Settings" 
+                            onselect="{!c.selectMenu}"
+                            variant="border-filled" 
+                            iconSize="x-small" 
+                            class="slds-float--right" >
+            <lightning:menuItem label="Delete" value="delete" />
+        </lightning:buttonMenu>
+        
+        <div class="slds-tile">
+            <h3 class="slds-truncate primaryField">
+                <a href="javascript:void(0);">{!v.name}</a>
+            </h3>
+            <div class="slds-tile__detail slds-text-body--medium">
+                <dl class="slds-list--horizontal slds-wrap">
+                    <dt class="slds-item--label slds-truncate">Status:</dt>
+                    <dd class="slds-item--detail slds-truncate">{!v.status}</dd>
+                    <dt class="slds-item--label slds-truncate">Response:</dt>
+                    <dd class="slds-item--detail slds-truncate">{!v.response}</dd>
+                </dl>
+            </div>
+        </div>
+    </lightning:layoutItem>
+</aura:component>

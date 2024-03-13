@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Won_Lost_Drop_Reason_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Won/Lost/Drop Reason Type</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Won_Lost_Drop_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>High Risk</fullName>
+                <default>false</default>
+                <label>High Risk</label>
+            </value>
+            <value>
+                <fullName>Cancellation by customer</fullName>
+                <default>false</default>
+                <label>Cancellation by customer</label>
+            </value>
+            <value>
+                <fullName>Unmet Profitability</fullName>
+                <default>false</default>
+                <label>Unmet Profitability</label>
+            </value>
+            <value>
+                <fullName>Insufficient offering capability</fullName>
+                <default>false</default>
+                <label>Insufficient offering capability</label>
+            </value>
+            <value>
+                <fullName>Superiority of Capability</fullName>
+                <default>false</default>
+                <label>Superiority of Capability</label>
+            </value>
+            <value>
+                <fullName>Association with prior projects</fullName>
+                <default>false</default>
+                <label>Association with prior projects</label>
+            </value>
+            <value>
+                <fullName>Association with partners</fullName>
+                <default>false</default>
+                <label>Association with partners</label>
+            </value>
+            <value>
+                <fullName>Inferiority of Price Competitiveness</fullName>
+                <default>false</default>
+                <label>Inferiority of Price Competitiveness</label>
+            </value>
+            <value>
+                <fullName>Insufficient Responds to Customer Reuqest</fullName>
+                <default>false</default>
+                <label>Insufficient Responds to Customer Reuqest</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Won</controllingFieldValue>
+            <valueName>Superiority of Capability</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Won</controllingFieldValue>
+            <valueName>Association with prior projects</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Won</controllingFieldValue>
+            <valueName>Association with partners</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <controllingFieldValue>Drop</controllingFieldValue>
+            <valueName>Insufficient offering capability</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <valueName>Inferiority of Price Competitiveness</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <valueName>Insufficient Responds to Customer Reuqest</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Drop</controllingFieldValue>
+            <valueName>High Risk</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Drop</controllingFieldValue>
+            <valueName>Cancellation by customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Drop</controllingFieldValue>
+            <valueName>Unmet Profitability</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

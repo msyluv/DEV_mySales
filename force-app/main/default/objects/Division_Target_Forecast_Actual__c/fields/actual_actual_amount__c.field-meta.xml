@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>actual_actual_amount__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( OR(TEXT(Gubun__c)=&quot;실적&quot;, TEXT(Gubun__c)=&quot;Actual&quot;), Sales_Actual_amount__c, 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>실적_실적</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pkzer__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>수익계획에 대한 잠금지시자</description>
+    <externalId>false</externalId>
+    <label>PKZER</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

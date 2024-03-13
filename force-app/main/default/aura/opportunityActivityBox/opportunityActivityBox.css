@@ -1,0 +1,117 @@
+.THIS {
+    position: relative;
+}
+.THIS.activity-box {
+    cursor: pointer;
+}
+.THIS.activity-box:hover {
+    background : #e9e9e9
+}
+.THIS.disabled-box {
+    pointer-events: none;
+}
+.THIS.cannot-access-box {
+    color: darkgray;
+    pointer-events: none;
+}
+
+.THIS.slds-box {
+    margin-bottom: 0.5rem;
+    padding: 0rem !important;
+    min-width : 4.5rem !important;
+    border: 2px solid var(--lwc-colorBorder,rgb(221, 219, 218));
+}
+.THIS.slds-box.attr_important {
+    border : 2px solid #195594 !important;
+}
+.THIS.slds-box.attr_required {
+    border : 2px solid #d64343 !important;
+}
+
+/* Status Color */
+/*
+ * 2022-08-08 수주품의 액티비티 상태 표시 상세화
+*/
+.THIS.slds-box.stat_cancelled {
+    background : #f5d3d3;
+}
+.THIS.slds-box.stat_cancelled:hover {
+    background : #f5c6c7;
+}
+.THIS.slds-box.stat_notStarted {
+    background : #fff5db;
+}
+.THIS.slds-box.stat_notStarted:hover {
+    background : #f9ebc7;
+}
+
+.THIS.slds-box.stat_progress {
+    background : #dceefa;
+}
+.THIS.slds-box.stat_progress:hover {
+    background : #d0e1ec;
+}
+
+.THIS.slds-box.stat_completed {
+    background : #dcf5e9;
+    border : 2px solid #919191 !important;
+}
+.THIS.slds-box.stat_completed:hover {
+    background : #d2e7dd;
+    border : 2px solid #919191 !important;
+}
+
+.THIS.slds-box.stat_na {
+    background : #e4e4e4;
+}
+.THIS.slds-box.stat_na:hover {
+    background : rgb(211, 211, 211)
+}
+
+.THIS.slds-box.hidden {
+    visibility : hidden;
+}
+
+.THIS .header-box {
+    height : 32px;
+    max-height: 32px;
+    min-height: 32px;
+    font-size: 1rem;
+    font-weight: bold;
+    padding-top: 4px;
+    border-bottom: var(--lwc-borderWidthThin,1px) solid var(--lwc-colorBorder,rgb(221, 219, 218));
+}
+
+.THIS .body-box {
+    /* height : 50px; */
+    max-height: 100%;
+    overflow:hidden;
+    text-overflow : ellipsis;
+    white-space:normal;
+    font-weight: bold;    
+    padding: 8px 1.5px 8px 1.5px;
+    min-width: 4.5em;
+}
+                    
+.THIS .date-box {
+    height : 32px;
+    max-height: 100px;
+    min-height: 32px;
+    padding-top: 8px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-align: center;
+    border-top: var(--lwc-borderWidthThin,1px) solid var(--lwc-colorBorder,rgb(221, 219, 218));
+}
+
+ @media all and (max-width: 1360px) {
+    .THIS #dateDiv {
+        /* display: none !important; */
+        font-size: x-small !important;
+        text-align: center !important;
+      }
+      .THIS #statusDiv {
+        font-size: x-small !important;
+        text-align: center !important;
+      }
+}

@@ -1,0 +1,95 @@
+<template>
+  <div>
+    <div class="slds-form-element">
+      <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+        <span class="slds-form-element__label">User name</span>
+        <input
+          label="User name"
+          type="text"  
+          class="slds-input"
+          placeholder="Type to search..."
+          onfocus={handleInputFocus}
+          oninput={handleInputChange}
+          onblur={handleInputBlur}
+          value={searchTerm}
+        />
+        <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+          <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
+            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
+          </svg>
+        </span>
+      </div>
+    </div>
+
+    <template if:true={showSuggestions}>
+      <ul class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid" role="listbox">
+        <template for:each={userOptions} for:item="user">
+          <li key={user.value} data-email={user.email} data-value={user.value} class={user.cssClass} role="presentation" onclick={handleUserSelect}>
+            <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option">
+              <span class="slds-media__figure slds-avatar slds-avatar_x-small">
+                <lightning-icon icon-name="standard:avatar"></lightning-icon>
+              </span>
+              <span class="slds-media__body">
+                <span class="slds-truncate" title={user.label}>{user.label}</span>
+              </span>
+            </div>
+          </li>
+        </template>
+      </ul>
+    </template>
+
+    <div class="selected-users">
+      <ul class="slds-list_horizontal" style="display: flex; flex-wrap: wrap;">
+        <template for:each={selectedUsers} for:item="user">
+          <li key={user.value} class="slds-list__item" style="padding-right: 2%; padding-top: 2%;">
+            <div class="slds-pill slds-pill_link">
+              <div class="slds-media__figure slds-avatar slds-avatar_small">
+                <lightning-icon icon-name="standard:avatar"></lightning-icon>
+              </div>
+              <div class="slds-media__body">
+                <span class="slds-truncate" title={user.label}>{user.label}</span>
+              </div>
+            </div>
+          </li>
+        </template>
+      </ul>
+    </div>
+
+    <div style="margin-left: 90%">
+      <lightning-button label="Add" variant="brand" onclick={confirmReceivers}></lightning-button>
+    </div>
+
+    <div class="subscriberHeading">
+      <lightning-accordion allow-multiple-sections-open>
+        <lightning-accordion-section name="subscribers" label="Subscribers">
+          <div class="slds-p-around_medium">
+            <lightning-input type="search" onchange={filterFinalList}></lightning-input>
+          </div>
+          <template if:true={renderfinalList}>
+      <div class="slds-p-around_medium">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+          <thead>
+            <tr class="slds-text-title_caps">
+              <th scope="col">User</th>
+              <th scope="col">Remove User</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template for:each={finalList} for:item="item" for:index="index">
+              <tr key={item.value}>
+                <td data-label="User Name">{item.label}</td>
+                <td data-label="Action">
+                  <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove" onclick={handleRemove} data-index={index}></lightning-button-icon>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </template>
+        </lightning-accordion-section>
+      </lightning-accordion>
+      <lightning-button label="Subscribe" variant="brand" onclick={confirmSubscription}></lightning-button>
+    </div>
+  </div>
+</template>

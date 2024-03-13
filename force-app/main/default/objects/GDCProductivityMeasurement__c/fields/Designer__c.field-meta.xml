@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Designer__c</fullName>
+    <externalId>false</externalId>
+    <label>Designer in charge</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Soomin Lim</fullName>
+                <default>false</default>
+                <label>Soomin Lim</label>
+            </value>
+            <value>
+                <fullName>Chaeho Yang</fullName>
+                <default>false</default>
+                <label>Chaeho Yang</label>
+            </value>
+            <value>
+                <fullName>Boram Jung</fullName>
+                <default>false</default>
+                <label>Boram Jung</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

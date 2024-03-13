@@ -1,0 +1,128 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2020-12-10
+  @last modified by  : dongyoung.kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2020-11-24   younghoon.kim@dkbmc.com   Initial Version
+-->
+<aura:component 
+    controller="KnoxApprovalHistoryController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader"
+    access="global" >
+    
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <!-- [Attribute] -->
+    <aura:attribute name="opptyId" type="String" default=''/>
+    <aura:attribute name="opptyactId" type="String" default=''/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+
+    <aura:attribute name="isMobile" type="String" default=""/>
+    <aura:attribute name="isStatus" type="String" default=""/>
+    <aura:attribute name="record" type="Object" />
+
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!--<aura:handler name="refreshEvnet" event="c:opportunityActivityUpdateEvent" action="{!c.doInit}"/>-->
+    
+    <!-- History Table -->
+    <div style="height: calc( 100% - 58px );">
+        <!--<aura:if isTrue="{!v.isStatus == '0'}">
+            <div style="height: 30%;  border-bottom: 1px solid rgb(133, 130, 130);">
+              <lightning:datatable
+                        aura:id = "OptyActyHistoryTable"
+                        keyField="id"
+                        data="{! v.data }"
+                        columns="{! v.columns }"
+                        hideCheckboxColumn="true"/>
+            </div>-->
+            <!-- Knox Approval Table -->
+            <!-- <div style="height: 70%">
+                <div class="quick-modal__content slds-grid slds-grid_vertical slds-nowrap slds-p-around_large slds-scrollable_y">
+                    <c:KnoxApprovalBody 
+                    aura:id="KnoxApprovalBody"
+                    recordId="{!v.opptyId}"
+                    opptyactId="{!v.opptyactId}"/>
+                </div>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{!v.isStatus == '2'}">
+            <div style="height: 100%;">
+              <lightning:datatable
+                        aura:id = "OptyActyHistoryTable"
+                        keyField="id"
+                        data="{! v.data }"
+                        columns="{! v.columns }"
+                        hideCheckboxColumn="true"/>
+            </div>
+        </aura:if>-->
+        <div style="height: 100%;">
+            <lightning:datatable
+                      aura:id = "OptyActyHistoryTable"
+                      keyField="id"
+                      data="{! v.data }"
+                      columns="{! v.columns }"
+                      hideCheckboxColumn="true"/>
+        </div>
+    </div>
+    <div style="height: 58px;">
+        <!-- Modal Footer -->
+        <div class="slds-col modal-footer slds-modal__footer" style="height: 100%">
+            <span class="slds-form-element__label" style="margin-bottom: 8px;">{!$Label.c.OPPTYACT_MSG_020}</span>
+            <lightning:button variant="neutral" label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{!c.clickCancel}" />
+        </div>
+        <!--<aura:if isTrue="{!v.isStatus == '0'}">
+             Modal Footer 
+            <div class="slds-col modal-footer slds-modal__footer" style="height: 100%">        
+                <<lightning:button variant="brand" label="{!$Label.c.APPR_BTN_GETTEAMMEMBER}" onclick="{!c.getTeamMember}"  class="slds-float_left" />
+                <lightning:button variant="neutral" label="{!$Label.c.APPR_BTN_TEMPSAVE}" onclick="{!c.tempSave}" />
+                <lightning:button variant="neutral" label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{!c.clickCancel}" />
+                <lightning:button variant="brand" label="{!$Label.c.APPR_BTN_SUBMIT}" onclick="{!c.clickApprove}" />
+            </div>            
+        </aura:if>-->
+        <!-- <aura:if isTrue="{!v.isStatus == '2'}"> -->
+            <!-- Modal Footer
+            <div class="slds-col modal-footer slds-modal__footer" style="height: 100%">        
+                <lightning:button variant="neutral" label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{!c.clickCancel}" />
+            </div>   -->          
+        <!-- </aura:if> -->
+        <!--<aura:if isTrue="{!v.isMobile == 'W'}">
+             Modal Footer
+            <div class="slds-col modal-footer slds-modal__footer" style="height: 100%">        
+                <lightning:button variant="brand" label="{!$Label.c.APPR_BTN_GETTEAMMEMBER}" onclick="{!c.getTeamMember}"  class="slds-float_left" />
+                <lightning:button variant="neutral" label="{!$Label.c.APPR_BTN_TEMPSAVE}" onclick="{!c.tempSave}" />
+                <lightning:button variant="neutral" label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{!c.clickCancel}" />
+                <lightning:button variant="brand" label="{!$Label.c.APPR_BTN_SUBMIT}" onclick="{!c.clickApprove}" />
+            </div>            
+        </aura:if>-->
+        <!--<aura:if isTrue="{!v.isMobile == 'M'}">
+             Modal Footer 
+            <div class="modal-footer-custom">   
+                <p style="margin:0 auto;" class="slds-align_absolute-center">
+                    <lightning:icon iconName="action:join_group" class="footer-button-custom" alternativeText="Approved" variant="bare" onclick="{!c.getTeamMember}" size="xx-small"/>
+                </p>
+                <p class="footer-text-custom">{!$Label.c.APPR_BTN_GETTEAM}</p> 
+                <p style="margin: 0 auto;" class="slds-align_absolute-center">
+                    <lightning:icon iconName="action:following" class="footer-button-custom" alternativeText="Approved" variant="bare" onclick="{!c.tempSave}" size="xx-small"/>
+                </p>
+                <p class="footer-text-custom">{!$Label.c.APPR_BTN_TEMPSAVE}</p>
+                <p style="margin:0 auto;" class="slds-align_absolute-center">
+                    <lightning:icon iconName="action:close" class="footer-button-custom" alternativeText="Approved" variant="bare" onclick="{!c.clickCancel}" size="xx-small"/>
+                </p>
+                <p class="footer-text-custom">{!$Label.c.COMM_BTN_CANCEL}</p>
+                <p style="margin:0 auto;" class="slds-align_absolute-center">
+                    <lightning:icon iconName="action:approval" class="footer-button-custom" alternativeText="Approved" variant="bare" onclick="{!c.clickApprove}" size="xx-small"/>
+                </p>
+                <p class="footer-text-custom">{!$Label.c.APPR_BTN_SUBMIT}</p>
+
+            </div>
+        </aura:if>-->
+    </div>
+        
+        <lightning:spinner aura:id="spinner" variant="brand" size="large" class="slds-hide"/>
+      
+</aura:component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>End_Date_is_required_for_Error_Job</fullName>
+    <active>true</active>
+    <errorConditionFormula>DevelopReworkYN__c = true &amp;&amp;  ISNULL(DevelopReworkEnd__c )</errorConditionFormula>
+    <errorDisplayField>DevelopReworkEnd__c</errorDisplayField>
+    <errorMessage>The Error YN is checked. Please update Error Handling End date.</errorMessage>
+</ValidationRule>

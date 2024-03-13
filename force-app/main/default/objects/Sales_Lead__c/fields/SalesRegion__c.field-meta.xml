@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SalesRegion__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Text($User.LanguageLocaleKey) =&apos;ko&apos;,
+
+CASE(TEXT( SalesOrganization__r.Region__c ),
+
+&apos;P&apos;,&apos;동남아&apos;,
+&apos;A&apos;,&apos;북미&apos;,
+&apos;E&apos;,&apos;유럽&apos;,
+&apos;C&apos;,&apos;중국&apos;,
+&apos;L&apos;,&apos;중남미&apos;,
+&apos;M&apos;,&apos;중아서&apos;,
+&apos;H&apos;,&apos;대한민국&apos;,
+&apos;Error&apos;)
+
+,
+
+CASE(TEXT( SalesOrganization__r.Region__c ),
+
+&apos;P&apos;,&apos;PACIFIC&apos;,
+&apos;A&apos;,&apos;NORTH AMERICA&apos;,
+&apos;E&apos;,&apos;EUROPE&apos;,
+&apos;C&apos;,&apos;CHINA&apos;,
+&apos;L&apos;,&apos;LATIN AMERICA&apos;,
+&apos;M&apos;,&apos;MEIA&apos;,
+&apos;H&apos;,&apos;KOREA&apos;,
+&apos;Error&apos;)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Sales Region</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

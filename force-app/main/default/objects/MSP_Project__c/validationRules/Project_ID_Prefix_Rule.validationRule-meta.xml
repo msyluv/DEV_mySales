@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_ID_Prefix_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(REGEX(Name, &quot;^PROJECT-+[a-zA-Z0-9_]*$&quot;))</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>Project ID must begin with PROJECT-</errorMessage>
+</ValidationRule>

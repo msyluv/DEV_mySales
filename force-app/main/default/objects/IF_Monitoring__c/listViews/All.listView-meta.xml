@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>LogType__c</columns>
+    <columns>InterfaceId__c</columns>
+    <columns>StartDatetime__c</columns>
+    <columns>EndDatetime__c</columns>
+    <columns>ApexMethod__c</columns>
+    <columns>ApexName__c</columns>
+    <columns>Solution__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

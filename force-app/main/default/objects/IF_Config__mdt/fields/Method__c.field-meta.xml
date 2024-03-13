@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Method__c</fullName>
+    <description>HTTP METHOD로 POST, GET, PUT, DELETE 이 4가지의 Method를 가지고 CRUD를 처리</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>HTTP METHOD로 POST, GET, PUT, DELETE 이 4가지의 Method를 가지고 CRUD를 처리</inlineHelpText>
+    <label>Method</label>
+    <length>50</length>
+    <required>true</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

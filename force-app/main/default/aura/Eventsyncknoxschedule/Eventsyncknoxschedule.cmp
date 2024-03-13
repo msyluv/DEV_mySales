@@ -1,0 +1,11 @@
+<aura:component controller="EventknoxscheduleCont" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId" access="GLOBAL">
+    <aura:html tag="style">
+        .toastMessage.forceActionsText{
+        white-space : pre-line !important;
+        }
+    </aura:html>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+
+   <!-- <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
+    <aura:handler event="force:refreshView" action="{!c.onRender}" /> -->
+</aura:component>

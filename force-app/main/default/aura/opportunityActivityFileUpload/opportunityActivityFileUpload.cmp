@@ -1,0 +1,38 @@
+<!--
+  @description       : 
+  @author            : hj.lee@dkbmc.com
+  @group             : 
+  @last modified on  : 2020-12-02
+  @last modified by  : hj.lee@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author             Modification
+  1.0   2020-11-25   hj.lee@dkbmc.com   Initial Version
+-->
+<aura:component>
+    <!-- [Attribute] -->    
+    <aura:attribute name="opptyActId" type="String"/>
+
+    <!-- [Handler] -->
+    
+    <!-- [registerEvent] : Event Handler -->
+    <aura:registerEvent name="opportunityActivityUpdateEvent" type="c:opportunityActivityUpdateEvent"/>
+
+    <!-- [Library] -->
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    <!-- [Markup]-->
+    <div class="slds-grid slds-grid_horizontal" style="width: 100%; height: 100%;">
+        <div class="slds-grid slds-grid_vertical" style="width: 100%;height: 100%;">
+            <div style="height: 100%; overflow-y: scroll;">
+                <!-- [Upload File] -->
+                <c:CustomRelatedFiles aura:id="fileCmp" recordId="{!v.opptyActId}" />
+            </div>
+            <div class="modal-footer slds-modal__footer">
+                <!-- <button class="slds-button slds-button_text-destructive" onclick="{!c.reset}">Reset</button> -->
+                <lightning:button label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{!c.cancel}" />
+                <lightning:button label="{!$Label.c.COMM_BTN_SAVE}" onclick="{!c.save}" variant="brand" />
+            </div>
+        </div>
+    </div>
+
+</aura:component>

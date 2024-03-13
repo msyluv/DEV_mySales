@@ -1,0 +1,31 @@
+<!--
+  @description       : 
+  @author            : chae_ho.yang@samsung.com
+  @group             : 
+  @last modified on  : 02-20-2023
+  @last modified by  : chae_ho.yang@samsung.com
+-->
+<aura:component implements="lightning:homeTemplate" description="Main column and right sidebar with two below columns.">
+<aura:attribute name="main" type="Aura.Component[]" description="Main region"/>
+<aura:attribute name="sidebar" type="Aura.Component[]" description="Sidebar region"/>
+<aura:attribute name="belowLeft" type="Aura.Component[]" description="Below Left region"/>
+<aura:attribute name="belowRight" type="Aura.Component[]" description="Below Right region"/>
+<div>
+        <lightning:layout class="slds-p-top_none" multipleRows="true">
+            <lightning:layoutItem flexibility="auto" size="9">
+                {!v.main}
+                <lightning:layout>
+                    <lightning:layoutItem flexibility="auto" size="6" class="slds-p-around_x-small slds-p-left_none">
+                        {!v.belowLeft}
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="6" class="slds-p-top_x-small slds-p-left_xxx-small">
+                        {!v.belowRight}
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="3" class="slds-p-left_small">
+                {!v.sidebar}
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+</aura:component>

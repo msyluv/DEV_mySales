@@ -1,0 +1,58 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2023-09-01
+  @last modified by  : Atul.K1@samsung.com
+* Ver   Date         Author                   Modification
+* 1.0   2023-09-06   atul.k1@samsung.com   Initial Version(MySales 290)
+
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome" controller="HomeURLController" access="global" >
+    
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <!-- [Attribute] -->
+    <aura:attribute name="showSearchBox" type="Boolean" default="false" /> <!--Added by Atul Mysales-290 v-1.0-->
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <aura:attribute name="urlList" type="List" default="[]" />
+    <lightning:card>
+       
+        
+        <!--"{!url.Name == !$Label.c.Smart_Search}"-->
+        <aura:if isTrue="{!v.showSpinner}">
+            <lightning:spinner/>
+            <aura:set attribute="else">
+                <lightning:layout multipleRows="true">
+                    <aura:iteration items="{!v.urlList}" var="url">
+                        <lightning:layoutItem padding="around-small" size="6">
+                            <!--Added by Atul start Mysales-290 v-1.0-->
+                            <aura:if isTrue="{!(url.Name == $Label.c.Smart_Search)}">
+                                <a href="javascript:void(0)" style="font-weight: bold;" onclick="{!c.searchBox}">{!url.Name}</a>
+                                <aura:if isTrue="{!v.showSearchBox}">
+                                    <div style="height:2rem" horizontalAlign="space">
+                                        <div class="formcontrol" style="display:block">
+                                            <div class="slds-form-element">
+                                                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                                                    <!--lightning:icon iconName="utility:search" class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default" alternativeText="Search" title="Search" size="small" onclick="{!c.searchButton}"/-->
+                                                    <lightning:button onclick="{!c.searchButton}" iconName="utility:search" class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default" title="Search" />
+                                                    <input type="text" id="someId" value="{!v.InputSerachVal}" onkeypress="{!c.searchEnterKey}" placeholder="{!$Label.c.Smart_Search_Text}" class="slds-input" />
+                                                    <!--value="{!v.InputSerachVal}"-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </aura:if>
+                                <aura:set attribute="else">
+                                    <lightning:formattedUrl value="{!url.Url}" label="{!url.Name}" tooltip="{!url.Name}" class="url"/>
+                                </aura:set>
+                            </aura:if>
+                            <!--Added by Atul End Mysales-290 v-1.0-->
+                        </lightning:layoutItem>
+                    </aura:iteration>
+                </lightning:layout>
+            </aura:set>
+        </aura:if>
+    </lightning:card>
+</aura:component>

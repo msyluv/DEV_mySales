@@ -1,0 +1,65 @@
+<!--
+  @description       : 
+  @author            : ukhyeon.lee@samsung.com
+  @group             : 
+  @last modified on  : 02-29-2024
+  @last modified by  : sarthak.j1@samsung.com
+-->
+<apex:page >
+    <apex:slds />   
+    <div class="slds-form__row">
+        <div class="slds-form__item" role="listitem">
+            <div class="slds-form-element slds-form-element_horizontal slds-is-editing slds-form-element_1-col">                
+                <label class="slds-form-element__label" for="horizontal-form-element-id-14"></label>                
+                <div class="slds-form-element__control" style="margin-top:2%;padding-left:5%;padding-right:5%;font-size:15px;line-height:200%;display:flex;">
+                    <div class="slds-box" style="flex:1;margin-right:5%;">
+                        <div style="font-size:30px;font-weight:bold;text-align:center;">
+                            &lt;How to trouble shoot for mySales login&gt;
+                        </div>
+                        <br/>
+                        If you are unable to sign into mySales system, please see below guide.<br/>
+                        <br/>
+                        <div style="font-weight:bold;">
+                            - How to trouble shoot<br/>
+                        </div>
+                        <br/>
+                        1) Please check if there is a SingleID account!<br/>
+                        &nbsp;&nbsp;SingleID account should exist to login through Knox SSO. (SingleID is different form Knox ID.)<br/>   
+                        &nbsp;&nbsp;※ If you are an partner, you should create a new SingleID account every year.<br/> 
+                        &nbsp;&nbsp;- Create SingleID account : <a href="https://sds.iam.samsung.net" target="_blank">https://sds.iam.samsung.net</a> > Select "Sign Up"<br/>
+                        &nbsp;&nbsp;<img src="https://sdssfa.file.force.com/servlet/servlet.ImageServer?id=0152w000002Hb8K&oid=00D2w000008robw&lastMod=1654233710000"/>
+                        <br/>
+                        <br/>
+                        2) Please check if mySales account is normal.<br/>
+                        &nbsp;&nbsp;※ If you do not connect for 3 months, You can not access  to mysales System<br/>
+                        &nbsp;&nbsp;You must register SR at the service desk and request User activation.<br/>
+                        &nbsp;&nbsp;: Service Desk : Sales / Purchase> mySales (Salesforce)<br/>
+                    </div>
+                    <div class="slds-box" style="flex:1;marging-left:5%;">
+                        <div style="font-size:30px;font-weight:bold;text-align:center;">
+                            &lt;mySales 접속오류 조치안내&gt;
+                        </div>
+                        <br/>
+                        mySales 접속 시 오류가 발생할 경우 아래 유형별 조치가이드를 참고하시기 바랍니다.<br/>
+                        <br/>
+                        <div style="font-weight:bold;">
+                            - 조치가이드<br/>
+                        </div>                      
+                        <br/>  
+                        1) Single ID계정이 존재하는지 확인하십시요!<br/>
+                        &nbsp;&nbsp;Knox SSO를 통해 접속하기 위해서는 SingleID 계정이 존재해야 합니다. (Knox 계정과 다름)<br/>                        
+                        &nbsp;&nbsp;※ 협력사 임직원의 경우 1년 단위로 신규신청 필요 (신청시 관리자 결재 및 정보전략 합의진행)<br/>
+                        &nbsp;&nbsp;- SingleID 계정발급/재신청 : <a href="https://sds.iam.samsung.net" target="_blank">https://sds.iam.samsung.net</a> 접속 > 로그인 화면에서 계정 만들기 진행<br/>
+                        &nbsp;&nbsp;<img src="https://sdssfa.file.force.com/servlet/servlet.ImageServer?id=0152w000002Hb8K&oid=00D2w000008robw&lastMod=1654233710000"/>
+                        <br/>
+                        <br/>
+                        2) mySales 계정이 정상인지 확인해 주세요.<br/>
+                        &nbsp;&nbsp;※ 3개월동안 접속하지 않을 경우, 접근이 불가능하며,<br/>
+                        &nbsp;&nbsp;서비스데스크에 SR등록하여 활성화 요청하셔야 합니다.<br/>
+                        &nbsp;&nbsp;: 서비스 데스크 : 영업/구매 > mySales(Salesforce)<br/>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</apex:page>

@@ -1,0 +1,10 @@
+table, th, td {
+  border: 1px solid;
+  border-color: rgb(192, 192, 192);
+  text-align: center;
+}
+
+.slds-modal__container {
+  max-width: 80rem !important;
+  width: 80% !important;
+}

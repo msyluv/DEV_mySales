@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RemoteSite__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Remote Site</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>POC</fullName>
+                <default>true</default>
+                <label>POC</label>
+            </value>
+            <value>
+                <fullName>QAS</fullName>
+                <default>false</default>
+                <label>QAS</label>
+            </value>
+            <value>
+                <fullName>DEV</fullName>
+                <default>false</default>
+                <label>DEV</label>
+            </value>
+            <value>
+                <fullName>PRD</fullName>
+                <default>false</default>
+                <label>PRD</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

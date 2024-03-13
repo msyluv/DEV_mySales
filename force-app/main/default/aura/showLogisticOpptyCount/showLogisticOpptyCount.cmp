@@ -1,0 +1,157 @@
+<!--
+ * @description       : Aura cmp to show BO MATRIX 
+ * @author            : d.ashish@samsung.com
+ * @group             : 
+ * @last modified on  : 2023-09-01
+ * @last modified by  : anish.jain@partner.samsung.com
+ * Modifications Log 
+ * Ver   Date         Author                   Modification
+ * 1.0   2023-06-06   d.ashish@samsung.com   Initial Version
+ * 1.1   2023-09-01   anish.jain@partner.samsung.com   Task - (Logistics) BO Matrix Enhancement - MS 286
+-->
+<aura:component controller="showLogisticOpptyCountCtrl" implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader">
+    <aura:attribute name="list" type="Object[]" />
+    <aura:attribute name="isChina" type="Boolean"  default="false"/>
+    <aura:attribute name="isKorea" type="Boolean"  default="false"/>
+    <aura:attribute name="isEurope" type="Boolean"  default="false"/>
+    <aura:attribute name="isLA" type="Boolean"  default="false"/>
+    <aura:attribute name="isMeia" type="Boolean"  default="false"/>
+    <aura:attribute name="isNA" type="Boolean"  default="false"/>
+    <aura:attribute name="isPacific" type="Boolean" default="false"/>
+    <aura:attribute name="allRHQ" type="Boolean" default="false"/> <!-- Added by Anish - V 1.1 -->
+    <aura:attribute name="sumrow1" type="Integer"  default="0"/>
+    <aura:attribute name="sumrow2" type="Integer"  default="0"/>
+    <aura:attribute name="sumrow3" type="Integer"  default="0"/>
+    <aura:attribute name="sumrow4" type="Integer"  default="0"/>
+    <aura:attribute name="sumrow5" type="Integer"  default="0"/>
+    <aura:attribute name="sumrow6" type="Integer"  default="0"/>
+    <aura:attribute name="sumrow7" type="Integer"  default="0"/>
+    
+    
+    <aura:attribute name="sumcol1" type="Integer"  default="0"/>
+    <aura:attribute name="sumcol2" type="Integer"  default="0"/>
+    <aura:attribute name="sumcol3" type="Integer"  default="0"/>
+    <aura:attribute name="sumcol4" type="Integer"  default="0"/>
+    <aura:attribute name="sumcol5" type="Integer"  default="0"/>
+    <aura:attribute name="sumcol6" type="Integer"  default="0"/>
+    <aura:attribute name="sumcol7" type="Integer"  default="0"/>
+    
+    <aura:handler name="init" value="{!this}" action="{! c.doInit }" />
+    <h4 style="color:black;  font-weight: 500; font-size: large; background-color: whitesmoke; padding-top: 10px;
+    padding-left: 10px;"><lightning:icon iconName="standard:orchestrator" size="medium" /> Logistics- Departure and Arrival Matrix</h4>
+    <h2 style="color: black; background-color: whitesmoke; padding-top: 10px;
+    padding-left: 10px;">Refreshed: <lightning:formattedDateTime  value="{!v.list[0].LastModifiedDate}" year="numeric" month="numeric" day="numeric" hour="2-digit" minute="2-digit" timeZoneName="short" hour12="false" /></h2>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered" style="font-weight:400; font-family: SalesforceSans-Regular,Arial,sans-serif; font-size: .8125rem; margin-top: .25rem; max-height: 40px; background-color:#091a3e; color:white; table-layout: fixed;" aria-label="Example default base table of Opportunities">
+        <thead>
+            <tr class="slds-line-height_reset" style="">
+                <th class="" style=" line-height: 2; background-color:#091a3e; color: white;     font-weight: 400;" scope="col">
+                    <div class="slds-truncate" style="text-align: center; " title="FROM / TO">FROM / TO</div>
+                </th>
+            
+                <th class=""  style=" background-color:#091a3e; color: white;     font-weight: 400;" scope="col">
+                    <div class="slds-truncate" style="text-align: center;"  title="CHINA">CHINA</div>
+                </th>
+                <th class="" style=" background-color:#091a3e; color: white;     font-weight: 400;"  scope="col">
+                    <div class="slds-truncate" style="text-align: center;"  title="KOREA">KOREA</div>
+                </th>
+                <th class="" style=" background-color:#091a3e; color: white;     font-weight: 400;"  scope="col">
+                    <div class="slds-truncate" style="text-align: center;"  title="EUROPE/CIS">EUROPE/CIS</div>  <!-- Added by Anish - V 1.1 -->
+                </th>
+                <th class="" style=" background-color:#091a3e; color: white;     font-weight: 400;"  scope="col">
+                    <div class="slds-truncate" style="text-align: center;"  title="LATIN AMERICA">LATIN AMERICA</div>
+                </th>
+                <th class="" style=" background-color:#091a3e; color: white;     font-weight: 400;"  scope="col">
+                    <div class="slds-truncate" style="text-align: center;"  title="MEIA">MEIA</div>
+                </th>
+                <th class="" style=" background-color:#091a3e; color: white;     font-weight: 400;"  scope="col">
+                    <div class="slds-truncate" style="text-align: center;"  title="NORTH AMERICA">NORTH AMERICA</div>
+                </th>
+                <th class="" style=" background-color:#091a3e; color: white;     font-weight: 400;"  scope="col">
+                    <div class="slds-truncate" style="text-align: center;"  title="PACIFIC">PACIFIC</div>
+                </th>
+                <!--Start-Added by Anish - V 1.1 -->
+                <th class="" style=" background-color:#091a3e; color: white;     font-weight: 400;"  scope="col">
+                    <div class="slds-truncate" style="text-align: center;"  title="SUM">SUM</div>
+                </th> 
+                <!--End-Added by Anish - V 1.1 -->
+            </tr>
+        </thead>
+        
+        <tbody>
+            
+            <aura:iteration items="{!v.list}" var="myVal" indexVar="index">
+                
+                <!-- Start-Modified by Anish - V 1.1 -->
+                <aura:if isTrue="{!index == 0}">
+                    <th class="" style="line-height: 2;" scope="col">
+                        <div style="color: white; font-weight:400; text-align: center;"  class="slds-truncate" title="{!myVal.From_RHQ__c}">{!myVal.From_RHQ__c}</div>
+                    </th>
+                </aura:if>
+                
+                <aura:if isTrue="{!index == 8}">
+                    <tr></tr>
+                    <th class=""  style="line-height: 2;"  scope="col">
+                        <div style="color: white; font-weight:400; text-align: center;"  class="slds-truncate" title="{!myVal.From_RHQ__c}">{!myVal.From_RHQ__c}</div>
+                    </th>
+                </aura:if>
+                
+                <aura:if isTrue="{!index == 16}">
+                    <tr></tr>
+                    <th class=""  style="line-height: 2;"  scope="col">
+                        <div style="color: white; font-weight:400; text-align: center;" class="slds-truncate" title="{!myVal.From_RHQ__c}">EUROPE/CIS</div>
+                    </th>
+                </aura:if>
+                
+                <aura:if isTrue="{!index == 24}">
+                    <tr></tr>
+                    <th class=""  style="line-height: 2;"  scope="col">
+                        <div style="color: white; font-weight:400; text-align: center;"  class="slds-truncate" title="{!myVal.From_RHQ__c}">{!myVal.From_RHQ__c}</div>
+                    </th>
+                </aura:if>
+                
+                <aura:if isTrue="{!index == 32}">
+                    <tr></tr>
+                    <th class=""  style="line-height: 2;"  scope="col">
+                        <div style="color: white; font-weight:400; text-align: center;"  class="slds-truncate" title="{!myVal.From_RHQ__c}">{!myVal.From_RHQ__c}</div>
+                    </th>
+                </aura:if>
+                
+                <aura:if isTrue="{!index == 40}">
+                    <tr></tr>
+                    <th class=""  style="line-height: 2;"  scope="col">
+                        <div style="color: white; font-weight:400; text-align: center;"  class="slds-truncate" title="{!myVal.From_RHQ__c}">{!myVal.From_RHQ__c}</div>
+                    </th>
+                </aura:if>
+          
+                <aura:if isTrue="{!index == 48}">
+                    <tr></tr>
+                    <th class=""  style="line-height: 2;"  scope="col">
+                        <div style="color: white; font-weight:400; text-align: center;"  class="slds-truncate" title="{!myVal.From_RHQ__c}">{!myVal.From_RHQ__c}</div>
+                    </th>
+                </aura:if>
+                
+                <aura:if isTrue="{!index == 56}">
+                    <tr></tr>
+                    <th class=""  style="line-height: 2;"  scope="col">
+                        <div style="color: white; font-weight:400; text-align: center;"  class="slds-truncate" title="{!myVal.From_RHQ__c}">SUM</div>
+                    </th>
+                </aura:if>
+                <!-- End-Modified by Anish - V 1.1 -->  
+                
+                <td data-label="Contact">
+                    <div class="slds-truncate" title="">
+                        <aura:if isTrue="{!or(and(or(and(myVal.From_RHQ__c == 'CHINA',myVal.To_RHQ__c != 'CHINA_FROM_SUM') ,and(myVal.To_RHQ__c == 'CHINA',myVal.From_RHQ__c != 'CHINA_TO_SUM')  ) , v.isChina == True) || and(or(and(myVal.From_RHQ__c == 'EUROPE/CIS',myVal.To_RHQ__c != 'EUROPE_FROM_SUM') ,and(myVal.To_RHQ__c == 'EUROPE/CIS',myVal.From_RHQ__c != 'EUROPE_TO_SUM')) , v.isEurope == True) || and(or(and(myVal.From_RHQ__c == 'KOREA',myVal.To_RHQ__c != 'KOREA_FROM_SUM') ,and(myVal.To_RHQ__c == 'KOREA',myVal.From_RHQ__c != 'KOREA_TO_SUM')) , v.isKorea == True) || and(or(and(myVal.From_RHQ__c == 'LATIN AMERICA',myVal.To_RHQ__c != 'LATIN_AMERICA_FROM_SUM') ,and(myVal.To_RHQ__c == 'LATIN AMERICA',myVal.From_RHQ__c != 'LATIN_AMERICA_TO_SUM'))  , v.isLA == True) || and(or(and(myVal.From_RHQ__c == 'MEIA',myVal.To_RHQ__c != 'MEIA_FROM_SUM') ,and(myVal.To_RHQ__c == 'MEIA',myVal.From_RHQ__c != 'MEIA_TO_SUM'))  , v.isMeia == True) || and(or(and(myVal.From_RHQ__c == 'NORTH AMERICA',myVal.To_RHQ__c != 'NORTH_AMERICA_FROM_SUM') ,and(myVal.To_RHQ__c == 'NORTH AMERICA',myVal.From_RHQ__c != 'NORTH_AMERICA_TO_SUM'))  , v.isNA == True) || and(or(and(myVal.From_RHQ__c == 'PACIFIC',myVal.To_RHQ__c != 'PACIFIC_FROM_SUM') , and(myVal.To_RHQ__c == 'PACIFIC',myVal.From_RHQ__c != 'PACIFIC_TO_SUM'))  , v.isPacific == True) , (and(myVal.To_RHQ__c == 'CHINA_FROM_SUM', v.isChina) || and(myVal.To_RHQ__c == 'EUROPE_FROM_SUM', v.isEurope) || and(myVal.To_RHQ__c == 'KOREA_FROM_SUM', v.isKorea) || and(myVal.To_RHQ__c == 'LATIN_AMERICA_FROM_SUM', v.isLA)|| and(myVal.To_RHQ__c == 'MEIA_FROM_SUM', v.isMeia) || and(myVal.To_RHQ__c == 'NORTH_AMERICA_FROM_SUM' , v.isNA) || and(myVal.To_RHQ__c == 'PACIFIC_FROM_SUM', v.isPacific) || and(myVal.From_RHQ__c == 'CHINA_TO_SUM', v.isChina) || and(myVal.From_RHQ__c == 'KOREA_TO_SUM', v.isKorea) || and(myVal.From_RHQ__c == 'EUROPE_TO_SUM', v.isEurope) || and(myVal.From_RHQ__c == 'LATIN_AMERICA_TO_SUM', v.isLA) || and (myVal.From_RHQ__c == 'MEIA_TO_SUM' , v.isMeia) || and(myVal.From_RHQ__c == 'NORTH_AMERICA_TO_SUM', v.isNA) || and(myVal.From_RHQ__c == 'PACIFIC_TO_SUM', v.isPacific) || and(myVal.From_RHQ__c == 'TOTAL_FROM_TO_SUM', v.allRHQ) )) }">    <!-- Added by Anish - V 1.1 -->
+                         
+                        <div  style="text-align: center; font-weight: 700;" ><a href="{!myVal.Related_Report__c}" style="font-weight: 700; color:white; text-decoration: underline;" target="_blank" tabindex="-1">{!myVal.Count__c}</a></div>
+                    	<aura:set attribute="else">
+                        <div  style="text-align: center; color:rgb(153,153,153);" >{!myVal.Count__c}</div>
+                        </aura:set>
+                        </aura:if>
+                        
+                    </div>
+                </td>
+            </aura:iteration>
+
+        </tbody>
+    </table>
+</aura:component>

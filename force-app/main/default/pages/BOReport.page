@@ -1,0 +1,40 @@
+<apex:page controller="BOReportCtrl">
+<c:BOReport orgNameParam="로컬사업그룹(Cello Square사업)"/>
+    <!--<table>
+        <tr>
+        <th rowspan="2">Sales Organization</th>
+        <th rowspan="2">Sales Representative</th>
+        <th colspan="2">2023 Jun</th>
+        <th colspan="2">2023 Jul</th>
+        <th colspan="2">2023 Aug</th>
+        <th colspan="2">Total</th>
+        </tr>
+<tr>
+    <th>BO count</th>
+    <th>	
+BO amount</th>
+    <th>BO count</th>
+    <th>	
+BO amount</th>
+    <th>BO count</th>
+    <th>	
+BO amount</th>
+    <th>BO count</th>
+    <th>BO amount</th>
+        </tr>        
+    <!--<apex:repeat value="{!reportAList}" var="aObj">
+    <tr>
+        <td>{!aObj.branchName}</td>
+        <td>{!aObj.repName}</td>
+        <td>{!aObj.BOCountThisMonth}</td>
+        <td>{!aObj.BOAmountThisMonth}</td>
+        <td>{!aObj.BOCountNextMonth}</td>
+        <td>{!aObj.BOAmountNextMonth}</td>
+        <td>{!aObj.BOCountNext1Month}</td>
+        <td>{!aObj.BOAmountNext1Month}</td>
+        <td>{!aObj.BOCountTotal}</td>
+        <td>{!aObj.BOAmountTotal}</td>
+        </tr>
+    </apex:repeat>
+    </table>-->
+</apex:page>

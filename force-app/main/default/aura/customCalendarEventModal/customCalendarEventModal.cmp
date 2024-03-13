@@ -1,0 +1,79 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 2020-12-11
+  @last modified by  : jiiiiii.park@partner.samsung.com.sds.dev
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   11-03-2020   woomg@dkbmc.com   Initial Version
+-->
+<aura:component implements="force:appHostable" access="global">
+	<aura:attribute name="isOpen" type="Boolean" default="false"/>
+	<aura:attribute name="event" type="Object" default=""/>
+
+	<aura:attribute name="sd" type="String" default=""/>
+	<aura:attribute name="st" type="String" default=""/>
+	<aura:attribute name="ed" type="String" default=""/>
+	<aura:attribute name="et" type="String" default=""/>
+
+    <aura:method name="openModal" action="{!c.openModal}" access="PUBLIC"/>
+	<aura:method name="closeModal" action="{!c.closeModal}" access="PUBLIC"/>
+
+	<div>
+		<aura:if isTrue="{!v.isOpen}">
+			<div role="dialog" tabindex="-1" aria-labelledby="event-header" class="slds-modal slds-fade-in-open ">
+				<div class="slds-modal__container">
+              		<!-- ###### MODAL BOX HEADER Part Start From Here ######-->
+					<div class="slds-modal__header">
+						<button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.closeModal}">
+							X<span class="slds-assistive-text">{!$Label.c.CALEANDER_BTN_CLOSE}</span>
+						</button>
+						<h3 id="event-header" class="slds-text-heading--medium">{!$Label.c.CALEANDER_LAB_EVENT}</h3>
+					</div>
+					<!--###### MODAL BOX BODY Part Start From Here ######-->
+					<div class="slds-modal__content slds-p-around--medium">
+						<div class="slds-form-element">
+  							<label class="slds-form-element__label" for="input-unique-id">{!$Label.c.CALEANDER_LAB_SUBJECT}</label>
+                            <ui:inputText disabled="true" value="{!v.event.subject}"/>
+						</div>
+						<!-- @Test -->
+						<div class="slds-form-element">
+							<label class="slds-form-element__label" for="input-unique-id">{!$Label.c.CALEANDER_LAB_TYPE}</label>
+						  <ui:inputText disabled="true" value="{!v.event.type}"/>
+					  	</div>
+						<div class="slds-form-element">
+  							<label class="slds-form-element__label" for="input-unique-id">{!$Label.c.CALEANDER_LAB_OWNER}</label>
+                            <ui:inputText disabled="true" value="{!v.event.title}"/>
+						</div>
+						<div class="slds-form-element">
+  							<label class="slds-form-element__label" for="input-unique-id">{!$Label.c.CALEANDER_LAB_SDATETIME}</label>
+<!-- 
+                            <ui:inputDateTime disabled="true" value="{!v.event.start}"/>
+-->
+                            <ui:inputText disabled="true" value="{!v.sd + ' ' + v.st}"/>
+                        </div>
+						<div class="slds-form-element">
+  							<label class="slds-form-element__label" for="input-unique-id">{!$Label.c.CALEANDER_LAB_EDATETIME}</label>
+<!-- 
+                            <ui:inputDateTime disabled="true" value="{!v.event.end}"/>
+-->
+                            <ui:inputText disabled="true" value="{!v.ed + ' ' + v.et}"/>
+						</div>
+						<div class="slds-form-element">
+  							<label class="slds-form-element__label" for="input-unique-id">{!$Label.c.CALEANDER_LAB_DESCRIPTION}</label>
+                            <ui:inputText disabled="true" value="{!v.event.description}"/>
+						</div>
+					</div>
+					<!--###### MODAL BOX FOOTER Part Start From Here ######-->
+					<div class="slds-modal__footer">
+						<button class="slds-button slds-button--neutral" onclick="{!c.gotoEvent}" >{!$Label.c.CALEANDER_BTN_GODETAIL}</button>
+						<button class="slds-button slds-button--neutral" onclick="{!c.closeModal}" >{!$Label.c.CALEANDER_BTN_CLOSE}</button>
+					</div>
+				</div>
+			</div>
+
+            <div class="slds-backdrop slds-backdrop--open"></div>
+		</aura:if>
+	</div>
+</aura:component>

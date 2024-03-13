@@ -1,0 +1,47 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : Won/Lost/Drop Excel Download
+  @last modified on  : 2021-10-28
+  @last modified by  : younghoon.kim@dkbmc.com
+-->
+<apex:page controller="WonLostDropListViewController" cache="true" showHeader="false" docType="html-5.0" standardStylesheets="false" readOnly="true" sidebar="false" action="{!getDataList}" >
+    <apex:param name="searchKeywords" assignTo="{!searchKeywords}" value="" />
+
+    <apex:outputPanel id="mainPanel" layout="none" >
+        <table id="quotePanel" width="100%" cellpadding="0" cellspacing="0" style="table-layout:fixed" >
+            <thead>
+                <tr>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$ObjectType.Won_Lost_Drop__c.fields.Title__c.Label}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$ObjectType.Won_Lost_Drop__c.fields.Opportunity_Code__c.Label}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$ObjectType.Won_Lost_Drop__c.fields.Opportunity__c.Label}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$ObjectType.Won_Lost_Drop__c.fields.Contract_Account__c.Label}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$ObjectType.Won_Lost_Drop__c.fields.Origin_Account__c.Label}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$ObjectType.Won_Lost_Drop__c.fields.Won_Lost_Drop_Type__c.Label}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$ObjectType.Won_Lost_Drop__c.fields.Won_Lost_Drop_Reason_Type__c.Label}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$ObjectType.Won_Lost_Drop__c.fields.Date_of_occurrence__c.Label}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$ObjectType.Won_Lost_Drop__c.fields.Sales_Rep__c.Label}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$ObjectType.Won_Lost_Drop__c.fields.OwnerId.Label}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$ObjectType.Won_Lost_Drop__c.fields.CreatedDate.Label}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!excelValueList}" var="items">
+                    <tr>
+                        <td>{!items.Title}</td>
+                        <td>{!items.OpptyCode}</td>
+                        <td>{!items.OpptyName}</td>
+                        <td>{!items.AccName}</td>
+                        <td>{!items.OriginAccName}</td>
+                        <td>{!items.WLDType}</td>
+                        <td>{!items.WLDReasonType}</td>
+                        <td>{!items.OccDate}</td>
+                        <td>{!items.SalesRep}</td>
+                        <td>{!items.Owner}</td>
+                        <td>{!items.CreatedDate}</td>
+                    </tr>
+                </apex:repeat> 
+            </tbody>
+        </table>
+    </apex:outputPanel>
+</apex:page>

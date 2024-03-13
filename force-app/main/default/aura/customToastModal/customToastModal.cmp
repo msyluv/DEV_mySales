@@ -1,0 +1,58 @@
+<!--
+  	* Custom Toast *
+	* 설명 : Quick Action으로 호출한 개발 Component에서는 Event Toast 이슈가 있어 사용이 불가능 함.
+	* 기능 : Standar Toast와 같은 디자인의 Toast
+ 	* 사용법 : 1. Toast를 사용하고 싶은 부모 Component에 <c:CustomToast />를 추가한다
+			   2. isStack 여부와 Postion을 셋팅 한다.
+      		   3. 부모 Component에 <aura:attr name="toast_p"/> attribute를 생성하고 <c:CustomToast toast="{!v.toast_p}"/> Toast Cmp와 바인딩 시켜준다.
+			   4. 호출 할 시점에 부모 attribute > toast_p에 Custom Toast > toast default값 처럼 obj를 생성 후 component.set을 한다
+					> component.set('v.toast_p',{'isClose' : true .... });
+			   5. 바인딩 되어있는 Custom Toast에 할당이 되며 change handler가 event를 감지하며 toast가 설정 값에 따라 show된다.
+-->
+<aura:component >
+    <aura:attribute name="isStack" type="Boolean" default="true" />  <!-- Toast의 Stack 여부 -->
+    <aura:attribute name="toastHeightPostion" type="String" default="13%" />  <!-- 호출한 Component 위에서 부터의 위치 -->    
+    <aura:attribute name="toastList" type="List" default="[]" /> <!-- 보여지고 있는 Toast 들 -->
+
+    <aura:attribute name="toast" type="Object" default="{ 'isClose'      : toast.isClose
+                                                        , 'type'         : toast.type
+                                                        , 'message_type' : toast.message_type
+                                                        , 'message'      : toast.message
+                                                        , 'duration'     : toast.duration}" />
+    <aura:handler name="change" value="{!v.toast}" action="{!c.addToast}"/>
+
+        <div class="toastContainer slds-notify_container slds-is-relative"  style="{!'position: fixed; left:50%; top: ' + v.toastHeightPostion + ';'}">
+
+            <aura:iteration items="{!v.toastList}" var="item" indexVar="index">
+                <div class="{!(item.type == 'error' ? ' slds-theme_error ' : 
+                              item.type == 'success' ? ' slds-theme_success ' : 
+                              item.type == 'warning' ? ' slds-theme_warning ' : 
+                              item.type == 'info' ? ' slds-theme_info ' : '')
+                   + ' slds-notify--toast slds-notify slds-notify--toast forceToastMessage'}"  role="alert" style="left:-50%">
+                    <div class="toastIcon slds-m-right--small slds-no-flex slds-align-top slds-icon-utility-error slds-icon_container" >
+    
+                        <lightning:icon iconName="{!'utility:' + item.type}" title="{!item.type}" variant="inverse"/>
+                        
+                        <span class="slds-assistive-text">{!item.type}</span>
+                    </div>
+                    <div class="toastContent slds-notify__content">
+                        <div class="slds-align-middle slds-hyphenate">
+                            <div class="toastTitle slds-text-heading--small">
+                                {!item.type}!
+                            </div>
+                            <span class="toastMessage forceActionsText" >[{!item.message_type}] {!item.message}</span>
+                        </div>
+                    </div>
+                    <button class="slds-button toastClose slds-notify__close slds-button--icon-inverse slds-button_icon-bare"
+                    data-itemId="{!item.toastId}" type="button" onclick="{!c.toastClose}" title="Close" >
+                        <lightning:icon iconName="utility:close" title="close" variant="inverse"/>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div>
+            </aura:iteration>
+
+        </div>
+           
+
+    
+</aura:component>

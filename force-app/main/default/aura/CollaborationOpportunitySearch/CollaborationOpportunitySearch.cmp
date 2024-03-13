@@ -1,0 +1,132 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2024-02-06
+  @last modified by  : sarthak.j1@samsung.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2020-11-26   younghoon.kim@dkbmc.com   Initial Version
+  1.1   2024-02-06   sarthak.j1@samsung.com    MYSALES-443
+-->
+<aura:component 
+    controller="CollaborationOpptySearchController"
+    implements="force:appHostable,flexipage:availableForRecordHome,lightning:actionOverride"
+    access="global" >
+    
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!-- [Attribute] -->
+    <aura:attribute name="stage" type="List"/>
+    <aura:attribute name="opportunityCode" type="String" default=""/>
+    <aura:attribute name="opportunityName" type="String" default=""/>
+    <aura:attribute name="selectedStage" type="String" default=""/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="opptyList" type="List"/>
+    <aura:attribute name="myOppty" type="String" default=""/>
+    <aura:attribute name="collaboOppty" type="String" default=""/>
+    
+    <!-- [Attribute - Spinner] -->
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <aura:attribute name="myOpptySpinner" type="Boolean" default="true" />
+    <aura:attribute name="collaboOpptySpinner" type="Boolean" default="true" />
+
+    <!-- [Attribute - Infinite Loading] -->
+    <aura:attribute name="totalNumberOfRows" type="Integer" default="50"/>
+    <aura:attribute name="enableInfiniteLoading" type="Boolean" default="true"/>
+    <aura:attribute name="initialRows" type="Integer" default="50"/>
+    <aura:attribute name="rowNumberOffset" type="Integer" default="0"/>
+    <aura:attribute name="loadMoreStatus" type="String" default=""/>
+    
+    <aura:attribute name="selectedRows" type="List"/> <!--Added as part of v-1.1 [MYSALES-443]-->
+    
+    <!-- [Spinner] -->
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+
+    <lightning:layout multipleRows="true" verticalAlign="stretch">
+        <!-- [S] Opportunity Search -->
+        <lightning:layoutItem class="slds-m-bottom_small layout-top" size="12">
+            <lightning:card title="{!$Label.c.COLLABO_LAB_SEARCHHEADER}" iconName="standard:search">
+                <aura:set attribute="actions">
+                    <lightning:input type="text" class="selectStage" label="{!$Label.c.COLLABO_LAB_OPPTYCODE}" title="" placeholder="OpportunityCode..." value="{!v.opportunityCode}"/>
+                    <lightning:input type="text" class="selectStage" label="{!$Label.c.COLLABO_LAB_OPPTYNAME}" title="" placeholder="OpportunityName..." value="{!v.opportunityName}"/>
+                    <lightning:combobox class="selectStage" options="{!v.stage}" dropdownAlignment="auto" value="{!v.selectedStage}" label="{!$Label.c.COLLABO_LAB_STATUS}"/>
+                    <lightning:button variant="brand" label="Search" title="Search" onclick="{!c.search}"/>
+                </aura:set>
+                <aura:if isTrue="{!v.opptyList.length == 0}">                    
+                    <div style="text-align: center;padding-top: 2%;">
+                        <lightning:icon iconName="utility:sentiment_negative" alternativeText="Connected" size="medium"/><br/>
+                        <span>{!$Label.c.COLLABO_LAB_NORESULT}</span>
+                    </div>
+                    <aura:set attribute="else">    
+                        <lightning:datatable 
+                            keyField="id" 
+                            data="{!v.opptyList}" 
+                            columns="{!v.columns}"
+                            selectedRows="{!v.selectedRows}" 
+                            maxRowSelection="1"
+                            onrowselection="{!c.columnSelect}"
+                            enableInfiniteLoading="{!v.enableInfiniteLoading}"
+                            loadMoreOffset="20"
+                            onloadmore="{! c.loadMoreData }"/> <!--Added "selectedRows" as part of v-1.1 [MYSALES-443]-->
+                        {! v.loadMoreStatus }
+                    </aura:set>
+                </aura:if>
+            </lightning:card>
+        </lightning:layoutItem>
+        <!-- [E] Opportunity Search -->
+        <!-- [S] My Opportunity -->
+        <lightning:layoutItem size="6" class="layout-bottom leftSide">
+            <lightning:card title="{!$Label.c.COLLABO_LAB_MYOPPTY}" iconName="standard:user">
+                <aura:set attribute="actions">
+                    <aura:if isTrue="{!v.myOppty != ''}">
+                        
+                        <span onclick="{!c.openMyOppty}" class="urllink">{!$Label.c.COLLABO_LAB_OPPTYINFO}</span>
+                        <lightning:icon iconName="utility:new_window" alternativeText="Connected" size="small" onclick="{!c.openMyOppty}" class="newWindow" title="New Window"/><br/>
+                    </aura:if>
+                </aura:set>
+                <aura:if isTrue="{!v.myOpptySpinner}">
+                    <lightning:spinner />
+                </aura:if>
+                <aura:if isTrue="{!v.myOppty == ''}">
+                    <div style="height: 100%;text-align: center;padding-top: 20%;">
+                        <lightning:icon iconName="utility:sentiment_negative" alternativeText="Connected" size="medium"/><br/>
+                        <span>{!$Label.c.COLLABO_LAB_NORESULT}</span>
+                    </div>
+                    <aura:set attribute="else">
+                        <force:recordView recordId="{!v.myOppty}" />
+                    </aura:set>
+                </aura:if>
+            </lightning:card>
+        </lightning:layoutItem>
+        <!-- [E] My Opportunity -->
+        <!-- [S] Collaboration Opportunity -->
+        <lightning:layoutItem size="6" class="layout-bottom rightSide">
+            <lightning:card title="{!$Label.c.COLLABO_LAB_COLLABOOPPTY}" iconName="standard:customers">
+                <aura:set attribute="actions">
+                    <aura:if isTrue="{!v.collaboOppty != ''}">
+                        <span onclick="{!c.openCollaboOppty}" class="urllink">{!$Label.c.COLLABO_LAB_COLLABOINFO}</span>
+                        <lightning:icon iconName="utility:new_window" alternativeText="Connected" size="small" onclick="{!c.openCollaboOppty}" class="newWindow" title="New Window"/><br/>
+                    </aura:if>
+                </aura:set>
+                <aura:if isTrue="{!v.collaboOpptySpinner}">
+                    <lightning:spinner />
+                </aura:if>
+                <aura:if isTrue="{!v.collaboOppty == ''}">
+                    <div style="height: 100%;text-align: center;padding-top: 20%;">
+                        <lightning:icon iconName="utility:sentiment_negative" alternativeText="Connected" size="medium"/><br/>
+                        <span>{!$Label.c.COLLABO_LAB_NORESULT}</span>
+                    </div>
+                    <aura:set attribute="else">
+                        <force:recordView recordId="{!v.collaboOppty}" />
+                    </aura:set>
+                </aura:if>
+            </lightning:card>
+        </lightning:layoutItem>
+        <!-- [E] Collaboration Opportunity -->
+        
+    </lightning:layout>
+</aura:component>

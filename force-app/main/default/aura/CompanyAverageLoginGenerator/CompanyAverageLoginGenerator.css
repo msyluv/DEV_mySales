@@ -1,0 +1,34 @@
+.THIS {
+    background-color:white;
+    width:40%;
+}
+
+.THIS .Block2{
+    display:flex;
+    margin-left:20px;
+}
+.THIS .Profile{
+    margin-left:20px;
+}
+.THIS #select-userType{
+    margin:5px;
+    width: 100%;
+}
+.THIS #select-month{
+    margin:5px;
+    width: 100%;
+}
+.THIS #select-year{
+    margin:5px;
+    width: 100%;
+}
+.THIS #select-company{
+    margin:5px;
+    width: 100%;
+    height:80%;
+}
+.THIS #select-profile{
+    margin:5px;
+    width: 100%;
+    height:80%;
+}

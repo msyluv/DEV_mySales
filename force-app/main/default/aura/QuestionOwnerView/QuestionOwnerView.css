@@ -1,0 +1,139 @@
+.THIS {
+    height: 100%;
+    width: 100%;
+}
+.THIS .examList{
+    overflow: auto;
+    width: 100%;
+    height: 470px;
+}
+.THIS .answerList{
+    cursor: pointer;
+    margin-left: 10px;
+}
+.THIS .answerListView{
+    margin-left: 10px;
+}
+.THIS .inPadding{
+    padding-left: 23px;
+}
+.THIS .hidden{
+    display: none;
+}
+.THIS .colorRed{
+    color: red;
+}
+.THIS .tableCap{
+    text-align: right;
+    padding-right: 15px;
+}
+.THIS .floatRight{
+    float: right;
+}
+.THIS .questRichField{
+    float: left;
+    width: 90%;
+}
+.THIS .slds-table_cell-buffer tr>td:first-child{
+    padding-left: 0px;
+}
+.THIS .leftPadding{
+    padding-left: 15px;
+    margin: 0;
+}
+.THIS .slds-text-longform p{
+    margin: 0;
+    padding: 4px 8px 4px 8px;
+}
+.THIS .inputInPadding{
+padding-left: 23px !important;
+}
+.THIS .accordionHeight{
+    /*
+    height: 470px;
+    overflow: auto;
+    */
+    min-height: 670px;
+}
+.THIS .tableHeader{
+    width :20%;
+}
+.THIS .tableBody{
+    width :30%;
+}
+.THIS .header{
+    height: 18px;
+    font-size: 14px;
+}
+.THIS .footerDiv{
+    height: 57px;
+}
+.THIS .contentFooter{
+    height: inherit;
+}
+.THIS .rightBtn{
+    margin-left: 5px;	
+    float: right !important;
+}
+.THIS .body{
+    padding: 0 5px;
+}
+.THIS .slds-accordion__section {
+    padding-top: var(--sds-c-accordion-section-spacing-block-start, var(--lwc-spacingSmall,0.75rem));
+    margin-right: 0;
+    padding-right: 0;
+    padding-bottom: var(--sds-c-accordion-section-spacing-block-end, var(--lwc-spacingSmall,0.75rem));
+    margin-left: 0;
+    padding-left: 0;
+}
+.THIS .isAnswered{
+    background: #dcdcf5;
+}
+.THIS .isPMAnswered{
+    background: #f5dcdc;
+}
+.THIS .isAllAnswered{
+    background: #dcf5e9;
+}
+.THIS .caption{
+    text-align: right;
+    margin-bottom: 5px;
+}
+.THIS .slds-accordion__summary-action-icon {
+    flex-shrink: 0;
+    transform: rotate(-90deg);
+    display: none;
+}
+.THIS .checkboxWidth{
+    width: 47px;
+}
+.THIS .lf{
+    float: left;
+}
+.THIS .rf{
+    float: right;
+}
+.THIS .UAEX{
+    width: 17px;
+    height: 13px;
+    background: #dcf5e9;
+    float: right;
+    margin-top: 3px;
+    margin-left: 5px;
+}
+.THIS .PMAEX{
+    width: 17px;
+    height: 13px;
+    background: #f5dcdc;
+    float: right;
+    margin-top: 3px;
+    margin-left: 5px;
+}
+.THIS .UPAEX{
+    width: 17px;
+    height: 13px;
+    background: #dcdcf5;
+    float: right;
+    margin-top: 3px;
+    margin-left: 25px;
+}

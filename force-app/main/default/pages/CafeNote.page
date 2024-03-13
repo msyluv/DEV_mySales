@@ -1,0 +1,100 @@
+<!--
+  @description       : 
+  @author            : sbest.han@samsung.com
+  @group             : 
+  @last modified on  : 
+  @last modified by  : 
+-->
+<apex:page controller="CafeNoteController" showHeader="false" sidebar="false" applyBodyTag="false" docType="html-5.0" lightningStylesheets="true" action="{!CafeNoteController}" contentType="text/html;charset=UTF-8">
+<apex:slds />
+<apex:includeLightning />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta charset="UTF-8"/>
+<apex:includeScript value="{!URLFOR($Resource.cafe + '/2.3.27/cafe_2.3.27.min.js')}"/>
+<apex:includeScript value="https://code.jquery.com/jquery-2.2.4.js"/>
+
+    <head> 
+        <title>Cafe Note Editor</title>
+        
+        <script type="text/javascript" language="javascript">
+
+            var language = '{!language}'; 
+            console.log(' User Language : ' + language); 
+            if(language =='ko') language = 'ko_KR';
+            var arg = {
+                    'format':'html'
+                };
+            
+            var objConfigJSON = {       
+                "height": 600,
+                "plugins": "autolink dragdrop expaste emoticon findreplace image lineheight link lists listsstyle lock media mhtmlloader paragraphformat superscript subscript table typo2kr",
+                "default_font_size": "10",
+                "default_font_family": "'sans-serif', Courier, Arial",
+                "default_line_height": "1.2",
+                "font_formats": [ "굴림", "굴림체", "궁서", "궁서체", "돋움", "돋움체", "맑은 고딕", "바탕", "바탕체", "Arial", "Courier", "sans-serif", "Verdana" ], 
+                "font_size_style_values": [ "8pt", "9pt", "10pt", "11pt", "12pt", "14pt", "16pt", "20pt", "36pt", "48pt" ],
+                "line_heights": [ "0.5", "1", "1.2", "1.5", "1.9", "2", "3", "4", "5" ],
+                "invalid_elements": "script",
+                "codeview_indent": true,
+                "language" : language
+            }; 
+            
+            
+            //cafe.create( "cafeNoteDiv", objConfigJSON, function (){cafe.setContent("cafeNoteDiv",'{!JSENCODE(editorContent)}',arg);}); //decoding 
+            cafe.create("cafeNoteDiv", 
+                        "{!URLFOR($Resource.cafe + '/2.3.27/config.json')}", 
+                        "GET", 
+                        function (){cafe.setContent( "cafeNoteDiv", '{!JSENCODE(editorContent)}', arg);}
+                    );    
+                
+            
+            
+            function closeQuickActionPopUp(){
+                sforce.one.back(true);
+                sforce.one.navigateToSObject('{!$CurrentPage.parameters.id}');
+            }
+
+            function saveIssueDescription(){
+                doSave(cafe.getContent("cafeNoteDiv"), recordId);
+            }
+        </script>
+        <style type="text/css">
+            body, td, textarea, input {
+                font-family: 굴림, gulim, Arial, MS UI Gothic, Simsun, MingLiU, AppleGothic, sans-serif;
+                color: #666666;
+                line-height: 16px;
+            }
+            .cafeNote-input {
+                padding:7.5px 19px; 
+                background-color: rgba(23,92,170,1); 
+                color: white;
+                cursor: pointer;
+                margin: 2px 2px; 
+                border-radius: 5px;
+                border: none; 
+                margin-top: 2px; 
+            }
+        </style>
+    </head>
+    <apex:form id="pageForm">
+        <apex:actionFunction name="doSave" action="{!doSave}" reRender="pageMessages,script-block" oncomplete="closeQuickActionPopUp();return false; ">
+                <apex:param id="issueDescription" name="issueDescription" value=""></apex:param>
+                <apex:param id="recordId" name="recordId" value=""></apex:param>
+        </apex:actionFunction>
+        <table style="margin-top:20px;">
+            <tr>
+                <td id="ce-parent-node" style="width:100%; height:100%;">
+                    <apex:pageMessages id="pageMessages" escape="false"></apex:pageMessages>
+                    <div id="cafeNoteDiv"></div>
+                </td>
+            </tr>
+        </table>
+        <div class="c-buttonContainer align-center" style="margin-top:15px; text-align:center;">
+            <div style="display:inline-block;"></div>
+            <apex:commandButton onclick="closePopup(); return false;" value="Cancel"/>
+            <input type="button" value="Save"  class="slds-button slds-button_brand cafeNote-input" onclick="saveIssueDescription(); return false; "/> 
+            <br/><br/>
+            
+        </div>
+    </apex:form>
+</apex:page>

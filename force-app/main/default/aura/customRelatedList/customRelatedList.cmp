@@ -1,0 +1,209 @@
+<!--
+  @description       : Custom Related List Component (SCP Account)
+  @author            : gitesh.s@samsung.com
+  @last modified on  : 20-12-2022
+  @last modified by  : gitesh.s@samsung.com
+  Modifications Log
+  Ver   Date         Author                 Modification
+  1.0   20-12-2022   gitesh.s@samsung.com   Initial Version
+-->
+<aura:component controller="CustomRelatedListController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName"
+                access="global">
+
+    <aura:attribute name="pageReference" type="Object"/>
+    <aura:attribute name="isModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="confirmationModal" type="boolean" default="false"/>
+    <aura:attribute name="relatedRecords" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="isRender" type="Boolean" default="false"/>
+    <aura:attribute name="formLabel" type="String"/>
+    <aura:attribute name="rowId" type="Id"/>
+    <aura:attribute name="rowIndex" type="Integer"/>
+    <aura:attribute name="isRelatedRecords" type="Boolean" default="false"/>
+    <aura:attribute name="isRecordLocked" type="Boolean" default="false"/>
+    <aura:attribute name="profileName" type="String"/>
+
+    <!-- MSP Project Related Fields -->
+    <aura:attribute name="SCP_Account_ID" type="Id"/>
+    <aura:attribute name="Contract_Start_Date" type="Date"/>
+    <aura:attribute name="Customer" type="Id"/>
+    <aura:attribute name="Incentive" type="Boolean"/>
+    <aura:attribute name="SCP_Account_Name" type="String"/>
+    <aura:attribute name="Partner" type="Id"/>
+    <aura:attribute name="SDS_AM_MSP" type="Id"/>
+    <aura:attribute name="SDS_PDM_MSP" type="Id"/>
+
+    <!-- MSP Project Fields -->
+    <aura:attribute name="currentRecord" type="Id"/>
+    <aura:attribute name="Project_ID" type="String"/>
+    <aura:attribute name="Project_Name" type="String"/>
+    <aura:attribute name="Project_Summary" type="String"/>
+    <aura:attribute name="Monthly_Fee" type="String"/>
+    <aura:attribute name="New_Business" type="String"/>
+    <aura:attribute name="Partner_AM" type="Id"/>
+    <aura:attribute name="Partner_PM" type="Id"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <lightning:navigation aura:id="navService"/>
+
+    <aura:if isTrue="{!v.isRender}">
+        <div class="slds-box slds-p-around_none">
+            <div class="slds-page-header">
+                <div class="slds-page-header__row">
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span class="slds-page-header__title slds-truncate" title="SCP Projects">SCP Projects</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-page-header__col-actions">
+                        <div class="slds-page-header__controls">
+                            <div class="slds-page-header__control">
+                                <button class="slds-button slds-button_neutral slds-button_stateful slds-not-selected" onclick="{!c.createRelatedRecord}">
+                                    <span class="slds-text-not-selected">New</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aura:if isTrue="{!v.isRelatedRecords}">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_2-of-2">
+                        <lightning:datatable
+                            class="relatedRecords"
+                            columns="{!v.columns}"
+                            data="{!v.relatedRecords}"
+                            keyField="id"
+                            onrowaction="{!c.handleRowAction}"
+                            hideCheckboxColumn="true"
+                            columnWidthsMode="fixed"/>
+                    </div>
+                </div>
+                <div class="slds-p-around_small">
+                    <div class="slds-align_absolute-center">
+                        <a onclick="{!c.navigateToRelatedList}">View All</a>
+                    </div>
+                </div>
+            </aura:if>
+        </div>
+
+        <div class="slds-m-around_xx-large custom-record-modal">
+            <aura:if isTrue="{!v.isModalOpen}">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="modal-container slds-modal__container">
+                        <!-- Modal/Popup Box Header Starts here-->
+                        <header class="slds-modal__header">
+                            <lightning:buttonIcon iconName="utility:close"
+                                                onclick="{!c.closeModel}"
+                                                alternativeText="close"
+                                                variant="bare-inverse"
+                                                class="slds-modal__close"/>
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.formLabel}</h2>
+                        </header>
+                        <div class="slds-modal__content" id="modal-content-id-1">
+                            <lightning:recordEditForm aura:id="MSP_ProjectEditForm"
+                                                    objectApiName="MSP_Project__c"
+                                                    onsubmit="{!c.handleSubmit}"
+                                                    onsuccess="{!c.handleSuccess}"
+                                                    recordId="{!v.currentRecord}">
+                                <lightning:messages aura:id="messages" />
+                                    <div class="custom-record-form">
+                                        <div class="slds-card">
+                                            <div class="slds-grid form-header">
+                                                <h3>SCP Account Information</h3>
+                                            </div>
+                                            <div class="slds-grid">
+                                                <div class="slds-col slds-size_1-of-2">
+                                                    <lightning:inputField class="slds-form-element slds-form-element_horizontal" fieldName="SCP_Account_ID__c" required="true" value="{!v.SCP_Account_ID}" disabled="true"/>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-2">
+                                                </div>
+                                            </div>
+
+                                            <div class="slds-grid form-header">
+                                                <h3>Project Information</h3>
+                                            </div>
+                                            <div class="slds-grid">
+                                                <div class="slds-col slds-size_1-of-2">
+                                                    <lightning:inputField class="slds-form-element slds-form-element_horizontal" fieldName="Name" value="{!v.Project_ID}" required="true"/>
+
+                                                    <lightning:inputField class="slds-form-element slds-form-element_horizontal" fieldName="Project_Name__c" value="{!v.Project_Name}" required="true"/>
+
+                                                    <lightning:inputField class="slds-form-element slds-form-element_horizontal" fieldName="Project_Summary__c" value="{!v.Project_Summary}"/>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-2">
+                                                    <lightning:inputField class="slds-form-element slds-form-element_horizontal" fieldName="Estimated_Monthly_Fee_Won__c" value="{!v.Monthly_Fee}" required="true"/>
+
+                                                    <lightning:inputField class="slds-form-element slds-form-element_horizontal" fieldName="New_Business__c" value="{!v.New_Business}"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="slds-grid form-header">
+                                                <h3>Project Person in Charge</h3>
+                                            </div>
+                                            <div class="slds-grid">
+                                                <div class="slds-col slds-size_1-of-2">
+                                                    <lightning:inputField class="slds-form-element slds-form-element_horizontal" fieldName="Partner_AM__c" value="{!v.Partner_AM}" required="true"/>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-2">
+                                                    <lightning:inputField class="slds-form-element slds-form-element_horizontal" fieldName="Partner_PM__c" value="{!v.Partner_PM}" required="true"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <footer class="slds-modal__footer custom-modal-footer">
+                                        <ul class="slds-button-group-row">
+                                            <li class="slds-button-group-item">
+                                                <lightning:button class="slds-m-top_small" onclick="{!c.closeModel}" label="Cancel" />
+                                            </li>
+                                            <li class="slds-button-group-item">
+                                                <lightning:button class="slds-m-top_small slds-button_brand" type="submit" label="Save" />
+                                            </li>
+                                        </ul>
+                                    </footer>
+                            </lightning:recordEditForm>
+                        </div>
+                    </div>
+                </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>            
+            </aura:if>
+        </div>
+
+        <div class="slds-m-around_large confirmation-modal">
+            <aura:if isTrue="{!v.confirmationModal}">
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="modal-container slds-modal__container">
+                        <!-- Modal/Popup Box Header Starts here-->
+                        <header class="slds-modal__header">
+                            <lightning:buttonIcon iconName="utility:close"
+                                                onclick="{!c.closeConfirmationModal}"
+                                                alternativeText="close"
+                                                variant="bare-inverse"
+                                                class="slds-modal__close"/>
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Delete SCP Project</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-align_absolute-center">Are you sure you want to delete this SCP Project?</div>
+                        </div>
+                        <footer class="slds-modal__footer custom-modal-footer">
+                            <ul class="slds-button-group-row">
+                                <li class="slds-button-group-item">
+                                    <lightning:button class="slds-m-top_small" onclick="{!c.closeConfirmationModal}" label="Cancel" />
+                                </li>
+                                <li class="slds-button-group-item">
+                                    <lightning:button class="slds-m-top_small slds-button_brand" onclick="{!c.removeRecord}" label="Delete" />
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </aura:if>
+        </div>
+    </aura:if>
+</aura:component>

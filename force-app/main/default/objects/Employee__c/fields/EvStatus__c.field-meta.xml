@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EvStatus__c</fullName>
+    <description>1    Active
+2    Retiree/pensioner
+3    Early retiree
+4    Interns
+5    Terminated
+6    Inactive Employees
+7    Temp/Seasonal
+8    Expatriate
+9    External employee
+B    Non-holders (PS)
+C    Holders (PS)</description>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <length>1</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

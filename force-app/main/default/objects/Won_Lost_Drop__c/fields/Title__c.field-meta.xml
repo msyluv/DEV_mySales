@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Title__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(  TEXT(Won_Lost_Drop_Type__c) = &quot;Won&quot;, $Label.Won_Formula_label + &quot; &quot; + Opportunity__r.Name,  
+IF(  TEXT(Won_Lost_Drop_Type__c) = &quot;Lost&quot;,$Label.Lost_Formula_label+ &quot; &quot; + Opportunity__r.Name, 
+IF(  TEXT(Won_Lost_Drop_Type__c) = &quot;Drop&quot;,$Label.Drop_Formula_label+ &quot; &quot; + Opportunity__r.Name, &quot;&quot; )))</formula>
+    <label>Title</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

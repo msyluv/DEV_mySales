@@ -1,0 +1,61 @@
+<!--
+  @description       : 
+  @author            : seonju.jin@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-10-25
+  @last modified by  : seonju.jin@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                 Modification
+  1.0   2021-06-14   seonju.jin@dkbmc.com   Initial Version
+-->
+<aura:component 
+ implements="force:appHostable,flexipage:availableForAllPageTypes,force:lightningQuickActionWithoutHeader"
+ access="global" >
+
+  <aura:html tag='style'>
+    .slds-backdrop.slds-backdrop_open{
+        height: 85.6%;
+        top: 7.1%;
+        background: rgb(0 0 0 / 30%);
+    }
+  </aura:html>
+
+  <aura:registerEvent name="sendToSapEvt" type="c:opportunitySendToSapEvent"/>    <!-- Create/Project Code 버튼 클릭 이벤트 -->
+
+ <aura:attribute name="openModal" type="Boolean" access="public" />
+ <aura:attribute name="forceSave" type="Boolean" access="public" description="Project Create/Change 전 임시저장 여부"/>
+ <aura:attribute name="hasEditAccess" type="Boolean" access="public" description="Edit권한"/>
+
+ <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small svcAlertPopup" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+    <div class="slds-modal__container" style="width: 30%;min-width: 30%;">
+      <header class="slds-modal__header">
+        <aura:if isTrue="{!v.forceSave}">
+          <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate"><lightning:icon iconName="utility:info" alternativeText="info!" variant="info" title="info variant" size="small" />&nbsp; <span style="margin: auto;">{!$Label.c.COMM_LAB_SUCCESS}</span></h2>
+          <aura:set attribute="else">
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate"><lightning:icon iconName="utility:success" alternativeText="Success!" variant="Success" title="success variant" size="small" />&nbsp; <span style="margin: auto;">{!$Label.c.COMM_LAB_SUCCESS}</span></h2>
+          </aura:set>
+        </aura:if>
+      </header>
+      <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+        <aura:if isTrue="{!v.forceSave}">
+          <p style="white-space: break-spaces;">{!$Label.c.SVC_POP_MSG_02}</p>
+          <aura:set attribute="else">
+            <p style="white-space: break-spaces;">{!$Label.c.SVC_POP_MSG_01}</p>
+          </aura:set>
+        </aura:if>
+      </div>
+      <footer class="slds-modal__footer">
+        <aura:if isTrue="{!v.hasEditAccess}">
+          <aura:if isTrue="{!v.forceSave}">
+            <lightning:button variant="brand" label='{!$Label.c.SVC_BTN_SAVE_SEND}' title='{!$Label.c.SVC_BTN_SAVE_SEND}' onclick="{!c.onConfirmSAP}"/>
+            <aura:set attribute="else">
+              <lightning:button variant="brand" label='{!$Label.c.COMM_BTN_SEND_SAP}' title='{!$Label.c.COMM_BTN_SEND_SAP}' onclick="{!c.onConfirmSAP}"/>
+            </aura:set>
+          </aura:if>
+        </aura:if>
+        <lightning:button label='{!$Label.c.COMM_BTN_CANCEL}' title='{!$Label.c.COMM_BTN_CANCEL}' onclick="{!c.close}" />
+      </footer>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</aura:component>

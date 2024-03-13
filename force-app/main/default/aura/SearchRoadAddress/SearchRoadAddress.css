@@ -1,0 +1,12 @@
+.THIS .btn_wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*
+.THIS .btnColor{
+    border-color: #4bc076;
+    background-color: #4bc076;
+}
+*/

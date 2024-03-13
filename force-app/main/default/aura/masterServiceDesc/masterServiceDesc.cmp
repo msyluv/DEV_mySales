@@ -1,0 +1,15 @@
+<!--
+  @description       : 
+  @author            : seonju.jin@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-10-26
+  @last modified by  : seonju.jin@dkbmc.com
+-->
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+	<aura:handler name="init" value="{!this}" action="{!c.changeLabel}" />
+  <aura:handler name="change" value="{!v.customLabelName}" action="{!c.changeLabel}" />
+  <aura:attribute name="customLabelName" type="String" access="public" />
+  <aura:attribute name="customLabelVal" type="String" access="public" />
+
+  <lightning:helptext class="svc_helptext" content="{!v.customLabelVal}" />
+</aura:component>

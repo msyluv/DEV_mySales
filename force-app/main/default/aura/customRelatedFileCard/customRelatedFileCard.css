@@ -1,0 +1,23 @@
+.THIS .file-wrap {
+    width: calc(100% - 58px);
+}
+.THIS .formattedFileDate {
+    display: inline-flex;
+}
+.THIS .formattedFileSize {
+    display: inline-flex;
+}
+.THIS .formattedFileType {
+    display: inline-flex;
+}
+.THIS .formattedFileDate:after {
+    content: "\2022";
+    margin: 0 5px;
+}
+.THIS .formattedFileSize:after {
+    content: "\2022";
+    margin: 0 5px;
+}
+.THIS .file-button {
+    max-width:32px;
+}

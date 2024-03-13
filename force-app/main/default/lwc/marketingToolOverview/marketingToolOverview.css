@@ -1,0 +1,57 @@
+@import 'c/commonStyle';
+@import 'c/resetStyle';
+
+main.wrap_marketing {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 8px;
+}
+.wrap_marketing .marketing h2 {
+    font-size: 46px;
+    font-weight: bold;
+    color: #242843;
+}
+.wrap_marketing .marketing .text {
+    color: #242843;
+    font-size: 18px;
+    line-height: 32px;
+    margin-top: 24px;
+}
+.wrap_marketing .wrap_box .box {
+    display: inline-block;
+    background-color: #F8F8FB;
+    width: 25%;
+    padding: 262px 28px 46px 28px; 
+    background-repeat: no-repeat;
+    background-position: center 64px;
+    letter-spacing: -1.2px;
+    margin-right: 34px;
+}
+.wrap_marketing .wrap_box .box:last-child {
+    margin-right: 0px;
+}
+.wrap_marketing .wrap_box .box ul {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    letter-spacing: -1px;
+}
+.wrap_marketing .wrap_box .box ul li {
+    text-align: center;
+    color: #666;
+    font-size: 18px;
+    line-height: 28px;
+    margin-top: 24px;
+}
+.wrap_marketing .wrap_box .box.marketing01 {background-image: url(/s/sfsites/c/resource/imagesLA/images/ico_guideline.png);}
+.wrap_marketing .wrap_box .box.marketing02 {background-image: url(/s/sfsites/c/resource/imagesLA/images/ico_diagram.png);}
+.wrap_marketing .wrap_box .box.marketing03 {background-image: url(/s/sfsites/c/resource/imagesLA/images/ico_materials.png);}
+.wrap_marketing .wrap_box .box.marketing04 {background-image: url(/s/sfsites/c/resource/imagesLA/images/ico_technical.png);}
+.wrap_marketing .btn_wrap {text-align: right; margin: 40px 0 50px 0;}
+.wrap_marketing .marketing .text_bottom {
+    font-size: 14px;
+    line-height: 24px;
+    color: #666;
+    margin: 40px 0 90px 0;
+}

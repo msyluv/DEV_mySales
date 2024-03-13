@@ -1,0 +1,134 @@
+<!--
+  @description       : 
+  @author            : seonju.jin@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-10-26
+  @last modified by  : seonju.jin@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                 Modification
+  1.0   2020-11-17   seonju.jin@dkbmc.com   Initial Version
+  1.1   2020-12-23   seonju.jin@dkbmc.com   companyCode추가
+-->
+<aura:component 
+    controller="OpportunityServiceItemController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes"
+    access='global'>
+
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <!-- regi Event -->
+    <aura:registerEvent name="addRowEvt" type="c:opportunityServiceSolutionItemAddEvt"/>
+    <aura:registerEvent name="removeRowEvt" type="c:opportunityServiceSolutionItemRemoveEvt"/>
+    <aura:registerEvent name="rowSelectEvt" type="c:opportunityServiceSelectEvt"/>
+    <aura:registerEvent name="passSvcIdEvt" type="c:opportunityServiceIdPassEvt"/>
+
+    <!-- customlookup -->
+    <aura:handler name="recordSelectedEvent" event="c:customLookupSelectedEvent" action="{!c.recordSelectedEventHandler}"/>
+    
+    <!-- [Attribute - receive from main component ] -->
+    <aura:attribute name='sInstance' type="Object"/>
+    <aura:attribute name="rowIndex" type="String" default = '0'/>
+    <aura:attribute name="isHQ" type="Boolean" access="public" default='false'/>  
+    <aura:attribute name="isCollaboration" type="Boolean" access="public" default='false'/>
+    <aura:attribute name="refresh" type="Boolean" access="public" default='true'/>
+    <aura:attribute name="descCmpRefresh" type="Boolean" access="public" default='true'/>
+    <aura:attribute name="boId" type="String" access="public" default=''/>
+    <aura:attribute name="companyCode" type="String" access="public" default=''/>
+    <aura:attribute name="locked" type="Boolean" access="public" default='false'/>           <!-- 레코드락 여부 -->
+    <aura:attribute name='orignDeptInfo' type="object" default="Object"/>
+    <aura:attribute name='orignServiceId' type="String" default=""/>
+    <aura:attribute name="svcLabelPrefix"   type="String"  access="public" default ='MS_'   description="서비스 커스텀라벨 prefix"/>
+    <!-- [Attribute] -->
+    <aura:attribute name="svcOpt"  type="List" default='[]' />
+    <aura:attribute name="deptOpt"  type="List" default='[]' />
+    
+    <!-- cutomlookup select record info -->
+    <aura:attribute name="radioName" type="String" default="radioService" />
+
+    <tr onclick="{!c.rowSelect}" class="{!'svc-' + v.sInstance.checked}">
+        <td scope="col" style="width:5%;">
+            <input type="radio" value="{!v.rowIndex}" name="radioService" checked="{!v.sInstance.checked}" />
+        </td>
+        <td scope="col" style="width:5%;">
+            <div class="slds-truncate">{!(v.sInstance.itemNumber) * 1}</div>
+        </td>
+
+        <!-- service -->
+        <td scope="col" style="width:24%;text-align:left;">
+            <aura:if isTrue="{! v.sInstance.isSendSAP}">
+                <lightning:input name="inputSol" disabled="true" value="{!v.sInstance.serviceNm}" title="{!v.sInstance.serviceNm}"/>
+                <aura:set attribute="else">
+                    <lightning:combobox  class="selectBox" name="comboSvc" placeholder="{!$Label.c.SVC_LAB_SELOPTION}" options="{!v.svcOpt}" onchange="{! c.onSvcSelectChange }"
+                                        dropdownAlignment="auto" value="{!v.sInstance.serviceId}" label="" onfocus="{! c.rowSelect}"/>
+                </aura:set>
+            </aura:if>
+            
+        </td>
+        
+        <td scope="col" style="width: 2%; padding: 0px 0px 3px 0px;">
+            <c:masterServiceDesc aura:id="{!'svcDesc' + v.sInstance.itemNumber} " customLabelName = "{!v.svcLabelPrefix + v.sInstance.serviceCode}"/>
+        </td>
+
+        <!-- sales -->
+        <td scope="col" style="width:26%;" onclick="{!c.onClickCustomlookup}">
+            <c:customLookup aura:id="sales_lookup"
+                iconName="standard:custom"
+                objectName="CostCenter__c"
+                minimum="2"
+                numOfQuery="50"
+                enableMultiObject="false"
+                enableMultiRecord="false"
+                selectedRecord="{!v.sInstance.salesRecord}"
+                searchFields="CostCenter__c"
+                additionalDisplay="CostCenter__c"
+                filterFields="CompanyCode__c"
+                filterValues="{!v.companyCode}"
+                filterConditions="eq"
+                filterExpression="( Closed__c = false AND ZZCheck__c = true)"
+                />
+        </td>
+
+        <!-- departemnt -->
+        <td scope="col"  style="width:26%;text-align:left;" onclick="{!c.onClickCustomlookup}">
+            <aura:if isTrue="{!v.companyCode == 'T100'}">
+                <!-- 본사인경우 selectbox -->
+                <lightning:combobox  class="selectBox" name="comboDept" placeholder="{!$Label.c.SVC_LAB_SELOPTION}" options="{!v.deptOpt}" onchange="{! c.onDeptSelectChange }"
+                                        dropdownAlignment="auto" value="{!v.sInstance.deptRecord.Id}" label="" onfocus="{! c.rowSelect}"/>
+                <aura:set attribute="else">
+                    <!-- 본사 아닌경우 customlookup -->
+                    <c:customLookup aura:id="dept_lookup"
+                        iconName="standard:custom"
+                        objectName="CostCenter__c"
+                        minimum="2"
+                        numOfQuery="50"
+                        enableMultiObject="false"
+                        enableMultiRecord="false"
+                        selectedRecord="{!v.sInstance.deptRecord}"
+                        searchFields="CostCenter__c"
+                        additionalDisplay="CostCenter__c"
+                        filterFields="CompanyCode__c"
+                        filterValues="{!v.companyCode}"
+                        filterConditions="eq"
+                        filterExpression="( Closed__c = false AND ZZCheck__c = true)"
+                />
+                </aura:set>
+            </aura:if>
+            
+        </td>
+
+        <!--  -->
+        <td scope="col" style="vertical-align: bottom;width:12%;" data-set="{!v.rowIndex}">
+            <aura:if isTrue="{!!v.locked}">
+                <a onclick="{!c.addRow}" style="padding-right: 10px;">
+                    <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="x-small" alternativeText="add"/>
+                    <span class="slds-assistive-text">Add Icon</span>
+                </a>
+                <a onclick="{!c.removeRow}" class='icon-del'>
+                    <lightning:icon variant="error" iconName="utility:delete" class="slds-icon slds-icon_small" size="x-small" alternativeText="icon"/>
+                    <span class="slds-assistive-text">Delete Icon</span>
+                </a>
+            </aura:if>
+        </td>
+    </tr>
+</aura:component>

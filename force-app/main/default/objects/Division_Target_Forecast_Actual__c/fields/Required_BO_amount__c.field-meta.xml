@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_BO_amount__c</fullName>
+    <description>필요BO 금액</description>
+    <externalId>false</externalId>
+    <inlineHelpText>필요BO 금액</inlineHelpText>
+    <label>필요BO 금액(억)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

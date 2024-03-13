@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category2__c</fullName>
+    <description>분류 2</description>
+    <externalId>false</externalId>
+    <label>Category 2</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>고객역할 명확성</fullName>
+                <default>false</default>
+                <label>고객역할 명확성</label>
+            </value>
+            <value>
+                <fullName>사업범위 명확화</fullName>
+                <default>false</default>
+                <label>사업범위 명확화</label>
+            </value>
+            <value>
+                <fullName>컨소시엄/하도업체간 업무분장 명확화</fullName>
+                <default>false</default>
+                <label>컨소시엄/하도업체간 업무분장 명확화</label>
+            </value>
+            <value>
+                <fullName>완성도/이해도/경험보유</fullName>
+                <default>false</default>
+                <label>완성도/이해도/경험보유</label>
+            </value>
+            <value>
+                <fullName>역량/경험</fullName>
+                <default>false</default>
+                <label>역량/경험</label>
+            </value>
+            <value>
+                <fullName>인력</fullName>
+                <default>false</default>
+                <label>인력</label>
+            </value>
+            <value>
+                <fullName>일정</fullName>
+                <default>false</default>
+                <label>일정</label>
+            </value>
+            <value>
+                <fullName>하도업체</fullName>
+                <default>false</default>
+                <label>하도업체</label>
+            </value>
+            <value>
+                <fullName>M/M</fullName>
+                <default>false</default>
+                <label>M/M</label>
+            </value>
+            <value>
+                <fullName>외주비 및 재료비</fullName>
+                <default>false</default>
+                <label>외주비 및 재료비</label>
+            </value>
+            <value>
+                <fullName>제경비</fullName>
+                <default>false</default>
+                <label>제경비</label>
+            </value>
+            <value>
+                <fullName>제약사항</fullName>
+                <default>false</default>
+                <label>제약사항</label>
+            </value>
+            <value>
+                <fullName>Compliance</fullName>
+                <default>false</default>
+                <label>Compliance</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

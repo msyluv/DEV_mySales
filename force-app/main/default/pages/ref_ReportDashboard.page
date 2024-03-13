@@ -1,0 +1,25 @@
+<!--
+* @description       : 
+* @author            : saurav.k@partner.samsung.com
+* @group             : 
+* @last modified on  :  05/06/2023
+* @last modified by  : saurav.k@partner.samsung.com 
+* Modifications Log 
+* Ver     Date             Author                         Modification 
+* 1.0   05/06/2023      saurav.k@partner.samsung.com      Initial Version(Report&Dahboard Reference Page Development)-MySales -217
+-->
+<apex:page Controller="reportDasboardReference" action="{!getReportRefData}"  >
+    <apex:form >               
+        <apex:outputPanel rendered="{!isAllowed}">           
+            <apex:pageBlock >
+                <apex:pageMessages >
+                </apex:pageMessages>   
+            </apex:pageBlock>
+        </apex:outputPanel> 
+        <apex:outputPanel rendered="{!if(isAllowed != true , true ,false)}"> 
+            <Script>                             
+                window.open('https://sdssfa--qa.sandbox.lightning.force.com/lightning/r/ReferenceReportDashboard__c/{!RecordId}/view','_top');            	
+            </Script>
+        </apex:outputPanel>
+    </apex:form>  
+</apex:page>

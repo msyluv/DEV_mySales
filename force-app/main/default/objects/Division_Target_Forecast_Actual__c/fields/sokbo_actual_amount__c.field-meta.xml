@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>sokbo_actual_amount__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( OR(TEXT(Gubun__c)=&quot;속보&quot;, TEXT(Gubun__c)=&quot;Forecast&quot;), Sales_Actual_amount__c, 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>속보_실적</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

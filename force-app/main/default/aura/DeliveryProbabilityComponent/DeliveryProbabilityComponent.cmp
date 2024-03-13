@@ -1,0 +1,31 @@
+<aura:component controller="DeliveryProbabilityCmpController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:attribute name="DeliveryProbabilityPartial" type="String" default=""/>
+	<aura:attribute name="DeliveryProbability" type="String" default="No activities to show."/>
+    <aura:attribute name="ViewAll" type="Boolean" default="False"/>
+    <aura:attribute name="Partial" type="Boolean" default="True"/>
+    <aura:attribute name="ShowButton" type="Boolean" default="True"/>
+    
+    <div class="slds-box">
+        <header slot="title" class="slds-page-header slds-page-header_record-home slds-text-heading_small" style="box-shadow: 0px;border: 0px;border-radius: 0px;font-weight: var(--lwc-fontWeightBold,700);">
+             <lightning:icon iconName="standard:lead_list" size="small"/><span class="Heading">{!$Label.c.DeliveryProbabilityHeading}</span>
+        </header>
+        <aura:if isTrue="{!v.ViewAll}">
+            <aura:if isTrue="{!v.Partial}">
+                <p class="slds-box slds-box_small slds-p-horizontal_small slds-m-around_xx-small " style="min-height:5.5rem;overflow:hidden;border: 0px;padding:2px 12px;white-space: pre-wrap;">{!v.DeliveryProbabilityPartial}</p>
+                <aura:if isTrue="{!v.ShowButton}">
+                    <div class=" slds-border_top slds-align_absolute-center">
+                        <button class="slds-button" onclick="{!c.View}">{!$Label.c.DeliveryProbabilityViewAll}</button>
+                    </div>
+                </aura:if>
+            </aura:if>
+            <aura:if isTrue="{!not(v.Partial)}">
+                <p class="slds-box slds-box_small slds-p-horizontal_small slds-m-around_xx-small " style="min-height:5.5rem;overflow:hidden;border: 0px;padding:2px 12px;white-space: pre-wrap;">{!v.DeliveryProbability}</p>
+                <div class=" slds-border_top slds-align_absolute-center">
+                    <button class="slds-button" onclick="{!c.View}">{!$Label.c.DeliveryProbabilityCancel}</button>
+                </div>
+            </aura:if>
+        </aura:if>
+    </div>
+</aura:component>

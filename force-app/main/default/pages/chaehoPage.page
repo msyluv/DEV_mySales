@@ -1,0 +1,75 @@
+<!--
+  @description       : 
+  @author            : chae_ho.yang@samsung.com
+  @group             : 
+  @last modified on  : 08-04-2023
+  @last modified by  : chae_ho.yang@samsung.com
+-->
+<apex:page controller="ChaehoController">
+    <style type="text/css">
+        [id$="MyReport"] > .pbSubsection {
+            margin-top:10px;
+        }
+        [id$="MyReport"] >.pbSubsection tr:first-of-type td, [id$="MyReport"] >.pbSubsection tr:first-of-type th {
+            border-top:1px solid rgb(212, 218, 220)!important;
+        }
+        [id$="MyReport"] > .pbSubsection th, [id$="MyReport"] > .pbSubsection td {
+            font-size: 12px;
+            padding:3px 6px 3px 5px;
+            background-color:#fff;            
+            border-color:rgb(212, 218, 220)!important;
+            border-bottom:1px solid rgb(212, 218, 220)!important;
+        }   
+        [id$="MyReport"] > .pbSubsection th {
+            background-color:#eee;
+        }
+        [id$="MyReport"] > .pbSubsection .grandTotal {
+            background-color:rgb(212, 218, 220);
+        }
+        [id$="MyReport"] > .pbSubsection .drilldown {
+            display:none;
+        }
+    </style>
+<!-- Begin Default Content REMOVE THIS -->
+<h1>Congratulations</h1>
+This is your new Page
+<!-- End Default Content REMOVE THIS -->
+
+<!-- <div id="hq">
+    <apex:commandButton action="{!createOpportunity}" value="Create Opportunity Only"/>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <apex:commandButton action="{!createOpportunityServSol}" value="Create Opportunity w Serv/Sol"/>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+    </div> -->
+    <apex:pageBlock >
+    <apex:form >
+        <div>
+            div입니다
+            <apex:commandButton value="생성하기" action="{!createData}">
+
+            </apex:commandButton>
+
+            <apex:commandButton value="업뎃하기" action="{!updateData}">
+
+            </apex:commandButton>
+        </div>
+    </apex:form>
+    
+    <analytics:reportChart reportId="00O1s000000FmZj" >
+    </analytics:reportChart>
+
+    <apex:outputPanel id="MissingAttRpt" >
+        <apex:iframe src="/00O1s000000FmZj?isdtp=nv" width="100%" height="600px"/>
+</apex:outputPanel>
+
+
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <apex:pageBlockSection title="My Report" id="MyReport" columns="1" />
+        <script language="JavaScript">
+            $('[id$="MyReport"] > .pbSubsection > .detailList').load('/00O1s000000FmZj?isdtp=nv');
+        </script>
+    </apex:pageBlock>
+
+
+</apex:page>

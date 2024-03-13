@@ -1,0 +1,780 @@
+<!--
+  @description       : 
+  @author            : wonjune.oh@partner.samsung.com
+  @group             : 
+  @last modified on  : 11-05-2023
+  @last modified by  : anish.jain@partner.samsung.com
+  Modifications Log 
+  Ver   Date         Author                           Modification
+  1.0   2020-11-16   wonjune.oh@partner.samsung.com   Initial Version
+  1.1	2022-04-28   hyunhak.roh@dkbmc.com            [설명] 필드 200자 이상 등록하도록 제어하는 기능
+  1.2	2022-05-20	 hyunhak.roh@dkbmc.com	 		  200자 미만인데 저장하지 않고 바로 결재 시도시 막는 방법
+                   결재 미리보기 탭 누를 때 필드들 validation 걸리면 알럿 팝업  
+  1.3   2022-05-24   akash.g@samsung.com              Add functionality of User Manual Button in Service/Solution tab.
+  1.4	2022-05-27   hyunhak.roh@dkbmc.com 			  BO Lock 상태에서 Drop/Lost Activity 필드 처리
+  1.5   2022-10-26   Kajal.c@samsung.com              Added CP Review Status and Result field for Bidding and Final Logistics CP Review(MySales 42). 
+  1.6   2023-05-12   divyam.gupta@samsung.com         Add new tab Analysis of Reason for Drop Lost and Postmortem Result.
+  1.7   11-05-2023   anish.jain@partner.samsung.com   MySales - 216
+  1.8   2024-02-19   anish.jain@partner.samsung.com   BO Review Approval Issue Check (MS-418)
+  -->
+<aura:component 
+                controller="OpportunityActivityNewController"
+                implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasSObjectName,force:hasRecordId"
+                access="GLOBAL">
+    <!-- [Attribute] : Activity -->
+    <aura:attribute name="activityItem" type="Object" />
+    <aura:attribute name="parentId" type="String" description="Opportunity.Id" />
+    <aura:attribute name="recordId" type="String" description="Opportunity_Activity__c.Id" />
+    
+    <aura:attribute name="resultObj" type="Object" description="init response result Object" />
+<!--Anish-v 1.7--> <aura:attribute name="resultBOReviewOppObj" type="Object" description="updated opp data from BO review Save" />
+    <aura:attribute name="opportunity" type="Object" />
+    <aura:attribute name="owner" type="Object" description="Opportunity Owner(영업대표) 정보"/>
+    <aura:attribute name="opportunityActivity" type="Object" />
+    <aura:attribute name="isPendingKnoxApproval" type="Boolean" default="false" description="진행중인 Knox 결재 여부" />
+    <!-- 2022-05-27, hyunhak.roh@dkbmc.com, BO Lock 상태에서 Drop/Lost Activity 필드 처리 -->
+    <aura:attribute name="isDropLostLock" type="Boolean" default="false" description="진행중인 Knox 결재 여부" />
+    <aura:attribute name="isSelectedApprovalTab" type="Boolean" default="false" description="Knox Approval Tab 선택 여부" />
+    <aura:attribute name="hasEditAccess" type="Boolean" default="false" description="Profile Opportunity Edit 권한 유무" />
+    <!-- 신규추가시작 -->
+    <aura:attribute name="isSubsidiary" type="Boolean" default="false" description="자회사여부" />
+    <aura:attribute name="creditAssessmentText" type="Boolean" default="false" description="신용평가 특정조건 문구여부"/>
+    <!-- 신규추가종료 -->
+    
+    <!-- 2022-02-11 / [Start] 수전위 수정사항 추가 -->
+    <aura:attribute name="isBiz" type="Boolean" default="false" description="사업참여결정 액티비티 여부" />
+    <aura:attribute name="isBid" type="Boolean" default="false" description="입찰결정 액티비티 여부" />
+    <aura:attribute name="IsRFPProposal" type="Boolean" default="false" description="RFP 접수, 견적/제안 제출 액티비티 여부" />
+    <!-- 2022-02-11 / [End] 수전위 수정사항 추가 -->
+    <!--V1.5 - Kajal-->
+    <aura:attribute name="LogisticsStatusDisable" type="Boolean" default="false"/>
+    <!-- [Attribute] : Master Activity Info (Static) -->
+    <aura:attribute name="MasterAct_IsRequiredWork"             type="Boolean" default="{!v.activityItem.MasterAct.IsRequiredWork__c}" description="추가 작업 필요 여부" />
+    <aura:attribute name="MasterAct_IsAutoInProgress"           type="Boolean" default="{!v.activityItem.MasterAct.IsAutoInProgress__c}" description="InProgress Status 자동" />
+    <aura:attribute name="MasterAct_IsRequiredKnoxApproval"     type="Boolean" default="{!v.activityItem.MasterAct.IsRequiredKnoxApproval__c}" description="Knox 결재상신 필요 여부" />
+    <aura:attribute name="MasterAct_WorkName"                   type="String" default="{!v.activityItem.MasterAct.WorkName__c}" />
+    <aura:attribute name="MasterAct_TransactionName"            type="String" default="{!v.activityItem.MasterAct.TransactionName__c}" />
+    <aura:attribute name="MasterAct_Type"                       type="String" default="{!v.activityItem.MasterAct.Type__c}" />
+    
+    <!-- [Attribute] : Opportunity Activity Info -->
+    <aura:attribute name="Activity_LostType"                type="String" default="{!v.activityItem.BoAct.LostType__c}"/>
+    <aura:attribute name="Activity_LostReason"              type="String" default="{!v.activityItem.BoAct.LostReason__c}"/>
+    <aura:attribute name="Activity_Status"                  type="String" default="{!v.activityItem.BoAct.Status__c}"/>    
+    
+    <!-- [Attribute] : Opportunity Info -->
+    <aura:attribute name="Oppty_Urgency"                    type="String" default="{!v.opportunity.Urgency__c}"/>
+    <aura:attribute name="Oppty_Security"                   type="String" default="{!v.opportunity.Security__c}"/>
+    
+    <!-- [Attribute] : UI Attribute -->
+    <aura:attribute name="activeStep" type="String" default="1" />
+    <aura:attribute name="isMobile" type="Boolean" default="false"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="reloadForm" type="Boolean" default="false" />
+    <aura:attribute name="reloadProjectWBS" type="Boolean" default="false" />
+    <aura:attribute name="reloadBOReview" type="Boolean" default="false" />
+    <aura:attribute name="reloadBOReview2" type="Boolean" default="false" />
+    <aura:attribute name="selectedStatus" type="String" default="" />
+    
+    <aura:attribute name="approvalMISID" type="String" default="" />    <!-- 외부연계ID -->
+    
+    <aura:attribute name="TransactionName" type="String" default="" />
+    <aura:attribute name="LostType"        type="String" default=""/>
+    
+    <aura:attribute name="opptyCheckResult" type="Boolean" default="false" />
+    
+    <!-- [Attribute] : 물류 Cello Button 전달 Parameter Value -->
+    <aura:attribute name="lbsType" type="String" default="" description="Opportunity.Type 값 기준" />
+    <!-- <aura:attribute name="lbsCode" type="String" default="" description="LBS의 Type" /> -->
+    <aura:attribute name="billToId" type="String" default="" description="Account.AccountNumber" />
+    
+    <!-- [Attribute] : Work -->
+    <aura:attribute name="fileColumns" type="List" default="[]" />
+    
+    <!--[Attribute] :Start : User Manual Button visibility.-->
+    <aura:attribute name="showUserManualButton" type="Boolean" default="false"/>
+    
+    <!--START V 1.6 Change by Divyam gupta-->
+    <aura:attribute name="oppCompanyCode" type="String" default=""/>
+    <aura:attribute name="reasonDesShow" type="Boolean" default="true" />
+    <aura:attribute name="analysisCompShow" type="Boolean" default="false" />  
+    <aura:attribute name="MasterAct_IsRequiredAnalysisComp" type="Boolean" 
+                    default="{!v.activityItem.MasterAct.isRequiredAnalysisCompt__c}" 
+                    description="Knox 결재상신 필요 여부" />
+    <aura:attribute name="oppActstatus" type="String" description="Opportunity_Activity__c.Status__c" />
+    <aura:attribute name="showknoxpreviewtable" type="Boolean" default="true" />  
+    <aura:attribute name="lostResulTotalvl100"  type="Boolean" default="true"/>
+    <aura:attribute name="postMotermTypeval"  type="Boolean" default="false"/>
+    <aura:attribute name="oppactvalcompinprog"  type="Boolean" default="false"/>
+    <aura:attribute name="lostDropTypeVal" type="String" default=""/>
+    <aura:attribute name="handlelostDropTypeVal"  type="Boolean" default="false"/>
+    <aura:attribute name="handleYeslostDropTypeVal"  type="Boolean" default="false"/>
+    <aura:attribute name="korean" type="Boolean" default="false" />
+    <aura:attribute name="checkanalysisrecord"  type="Boolean" default="false"/>
+    <!--END V 1.6 -->
+    <lightning:navigation aura:id="navService"/>
+    <!--END-->
+    <aura:attribute name="showDescErrMsg" type="Boolean" default="false"/>
+    
+    <!-- [Attribute] : My Sales-222 v Anish-v 1.7 -->
+    <aura:attribute name='isBoReviewTab' type="Boolean" default="false"/>
+    <aura:attribute name="setLangEng" type="Boolean" default="false"/>
+    <aura:attribute name="setLangKor" type="Boolean" default="false"/>
+    <aura:attribute name="isConfirmed" type="Boolean" default="false" />
+     <aura:attribute name="selectedValue" type="String" default="0"/>
+    <aura:attribute name="selectedValueBOReview" type="String" default="0"/>
+    <aura:attribute name="updatedValueBOReview" type="String" default="0"/> <!-- Added by Anish - v 1.8 -->
+    <aura:attribute name="boApprovalMigYN" type="Boolean" default="false" /> <!-- Data Migration Changes Anish-v 1.7 -->
+    <aura:attribute name="boApprovalMigYNNon" type="Boolean" default="true" /> <!-- Data Migration Changes Anish-v 1.7 -->
+    
+    
+    <aura:attribute name="picklistOptionsKor" type="List" default="[
+                                                                   {'label': '암호화실패', 'value': '-3'},
+                                                                   {'label': '암호화중', 'value': '-2'},
+                                                                   {'label': '예약상신', 'value': '-1'},
+                                                                   {'label': '보류', 'value': '0'},
+                                                                   {'label': '진행중', 'value': '1'},
+                                                                   {'label': '완결', 'value': '2'},
+                                                                   {'label': '반려', 'value': '3'},
+                                                                   {'label': '상신취소', 'value': '4'},
+                                                                   {'label': '전결', 'value': '5'},
+                                                                   {'label': '후완결', 'value': '6'},
+                                                                   {'label': '진행 전', 'value': '7'}
+                                                                   
+                                                                   ]"/>
+    
+    <aura:attribute name="picklistOptionsEng" type="List" default="[
+                                                                   {'label': 'Encryption Failure', 'value': '-3'},
+                                                                   {'label': 'Under Encryption', 'value': '-2'},
+                                                                   {'label': 'Reserved Submission', 'value': '-1'},
+                                                                   {'label': 'Suspended', 'value': '0'},
+                                                                   {'label': 'Processing', 'value': '1'},
+                                                                   {'label': 'Confirmed', 'value': '2'},
+                                                                   {'label': 'Rejected', 'value': '3'},
+                                                                   {'label': 'Cancelled', 'value': '4'},
+                                                                   {'label': 'Arbitrary Confirmed', 'value': '5'},
+                                                                   {'label': 'Confirmed', 'value': '6'},
+                                                                   {'label': 'Not Started', 'value': '7'}                                                     
+                                                                   ]"/>
+    <!--END Anish- v 1.7-->
+    
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{! this }" action="{! c.init }" />
+    <!-- [Handler] : Event Handler -->
+    <aura:handler name="opportunityActivityUpdateEvent" event="c:opportunityActivityUpdateEvent" action="{!c.updateOpportunityActivity}" description="by child component fired after work completed" />
+    <!-- [registerEvent] -->
+    <aura:registerEvent name="opportunityActivityPanelRefreshEvent" type="c:opportunityActivityPanelRefreshEvent"/>
+    <!-- [Library] -->
+    <lightning:overlayLibrary aura:id="overlayLib" />
+    
+    <!-- [HANDLER] v Anish-v 1.7 -->
+    <aura:handler event="c:RefreshActivityTabs" action="{!c.tempTest}" description="this event is handled when search review type is clicked on BO review Tab and value comes to be 30" />
+    <!-- [Style] -->
+    <aura:html tag="style">
+        /* Standard Style Padding 제거 */
+        .modal-body.slds-modal__content.slds-p-around--medium  {
+        padding:0 !important;
+        }        
+        
+        .slds-modal__container {
+        padding: unset !important;
+        }
+        
+        .slds-modal__content {
+        overflow-y: hidden !important;
+        }
+        
+        /* standard textarea 높이 조정 */
+        .slds-textarea {
+        height: 7rem;
+        }
+        
+        /* Inner Component Card Body header Hidden */
+        .cBOServiceSolutionMain .slds-card__header {
+        display:none;
+        }
+    </aura:html>
+    
+    <!-- [MarkUp] -->
+    <!-- Modal Header -->
+    <div class="slds-col modal-header slds-modal__header modal-header-custom ">
+        <h2 class="title slds-text-heading--medium">{!$Label.c.OPPTYACT_LAB_OPPTYACT}
+            <!--User Manual Button-->
+            <aura:if isTrue="{!v.showUserManualButton == true}">
+                <lightning:button variant="brand" class="slds-float_right fontNormal" label='{!$Label.c.COMM_BTN_USER_MANUAL}' title='{!$Label.c.COMM_BTN_USER_MANUAL}' onclick="{!c.openUserManualFile}"/>
+            </aura:if>
+        </h2>
+    </div>
+    <!-- / Modal Header -->
+    
+    <div aura:id="body" class="slds-is-relative quick-modal_container">
+        <!-- Modal Contents -->
+        <div class="quick-modal__content slds-grid slds-grid_vertical slds-nowrap">
+            
+            <!-- Tab Set -->
+            <lightning:tabset selectedTabId="{! v.activeStep }" onselect="{!c.onSelectTabSet}">
+                <aura:if isTrue="{!v.reloadForm}">
+                    
+                    <!-- / ================================ [Tab 1] : Activity ================================ -->
+                    <lightning:tab label="{!$Label.c.OPPTYACT_LAB_ACT}" id="1">
+                        <!-- [기회 편집 권한 Check 후 recordViewFrom / recordEditForm 분기] -->
+                        <!-- OPPTY READ ONLY -->
+                        <aura:if isTrue="{!not(v.hasEditAccess)}">
+                            <c:opportunityActivityView activityItem="{!v.activityItem}"
+                                                       recordId="{!v.recordId}"
+                                                       parentId="{!v.parentId}"
+                                                       opportunity="{!v.opportunity}"
+                                                       close="{!c.cancel}"
+                                                       owner="{!v.owner}" />
+                        </aura:if>
+                        
+                        <!-- OPPTY EDIT -->
+                        <aura:if isTrue="{!v.hasEditAccess}">
+                            <lightning:recordEditForm aura:id="recordEditForm" 
+                                                      objectApiName="Opportunity_Activity__c" 
+                                                      recordId="{!v.recordId}"
+                                                      onload="{!c.handleLoad}"
+                                                      onsubmit="{!c.handleSubmit}"
+                                                      onsuccess="{!c.handleSuccess}"
+                                                      onerror="{!c.handleError}">
+                                
+                                <!-- Modal Contents -->
+                                <div class="slds-col modal-body scrollable modal-content">
+                                    <!-- Tab Contents-->
+                                    <div class="tab-content">
+                                        <!-- <lightning:messages /> -->
+                                        <div id="activityRecordForm" class="slds-scrollable_y slds-card__body slds-p-around_small">
+                                            <aura:if isTrue="{!v.showSpinner}">
+                                                <lightning:spinner alternativeText="Loading111" size="medium" />
+                                            </aura:if>
+                                            
+                                            <lightning:layout multipleRows="true">
+                                                <!-- Transaction Name : inputField readOnly attr는 picklist field에 적용되지 않아, CSS Class로 readOnly 처리 -->
+                                                <lightning:layoutItem size="12">
+                                                    <lightning:inputField aura:id="fields" fieldName="TransactionName__c" variant="label-stacked" class="input-picklist-disabled" />
+                                                </lightning:layoutItem>
+                                                
+                                                <!-- 2022-02-11 / [Start] 수전위 수정사항 추가 -->
+                                                <!-- 사업참여결정 액티비티 -->
+                                                <aura:if isTrue="{!v.isBiz}">
+                                                    <!-- Req Date -->
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="4">
+                                                        <lightning:input aura:id="dateFields" type="date" name="XP6_REQ_DATE__c" label="{!$Label.c.OPPTYACT_BO_REVIEW_REQDATE}" variant="label-stacked" dateStyle="short" 
+                                                                         value="{!v.opportunity.XP6_REQ_DATE__c}" disabled="true" />
+                                                    </lightning:layoutItem>
+                                                    <!-- Conduct Date -->
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="4">
+                                                        <lightning:input aura:id="dateFields" type="date" name="XP6_CONDUCT_DATE__c" label="{!$Label.c.OPPTYACT_BO_REVIEW_CONDUCTDATE}" variant="label-stacked" dateStyle="short" 
+                                                                         value="{!v.opportunity.XP6_CONDUCT_DATE__c}" disabled="true" />
+                                                    </lightning:layoutItem>
+                                                    <!-- Approval Type -->
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="4">
+                                                        <lightning:input aura:id="fields" name="XP63_VRB_APPROVAL_TYPE__c" label="{!$Label.c.OPPTYACT_BO_REVIEW_BIZ_APPRTYPE}" variant="label-stacked" 
+                                                                         value="{!v.opportunity.xp63_VRB}" disabled="true" />
+                                                    </lightning:layoutItem>
+                                                </aura:if>
+                                                
+                                                <!-- 입찰결정 액티비티 -->
+                                                <aura:if isTrue="{!v.isBid}">
+                                                    <!-- Req Date -->
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="4">
+                                                        <lightning:input aura:id="dateFields" type="date" name="XP7_REQ_DATE__c" label="{!$Label.c.OPPTYACT_BO_REVIEW_REQDATE}" variant="label-stacked" dateStyle="short" 
+                                                                         value="{!v.opportunity.XP7_REQ_DATE__c}" disabled="true" />
+                                                    </lightning:layoutItem>
+                                                    <!-- Conduct Date -->
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="4">
+                                                        <lightning:input aura:id="dateFields" type="date" name="XP7_CONDUCT_DATE__c" label="{!$Label.c.OPPTYACT_BO_REVIEW_CONDUCTDATE}" variant="label-stacked" dateStyle="short" 
+                                                                         value="{!v.opportunity.XP7_CONDUCT_DATE__c}" disabled="true" />
+                                                    </lightning:layoutItem>
+                                                    <!-- Approval Type -->
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="4">
+                                                        <lightning:input aura:id="fields" name="XP63_VRB_APPROVAL_TYPE__c" label="{!$Label.c.OPPTYACT_BO_REVIEW_BID_APPRTYPE}" variant="label-stacked" 
+                                                                         value="{!v.opportunity.xp73_VRB}" disabled="true" />
+                                                    </lightning:layoutItem>
+                                                </aura:if>
+                                                
+                                                <!-- RFP 접수, 견적/제안 제출 액티비티 -->
+                                                <aura:if isTrue="{!v.IsRFPProposal}">
+                                                    <!-- RFP Announce Date -->
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                                        <lightning:input aura:id="dateFields" type="date" name="XP31_RFP_ANNOUNCE_DATE__c" label="{!$Label.c.OPPTYACT_BO_RFP_ANNOUNCE_DATE}" variant="label-stacked" dateStyle="short" 
+                                                                         value="{!v.opportunity.XP31_RFP_ANNOUNCE_DATE__c}" disabled="true" />
+                                                    </lightning:layoutItem>
+                                                    <!-- Proposal Submit Date -->
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                                        <lightning:input aura:id="dateFields" type="date" name="ZP61_PROPOSAL_SUBMIT_DATE__c" label="{!$Label.c.OPPTYACT_BO_PROPOSAL_SUBMIT_DATE}" variant="label-stacked" dateStyle="short" 
+                                                                         value="{!v.opportunity.ZP61_PROPOSAL_SUBMIT_DATE__c}" disabled="true" />
+                                                    </lightning:layoutItem>
+                                                </aura:if>                                        
+                                                <!-- 2022-02-11 / [End] 수전위 수정사항 추가 -->
+                                                <!--Kajal START 1.5-->
+                                                <aura:if isTrue="{!v.MasterAct_TransactionName == '2.3.1'}">
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6" >                                                
+                                                        <!--CP Review Result -->
+                                                        <lightning:recordEditForm  objectApiName="Opportunity">
+                                                            {!$Label.c.OPPTYACT_CP_REVIEW_STATUS}
+                                                            <lightning:inputField  aura:id="ReviewBIDStatus" variant="label-hidden" fieldName="Opportunity_Logistics_CPReviewStatus_BID__c" value="{!v.opportunity.Opportunity_Logistics_CPReviewStatus_BID__c}" disabled="true">
+                                                            </lightning:inputField>                                 
+                                                        </lightning:recordEditForm>
+                                                    </lightning:layoutItem> 
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6"> 
+                                                        <lightning:recordEditForm  objectApiName="Opportunity">
+                                                            {!$Label.c.OPPTYACT_CP_REVIEW_RESULT}
+                                                            <lightning:inputField  aura:id="ReviewBIDResult"  variant="label-hidden"  fieldName="Opportunity_Logistics_CPReviewResult_BID__c" 
+                                                                                  value="{!v.opportunity.Opportunity_Logistics_CPReviewResult_BID__c}" disabled="true">
+                                                            </lightning:inputField>                                 
+                                                        </lightning:recordEditForm>
+                                                    </lightning:layoutItem> 
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.MasterAct_TransactionName == '2.4.4'}">
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6" > 
+                                                        <!--CP Review Status -->                                 
+                                                        <lightning:recordEditForm  objectApiName="Opportunity">
+                                                            {!$Label.c.OPPTYACT_CP_REVIEW_STATUS}
+                                                            <lightning:inputField aura:id="ReviewFINStatus"  variant="label-hidden"  fieldName="Opportunity_Logistics_CPReviewStatus_FIN__c" 
+                                                                                  value="{!v.opportunity.Opportunity_Logistics_CPReviewStatus_FIN__c}" disabled="true">
+                                                            </lightning:inputField>                                 
+                                                        </lightning:recordEditForm>
+                                                        </lightning:layoutItem>
+                                                        
+                                                    
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6"  > 
+                                                        <lightning:recordEditForm  objectApiName="Opportunity">
+                                                            {!$Label.c.OPPTYACT_CP_REVIEW_RESULT}
+                                                            <lightning:inputField aura:id="ReviewFINResult"  variant="label-hidden"  fieldName="Opportunity_Logistics_CPReviewResult_FIN__c" 
+                                                                                  value="{!v.opportunity.Opportunity_Logistics_CPReviewResult_FIN__c}" disabled="true">
+                                                            </lightning:inputField>                                 
+                                                        </lightning:recordEditForm>
+                                                    </lightning:layoutItem>
+                                                </aura:if>
+                                                <!--Kajal Changes END -V1.5-->
+                                                
+                                                <!-- Status -->
+                                                <!-- 2022-08-08 수주품의 액티비티 상태 표시 상세화 (추가한 픽리스트 숨김작업) -->
+                                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                                    <aura:if isTrue="{!v.MasterAct_TransactionName == 'ZP21' ? true: false}">
+                                                        <lightning:inputField aura:id="fields" fieldName="Status__c" variant="label-stacked" required="true" class="AutoAll"
+                                                                              onchange="{!c.handleChangeStatus}" disabled="{!OR(v.Activity_Status == 'In Progress', v.Activity_Status == 'Completed', v.isDropLostLock)}" />
+                                                        <aura:set attribute="else"> 
+                                                            <aura:if isTrue="{!v.MasterAct_IsAutoInProgress}"> <!--InProgress Status 자동-->
+                                                                <lightning:inputField aura:id="fields" fieldName="Status__c" variant="label-stacked" required="true" class="AutoInProgress"
+                                                                                      onchange="{!c.handleChangeStatus}" disabled="{!v.isDropLostLock}" />
+                                                                <aura:set attribute="else">
+                                                                    <aura:if isTrue="{!v.MasterAct_IsRequiredWork}"> <!--추가 작업 필요 여부-->
+                                                                        <lightning:inputField aura:id="fields" fieldName="Status__c" variant="label-stacked" required="true" class="AutoCompleted"
+                                                                                              onchange="{!c.handleChangeStatus}" disabled="{!v.isDropLostLock}" />
+                                                                        <aura:set attribute="else">
+                                                                            <!-- V1.5 Kajal Added condition LogisticsStatusDisable -->
+                                                                            <lightning:inputField aura:id="fields" fieldName="Status__c" variant="label-stacked" required="true" class="AutoCancel"
+                                                                                                  onchange="{!c.handleChangeStatus}" disabled="{!OR(v.isDropLostLock,v.LogisticsStatusDisable)}" />
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </lightning:layoutItem>
+                                                
+                                                <!-- Due Date -->
+                                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6" >
+                                                    
+                                                    <!-- [😈 Salesforce Bug : inputField Date Type Locale Format이 Standard Date Field와 다른 형식으로 표현됨, 
+                                                  ✨ Solution : input 으로 표현함] -->
+                                                    <!-- <lightning:inputField aura:id="fields" fieldName="DueDate__c" variant="label-stacked" 
+                                                                required="{!v.selectedStatus == 'Not Started'}"
+                                                                onchange="{!c.handleChangeDate}" /> -->
+                                                    <lightning:input aura:id="dateFields" type="date" name="DueDate__c" label="{!v.resultObj.fieldLabel.duedate__c}" variant="label-stacked" dateStyle="short" 
+                                                                     required="{!v.selectedStatus == 'Not Started'}"
+                                                                     value="{!v.opportunityActivity.DueDate__c}" disabled="{!v.isDropLostLock}" />
+                                                    
+                                                </lightning:layoutItem>
+                                                
+                                                <!-- Start Date -->
+                                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                                    <!-- <lightning:inputField aura:id="fields" fieldName="StartDate__c" variant="label-stacked" 
+                                                                required="{!or(v.selectedStatus == 'In Progress'                                                                                                     
+                                                                            , v.selectedStatus == 'Completed')}"
+                                                                onchange="{!c.handleChangeDate}" /> -->
+                                                    
+                                                    <lightning:input aura:id="dateFields" type="date" name="StartDate__c" label="{!v.resultObj.fieldLabel.startdate__c}" variant="label-stacked" dateStyle="short" 
+                                                                     required="{!or(v.selectedStatus == 'In Progress'                                                                                                     
+                                                                               , v.selectedStatus == 'Completed')}"
+                                                                     value="{!v.opportunityActivity.StartDate__c}" disabled="{!v.isDropLostLock}" />
+                                                </lightning:layoutItem>
+                                                
+                                                <!-- End Date -->
+                                                <aura:if isTrue="{! v.opportunityActivity.Status__c =='Completed' ? (v.MasterAct_TransactionName == 'ZP61' ?
+                                                                 true : (v.MasterAct_TransactionName == 'XP41' ? 
+                                                                 true : (v.MasterAct_TransactionName == 'XP42' ? 
+                                                                 true : (v.MasterAct_TransactionName == 'XP43' ? 
+                                                                 true : (v.MasterAct_TransactionName == 'XP44' ? 
+                                                                 true : (v.MasterAct_TransactionName == 'XP31' ? true : false)))))) :false}">
+                                                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                                        <!-- <lightning:inputField aura:id="fields" fieldName="EndDate__c" variant="label-stacked" /> -->
+                                                        <lightning:input aura:id="dateFields" type="date" name="EndDate__c" label="{!v.resultObj.fieldLabel.enddate__c}" variant="label-stacked" dateStyle="short" 
+                                                                         value="{!v.opportunityActivity.EndDate__c}" disabled="{!v.isDropLostLock}" />
+                                                        
+                                                    </lightning:layoutItem> 
+                                                    
+                                                    <!-- 완료일자 수정 불가능 (Disabled, Trigger Auto Setting) -->
+                                                    <aura:set attribute="else">
+                                                        <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                                            <!-- <lightning:inputField aura:id="fields" fieldName="EndDate__c" variant="label-stacked" 
+                                                                        class="input-disabled"/> -->
+                                                            <lightning:input aura:id="dateFields" type="date" name="EndDate__c" label="{!v.resultObj.fieldLabel.enddate__c}" variant="label-stacked" dateStyle="short" 
+                                                                             value="{!v.opportunityActivity.EndDate__c}" disabled="true" />
+                                                        </lightning:layoutItem> 
+                                                    </aura:set>
+                                                </aura:if>
+                                                
+                                                <!-- Activity Name : Drop / Lost -->
+                                                <aura:if isTrue="{!v.MasterAct_TransactionName == 'ZPZ2'}">  
+                                                    
+                                                    <lightning:layoutItem size="12">
+                                                        <lightning:recordEditForm aura:id="recordEditFormOppty" 
+                                                                                  objectApiName="Opportunity"
+                                                                                  recordId="{!v.parentId}"> 
+                                                            <lightning:layout multipleRows="true">
+                                                                <!-- Lost Type -->
+                                                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                                                    <lightning:inputField aura:id="LostType" fieldName="StageName" variant="label-stacked" required="true" class="LostType"
+                                                                                          value="{!v.Activity_LostType}"
+                                                                                          onchange="{!c.handleChangeLostPicklist}" disabled="{!v.isDropLostLock}" /> 
+                                                                </lightning:layoutItem>
+                                                                
+                                                                <!-- Lost Reason -->
+                                                                <!--V 1.6 Change by Divyam gupta-->
+                                                                <!-- 
+                                                        <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                                            <lightning:inputField aura:id="LostReason" fieldName="LostReasonLogistics__c" variant="label-stacked" required="true" 
+                                                                                    value="{!v.Activity_LostReason}"
+                                                                                    onchange="{!c.handleChangeLostPicklist}" disabled="{!v.isDropLostLock}" />
+                                                        </lightning:layoutItem>-->
+                                                            </lightning:layout>    
+                                                        </lightning:recordEditForm>
+                                                        
+                                                    </lightning:layoutItem>
+                                                </aura:if>
+                                                
+                                                <!-- Description -->
+                                                <!--2022-04-28, hyunhak.roh@dkbmc.com, [설명] 필드 200자 이상 등록하도록 제어하는 기능 -->
+                                                <aura:if isTrue="{!v.reloadForm}">
+                                                    <!-- Activity Name : Drop / Lost -->
+                                                    <!--START V 1.6 Change by Divyam gupta-->
+                                                    <!-- <aura:if isTrue="{!v.MasterAct_TransactionName == 'ZPZ2'}">
+                                                <div class="slds-size_12-of-12">
+                                                    <div class="slds-form-element">
+                                                        <label class="slds-form-element__label" for="textarea-id-01">
+                                                        <abbr class="slds-required" title="required">*</abbr>{!$Label.c.OPPTYACT_LAB_DESC_200}</label>
+                                                        <lightning:inputField aura:id="fields" fieldName="Description__c" variant="label-hidden" required="true" onchange="{!c.changeDesc}"/>
+                                                        <aura:if isTrue="{!v.showDescErrMsg}">
+                                                            <div class="slds-form-element__help" aria-live="assertive" style="color: red;">{!$Label.c.OPPTYACT_MSG_015}</div>
+                                                        </aura:if>
+                                                    </div>
+                                                </div>
+                                            </aura:if>      -->  
+                                                    <!--END V 1.6 Change by Divyam gupta-->
+                                                    <!-- Activity Name : Drop / Lost 아닌 경우 -->
+                                                    <!--Changes by divyam -> V1.6-->                                            
+                                                    <aura:if isTrue="{!and(v.MasterAct_TransactionName != 'ZPZ2',v.MasterAct_TransactionName != 'ZPZ1')}">
+                                                        <!--<aura:set attribute="else">-->
+                                                        <lightning:layoutItem size="12">
+                                                            <lightning:inputField aura:id="fields" fieldName="Description__c" variant="label-stacked"/>
+                                                        </lightning:layoutItem>  
+                                                        <!-- FOR V Anish- v 1.7-->
+                                                        <aura:if isTrue="{!v.MasterAct_TransactionName == 'ZP21'}">
+                                                            <aura:if isTrue="{!v.MasterAct_IsRequiredKnoxApproval}">
+                                                                <aura:if isTrue="{!v.isBoReviewTab}">
+                                                                    
+                                                                    <lightning:layoutItem size="4">
+                                                                        <aura:if isTrue="{!v.setLangEng}">
+                                                                            
+                                                                            <aura:if isTrue="{!v.boApprovalMigYN}">
+                                                                                <lightning:combobox
+                                                                                                name="BO Review Result Approval"
+                                                                                                label="BO Review Result Approval"
+                                                                                                placeholder="Exception"
+                                                                                                class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                                                                                disabled="true"
+                                                                                                />
+                                                                            </aura:if>
+                                                                            <aura:if isTrue="{!v.boApprovalMigYNNon}">
+                                                                            <lightning:combobox
+                                                                                                name="BO Review Result Approval"
+                                                                                                label="BO Review Result Approval"
+                                                                                                placeholder="Not Started"
+                                                                                                options="{!v.picklistOptionsEng}"
+                                                                                                class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                                                                                disabled="true"
+                                                                                                value="{!v.updatedValueBOReview}"
+                                                                                                /> <!-- Added by Anish - v 1.8 -->
+                                                                            </aura:if>
+                                                                        </aura:if>
+                                                                            
+                                                                        
+                                                                        <aura:if isTrue="{!v.setLangKor}">
+                                                                            
+                                                                            <aura:if isTrue="{!v.boApprovalMigYN}">
+                                                                                <lightning:combobox
+                                                                                                name="BO 점검품의 결재 현황"
+                                                                                                label="BO 점검품의 결재 현황"
+                                                                                                placeholder="Exception"
+                                                                                                class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                                                                                disabled="true"
+                                                                                                />
+                                                                            </aura:if>
+                                                                            <aura:if isTrue="{!v.boApprovalMigYNNon}">
+                                                                            <lightning:combobox
+                                                                                                name="BO 점검품의 결재 현황"
+                                                                                                label="BO 점검품의 결재 현황"
+                                                                                                placeholder="Not Started"
+                                                                                                options="{!v.picklistOptionsKor}"
+                                                                                                class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                                                                                disabled="true"
+                                                                                                value="{!v.updatedValueBOReview}"
+                                                                                                />  <!-- Added by Anish - v 1.8 -->
+                                                                                 </aura:if>
+                                                                        </aura:if>                                                                
+                                                                    </lightning:layoutItem>
+                                                                </aura:if>
+                                                            </aura:if>
+                                                        </aura:if>
+                                                        <!-- FOR V Anish- v 1.7 END-->
+                                                        
+                                                    </aura:if>
+                                                </aura:if>
+                                            </lightning:layout>
+                                            <!--
+                                    <aura:if isTrue="{!v.MasterAct_TransactionName == 'ZPZ2'}">
+                                    </aura:if>    
+                                    -->
+                                            <aura:if isTrue="{!(v.creditAssessmentText)}">
+                                                <lightning:formattedRichText value="{!$Label.c.OPPTYACT_MSG_CREDIT}"  />
+                                            </aura:if>
+                                            
+                                            
+                                            
+                                            
+                                        </div>
+                                        <!--START V 1.6 Change by Divyam gupta-->
+                                        <aura:if isTrue="{!v.handlelostDropTypeVal}">
+                                            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" 
+                                                     aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                                <div class="slds-modal__container">
+                                                    <header class="slds-modal__header">
+                                                        <lightning:buttonIcon iconName="utility:close"
+                                                                              onclick="{! c.closeModal}"
+                                                                              alternativeText="close"
+                                                                              variant="bare-inverse"
+                                                                              class="slds-modal__close"/>
+                                                        
+                                                    </header>
+                                                    <!--Modal/Popup Box Body Starts here-->
+                                                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                                        
+                                                        <p><b>{!$Label.c.Clear_Lost_Drop_Type}
+                                                            </b>
+                                                        </p>
+                                                    </div>
+                                                    <!--Modal/Popup Box Footer Starts here-->
+                                                    <footer class="slds-modal__footer">
+                                                        
+                                                        <lightning:button variant="neutral"
+                                                                          label="{!$Label.c.Handle_no}"
+                                                                          title="No"
+                                                                          onclick="{!c.closeModal}"/>
+                                                        <lightning:button variant="brand"
+                                                                          label="{!$Label.c.Handle_Yes_LostDrop}"
+                                                                          title="Cancel"
+                                                                          onclick="{! c.handleYes }"/>
+                                                    </footer>
+                                                </div>
+                                            </section>
+                                            <div class="slds-backdrop slds-backdrop_open"></div>
+                                        </aura:if>
+                                        
+                                        <!--END Divyam Gupta -->
+                                        <!-- Modal Footer -->
+                                        <div class="slds-col modal-footer slds-modal__footer">   
+                                            <!-- 외부 시스템 호출 Button -->
+                                            <!--Added By Kajal - V-1.5 -->
+                                            <c:opportunityActivityLinkButton transactionName="{!v.MasterAct_TransactionName}"
+                                                                             opportunity="{!v.opportunity}" 
+                                                                             hasEditAccess="{!v.hasEditAccess}" 
+                                                                             owner="{!v.owner}"  oppsID ="{!v.parentId}"/>
+                                            
+                                            <lightning:button label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{! c.cancel }" />
+                                            <lightning:button label="{!$Label.c.COMM_BTN_SAVE}" variant="brand" type="submit" /> 
+                                        </div>
+                                        
+                                    </div> <!-- / Tab Contents--> 
+                                </div>
+                                
+                                <!-- / Modal Contents -->
+                            </lightning:recordEditForm>
+                        </aura:if>
+                        
+                    </lightning:tab>
+                    <!-- / ================================ /[Tab 1] : Activity ================================ -->
+                    
+                    <!--START V 1.6 Change by Divyam gupta-->
+                    <!-- ================================ [Tab1.1] : Analysis of Comptetion ================================ -->
+                    <aura:if isTrue="{!v.MasterAct_IsRequiredAnalysisComp}">
+                        <aura:if isTrue="{!v.analysisCompShow}">
+                            <lightning:tab label="{!$Label.c.Analysis_of_Competition_Results}" id="1.11" >
+                                <div class="slds-col modal-body scrollable modal-content">
+                                    <c:opportunityAnalysisofCompetition opprecordId="{!v.parentId}" opptyActId="{!v.recordId}"/>
+                                </div>
+                            </lightning:tab>
+                        </aura:if>
+                    </aura:if>
+                    <!-- /================================ [Tab1.1] : Analysis of Comptetion ================================/ -->
+                    <!-- ================================ [Tab1.2] : Countermeasures ================================ -->
+                    <!--    <aura:if isTrue="{! and(v.MasterAct_IsRequiredAnalysisComp,(v.oppActstatus == 'Completed')) }"> -->
+                    <aura:if isTrue="{! and(v.MasterAct_IsRequiredAnalysisComp) }">
+                        
+                        <aura:if isTrue="{! and(v.analysisCompShow,(v.postMotermTypeval))}">
+                            <lightning:tab label="{!$Label.c.Postmortem}" id="1.12" >
+                                <div class="slds-col modal-body scrollable modal-content">
+                                    <aura:if isTrue="{!v.checkanalysisrecord}">
+                                        <c:oppCountermeasures opprecordId="{!v.parentId}" opptyActId="{!v.recordId}"/>
+                                    </aura:if>
+                                </div>
+                            </lightning:tab>
+                        </aura:if>
+                    </aura:if>
+                    <!--END V 1.6 -->
+                    
+                    
+                    <!-- ================================ [Tab 2] : Work  ================================ -->
+                    <aura:if isTrue="{! and(v.MasterAct_IsRequiredWork, not(empty(v.activityItem.MasterAct.WorkName__c)) ) }">
+                        <lightning:tab label="{!v.activityItem.MasterAct.toLabel_WorkName__c}" id="2">
+                            <div class="slds-col modal-body scrollable modal-content">
+                                
+                                <!-- RFP 등록 및 RFP File List-->
+                                <aura:if isTrue="{!v.MasterAct_WorkName == 'RFP List'}">
+                                    <aura:if isTrue="{!not(empty(v.activityItem.BoAct))}">
+                                        <c:opportunityActivityFileUpload opptyActId="{!v.recordId}" />
+                                    </aura:if>
+                                </aura:if>
+                                
+                                <!-- Service / Solution -->
+                                <aura:if isTrue="{!v.MasterAct_WorkName == 'Service / Solution'}">
+                                    <c:opportunityServiceSolutionMain recordId="{!v.parentId}" opptyActId="{!v.recordId}" hasEditAccess="{!v.hasEditAccess}" />
+                                </aura:if>
+                                
+                                <!-- VRB Request  -->
+                                <aura:if isTrue="{!v.MasterAct_WorkName == 'Strategy Committee'}">
+                                    <c:VRBRequest parentId="{!v.parentId}" parentActivityId="{!v.recordId}" opportunity="{!v.opportunity}" hasEditAccess="{!v.hasEditAccess}" />
+                                </aura:if>
+                                
+                                <!-- Agency Contract Exception -->
+                                <aura:if isTrue="{!v.MasterAct_WorkName == 'Agency Contract Exception'}">
+                                    <c:agencyContractException parentId="{!v.parentId}" hasEditAccess="{!v.hasEditAccess}" />
+                                </aura:if>
+                                
+                                <!-- Knox Approval History -->
+                                <aura:if isTrue="{!v.MasterAct_WorkName == 'Knox Approval History'}">
+                                    <c:KnoxApprovalHistory opptyId="{!v.parentId}" opptyactId="{!v.recordId}"/>
+                                </aura:if>
+                                
+                            </div>
+                        </lightning:tab> 
+                    </aura:if>
+                    <!-- ================================ /[Tab 2] : Work  ================================ -->
+                    
+                    
+                    <!-- ================================ [Tab 2.1] : Project / WBS  ================================ -->
+                    <aura:if isTrue="{!v.MasterAct_WorkName == 'Service / Solution'}">
+                        <lightning:tab label="{!$Label.c.OPPTYACT_LAB_PRJ_WBS}" id="2_1">
+                            <div class="slds-col modal-body scrollable modal-content">
+                                
+                                <aura:if isTrue="{!v.reloadProjectWBS}">
+                                    <c:OpportunityProjectWBSMain recordId="{!v.parentId}" />
+                                </aura:if>
+                                
+                            </div>
+                        </lightning:tab>
+                        <!-- 신규추가시작 -->
+                        <!-- ================================ [Tab 2.2] : BO Review  ================================ -->
+                        <aura:if isTrue="{!not(v.isSubsidiary)}">
+                            <lightning:tab label="{!$Label.c.OPPTYACT_BO_REVIEW_TAB}" id="2_2">
+                                <div class="slds-col modal-body scrollable modal-content">
+                                    <aura:if isTrue="{!v.reloadBOReview}">
+                                        <c:OpportunityReviewMain  recordId="{!v.parentId}" hasEditAccess="{!v.hasEditAccess}"/>
+                                    </aura:if>
+                                </div>
+                            </lightning:tab>
+                        </aura:if>
+                    </aura:if>
+                    <!-- 신규추가종료 -->
+                    <!-- ================================ /[Tab 2.1] : Project / WBS  ================================ -->
+                    
+                    
+                    <!-- ================================ [Tab 3] : Knox Approval (결재 상신 필요) ================================ -->
+                    <aura:if isTrue="{!v.MasterAct_IsRequiredKnoxApproval}">
+                        <!-- [S] 결재 상신 Form -->
+                        <aura:if isTrue="{!and(v.hasEditAccess, not(v.isPendingKnoxApproval))}">
+                            <aura:if isTrue="{! not(and(v.MasterAct_IsRequiredAnalysisComp,and(v.analysisCompShow,v.oppactvalcompinprog))) }"> <!-- v 1.6 -->
+                                <lightning:tab label="{!$Label.c.OPPTYACT_LAB_KNOX_PREVIEW}" id="3_1">
+                                    <!--V 1.6. Divyam Add new aura condition to fix Analysis of comp UI issue-->
+                                    <aura:if isTrue="{!v.showknoxpreviewtable}">
+                                        <div class="slds-col modal-body scrollable modal-content">
+                                            <!--V1.7. Anish-->
+                                            <c:KnoxApprovalPreview opptyId="{!v.parentId}" opptyactId="{!v.recordId}" isSelectedApprovalTab="{!v.isSelectedApprovalTab}" approvalMISID="{!v.approvalMISID}" />
+                                        </div>
+                                    </aura:if>
+                                </lightning:tab>
+                                
+                                <lightning:tab label="{!$Label.c.OPPTYACT_LAB_KNOX_APPROVAL}" id="3_2" onactive="{! c.selectApprovalTab }">
+                                    <div class="slds-col modal-body scrollable modal-content">
+                                        <!--결재선 & 결재본문 가져오기 -->
+                                        <aura:if isTrue="{!v.opptyCheckResult}">
+                                            <!--V1.6. Divyam-->
+                                            <aura:if isTrue="{!v.lostResulTotalvl100}">
+                                                <c:approvalLine opptyId="{!v.parentId}" opptyActId="{!v.recordId}" approvalMISID="{!v.approvalMISID}" />  
+                                                <!-- v Anish-v 1.7 added extra attribute isReviewTypeConfirm to the knox approval tab in order to check if the review type is confirmed or not-->
+                                                <c:KnoxApprovalSubmit isReviewTypeConfirm="{!v.isConfirmed}" opptyId="{!v.parentId}" opptyactId="{!v.recordId}" activityItem="{!v.activityItem}" approvalMISID="{!v.approvalMISID}" />
+                                            </aura:if>
+                                        </aura:if>
+                                    </div>
+                                </lightning:tab>
+                            </aura:if> <!-- v 1.6 -->
+                        </aura:if>
+                        <!-- [E] 결재 상신 Form -->
+                        
+                        <lightning:tab label="{!$Label.c.OPPTYACT_LAB_KNOX_APPROVAL_HISTORY}" id="3_3">
+                            <div class="slds-col modal-body scrollable modal-content">
+                                
+                                <c:KnoxApprovalHistory opptyId="{!v.parentId}" opptyactId="{!v.recordId}"/>
+                                
+                            </div>
+                        </lightning:tab>
+                    </aura:if>
+                    <!-- ================================ /[Tab 3] : Knox Approval  ================================ -->
+                    
+                    <!-- Loading Tab -->
+                    <aura:set attribute="else">
+                        <lightning:tab label="{!$Label.c.OPPTYACT_LAB_ACT}" id="1">
+                            <div class="slds-col modal-body scrollable modal-content">
+                                <div class="tab-content">
+                                    
+                                    <lightning:spinner alternativeText="Loading" size="medium" />
+                                    
+                                </div>
+                            </div>
+                            
+                        </lightning:tab>              
+                    </aura:set>
+                    <!-- / Loading Tab -->
+                </aura:if>
+                
+            </lightning:tabset>
+            
+        </div>
+        
+        <!-- / Modal Contents -->
+        
+        <lightning:spinner aura:id="spinner" variant="brand" size="large" class="slds-hide"/>
+    </div>
+    <!-- / Body -->
+</aura:component>

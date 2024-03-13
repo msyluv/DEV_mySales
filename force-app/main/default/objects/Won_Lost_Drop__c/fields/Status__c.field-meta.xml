@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Opportunity__c != NULL,CASE(TEXT(Opportunity__r.OpportunityStatus__c),
+&quot;E0002&quot;, &quot;in Progress&quot;,
+&quot;E0003&quot;, &quot;Won&quot;,
+&quot;E0004&quot;, &quot;Lost&quot;,
+&quot;E0007&quot;, &quot;Drop&quot;,
+&quot;E0010&quot;, &quot;Holding(Mig)&quot;,
+&quot;E0008&quot;, &quot;Cleansed&quot;,
+&quot;Error&quot;
+), NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

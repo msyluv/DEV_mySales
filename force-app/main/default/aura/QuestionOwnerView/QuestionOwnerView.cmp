@@ -1,0 +1,249 @@
+<!--
+  @description       : 
+  @author            : Junghwa.Kim@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-04-12
+  @last modified by  : Junghwa.Kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                  Modification
+  1.0   11-27-2020   Junghwa.Kim@dkbmc.com   Initial Version
+-->
+<aura:component controller="QuestionOwnerViewController"
+                implements="lightning:actionOverride,lightning:isUrlAddressable,lightning:hasPageReference,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:appHostable,force:hasSObjectName,force:hasRecordId" 
+                access="global">
+    
+    <aura:attribute name="questionList" type="List"/>
+    <aura:attribute name="updateQuestionList" type="List"/>
+    <aura:attribute name="readOnlyQList" type="List"/>
+    <aura:attribute name="isSave" type="Boolean" default="false"/>
+    <aura:attribute name="bizReviewObj" type="Object" />
+    <aura:attribute name="totalScore" type="Integer"/>
+    <aura:attribute name="totalPMScore" type="Integer"/>
+    <aura:attribute name="IsAnswerCount" type="Integer"/>
+    <aura:attribute name="IsPMAnswerCount" type="Integer"/>
+    <aura:attribute name="isEditModal" type="Boolean" default="false"/>
+    <aura:attribute name="beforeSaveQuestionList" type="List"/>
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    <aura:attribute name="isCreater" type="Boolean" default="false"/>
+    <aura:attribute name="isPm" type="Boolean" default="false"/>
+    
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.reInit}"/>
+    
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    
+    <section class="slds-card">
+        
+        <aura:if isTrue="{!v.isLoading}">
+            <lightning:spinner alternativeText="Loading" size="medium" class="spinner-fixed"/>
+        </aura:if>
+        <header class="slds-modal__header">
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{!$Label.c.STRATEGY_COMMITTEE_LAB_CHECKLIST_DETAIL}</h2>
+        </header>
+        <div class="body">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <tbody>
+                    <tr class="slds-line-height_reset">
+                        <th class="tableHeader" scope="col">
+                            <div class="slds-truncate header">
+                                {!$Label.c.STRATEGY_COMMITTEE_LAB_VERSION}
+                            </div>                                	
+                        </th>
+                        <td class="tableBody">
+                            <div class="slds-truncate">
+                                {!v.bizReviewObj.Version__c}
+                            </div>
+                        </td>
+                        <th class="tableHeader" scope="col">
+                            <div class="slds-truncate header">
+                                <aura:if isTrue="{!!v.isPm}">
+                                    {!$Label.c.STRATEGY_COMMITTEE_LAB_TOTAL_SCORE} / 
+                                </aura:if>
+                                {!$Label.c.STRATEGY_COMMITTEE_LAB_TOTAL_PM_SCORE}
+                            </div>  
+                        </th>
+                        <td class="tableBody">
+                            <div class="slds-truncate">
+                                <aura:if isTrue="{!!v.isPm}">
+                                    {!v.totalScore} / 
+                                </aura:if>
+                                {!v.totalPMScore}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="slds-line-height_reset">
+                        <th class="tableHeader" scope="col">
+                            <div class="slds-truncate header">
+                                {!$Label.c.STRATEGY_COMMITTEE_LAB_TOTAL_QUESTION}
+                            </div>  
+                        </th>
+                        <td class="tableBody">
+                            <div class="slds-truncate">
+                                {!v.questionList.length}
+                            </div>
+                        </td>
+                        <aura:if isTrue="{!v.isCreater}">
+                            <th class="tableHeader" scope="col">
+                                <div class="slds-truncate header">
+                                    {!$Label.c.STRATEGY_COMMITTEE_LAB_ANSWERED} / {!$Label.c.STRATEGY_COMMITTEE_LAB_PM_ANSWERED}
+                                </div>  
+                            </th>
+                            <td class="tableBody">
+                                <div class="slds-truncate">
+                                    {!v.IsAnswerCount} / {!v.IsPMAnswerCount}
+                                </div>
+                            </td>
+                            <aura:set attribute="else">
+                                <aura:if isTrue="{!v.isPm}">
+                                    <th class="tableHeader" scope="col">
+                                        <div class="slds-truncate header">
+                                            {!$Label.c.STRATEGY_COMMITTEE_LAB_PM_ANSWERED}
+                                        </div>  
+                                    </th>
+                                    <td class="tableBody">
+                                        <div class="slds-truncate">
+                                            {!v.IsPMAnswerCount}
+                                        </div>
+                                    </td>
+                                    <aura:set attribute="else">
+                                        <th class="tableHeader" scope="col">
+                                            <div class="slds-truncate header">
+                                                {!$Label.c.STRATEGY_COMMITTEE_LAB_ANSWERED} / {!$Label.c.STRATEGY_COMMITTEE_LAB_PM_ANSWERED}
+                                            </div>  
+                                        </th>
+                                        <td class="tableBody">
+                                            <div class="slds-truncate">
+                                                {!v.IsAnswerCount} / {!v.IsPMAnswerCount}
+                                            </div>
+                                        </td>
+                                    </aura:set>
+                                </aura:if>
+                            </aura:set>
+                        </aura:if>
+                    </tr>
+                    <tr class="slds-line-height_reset">
+                        <th class="tableHeader" scope="col">
+                            <div class="slds-truncate header">
+                                {!$Label.c.STRATEGY_COMMITTEE_LAB_DESCRIPTION}
+                            </div>  
+                        </th>
+                        <td class="tableBody" colspan="3">
+                            <div class="slds-truncate">
+                                {!v.bizReviewObj.Description__c}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="caption">
+                <aura:if isTrue="{!!v.isPm}">
+                    {!$Label.c.STRATEGY_COMMITTEE_LAB_USERANSWER} : <lightning:icon iconName="utility:check" class="" alternativeText="Success!" variant="Success" title="success variant small" size="x-small" />
+                    <br/>
+                </aura:if>
+                {!$Label.c.STRATEGY_COMMITTEE_LAB_PMANSWER} : <lightning:icon iconName="utility:check" class="" alternativeText="Success!" variant="Error" title="success variant small" size="x-small" />
+            </div> 
+            <div class="accordionHeight"> 
+                <lightning:accordion aura:id="accordion" allowMultipleSectionsOpen="true">
+                    <aura:iteration items="{!v.readOnlyQList}" var="qobj" indexVar="qidx">
+                        <lightning:accordionSection name="A" label="{!qobj.index + '. ' + qobj.question.Question + ' (' + qobj.question.ReviewDivision__c + ')'}" class="{!qobj.isAnswered ? 'isAllAnswered' : ''}">
+                            <aura:set attribute="body">
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-no-row-hover">
+                                    <!--<caption class="tableCap"><span class="colorRed">*</span> : 핵심항목</caption>-->
+                                    <colgroup>
+                                        <!--<col width="12%"></col>-->
+                                        <col width="4%"></col>
+                                        <col width="85%"></col>
+                                    </colgroup>
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            <!--<th scope="col">
+                                              <div class="slds-truncate">
+                                                질문 상세
+                                              </div>
+                                            </th>
+                                            <th scope="col">
+                                              <div class="slds-truncate"></div>
+                                            </th>-->
+                                            <th scope="col" colspan="2">
+                                                <div class="slds-truncate">
+                                                    <ui:outputRichText class="slds-text-longform" value="{!qobj.question.QuestionDetail__c}" /> 
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <aura:iteration items="{!qobj.answerList}" var="aobj" indexVar="aidx">
+                                            <tr class="slds-line-height_reset">
+                                                <aura:if isTrue="{!aidx == 0}">
+                                                    <!--<td rowspan="{!qobj.answerList.length}">
+                                                    <div class="slds-truncate inPadding">
+                                                            답변
+                                                          </div>
+                                                    </td>-->
+                                                </aura:if>
+                                                <aura:if isTrue="{!aobj.AnswerType__c == '주관식'}">
+                                                    <td colspan="2" class="inputInPadding" >
+                                                        <div class="slds-truncate">
+                                                            <aura:if isTrue="{!!v.isPm}">
+                                                                <lightning:input type="number" label="User" name="input1" value="{!aobj.ShortAnswer__c}" disabled="true"/>
+                                                            </aura:if>
+                                                            <lightning:input type="number" label="PM" name="input1" value="{!aobj.ShortAnswerPM__c}" disabled="true"/>
+                                                        </div>
+                                                    </td>
+                                                    <aura:set attribute="else">
+                                                        <td style="height: 25px;">
+                                                            <div class="slds-truncate leftPadding checkboxWidth">
+                                                                <aura:if isTrue="{!!v.isPm}">
+                                                                    <div>
+                                                                        <lightning:icon iconName="utility:check" class="{!aobj.IsChecked__c ? 'lf' : 'hidden lf'}" alternativeText="Success!" variant="Success" title="success variant small" size="x-small" />
+                                                                    </div>
+                                                                </aura:if>
+                                                                <div>
+                                                                    <lightning:icon iconName="utility:check" class="{!aobj.IsPMChecked__c ? 'rf' : 'hidden rf'}" alternativeText="Success!" variant="Error" title="success variant small" size="x-small" />
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td id="{!qidx + '-' + aidx}"  class="{!aobj.IsChecked__c ? 'selectAnswer answerListView' : 'answerListView'}">
+                                                            <div class="slds-truncate">
+                                                                <span>
+                                                                    <ui:outputRichText class="slds-text-longform" value="{!aobj.Answer__c}" />
+                                                                </span>
+                                                            </div>
+                                                        </td>
+                                                    </aura:set>
+                                                </aura:if>
+                                            </tr>
+                                        </aura:iteration>
+                                        <aura:if isTrue="{!!v.isPm}">
+                                            <tr>
+                                                <td colspan="2" class="inputInPadding" >
+                                                    <lightning:input label="{!$Label.c.STRATEGY_COMMITTEE_LAB_USER_BASIS}" disabled="true" value="{!qobj.BasisMap.User}"/>
+                                                </td>
+                                            </tr>
+                                        </aura:if>
+                                        <tr>
+                                            <td colspan="2" class="inputInPadding" >
+                                                <lightning:input label="{!$Label.c.STRATEGY_COMMITTEE_LAB_PM_BASIS}" disabled="true" value="{!qobj.BasisMap.PM}"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </aura:set>
+                        </lightning:accordionSection>
+                    </aura:iteration>
+                </lightning:accordion>
+            </div>
+        </div>
+        <!--
+        <aura:if isTrue="{!v.isCreater == false}">
+            <div class="footerDiv">
+                <footer class="slds-modal__footer slds-modal__footer_directional contentFooter">
+                    <lightning:button variant="brand" class="rightBtn" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_CHECK_ANSWER}" title="Check Answer" onclick="{! c.handleCheckAnswer }" />	
+                </footer>
+            </div>
+        </aura:if>
+        -->
+        
+    </section>  
+</aura:component>

@@ -1,0 +1,15 @@
+<!--
+  @author            : vikrant.ks@samsung.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2024-01-24
+  @last modified by  : vikrant.ks@samsung.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2024-01-16   vikrant.ks@samsung.com    Initial Version(MySales-389)
+-->
+<aura:component controller="SalesLeadOwnerChangeController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,force:hasRecordId" access="global" >
+	<aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
+    <aura:handler event="force:refreshView" action="{!c.onRender}" />
+</aura:component>

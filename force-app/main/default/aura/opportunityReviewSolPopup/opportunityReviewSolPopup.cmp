@@ -1,0 +1,44 @@
+<!--
+  @description       : 
+  @author            : seonju.jin@dkbmc.com
+  @group             : 
+  @last modified on  : 07-15-2021
+  @last modified by  : zenith21c@test.com
+  Modifications Log 
+  Ver   Date         Author                 Modification
+  1.0   2021-06-14   seonju.jin@dkbmc.com   Initial Version
+-->
+<aura:component 
+ implements="force:appHostable,flexipage:availableForAllPageTypes,force:lightningQuickActionWithoutHeader"
+ access="global" >
+
+  <aura:html tag='style'>
+    .slds-backdrop.slds-backdrop_open{
+        height: 85.6%;
+        top: 7.1%;
+        background: rgb(0 0 0 / 30%);
+    }
+  </aura:html>
+
+  <aura:registerEvent name="sendToReviewConfirmEvt" type="c:opportunityReviewConfirmDataEvent"/>    <!-- Create/Project Code 버튼 클릭 이벤트 -->
+
+ <aura:attribute name="openModal" type="Boolean" access="public" />
+ 
+ <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small svcAlertPopup" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+    <div class="slds-modal__container" style="width: 30%;min-width: 30%;">
+      <header class="slds-modal__header">
+        <!-- <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" label="Close" title="Close">
+        </button> -->
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate"><lightning:icon iconName="utility:success" alternativeText="Success!" variant="Success" title="success variant" size="small" />&nbsp; <span style="margin: auto;">{!$Label.c.COMM_LAB_SUCCESS}</span></h2>
+      </header>
+      <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+        <p style="white-space: break-spaces;">{!$Label.c.OPPTYACT_BO_REVIEW_TEMP_SAVE}</p>
+      </div>
+      <footer class="slds-modal__footer">
+          <lightning:button variant="brand" label='{!$Label.c.OPPTYACT_BO_REVIEW_TYPE_CONFIRM}' title='{!$Label.c.OPPTYACT_BO_REVIEW_TYPE_CONFIRM}' onclick="{!c.confirm}"/>
+        <lightning:button label='{!$Label.c.COMM_BTN_CANCEL}' title='{!$Label.c.COMM_BTN_CANCEL}' onclick="{!c.cancel}" />
+      </footer>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</aura:component>

@@ -1,0 +1,51 @@
+<!--
+  @File Name          : customToast.cmp
+  @Description        : 
+  @Author             : woomg@dkbmc.com
+  @Group              : 
+  @Last Modified By   : woomg@dkbmc.com
+  @Last Modified On   : 12/16/2019, 4:02:48 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/16/2019   woomg@dkbmc.com     Initial Version
+-->
+<aura:component >
+    <aura:attribute name="isUrl" type="Boolean" default="false"/>
+    <aura:attribute name="target" type="String" default=""/>
+    <aura:attribute name="history" type="Boolean" default="false"/>
+
+    <aura:attribute name="type" type="String" default="warning"/>
+    <aura:attribute name="duration" type="Integer" default="1000"/>
+    <aura:attribute name="message" type="String" default="This feature does not support the mobile environment."/> <!-- This feature does not support the mobile environment. -->
+
+    <!-- aura init handler, call js "doInit" function on component load -->   
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="mobile-view slds-p-around_small" 
+        style="height: 4rem; width: 100%; max-width: 30rem;">
+        <div class="modal-glass slds-backdrop fadein slds-backdrop_open" style="opacity: 0.8;"></div>
+        <div class="slds-region_narrow slds-is-relative">
+            <div class="slds-notify_container slds-is-absolute">
+                <div class="{!'slds-notify slds-notify_toast slds-theme_' + v.type}" role="alert">
+                    <lightning:icon iconName="utility:warning"
+                        size="small"
+                        class="slds-m-right_small slds-no-flex"
+                        variant="bare" 
+                        alternativeText="Close"/>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small">{!v.message}</h2>
+                    </div>
+                    <aura:if isTrue="{!v.history==false}">
+                        <lightning:buttonIcon iconName="utility:close"
+                            size="large"
+                            class="slds-notify__close"
+                            variant="bare" 
+                            onclick="{! c.clickClose }" 
+                            alternativeText="Close"/>
+                    </aura:if>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</aura:component>

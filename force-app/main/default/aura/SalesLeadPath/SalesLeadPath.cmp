@@ -1,0 +1,61 @@
+<!--
+  @description       : 
+  @author            : Junghwa.Kim@dkbmc.com
+  @group             : 
+  @last modified on  : 12-21-2020
+  @last modified by  : Junghwa.Kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                  Modification
+  1.0   11-24-2020   Junghwa.Kim@dkbmc.com   Initial Version
+-->
+<aura:component controller="SalesLeadPathController"
+                implements="lightning:isUrlAddressable,lightning:hasPageReference,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:appHostable,force:hasSObjectName,force:hasRecordId" access="global">
+    
+    <aura:attribute name="stageName" type="List"/>
+    <aura:attribute name="variant" type="String" default="linear"/>
+    <aura:attribute name="hideUpdateButton" type="Boolean" default="true"/>
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    
+    <section class="slds-card">
+        <section aura:id="noneConvert" class="noneconvert nonedisplay">
+            <lightning:path aura:id="path" recordId="{!v.recordId}"
+                            variant="{!v.variant}"
+                            hideUpdateButton="{!v.hideUpdateButton}"
+                        />
+        </section>
+        <section aura:id="Convert" class="convert">
+            <div class="slds-path slds-path_has-coaching slds-is-expanded">
+                <div class="slds-grid slds-path__track">
+                    <div class="slds-grid slds-path__scroller-container">
+                        <div class="slds-path__scroller">
+                            <div class="slds-path__scroller_inner">
+                                <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                                    <aura:iteration items="{!v.stageName}" var="obj">
+                                        <li class="slds-path__item slds-is-complete" role="presentation">
+                                            <a aria-selected="false" class="slds-path__link" href="javascript:void(0);" id="path1" role="option" tabindex="-1">
+                                                <span class="slds-path__stage">
+                                                    <lightning:icon class="colorWhite" iconName="utility:check" alternativeText="Utility Check" title="Check" size="small"/>
+                                                <span class="slds-assistive-text">Stage Complete</span>
+                                                </span>
+                                                <span class="slds-path__title">{!obj}</span>
+                                            </a>
+                                        </li>
+                                    </aura:iteration>
+                                    <li class="slds-path__item slds-is-current slds-is-active" role="presentation">
+                                        <a aria-selected="true" class="slds-path__link" href="javascript:void(0);" id="path-9" role="option" tabindex="0">
+                                            <span class="slds-path__stage">
+                                                <lightning:icon class="colorWhite" iconName="utility:check" alternativeText="Utility Check" title="Check" size="small"/>
+                                            <span class="slds-assistive-text">Current Stage:</span>
+                                            </span>
+                                            <span class="slds-path__title">{!$Label.c.CONVERT_LAB_CONVERT}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+</aura:component>

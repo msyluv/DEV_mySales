@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Partner_Type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Submitted</fullName>
+                <default>true</default>
+                <label>Submitted</label>
+            </value>
+            <value>
+                <fullName>In Review</fullName>
+                <default>false</default>
+                <label>In Review</label>
+            </value>
+            <value>
+                <fullName>Request Additional Info</fullName>
+                <default>false</default>
+                <label>Request Additional Info</label>
+            </value>
+            <value>
+                <fullName>Done Review</fullName>
+                <default>false</default>
+                <label>Done First Review</label>
+            </value>
+            <value>
+                <fullName>Assignment of Negotiator</fullName>
+                <default>false</default>
+                <label>Done Final Review</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Value Added Reseller</controllingFieldValue>
+            <controllingFieldValue>Managed Service Provider</controllingFieldValue>
+            <valueName>Submitted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Value Added Reseller</controllingFieldValue>
+            <controllingFieldValue>Managed Service Provider</controllingFieldValue>
+            <valueName>In Review</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Value Added Reseller</controllingFieldValue>
+            <controllingFieldValue>Managed Service Provider</controllingFieldValue>
+            <valueName>Request Additional Info</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Value Added Reseller</controllingFieldValue>
+            <controllingFieldValue>Managed Service Provider</controllingFieldValue>
+            <valueName>Done Review</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Value Added Reseller</controllingFieldValue>
+            <controllingFieldValue>Managed Service Provider</controllingFieldValue>
+            <valueName>Assignment of Negotiator</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

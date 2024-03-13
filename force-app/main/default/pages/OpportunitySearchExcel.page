@@ -1,0 +1,145 @@
+<!--
+  @description       : 
+  @author            : ukhyeon.lee@samsung.com
+  @group             : 
+  @last modified on  : 05-24-2022
+  @last modified by  : ukhyeon.lee@samsung.com
+-->
+<apex:page standardController="Opportunity" Extensions="OpportunitySearchExcel" readOnly="true" standardStylesheets="false" contentType="application/vnd.ms-excel#Data.xls" cache="true">
+    {!xmlheader}
+    <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+              xmlns:o="urn:schemas-microsoft-com:office:office"
+              xmlns:x="urn:schemas-microsoft-com:office:excel"
+              xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+              xmlns:html="http://www.w3.org/TR/REC-html40">
+        <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+            <Author></Author>
+            <LastAuthor></LastAuthor>
+            <Company></Company>
+            <Version>1</Version>
+        </DocumentProperties>
+
+        <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+            <WindowHeight>16000</WindowHeight>
+            <WindowWidth>20480</WindowWidth>
+            <WindowTopX>400</WindowTopX>
+            <WindowTopY>400</WindowTopY>
+            <ProtectStructure>False</ProtectStructure>
+            <ProtectWindows>False</ProtectWindows>
+        </ExcelWorkbook>
+        <Styles>
+            <Style ss:ID="Default" ss:Name="Normal">
+                <Alignment ss:Vertical="Bottom"/>
+                <Borders/>
+                <Font/>
+                <Interior/>
+                <NumberFormat/>
+                <Protection/>
+            </Style>
+            <Style ss:ID="s01">
+                <Alignment ss:Vertical="Bottom"/>
+                <Font ss:Size="12" ss:Bold="1"/>
+                <Interior ss:Color="#e1ebe4" ss:Pattern="Solid"/>
+            </Style>
+
+        </Styles>
+
+        <Worksheet ss:Name="Opportunity Data">
+            <Table x:FullColumns="1" x:FullRows="1" ss:DefaultColumnWidth="85">
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Column ss:AutoFitWidth="0" ss:Width="124"/>
+                <Row ss:Height="16">
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_COMPANYID}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_COMPANYCODE}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_BOCODE}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_BONAME}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_STATUS}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_STAGE}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_ACCOUNTCODE}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_ACCOUNT}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_ORIGNACCOUNTCODE}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_ORIGNACCOUNT}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_BIZLEVEL}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_OWNER}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_SALESDIVISION}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_SALESDEPT}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_DELIVERYDEVISION}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_DELIVERYDEPT}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_COLLABORATION}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_GROUPINTERNAL}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_DOMESTIC}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_BIZTYPE}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_DEALBREAK}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_CLOSEDATE}</Data></Cell>
+                    <Cell ss:StyleID="s01"><Data ss:Type="String">{!$Label.BOSEARCH_LAB_1STCLOSEDATE}</Data></Cell>
+                </Row>
+				<apex:repeat value="{!objList}" var="items">
+                    <apex:repeat value="{!items}" var="item">
+                        <Row ss:Height="16">
+                            <Cell ><Data ss:Type="String">{!item.CompCode}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.CompName}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.OpptyCode}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.Name}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.Status}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.Stage}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.AccNumber}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.AccName}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.OriginAccNum}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.OriginAcctName}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.BizLevel}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.OwnerName}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.SalesDiv}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.SalesDept}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.DeliveryDiv}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.DeliveryDept}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!IF(item.Collaboration == TRUE, 'O', 'X')}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!IF(item.GroupInternal == TRUE, 'O', 'X')}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!IF(item.KoreaDomestic == TRUE, 'O', 'X')}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.BizType}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!IF(item.DealBreak == TRUE, 'O', 'X')}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.CloseDate}</Data></Cell>
+                            <Cell ><Data ss:Type="String">{!item.FirstCloseDate}</Data></Cell>
+                        </Row>
+                    </apex:repeat>
+                </apex:repeat>
+            </Table>
+            <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+                <PageLayoutZoom>0</PageLayoutZoom>
+                <Selected/>
+                <FreezePanes/>
+                <FrozenNoSplit/>
+                <SplitHorizontal>1</SplitHorizontal>
+                <TopRowBottomPane>1</TopRowBottomPane>
+                <ActivePane>2</ActivePane>
+                <Panes>
+                    <Pane>
+                        <Number>3</Number>
+                    </Pane>
+                </Panes>
+                <ProtectObjects>False</ProtectObjects>
+                <ProtectScenarios>False</ProtectScenarios>
+            </WorksheetOptions>
+        </Worksheet>
+    </Workbook>
+</apex:page>

@@ -1,0 +1,23 @@
+<!--/**
+ * @description       : 
+ * @author            : 
+ * @group             : 
+ * @last modified on  : 2023-10-17
+ * @last modified by  : atul.k1@samsung.com
+ * Modifications Log 
+ * Ver   Date         Author                 Modification
+ * 1.1   2023-10-17   atul.k1@samusng.com       Mysales-318
+**/ -->
+<aura:event type="APPLICATION" access="global">
+    <aura:attribute name="isSuccess" type="Boolean" default="false"/>
+    <aura:attribute name="approvalLineList" type="List" default="[]"/>
+    <aura:attribute name="approvalHTML" type="String" />
+    <aura:attribute name="Minus_Profit" type="String" default=""/> <!--V 1.1 Mysales-318-->
+    <aura:attribute name="isApprovalHTML" type="Boolean" default="true"/>
+    <aura:attribute name="useApprovalLine" type="Boolean" default="true"/>
+    <aura:attribute name="approvalTypeCode" type="String" default=""/>
+    <!-- 협업 BO 결재 사전 점검 관련 변수 -->
+    <aura:attribute name="isRequiredCollaboValid" type="Boolean" default="false" />
+    <aura:attribute name="isSuccessCollaboValid" type="Boolean" default="false" />
+    <aura:attribute name="collaboApprovalTypeCode" type="String" default="" />
+</aura:event>

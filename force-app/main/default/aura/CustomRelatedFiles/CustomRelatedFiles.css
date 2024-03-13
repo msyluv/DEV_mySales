@@ -1,0 +1,36 @@
+.THIS  .slds-card__header {
+	background-color: #F3F2F2;
+	padding: var(--lwc-varSpacingVerticalSmall,0.75rem) var(--lwc-varSpacingHorizontalMedium, 1rem) var(--lwc-varSpacingVerticalXSmall,0.5rem) !important;
+}
+.THIS .small-title {
+	font-size: 0.9rem;
+	font-weight: var(--lwc-cardFontWeight, 700);
+}
+
+.THIS .fileUploadButton .slds-assistive-text, .THIS .fileUploadButton .slds-form-element__label,
+.THIS .fileUploadButton .slds-file-selector__text, .THIS .fileUploadButton lightning-primitive-icon {
+        display : none;
+}
+
+.THIS .fileUploadButton .slds-file-selector__dropzone {
+    padding : 0 !important;
+    border : 0 !important;
+}
+
+.THIS .custom-drop-zone .slds-file-selector {
+    height : 120px !important;
+    width : 100% !important;
+}
+.THIS .custom-drop-zone .slds-file-selector .slds-file-selector__dropzone {
+    padding-top : 30px;
+    height : 100%;
+    width : 100% !important;
+}
+
+.THIS .custom-drop-zone .slds-file-selector .slds-file-selector__dropzone label.slds-file-selector__body {
+    display : block;
+}
+
+.THIS .custom-drop-zone .slds-file-selector .slds-file-selector__dropzone label.slds-file-selector__body span.slds-file-selector__text {
+    padding : 4px;
+}

@@ -1,0 +1,78 @@
+.THIS .solution-spinner{
+    position: unset !important;
+}
+.THIS .slds-grid_vertical{
+    height: 100%;
+}
+.THIS .slds-card{
+    height: 100%;
+}
+.THIS .slds-card .slds-card__body {
+    height: calc(100% - 28px) !important;
+}
+.THIS .slds-card .slds-card__label {
+    display: none; 
+}
+.THIS .custom_footer {
+    margin-bottom: 0;
+}
+.THIS .selectBox .slds-form-element__label { 
+    display: none; 
+}
+
+.THIS table.firsttable{height: 100%;max-height:100%;border-collapse:collapse;width:100%; margin:0 auto;overflow:auto;display: block;
+} /* border:1px solid #ccc; border-right: 0px; */
+.THIS table.firsttable thead{float:left;width:100%;border-bottom:1px solid #ccc;height:26px;}
+.THIS table.firsttable thead tr{display:table;table-layout:fixed;width:100%;}
+.THIS table.firsttable thead th{text-align:center;}
+.THIS table.firsttable tbody{float:left;width:100%;overflow-y:auto;overflow-x:hidden; height: 690px;
+}
+.THIS table.firsttable tbody tr{display:table;table-layout:fixed;width:100%;}/* border-bottom:1px solid #ccc; */
+.THIS table.firsttable tbody tr:last-child{border-bottom:none;}
+.THIS table.firsttable tbody td{vertical-align:middle ;}
+.THIS table.firsttable tbody td{text-align:center;  height: 10px;
+}
+
+.THIS table.secondtable{height: 100%;max-height:100%;border-collapse:collapse;width:100%; margin:0 auto;overflow:auto;display: block;
+} /* border:1px solid #ccc; border-right: 0px; */
+
+.THIS table.secondtable tbody td{vertical-align:middle ;}
+.THIS table.secondtable tbody td{text-align:center;  height: 10px;
+}
+
+.THIS .slds-form-element__label {
+    display: none;
+}
+
+.THIS lightning-combobox  > label.slds-form-element__label {
+    display: none;
+}
+.THIS lightning-icon  > label.slds-form-element__label {
+    display: none;
+}
+
+.THIS .slds-checkbox_faux{
+    margin-right: 0px !important;
+}
+
+
+.THIS tr.row-false{
+    background-color:rgba(255, 255, 255, 0);
+}
+
+.THIS tr.row-true{
+    background-color:#d9d2d2;
+}
+
+
+.THIS tr.color-true {
+  background-color: red;
+    border: 3px solid darkorange;
+    border-radius: 5px;}
+
+/* .THIS .slds-pill_container {
+    max-width: 200px;
+} */
+/* .THIS span.toastMessage.forceActionsText{
+    white-space : pre-line !important;
+} */

@@ -1,0 +1,5 @@
+<aura:event type="COMPONENT" description="Event template" >
+    <aura:attribute name="eventType" type="String" description="the type is divable to service or solution event"/>
+    <aura:attribute name="serviceIdx" type="String" description="index is remove row index" />
+    <aura:attribute name="solutionIdx" type="String" description="index is remove row index" />
+</aura:event>

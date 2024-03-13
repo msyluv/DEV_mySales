@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>Partner__c</columns>
+    <columns>SCP_Account_ID__c</columns>
+    <columns>SCP_Account_Name__c</columns>
+    <columns>Customer__c</columns>
+    <columns>Contract_Start_Date__c</columns>
+    <columns>SDS_AM__c</columns>
+    <columns>SDS_PDM__c</columns>
+    <columns>Incentive__c</columns>
+    <columns>NAME</columns>
+    <columns>Project_Name__c</columns>
+    <columns>Partner_AM__c</columns>
+    <columns>Partner_PM__c</columns>
+    <columns>New_Business__c</columns>
+    <columns>Estimated_Monthly_Fee_Won__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

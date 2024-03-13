@@ -1,0 +1,127 @@
+<!--
+  	* FileUpload  *
+	* 설명 : 업로드 하는 파일의 사이즈, 갯수 제한을 할 수 있음.
+	* 기능 : Validation Check > helper에서 attribute에 설정된 값 기준으로 유효성 검사
+    1.1   11-05-2023   anish.jain@partner.samsung.com   MS-216
+-->
+<aura:component controller="FileUploadController">
+    <aura:attribute name="Type" type="String"/>
+    <aura:attribute name="iconName" type="String"/>
+    <aura:attribute name="labelHide" type="String" default="true"/>
+    <aura:attribute name="FileList" type="List" default="[]" />
+
+    <aura:attribute name="toastMessage" type="String" default="" />
+    <aura:attribute name="isCloseModal" type="Boolean" default="true" />
+    <aura:attribute name="toastType" type="String" default="" />
+    <aura:attribute name="customToast" type="Object" default="{}" />
+    
+    <aura:attribute name="maximumAttachFile" type="Integer" default="10" />
+    <aura:attribute name="maximumFileSize" type="Integer" default="9437184" description="최대 첨부 가능한 총 파일 크기(byte)"/> 
+    <aura:attribute name="allFileSize" type="Integer" default="0" />
+    <aura:attribute name="activityName" type="String" default="" /> <!-- Added by Anish-v 1.1 -->
+   
+    <aura:registerEvent name="FileValidationEvent" type="c:FileValidationEvent"/> <!-- Added by Anish-v 1.1 -->
+    <aura:registerEvent name="VaultFileEvent" type="c:VaultFileEvent"/> <!-- Added by Anish-v 1.1 -->
+    
+    <aura:if isTrue="{!v.labelHide}">
+
+        <div class="slds-clearfix">
+            
+            <!-- Start - Added by Anish-v 1.1-->
+            <aura:if isTrue="{!v.activityName == 'ZP21'}">
+            <label class="slds-form-element__label slds-required" for="lookup-348">
+                * <span style = "color:black">{!$Label.c.COMM_LAB_ATTACHMENT}</span>
+            </label> 
+            </aura:if>
+            <aura:if isTrue="{!v.activityName != 'ZP21'}">
+            <label class="slds-form-element__label" for="lookup-348">
+                {!$Label.c.COMM_LAB_ATTACHMENT}
+            </label>
+            </aura:if>
+            <!-- End - Added by Anish-v 1.1-->
+
+            <div class="slds-float_right">
+                <p><lightning:formattedNumber value="{!v.allFileSize/1048576}" maximumFractionDigits="2" /> MB / <lightning:formattedNumber value="{!v.maximumFileSize/1048576}" maximumFractionDigits="2"/> MB</p>
+
+
+                <!-- <ui:outputNumber value="{!v.allFileSize/1048576}" format="#,##0,000.00" /> <span> MB / </span> <ui:outputNumber value="{!v.myNumber}"/>  -->
+                <!-- <lightning:badge class="" label="{! v.allFileSize/1048576 + ' MB' + ' / ' + v.maximumFileSize/1048576 + ' MB'}"/> -->
+            </div>
+          </div>
+    </aura:if>
+    <!-- [임시 메시지] "PDF는 첨부가 불가능합니다." -->
+    <!-- <div class="slds-text-color_error">{!$Label.c.FILE_MSG_0006}</div> -->
+    
+    <c:customToastModal toastHeightPostion="20%" isStack="true" toast="{!v.customToast}" />
+    
+    <div class="slds-file-selector__dropzone fileArea">
+        <lightning:input required="true" aura:id="file" type="file" name="file" label=" " onchange="{!c.fileUpload}" variant="label-hidden"/> <!-- Added by Anish-v 1.1 -->
+
+        <aura:iteration items="{!v.FileList}" var="file" indexVar="index">
+            <div class="slds-grid slds-p-around--x-small slds-align--absolute-center fileListArea">
+                <div class="slds-grid slds-size--1-of-1 slds-no-space slds-p-right--x-large">
+                    <div class="slds-avatar slds-avatar--x-small slds-pill__icon_container slds-p-right--large">
+                        <div>
+                            <lightning:icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" iconName="{!file.iconName}" size="x-small" alternativeText="icon"/>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-truncate">
+                        <!--a rel="theater" title="View File"-->
+                            <span class="slds-pill__label uiOutputText" title="Preview file">{!file.name}</span>
+                        <!--/a-->
+                    </div>
+                </div>
+                <div class="right" title="Remove file">
+                    <div class="slds-button slds-button--icon slds-pill__remove" data-itemIdx="{!index}" onclick="{!c.clear}" style="cursor:pointer;">
+                        <lightning:icon class="slds-button__icon" iconName="utility:close" size="x-small" alternativeText="search"/>  
+                        <span class="slds-assistive-text">Remove</span>
+                    </div>
+                </div>
+            </div>
+        </aura:iteration>
+    </div>
+     <!-- [S] Error Toast -->
+     <div aura:id="error-toast" class="slds-hide" style="height: 4rem;height: 4rem; position: absolute; top: -230px; width: 100%;">
+        <div class="slds-notify_container slds-is-relative" style="top:150px;">
+            <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+                <span class="slds-assistive-text">error</span>
+                <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+                    <lightning:icon iconName="utility:error" alternativeText="Error!" variant="error"/>
+                </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small">{!v.toastMessage}</h2>
+                </div>
+                <div class="slds-notify__close" onclick="{!c.closeToast}">
+                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
+                        <lightning:icon iconName="utility:close" alternativeText="Close" size="small"/>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [E] Error Toast -->
+    
+    <!-- [S] Success Toast -->
+    <div aura:id="success-toast" class="slds-hide" style="height: 4rem;height: 4rem; position: absolute; top: -230px; width: 100%;">
+        <div class="slds-notify_container slds-is-relative" style="top:150px;">
+            <div class="slds-notify slds-notify_toast slds-theme_success" role="status">
+                <span class="slds-assistive-text">success</span>
+                <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+                    <lightning:icon iconName="utility:success" alternativeText="Success!" variant="success"/>
+                </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small ">{!v.toastMessage}</h2>
+                </div>
+                <div class="slds-notify__close" onclick="{!c.closeToast}">
+                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
+                        <lightning:icon iconName="utility:close" alternativeText="Close" size="small"/>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [E] Success Toast -->
+    
+</aura:component>

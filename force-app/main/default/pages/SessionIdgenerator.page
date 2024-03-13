@@ -1,0 +1,8 @@
+<!--
+Purpose: Visualforce Hack to fetch SessionId in LWC/Aura component.
+Created by: Rakshit Segwal(rakshit.s@samsung.com)
+Date: 05-07-2023
+-->
+<apex:page >
+    Start_Of_Session_Id{!$Api.Session_ID}End_Of_Session_Id
+</apex:page>

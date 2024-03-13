@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Developer__c</fullName>
+    <externalId>false</externalId>
+    <label>Developer in charge</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Akash Gupta</fullName>
+                <default>false</default>
+                <label>Akash Gupta</label>
+            </value>
+            <value>
+                <fullName>Anish Jain</fullName>
+                <default>false</default>
+                <label>Anish Jain</label>
+            </value>
+            <value>
+                <fullName>Ashish Dubey</fullName>
+                <default>false</default>
+                <label>Ashish Dubey</label>
+            </value>
+            <value>
+                <fullName>Divyam Gupta</fullName>
+                <default>false</default>
+                <label>Divyam Gupta</label>
+            </value>
+            <value>
+                <fullName>Gitesh Saini</fullName>
+                <default>false</default>
+                <label>Gitesh Saini</label>
+            </value>
+            <value>
+                <fullName>Kajal Choudhary</fullName>
+                <default>false</default>
+                <label>Kajal Choudhary</label>
+            </value>
+            <value>
+                <fullName>Rakshit Segwal</fullName>
+                <default>false</default>
+                <label>Rakshit Segwal</label>
+            </value>
+            <value>
+                <fullName>Saurav Sankhyan</fullName>
+                <default>false</default>
+                <label>Saurav Sankhyan</label>
+            </value>
+            <value>
+                <fullName>Vikrant Kumar Singh</fullName>
+                <default>false</default>
+                <label>Vikrant Kumar Singh</label>
+            </value>
+            <value>
+                <fullName>Pearl Lee</fullName>
+                <default>false</default>
+                <label>Pearl Lee</label>
+            </value>
+            <value>
+                <fullName>Jeff Lee</fullName>
+                <default>false</default>
+                <label>Jeff Lee</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

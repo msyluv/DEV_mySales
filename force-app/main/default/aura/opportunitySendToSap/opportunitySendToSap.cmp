@@ -1,0 +1,49 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : 사용(x)
+  @last modified on  : 2021-07-12
+  @last modified by  : seonju.jin@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                    Modification 
+  1.0   2020-12-17   younghoon.kim@dkbmc.com   Initial Version
+-->
+<aura:component controller="OpportunityServiceSolutionMainController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome" access="global">
+    
+    <aura:html tag="style">
+        .modal-body.scrollable.slds-modal__content.slds-p-around--medium{ padding: 1px !important; } 
+    </aura:html>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="notice" type="Object" />
+    <aura:attribute name="recordId" type="String" default="" />
+    <aura:attribute name="contentDocumentId" type="String" default="" />
+
+    <aura:registerEvent name="sendToSapEvt" type="c:opportunitySendToSapEvent"/>
+    
+    <div >
+		<div class="slds-col modal-body scrollable modal-content" style="height: 100%; overflow-y: auto !important; background-color: white;">
+            <div class="tab-content">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1" style="margin-top: 10px; margin-bottom: -10px;">
+                        <lightning:button variant="brand" iconName="utility:check" label="{!$Label.c.COMM_LAB_DOWNLOAD}" class="slds-float_right slds-m-right_small" onclick="{!c.download}"/>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1">
+                        <div id="activityRecordForm" class="slds-scrollable_y slds-card__body slds-p-around_small">
+                            <div aura:id="output" class="slds-box editor slds-text-longform" style="margin-bottom: 10px;">
+                                <lightning:formattedRichText value="{!v.notice.KR}" />
+                            </div>
+                            <div aura:id="output" class="slds-box editor slds-text-longform">
+                                <lightning:formattedRichText value="{!v.notice.EN}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer slds-modal__footer" style="height:58px;">
+            <lightning:button variant="brand" label="{!$Label.c.COMM_BTN_CONFIRM}" class="slds-float_right" onclick="{!c.confirm}"/>
+        </div>
+	</div>
+</aura:component>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ConnectionClassification__c</fullName>
+    <externalId>false</externalId>
+    <label>Connection Classification</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>본사</fullName>
+                <default>false</default>
+                <label>본사</label>
+            </value>
+            <value>
+                <fullName>연결</fullName>
+                <default>false</default>
+                <label>연결</label>
+            </value>
+            <value>
+                <fullName>연결차감</fullName>
+                <default>false</default>
+                <label>연결차감</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

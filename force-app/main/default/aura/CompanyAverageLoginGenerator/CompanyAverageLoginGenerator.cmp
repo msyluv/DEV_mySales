@@ -1,0 +1,89 @@
+<!--
+ * @description       : Company Average Login Generator screen layout
+ * @author            : vikrant.ks@samsung.com
+ * @group             : 
+ * @last modified on  : 2023-09-22
+ * @last modified by  : vikrant.ks@samsung.com 
+ * Modifications Log 
+ * Ver   Date         Author                   Modification
+ * 1.0   2023-09-22   vikrant.ks@samsung.com   Initial Version(MySales 303)
+-->
+<aura:component controller="CompanyAverageLoginGeneratorController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	
+    <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
+    <aura:attribute name="profiles" type="List" default="['Sales Support(HQ)','Sales Manager(HQ)','SalesLead Manager(HQ)','Sales Team Manager(HQ)','Delivery Manager(HQ)','Sales Executive(HQ)','CxO','PI (Biz. Owner)','Strategic Marketing','Strategy Committee(HQ)','Sales Manager(Overseas Corp)','Sales Manager(Logi)']"/>
+    <aura:attribute name="companys" type="List" default="['SDS','SDSA','SDSAP','SDSC','SDSE','SDSI','SDSLA','SDSV']"/>
+    <aura:attribute name="userType" type="List" default="['ALL','IT','Logistics']"/>
+    <aura:attribute name="months" type="List" default="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"/>
+    <aura:attribute name="years" type="List" default="['2022','2023','2024','2025','2026','2027','2028','2029']"/>
+    <aura:attribute name="progress" type="Integer" default="0"/>
+    <aura:attribute name="apexJob" type="AsyncApexJob"/>
+	<aura:attribute name="doRender" type="Boolean" default="true"/>
+    
+    <div class="slds-box">
+
+        <p Style="font-size:17px;margin-bottom:10px;"><b>Company Login Average Generator</b></p>
+        <p Style="background-color:#C5C6D0;padding:2px 5px;margin-bottom:10px;"><b>Target Conditions</b></p>
+
+        <div style="display:flex;padding:5px;">
+            <div>
+                <div>
+                    <label>User Type</label>
+                    <select id="select-userType">
+                        <aura:iteration items="{!v.userType}" var="user">
+                            <option text="{!user}"></option>
+                        </aura:iteration>
+                    </select>
+                </div>
+                <div>
+                    <label>Month</label>
+                    <select id="select-month">
+                        <aura:iteration items="{!v.months}" var="month">
+                            <option text="{!month}"></option>
+                        </aura:iteration>
+                    </select>
+                    <label>Year</label>
+                    <select id="select-year">
+                        <aura:iteration items="{!v.years}" var="year">
+                            <option text="{!year}"></option>
+                        </aura:iteration>
+                    </select>
+                </div>
+            </div>
+            <div class="Block2">
+                <div>
+                    <p>Company Name</p>
+                    <select id="select-company" multiple="multiple">
+                        <aura:iteration items="{!v.companys}" var="comp">
+                            <option text="{!comp}" selected="true"></option>
+                        </aura:iteration>
+                    </select>
+                </div>
+                <div class="Profile">
+                    <p>Profile</p>
+                    <select id="select-profile" multiple="multiple">
+                        <option text="Sales Rep.(HQ)" selected="true"></option>
+                        <option text="Sales Rep.(Overseas Corp)" selected="true"></option>
+                        <option text="Sales Rep.(Logi)" selected="true"></option>
+                        <aura:iteration items="{!v.profiles}" var="pro">
+                            <option text="{!pro}" ></option>
+                        </aura:iteration>
+                    </select>
+                </div>
+            </div>
+    	</div>
+        <p align="right" style="padding-right:10%;"><lightning:button class="slds-button_brand" label= "Generate" onclick="{!c.executeBatch}"/></p>
+        <br/>
+    	<aura:if isTrue="{!v.apexJob != null}">
+            <aura:if isTrue="{!v.apexJob.JobItemsProcessed != v.apexJob.TotalJobItems}">
+                <!--Batch Executed {!v.apexJob.JobItemsProcessed} of {!v.apexJob.TotalJobItems}-->
+                Batch Percentage Executed: <b> {!v.progress}% </b>
+            </aura:if>
+            <aura:if isTrue="{!v.apexJob.Status == 'Completed'}">
+                Completed with {!v.apexJob.NumberOfErrors} errors.
+            </aura:if>
+            <lightning:progressBar value="{!v.progress}" size="large" variant="circular"/>
+        </aura:if> 
+    </div>
+       
+</aura:component>

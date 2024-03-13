@@ -1,0 +1,44 @@
+.THIS {
+    position: relative;
+
+}
+.THIS .modal-main {
+    width: calc(100% + 4rem);/*퀵액션모달자체의 패딩 값(left,right 2rem씩)을 더한다*/
+    padding:0 !important;
+    margin:0;
+    margin-left: 16px;/*-2rem;/*퀵액션모달자체의 패딩(left 2rem)만큼 뺀다*/
+    margin-top:-1rem;/*퀵액션모달자체의 패딩(top 1rem) 만큼 뺀다*/
+}
+
+.THIS .modal{
+    position: unset;
+}
+
+.THIS .modal__container {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.THIS .modal__content {
+    height : 484px;
+    overflow-y: auto !important;
+}
+
+.THIS .table-box {
+    border-top : solid 1px #DDDBDA;
+    border-bottom : solid 1px #DDDBDA;
+}
+
+.THIS .number-align input {
+    text-align : right;
+}
+
+.THIS .total {
+    font-weight : bold;
+}
+.THIS .total-sum {
+    font-weight : bold;
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>User_Log</fullName>
+    <columns>NAME</columns>
+    <columns>ApexName__c</columns>
+    <columns>ApexMethod__c</columns>
+    <columns>InterfaceId__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>StatusCode__c</columns>
+    <columns>CpuTime__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>ErrorMessage__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATEDBY_USER</field>
+        <operation>notEqual</operation>
+        <value>IF_USER</value>
+    </filters>
+    <filters>
+        <field>InterfaceId__c</field>
+        <operation>equals</operation>
+        <value>IF-079</value>
+    </filters>
+    <label>User Log</label>
+</ListView>

@@ -1,0 +1,125 @@
+<!--
+  @description       : 
+  @author            : seonju.jin@dkbmc.com
+  @group             : 
+  @last modified on  : 2022-01-25
+  @last modified by  : seonju.jin@dkbmc.com
+-->
+<aura:component 
+    controller="OpportunitySolutionItemController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes"
+    access='global'>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <!-- regi Event -->
+    <aura:registerEvent name="mainActEvt" type="c:OpportunityServiceMainActionEvt"/>         <!-- Main 컴포넌트 이벤트 -->
+    <!-- <aura:registerEvent name="addRowEvt" type="c:opportunityServiceSolutionItemAddEvt"/> -->
+    <!-- <aura:registerEvent name="removeRowEvt" type="c:opportunityServiceSolutionItemRemoveEvt"/> -->
+    <!-- <aura:registerEvent name="rowSelectEvt" type="c:opportunityServiceSelectEvt"/> -->
+
+    <!-- [Attribute] opportunityService 컴포넌트 attribute-->
+    <aura:attribute name='service'          type="Object"   access="public" default="{}"    description="상위 서비스 정보"/>
+    <aura:attribute name='solList'          type="List"     access="public" default="[]"    description="솔루션 리스트"/>
+    <aura:attribute name="isHQ"             type="Boolean"  access="public" default='false'/>  
+    <aura:attribute name="isCollaboration"  type="Boolean"  access="public" default='false'/>
+    <aura:attribute name="collaboBoId"      type="String"   access="public" default=''      description="협업 BO ID"/>
+    <aura:attribute name="boId"             type="String"   access="public" default=''      description="사업기회 Id"/>
+    <aura:attribute name="companyCode"      type="String"   access="public" default=''/>
+    <aura:attribute name="locked"           type="Boolean"  access="public" default='false' description="레코드랍 여부"/>
+    <aura:attribute name="svcIndex"         type="Integer"  access="public" default="0"     description="서비스 리스트 index"/>
+    
+    <!-- [Attribute] -->
+    <aura:attribute name="currIndex"        type="Integer"  access="public" default= '0'    description="현재 선택된 Index"/>
+    <aura:attribute name="salesTypeDisable" type="Boolean"  access="public" default='true'  description="SalesType 활성화"/>
+    <aura:attribute name="salesTypeOpt"     type="List"     access="public" default='[]'    description="SalesType combobox options"/>
+    <aura:attribute name="refresh"          type="Boolean"  access="public" default='true'  description="ui refresh"/> 
+    <aura:attribute name="techyn"           type="Boolean"  access="public" default='false' description="상위서비스 TA 여부"/>
+    <aura:attribute name="solParentId"      type="String"   access="public" default='false' description="TA일 때, 첫번째 행 솔루션옵션의 parentId 저장 "/>
+    <aura:attribute name="solutionMigOpt"   type="List"     access="public" default='[]'    description="솔루션 마이그 options"/>
+    
+    <tbody>
+        <aura:renderIf isTrue="{!v.solList}">
+            <aura:if isTrue="{!v.refresh}">
+                <aura:iteration items="{!v.solList}" var="solItem" indexVar="index">
+                    <aura:if isTrue="{! !solItem.solution.isDeleted}">
+                        <tr onmouseover="{!c.rowSelect}" data-itemId="{!'sol_'+index}" class="{!'svc-check-' + solItem.solution.checked}">
+                            <!-- row No -->
+                            <td scope="col"  style="width:5%;">
+                                <div class="slds-truncate">{!index + 1}</div>
+                            </td>
+                    
+                            <!-- soltuion -->
+                            <td scope="col" style="width:15%;text-align: left;">
+                                <lightning:combobox class="{! 'selectBox sendsap-' + solItem.solution.isSendSAP}"  name="{!'comboSol_' + index}" placeholder="{!$Label.c.SVC_LAB_SELOPTION}" options="{!solItem.solution.solOpt}" onchange="{! c.onSolSelectChange }"
+                                        dropdownAlignment="auto" value="{!solItem.solution.solutionComboVal}" label="{!solItem.solution.solutionComboValNm}"/>
+                            </td>
+                    
+                            <!-- attribute -->
+                            <td scope="col"  style="width:15%;text-align: left;">
+                                <!-- <lightning:combobox  aura:id="{!'solattr-' + index}" class="{! 'selectBox sendsap-' + solItem.solution.isSendSAP}" name="{!'comboSol_' + index}" placeholder="" options="{!solItem.solution.attrOpt}" onchange="{! c.onAttrSelectChange }"
+                                        dropdownAlignment="auto" value="{!solItem.solution.attributeId}" label="{!solItem.solution.attributeNm}" disabled="{! empty(solItem.solution.attrOpt)}"/>     -->
+                                <aura:if isTrue="{!solItem.solution.isSendSAP}">
+                                    <aura:set attribute="else">
+                                        <lightning:combobox  aura:id="{!'solattr-' + index}" class="{! 'selectBox sendsap-' + solItem.solution.isSendSAP}" name="{!'comboSol_' + index}" placeholder="" options="{!solItem.solution.attrOpt}" onchange="{! c.onAttrSelectChange }"
+                                        dropdownAlignment="auto" value="{!solItem.solution.attributeId}" label="{!solItem.solution.attributeNm}" disabled="{! empty(solItem.solution.attrOpt)}"/>   
+                                    </aura:set>
+                                    
+                                    <lightning:input  name="{!'inputSol_' + index}" disabled="true" value="{!solItem.solution.attributeNm}"  title="{!solItem.solution.attributeNm}"/>
+                                </aura:if>
+                            </td>
+                    
+                            <!-- SalesType -->
+                            <td scope="col"  style="width:15%;text-align: left;">
+                                <lightning:combobox class="{! 'selectBox sendsap-' + solItem.solution.isSendSAP}"  name="{!'comboSol_' + index}" placeholder="" options="{!v.salesTypeOpt}" onchange="{! c.onSalesTypeSelectChange }"
+                                                            dropdownAlignment="auto" value="{!solItem.solution.salesType}" label="{!solItem.solution.salesTypeNm}" disabled="{!!solItem.solution.salesTypeEnable}"/>
+                            </td>
+                    
+                           <!-- <div class ="slds-p-bottom_medium"> -->
+                            <!-- Solution Type -->
+                            <td scope="col" style="width:10%;">
+                                <lightning:input name="input1" disabled="true" value="{!solItem.solution.solutionTypeNm}" title="{!solItem.solution.solutionTypeNm}" />
+                            </td>
+                    
+                            <!-- PLC Status -->
+                            <td scope="col" style="width:10%;">
+                                <lightning:input  name="input2" disabled="true" value="{!solItem.solution.plcStatus}"  title="{!solItem.solution.plcStatus}"/>
+                            </td>
+                    
+                            <!-- WBS Class -->
+                            <!-- <td scope="col" style="width:10%;">
+                                <lightning:input  name="input3" disabled="true" value="{!solItem.solution.wbsClass}"  title="{!solItem.solution.wbsClass}"/>
+                            </td> -->
+                    
+                            <!-- PsType -->
+                            <td scope="col" style="width:10%;">
+                                <lightning:input  name="input3" disabled="true" value="{!solItem.solution.psType}"  title="{!solItem.solution.psType}"/>
+                            </td>
+                    
+                            <!-- Biz.Type -->
+                            <td scope="col" style="width:10%;">
+                                <lightning:input  name="input4" class='input_biztype' disabled="true" value="{!solItem.solution.bizType}"  title="{!solItem.solution.bizType}"/>
+                            </td>
+                    
+                            <!-- action -->
+                            <td scope="col" style="vertical-align: bottom;width:10%;" data-set="{!v.currIndex}">
+                                <aura:if isTrue="{!!v.locked}">
+                                    <a onclick="{!c.addRow}" style="padding-right: 10px;" data-itemId="{!'sol_'+index}">
+                                        <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="x-small" alternativeText="add" />
+                                        <aura:if isTrue="{!!v.service.isSendSAP}">  <!-- 2021.09.06 서비스,솔루션 project생성 후 더이상 솔루션 추가 불가능하도록 수정-->
+                                        </aura:if>
+                                        <span class="slds-assistive-text">Add Icon</span>
+                                    </a>
+                                    <a onclick="{!c.removeRow}"  class='icon-del' data-itemId="{!'sol_'+index}">
+                                        <lightning:icon variant="error" iconName="utility:delete" class="slds-icon slds-icon_small" size="x-small" alternativeText="icon" />
+                                        <span class="slds-assistive-text">Delete Icon</span>
+                                    </a>    
+                                </aura:if>
+                            </td> 
+                        </tr>
+                    </aura:if>
+                </aura:iteration>
+            </aura:if>
+        </aura:renderIf>
+    </tbody>
+</aura:component>

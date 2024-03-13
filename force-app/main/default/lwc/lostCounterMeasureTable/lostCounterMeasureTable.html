@@ -1,0 +1,22 @@
+<!--
+  @description       : 
+  @author            : rakshit.s@samsung.com
+  @group             : 
+  @last modified on  : 03-04-2023
+  @last modified by  : rakshit.s@samsung.com
+-->
+<template>
+   
+ <table class="elementHoldingHTMLContent slds-table forceRecordLayout slds-table--header-fixed slds-table--edit resizable-cols slds-table--resizable-cols uiVirtualDataTable slds-no-row-hover slds-no-row-hover" style="" lwc:dom="manual">
+
+                </table>
+
+                <template if:true={renderAgain}>
+  
+  <div></div>
+ </template>
+
+ <template if:true={noDataPopup}>
+    <b>{label.NodataSavedLabel}</b>
+ </template>
+</template>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed__c</fullName>
+    <externalId>false</externalId>
+    <formula>OR(CONTAINS(Node2__c,&apos;ZDMY&apos;), CONTAINS(CostCenterName__c,&apos;폐쇄&apos;) ,CONTAINS(CostCenterName__c,&apos;페쇄&apos;) ,CONTAINS(CostCenterName__c,&apos;CLSD&apos;), ClosingDate__c &lt; TODAY())</formula>
+    <label>Closed</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

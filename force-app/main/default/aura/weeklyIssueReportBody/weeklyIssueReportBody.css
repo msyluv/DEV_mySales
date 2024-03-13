@@ -1,0 +1,33 @@
+.THIS .custom-title {
+    font-weight : 700;
+}
+.THIS .action-button {
+    white-space: nowrap;
+}
+.THIS .selected-date {
+    font-size: 1.0rem;
+    font-weight: 500;
+    color: #000000;
+}
+
+.THIS .card-body {
+    border-top: solid 1px #DDDBDA;
+}
+
+.THIS .table-body {
+    border: solid 1px #DDDBDA;
+}
+
+.THIS .richtext-box {
+    max-height : 300px;
+    height: 300px;
+}
+
+.THIS .num-colhead {
+    text-align : right;
+    padding-right: 60px;
+}
+
+.THIS .num-colcell {
+    text-align : right;
+}

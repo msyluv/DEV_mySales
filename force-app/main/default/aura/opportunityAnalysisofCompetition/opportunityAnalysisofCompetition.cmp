@@ -1,0 +1,315 @@
+<!--
+  @author            : divyam.gupta@samsung.com
+  @description       : Add new tab Analysis of Competition Result. 
+  @last modified on  : 05-30-2023
+  @last modified by  : divyam.gupta@samsung.com
+  Modifications Log 
+  Ver   Date         Author                   	Modification
+  1.0   2022-10-17   Divyam.gupta@samsung.com       Initial Version
+  1.1   2022-10-24   ukhyeon.lee@samsung.com	Lvl5field label-stacked -> label-hidden
+  1.2   2023-01-24   rakshit.s@samsung.com      View All and Opp Specific Lost Type Custom Table with common merged cells.
+  1.3   2023-05-30   divyam.gupta@samsung.com   Add on changes Lost Enchacement(Mysales -204)
+-->
+
+
+<aura:component controller="oppAnalysisCompController" implements="force:hasRecordId,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    <aura:attribute name="LostTypeList" type="List" default="[]"/>
+    <aura:attribute name="LostTypeList1" type="List" default="[]"/>
+    <aura:attribute name="LostTypeList2" type="List" default="[]"/>
+    <aura:attribute name="locked" type="Boolean" default="true"/>
+    <aura:attribute name="combo1val" type="String" default=""/>
+    <aura:attribute name="combo2val" type="String" default=""/>
+    <aura:attribute name="combo3val" type="String" default=""/>
+    <aura:attribute name="lostReslist" type="List" default="[]"/>
+    <aura:attribute name="currIndex" type="String" default=""/>
+    <aura:attribute name="totalval" type="Integer" default="0"/>
+    <aura:attribute name="lostresltsize" type="Integer" default="0"/>
+    <aura:attribute name="totalvalList" type="List" default="[]"/>
+    <aura:attribute name="opprecordId" type="String" access="public" default= '' description="Opportunity RecordId"/>
+    <aura:attribute name="opptyActId" type="String" access="public" default='' description="Opportunity Activity RecordId"/>
+    <aura:attribute name="setLangEng" type="Boolean" default="false"/>
+    <aura:attribute name="setLangKor" type="Boolean" default="false"/>
+    <aura:attribute name="activitystatus" type="String" default=""/>
+    <aura:attribute name="setmandtryfields" type="Boolean" default="false"/>
+    <aura:attribute name="showTablefromLWC" type="Boolean" default="false"/>
+    <aura:attribute name="level3duplicate" type="Boolean" default="false"/>
+    <aura:attribute name="savedisable" type="Boolean" default="false"/>
+    <!--added by rakshit.s@samsung.com -->
+    <aura:attribute name="isLost" type="Boolean" default="false"/>
+    <aura:attribute name="isDrop" type="Boolean" default="false"/>
+     <aura:attribute name="losttypeval" type="String" default=""/>
+
+    <!--added by rakshit.s@samsung.com end -->
+    <!-- added by kajal -->
+   <aura:attribute name="showDetailErrMsg" type="Boolean" default="false"/>
+    <aura:attribute name="CheckCharacterlength" type="Boolean" default="false"/>
+    
+   <!-- Divyam 1.3-->
+    <aura:attribute name="CheckRateVal" type="Boolean" default="false"/>
+
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/> 
+
+    <!-- [Style] -->
+    <div  class ="slds-scrollable_y" style="height: calc( 100% - 58px ); width:100%;">
+        
+                    
+      <div class='slds-col slds-border_bottom' style="overflow-y: hidden;overflow-x: hidden;">
+                <lightning:card   >
+                    <!--TABLE 1-->
+                     <lightning:layout>
+                           <lightning:layoutItem size="2" >
+                             <div class="slds-float_left slds-p-left_xx-large  slds-p-top_x-small slds-align_absolute-center " >
+                                 <aura:if isTrue="{!v.isLost}">
+                                 {!$Label.c.Lost_Type}
+                                   <div class="slds-p-left_xx-small slds-p-bottom_xx-small">
+                                  <lightning:helptext aura:id="viewAll"  variant="brand" label="LostType" onclick="{!c.handlechildLwc}" />
+                                   </div>
+                                 </aura:if>
+                                 
+                                 <aura:if isTrue="{!v.isDrop}">
+                                 {!$Label.c.Drop_Type}
+                                      <div class="slds-p-left_xx-small slds-p-bottom_xx-small">
+                                  <lightning:helptext aura:id="viewAll"  variant="brand" label="LostType" onclick="{!c.handlechildLwc}" />
+                                   </div>
+                                 </aura:if>
+                               </div>
+                        </lightning:layoutItem>
+                         <lightning:layoutItem size="9" >
+                             
+                       
+                                     </lightning:layoutItem>
+
+                        <lightning:layoutItem size="1">
+                            <div class ="slds-p-left_x-large slds-p-bottom_small slds-col">
+                                        <lightning:button  aura:id="oppSpecific" variant="brand" label="{!$Label.c.ViewALl}" onclick="{!c.handlechildLwc}" />
+                                </div>
+                        </lightning:layoutItem>
+
+                    </lightning:layout>
+                  <!--  <c:masterLostTypeDataTable recId="{!v.opprecordId}"></c:masterLostTypeDataTable> -->
+                   <!-- <aura:if isTrue="{!v.showTablefromLWC}" >
+                         <c:masterLostTypeDataTable recId="{!v.opprecordId}"></c:masterLostTypeDataTable>
+                    </aura:if> -->
+                    
+                    <div aura:id="showChildModal"> </div>
+                      <div style="height:100%;">
+                    <table class="slds-table slds-table_cell-buffer  firsttable">
+
+                        <thead >           
+                            <tr class="slds-line-height_reset">
+                                <th class="slds-text-title_caps" scope="col" style="width:3%;">
+                                    <div class="slds-truncate"></div>
+                                </th>   
+                                <th class="" scope="col" style="width:3%;" >
+                                    <div class="slds-truncate" >{!$Label.c.SVC_LAB_NO}</div>
+                                </th>   
+                                
+                                <th  scope="col" style="width:3%;">
+                                    <div class="slds-truncate" title="">
+                                    </div>
+                                    
+                                </th>
+                                <!--START 1.3 -->
+                                <th  scope="col" style="width:23%;">
+                                    <div class="slds-truncate" title="">
+                                       <aura:if isTrue="{!v.isLost}">
+                                        {!$Label.c.Reason_for_Lost}
+                                             <aura:set attribute="else">
+                                        {!$Label.c.Reason_for_Drop}
+                                               </aura:set>
+                                        </aura:if>
+                                    </div>
+                                </th>
+                                <!--END 1.3 -->
+                                <th  scope="col" style="width:50%;">
+                                    <div class="slds-truncate" title="">
+                                          <abbr class="slds-required" title="required" aura:id="BidReq">*											
+                                    </abbr>
+                                        {!$Label.c.Detail}
+                                    </div>
+                                </th>
+                                <th  scope="col" style="width:11%;">
+                                    <div class="slds-truncate" title="Rating">
+                                        {!$Label.c.RatePerc}
+                                    </div>
+                                </th>    
+                                <th scope="col" style="width:7%;padding-right:25px;">
+                                    <div class="slds-truncate" title="{!$Label.c.SVC_LAB_ACT}">{!$Label.c.SVC_LAB_ACT}</div>
+                                </th>
+                            </tr>
+                        </thead>
+                         <tbody class ="firstbody">
+                            <aura:iteration items="{!v.lostReslist}" var="lost" indexVar="index">
+                               <aura:if isTrue="{!lost.Checked}">
+
+                                <tr onclick="{!c.rowSelect}" data-itemId="{!'row' +index}" class="{!'row-' +lost.isChecked}" >
+                                    <td scope="col" style="width:3%;" >
+                                        <ui:inputRadio aura:id="svc-r1" name="others" label="" value="{!lost.isChecked}" />
+                                    </td>
+                                    <td scope="col" style="width:3%;">
+                                        <div class="slds-truncate">{!lost.indexval}</div>
+                                    </td>
+                                      <td scope="col" style="width:3%;text-align:left;padding-left:0px;" >
+                                        <div class="slds-truncate slds-p-bottom_small slds-p-top_xx-small slds-col"  title="">L1</div>
+                                        <div class="slds-truncate slds-p-bottom_x-small slds-p-top_x-small slds-col"  title="">L2</div>
+                                        <div class="slds-truncate  slds-p-bottom_x-small slds-p-top_small slds-col"  title="">L3</div>
+
+                                    </td>
+                                    <td scope="col" style="width:23%;text-align:left;padding-left:0px;" >
+                                       <div class= "slds-p-bottom_x-small"> <lightning:combobox aura:id= "combobox1"
+                                                            data-itemId="{!'combobox1_'+index}" 
+                                                            class="selectBox"
+                                                            name="{!'combobox1_'+index}" 
+                                                            placeholder="" 
+                                                            options="{!v.LostTypeList}" 
+                                                            onchange="{!c.changeLostType}"
+                                                            value ="{!lost.lvl1Record}"
+                                                            dropdownAlignment="auto" 
+                                                            disabled = "{!lost.lv1disable}"
+                                                            onfocus =""/>
+                                           </div>
+                                        <div class ="slds-p-bottom_x-small">
+                                             <lightning:combobox aura:id= "combobox2"
+                                                            data-itemId="{!'combobox2_'+index}" 
+                                                            class="selectBox"
+                                                            name="{!'combobox2_'+index}" 
+                                                            placeholder="" 
+                                                            options="{!lost.lvl2Recordlst}" 
+                                                            onchange="{!c.changeLostType1}"
+                                                            value ="{!lost.lvl2Record}"
+                                                            dropdownAlignment="auto" 
+                                                            disabled = "{!lost.lv2disable}"
+                                                            onfocus =""/>
+                                        </div>
+                                        <div classs ="">
+                                           <lightning:combobox data-itemId="combobox3" 
+                                                            class="selectBox"
+                                                            name="conboxbox3" 
+                                                            placeholder="" 
+                                                            options="{!lost.lvl3Recordlst}" 
+                                                            onchange=""
+                                                            value ="{!lost.lvl3Record}"
+                                                            disabled = "{!lost.lv3disable}"
+                                                            dropdownAlignment="auto" 
+                                                            onfocus =""/>
+                                        </div>
+                                           <div>
+                                                <aura:if isTrue="{!lost.CheckCharacterlength}">
+                                                 <br></br>
+                                                 </aura:if> </div>
+                                    </td>
+                                    <td scope="col" style="width:50%;text-align:left;padding-left:3.5px;" class="{!'color-' +lost.CheckCharacterlength}">
+                                            <div class="slds-truncate slds-p-top_small  "> 
+                                            <lightning:textarea  name="tesst" aura:id="fieldldetailv1"  placeholder="" variant="label-stacked" onchange="" disabled="{!lost.detaildisable}" value="{!lost.detail}"/>
+                                               <!--Kajal -->
+                                                <aura:if isTrue="{!lost.CheckCharacterlength}">
+                                                 <div class ="slds-p-left_x-small">
+                                                 <abbr class="slds-form-element__help" aria-live="assertive" style="color: red;">
+                                                     {!$Label.c.Detail_Character_validation}</abbr>
+                                                     </div>
+                                                 </aura:if> 
+                                                
+                                        </div>
+                                    </td>
+                                   
+                                    <td scope="col" style="width:11%;text-align:left;padding-left:3.5px;" >
+                                  <lightning:input type="Number" value="{!lost.ratepercent}"  aura:id="fieldlv3"   onchange="{!c.handleTotal}" disabled="{!lost.ratedisable}"/>
+                             <!-- START 1.3 -->           
+                                 <aura:if isTrue="{!lost.checkRateVal}">
+                                                 <div >
+                                                 <abbr class="slds-form-element__help" aria-live="assertive" style="color: red;">
+                                                     {!$Label.c.Check_Rate_Value}</abbr>
+                                                     </div>
+                                                 </aura:if> 
+                                      <!--END 1.3 -->
+                                    </td> 
+                                       	 <td scope="col" style="width:7%;padding-left:4px;" data-set="{!v.rowIndex}">
+                                        <aura:if isTrue="{!v.locked}">
+                                           <aura:if isTrue="{!v.lostresltsize == index}">
+
+                                            <a onclick="{!c.addRow}" style="padding-right: 10px;" data-itemId="{!svc_1}">
+                                                <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="x-small" alternativeText="add"/>
+                                                <span class="slds-assistive-text">Add Icon</span>
+                                            </a>
+                                                   <aura:set attribute="else">
+                                                      <a onclick="{!c.addRow}" style="padding-right: 32px;" data-itemId="{!svc_1}">
+                                                <span class="slds-assistive-text"> &nbsp;</span>
+                                                       </a>
+                                               </aura:set>
+                                            </aura:if>                                            
+                                            <a onclick="{!c.removeRow}" class='icon-del' data-itemId ="{!index}" >
+                                                <lightning:icon variant="{!lost.variant}" iconName="utility:delete" class="slds-icon slds-icon_small" size="x-small" alternativeText="icon" />
+                                                <span class="slds-assistive-text">Delete Icon</span>
+                                            </a>
+                                        </aura:if>
+                                    </td>
+                                   
+                                    
+                                    
+                                   
+                                    
+                                    <!--   <aura:if isTrue="{!(Lost.Id == v.checkboxId)}">  -->
+                                    <!--   <aura:iteration items="{!v.checkboxList}" var="check1">             
+                                            <aura:if isTrue="{!(Lost.Id == check1)}">  -->
+                                    
+                                    <!--    </aura:if>  
+                                        </aura:iteration>  -->
+                                    
+                                    <!--  </aura:if>       -->  
+                                    
+                                </tr>
+                                </aura:if>
+                            </aura:iteration>
+                        </tbody>
+
+                        <!-- <aura:if isTrue="{!v.LostTypeList.length > 0}">  -->
+                               </table>
+                          <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                              <tbody>
+                                  <tr>
+                           <td  scope="col" style="width:77%;text-align:left;padding-left:0px;">
+                                </td>  
+                                   <td class="slds-text-heading_small" scope="col" style="width:5%;text-align:right;padding-left:30px;">
+                                      <b> {!$Label.c.Total}: </b>
+                                </td>  
+                                 
+                                      <td  scope="col" style="width:11%;text-align:left;padding-left:2px">
+                               <lightning:input  aura:id="oppSpecific"  value="{!v.totalval}"  disabled ="true"/>
+
+                                </td> 
+                                             <td class="slds-text-title_caps " scope="col" style="width:8%;;">
+                                    <div class="slds-truncate">
+
+                                          </div>
+                                </td> 
+                                  </tr>
+                              </tbody>
+                          </table>
+                    </div>
+                </lightning:card>
+
+             </div>
+
+    </div>
+    
+    <!-- // Body -->
+    
+    <!-- Footer -->
+    
+    <!-- <footer class="slds-card__footer slds-var-p-left_xx-large"> -->
+    <div class="slds-col modal-footer slds-modal__footer slds-var-p-left_xx-large" style="height: 100%"> 
+        <lightning:button variant="neutral" label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{!c.clickCancel}" />
+        <lightning:button variant="brand" label="{!$Label.c.COMM_BTN_SAVE}" onclick="{!c.handleTemprarory}" disabled="{!v.savedisable}"/>
+    </div> 
+    
+    <!--  </footer>   -->
+    
+       
+  
+    
+
+    
+    
+</aura:component>

@@ -1,0 +1,8 @@
+<design:component label="Main Column with Sidebar and two columns below">
+    <flexipage:template>
+        <flexipage:region name="main" defaultWidth="MEDIUM"/>
+        <flexipage:region name="sidebar" defaultWidth="SMALL"/>
+        <flexipage:region name="belowLeft" defaultWidth="MEDIUM"/>
+        <flexipage:region name="belowRight" defaultWidth="MEDIUM"/>
+    </flexipage:template>
+</design:component>

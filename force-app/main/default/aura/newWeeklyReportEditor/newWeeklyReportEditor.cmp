@@ -1,0 +1,24 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,force:lightningQuickAction,lightning:actionOverride" access="global" >
+    
+    <aura:attribute name="isOpen" type="Boolean" default="true"/>
+     <aura:if isTrue="{!v.isOpen}">
+    <div role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeModal}">
+                    <lightning:icon iconName="utility:close" size="small" variant="inverse"/>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h1 class='fontSize'>
+                New Weekly Report
+                </h1>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium">
+                <!-- Embed your Visualforce page here -->
+                        <iframe src="{!'/apex/newWeeklyReportVF'}" height="100%" width="100%" frameBorder="0" scrolling="yes" style="text-align:center;"/>
+            </div>
+         </div>
+    </div>
+    </aura:if>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</aura:component>

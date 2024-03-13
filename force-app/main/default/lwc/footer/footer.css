@@ -1,0 +1,24 @@
+/* @description       : 
+  @author            : zenith21c@test.com
+  @group             : 
+  @last modified on  : 08-30-2023
+  @last modified by  : gitesh.s@samsung.com
+  Modifications Log 
+  Ver   Date         Author                 Modification
+  1.0   03-18-2022   zenith21c@test.com     Initial Version
+  1.1   08-30-2023   gitesh.s@samsung.com   MYSALES-292 Family Site Links Added    
+*/
+@import 'c/commonStyle';
+
+/* v1.1 - MYSALES-292 */
+footer .top_right p {
+    color: #7185E2;
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+footer .top_right a {
+    font-size: 16px;
+    display: block;
+    width: fit-content;
+}
+/* v1.1 */

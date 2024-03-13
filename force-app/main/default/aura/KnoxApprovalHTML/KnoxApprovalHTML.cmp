@@ -1,0 +1,40 @@
+<!--
+  @description       : 
+  @author            : dongyoung.kim@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-03-17
+  @last modified by  : hj.lee@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2021-01-18   dongyoung.kim@dkbmc.com   Initial Version
+-->
+<aura:component 
+    controller="KnoxApprovalHTMLController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader"
+    access="global">
+    
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="data" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!-- [Style] -->
+    <aura:html tag="style">
+      <!-- 결재 본문에 style tag가 포함된 경우가 있어, lightning Style 이 유지되도록 함 -->
+      html,body { 
+        width:unset !important; height:unset !important; 
+      }
+      html { 
+        font-family: var(--lwc-fontFamily,'Salesforce Sans', Arial, sans-serif) !important; 
+      }
+      body, h1, h2, h3, h4, input, button {
+        font-family: font-family: var(--lwc-fontFamily,'Salesforce Sans', Arial, sans-serif) !important;
+      }
+    </aura:html>
+    
+    <div>
+        <div class="slds-scrollable_y" style="overflow-x:auto; max-height:100%;" id="approvalHtmlBody">
+            <!--<lightning:formattedRichText value="{!v.data}"/>-->
+            <aura:unescapedHtml value="{!v.data}" />
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,25 @@
+.THIS .slds-card__header{
+    display: none;
+}
+.THIS .url{
+    font-weight: bold;
+}
+/*--Atul Start Mysales-290*/
+.THIS .formcontrol{
+padding: 6px;
+background: #eff7fa;
+border-bottom: 1px solid #dee5ea;
+border-top: 1px solid white;
+box-shadow: -1px 2px 3px #b8b8b8 !important;
+}
+.THIS .slds-input-has-icon .slds-input__icon {
+    top: 48%;
+    padding-right: 0%;
+    box-shadow: none;
+}
+.THIS svg{
+    Fill : rgb(1, 118, 211);
+    height:1rem;
+    width:1rem;
+}
+/*--Atul End Mysales-290*/

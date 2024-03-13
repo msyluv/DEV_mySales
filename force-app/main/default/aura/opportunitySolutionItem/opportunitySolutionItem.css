@@ -1,0 +1,17 @@
+.THIS .selectBox .slds-form-element__label { 
+    display: none; 
+}
+
+.THIS lightning-input > label.slds-form-element__label {
+    display: none;
+}
+.THIS lightning-input > div.slds-form-element__control.slds-grow > input {
+    text-align: center;
+}
+.THIS lightning-input.input_biztype > div > input{
+    font-size: 0.7rem;
+}
+
+.THIS div.slds-listbox{
+    width: auto !important;
+}

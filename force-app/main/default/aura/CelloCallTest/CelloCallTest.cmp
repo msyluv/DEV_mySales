@@ -1,0 +1,26 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 01-21-2021
+  @last modified by  : woomg@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   12-08-2020   woomg@dkbmc.com   Initial Version
+-->
+<aura:component
+    implements="force:appHostable,flexipage:availableForAllPageTypes" 
+    access="global" >
+
+    <lightning:card title="Call Cello Test">
+        <p class="slds-p-around_small">
+            <c:celloMenuCallButton label="Cello Test Shipment" menu="WKS_TS_REG" opptyId="opportunityId"/>&nbsp;
+        </p>
+        <p class="slds-p-around_small">
+            <c:celloMenuCallButton label="Cello Credit Assessment" menu="WKS_CRAS_REG" billToId="accountId" opptyId="opportunityId"/>&nbsp;
+        </p>
+        <p class="slds-p-around_small">
+            <c:celloMenuCallButton label="Cello LBS" menu="WKS_LBS_REG" opptyId="opportunityId" lbsType="NEW" lbsCode="BID"/>&nbsp;
+        </p>
+    </lightning:card>
+</aura:component>

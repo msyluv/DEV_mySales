@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Read</caseAccessLevel>
+    <contactAccessLevel>None</contactAccessLevel>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>MSP Appl. 운영그룹(통합Managed Appl.서비스)</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>Managed_Appl</parentRole>
+</Role>

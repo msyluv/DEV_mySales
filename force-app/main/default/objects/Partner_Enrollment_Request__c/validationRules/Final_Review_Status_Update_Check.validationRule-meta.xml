@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Final_Review_Status_Update_Check</fullName>
+    <active>false</active>
+    <description>this rule triggers when final review fields (staus/date) are edited</description>
+    <errorConditionFormula>OR(ISCHANGED( Final_Review_Status__c ), ISCHANGED( Final_Review_Date__c ))</errorConditionFormula>
+    <errorMessage>Status Should be in &apos;Done Review&apos; or &apos;Assignment of Negotiator&apos; stage.</errorMessage>
+</ValidationRule>

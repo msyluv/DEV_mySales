@@ -1,0 +1,73 @@
+.THIS{
+    height: 100%;
+}
+.THIS .wrapperCard{
+    height: 100%;
+}
+.THIS .slds-card__header{
+    border-radius: 2px 2px 0px 0px / 2px 2px 0px 0px;
+    height: 240px;
+    padding-top: 0;
+    margin: 0;
+    background-color: #F3F2F2;
+    margin-bottom: -15px;
+} 
+.THIS .slds-media__body{
+    height: 80%;
+}
+.THIS .slds-card__body{
+    height: calc(100% - 225px);
+    margin: 0;
+}
+.THIS .slds-wrap{
+    height: 100%;
+}
+.THIS .Layout_Search{
+    height: 35%;
+    padding: 0;
+}
+.THIS .Layout_Search_Line1{
+    height: 100%;
+    margin-top: -10px;
+    /* margin-bottom: -20px; */
+}
+.THIS .Layout_Search_Line2{
+    margin-bottom: -20px;
+}
+.THIS .LayoutItem_Line{
+    padding-left: 0;
+}
+.THIS .LayoutItem_Line .slds-form-element__label{
+    font-weight: bold;
+}
+.THIS .Custom_Button{
+    margin-bottom: -5px;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+.THIS .Button_New{
+    margin-right: 8px;
+}
+.THIS .Button_Search{
+    width: 100%;
+}
+.THIS .Layout_Body{
+    height: 100%;
+    padding: 0;
+}
+.THIS .Layout_Table{
+    height: 100%;
+    border-top: 1px #F3F2F2 solid;
+    border-bottom: 1px #F3F2F2 solid;
+}
+.THIS .LayoutItem_Table{
+    height: 100%;
+    padding: 0;
+}
+.THIS .Table_Wrapper{
+    height: 100%;
+}
+
+.THIS .Custom_Button.header-button{
+    width: 100%;
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AnswerType__c</fullName>
+    <externalId>false</externalId>
+    <label>Answer Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>주관식</fullName>
+                <default>false</default>
+                <label>주관식</label>
+            </value>
+            <value>
+                <fullName>다중선택</fullName>
+                <default>false</default>
+                <label>다중선택</label>
+            </value>
+            <value>
+                <fullName>손해배상</fullName>
+                <default>false</default>
+                <label>손해배상</label>
+            </value>
+            <value>
+                <fullName>법적리스크</fullName>
+                <default>false</default>
+                <label>법적리스크</label>
+            </value>
+            <value>
+                <fullName>객관식</fullName>
+                <default>false</default>
+                <label>객관식</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

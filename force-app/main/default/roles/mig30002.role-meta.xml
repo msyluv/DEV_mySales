@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Read</caseAccessLevel>
+    <contactAccessLevel>None</contactAccessLevel>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>사업개발그룹(솔루션상품기획)</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>mig30001</parentRole>
+</Role>

@@ -1,0 +1,252 @@
+<!--
+  @description       : 
+  @author            : jiiiiii.park@partner.samsung.com.sds.dev
+  @group             : 
+  @last modified on  : 2021-03-30
+  @last modified by  : younghoon.kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                                     Modification
+  1.0   2020-12-01   jiiiiii.park@partner.samsung.com.sds.dev   Initial Version
+-->
+<aura:component 
+    controller="AccountTeamMemberAddController" 
+    Implements="flexipage:availableForRecordHome,force:appHostable,force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride"
+    access="global">
+    
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+   
+    <!-- [Attribute] -->
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="teamMemberInfoList" type="List" default="[]"/>
+    <aura:attribute name="pickListValue" type="Object" default="{}"/> 
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <aura:attribute name="isMobile" type="String" default="W"/>
+    
+    <aura:if isTrue="{!v.isMobile == 'W'}">
+        <div class="quick-modal">
+            <!-- [Spinner] -->
+            <section class="modal slds-modal slds-fade-in-open">
+                <div class="slds-modal__container modal__container">
+                    <aura:if isTrue="{!v.showSpinner}">
+                        <lightning:spinner />
+                    </aura:if>  
+                    <!--header-->
+                    <header class="slds-modal__header">
+                        <h2 class="title slds-text-heading--medium">{!$Label.c.ACCTEAM_LAB_HEADER}</h2>
+                    </header>
+                    <!--body-->
+                    <div class="slds-modal__content modal__content" id="modal-content-id-1">
+                        <div class="modal_body">
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer"> 
+                                <thead>
+                                    <tr class="slds-text-title_caps">
+                                        <th scope="col">
+                                            <div class="slds-truncate"></div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="User">{!$Label.c.ACCTEAM_LAB_USER}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Team Role">{!$Label.c.ACCTEAM_LAB_TEAMROLE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Account Access">{!$Label.c.ACCTEAM_LAB_ACCOUNTACCESS}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Action">{!$Label.c.ACCTEAM_LAB_ACTION}</div>
+                                        </th>
+                                    </tr>
+                                </thead>   
+                                <tbody>      
+                                    <aura:iteration items="{!v.teamMemberInfoList}" var="teamMemberInfo" indexVar="index">
+                                        <tr>
+                                            <!-- No -->
+                                            <td> 
+                                                {!index + 1}
+                                            </td>
+                                            <!-- User -->
+                                            <td>
+                                                <c:customLookup aura:id="clookup"
+                                                    iconName="standard:user"
+                                                    objectName="User"
+                                                    additionalDisplay="UserInfo__c"
+                                                    searchFields="Email"
+                                                    filterFields = "IsActive"
+                                                    filterValues = "TRUE"
+                                                    filterConditions = "eq"
+                                                    label=""
+                                                    minimum="1" 
+                                                    onchange="{!c.onchangeAction}"
+                                                    numOfQuery="20"
+                                                    selectedRecord="{!teamMemberInfo.User}"
+                                                    required="true"/>
+                                            </td>
+                                            <!-- Team Role -->
+                                            <td>
+                                                <lightning:combobox class="selectRole" options="{!v.pickListValue.TeamRole}" dropdownAlignment="auto" value="{!teamMemberInfo.Role}" label=""/>
+                                                <!--
+                                                <lightning:select value="{!teamMemberInfo.Role}" variant="label-hidden" class="selectBox" required="true">
+                                                    <option value="" text="{!$Label.c.ACCTEAM_LAB_NONE}"></option>
+                                                    <aura:iteration items="{!v.pickListValue.TeamRole}" var="item" indexVar="key">
+                                                        <option text="{!item.label}" value="{!item.value}" selected="{!item.value==teamMemberInfo.Role}"></option>
+                                                    </aura:iteration>
+                                                </lightning:select>
+												-->
+                                            </td>
+                                            <!-- Account Access -->
+                                            <td>
+                                                <lightning:combobox class="selectAccAccess" options="{!v.pickListValue.AccountAccess}" dropdownAlignment="auto" value="{!teamMemberInfo.AccountAccess}" label=""/>
+                                                <!--
+                                                <lightning:select value="{!teamMemberInfo.AccountAccess}" variant="label-hidden" class="selectBox"  required="true">
+                                                    <option value="" text="{!$Label.c.ACCTEAM_LAB_NONE}"></option>
+                                                    <aura:iteration items="{!v.pickListValue.AccountAccess}" var="item" indexVar="key">
+                                                        <option text="{!item.label}" value="{!item.value}" selected="{!item.value==teamMemberInfo.AccountAccess}"></option>
+                                                    </aura:iteration>
+                                                </lightning:select>
+												-->
+                                            </td>                                        
+                                            <!-- action -->
+                                            <td scope="col" style="vertical-align: bottom;width:10%;" data-set="{!index}">
+                                                <a onclick="{!c.addRow}" style="padding-right: 10px;">
+                                                    <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="x-small" alternativeText="add"/>
+                                                    <span class="slds-assistive-text">Add Icon</span>
+                                                </a> 
+                                                <a onclick="{!c.removeRow}"  class='icon-del' data-idx="{!index}">
+                                                    <lightning:icon variant="error" iconName="utility:delete" class="slds-icon slds-icon_small" size="x-small" alternativeText="icon"/>
+                                                    <span class="slds-assistive-text">Delete Icon</span>
+                                                </a>
+                                            </td> 
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>                        
+                        </div>
+                    </div>
+                    <!--footer-->
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="{!$Label.c.COMM_BTN_CANCEL}" title="Cancel" onclick="{!c.cancel}"></lightning:button>
+                        <lightning:button variant="brand" label="{!$Label.c.COMM_BTN_SAVE}" title="Save" onclick="{!c.saveTM}" ></lightning:button>
+                    </footer>
+                </div>
+            </section>
+        </div>
+    </aura:if>
+    <!-- Mobile -->
+    <aura:if isTrue="{!v.isMobile == 'M'}">
+        <div class="quick-modal is-mobile">
+            <!-- [Spinner] -->
+            <section class="modal slds-modal slds-fade-in-open">
+                <div class="slds-modal__container modal__container">
+                    <aura:if isTrue="{!v.showSpinner}">
+                        <lightning:spinner />
+                    </aura:if>  
+                    <!--header-->
+                    <header class="slds-modal__header">
+                        <h2 class="title slds-text-heading--medium">{!$Label.c.ACCTEAM_LAB_HEADER}</h2>
+                    </header>
+                    <!--body-->
+                    <div class="mobile_modal_body" id="modal-content-id-1">
+                        <div class="mobile_modal__content">
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer"> 
+                                <thead>
+                                    <tr class="slds-text-title_caps">
+                                        <th scope="col">
+                                            <div class="slds-truncate"></div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="User">{!$Label.c.ACCTEAM_LAB_USER}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Team Role">{!$Label.c.ACCTEAM_LAB_TEAMROLE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Account Access">{!$Label.c.ACCTEAM_LAB_ACCOUNTACCESS}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Action">{!$Label.c.ACCTEAM_LAB_ACTION}</div>
+                                        </th>
+                                    </tr>
+                                </thead>   
+                                <tbody>      
+                                    <aura:iteration items="{!v.teamMemberInfoList}" var="teamMemberInfo" indexVar="index">
+                                        <tr>
+                                            <!-- No -->
+                                            <td> 
+                                                {!index + 1}
+                                            </td>
+                                            <!-- User -->
+                                            <td>
+                                                <c:customLookup aura:id="clookup"
+                                                    iconName="standard:user"
+                                                    objectName="User"
+                                                    additionalDisplay="Department, EmployeeNumber"
+                                                    searchFields="Email"
+                                                    filterFields = "IsActive"
+                                                    filterValues = "TRUE"
+                                                    filterConditions = "eq"
+                                                    label=""
+                                                    minimum="1" 
+                                                    onchange="{!c.onchangeAction}"
+                                                    numOfQuery="20"
+                                                    selectedRecord="{!teamMemberInfo.User}"
+                                                    required="true"/>
+                                            </td>
+                                            <!-- Team Role -->
+                                            <td>
+                                                <lightning:combobox options="{!v.pickListValue.TeamRole}" dropdownAlignment="auto" value="{!teamMemberInfo.Role}" label=""/>
+                                                <!-- 
+                                                <lightning:select value="{!teamMemberInfo.Role}" variant="label-hidden" class="selectBox" required="true">
+                                                    <option value="" text="{!$Label.c.ACCTEAM_LAB_NONE}"></option>
+                                                    <aura:iteration items="{!v.pickListValue.TeamRole}" var="item" indexVar="key">
+                                                        <option text="{!item.label}" value="{!item.value}" selected="{!item.value==teamMemberInfo.Role}"></option>
+                                                    </aura:iteration>
+                                                </lightning:select> 
+                                                -->
+                                            </td>
+                                            <!-- Account Access -->
+                                            <td>
+                                                <lightning:combobox options="{!v.pickListValue.AccountAccess}" dropdownAlignment="auto" value="{!teamMemberInfo.AccountAccess}" label=""/>
+                                                <!--
+                                                <lightning:select value="{!teamMemberInfo.AccountAccess}" variant="label-hidden" class="selectBox"  required="true">
+                                                    <option value="" text="{!$Label.c.ACCTEAM_LAB_NONE}"></option>
+                                                    <aura:iteration items="{!v.pickListValue.AccountAccess}" var="item" indexVar="key">
+                                                        <option text="{!item.label}" value="{!item.value}" selected="{!item.value==teamMemberInfo.AccountAccess}"></option>
+                                                    </aura:iteration>
+                                                </lightning:select>
+                                                -->
+                                            </td>                                        
+                                            <!-- action -->
+                                            <td scope="col" style="vertical-align: bottom;width:10%;" data-set="{!index}">
+                                                <a onclick="{!c.addRow}" style="padding-right: 10px;">
+                                                    <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="x-small" alternativeText="add"/>
+                                                    <span class="slds-assistive-text">Add Icon</span>
+                                                </a> 
+                                                <a onclick="{!c.removeRow}"  class='icon-del' data-idx="{!index}">
+                                                    <lightning:icon variant="error" iconName="utility:delete" class="slds-icon slds-icon_small" size="x-small" alternativeText="icon"/>
+                                                    <span class="slds-assistive-text">Delete Icon</span>
+                                                </a>
+                                            </td> 
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>                        
+                        </div>
+                    </div>
+                    <!--footer-->
+                    <div class="modal-footer-custom slds-modal__footer">        
+                        <p style="margin:0 auto;" class="slds-align_absolute-center">
+                            <lightning:icon iconName="action:close" class="footer-button-custom"  variant="bare" onclick="{!c.cancel}" size="xx-small"/>
+                        </p>
+                        <p class="footer-text-custom slds-align_absolute-center">{!$Label.c.COMM_BTN_CANCEL}</p>
+        
+                        <p style="margin: 0 auto;" class="slds-align_absolute-center">
+                            <lightning:icon iconName="action:approval" class="footer-button-custom"  variant="bare" onclick="{!c.saveTM}" size="xx-small"/>
+                        </p>
+                        <p class="footer-text-custom slds-align_absolute-center">{!$Label.c.COMM_BTN_SAVE}</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </aura:if>
+</aura:component>

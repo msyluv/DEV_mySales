@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CollaboApproval__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>협업 사업기회의 Knox Approval 처리 여부(True인 경우 처리)</description>
+    <externalId>false</externalId>
+    <label>CollaboApproval</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

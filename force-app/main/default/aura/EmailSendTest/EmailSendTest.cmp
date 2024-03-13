@@ -1,0 +1,89 @@
+<aura:component controller="ReportDummy" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >    
+    <aura:attribute name="accList" type="List"/>
+    <aura:attribute name="selectedUsers" type="List" default="[]" />
+    <aura:attribute name="selectedUser" type="String" />
+    <aura:attribute name="activeSections" type="List" />
+    <aura:attribute name="userList" type="List" />
+    <aura:attribute name="searchResult" type="List" description="use for store and display report list return from server"/>
+    <aura:attribute name="searchKeyword" type="String" description="use for store user search input"/>
+    <aura:attribute name="selectedReport" type="String" default="" />
+    <!--UserDeclare Attributes-->
+    <aura:attribute name="contactList" type="list" />   
+    <aura:attribute name="isSelectAll" type="boolean" default="false"/>
+    <aura:attribute name="isModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="selectedUsersList" type="List" default="[]" />
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>    
+    <div class="slds-scrollable_y">
+        <div class="slds-text-longform">
+            <lightning:input value="{!v.searchKeyword}"
+                             placeholder="search Reports.."
+                             aura:id="searchField"
+                             name="searchField"
+                             label="Report Name"
+                             onchange="{! c.onChange1 }"/>
+            
+            <lightning:select name="reports" label="Select Report" value="{!v.selectedReport}" aura:id="distance">
+                <aura:iteration items="{!v.accList}" var="acc" indexVar="index">                   
+                    <div onClick="{!c.onSelect}" style="cursor: pointer;" class="slds-truncate table" onmouseover="this.style.background='gray';">{!acc.Name}</div>
+                    <option value="{!acc.Id}">{!acc.Name}</option>
+                </aura:iteration>                    
+            </lightning:select>
+            
+            
+        </div>
+    </div><br/>
+    
+    <div class="slds-m-around_xx-large">
+        <h1 class="slds-text-heading--medium">Add User</h1>
+        <br/>
+        <!--Contact List Table-->
+        <table class="slds-table slds-table--bordered slds-table--cell-buffer" role="grid">      
+            <thead>  
+                <tr class="slds-text-title--caps">
+                    <th>           
+                        <label class="slds-checkbox">
+                            <ui:inputCheckbox value="{!v.isSelectAll}" change="{!c.handleSelectAllContact}" aura:id="selectAll"/>
+                            <span class="slds-checkbox--faux" />
+                            <span class="slds-form-element__label"></span>
+                        </label>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Name">Name</div>
+                    </th>                                        
+                    <th scope="col">
+                        <div class="slds-truncate" title="Email">Email</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>        
+                <aura:iteration items="{!v.contactList}" var="con">
+                    <tr>
+                        <th>
+                            <label class="slds-checkbox">
+                                <ui:inputCheckbox aura:id="checkContact" value="" text="{!con.Email}"/>
+                                <span class="slds-checkbox--faux" />
+                                <span class="slds-form-element__label"></span>
+                            </label>
+                        </th>
+                        <th scope="row">
+                            <div class="slds-truncate" title="{!con.Name}">{!con.Name}</div>
+                        </th>                        
+                        <td>
+                            <div class="slds-truncate" title="{!con.Email}">{!con.Email}</div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>       
+    </div>
+    <div>
+        <br/>
+        <div class="container">
+  <div class="vertical-center">
+        <!--<lightning:button label="Add User" class="slds-button_brand" onclick="{!c.handleSelectedContacts }"  />-->
+        <lightning:button name="Send Email" label="Send Mail" onclick="{!c.send }" class="slds-button_brand"/>
+    </div>
+     </div>
+</div>
+</aura:component>

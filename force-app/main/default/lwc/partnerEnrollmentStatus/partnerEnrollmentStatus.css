@@ -1,0 +1,17 @@
+[data-status=true] {
+    color: red;
+}
+
+.top-section {
+    width: 710px;
+    margin: 0 auto;
+}
+
+.custom-label {
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    font-weight: bold;
+    font-size: 12px;
+    max-width: 28%;
+}

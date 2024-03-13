@@ -1,0 +1,12 @@
+.THIS  .slds-card__header {
+	background-color: #F3F2F2;
+	padding: var(--lwc-varSpacingVerticalSmall,0.75rem) var(--lwc-varSpacingHorizontalMedium, 1rem) 0.5rem !important;
+}
+.THIS .small-title {
+	font-size: 0.9rem;
+	font-weight: var(--lwc-cardFontWeight, 700);
+}
+
+.THIS h3 {
+	font-size: 0.874rem !important;
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed</fullName>
+    <columns>NAME</columns>
+    <columns>VOC_Developer__c</columns>
+    <columns>Status__c</columns>
+    <columns>Category__c</columns>
+    <columns>RegistrationDate__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Close,Cancel</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>VOC__c.Admin</value>
+    </filters>
+    <label>Closed (Admin)</label>
+    <sharedTo>
+        <role>DIVISION_IT_INNOVATION</role>
+        <role>Mig9</role>
+        <role>SDS</role>
+    </sharedTo>
+</ListView>

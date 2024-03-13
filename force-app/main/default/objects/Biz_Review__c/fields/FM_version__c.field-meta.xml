@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FM_version__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Version__c == 1, TEXT(Version__c) + &apos;st&apos; ,
+IF(Version__c == 2, TEXT(Version__c) + &apos;nd&apos;,
+IF(Version__c == 3, TEXT(Version__c) + &apos;rd&apos;,
+IF(Version__c &gt;=4, TEXT(Version__c) + &apos;th&apos;, &apos;&apos;)
+)
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>FM version</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

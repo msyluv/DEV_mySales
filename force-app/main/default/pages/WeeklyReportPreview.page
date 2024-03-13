@@ -1,0 +1,12 @@
+<!--
+  @description       : 
+  @author            : gitesh.s@samsung.com
+  @group             : 
+  @last modified on  : 15-03-2023
+  @last modified by  : gitesh.s@samsung.com
+  Modifications Log 
+  Ver   Date         Author                 Modification
+  1.0   15-03-2023   gitesh.s@samsung.com   Initial Version
+-->
+<apex:page standardController="WeeklyReport__c" recordSetVar="wr" extensions="WeeklyReportExtension" action="{!redirectToLC}">
+</apex:page>

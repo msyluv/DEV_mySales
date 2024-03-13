@@ -1,0 +1,145 @@
+<!--
+  @author            : rakshit.s@samsung.com
+  @description       : View All and Opp Specific Lost Type Custom Table with common merged cells. 
+  @last modified on  : 05-30-2023
+  @last modified by  : rakshit.s@samsung.com
+  Modifications Log 
+  Ver   Date         Author                   	Modification
+  1.0   2023-01-24   rakshit.s@samsung.com      Initial Version
+  1.1   2023-05-30   divyam.gupta@samsung.com   Add on changes Lost Enchacement(Mysales -204)
+
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="MasterLostTypeDataController">
+    <aura:attribute name="opprecordId" type="String" />
+    <aura:attribute name="isViewAll" type="Boolean" default="False"/>
+    <aura:attribute name="isCounterMeasureTable" type="Boolean" default = "False"/>
+    <aura:attribute name="isMasterLostTypeT" type="Boolean" default = "False"/>
+    <aura:attribute name="isKorean" type="Boolean" default="false"/>
+    <aura:attribute name="isLost" type="Boolean" default="false"/>
+    <aura:attribute name="isDrop" type="Boolean" default="false"/>
+    <aura:attribute name="activityId" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:html tag="style">
+        .slds-modal__content {
+        overflow-y: auto !important;
+        }
+    </aura:html>
+    <section role="dialog"  tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" style="overflow: auto !important" class=" slds-scrollable_y slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <aura:if isTrue="{!v.isMasterLostTypeT}">
+                <aura:if isTrue="{!v.isViewAll}">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                            
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <aura:if isTrue="{!v.isKorean}">
+                            <aura:if isTrue="{!v.isLost}">
+                                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">실주 사유</h2>
+                            </aura:if>
+                            <aura:if isTrue="{!v.isDrop}">
+                                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">종결 사유</h2>
+                            </aura:if>
+                            
+                            
+                            
+                            <aura:set attribute="else">
+                                <aura:if isTrue="{!v.isLost}">
+                                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Lost Type</h2>
+                                    
+                                </aura:if>
+                                
+                                <aura:if isTrue="{!v.isDrop}">
+                                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Drop Type</h2>
+                                    
+                                </aura:if>
+                            </aura:set>
+                        </aura:if>
+                        
+                        
+                    </header> 
+                </aura:if>
+                
+                <aura:if isTrue="{!not(v.isViewAll)}">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                            
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <aura:if isTrue="{!v.isKorean}">
+                            <!--START 1.1 -->
+                             <aura:if isTrue="{!v.isLost}">
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">실주 사유 분석-전체보기</h2>
+                             <aura:set attribute="else">
+                               <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">종결 사유 분석-전체보기</h2>
+                                 </aura:set>
+                            </aura:if>
+                            <aura:set attribute="else">
+                              <aura:if isTrue="{!v.isLost}">
+                              <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Analysis of reasons for Lost - View All</h2>
+                                  <aura:set attribute="else">
+                               <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Analysis of reasons for Drop - View All</h2>
+                                     
+                                  </aura:set>
+                                </aura:if>
+                               <!--END 1.1 -->
+
+                            </aura:set>
+                            
+                        </aura:if>
+                        
+                        <!-- <aura:if isTrue="{!not(v.isKorean)}">
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Analysis of Competition Results - View All</h2>
+                        </aura:if> -->
+                        
+                    </header> 
+                </aura:if>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.isCounterMeasureTable}">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                        
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <aura:if isTrue="{!v.isKorean}">
+                        <!--START 1.1 -->
+                        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Post-Mortem 결과 - 전체보기</h2>
+                        <aura:set attribute="else">
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Post-Mortem Result - View All</h2>
+                            <!--END 1.1 -->
+                        </aura:set>
+                    </aura:if>
+                    
+                    <!--<aura:if isTrue="{!not(v.isKorean)}">
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Lost Reason and Improvement</h2>
+                        </aura:if> -->
+                </header> 
+            </aura:if>
+            
+            <aura:if isTrue="{!v.isMasterLostTypeT}">
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <c:masterLostTypeDataTable recId="{!v.opprecordId}" isViewAll="{!v.isViewAll}" oppactid ="{!v.activityId}"></c:masterLostTypeDataTable>
+                </div>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.isCounterMeasureTable}">
+                
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <c:lostCounterMeasureTable recId="{!v.opprecordId}" isViewAll="{!v.isViewAll}" oppactid ="{!v.activityId}"></c:lostCounterMeasureTable>
+                </div>
+            </aura:if>
+            
+            <footer class="slds-modal__footer slds-modal__footer_directional">
+                <div style="float: right;">
+                    <lightning:button variant="brand-outline" label="{!$Label.c.COMM_BTN_CANCEL}" title="{!$Label.c.COMM_BTN_CANCEL}" onclick="{! c.handleClick }" />
+                </div>
+                
+            </footer>
+            
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</aura:component>

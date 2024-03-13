@@ -1,0 +1,373 @@
+<!--
+* @Component Name       : ManualSharing.cmp
+* @Description          : Manual Sharing Component
+*
+*                        * Buttons, Links, and Actions
+*                           Label      : Manual Sharing
+*                           Height     : 600px
+*
+*                        * Meta Data (Object별 Manual Sharing을 사용할 수 있는 유저를 제어 위한 Meta data 설정 필요)
+*                           Label      : Sharing_Permissions
+*                           API Name   : Sharing_Permissions__mdt 
+*                        - Custom Fields
+*                           ObjectName__c  : Unique Text Type (Object ApiName 입력) 
+*                           AccessLevel__c : PickList (Value = [ 'All', 'Admin', 'Owner' ])
+*                            - All : 레코드에 접근 가능한 모든 사용자가 Manual Sharing 사용 가능.
+*                            - Owner : 레코드Owner와 System Admin만 Manual Sharing 사용 가능.
+*                            - Admin : System Admin만 Manual Sharing 사용 가능.
+*                           * Admin의 Profile Name에 'admin'이 포함 되어있어야함.
+*
+-->
+<aura:component controller="ManualSharingController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader"
+                access="global" >
+    
+    <!-- 공유 대상 변수 -->
+    <aura:attribute name="SharingMap" type="Map" default="{}"/>  
+    <aura:attribute name="viewList" type="List" default="[]"/>  
+    <aura:handler name="change" value="{!v.SharingMap}" action="{!c.changeSharing}"/>
+    
+    <!-- 검색 관련 변수 -->
+    <aura:attribute name="selectOptions" type="List" default="[]"/>
+    <aura:attribute name="selectType" type="String" default="User"/>    
+    <aura:attribute name="searchText" type="String" default=""/>
+    
+    <!-- 검색 조건 관련 변수 -->
+    
+    <!-- 검색 결과 변수 -->
+    <aura:attribute name="searchResult" type="List" default="[]"/>
+    
+    <!-- Device 변수-->
+    <aura:attribute name="device" type="String" default="DESKTOP"/>
+
+    <!-- Record 관련 변수 -->
+    <aura:attribute name="record" type="sObject" />
+    <force:recordData layoutType="FULL"
+                      recordId="{!v.recordId}"
+                      targetFields="{!v.record}"
+                      recordUpdated="{!c.doInit}" />
+    
+    <aura:html tag="style">
+        .modal-body.slds-modal__content.slds-p-around--medium {
+            padding:0!important;
+        }
+        .cuf-content {
+            height: 100%;
+            padding: 0 0rem !important;        
+        }
+        .slds-modal__container{   
+            width : 90%; 
+            max-width: 85rem !important; 
+            min-width: 85rem !important;         
+        }
+        .baseDefault{
+            height: 100%;
+        }
+        .forceChatterPublisherPresentationPanel{
+            height: 100%;
+        }
+        .container{
+            height: 100%;
+        }
+        .cuf-content{
+            height: 100%;
+        }
+        .bodyWrapper{
+            height: 100%;
+        }
+        .slds-is-relative.quick-modal_container.cManualSharing{
+            height: 100%;
+        }
+        .slds-col.modal-header.slds-modal__header{
+            height: 10%;
+        }
+        .slds-col.slds-p-horizontal_medium.slds-size_1-of-2{
+            height: 90%;
+        }
+        .slds-col.modal-footer.slds-modal__footer{
+            height: 10%;
+        }
+        .slds-wrap.slds-grid{
+            height: 90%;
+            padding: 0;
+        }
+    </aura:html>
+    
+    <div aura:id="body" class="slds-is-relative quick-modal_container">
+        <div class="slds-col modal-header slds-modal__header">
+            <h2 class="title slds-text-heading--medium">{!$Label.c.SHARING_LAB_MANUALSHARING}</h2>
+        </div>
+        <!-- Contents Area -->
+        <div class="{! 'slds-wrap ' + (v.device == 'DESKTOP' ? 'slds-grid' : 'slds-grid--vertical')}"> <!-- <div class="{! 'slds-wrap ' + (v.device == 'DESKTOP' ? 'slds-grid' : 'slds-grid-@@-vertical')}" style="{! 'height : 483px; ' + (v.device == 'DESKTOP' ? 'padding:16px; !important;' : '')}"> -->
+            <div class="{! 'slds-col '
+                          + (v.device == 'DESKTOP' ? 'slds-p-horizontal_medium slds-size_1-of-2' : '') }">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-3 slds-p-right_xx-small">
+                        <lightning:combobox name="selectType" label="{!$Label.c.SHARING_LAB_TYPE}" value="{!v.selectType}" options="{!v.selectOptions}" onchange="{!c.clearSearchResult}"/>               
+                    </div>
+                    <div class="slds-col slds-size_2-of-3">    
+                        <div onkeyup="{! c.searchKeyUp }">
+                            <lightning:input
+                                             aura:id="enter-search"
+                                             name="enter-search"
+                                             label="{!$Label.c.SHARING_LAB_SHAREWITH}"
+                                             type="search"
+                                             value="{! v.searchText }"
+                                             />
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-card__body table_Wrapper" style="padding-top: 10px;">
+                    <table class="slds-table slds-table--bordered slds-table--cell-buffer table_thead">
+                        <colgroup>                            
+                            <col width="80%"></col>
+                            <col width="20%"></col>                              
+                        </colgroup>
+                        <thead>
+                            <tr class="slds-line-height ">
+                                <aura:if isTrue="{!v.device == 'DESKTOP' ? true :false}">
+                                
+                                    <th scope="col" class="name slds-text-align_center">
+                                        <ui:outputText value="{!$Label.c.SHARING_LAB_INFORMATION}" class="slds-truncate" />
+                                    </th>                                      
+                                     <!-- 버튼 -->
+                                    <th scope="col" class="name slds-text-align_center">
+                                        <ui:outputText value="{!$Label.c.SHARING_LAB_ACCESSLEVEL}" class="slds-truncate" />
+                                    </th>                                     
+                                    <aura:set attribute="else">
+                                        <th scope="col" class="name slds-text-align_center">
+                                            <ui:outputText value="{!$Label.c.SHARING_LAB_SEARCH}" class="slds-truncate" />
+                                        </th> 
+                                    </aura:set>
+                              </aura:if>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="table_tbody_Wrapper" style="max-height: 21rem;">
+                        <table class="slds-table slds-table--bordered slds-table--cell-buffer table_tbody">
+                            <colgroup>
+                                    <col width="80%"></col>
+                                    <col width="20%"></col>       
+                            </colgroup>
+                            <tbody>
+                                <aura:iteration items="{!v.searchResult}" var="sr" indexVar="index">
+                                    <tr>
+                                        <td >
+                                            <div class="demo-only" style="{!v.device =='DESKTOP' ? 'width:25rem' : 'width:18rem'}">
+                                                <article class="slds-tile slds-media">
+                                                    <aura:if isTrue="{!v.device == 'DESKTOP' ? true :false}">
+                                                        <div class="slds-media__figure">
+                                                            <span class="slds-icon_container">
+                                                                    <aura:if isTrue="{!v.selectType == 'User'}"> 
+                                                                        <span class="slds-avatar" style="margin-top: 2.5px;">
+                                                                            <img src="{!sr.MediumPhotoUrl}" />
+                                                                        </span>
+                                                                        <aura:set attribute="else">
+                                                                            <lightning:icon iconName="{!'standard:' + ( v.selectType == 'PublicGroup' ? 'groups' : v.selectType == 'Role' ? 'user_role' : 'hierarchy')}" />
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                            </span>                                                        
+                                                        </div>
+                                                    </aura:if>
+                                                    <div class="slds-media__body">
+                                                        <div class="slds-tile__detail">
+                                                            <dl class="slds-list_horizontal slds-wrap">
+                                                                <aura:if isTrue="{!v.selectType == 'User'}"> 
+                                                                    <dd class="slds-item_detail slds-truncate" title="{!sr.Name + (sr.Role ? ' / ' + sr.Role : '') + (sr.Title ? ' / ' + sr.Title : '')}">
+                                                                        {!sr.Name}{!sr.Role ? ' / ' + sr.Role : ''}{!sr.Title ? ' / ' + sr.Title : ''}</dd>
+                                                                    <dd class="slds-item_detail slds-truncate" title="{! v.device =='DESKTOP' ? sr.Email : sr.EmailId}"> {! v.device == 'DESKTOP' ? sr.Email : sr.EmailId} </dd>
+                                                                    <aura:set attribute="else">
+                                                                        <dd class="slds-item_detail slds-truncate" title="{!sr.Name}">{!sr.Name}</dd>
+                                                                        <dd class="slds-item_detail slds-truncate slds-text-title" title="{!v.selectType == 'Regular' ? 'Public Group' : v.selectType == 'Role' ? 'Role' : 'Role And Subordinates'}">
+                                                                                {!v.selectType == 'PublicGroup' ? 'Public Group' : v.selectType == 'Role' ? 'Role' : 'Role And Subordinates'}</dd>                                                                        
+                                                                    </aura:set>
+                                                                </aura:if> 
+                                                            </dl>
+                                                        </div>
+                                                    </div>
+                                                    <aura:if isTrue="{!v.device=='PHONE' ? true :false}">                                      
+                                                        <div class="slds-truncate slds-text-align_center" >
+                                                            <aura:if isTrue="{!sr.IsInclude == true}">
+                                                                <span class="slds-badge">{!$Label.c.SHARING_LAB_ALEADYADD}</span>
+                                                                <aura:set attribute="else">
+                                                                    <div>
+                                                                        <a data-itemid="{!'Read_'+ sr.Id}" onclick="{!c.insertSharing}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                            <lightning:buttonIcon iconName="utility:preview"  size="medium" variant="bare"  alternativeText="{!$Label.c.SHARING_LAB_READ}"/>
+                                                                        </a>
+                                                                        <a data-itemid="{!'Edit_'+ sr.Id}" onclick="{!c.insertSharing}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                            <lightning:buttonIcon iconName="utility:edit"  size="medium" variant="bare"  alternativeText="{!$Label.c.SHARING_LAB_READWRITE}"/>
+                                                                        </a>
+                                                                    </div>                                            
+                                                                </aura:set>                                        
+                                                            </aura:if>
+                                                        </div>
+                                                    </aura:if>
+                                                </article>
+                                            </div>
+                                        </td>
+                                        <aura:if isTrue="{!v.device=='DESKTOP' ? true:false}">
+                                            <td class="slds-text-align_center" >                                            
+                                                <div class="slds-truncate slds-text-align_center" >
+                                                    <aura:if isTrue="{!sr.IsInclude == true}">
+                                                        <span class="slds-badge">{!$Label.c.SHARING_LAB_ALEADYADD}</span>
+                                                        <aura:set attribute="else">
+                                                            <div>
+                                                                <a data-itemid="{!'Read_'+ sr.Id}" onclick="{!c.insertSharing}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                    <lightning:buttonIcon iconName="utility:preview"  size="large" variant="bare"  alternativeText="{!$Label.c.SHARING_LAB_READ}"/>
+                                                                </a>
+                                                                <a data-itemid="{!'Edit_'+ sr.Id}" onclick="{!c.insertSharing}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                    <lightning:buttonIcon iconName="utility:edit"  size="large" variant="bare"  alternativeText="{!$Label.c.SHARING_LAB_READWRITE}"/>
+                                                                </a>
+                                                            </div>                                            
+                                                        </aura:set>                                        
+                                                    </aura:if>
+                                                </div>
+                                            </td>
+                                        </aura:if>
+                                    </tr>
+                                </aura:iteration>                                   
+                            </tbody>
+                        </table>
+                    </div>
+                </div>  
+            </div>
+            <div class="{! 'slds-col '+ (v.device == 'DESKTOP' ? 'slds-p-horizontal_medium slds-size_1-of-2' : '') }" 
+                 style= "{! v.device == 'DESKTOP' ? 'padding-top: 63.5px;' : 'padding-top: 20px;'}">
+                <span>                    
+                    <div class="slds-card__body table_Wrapper">
+                        <table class="slds-table slds-table--bordered slds-table--cell-buffer table_thead">
+                            <colgroup>
+                                <col width="80%"></col>
+                                <col width="20%"></col>  
+                            </colgroup>
+                            <thead>
+                                <tr class="slds-line-height "> 
+                                    <aura:if isTrue="{!v.device == 'DESKTOP' ? true :false}">
+                                        <th scope="col" class="name slds-text-align_center">
+                                            <ui:outputText value="{!$Label.c.SHARING_LAB_WHO_CAN_ACCESS}" class="slds-truncate" />
+                                        </th>                                      
+                                            <!-- 버튼 -->
+                                        <th scope="col" class="name slds-text-align_center">
+                                            <ui:outputText value="{!$Label.c.SHARING_LAB_ACCESSLEVEL}" class="slds-truncate" />
+                                        </th>                                         
+                                        <aura:set attribute="else">
+                                            <th scope="col" class="name slds-text-align_center">
+                                                <ui:outputText value="{!$Label.c.SHARING_LAB_WHO_CAN_ACCESS}" class="slds-truncate" />
+                                            </th> 
+                                        </aura:set>
+                                    </aura:if>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="table_tbody_Wrapper" style="max-height: 21rem;">
+                            <table class="slds-table slds-table--bordered slds-table--cell-buffer table_tbody">
+                                <colgroup>
+                                    <col width="80%"></col>
+                                    <col width="20%"></col>
+                                </colgroup>
+                                <tbody>
+                                    <aura:iteration items="{!v.viewList}" var="sh" indexVar="idx">
+                                        <tr>
+                                            <td >
+                                                <div class="demo-only" style="{!v.device =='DESKTOP' ? 'width:25rem' : 'width:18rem'}">
+                                                    <article class="slds-tile slds-media">
+                                                        <aura:if isTrue="{!v.device == 'DESKTOP' ? true :false}">
+                                                            <div class="slds-media__figure">
+                                                                <span class="slds-icon_container">
+                                                                    <aura:if isTrue="{!sh.Type == 'User'}"> 
+                                                                        <span class="slds-avatar" style="margin-top: 2.5px;" title="User">
+                                                                            <img src="{!sh.MediumPhotoUrl}" />
+                                                                        </span>
+                                                                        <aura:set attribute="else">
+                                                                            <span class="slds-avatar" style="margin-top: 2.5px;">
+                                                                                <lightning:icon iconName="{!'standard:' + ( sh.Type == 'Regular' ? 'groups' : sh.Type == 'Role' ? 'user_role' : 'hierarchy' )}"
+                                                                                    title="{!sh.Type == 'Regular' ? 'Public Group' : sh.Type == 'Role' ? 'Role' : 'Role And Subordinates'}"/>
+                                                                            </span>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                </span>                                                        
+                                                            </div>
+                                                        </aura:if>
+                                                        <div class="slds-media__body ">
+                                                            <div class="slds-tile__detail">
+                                                                <dl class="slds-list_horizontal slds-wrap">
+                                                                    <aura:if isTrue="{!sh.Type == 'User'}"> 
+                                                                        <dd class="slds-item_detail slds-truncate" title="{!sh.Name + (sh.Role ? ' / ' + sh.Role : '') + (sh.Title ? ' / ' + sh.Title : '')}">
+                                                                            {!sh.Name}{!sh.Role ? ' / ' + sh.Role : ''}{!sh.Title ? ' / ' + sh.Title : ''}</dd>        
+                                                                        <dd class="slds-item_detail slds-truncate" title="{! v.device =='DESKTOP' ? sh.Email : sh.EmailId}"> {! v.device == 'DESKTOP' ? sh.Email : sh.EmailId} </dd>
+                                                                        <aura:set attribute="else">
+                                                                            <dd class="slds-item_detail slds-truncate" title="{!sh.Name}">{!sh.Name}</dd>
+                                                                            <dd class="slds-item_detail slds-truncate slds-text-title" title="{!sh.Type == 'Regular' ? 'Public Group' : sh.Type == 'Role' ? 'Role' : 'Role And Subordinates'}">
+                                                                                {!sh.Type == 'Regular' ? 'Public Group' : sh.Type == 'Role' ? 'Role' : 'Role And Subordinates'}</dd>
+                                                                        </aura:set>
+                                                                    </aura:if> 
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                        <aura:if isTrue="{!v.device == 'PHONE' ? true : false}">
+                                                            <div class="slds-truncate slds-text-align_center" >
+                                                                <aura:if isTrue="{!sh.AccessLevel != 'All'}">
+                                                                    <a onclick="{!c.updateSharing}" data-itemid="{!'Read_'+ sh.Id + '_' + sh.AccessLevel}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                        <lightning:buttonIcon iconName="utility:preview"  size="mideum" variant="bare"  alternativeText="{!$Label.c.SHARING_LAB_READ}"  class="{!sh.AccessLevel == 'Read' ? 'click-button-img' : '' }"/>
+                                                                    </a>
+                                                                    <a onclick="{!c.updateSharing}" data-itemid="{!'Edit_'+ sh.Id + '_' + sh.AccessLevel}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                        <lightning:buttonIcon iconName="utility:edit"  size="mideum" variant="bare"  alternativeText="{!$Label.c.SHARING_LAB_READWRITE}" class="{!sh.AccessLevel != 'Read' ? 'click-button-img' : '' }"/>
+                                                                    </a>
+                                                                    <a onclick="{!c.deleteSharing}" data-itemid="{!sh.Id}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                        <lightning:buttonIcon iconName="utility:close"  size="mideum" variant="bare"  alternativeText="{!$Label.c.COMM_BTN_DELETE}" />
+                                                                    </a>
+                                                                    <aura:set attribute="else">
+                                                                        <span class="slds-badge">{!$Label.c.COMM_LAB_OWNER}</span>    
+                                                                    </aura:set>                                                       
+                                                                </aura:if>
+                                                            </div>
+                                                        </aura:if> 
+                                                    </article>
+                                                </div>
+                                            </td>
+                                            <aura:if isTrue="{!v.device == 'DESKTOP' ? true : false}">
+                                                <td >
+                                                    <div class="slds-truncate slds-text-align_center" >
+                                                        <aura:if isTrue="{!sh.AccessLevel != 'All'}">
+                                                            <a onclick="{!c.updateSharing}" data-itemid="{!'Read_'+ sh.Id + '_' + sh.AccessLevel}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                <lightning:buttonIcon iconName="utility:preview"  size="large" variant="bare"  alternativeText="{!$Label.c.SHARING_LAB_READ}"  class="{!sh.AccessLevel == 'Read' ? 'click-button-img' : '' }"/>
+                                                            </a>
+                                                            <a onclick="{!c.updateSharing}" data-itemid="{!'Edit_'+ sh.Id + '_' + sh.AccessLevel}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                <lightning:buttonIcon iconName="utility:edit"  size="large" variant="bare"  alternativeText="{!$Label.c.SHARING_LAB_READWRITE}" class="{!sh.AccessLevel != 'Read' ? 'click-button-img' : '' }"/>
+                                                            </a>
+                                                            <a onclick="{!c.deleteSharing}" data-itemid="{!sh.Id}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                <lightning:buttonIcon iconName="utility:close"  size="large" variant="bare"  alternativeText="{!$Label.c.COMM_BTN_DELETE}" />
+                                                            </a>
+                                                            <aura:set attribute="else">
+                                                                <span class="slds-badge">{!$Label.c.COMM_LAB_OWNER}</span>    
+                                                            </aura:set>                                                       
+                                                        </aura:if>
+                                                    </div>
+                                                </td>
+                                            </aura:if> 
+                                        </tr>
+                                    </aura:iteration>
+                                    <!-- 
+                                    <aura:if isTrue="{!not(empty(v.viewList))}">
+                                        <aura:set attribute="else">
+                                            <tr>
+                                                <td colspan='6' class="notselectUser">
+                                                    <ui:outputText value="{!$Label.c.COMM_LAB_OWNER}" class="slds-truncate" /> 
+                                                </td>
+                                            </tr>                                            
+                                        </aura:set>                                        
+                                    </aura:if> -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <!-- Modal Footer -->
+            <div class="slds-col modal-footer slds-modal__footer">        
+                <lightning:button variant="neutral" label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{!c.closeModal}" />
+            </div>
+        </div>        
+        <lightning:spinner aura:id="spinner" variant="brand" size="large" class="slds-hide"/>
+    </div>
+</aura:component>

@@ -1,0 +1,25 @@
+<!--
+  @description       : 
+  @author            : akash.g@samsung.com
+  @group             : 
+  @last modified on  : 2022-05-26
+  @last modified by  : akash.g@samsung.com
+  Modifications Log 
+  Ver   Date         Author                           Modification
+  1.0   2022-05-26   akash.g@samsung.com           Initial Version
+-->
+<aura:component 
+    controller="changeAccountMessageController"
+    implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasSObjectName,force:hasRecordId"
+    access="GLOBAL">
+    <!-- [Attribute] : Activity -->
+    <aura:attribute name="activityItem" type="Object" />
+    <aura:attribute name="recordId" type="String" />
+     <!-- [Handler] -->
+    <aura:handler name="init" value="{! this }" action="{! c.init }" />
+     <lightning:notificationsLibrary aura:id="notifLib"/>
+
+    
+   
+   
+</aura:component>

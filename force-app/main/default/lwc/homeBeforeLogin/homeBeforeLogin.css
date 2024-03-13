@@ -1,0 +1,99 @@
+@import 'c/resetStyle';
+
+.wrap_partner .list,
+.wrap_login .wrap_text .list {display: table; width: 100%; margin-top: 76px;}
+.wrap_partner .list ul,
+.wrap_login .wrap_text .list ul {
+    display: table-cell; 
+    width: 50%;
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    padding-top: 180px;
+}
+.wrap_partner .list ul li,
+.wrap_login .wrap_text .list ul li {
+    padding-top: 16px;
+    line-height: 32px;
+    font-size: 18px;
+}
+.wrap_partner .list .left,
+.wrap_login .wrap_text .list .left {
+    background: url(/s/sfsites/c/resource/imagesLA/images/ico_reseller.png) no-repeat top center;
+}
+.wrap_partner .list .right,
+.wrap_login .wrap_text .list .right {
+    background: url(/s/sfsites/c/resource/imagesLA/images/ico_managed.png) no-repeat top center;
+}
+.wrap_login .wrap_btn {position: relative;}
+.wrap_login .wrap_text {text-align: center; padding: 70px 0;}
+.wrap_login .wrap_text h2 {
+    font-size: 64px;
+    font-weight: bold;
+    color: #fff;
+}
+.wrap_login .wrap_text .text {
+    font-size: 32px;
+    line-height: 44px;
+    font-weight: 500;
+    color: #fff;
+    margin-top: 40px;
+}
+.wrap_login .wrap_text .list ul {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    padding-top: 130px;
+}
+.wrap_login .wrap_text .list ul li {
+    color: #C2CDFF;
+    font-size: 18px;
+    line-height: 32px;
+}
+.wrap_login .wrap_text .list hr {
+    border-left: 1px solid #6174D2;
+    opacity: 50%;
+    width: 1px;
+    height: 300px;
+    vertical-align: middle;
+    display: inline-block;
+}
+.wrap_login .wrap_btn .text {
+    color: #fff;
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: 64px;
+}
+.wrap_login {
+    background: url(/s/sfsites/c/resource/imagesLA/images/img_login_bg.png) no-repeat;
+    background-size: cover;
+}
+.btn_suggest {
+    width: 465px;
+    height: 82px;
+    background-color: transparent;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+.btn_suggest:hover {background-color: #090C22;}
+.wrap_login .wrap_btn .text {
+    color: #fff;
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: 64px;
+}
+.btn_login {
+    font-size: 18px;
+    color: #fff;
+    background: url(/s/sfsites/c/resource/imagesLA/images/ico_login.png) no-repeat;
+    padding-left: 46px;
+    line-height: 36px;
+    position: absolute;
+    right: 64px;
+    top: 33px;
+}
+.btn_login:hover {color: #98A6FC;}

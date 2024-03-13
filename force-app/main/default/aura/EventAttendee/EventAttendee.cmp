@@ -1,0 +1,47 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 01-21-2021
+  @last modified by  : woomg@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   09-22-2020   woomg@dkbmc.com   Initial Version
+-->
+<aura:component controller="EventAttendeeController" 
+                implements="flexipage:availableForRecordHome,force:hasRecordId" 
+                access="global" >
+    <aura:attribute name="attendee" type="EventRelation[]" access="global" description="" />
+    <aura:attribute name="existing" type="Object[]" access="global" description="" />
+    <aura:attribute name="ownerId" type="String" access="global" description="" />
+    <aura:attribute name="accountId" type="String" access="global"  description="" />
+    
+    <aura:attribute name="modalBody" type="Aura.Component" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <lightning:card class="slds-card_boundary">
+        <aura:set attribute="title">
+            <lightning:icon iconName="custom:custom15" size="small" class="slds-var-m-right_medium"/>
+            <span class="small-title ">Event Attendee</span> <!-- Event Attendee -->
+        </aura:set>
+        <aura:set attribute="actions">
+            <lightning:button label="Add" onclick="{!c.clickAdd}"/>
+        </aura:set>
+        <div class="slds-card__body slds-card__body--inner">
+            <lightning:layout pullToBoundary="small" class="slds-wrap">
+
+                <aura:iteration items="{!v.attendee}" var="attendant">
+                    <c:eventAttendeeCard 
+                        recordId="{!attendant.Id}"
+                        name="{!attendant.Relation.Name}"
+                        status="{!attendant.Status}"
+                        response="{!attendant.Response}"
+                        onchange="{!c.reloadAttendee}"/>
+                </aura:iteration>
+
+            </lightning:layout>
+        </div>
+    </lightning:card>
+</aura:component>

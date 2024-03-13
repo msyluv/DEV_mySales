@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LBSStatus__c</fullName>
+    <description>LBS Status</description>
+    <externalId>false</externalId>
+    <label>LBS Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>REQ</fullName>
+                <default>false</default>
+                <label>(Bidding) Requested</label>
+            </value>
+            <value>
+                <fullName>ONGO</fullName>
+                <default>false</default>
+                <label>(Bidding) Ongoing</label>
+            </value>
+            <value>
+                <fullName>PASS</fullName>
+                <default>false</default>
+                <label>(Bidding) Passed</label>
+            </value>
+            <value>
+                <fullName>BREJ</fullName>
+                <default>false</default>
+                <label>(Bidding) Rejected</label>
+            </value>
+            <value>
+                <fullName>BREG</fullName>
+                <default>false</default>
+                <label>(Bidding) Saved</label>
+            </value>
+            <value>
+                <fullName>BRJQ</fullName>
+                <default>false</default>
+                <label>(Bidding) Modify Request</label>
+            </value>
+            <value>
+                <fullName>FREQ</fullName>
+                <default>false</default>
+                <label>(Final) Requested</label>
+            </value>
+            <value>
+                <fullName>FCHK</fullName>
+                <default>false</default>
+                <label>(Final) Checking</label>
+            </value>
+            <value>
+                <fullName>CMPT</fullName>
+                <default>false</default>
+                <label>(Final) Completed</label>
+            </value>
+            <value>
+                <fullName>FREJ</fullName>
+                <default>false</default>
+                <label>(Final) Rejected</label>
+            </value>
+            <value>
+                <fullName>FREG</fullName>
+                <default>false</default>
+                <label>(Final) Saved</label>
+            </value>
+            <value>
+                <fullName>FRJQ</fullName>
+                <default>false</default>
+                <label>(Final) Modify Request</label>
+            </value>
+            <value>
+                <fullName>DEL</fullName>
+                <default>false</default>
+                <label>Deleted</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

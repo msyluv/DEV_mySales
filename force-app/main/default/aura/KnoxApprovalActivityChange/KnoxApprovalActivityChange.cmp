@@ -1,0 +1,54 @@
+<!--
+  @description       : 
+  @author            : hj.lee@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-05-26
+  @last modified by  : leehyo
+  Modifications Log 
+  Ver   Date         Author             Modification
+  1.0   2021-01-29   hj.lee@dkbmc.com   Initial Version
+-->
+<aura:component implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasSObjectName,force:hasRecordId">
+    
+    <!-- [Style] -->
+    <aura:html tag="style">
+      html,body {width:unset !important; height:unset !important;}
+      html {font-family:unset !important;}
+      
+      /* [Quick Action] Standard Style Padding 제거 */
+      /* (Spring '21) */
+      .modal-body.slds-modal__content.slds-p-around--medium  {
+          padding:0 !important;
+      }
+      /* (Summer '21) */
+      .quick-actions-panel .slds-modal__content.slds-p-around--medium {
+        padding:0 !important;
+      }
+
+      /* [Quick Action] Modal 가로 조절 */
+      .slds-modal__container{   
+        /* slds-modal_large style */
+        width: 90%;
+        max-width: none;
+        min-width: 40rem;
+      }
+
+      /* [Quick Action] 에서 생기는 스크롤 삭제 */
+      .slds-modal__content {
+          overflow-y: hidden !important;
+      }
+
+      .cuf-content {
+        height: 100%;
+        padding: 0 0rem !important;        
+      }
+      
+
+      /* standard textarea 높이 조정 */
+      .slds-textarea {
+        height: 7rem;
+      }
+    </aura:html>
+
+    <c:knoxApprovalActivityNew transactionName="ZPG1" isUsedApprovalLineHTML="true" recordId="{!v.recordId}" opptyId="{!v.recordId}" />
+</aura:component>

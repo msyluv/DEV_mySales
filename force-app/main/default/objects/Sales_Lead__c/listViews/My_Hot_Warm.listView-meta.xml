@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Hot_Warm</fullName>
+    <columns>NAME</columns>
+    <columns>AccountId__c</columns>
+    <columns>LeadStage__c</columns>
+    <columns>Amount__c</columns>
+    <columns>CloseDate__c</columns>
+    <columns>RevenueStartDate__c</columns>
+    <columns>RevenueEndDate__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>LeadStage__c</field>
+        <operation>equals</operation>
+        <value>Warm,Hot</value>
+    </filters>
+    <label>My Hot &amp; Warm</label>
+</ListView>

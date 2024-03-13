@@ -1,0 +1,97 @@
+<!--
+@description       : 
+@author            : dongyoung.kim@dkbmc.com
+@group             : 
+@last modified on  : 2021-02-16
+@last modified by  : seonju.jin@dkbmc.com
+Modifications Log 
+Ver   Date         Author                    Modification
+1.0   2020-12-02   dongyoung.kim@dkbmc.com   Initial Version
+-->
+<aura:component controller="OpportunityProjectWBSMainController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" 
+                access="global" >
+
+
+  <lightning:overlayLibrary aura:id="overlayLib"/>
+
+  <!--[Handler]-->
+  <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+  <!-- [Attribute] -->
+  <aura:attribute name="recordId" type="String" access="public" />
+  <aura:attribute name="project_data" type="Object"/>
+  <aura:attribute name="project_columns" type="List"/>
+  <aura:attribute name="wbs_data" type="Object"/>
+  <aura:attribute name="wbs_columns" type="List"/>
+  <aura:attribute name="treeItem" type="List"/>
+  <aura:attribute name="selectedRows" type="List" access="PRIVATE"/>
+  <aura:attribute name="mappingItem" type="Map"/>
+  <aura:attribute name="isLoading" type="Boolean" default="true"/>
+  <aura:attribute name="selectedTreeItem" type="string" default=""/>
+    
+  <!-- [Body] -->
+  <div class="slds-grid slds-grid_vertical" style="height: 100%;">
+    <div class="slds-grid slds-grid_horizontal" style="height: calc( 100% - 58px ); width:100%;">
+      <div class="slds-grid slds-grid_vertical" style="height: 100%;width:75%;">
+           <aura:if isTrue="{!v.isLoading}">
+               <div class="exampleHolder">
+                   <lightning:spinner alternativeText="Loading" size="small" />
+               </div>
+                <aura:set attribute="else">
+                    <div class='slds-col' style="max-height: 50%;overflow-y: auto;">
+                      <lightning:card >
+                        <!-- Opportunity Project -->
+                        <aura:set attribute="title">
+                          <div style="width: 100%;" class="slds-grid">
+                            {!$Label.c.PJT_LAB_TITLE}
+                            <!-- <div class="slds-col slds-size_10-of-12" style="margin:auto;"></div> -->
+                            <!-- <div class="slds-col slds-size_2-of-12"><lightning:button iconName="utility:refresh"  iconPosition="left"  label='{!$Label.c.COMM_BTN_REFRESH}' class='slds-float_right' title='{!$Label.c.COMM_BTN_REFRESH}' onclick="{!c.onRefresh}"/></div> -->
+                        </div>
+                        </aura:set>
+                          <div style="height: 100%;">
+                            <lightning:datatable
+                                    aura:id = "OpportunityProjectTable"
+                                    keyField="Id"
+                                    data="{! v.project_data }"
+                                    columns="{! v.project_columns }"
+                                    onrowselection="{! c.onRowSelect}"
+                                    selectedRows="{! v.selectedRows }"
+                                    maxRowSelection="1" />
+                          </div>
+                      </lightning:card>
+                    </div>
+                      <div class="slds-col" style="max-height: 50%;overflow-y: auto;">
+                          <!-- Opportunity WBS -->
+                          <lightning:card >
+                            <aura:set attribute="title">{!$Label.c.WBS_LAB_TITLE}</aura:set>
+                              <div style="height: 100%;">
+                            	<lightning:datatable
+                                    aura:id = "OpportunityWBSTable"
+                                    keyField="id"
+                                    data="{! v.wbs_data }"
+                                    columns="{! v.wbs_columns }"
+                                    maxRowSelection="0"
+                                    hideCheckboxColumn="true"/>
+                              </div>
+                          </lightning:card>
+                      </div>
+               </aura:set>
+          </aura:if>
+      </div>
+
+      <!-- Service & Solution Tree -->
+      <div class="slds-grid slds-grid_vertical slds-box treeitem" data-set='tree' style="height: 100%;width:25%;border-left: #d2cccc 2px solid;overflow: auto;padding:0px;">
+          <lightning:card>
+              <lightning:tree items="{! v.treeItem }" header=" Project &amp; WBS"  onselect="{! c.handleTreeSelect }" selectedItem="{!v.selectedTreeItem }"/>
+          </lightning:card>
+      </div>
+    </div>
+
+    <div class="modal-footer slds-modal__footer" style="height:58px;">
+      <!-- button -->
+      <lightning:button label='{!$Label.c.COMM_BTN_CANCEL}' title='{!$Label.c.COMM_BTN_CANCEL}' onclick="{!c.cancel}"/>
+    </div>
+  </div>
+
+</aura:component>

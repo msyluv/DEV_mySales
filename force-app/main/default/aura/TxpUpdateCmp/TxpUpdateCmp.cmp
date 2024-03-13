@@ -1,0 +1,25 @@
+<aura:component controller="UpdateTxpManpowerController"
+  implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+  access="global"> 
+  <aura:attribute name="OpportunityId" type="String"/>
+  <aura:attribute name="UpdationMessage1" type="String"/>
+  <aura:attribute name="UpdationMessage2" type="String"/>
+  <aura:handler name="init" value="{!this}" action="{!c.onUpdate}"/>
+  
+  <div class="slds">
+    <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog" id="modal">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header slds-border_top slds-border_left slds-border_right">
+                <h2 class="slds-text-heading--medium">TXP Info. Update</h2>
+            </div>
+            
+            <div class="slds-modal__content slds-p-around--medium slds-border_left slds-border_right slds-is-relative">
+                <h2 class="slds-text-heading--small slds-align_absolute-center ">{!v.UpdationMessage1}</h2>
+                <h2 class="slds-text-heading--small slds-align_absolute-center ">{!v.UpdationMessage2}</h2><br/><br/>
+                <div class="slds-is-relative"><lightning:spinner alternativeText="Loading..." size="small" /></div><br/><br/>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+</aura:component>

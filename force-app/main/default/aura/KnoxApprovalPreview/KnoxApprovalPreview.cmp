@@ -1,0 +1,124 @@
+<!--
+  @description       : 
+  @author            : dongyoung.kim@dkbmc.com
+  @group             : 
+  @last modified on  : 04-06-2022
+  @last modified by  : yeongju.baek@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2020-12-17   dongyoung.kim@dkbmc.com   Initial Version
+-->
+<aura:component 
+    controller="KnoxApprovalPreviewController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader"
+    access="global">
+          
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <!-- [Attribute] -->
+    <aura:attribute name="opptyId" type="String" default=''/>
+    <aura:attribute name="opptyactId" type="String" default=''/>
+    <aura:attribute name="confirm" type="Boolean" default="false"/>
+    <aura:attribute name="confirmMSG" type="String" />
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="htmlData" type="String"/>
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="recordId" type="String" />
+    
+    <aura:attribute name="showSpinner" type="Boolean" default="true"/>
+    <aura:attribute name="isSelectedApprovalTab" type="Boolean" default="false"/>
+    <aura:attribute name="isApexLoading" type="Boolean" default="false"/>
+    <aura:attribute name="approvalMISID" type="String" default="" />  <!-- 2021.06.01 외부연계ID 생성을 위해 추가 -->
+    
+    <aura:attribute name="requestBusinessLevel" type="String" default=""/>
+
+    <!-- [Event Handler] : knox approval 정보  (APPLICATION EVENT)-->  
+    <aura:handler event="c:knoxApprovalFieldPassEvent" action="{!c.setKnoxApprovalField}"/>
+    <aura:handler event="c:knoxApprovalHtmlGetEvent" action="{!c.firePreviewPassEvent}"/>    
+    <aura:handler event="c:knoxApprovalApexLoadingEvent" action="{!c.setApexLoading}"/>    
+    
+    <aura:registerEvent name="opportunityActivityUpdateEvent" type="c:opportunityActivityUpdateEvent"/>
+    <aura:registerEvent name="knoxApprovalPreviewReplaceEvent" type="c:knoxApprovalPreviewReplaceEvent"/> 
+    <aura:registerEvent name="knoxApprovalPreviewPassEvent" type="c:knoxApprovalPreviewPassEvent"/>
+    <aura:registerEvent name="knoxApprovalSubmitEvent" type="c:knoxApprovalSubmitEvent"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <!-- <force:recordData layoutType="FULL"
+                      recordId="{!v.opptyId}"
+                      targetFields="{!v.record}" 
+                      recordUpdated="{!c.init}"  />  -->
+    
+    <!-- [Style] -->
+       <aura:html tag="style">
+      <!-- 결재 본문에 style tag가 포함된 경우가 있어, lightning Style 이 유지되도록 함 -->
+      html,body { 
+        width:unset !important; height:unset !important; 
+      }
+      html { 
+        font-family: var(--lwc-fontFamily,'Salesforce Sans', Arial, sans-serif) !important; 
+      }
+      body, h1, h2, h3, h4, input, button {
+        font-family: font-family: var(--lwc-fontFamily,'Salesforce Sans', Arial, sans-serif) !important;
+      }
+      slds-modal__container {
+        width:500% !important; 
+      }
+    </aura:html>
+
+    <!-- Body -->
+    <div style="height: calc( 100% - 58px );">
+      <div class="slds-scrollable_y" style="overflow-x:auto; max-height:100%;" id="approvalHtmlBody">
+        
+        <div style="justify-content: center; display: flex;">
+           <!-- spinner -->
+          <aura:if isTrue="{!or(v.showSpinner, v.isApexLoading)}">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+          </aura:if>
+          
+          <!-- 결재 본문 html (unescapedHtml) -->
+          <aura:unescapedHtml value="{!v.htmlData}" />
+          <aura:if isTrue="{!empty(v.htmlData)}">
+            <div style="text-align: center; padding-top: 5%;">
+              <lightning:icon iconName="utility:sentiment_negative" size="medium" />
+              <div class="slds-var-m-top_medium">
+                {!$Label.c.COLLABO_LAB_NORESULT}
+              </div>
+            </div>
+            <aura:if isTrue="{!v.confirm}">
+              
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open">
+              
+              <div class="slds-modal__container" style="width:50%;">
+                <div class="slds-modal__header">
+                  <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Warning</h1>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" >
+                  <aura:unescapedHtml value="{!v.confirmMSG}"/>
+                </div>
+                <div class="slds-modal__footer">
+                  <button class="slds-button slds-button_neutral"  onclick="{!c.clickCancel}">Yes</button>
+                  <button class="slds-button slds-button_brand" onclick="{!c.getApprovalBody}" aria-label="Cancel and close">No</button>
+                </div>
+              </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+          </aura:if>
+          </aura:if>
+          
+        </div>
+        
+      </div>
+    </div>
+    <!-- // Body -->
+
+    <!-- Footer -->
+    <div style="height: 58px;">
+      <div class="slds-col modal-footer slds-modal__footer" style="height: 100%">
+        <lightning:button variant="brand" class="slds-float_left" 
+                          label="{!$Label.c.APPR_LAB_GET_APPROVAL_BODY}" onclick="{!c.getApprovalBody}" />
+
+        <lightning:button variant="neutral" label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{!c.clickCancel}" />
+        <lightning:button variant="brand" label="{!$Label.c.APPR_BTN_SUBMIT}" onclick="{!c.clickApprove}" disabled="{!v.isApexLoading}" />
+      </div>
+    </div>
+</aura:component>

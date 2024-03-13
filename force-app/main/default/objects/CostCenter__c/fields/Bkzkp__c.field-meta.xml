@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bkzkp__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>실제 1차 전기에 대한 잠금지시자</description>
+    <externalId>false</externalId>
+    <label>BKZKP</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

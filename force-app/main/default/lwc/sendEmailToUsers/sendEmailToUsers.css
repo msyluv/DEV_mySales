@@ -1,0 +1,19 @@
+.schedule-title{
+    margin-top: var(--lwc-spacingXSmall,0.5rem);
+    font-size: 16px;
+    color: var(--lwc-colorTextActionLabel,rgb(68, 68, 68));
+    margin-bottom: var(--lwc-spacingMedium,1rem);
+    line-height: var(--lwc-lineHeightHeading,1.25);
+    font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');
+    font-weight: var(--lwc-fontWeightRegular,400);
+}
+
+.button-group {
+    display: flex;
+    
+}
+.button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px; /* Adjust the margin value as per your desired spacing */
+    }

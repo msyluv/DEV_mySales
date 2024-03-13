@@ -1,0 +1,8 @@
+.THIS {
+    background-color: white;
+    Padding: 0px;
+}
+.THIS .Heading{
+    font-size: 0.9rem;
+    padding: var(--lwc-varSpacingVerticalSmall,0.75rem) var(--lwc-varSpacingHorizontalMedium, 1rem) var(--lwc-varSpacingVerticalXSmall,0.5rem);
+}

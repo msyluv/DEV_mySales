@@ -1,0 +1,122 @@
+<!--
+  @description       : 
+  @author            : gitesh.s@samsung.com
+  @group             : 
+  @last modified on  : 15-03-2023
+  @last modified by  : gitesh.s@samsung.com
+  Modifications Log 
+  Ver   Date         Author                 Modification
+  1.0   15-03-2023   gitesh.s@samsung.com   Initial Version
+-->
+<aura:component implements="lightning:isUrlAddressable" controller="WeeklyReportHandlerController">
+    <aura:attribute name="weeklyReportIds" type="String" default=""/>
+    <aura:attribute name="hasRecordIds" type="Boolean" default="false"/>
+    <aura:attribute name="weeklyReportList" type="WeeklyReport__c[]"/>
+    <aura:attribute name="previewBody" type="Aura.Component" />
+    <aura:attribute name="weeklyReports" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="value" type="String" default="weekly-report-content" />
+    <aura:attribute name="selectedValue" type="String" default="weekly-report-content" />
+    <aura:attribute name="pageReference" type="Object"/>
+    <aura:attribute name="id" type="String"/>
+    <aura:attribute name="accountName" type="String"/>
+    <aura:attribute name="count" type="Integer"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageRefChange}"/>
+    
+    <lightning:navigation aura:id="navService"/> 
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <div class="slds-brand-band">
+        <div class="slds-page-header slds-page-header_related-list">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <nav role="navigation" aria-label="Breadcrumbs">
+                        <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+                            <li class="slds-breadcrumb__item">
+                                <a href="#">Accounts</a>
+                            </li>
+                            <li class="slds-breadcrumb__item">
+                                <a href="#">{!v.accountName}</a>
+                            </li>
+                        </ol>
+                    </nav>
+                <div class="slds-media">
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span class="slds-page-header__title slds-truncate" title="Weekly Report">Weekly Report</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            <div class="slds-page-header__col-actions">
+                <div class="slds-page-header__controls">
+                    <div class="slds-page-header__control">
+                        <ul class="slds-button-group-list">
+                            <li>
+                                <button class="slds-button slds-button_neutral">New</button>
+                            </li>
+                            <li>
+                                <button class="slds-button slds-button_neutral">Preview</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-meta">
+                    <p class="slds-page-header__meta-text">{!v.count} items • sorted by name</p>
+                </div>
+            </div>
+        </div>
+        <div style="height: 100%">
+            <lightning:datatable
+                columns="{!v.columns}"
+                data="{!v.weeklyReports}"
+                keyField="id"
+                onrowaction="{!c.handleRowAction}"/>
+        </div>
+    </div>
+
+    <!-- Weekly/Issue Report Modal -->
+    <aura:if isTrue="{!v.hasRecordIds}">
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container report-modal">
+                <lightning:buttonIcon iconName="utility:close"
+                                                onclick="{!c.handleCancel}"
+                                                alternativeText="close"
+                                                variant="bare-inverse"
+                                                class="slds-modal__close"/>
+                <div class="modal-header slds-modal__header">
+                    <h4 class="title slds-text-heading--medium">{!$Label.c.WEEKLY_ISSUE_REPORT_PREVIEW}</h4>
+                </div>
+                <!--End Modal Header-->  
+                    
+                <!--Modal Body-->   
+                <div class="slds-modal__content slds-p-around--small report-preview-content">
+                    <lightning:radioGroup
+                        aura:id="weeklyReportRadioGroup"
+                        label="Weekly Report Radio Group"
+                        options="{!v.options}"
+                        value="{!v.value}"
+                        onchange="{!c.getSelectedValue}" />
+                </div>
+                <!--End of Modal Body--> 
+                    
+                <!--Modal Footer-->
+                <div class="modal-footer slds-modal__footer">
+                    <lightning:button name="cancel" label="{!$Label.c.WEEKLY_ISSUE_REPORT_BTN_CANCEL}" onclick="{!c.handleCancel}"/>
+                    <lightning:button name="save" label="{!$Label.c.WEEKLY_ISSUE_REPORT_BTN_NEXT}" variant="brand" onclick="{!c.loadPreview}"/>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </aura:if>
+ </aura:component>

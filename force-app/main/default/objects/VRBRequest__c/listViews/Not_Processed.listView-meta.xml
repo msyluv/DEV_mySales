@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Not_Processed</fullName>
+    <columns>NAME</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Biz_Review__c</columns>
+    <columns>VRBRequester__c</columns>
+    <columns>VRBDueDate__c</columns>
+    <columns>VRBMethod__c</columns>
+    <columns>Business_Level__c</columns>
+    <columns>Description__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Biz_Review__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Not Processed</label>
+</ListView>

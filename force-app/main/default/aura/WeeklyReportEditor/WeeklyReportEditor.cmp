@@ -1,0 +1,19 @@
+<aura:component implements="lightning:isUrlAddressable,lightning:hasPageReference,force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global">
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="force:refreshView" action="{!c.isRefreshed}" />
+
+    <aura:attribute name="isMobile" type="boolean" default="false"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false"/>   
+    <aura:attribute name="section" type="String"/>
+    
+    <lightning:accordion aura:id="descAccordion" activeSectionName="{!v.section}" allowMultipleSectionsOpen="true">
+        <lightning:accordionSection name="Description" label="Description 2" >
+            <iframe src="{!'/apex/customEditorVF?id='+v.recordId+'&amp;isReadOnly=Y'}" height="100%" width="100%" frameBorder="0" scrolling="yes" style="text-align:center;"/>
+        </lightning:accordionSection>
+    </lightning:accordion>
+	
+    
+</aura:component>

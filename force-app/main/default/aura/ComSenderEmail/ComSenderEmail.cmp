@@ -1,0 +1,585 @@
+<!--
+  	* Custom Email *
+	* 설명 : Employee__c에서 임직원을 선택하여 메일 발송 가능
+	* 기능 : 이메일 입력 가능 > 임직원 이외 ooo@oo.oo 이메일 형식도 입력 가능
+			 도메인 제한 > metaData를 사용하여 추가할 수 있는 이메일을 제한함 ( @samsung.com등..)
+			 팀 불러오기 > 연관 되어있는 Object에 Team 정보를 불러 수신자에 추가할 수 있음.
+			 수신 타입 > TO, CC, BCC 여부 선택 가능
+			 파일 첨부 가능
+
+-->
+<aura:component  controller="KnoxEmailSendController" implements="flexipage:availableForRecordHome,force:hasRecordId,lightning:actionOverride,force:lightningQuickActionWithoutHeader,lightning:isUrlAddressable,force:hasSObjectName"  access="global">
+
+    <aura:handler   name="init" value="{!this}"     action="{!c.init}"/>
+    <aura:attribute name="from"           type="sObject"      default=""  access="public"/>
+    <aura:attribute name="to"             type="List"         default=""  access="public"/>
+    <aura:attribute name="cc"             type="List"         default=""  access="public"/>
+    <aura:attribute name="bcc"            type="List"         default=""  access="public"/>
+    <aura:attribute name="subject"        type="String"       default=""  access="public"/>
+    <aura:attribute name="description"    type="String"       default=""  access="public"/>
+    <aura:attribute name="FileList"       type="List"         default="[]"/>
+    <aura:attribute name="nFileList"      type="List"         default="[]"/>
+    <aura:attribute name="recordId"       type="Id"           default=""/>
+    <aura:attribute name="userId"         type="Id"           default=""/>
+    <aura:attribute name="isEmailObj"     type="Boolean"      default="false"/>
+    
+    <aura:attribute name="toastMessage"   type="String"       default=""/>
+    <aura:attribute name="isCloseModal"   type="Boolean"      default="false"/>
+    <aura:attribute name="toastType"      type="String"       default=""/>
+    
+    <aura:attribute name="selEmailId"     type="String"       default=""/>
+    <aura:attribute name="emailList"      type="List"         default="[]"/>
+    <aura:attribute name="acceptedEmail"      type="List"         default="[]"/>    
+    <aura:attribute name="teamMemberList" type="List"         default="[]"/>
+    <aura:attribute name="emailRecipt"    type="List"         default="[]"/>
+    <aura:attribute name="emailTemplate"  type="Map"          default="{}"/>
+    <aura:attribute name="isMobile"       type="String"       default=""/>
+    <aura:attribute name="searchKeyWord"  type="String"       default=""/>
+    <aura:attribute name="limtFileSize"   type="Integer"      default="3000000"/> <!--  14000000 -->
+    
+    <aura:handler name="recordSelectedEvent" event="c:customLookupSelectedEvent" action="{!c.handlerEmployeeInfo}"/>
+    <aura:handler name="enterEvent"           event="c:customLookupEnterEvent"  action="{!c.handlerEmailInfo}"/>
+
+    <aura:attribute name="toast" type="Object" default="{}" />
+
+    <aura:html tag="style">
+            .font-red-custom{
+                color : red;
+                font-weight : bold;
+            }
+        .cuf-content {
+            padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+            padding: 0rem !important;
+        }       
+        .slds-modal__content{
+            <!-- overflow-y:hidden !important;
+            height:unset !important;
+            max-height:unset !important; -->
+        }
+        .cComSenderEmail .quick-modal__content{
+            height : 730px;
+            width  : 100%;
+        }
+        .notselectUser{
+            height: 3.5rem;
+            text-align: center;
+        }   
+        .modal-container.slds-modal__container {
+            width:100% !important ;
+            max-width: 60rem !important; 
+            min-width: 650px !important; 
+            padding-top: 5rem!important;
+        }
+    <aura:if isTrue="{!v.isMobile == 'M'}">   
+        .cComSenderEmail .slds-card__body{
+            width : 100% !important;
+        }
+        .cComSenderEmail .table_tbody_Wrapper{
+            max-height: none;            
+        }     
+        .slds-card-custom {
+            position: relative !important;
+            padding: 0 !important;
+            background: rgb(255, 255, 255) !important;
+            border: 1px solid rgb(221, 219, 218) !important;
+            border-radius: .25rem !important;
+            background-clip: padding-box !important;
+            margin: .3rem 0 !important;
+        }
+        .modal-container.slds-modal__container {
+            width:0 !important ;
+            max-width: 0 !important; 
+            min-width: 0px !important; 
+            padding-top: 0 !important;
+        }        
+        .cComSenderEmail .ligt-layout{
+            padding : 0;
+        }
+        
+        .cuf-scroller-inside{
+            padding : 0 !important;
+        }
+        .cComSenderEmail .quick-modal__content{
+            height : 100% !important; 
+            padding: 59px 1rem!important;
+        }
+
+        .cComSenderEmail .modal-header-custom{
+            transform: translate3d(0, 0, 0) !important;
+            position: fixed !important;
+            width: 100% !important;
+            z-index: 200 !important;
+        }
+
+        .modal-footer-custom{
+            border-top: 1px solid rgb(221, 219, 218);
+            background-color: rgb(255, 255, 255);
+            
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            transform: translate3d(0,0,0);
+            
+            bottom: 0;
+            width: 100%;
+            padding: .4rem;    
+            padding-bottom : 0;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            height: 3.6rem;
+            }
+
+        .cComSenderEmail .footer-button-custom{
+            cursor: pointer;
+        }
+        .cComSenderEmail .footer-text-custom{
+            font-size: .7rem;
+            width: 33.3%;
+            text-align: center;
+        }
+        .cComSenderEmail .footer-cover-custom{
+            display:inline-block;
+        }
+        .notselectUser{
+            height: 3.5rem;
+            text-align: center;
+        }
+        .hide-legend legend{
+            display : none;
+        }
+    </aura:if>
+        
+    </aura:html>
+
+    <div aura:id="body" class="slds-is-relative quick-modal_container">        
+            <c:customToastModal toastHeightPostion="10%" isStack="true" toast="{!v.toast}" />   
+        <div class="modal-header slds-modal__header slds-email__header slds-size_1-of-1 modal-header-custom">
+            <h4 class="title slds-text-heading--medium" > {!$Label.c.EMAIL_LAB_EMAIL}</h4>
+        </div>
+
+        <div class="quick-modal__content quick-email__content slds-grid slds-grid_vertical slds-nowrap slds-p-around_large " aura:id="modalbody" id="modalbody">
+            <lightning:layout verticalAlign="stretch" class="x-large ligt-layout"  multipleRows="true">
+                <lightning:layoutItem flexibility="auto" size="12" class="border"> 
+                    <!-- From -->
+                    <div class="slds-form-element slds-hint-parent custom-lookup" style="margin-bottom: 0">
+                        <label class="slds-form-element__label" for="lookup-348">
+                            <abbr class="slds-required" title="required">*</abbr>
+                            {!$Label.c.EMAIL_LAB_FROM}
+                        </label>
+
+                        <div class="slds-form-element__control">            
+                            <div class="slds-input-has-icon slds-input-has-icon--right">
+                                <aura:if isTrue="{!v.from.Name == Null}">
+                                    <lightning:icon class="slds-input__icon slds-show" iconName="utility:search" size="x-small" alternativeText="search"/> 
+                                </aura:if>
+                                <!-- This markup is for when an record is selected -->
+                                <div aura:id="lookup-pill" class="slds-pill-container slds-show">
+                                    <span class="slds-pill" style="width:100%">                        
+                                        <span class="slds-icon_container  slds-combobox__input-entity-icon" title="record">
+                                            <lightning:icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" iconName="standard:user" size="x-small" alternativeText="icon"/>
+                                            <span class="slds-assistive-text"></span>
+                                        </span>
+                                        
+                                        <span class="slds-pill__label slds-p-left_x-large" style="width: 100%; text-align:left;">
+                                            {!v.from.Name}
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+ 
+
+
+                <!--Receipt-->
+                <lightning:layoutItem flexibility="auto" size="12" class="border">
+                    <c:customLookup aura:id="clookupEmployee"
+                                    lookupType="MultiHide"
+                                    iconName="standard:user"
+                                    label="{!$Label.c.EMAIL_LAB_RECIPIENTS}"
+                                    objectName="Employee__c"
+                                    additionalDisplay="EvMailAddr__c"
+                                    additionalSelect="EvSdeptNM__c, EvSdeptENM__c, EvUniqID__c, EvEName__c"
+                                    filterFields="EvStatus__c"
+                                    filterConditions="eq"
+                                    filterValues="1"
+                                    required="False"
+                                    isIgnoredDuplicatedRule="True" 
+                                    searchKeyword="{!v.searchKeyWord}"/> 
+                </lightning:layoutItem>
+
+                <aura:if isTrue="{!v.isMobile == 'W'}">      
+                <!-- [S] : 추가 List -->
+                <lightning:layoutItem flexibility="auto" size="12" class="border">
+                    <div class="slds-card__body table_Wrapper">
+                        <!-- header -->
+                        <table class="slds-table slds-table--bordered slds-table--cell-buffer table_thead">
+                            <colgroup>
+                                <col width="4%"></col>
+                                <col width="26%"></col>
+                                <col width="18%"></col>
+                                <col width="22%"></col>
+                                <col width="26%"></col>                            
+                                <col width="4%"></col>
+                            </colgroup>
+                            <thead>
+                                <tr class="slds-line-height">
+                                    <th scope="col" class="name" style="padding-left:8px !important" align="center">
+                                        <ui:outputText value="No." class="slds-truncate" />
+                                    </th>
+                                    <th align="center">
+                                        &nbsp;
+                                    </th>
+                                    <th scope="col" class="name" align="center">
+                                        <ui:outputText value="{!$Label.c.COMM_LAB_NAME}" class="slds-truncate" />
+                                    </th>
+                                    <th scope="col" class="name" align="center">
+                                        <ui:outputText value="{!$Label.c.COMM_LAB_DEPARTMENT}" class="slds-truncate" />
+                                    </th>
+                                    <th scope="col" class="name" align="center">
+                                        <ui:outputText value="{!$Label.c.COMM_LAB_EMAIL}" class="slds-truncate" />
+                                    </th>
+                                    
+                                    <th scope="col" class="name"></th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <!-- body -->
+                        <div class="table_tbody_Wrapper">
+                            <table class="slds-table slds-table--bordered slds-table--cell-buffer table_tbody">
+                                <colgroup>
+                                    <col width="4%"></col>
+                                    <col width="26%"></col>
+                                    <col width="18%"></col>
+                                    <col width="22%"></col>
+                                    <col width="26%"></col>
+                                    <col width="4%"></col>
+                                </colgroup>
+                                <tbody>
+                                    <aura:iteration items="{!v.teamMemberList}" var="item" indexVar="index">
+                                        <tr class="" data-itemid="">
+                                            <td style="padding-left:8px !important">
+                                                <div class="slds-truncate " >
+                                                    <ui:outputText value="{!index + 1}" title="{!index + 1}"/>
+                                                </div>
+                                            </td>
+                                            <td calss="appType-button">
+                                                <div class="div-radiobutton button-par">
+                                                    <lightning:radioGroup aura:id="emailRecipt" name="{! 'emailRecipt' + index}"
+                                                                        type="button"
+                                                                        options="{!v.emailRecipt}"
+                                                                        value="{!item.RecpSt}" /> 
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate ">
+                                                    <ui:outputText value="{!item.Name + (item.EvEName__c == null ? '' : ' - ' + item.EvEName__c)}" title="{!item.Name + (item.EvEName__c == null ? '' : ' - ' + item.EvEName__c)}" /> 
+                                                </div>
+                                            </td>
+                                            <td >
+                                                <div class="slds-truncate " >
+                                                    <ui:outputText value="{!item.EvSdeptNM__c + ( item.EvSdeptNM__c == null || item.EvSdeptENM__c == null ? '' : ' - ')  +  item.EvSdeptENM__c}" 
+                                                    title="{!item.EvSdeptNM__c + ( item.EvSdeptNM__c == null || item.EvSdeptENM__c == null ? '' : ' - ')  +  item.EvSdeptENM__c}"/>
+                                                </div>
+                                            </td>
+                                            <td >
+                                                <div class="slds-truncate " >
+                                                    {!item.EvMailAddr__c}
+                                                </div>
+                                            </td>
+                                            <td style="padding:0; margin:0;">
+                                                <div data-itemIdx="{!index}" onclick="{!c.removeItem}" style="cursor:pointer;float: right; padding-right:.5rem;">
+                                                    <lightning:buttonIcon iconName="utility:close" variant="bare" alternativeText="Delete"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                    <aura:if isTrue="{!empty(v.teamMemberList)}">
+                                        <tr>
+                                            <td colspan="6" class="notselectUser" style="text-align:center">
+                                                <ui:outputText value="{!$Label.c.EMAIL_MSG_0011}" class="slds-truncate"/>
+                                            </td>
+                                        </tr>
+                                    </aura:if>
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                    </div>                   
+                </lightning:layoutItem>
+                <!-- [E] : 추가 List -->      
+            </aura:if>         
+            
+            
+
+
+            
+            <aura:if isTrue="{!v.isMobile == 'M'}">             
+            
+                    <!-- [S] : 추가 List -->
+                    <div class="slds-card__body table_Wrapper">
+                        <table class="slds-table slds-table--bordered slds-table--cell-buffer table_thead">
+                            
+                            <thead>
+                                <tr class="slds-line-height">                           
+                                    
+                                    <th scope="col" class="name slds-border_left">
+                                        <ui:outputText value="{!$Label.c.EMAIL_LAB_RECIPIENTS}" class="slds-truncate" />
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                        
+                        <div class="table_tbody_Wrapper">                     
+                            
+                                <aura:iteration items="{!v.teamMemberList}" var="item" indexVar="index">
+                                    
+                                    <div class="slds-card-custom">
+                                        <div class="slds-card__header slds-grid">
+                                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                <div class="slds-media__figure">                                                 
+                                                    <span><ui:outputText value="{!index + 1}" class="slds-card__header-title"/>.</span>                                                  
+                                                </div>
+                                                <div class="slds-media__body">
+                                                    <h2 class="slds-card__header-title slds-truncate">
+                                                        <a href="javascript:void(0);" style="font-weight: 700;" class="slds-card__header-link slds-truncate" title="{!item.Name + (item.EvEName__c == null ? '' : ' - ' + item.EvEName__c)}">
+                                                            <span><ui:outputText value="{!item.Name + (item.EvEName__c == null ? '' : ' - ' + item.EvEName__c)}"  /> </span>
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                                <!-- defaultValue="{!not(empty(item.ApproverType__c)) ? item.ApproverType__c : emps.length > 1 ? '7' : '1' }" -->
+                                                <div data-itemIdx="{!index}" onclick="{!c.removeItem}" style="cursor:pointer;float: right; padding-right:.5rem;">
+                                                        <lightning:buttonIcon iconName="utility:close" variant="bare" alternativeText="Delete"/>
+                                                    </div>
+                                            </header>
+                                        </div>
+                                        <div class="slds-card__body slds-card__body_inner">
+                                            <div>
+                                                <td>
+                                                    <div style="padding-left:8px !important" class="slds-align_absolute-center approver_indexCover" >
+                                                        
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="approver_employeeCover">
+                                                        
+                                                        <div class="slds-tile__detail detail-font-custom">
+                                                            <dl class="slds-list_horizontal slds-wrap">
+                                                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="{!$Label.c.COMM_LAB_DEPARTMENT}">{!$Label.c.COMM_LAB_DEPARTMENT} : </dt>
+                                                                <dd class="slds-item_detail slds-truncate" title="{!item.EvSdeptNM__c}">{!item.EvSdeptNM__c}</dd>
+                                                                <dt class="slds-item_label slds-text-color_weak slds-truncate"> </dt>
+                                                                <dd class="slds-item_detail slds-truncate" title="{!item.EvSdeptENM__c}">{!item.EvSdeptENM__c}</dd>
+                                                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="{!$Label.c.COMM_LAB_EMAIL}">{!$Label.c.COMM_LAB_EMAIL} : </dt>
+                                                                <dd class="slds-item_detail slds-truncate" title="{!item.EvMailAddr__c}">{!item.EvMailAddr__c}</dd>
+                                                            </dl> 
+                                                        </div>                                                    
+                                                        
+                                                        
+                                                        <div style="margin-top:10px;">
+                                                            <div style="display: inline-block;margin-right: 10px;" class="hide-legend">
+                                                                    <lightning:radioGroup aura:id="emailRecipt" name="{! 'emailRecipt' + index}"
+                                                                    type="button"
+                                                                    options="{!v.emailRecipt}"
+                                                                    value="{!item.RecpSt}" />    
+                                                                
+                                                                
+                                                                
+                                                            </div>                                                    
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </td>    
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </aura:iteration>
+                                <aura:if isTrue="{!empty(v.teamMemberList)}">
+                                    <tr class="slds-align_absolute-center">
+                                        <td colspan='6' class="slds-align_absolute-center notselectUser">
+                                            <ui:outputText value="{!$Label.c.EMAIL_MSG_0011}" class="slds-truncate" /> 
+                                            <!-- 승인자를 추가하여 주세요. -->
+                                        </td>
+                                    </tr>  
+
+                                </aura:if>
+                            
+                        </div>
+                    </div>
+                    <!-- [E] : 추가 List -->               
+                       
+            </aura:if>         
+                
+                <!-- Report Template -->
+                <aura:if isTrue="{!v.sObjectName == 'Opportunity' }">
+                <lightning:layoutItem flexibility="auto" size="12">
+                    <lightning:combobox aura:id="emailtemplate"
+                                        placeholder= "Select"
+                                        name="emailtemplate"
+                                        label="{!$Label.c.EMAIL_LAB_REPORT_TEMPLATE}"
+                                        value="{!v.selEmailId}"
+                                        onchange="{!c.changeEmailList}"
+                                        options="{!v.emailList}"/>
+                </lightning:layoutItem>
+                </aura:if>
+
+                <!--Subject -->
+                <lightning:layoutItem flexibility="auto" size="12" class="border">
+                    <div class="" style="margin-bottom: 0;">
+                        <lightning:input type="text" value="{!v.subject}" label="{!$Label.c.EMAIL_LAB_SUBJECT}" required="true"/>
+                    </div>
+                </lightning:layoutItem>
+                
+                <!--Description -->
+                <lightning:layoutItem flexibility="auto" size="12" class="">
+                    <label class="slds-form-element__label" for="lookup-348">
+                        <abbr class="slds-required" title="required">*</abbr>
+                        <label class="font-red-custom" >                            
+                                ({!$Label.c.COMM_MSG_0011})
+                            </label> 
+                    </label>            
+                    <div class="slds-form-element slds-hint-parent">
+                        <div class="slds-form-element__control">
+                            <lightning:inputRichText value="{!v.description}" label="{!$Label.c.APPR_LAB_APPROVALCONTENTS}">
+                                <lightning:insertImageButton/>
+                            </lightning:inputRichText>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                
+                <!--File -->
+                <lightning:layoutItem flexibility="auto" size="12" class="slds-scrollable_y">
+                    <div class="slds-form-element slds-hint-parent slds-scrollable_y" style="margin-bottom: 0;">
+                        <!--
+                        <lightning:fileUpload label="{!$Label.c.COMM_LAB_ATTACHMENT}" 
+                                              multiple="true"   
+                                              recordId="{!v.userId}"
+                                              onuploadfinished="{!c.handleUploadFinished}" /> 
+                                            -->
+                        <c:FileUpload FileList="{!v.FileList}" maximumFileSize="{!v.limtFileSize}"/>
+
+                        <div class="slds-file-selector__dropzone fileArea">
+                                <aura:iteration items="{!v.nFileList}" var="file" indexVar="index">
+                                    <div class="slds-grid slds-p-around--x-small slds-align--absolute-center fileListArea">
+                                        <div class="slds-grid slds-size--1-of-1 slds-no-space slds-p-right--x-large">
+                                            <div class="slds-avatar slds-avatar--x-small slds-pill__icon_container slds-p-right--large">
+                                                <div>
+                                                    <lightning:icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" iconName="doctype:image" size="x-small" alternativeText="icon"/>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-truncate">
+                                                <!--a rel="theater" title="View File"-->
+                                                    <span class="slds-pill__label uiOutputText" title="Preview file">{!file.name}</span>
+                                                <!--/a-->
+                                            </div>
+                                        </div>
+                                        <div class="right" title="Remove file">
+                                            <div class="slds-button slds-button--icon slds-pill__remove" data-itemIdx="{!index}" onclick="{!c.removefile}" style="cursor:pointer;">
+                                                <lightning:icon class="slds-button__icon" iconName="utility:close" size="x-small" alternativeText="search"/>  
+                                                <span class="slds-assistive-text">Remove</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                                            
+
+                    </div>
+                </lightning:layoutItem>                    
+                
+            </lightning:layout>
+            <lightning:spinner aura:id="spinner" variant="brand" size="large" class="slds-hide"/>
+        </div>
+
+        <!-- Modal Footer -->
+        <aura:if isTrue="{!v.isMobile == 'W'}">
+            <div class="slds-col modal-footer slds-modal__footer email__footer">
+                <aura:if isTrue="{!!v.isEmailObj}">
+                    <lightning:button variant="brand" label="{!$Label.c.APPR_BTN_GETTEAMMEMBER}" onclick="{!c.clickTeamMember}" class="slds-float_left"/>
+                </aura:if>
+                <lightning:button variant="brand" label="{!$Label.c.EMAIL_LAB_SEND}"         onclick="{!c.clickSendEmail}" />
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.isMobile == 'M'}">
+            <!-- Modal Footer -->
+            <div class="modal-footer-custom">   
+                <p style="margin:0 auto;" class="slds-align_absolute-center">
+                    <lightning:icon iconName="action:join_group" class="footer-button-custom" alternativeText="Approved" variant="bare" onclick="{!c.clickTeamMember}" size="xx-small"/>
+                </p>
+                <p class="footer-text-custom">{!$Label.c.APPR_BTN_GETTEAM}</p> 
+
+                <p style="margin:0 auto;" class="slds-align_absolute-center">
+                    <lightning:icon iconName="action:close" class="footer-button-custom" alternativeText="Approved" variant="bare" onclick="{!c.clickCancel}" size="xx-small"/>
+                </p>
+                <p class="footer-text-custom">{!$Label.c.COMM_BTN_CANCEL}</p>
+
+                <p style="margin: 0 auto;" class="slds-align_absolute-center">
+                    <lightning:icon iconName="action:approval" class="footer-button-custom" alternativeText="Approved" variant="bare" onclick="{!c.clickSendEmail}" size="xx-small"/>
+                </p>
+                <p class="footer-text-custom">{!$Label.c.EMAIL_LAB_SEND}</p>
+
+            </div>
+        </aura:if>
+
+
+
+
+
+
+    </div>
+
+        <!--CANCEL/OK POPUP--> 
+        <div aura:id="confirmPopup" class="slds-m-around_xx-small slds-hide">
+
+                <!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->   
+                <aura:if isTrue="true">
+                    
+                    <!--###### MODAL BOX Start######--> 
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <!-- ###### MODAL BOX HEADER Start ######-->
+                            <header class="slds-modal__header">
+                                <lightning:buttonIcon iconName="utility:close"
+                                                      onclick="{! c.confirmBtnDialog }"
+                                                      alternativeText="close"
+                                                      variant="bare-inverse"
+                                                      class="slds-modal__close"/>
+                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Confirm</h2>
+                            </header>
+                            <!--###### MODAL BOX BODY Part Start######-->
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="text-align:center">
+                                <p>
+                                    <b>{!$Label.c.EMAIL_MSG_0010} </b>
+                                </p>
+                            </div>
+                            <!--###### MODAL BOX FOOTER Part Start ######-->
+                            <footer class="slds-modal__footer">
+                                <lightning:button variant="neutral" 
+                                                  label="{!$Label.c.COMM_BTN_CANCEL}"
+                                                  title="{!$Label.c.COMM_BTN_CANCEL}"
+                                                  onclick="{! c.confirmBtnDialog }"/>
+                                <lightning:button variant="brand" 
+                                                  label="{!$Label.c.COMM_BTN_OK}"
+                                                  title="{!$Label.c.COMM_BTN_OK}"
+                                                  onclick="{! c.clickTeamMember }"/>
+                            </footer>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                    <!--###### MODAL BOX Part END Here ######-->
+                    
+                </aura:if>
+            </div>
+            <!--CANCEL/OK POPUP-->
+    
+
+</aura:component>

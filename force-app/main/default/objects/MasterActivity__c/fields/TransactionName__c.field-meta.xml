@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TransactionName__c</fullName>
+    <externalId>false</externalId>
+    <label>Transaction Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>XP11</fullName>
+                <default>false</default>
+                <label>Register Opportunity</label>
+            </value>
+            <value>
+                <fullName>ZP21</fullName>
+                <default>false</default>
+                <label>Review Opportunity</label>
+            </value>
+            <value>
+                <fullName>ZP32</fullName>
+                <default>false</default>
+                <label>Request Resources</label>
+            </value>
+            <value>
+                <fullName>XP31</fullName>
+                <default>false</default>
+                <label>Receive RFP</label>
+            </value>
+            <value>
+                <fullName>ZP31</fullName>
+                <default>false</default>
+                <label>Request Strategy Committee</label>
+            </value>
+            <value>
+                <fullName>XP32</fullName>
+                <default>false</default>
+                <label>Strategy Committee Cost Plan Completion</label>
+            </value>
+            <value>
+                <fullName>ZP62</fullName>
+                <default>false</default>
+                <label>Request Committee Approval</label>
+            </value>
+            <value>
+                <fullName>ZPZ3</fullName>
+                <default>false</default>
+                <label>Agency Contract Exception</label>
+            </value>
+            <value>
+                <fullName>ZP61</fullName>
+                <default>false</default>
+                <label>Submit Proposal</label>
+            </value>
+            <value>
+                <fullName>XP41</fullName>
+                <default>false</default>
+                <label>Presentation</label>
+            </value>
+            <value>
+                <fullName>XP42</fullName>
+                <default>false</default>
+                <label>Preferred Bidder</label>
+            </value>
+            <value>
+                <fullName>XP43</fullName>
+                <default>false</default>
+                <label>Customer Approval</label>
+            </value>
+            <value>
+                <fullName>XP44</fullName>
+                <default>false</default>
+                <label>Negotiation</label>
+            </value>
+            <value>
+                <fullName>XP51</fullName>
+                <default>false</default>
+                <label>Contract P&amp;L</label>
+            </value>
+            <value>
+                <fullName>XP52</fullName>
+                <default>false</default>
+                <label>Legal Review</label>
+            </value>
+            <value>
+                <fullName>ZP82</fullName>
+                <default>false</default>
+                <label>Contract Approval</label>
+            </value>
+            <value>
+                <fullName>XP57</fullName>
+                <default>false</default>
+                <label>Closing</label>
+            </value>
+            <value>
+                <fullName>ZPZ2</fullName>
+                <default>false</default>
+                <label>Drop Opportunity</label>
+            </value>
+            <value>
+                <fullName>XPX1</fullName>
+                <default>false</default>
+                <label>Abort Opportunity</label>
+            </value>
+            <value>
+                <fullName>ZAC1</fullName>
+                <default>false</default>
+                <label>Hold Opportunity</label>
+            </value>
+            <value>
+                <fullName>ZPZ1</fullName>
+                <default>false</default>
+                <label>Lost Opportunity</label>
+            </value>
+            <value>
+                <fullName>ZAC4</fullName>
+                <default>false</default>
+                <label>Unhold Opportunity</label>
+            </value>
+            <value>
+                <fullName>ZPG1</fullName>
+                <default>false</default>
+                <label>Change Approval Request</label>
+            </value>
+            <value>
+                <fullName>2.2.1.</fullName>
+                <default>false</default>
+                <label>Credit Assessment</label>
+            </value>
+            <value>
+                <fullName>2.2.2.</fullName>
+                <default>false</default>
+                <label>Request AP(APS)</label>
+            </value>
+            <value>
+                <fullName>2.3.2.</fullName>
+                <default>false</default>
+                <label>Bidding LBS</label>
+            </value>
+            <value>
+                <fullName>2.3.3.</fullName>
+                <default>false</default>
+                <label>Test Shipment</label>
+            </value>
+            <value>
+                <fullName>2.4.5.</fullName>
+                <default>false</default>
+                <label>Final LBS</label>
+            </value>
+            <value>
+                <fullName>2.5.1.</fullName>
+                <default>false</default>
+                <label>Receive Contract</label>
+            </value>
+            <value>
+                <fullName>2.5.3.</fullName>
+                <default>false</default>
+                <label>Rate Change LBS</label>
+            </value>
+            <value>
+                <fullName>2.2.3.</fullName>
+                <default>false</default>
+                <label>Tariff  Verification</label>
+            </value>
+            <value>
+                <fullName>ZP51</fullName>
+                <default>false</default>
+                <label>VRB (Proposal Review)(Mig)</label>
+            </value>
+            <value>
+                <fullName>ZP52</fullName>
+                <default>false</default>
+                <label>VRB(Mig)</label>
+            </value>
+            <value>
+                <fullName>XP33</fullName>
+                <default>false</default>
+                <label>Strategy Committee Preparation</label>
+            </value>
+            <value>
+                <fullName>ZP50</fullName>
+                <default>false</default>
+                <label>VRB (Proposal Strategy)(Mig)</label>
+            </value>
+            <value>
+                <fullName>ZAC2</fullName>
+                <default>false</default>
+                <label>Cost Estimation  Request(Mig)</label>
+            </value>
+            <value>
+                <fullName>ZP53</fullName>
+                <default>false</default>
+                <label>Proposed Resource  Request(Mig)</label>
+            </value>
+            <value>
+                <fullName>ZP55</fullName>
+                <default>false</default>
+                <label>Non-Binding Session(Mig)</label>
+            </value>
+            <value>
+                <fullName>ZP72</fullName>
+                <default>false</default>
+                <label>Contract Resource  Request(Mig)</label>
+            </value>
+            <value>
+                <fullName>ZPZ4</fullName>
+                <default>false</default>
+                <label>Technical Support  Exception(Mig)</label>
+            </value>
+            <value>
+                <fullName>ZAX4</fullName>
+                <default>false</default>
+                <label>Sales Call Plan(Mig)</label>
+            </value>
+            <value>
+                <fullName>XP61</fullName>
+                <default>false</default>
+                <label>Request for strategy committee (Biz. Participation)</label>
+            </value>
+            <value>
+                <fullName>XP62</fullName>
+                <default>false</default>
+                <label>P&amp;L for strategy committee (Biz. Participation)</label>
+            </value>
+            <value>
+                <fullName>XP63</fullName>
+                <default>false</default>
+                <label>Approval for strategy committee (Biz. Participation)</label>
+            </value>
+            <value>
+                <fullName>XP71</fullName>
+                <default>false</default>
+                <label>Request for strategy committee (Bidding. Decision)</label>
+            </value>
+            <value>
+                <fullName>XP72</fullName>
+                <default>false</default>
+                <label>P&amp;L for strategy committee (Bidding. Decision)</label>
+            </value>
+            <value>
+                <fullName>XP73</fullName>
+                <default>false</default>
+                <label>Approval for strategy committee (Bidding. Decision)</label>
+            </value>
+            <value>
+                <fullName>XP99</fullName>
+                <default>false</default>
+                <label>SCP Price Simulation</label>
+            </value>
+            <value>
+                <fullName>2.3.1</fullName>
+                <default>false</default>
+                <label>Bidding Logistics CP Review</label>
+            </value>
+            <value>
+                <fullName>2.4.4</fullName>
+                <default>false</default>
+                <label>Final Logistics CP Review</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

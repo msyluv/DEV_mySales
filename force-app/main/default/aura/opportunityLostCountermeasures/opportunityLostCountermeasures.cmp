@@ -1,0 +1,607 @@
+<!--
+  @author            : divyam.gupta@samsung.com
+  @description       : Add new tab Analysis of Competition Result. 
+  @last modified on  : 10-26-2022
+  @last modified by  : ukhyeon.lee@samsung.com
+  Modifications Log 
+  Ver   Date         Author                   	Modification
+  1.0   2022-10-17   Divyam.gupta@samsung.com       Initial Version
+-->
+
+
+<aura:component controller="oppAnalysisCompController" implements="force:hasRecordId,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    <aura:attribute name="LostTypeList" type="List" default="[]"/>
+    <aura:attribute name="checkboxList" type="List" default="[]"/>
+    <aura:attribute name="checkboxList1" type="List" default="[]"/>
+    <aura:attribute name="checkboxList2" type="List" default="[]"/>
+    <aura:attribute name="opprecordId" type="String" access="public" default= '' description="Opportunity RecordId"/>
+    <aura:attribute name="opptyActId" type="String" access="public" default='' description="Opportunity Activity RecordId"/>
+    <aura:attribute name="check1" type="String" access="public" default= ''/>
+    <aura:attribute name="Lvl5valuelst" type="List" default="[]" />
+    <aura:attribute name="Lvl6valuelst" type="List" default="[]"/>
+    <aura:attribute name="Lvl7valuelst" type="List" default="[]"/>
+    <aura:attribute name="Typevaluelst" type="List" default="[]"/>
+    <aura:attribute name="Typevaluelst1" type="List" default="[]"/>
+    <aura:attribute name="codelist" type="List" default="[]"/>
+    <aura:attribute name="LostCounterMsrList" type="List" default="[]"/>
+    <aura:attribute name="setTempprary" type="boolean" default="true"/>
+    <aura:attribute name="setSave" type="boolean" default="true"/>
+    <aura:attribute name="lvl4CheckboxValue" type="Boolean" default="false"/>
+    <aura:attribute name="setLangEng" type="Boolean" default="false"/>
+    <aura:attribute name="setLangKor" type="Boolean" default="false"/>
+    <aura:attribute name="checkboxId" type="String" default=""/>
+    <aura:attribute name="lvl5Inputvalue" type="String" default=""/>
+    <aura:attribute name="lvl6Inputvalue" type="String" default=""/>
+    <aura:attribute name="lvl3allvalue" type="List" default="[]"/>
+    <aura:attribute name="lvl7Inputvalue" type="Integer" />
+    <aura:attribute name="showLostrtable" type="Boolean" default="false"/>
+    <aura:attribute name="selectedLookUpRecord" type="user"/>
+    <aura:attribute name="selectedLookUpRecord1" type="user"/>
+    <aura:attribute name="totallv7" type="Integer" default="0"/>
+    <aura:attribute name="picklistval" type="String" default=""/>
+    <aura:attribute name="lostresndetail" type="String" default=""/>
+    <aura:attribute name="impresndetail" type="String" default=""/>
+    <aura:attribute name="action1detail" type="String" default=""/>
+    <aura:attribute name="action2detail" type="String" default=""/>
+    <aura:attribute name="action3detail" type="String" default=""/>
+    <aura:attribute name="action4detail" type="String" default=""/>
+    <aura:attribute name="action5detail" type="String" default=""/>
+    <aura:attribute name="imprvchngdept" type="String" default=""/>
+    <aura:attribute name="imprvrevdept" type="String" default=""/>
+    <aura:attribute name="action1chngdept" type="String" default=""/>
+    <aura:attribute name="action2chngdept" type="String" default=""/>
+    <aura:attribute name="action3chngdept" type="String" default=""/>
+    <aura:attribute name="action4chngdept" type="String" default=""/>
+    <aura:attribute name="action5chngdept" type="String" default=""/>
+    <aura:attribute name="action1revdept" type="String" default=""/>
+    <aura:attribute name="action2revdept" type="String" default=""/>
+    <aura:attribute name="action3revdept" type="String" default=""/>
+    <aura:attribute name="action4revdept" type="String" default=""/>
+    <aura:attribute name="action5revdept" type="String" default=""/>
+    <aura:attribute name="piclistvalues" type="List" default="[]"/> 
+    <aura:attribute name="activitystatus" type="String" default=""/>
+     <aura:attribute name="setmandtryfields" type="Boolean" default="false"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/> 
+    <!-- [Style] -->
+    
+    <div style="height: calc( 100% - 58px );">
+        <div class="slds-scrollable_y" style="overflow-x:auto; max-height:100%;">
+            <div>
+                <!-- Body -->
+                <lightning:card title="{!$Label.c.Countermeasures}"  >
+                    <!--TABLE 1-->
+                    <!--TABLE 1/-->
+                    <!--Display Total-->
+
+                    <!--Display Total/-->
+                    
+                    <aura:if isTrue="{!v.activitystatus == 'Completed'}">
+
+                        <!--TABLE 2-->
+                        <aura:if isTrue="{!v.showLostrtable}">
+                           
+                            <table class ="slds-table slds-table_cell-buffer slds-table_bordered">
+                                <thead>
+                                    <tr class ="slds-line-height_reset">
+                                        <th class ="slds-text-title_caps " scope="cols"  style="width:15rem">
+                                            <div class="slds-truncate" title="">{!$Label.c.Type}</div>
+                                        </th>
+                                        <th class ="slds-text-title_caps" scope="cols" style="width:10rem"> 
+                                            <div class="slds-truncate" title="">{!$Label.c.Reason_Improvement}</div>
+                                        </th>
+                                        <th class ="slds-text-title_caps" scope="cols"> 
+                                            <div class="slds-truncate" title="">{!$Label.c.Details}</div>
+                                        </th>
+                                        <th class ="slds-text-title_caps" scope="cols" style="width:13rem">
+                                            <div class="slds-truncate" title="">{!$Label.c.Dept_in_Charge}</div>
+                                        </th>
+                                        <th class ="slds-text-title_caps" scope="cols" style="width:13rem">
+                                            <div class="slds-truncate" title="">{!$Label.c.Relevant_Dept}</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.Typevaluelst}" var="Type" indexVar="index">
+                                        <!--Lost reason-->
+                                        <tr class="slds-hint-parent">
+                                            <aura:if isTrue="{!v.setLangEng}">
+                                                <td data-label="Typeval1" scope= "row">
+                                                    <div class="slds-truncate" title="{!Type.MasterLosttype_Eng__c}">{!Type.MasterLosttype_Eng__c}</div>
+                                                </td>
+                                                <td data-label="reasonval1">
+                                                    <div class="slds-truncate" title="">
+                                                        <abbr class="slds-required" title="required" aura:id="PreReq">*											
+                                                        </abbr>
+                                                        Lost Reason
+                                                    </div>
+                                                </td>
+                                            </aura:if>
+                                            <aura:if isTrue="{!v.setLangKor}">
+                                                <td data-label="Typeval1" scope= "row">
+                                                    <div class="slds-truncate" title="{!Type.MasterLosttype_Kor__c}">{!Type.MasterLosttype_Kor__c}</div>
+                                                </td>
+                                                <td data-label="reasonval1">
+                                                    <div class="slds-truncate" title="">
+                                                        <abbr class="slds-required" title="required" aura:id="PreReq">*											
+                                                        </abbr>
+                                                        실주요인
+                                                    </div>
+                                                </td>
+                                            </aura:if>
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:textarea type="text" name="{!Type.LostTypeCode__c}" aura:id="detaillv1"  variant="label-stacked" value="{!Type.fieldVal1}"/>
+                                                </div>
+                                            </td>
+                                            <td/>
+                                            <td/>
+                                        </tr>
+                                        <!--Improvement-->
+                                        <tr class="slds-hint-parent">
+                                            <aura:if isTrue="{!v.setLangEng}">
+                                                <td/>
+                                                <td data-label="reason1">
+                                                    <div class="slds-truncate" title="">
+                                                        <abbr class="slds-required" title="required" aura:id="PreReq">*											
+                                                        </abbr>
+                                                        Improvement
+                                                    </div>
+                                                </td>
+                                            </aura:if>
+                                            <aura:if isTrue="{!v.setLangKor}">
+                                                <td/>
+                                                <td data-label="reason1">
+                                                    <div class="slds-truncate" title="">
+                                                        <abbr class="slds-required" title="required" aura:id="PreReq">*											
+                                                        </abbr>
+                                                        개선방안
+                                                    </div>
+                                                </td>
+                                            </aura:if>
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:textarea type="text" name="{!Type.LostTypeCode__c}" aura:id="detaillv2"  variant="label-stacked" value="{!Type.fieldVal2}"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                        <lightning:inputField aura:id="Deptincharge1"  fieldName="Improve_InChargeDept__c" value="{!Type.fieldVal3}" variant="label-hidden">
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                                </div>                             
+                                            </td>     
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                        <lightning:inputField aura:id="Relevantdept1" fieldName="Improve_RelavantDept__c" value="{!Type.fieldVal4}"  variant="label-hidden">
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!--ActionItem1-->
+                                        <tr class="slds-hint-parent">
+                                            <td/>
+                                            <td data-label="reason3">
+                                                <div class="slds-truncate" title="">
+                                                    <abbr class="slds-required" title="required" aura:id="PreReq">*											
+                                                    </abbr>Action Item 1
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:textarea type="text" name="{!Type.LostTypeCode__c}" aura:id="detaillv3" value="{!Type.fieldVal5}" variant="label-stacked"/>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                        <lightning:inputField  aura:id="Deptincharge2"  variant="label-hidden" fieldName="ActionItem_1_InChargeDept__c" value="{!Type.fieldVal6}">
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                                </div>                             
+                                            </td>     
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                        <lightning:inputField  aura:id="Relevantdept2"  variant="label-hidden" fieldName="ActionItem_1_RelavantDept__c" value="{!Type.fieldVal7}">
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+                                        <!--ActionItem2-->
+                                        <tr class="slds-hint-parent">
+                                            <td/>
+                                            <td data-label="reason4">
+                                                <div class="slds-truncate" title="">Action Item 2</div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:textarea type="text" name="{!Type.LostTypeCode__c}" aura:id="detaillv4"  variant="label-stacked" value="{!Type.fieldVal8}"  />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                        <lightning:inputField  aura:id="Deptincharge3"  variant="label-hidden" fieldName="ActionItem_2_InChargeDept__c" value="{!Type.fieldVal9}">
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                                </div>                             
+                                            </td>     
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                        <lightning:inputField  aura:id="Relevantdept3"  variant="label-hidden" fieldName="ActionItem_2_RelavantDept__c" value="{!Type.fieldVal10}">
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!--ActionItem3-->
+                                        <tr class="slds-hint-parent">
+                                            <td/>
+                                            <td data-label="reason5">
+                                                <div class="slds-truncate" title="">Action Item 3</div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:textarea type="text" name="{!Type.LostTypeCode__c}" aura:id="detaillv5" value="{!Type.fieldVal11}" variant="label-stacked"  />
+                                                </div>
+                                            </td>
+                                            <th>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                        <lightning:inputField aura:id="Deptincharge4" variant="label-hidden" fieldName="ActionItem_3_InChargeDept__c" value="{!Type.fieldVal12}">
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                                </div>                             
+                                            </th>     
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                        <lightning:inputField  aura:id="Relevantdept4"  variant="label-hidden" fieldName="ActionItem_3_RelavantDept__c" value="{!Type.fieldVal13}">
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!--ActionItem4-->
+                                        <tr class="slds-hint-parent">
+                                            <td/>
+                                            <td data-label="reason6">
+                                                <div class="slds-truncate" title="{!Type.MasterLosttype_Eng__c}">Action Item 4</div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:textarea type="text" name="{!Type.LostTypeCode__c}" aura:id="detaillv6" value="{!Type.fieldVal14}"  variant="label-stacked"  />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                        <lightning:inputField aura:id="Deptincharge5"  variant="label-hidden"  fieldName="ActionItem_4_InChargeDept__c" value="{!Type.fieldVal15}">
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                                </div>                             
+                                            </td>     
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                        <lightning:inputField  aura:id="Relevantdept5"  variant="label-hidden" fieldName="ActionItem_4_RelavantDept__c" value="{!Type.fieldVal16}">
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!--ActionItem5-->
+                                        <tr class="slds-hint-parent">
+                                            <td/>
+                                            <td data-label="reason">
+                                                <div class="slds-truncate" title="{!Type.MasterLosttype_Eng__c}">Action Item 5</div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:textarea type="text" name="{!Type.LostTypeCode__c}" aura:id="detaillv7" value="{!Type.fieldVal17}" variant="label-stacked"  />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-truncate"> 
+                                                    <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                        <lightning:inputField aura:id="Deptincharge6"  variant="label-hidden"  fieldName="ActionItem_5_InChargeDept__c" value="{!Type.fieldVal18}">
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                                </div>                             
+                                            </td>     
+                                            <td>
+                                                <div class="slds-truncate "> 
+                                                    <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                        <lightning:inputField  aura:id="Relevantdept6"  variant="label-hidden" fieldName="ActionItem_5_RelavantDept__c" value="{!Type.fieldVal19}">
+                                                        </lightning:inputField>                                   
+                                                    </lightning:recordEditForm>
+                                                </div>
+                                                
+                                            </td>
+                                        </tr>
+                                        
+                                    </aura:iteration>
+                                    <!--END V1.1 added by @rakshit.@samsung.com (added dynamic values to the fields in the below table-->
+                                    <!--Default Picklist-->
+                                    <!--Lost Reason-->
+                                    <tr>
+                                        <aura:if isTrue="{!v.setLangEng}">
+                                            <td>
+                                                <div class="slds-truncate "> 
+                                                    <lightning:select  name="Typepicklist" aura:id="Typepicklist" onchange="{!c.changePicklistval}" value="{!v.picklistval}">
+                                                        <option value="">--None--</option>
+                                                        <aura:iteration items="{!v.LostTypeList}" var="Losttype">
+                                                            <option value="{!Losttype.Type_Eng__c}">{!Losttype.Type_Eng__c}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </td>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.setLangKor}">
+                                            <td>
+                                                <div class="slds-truncate "> 
+                                                    <lightning:select  name="Typepicklis1t" aura:id="Typepicklist" onchange="{!c.changePicklistval}" value="{!v.picklistval}">
+                                                        <option value="">--None--</option>
+                                                        <aura:iteration items="{!v.LostTypeList}" var="Losttype">
+                                                            <option value="{!Losttype.Type_Kor__c}">{!Losttype.Type_Kor__c}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </td>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.setLangEng}">
+                                            
+                                            <td data-label="reason8">
+                                                <div class="slds-truncate" title="PicklistAction">
+                                                    <abbr class="slds-required" title="required" aura:id="PreReq">*											
+                                                    </abbr>
+                                                    Lost Reason
+                                                </div>
+                                            </td>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.setLangKor}">
+                                            <td data-label="reason8">
+                                                <div class="slds-truncate" title="PicklistAction">
+                                                    <abbr class="slds-required" title="required" aura:id="PreReq">*											
+                                                    </abbr>
+                                                    실주요인
+                                                </div>
+                                            </td>
+                                        </aura:if>
+                                        
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:textarea type="text" name="detaillv8" aura:id="detaillv8" value="{!v.lostresndetail}" variant="label-stacked"  />
+                                            </div>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <!--Improvement-->
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <aura:if isTrue="{!v.setLangEng}">
+                                            <td data-label="reason9">
+                                                <div class="slds-truncate" title="PicklistAction1">
+                                                    <abbr class="slds-required" title="required" aura:id="PreReq">*											
+                                                    </abbr>
+                                                    Improvement
+                                                </div>
+                                            </td>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.setLangKor}">
+                                            <td data-label="reason9">
+                                                <div class="slds-truncate" title="PicklistAction1">
+                                                    <abbr class="slds-required" title="required" aura:id="PreReq">*											
+                                                    </abbr>
+                                                    개선방안
+                                                </div>
+                                            </td>
+                                        </aura:if>
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:textarea type="text" name="detaillv9" aura:id="detaillv9" value="{!v.impresndetail}" variant="label-stacked"  />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                    <lightning:inputField aura:id="Deptincharge7" variant="label-hidden" fieldName="Improve_InChargeDept__c" value="{!v.imprvchngdept}">
+                                                    </lightning:inputField>                                   
+                                                </lightning:recordEditForm>
+                                            </div>                             
+                                        </td>     
+                                        <td>
+                                            <div class="slds-truncate "> 
+                                                <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                    <lightning:inputField  variant="label-hidden" aura:id="Relevantdept7" fieldName="Improve_RelavantDept__c" value="{!v.imprvrevdept}">
+                                                    </lightning:inputField>                                   
+                                                </lightning:recordEditForm>
+                                            </div>
+                                            
+                                        </td>
+                                    </tr>
+                                    <!--Action Item 1-->
+                                    <tr>
+                                        <td></td>
+                                        <td data-label="reason8">
+                                            <div class="slds-truncate" title="PicklistAction">
+                                                <abbr class="slds-required" title="required" aura:id="PreReq">*											
+                                                </abbr>
+                                                Action Item 1
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:textarea type="text" name="detaillv10" aura:id="detaillv10" value="{!v.action1detail}" variant="label-stacked"  />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                    <lightning:inputField aura:id="Deptincharge8" variant="label-hidden" fieldName="ActionItem_1_InChargeDept__c" value="{!v.action1chngdept}">
+                                                    </lightning:inputField>                                   
+                                                </lightning:recordEditForm>
+                                            </div>                             
+                                        </td>     
+                                        <td>
+                                            <div class="slds-truncate "> 
+                                                <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                    <lightning:inputField  aura:id="Relevantdept8"  variant="label-hidden" fieldName="ActionItem_1_RelavantDept__c" value="{!v.action1revdept}">
+                                                    </lightning:inputField>                                   
+                                                </lightning:recordEditForm>
+                                            </div>
+                                            
+                                        </td>
+                                    </tr>
+                                    <!--Action Item 2-->
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td data-label="reason8">
+                                            <div class="slds-truncate" title="PicklistAction">Action Item 2</div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:textarea type="text" name="detaillv11" aura:id="detaillv11" value="{!v.action2detail}" variant="label-stacked"  />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                    <lightning:inputField aura:id="Deptincharge9" variant="label-hidden" fieldName="ActionItem_2_InChargeDept__c" value="{!v.action2chngdept}">
+                                                    </lightning:inputField>                                   
+                                                </lightning:recordEditForm>
+                                            </div>                             
+                                        </td>     
+                                        <td>
+                                            <div class="slds-truncate "> 
+                                                <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                    <lightning:inputField  aura:id="Relevantdept9" variant="label-hidden" fieldName="ActionItem_2_RelavantDept__c" value="{!v.action2revdept}">
+                                                    </lightning:inputField>                                   
+                                                </lightning:recordEditForm>
+                                            </div>
+                                            
+                                        </td>
+                                        
+                                    </tr>
+                                    <!--Action Item 3-->
+                                    <tr>
+                                        <td></td>
+                                        <td data-label="reason8">
+                                            <div class="slds-truncate" title="{PicklistAction}">Action Item 3</div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:textarea type="text" name="detaillv12" aura:id="detaillv12" value="{!v.action3detail}" variant="label-stacked"  />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                    <lightning:inputField aura:id="Deptincharge10" variant="label-hidden" fieldName="ActionItem_3_InChargeDept__c" value="{!v.action3chngdept}">
+                                                    </lightning:inputField>                                   
+                                                </lightning:recordEditForm>
+                                            </div>                             
+                                        </td>     
+                                        <td>
+                                            <div class="slds-truncate "> 
+                                                <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                    <lightning:inputField  aura:id="Relevantdept10"  variant="label-hidden" fieldName="ActionItem_3_RelavantDept__c" value="{!v.action3revdept}">
+                                                    </lightning:inputField>                                   
+                                                </lightning:recordEditForm>
+                                            </div>
+                                            
+                                        </td>
+                                        
+                                    </tr>
+                                    <!--Action Item 4-->
+                                    <tr>
+                                        <td></td>
+                                        <td data-label="reason8">
+                                            <div class="slds-truncate" title="{PicklistAction}">Action Item 4</div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:textarea type="text" name="detaillv13" aura:id="detaillv13" value="{!v.action4detail}" variant="label-stacked"  />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                    <lightning:inputField aura:id="Deptincharge11"  variant="label-hidden"  fieldName="ActionItem_4_InChargeDept__c" value="{!v.action4chngdept}">
+                                                    </lightning:inputField>                                   
+                                                </lightning:recordEditForm>
+                                            </div>                             
+                                        </td>     
+                                        <td>
+                                            <div class="slds-truncate "> 
+                                                <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                    <lightning:inputField  aura:id="Relevantdept11"  variant="label-hidden" fieldName="ActionItem_4_RelavantDept__c" value="{!v.action4revdept}">
+                                                    </lightning:inputField>                                   
+                                                </lightning:recordEditForm>
+                                            </div>
+                                            
+                                        </td>                                    	
+                                    </tr>
+                                    <!--Action Item 5-->
+                                    <tr>
+                                        <td></td>
+                                        <td data-label="reason8">
+                                            <div class="slds-truncate" title="{PicklistAction}">Action Item 5</div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:textarea type="text" name="detaillv14" aura:id="detaillv14" value="{!v.action5detail}" variant="label-stacked"  />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="slds-truncate"> 
+                                                <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c">
+                                                    <lightning:inputField aura:id="Deptincharge12"  variant="label-hidden"  fieldName="ActionItem_5_InChargeDept__c" value="{!v.action5chngdept}">
+                                                    </lightning:inputField>                                   
+                                                </lightning:recordEditForm>
+                                            </div>                             
+                                        </td>     
+                                        <td>
+                                            <div class="slds-truncate "> 
+                                                <lightning:recordEditForm  objectApiName="Lost_Countermeasure__c" >
+                                                    <lightning:inputField  aura:id="Relevantdept12"  variant="label-hidden" fieldName="ActionItem_5_RelavantDept__c" value="{!v.action5revdept}">
+                                                    </lightning:inputField>                                   
+                                                </lightning:recordEditForm>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!--Default Picklist END-->
+                                </tbody>
+                            </table>
+                        </aura:if> 
+                        <!--TABLE 2/-->
+                    </aura:if>
+                </lightning:card>
+            </div>
+        </div>
+    </div>
+    <!-- // Body -->
+    
+    <!-- Footer -->
+    
+    <!-- <footer class="slds-card__footer slds-var-p-left_xx-large"> -->
+    <div class="slds-col modal-footer slds-modal__footer slds-var-p-left_xx-large" style="height: 100%"> 
+        <lightning:button variant="neutral" label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{!c.clickCancel}" />
+        <lightning:button variant="brand" label="{!$Label.c.COMM_BTN_SAVE}" onclick="{!c.clickSave}"/>
+    </div>          
+    
+    <!--  </footer>   -->
+    
+</aura:component>

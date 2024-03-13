@@ -1,0 +1,67 @@
+<!--
+  @description       : 
+  @author            : seonju.jin@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-08-02
+  @last modified by  : seonju.jin@dkbmc.com
+-->
+<aura:component
+    controller="IF_BatchExecute"
+    implements="flexipage:availableForRecordHome,lightning:actionOverride,force:hasRecordId,lightning:isUrlAddressable,force:appHostable"
+    access="global" >
+
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:attribute name="activeSections" type="List" default="['A']" />
+    <aura:attribute name="activeSectionsMessage" type="String" default="" />
+    <aura:attribute name="isAdminProfile" type="Boolean" default="false" />
+    <aura:attribute name="BackupProfileList" type="List" default="[]" />
+    <aura:attribute name="profileColumns" type="List" default="[]" />
+    <aura:attribute name="cronTriggerList" type="List" default="[]" />
+    <aura:attribute name="cronColumns" type="List" default="[]" />
+
+    <aura:html tag='style'>
+        .slds-scrollable_x, .slds-scrollable--x{
+            width: 100%;
+        }
+    </aura:html>
+    <div ><!--    style="background-color:rgb(250, 249, 243);" -->
+
+        <lightning:card >
+            <aura:set attribute="title">
+                <div style="min-width: 300px;">유저 프로필 백업 리스트 </div>
+                <div style="font-size: 12px;"><lightning:button variant="brand" label="프로필 ReadOnly 업데이트" class="slds-float_left" onclick="{!c.updateReadProfile}"/></div>
+                <div style="font-size: 12px;margin-left: 5px;"><lightning:button variant="brand" label="프로필 복원" class="slds-float_left" onclick="{!c.updateRestoreProfile}"/></div>
+            </aura:set>
+            <div   style="witdh:100%;">
+                <div style="height: 300px; width:100%">
+                    <lightning:datatable
+                    keyField="id"
+                    data="{! v.BackupProfileList }"
+                    columns="{! v.profileColumns }"
+                    hideCheckboxColumn="true"
+                    />
+                </div>
+            </div>
+        </lightning:card>
+
+        <lightning:card >
+            <aura:set attribute="title">
+                <div style="min-width: 300px;">Batch Execute.(IF-141(IF_EloquaLeaderInfoController), IF-133(Batch_KnoxApprovalDetailController), IF-135(Batch_EccUpdateStatusController))</div>
+                <div style="font-size: 12px;"><lightning:button variant="brand" label="배치실행" class="slds-float_left" onclick="{!c.runBatchExecute}"/></div>
+                <div style="font-size: 12px;margin-left: 5px;"><lightning:button variant="brand-outline" label="refresh" class="slds-float_left" onclick="{!c.getCronTrigger}"/></div>
+            </aura:set>
+            <div   style="margin-top:10px; witdh:100%;">
+                <div style="height: 300px; width:100%;">
+                    <lightning:datatable
+                            keyField="id"
+                            data="{! v.cronTriggerList }"
+                            columns="{! v.cronColumns }"
+                            hideCheckboxColumn="true"
+                            /><!-- hideCheckboxColumn="true" -->
+                </div>
+            </div>
+        </lightning:card>
+    </div>
+    
+</aura:component>

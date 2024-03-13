@@ -1,0 +1,159 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2021-12-09
+  @last modified by  : younghoon.kim@dkbmc.com
+-->
+<aura:component implements="force:appHostable" controller="OpportunitySearchController" access="global" >
+	<!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <!-- <aura:handler name="change" value="{!v.selectedValue.Service}" action="{!c.serviceChange}"/> -->
+
+	<!-- [Picklist Attribute] -->
+	<aura:attribute name="status" type="List" default="[]"/>
+    <aura:attribute name="rcdType" type="List" default="[]"/>
+    <aura:attribute name="service" type="List" default="[]"/>
+    <aura:attribute name="solution" type="List" default="[]"/>
+    <aura:attribute name="collaboration" type="List" default="[]"/>
+    <aura:attribute name="internalBiz" type="List" default="[]"/>
+
+    <!-- [Search Attribute] -->
+    <aura:attribute name="selectedValue" type="Object" default="{}"/>
+    <aura:attribute name="selectedServiceId" type="String" default=""/>
+    
+    <!-- [Attribute] -->
+    <aura:attribute name="searchKeyword" type="String" default=""/>
+    <aura:attribute name="OpptyList" type="List" default="[]"/>
+    <aura:attribute name="loading" type="Boolean" default="true"/>
+    <aura:attribute name="nowPage" type="Integer" default="1"/>
+    <aura:attribute name="totalPage" type="Integer" default="1"/>
+    <aura:attribute name="totalCount" type="String" default=""/>
+    
+    <aura:attribute name="isMobile" type="Boolean" default="false"/>
+    
+    <!-- datatable attribute -->
+    <aura:attribute name="selectedCurrValue" type="Object" default="{}"/>   <!-- 현재 조회된 리스트의 조건 -->
+    <aura:attribute name="data" type="Object" default="{}"/>
+    <aura:attribute name="columns" type="List" default="[]"/>
+
+    <aura:attribute name="loginUserId" type="String" default=""/>
+
+    <!-- ExcelExport required script -->
+    <ltng:require scripts="{!join(',',
+        $Resource.HTML2XLSX + '/html2xlsx/cash.min.js',
+        $Resource.HTML2XLSX + '/html2xlsx/cash.inliner.min.js',
+        $Resource.HTML2XLSX + '/html2xlsx/jszip.min.js',
+        $Resource.HTML2XLSX + '/html2xlsx/FileSaver.min.js',
+        $Resource.HTML2XLSX + '/html2xlsx/better-xlsx.min.js',
+        $Resource.HTML2XLSX + '/html2xlsx/moment.min.js',
+        $Resource.HTML2XLSX + '/html2xlsx/html2xlsx.js')}"
+    />
+
+    <!-- [Body] -->
+    <lightning:card class="wrapperCard">
+        <aura:set attribute="title">
+            <lightning:icon iconName="standard:opportunity" alternativeText="{!$Label.c.BOSEARCH_LAB_HEADER}" title="{!$Label.c.BOSEARCH_LAB_HEADER}" />
+            <span style="padding-left: 10px;">{!$Label.c.BOSEARCH_LAB_HEADER}</span>
+        </aura:set>
+        <aura:set attribute="actions">
+            <!-- <lightning:layoutItem padding="around-small" size="12" class="Layout_Search"> -->
+            <lightning:layout verticalAlign="center" horizontalAlign='right' class="Layout_Search_Line1 "> <!-- horizontalAlign='center' -->
+                <lightning:layoutItem padding="around-small" class="Custom_Button header-button">
+                    <div class="slds-clearfix test">
+                        <div class="slds-float_right">
+                            <lightning:button variant="brand" label="{!$Label.c.BOSEARCH_BTN_SEARCH}" iconName="utility:search" iconPosition="left" title="Search" onclick="{!c.search}" class="Button_New"/>
+                            <lightning:button variant="brand-outline" label="Excel Download" iconName="utility:download" iconPosition="left" title="Download" onclick="{!c.scriptLoaded}" disabled="{!v.loading}" />
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+            <lightning:layout verticalAlign="center" class="Layout_Search_Line2"> <!-- horizontalAlign='center' -->
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Opportunity Name" label='Opportunity Name' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>                    
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Opportunity Code" label='Opportunity Code' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Opportunity Record Type" label='Opportunity Record Type' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Opportunity Status" label='Opportunity Status' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Expected Contract Date(Start)" label='Expected Contract Date(Start)' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Expected Contract Date(End)" label='Expected Contract Date(End)' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+            </lightning:layout>
+            <lightning:layout verticalAlign="center" class="Layout_Search_Line2"> <!-- horizontalAlign='center' -->
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Sales Rep." label='Sales Rep.' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>                    
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Company Name" label='Company Name' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Contract Account" label='Contract Account' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Origin Account" label='Origin Account' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="1st CloseDate(Start)" label='1st CloseDate(Start)' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="1st CloseDate(End)" label='1st CloseDate(End)' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+            </lightning:layout>
+            <lightning:layout verticalAlign="center" class="Layout_Search_Line2"> <!-- horizontalAlign='center' -->
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Primary Sales Dept. (Lv.3)" label='Primary Sales Dept. (Lv.3)' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>                    
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Primary Delivery Dept. (Lv.3)" label='Primary Delivery Dept. (Lv.3)' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Service" label='Service' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Solution" label='Solution' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Collaboration" label='Collaboration' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small" class="LayoutItem_Line">
+                    <lightning:input name="Internal Biz." label='Internal Biz.' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                </lightning:layoutItem>
+            </lightning:layout>
+            <!-- </lightning:layoutItem> -->
+        </aura:set>
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem padding="around-small" size="12" class="Layout_Body">
+                <lightning:layout verticalAlign="center" horizontalAlign="center" class="Layout_Table">
+                    <lightning:layoutItem size='12' flexibility="auto" padding="around-small" class="LayoutItem_Table">
+                        <div class="Table_Wrapper">
+                            <!--
+                            <lightning:datatable 
+                                showRowNumberColumn="true" 
+                                columns="{!v.columns}" 
+                                data="{!v.wldList}" 
+                                keyField="id"
+                                hideCheckboxColumn = "true"
+                                enableInfiniteLoading="{!v.enableInfiniteLoading}"
+                                loadMoreOffset="20"
+                                onloadmore="{!c.loadMoreData}"
+                                defaultSortDirection="{!v.defaultSortDirection}"
+                                sortedDirection="{!v.sortDirection}"
+                                sortedBy="{!v.sortedBy}"
+                                onsort="{!c.handleSort}"/>
+                            -->
+                        </div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:card> 
+</aura:component>

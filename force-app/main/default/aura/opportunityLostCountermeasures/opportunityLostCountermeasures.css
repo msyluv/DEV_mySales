@@ -1,0 +1,14 @@
+.THIS .table{
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.THIS .td{
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+.THIS .test{
+  height: 20px;
+  }
+.THIS .slds-textarea {
+    height:75px !important;
+}

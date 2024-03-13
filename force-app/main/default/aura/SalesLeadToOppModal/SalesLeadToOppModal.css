@@ -1,0 +1,48 @@
+.THIS .body{
+    padding-top: 10px;
+    overflow: auto;
+    height: 400px;
+}
+.THIS .footer {
+    text-align: right;
+    width: 100%;
+}
+.THIS .textCenter {
+    text-align: center;
+}
+.THIS .pointer {
+    width : 22%;
+    vertical-align: middle;
+}
+.THIS .leftTable{
+    width: 55%;
+    float:left;
+}
+.THIS .rightTable{
+    width: 45%;
+    float: left;
+}
+.THIS .inputwidth{
+    width: 345px;
+}
+.THIS .addfield{
+    width: 98%;
+    margin-left: 1%;
+    margin-bottom: 10px;
+}
+.THIS .radioBox{
+    position: absolute;
+    top: 45%;
+    left: 44%;
+}
+.THIS .accTD{
+    height: 122px;
+    vertical-align: middle;
+}
+.THIS .AmountField{
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+.THIS .AmountField .slds-form-element__control{
+    width: 99%;
+}

@@ -1,0 +1,29 @@
+.THIS .space{
+    height: 30px;
+}
+.THIS .header{
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+.THIS .slds-truncate {
+    text-align: center;
+    padding: 3px 6px 3px 6px;
+}
+.THIS .slds-table_cell-buffer tr>th:first-child{
+    padding: 0px;
+}
+.THIS caption{
+    text-align: right;
+}
+.THIS .subTitle{
+    font-size: 15px;
+    padding: 5px 0;
+    font-weight: bold;
+}
+.THIS thead .headTD{
+    border-top: var(--lwc-borderWidthThin,1px) solid var(--lwc-colorBorder,rgb(221, 219, 218));
+}
+.THIS .fontUP {
+    font-size: 15px;
+}

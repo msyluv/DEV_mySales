@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Url__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(Type__c, &quot;Report&quot;), HYPERLINK(
+  &quot;/&quot; &amp;  Report_ID__c ,
+   Report_Name__c ,
+  &quot;_self&quot;
+),
+    IF(ISPICKVAL(Type__c, &quot;Dashboard&quot;), HYPERLINK(
+&quot;/&quot; &amp; Dashboard_ID__c ,
+Dashboard_Name__c ,
+&quot;_self&quot;
+),
+         &quot;&quot;)
+    )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>URL</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

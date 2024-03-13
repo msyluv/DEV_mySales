@@ -1,0 +1,19 @@
+<apex:page standardController="WeeklyReport__c" >
+    <apex:slds /> 
+    <div class="slds-box" style="border: 1px solid blue;">
+        <b style="color:blue">
+            <apex:outputText escape="false" value="{!$Label.COMPLIANCE_GUIDE_01}" ></apex:outputText>
+        </b>
+    </div>
+    <!--
+<div class="slds-notify slds-notify_alert slds-alert_warning" role="alert" style="justify-content: left; text-align: left;">
+<span class="slds-assistive-text">warning</span>
+<span class="slds-icon_container slds-icon-utility-warning slds-m-right_x-small" title="Description of icon when needed">
+</span>
+<h2>
+<apex:outputText escape="false" value="{!$Label.COMPLIANCE_GUIDE_01}" ></apex:outputText>
+</h2>
+</div>
+-->
+    
+</apex:page>

@@ -1,0 +1,35 @@
+<!--
+  @description       : 
+  @author            : zenith21c@test.com
+  @group             : 
+  @last modified on  : 02-20-2022
+  @last modified by  : zenith21c@test.com
+-->
+<template>
+    <h2 class="partnerBusinessHeader">{listTile}</h2>
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <template if:true={partnerBusinessLabels.data}>
+                    <th>{businessCode}</th>
+                    <th>{projectName}</th>
+                    <th>{partnerSales}</th>
+                    <th>{scheduledServiceOpeningDate}</th>
+                </template>
+            </tr>
+        </thead>
+        <tbody>
+            <template for:each={partnerBusinessList} for:item="data">
+                <tr class="slds-hint-parent" key={data.Id}>
+                    <td><a href={data.recordUrl}>{data.Name}</a></td>
+                    <td>{data.projectName}</td>
+                    <td>{data.partnerSales}</td>
+                    <td>{data.formattedServiceDate}</td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+    <div class="view-all">
+        <a onclick={handleListView}>{viewAll}</a>
+    </div>
+</template>

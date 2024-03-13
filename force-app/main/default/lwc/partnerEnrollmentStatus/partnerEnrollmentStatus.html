@@ -1,0 +1,49 @@
+<!--
+  @description       : 
+  @author            : rakshit.s@samsung.com.sds.mspdev
+  @group             : 
+  @last modified on  : 06-03-2022
+  @last modified by  : ukhyeon.lee@samsung.com
+-->
+<template>
+    <template if:false={editMode}>
+    <lightning-layout>
+        <lightning-layout-item size="6" class="top-section">
+            <lightning-card  variant="Narrow">
+                <div class="slds-text-heading_large slds-hyphenate slds-align_absolute-center" style="font-weight:500;">{mainHeading}</div>
+                    <lightning-layout style="padding: 10px 40px;">
+                        <lightning-layout-item size="12">
+                            <div class="slds-is-relative">
+                                <label class="custom-label">{emailLabel}</label>
+                                <lightning-input type="email" data-id="emailInput" variant="label-inline" class="slds-form-element__control slds-grow" name="userEmail" 
+                                    onchange={emailChangedHandler} required></lightning-input>
+                            </div>
+                            <div class="slds-is-relative">
+                                <label class="custom-label">{enrollmentReqLabel}</label>
+                                <lightning-input type="text" data-id="enrollmentInput" variant="label-inline" class="slds-form-element__control slds-grow" name="reqNo" 
+                                    onchange={reqNoAction} required></lightning-input>
+                            </div>
+                            <template if:true={showPath}>
+                                <c-custom-path emailentered={emailVal} enrollmentnum={reqVal}></c-custom-path> 
+                                <lightning-formatted-rich-text  data-status={isError} value={messageVal} class="slds-align_absolute-center" style="font-weight: bold; padding:2%"></lightning-formatted-rich-text>
+                            </template>
+                            <template if:true={showFinalMessage}>
+                                
+                                <lightning-formatted-rich-text  data-status={isError} value={messageVal} class="slds-align_absolute-center" style="font-weight: bold; padding:2%"></lightning-formatted-rich-text>
+                            </template>
+                            <span class="slds-grid" style="margin-left: 31.8%;">
+                                <lightning-button variant="neutral" label={initializeButton} title="Initialize" onclick={handleInitialize} class="slds-m-left_x-small"></lightning-button>
+                                <lightning-button variant="brand" label={searchButton} title="Search" onclick={handleSearch} class="slds-m-left_x-small"></lightning-button>
+                                <lightning-button variant="brand" label={editReviewButton} title="Edit" onclick={handleEdit} class="slds-m-left_x-small"></lightning-button>
+                            </span>
+                        </lightning-layout-item>
+                    </lightning-layout>
+            </lightning-card>
+        </lightning-layout-item>
+    </lightning-layout>
+    </template>
+
+    <template if:true={editMode}>
+        <c-partner-enrollment-request-form is-coming-from-status-check-component=true read-only-mode={filledData.completeReadOnly} current-status={filledData.Status__c} reviewer-name={filledData.Reviewer__c} my-record-id={filledData.Id} from-edit-context={filledData.EditContext} enrollment-number={filledData.Name} req-no={filledData.Name} subject={filledData.Subject__c} company-name={filledData.Company_Name__c} company-phone={filledData.Company_Phone__c} company-fax={filledData.Company_Fax__c} company-website={filledData.Company_Website__c} first-name={filledData.First_Name__c} lastname={filledData.Last_Name__c} mobile-phone={filledData.Mobile_Phone__c} email-entered={filledData.Work_Email__c} type-value={filledData.Partner_Type__c} description={filledData.Description__c}></c-partner-enrollment-request-form>
+    </template>
+</template>

@@ -1,0 +1,162 @@
+.THIS {
+    background-color : #FFFFFF;
+    padding-bottom : 0.5rem !important;
+}
+
+.THIS .inline-label label {
+    width : 100%;
+    height : 100%;
+    padding-top : 7px;
+    text-align : right;
+}
+
+.THIS .left-buttons {
+    position:absolute;
+    left:0;
+}
+
+.THIS .margin {
+    width : 80px;
+    display:inline;
+}
+
+.THIS .confirm-modal {
+    position:relative;
+}
+
+@media (min-width: 48em) {
+    .THIS .slds-form-element_horizontal .slds-form-element__label {
+        max-width : 40%;
+    }
+    .THIS .slds-form-element_horizontal .slds-form-element__control {
+        padding-left : 40%;
+    }
+}
+
+.THIS .search-pane-button {
+    text-align : right;
+}
+
+.THIS .full-size {
+    width : 100%;
+    max-width : 100%;
+    min-width : 100%;
+    padding : 0;
+    display : block;
+}
+
+.THIS .uiTablePane {
+    display : flex;
+    border : solid 1px #CECECE;
+}
+.THIS .uiTablePaneLeft {
+    height : 100%;
+    overflow : hidden;
+    overflow-x : scroll;
+}
+
+.THIS .uiTablePaneRight {
+    position : relative;
+    border-left : solid 1px #CECECE;
+    height : 100%;
+}
+
+.THIS .uiTablePaneLeftScroll {
+    overflow : hidden;
+    overflow-y : scroll;
+    scrollbar-width : none;
+    -ms-overflow-style : none;
+}
+
+.THIS .uiTablePaneLeftScroll::-webkit-scrollbar {
+    width : 0;
+    height : 0;
+}
+
+.THIS .uiTablePaneRightGrid {
+    overflow : hidden;
+    overflow-x : scroll;
+}
+.THIS .uiTablePaneRightGrid::-webkit-scrollbar {
+    width : 0;
+    height : 0;
+}
+
+.THIS .uiTablePaneRightScroll {
+    border-right : solid 1px #CECECE;
+    overflow : hidden;
+    overflow : scroll;
+    scrollbar-width : none;
+    -ms-overflow-style : none;
+}
+
+.THIS .uiTableSumPane {
+    display : flex;
+    border-left : solid 1px #CECECE;
+    border-right : solid 1px #CECECE;
+    border-bottom : solid 1px #CECECE;
+    background-color : #F3F2F2;
+}
+
+.THIS .uiTablePaneLeftSum {
+    height : 100%;
+    padding : 6px;
+    padding-bottom : 5px;
+    border-right : solid 1px #CECECE;
+    text-align : right;
+    font-weight : bold;
+}
+
+.THIS .uiTablePaneRightSum {
+    height :30px;
+    overflow : hidden;
+}
+
+.THIS .uiTablePaneRightSum tbody td {
+    padding : 4px;
+    line-height : 20px;
+    border-right : solid 1px #CECECE;
+}
+
+.THIS .uiTablePane thead, .THIS .uiTablePane tbody, .THIS .uiTablePane tr {
+    width : 100%;
+}
+
+.THIS .uiTablePane thead th, .THIS .uiTablePane tbody td {
+    padding : 5px;
+    border-right : solid 1px #CECECE;
+}
+
+.THIS .uiTablePane thead tr, .THIS .uiTablePane tbody tr {
+    border-top : solid 1px #CECECE;
+}
+.THIS .uiTablePane thead tr:first-child, .THIS .uiTablePane tbody tr:first-child {
+    border-top : none;
+}
+.THIS .uiTablePane thead tr:last-child, .THIS .uiTablePane tbody tr:last-child {
+    border-bottom : solid 1px #CECECE;
+}
+
+.THIS .uiTablePane thead th {
+    background-color : #F3F2F2;
+    line-height : 20px;
+}
+.THIS .uiTablePane td {
+    line-height : 20px;
+}
+
+.THIS .cell-header {
+    text-align : center;
+}
+
+.THIS .number-cell {
+    text-align : right;
+}
+
+.THIS .slds-dropdown_fluid {
+    min-width : 100%;
+}
+
+.THIS .child-modal {
+    overflow: initial;
+}

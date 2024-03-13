@@ -1,0 +1,7 @@
+.THIS .table:hover {
+  background-color: #D8D8D8;
+}
+.THIS .table{
+  background-color: white;
+  padding: 5px;
+}

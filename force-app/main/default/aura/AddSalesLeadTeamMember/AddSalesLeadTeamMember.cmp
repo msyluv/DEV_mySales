@@ -1,0 +1,128 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2024-01-16
+  @last modified by  : vikrant.ks@samsung.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2021-02-05   younghoon.kim@dkbmc.com   Initial Version
+  1.1   2024-01-16   vikrant.ks@samsung.com    Added Team Role and changed header in UI(MySales-389)
+-->
+<aura:component implements="force:appHostable" controller="AddSalesLeadTeamMemberController" access="global" >
+	<aura:handler name="init" value="{!this}" action="{!c.init}" />
+	
+	<aura:attribute name="sltmList" type="List" default="[]"/>
+    <aura:attribute name="TeamRole" type="List" default="[]"/>
+    <aura:attribute name="AccessLevel" type="List" default="[]"/>
+    <aura:attribute name="ListViewId" type="String" default=""/>
+
+    <lightning:card >
+        <!-- [S] Header -->
+        <lightning:layout class='header_layout' verticalAlign="center" > <!--  verticalAlign="center" class="x-large" -->
+            <lightning:layoutItem size='12' padding='around-small' class='header_layoutItem' >
+                <header class="slds-modal__header">
+                    <h2 class="title slds-text-heading--medium">{!$Label.c.ADSLTM_Header}</h2><!--V1.1-->
+                </header>
+            </lightning:layoutItem>
+        </lightning:layout>
+        <!-- [E] Header -->
+        <!-- [S] Body -->
+        <lightning:layout multipleRows='true' class='body_layout'>
+            <lightning:layoutItem size='12' padding='around-small' class='item_table body_layoutItem'>
+                <div class="slds-grid slds-wrap">
+                    <aura:if isTrue="{!v.loading}">
+                        <lightning:spinner />
+                        <aura:set attribute="else">
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+								<colgroup>
+									<col width="4%"/><col width="30%"/><col width="30%"/><col width="30%"/><col width="6%"/><!--V1.1-->
+								</colgroup> 
+                                <thead>
+                                    <tr class="slds-text-title_caps">
+										<th scope="col">
+                                            <div class="slds-truncate"></div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SLT_TeamRole}">{!$Label.c.SLT_TeamRole}</div><!--V1.1-->
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SLTM_LAB_USER}">{!$Label.c.SLTM_LAB_USER}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SLTM_LAB_ACCESSLEVEL}">{!$Label.c.SLTM_LAB_ACCESSLEVEL}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.SLTM_LAB_ACTION}">{!$Label.c.SLTM_LAB_ACTION}</div>
+                                        </th>
+                                    </tr>
+                                </thead>   
+                                <tbody>      
+                                    <aura:iteration items="{!v.sltmList}" var="sltm" indexVar="index">
+                                        <tr>
+											<td style="text-align: center;"> 
+                                                {!index + 1}
+                                            </td>
+                                            <td>
+                                                <lightning:select value="{!sltm.TeamRole}" variant="label-hidden" class="selectBox">
+                                                    <option value="" text="{!$Label.c.ACCTEAM_LAB_NONE}"></option>
+                                                    <aura:iteration items="{!v.TeamRole}" var="role" indexVar="key">
+                                                        <option text="{!role.label}" value="{!role.value}" selected="{!role.value==sltm.TeamRole}"></option>
+                                                    </aura:iteration>
+                                                </lightning:select>                                     
+                                            </td>
+                                            <td>
+                                                <c:customLookup aura:id="clookup"
+                                                    iconName="standard:user"
+                                                    objectName="User"
+                                                    additionalDisplay="UserInfo__c"
+                                                    searchFields="Email"
+                                                    label=""
+                                                    filterFields = "IsActive"
+                                                    filterValues = "TRUE"
+                                                    filterConditions = "eq"
+                                                    minimum="1" 
+                                                    numOfQuery="20"
+                                                    selectedRecord="{!sltm.User}"
+                                                    required="true"/>
+                                            </td>
+                                            <td>
+                                                <lightning:select value="{!sltm.AccessLevel}" variant="label-hidden" class="selectBox">
+                                                    <option value="" text="{!$Label.c.ACCTEAM_LAB_NONE}"></option>
+                                                    <aura:iteration items="{!v.AccessLevel}" var="item" indexVar="key">
+                                                        <option text="{!item.label}" value="{!item.value}" selected="{!item.value==sltm.AccessLevel}"></option>
+                                                    </aura:iteration>
+                                                </lightning:select>                                     
+                                            </td>                                        
+                                            <td scope="col" style="vertical-align: bottom;width:10%;" data-set="{!index}">
+                                                <a onclick="{!c.add}" style="padding-right: 10px;">
+                                                    <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="x-small" alternativeText="add"/>
+                                                    <span class="slds-assistive-text">Add Icon</span>
+                                                </a> 
+                                                <a onclick="{!c.remove}"  class='icon-del' data-idx="{!index}">
+                                                    <lightning:icon variant="error" iconName="utility:delete" class="slds-icon slds-icon_small" size="x-small" alternativeText="icon"/>
+                                                    <span class="slds-assistive-text">Delete Icon</span>
+                                                </a>
+                                            </td> 
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>   
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+        <!-- [E] Body -->
+        <!-- [S] Footer -->
+        <lightning:layout class='footer_layout' verticalAlign="center" > <!--  verticalAlign="center" class="x-large" -->
+            <lightning:layoutItem size='12' padding='around-small' class='footer_layoutItem'>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="{!$Label.c.COMM_BTN_CANCEL}" title="Cancel" onclick="{!c.cancel}"></lightning:button>
+                    <lightning:button variant="brand" label="{!$Label.c.COMM_BTN_SAVE}" title="Save" onclick="{!c.saveTM}" ></lightning:button>
+                </footer>
+            </lightning:layoutItem>
+        </lightning:layout>
+        <!-- [E] Footer -->
+    </lightning:card>
+</aura:component>

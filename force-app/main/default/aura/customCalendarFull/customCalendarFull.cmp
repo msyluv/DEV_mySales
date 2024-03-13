@@ -1,0 +1,136 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 2020-11-16
+  @last modified by  : seonju.jin@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   11-03-2020   woomg@dkbmc.com   Initial Version
+-->
+<aura:component controller="CustomCalendarController" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global">
+
+    <!--<aura:attribute name="showSpinner" type="Boolean" default="true" />-->
+
+    <aura:attribute name="firstCall"
+        type="Boolean"
+        default="true"
+        access="global"                    
+        description="constructor call or not"/>
+
+    <aura:attribute name="hasCompleteField"
+        type="Boolean"
+        default="false"
+        access="global"                    
+        description="Event has Complete field?"/>
+
+    <aura:attribute name="fieldComplete"
+        type="String"
+        default=""
+        access="global"                    
+        description="Complete filed name of Event?"/>
+
+    <aura:attribute name="isRoleId"
+        type="Boolean"
+        default="true"
+        access="global"                    
+        description="Id array for Role? Not User's?"/>
+
+    <aura:attribute name="ids"
+        type="String[]"
+        default=""
+        access="global"                    
+        description="Role or User Ids"/>
+
+    <aura:attribute name="className"
+        type="String"
+        default=""
+        access="global"                    
+        description="Event element css style"/>
+
+    <aura:attribute name="editable"
+        type="Boolean"
+        default="false"
+        access="global"                    
+        description="Event editable or not"/>
+
+    <aura:attribute name="useUrl"
+        type="Boolean"
+        default="false"
+        access="global"                    
+        description="Use Event direct link"/>
+    
+    <aura:attribute name="color"
+        type="String"
+        default="lightblue"
+        access="global"                    
+        description="Calendar Event color"/>
+
+    <aura:attribute name="backgroundColor"
+        type="String"
+        default=""
+        access="global"                    
+        description="Calendar Event background color"/>
+
+    <aura:attribute name="borderColor"
+        type="String"
+        default=""
+        access="global"                    
+        description="Calendar Event border color"/>
+
+    <aura:attribute name="textColor"
+        type="String"
+        default="#000000"
+        access="global"                    
+        description="Calendar Event text color"/>
+
+    <!-- Internal Attribute -->
+    <aura:attribute name="event"
+        type="Object"
+        default="true"
+        access="global"                    
+        description="event object to pass child modal"/>
+
+	<aura:attribute name="ready"
+        type="Boolean"
+        default="false"
+        access="global"                    
+        description="Used to check if resources have been loaded"/>
+
+    <aura:method name="goPrev" action="{!c.goPrev}" access="PUBLIC"/>
+    <aura:method name="goNext" action="{!c.goNext}" access="PUBLIC"/>
+    <aura:method name="goToday" action="{!c.goToday}" access="PUBLIC"/>
+    <aura:method name="viewMonth" action="{!c.viewMonth}" access="PUBLIC"/>
+    <aura:method name="viewList" action="{!c.viewList}" access="PUBLIC"/>
+	<aura:method name="resetEvents" action="{!c.resetEvents}" access="PUBLIC">
+        <aura:attribute name="ids"
+            type="String[]"
+            default=""/>
+        <aura:attribute name="isRoleId"
+            type="Boolean"
+            default="true"/>
+        <aura:attribute name="checkedValue"
+            type="List"
+            default="[]"/>
+    </aura:method>
+
+    <!-- use the requires to load the libraries -->
+    <ltng:require styles="{!$Resource.FullCalendar310 + '/fullcalendar-3.10.2/fullcalendar.min.css'}"
+                  scripts="{!join(',',
+                    $Resource.FullCalendar310 + '/fullcalendar-3.10.2/lib/jquery.min.js', 
+                    $Resource.FullCalendar310 + '/fullcalendar-3.10.2/lib/moment.min.js',
+                    $Resource.FullCalendar310 + '/fullcalendar-3.10.2/fullcalendar.min.js')}"
+                  afterScriptsLoaded="{!c.afterScriptsLoaded}"/>
+
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+            
+    <div>
+        <div id="calendarComp"></div>
+    </div>
+
+    <c:customCalendarEventModal aura:id="evmodal" event="{!v.event}"/>
+</aura:component>

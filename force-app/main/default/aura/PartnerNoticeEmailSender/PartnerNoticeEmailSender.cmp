@@ -1,0 +1,70 @@
+<!--
+  @description       : 
+  @author            : ukhyeon.lee@samsung.com
+  @group             : 
+  @last modified on  : 08-05-2022
+  @last modified by  : ukhyeon.lee@samsung.com
+-->
+<aura:component controller="PartnerNoticeEmailSenderController"
+    implements="flexipage:availableForRecordHome,force:appHostable,force:lightningQuickActionWithoutHeader,force:hasRecordId"
+    access="global" >
+
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+    <!-- [Attribute] -->
+    <aura:attribute name="recordId" type="String" default=""/>
+    <aura:attribute name="Email_Send_Subject__c" type="String" default=""/>
+    <aura:attribute name="Email_Send_Count__c" type="String" default=""/>
+    <aura:attribute name="Last_Email_Sent_Date__c" type="String" default="-"/>
+    <aura:attribute name="Email_Sender" type="String" default=""/>
+    <aura:attribute name="isInputDisabled" type="Boolean" default="true"/>
+	<aura:attribute name="isSendDisabled" type="Boolean" default="true"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+
+	<div >
+        <section class="modal slds-modal slds-fade-in-open">
+            <div class="slds-modal__container modal__container">
+                <div class="slds-is-relative">
+                    <!-- [S] Spinner -->
+                    <aura:if isTrue="{!v.showSpinner}">
+                        <lightning:spinner />
+                    </aura:if>
+                    <!-- [E] Spinner -->
+                    <!-- [S] Header-->
+                    <header class="slds-modal__header">
+                        <h2 class="title slds-text-heading--medium">{!$Label.c.PARTNER_NOTICE_EMAIL_POPUP_TITLE}</h2>
+                    </header>
+                    <!-- [E] Header-->
+                    <!-- [S] Body -->
+                    <div class="slds-modal__content modal__content" id="modal-content-id-1">
+                        <div class="modal_body">
+                            <lightning:layout multipleRows="true" verticalAlign="center">
+                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                                    <lightning:input type="text" aura:id="Email_Sender" name="Email_Sender" label="{!$Label.c.PARTNER_NOTICE_EMAIL_POPUP_SENDER}" variant="label-stacked" value="{!v.Email_Sender}" readonly="true"/>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="6" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6">
+                                    <lightning:input type="number" aura:id="Email_Send_Count__c" name="Email_Send_Count__c" label="{!$Label.c.PARTNER_NOTICE_EMAIL_POPUP_SENDCNT}" variant="label-stacked" value="{!v.Email_Send_Count__c}" readonly="true"/>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="6" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6">
+                                    <lightning:input type="text" aura:id="Last_Email_Sent_Date__c" name="Last_Email_Sent_Date__c" label="{!$Label.c.PARTNER_NOTICE_EMAIL_POPUP_LAST_EMAIL_SENT_DATE}" variant="label-stacked" value="{!v.Last_Email_Sent_Date__c}" readonly="true"/>
+                                </lightning:layoutItem>                            
+                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                                    <lightning:input type="text" aura:id="Email_Send_Subject__c" name="Email_Send_Subject__c"  label="{!$Label.c.PARTNER_NOTICE_EMAIL_POPUP_EMAIL_TITLE}" variant="label-stacked" value="{!v.Email_Send_Subject__c}" onchange="{!c.onChange}" required="false" disabled="{!v.isInputDisabled}"
+                                                                maxlength="100" placeholder = "{!$Label.c.PARTNER_NOTICE_EMAIL_POPUP_EMAIL_TITLE_PLACEHOLDER}" />
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                        </div>
+                    </div>
+                    <!-- [E] Body -->
+                    <!-- [S] Footer -->
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="brand" label="{!$Label.c.PARTNER_NOTICE_EMAIL_POPUP_SEND}" title="{!$Label.c.PARTNER_NOTICE_EMAIL_POPUP_SEND}" onclick="{!c.emailSend}" disabled="{!v.isSendDisabled}"></lightning:button>
+                        <lightning:button label="{!$Label.c.PARTNER_NOTICE_EMAIL_POPUP_CANCEL}" title="{!$Label.c.PARTNER_NOTICE_EMAIL_POPUP_CANCEL}" onclick="{!c.cancel}"></lightning:button>
+                    </footer>
+                    <!-- [E] Footer -->
+                </div>
+            </div>
+        </section>
+    </div>
+</aura:component>

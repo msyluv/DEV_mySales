@@ -1,0 +1,221 @@
+<!--
+  @description       : 
+  @author            : Junghwa.Kim@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-04-01
+  @last modified by  : Junghwa.Kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                  Modification
+  1.0   11-20-2020   Junghwa.Kim@dkbmc.com   Initial Version
+-->
+<aura:component controller="QuestionPresenterViewController"
+                implements="lightning:actionOverride,lightning:isUrlAddressable,lightning:hasPageReference,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:appHostable,force:hasSObjectName,force:hasRecordId" 
+                access="global">
+
+    <!-- section 1 attribute -->
+    <aura:attribute name="selectMasterQuestionList" type="List"/>
+    <aura:attribute name="masterQuestion" type="List"/>
+    <aura:attribute name="oppId" type="String"/>
+    <aura:attribute name="objName" type="String"/>
+    <aura:attribute name="isHidden" type="Boolean" default="true"/>
+    <aura:attribute name="isEdit" type="Boolean"/>
+    <aura:attribute name="columns" type="List" default="[]"/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="selectedRows" type="List" default="[]"/>
+    <aura:attribute name="insertQuestion" type="List"/>
+    <aura:attribute name="QuestionDetail" type="String"/>
+    <aura:attribute name="reviewDivisionList" type="List"/>
+    <aura:attribute name="selectData" type="Object"/>
+    <aura:attribute name="selectRow" type="List" default="[]"/>
+    <aura:attribute name="picVal" type="String" default="- None -"/>
+
+    <!-- section 2 attribute -->
+    <aura:attribute name="bizRivewId" type="String"/>
+    <aura:attribute name="selectQuestionList" type="List"/>
+    <aura:attribute name="answerUserList" type="List"/>
+    <aura:attribute name="idxList" type="List"/>
+    <aura:attribute name="selectedOwnerId" type="String"/>
+    <aura:attribute name="selectedOwnerName" type="String"/>
+    <aura:attribute name="Qcolumns" type="List" default="[]"/>
+    <aura:attribute name="Qdata" type="Object"/>
+    <aura:attribute name="QselectedRows" type="List" default="[]"/>
+    <aura:attribute name="QselectRow" type="List" default="[]"/>
+    <aura:attribute name="QselectQuestion" type="List" default="[]"/>
+    <aura:attribute name="QSelectData" type="Object"/>
+    <aura:attribute name="QreviewDivisionList" type="List"/>
+    <aura:attribute name="QpicVal" type="String" default="- None -"/>
+    <aura:attribute name="confirmCheck" type="Boolean" default="false"/>
+    <aura:attribute name="options" type="List"/>
+    <aura:attribute name="resizeColumnDisabled" type="Boolean" default="false"/>
+    <aura:attribute name="hideCheckboxColumn" type="Boolean" default="true"/>
+
+    <!-- modal attribute -->
+    <aura:attribute name="isModal" type="Boolean" default="false"/>
+    <!-- Type : Question_Detail, AddUser, Description-->
+    <aura:attribute name="modalType" type="String" default="Question_Detail"/>
+    <aura:attribute name="DescriptionOld" type="String"/>
+    <aura:attribute name="DescriptionNew" type="String"/>
+    <aura:attribute name="Mcolumns" type="List" default="[{label: 'Question', fieldName: 'question', type: 'text', sortable: false, hideDefaultActions: true}]"/>
+
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+
+    <aura:handler name="recordSelectedEvent" event="c:customLookupSelectedEvent" action="{!c.recordSelectedEventHandler}"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.reInit}"/>
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <aura:if isTrue="{!v.isLoading}">
+        <lightning:spinner alternativeText="Loading" size="medium" class="spinner-fixed"/>
+    </aura:if>
+
+    <section class="slds-card">
+        <!-- Master Question List Table -->
+        <section aura:id="section1" class="slds-card">
+            <header class="slds-modal__header">
+                {!v.isEdit == true ? $Label.c.STRATEGY_COMMITTEE_LAB_EDIT_STARTEGY_LIST : $Label.c.STRATEGY_COMMITTEE_LAB_SELECT_STARTEGY_LIST}
+            </header>
+            <div class="content">
+                <div class="RDSelect">
+                    <lightning:combobox class="picList" label="{!$Label.c.STRATEGY_COMMITTEE_LAB_REVIEWDIVISION}" value="{!v.picVal}" options="{! v.options }" onchange="{! c.onChange }"/>
+                    <!--
+                    <lightning:select label="{!$Label.c.STRATEGY_COMMITTEE_LAB_REVIEWDIVISION}" onchange="{! c.onChange }" value="{!v.picVal}" class="picList">
+                        <aura:iteration items="{!v.reviewDivisionList}" var="obj" indexVar="idx">
+                            <option value="{!obj}">{!obj}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                    -->
+                </div>
+                
+                <div class="QTable">
+                    <lightning:datatable
+                        columns="{! v.columns }"
+                        data="{! v.selectData }"
+                        keyField="Id"
+                        selectedRows="{! v.selectedRows }"
+                        onrowselection="{! c.updateSelectedText }"
+                        onrowaction="{! c.handleRowAction }"
+                        resizeColumnDisabled = "{! v.resizeColumnDisabled}"
+                        hideCheckboxColumn = "{! v.hideCheckboxColumn}"/>
+                </div>
+            </div>
+            <footer class="slds-modal__footer">
+                <lightning:button class="" variant="brand-outline" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_CANCEL}" title="Cancel" onclick="{! c.handleCancel}" />
+                <lightning:button class="" variant="brand" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_NEXT}" title="Next" onclick="{! c.handleCreateTemplate }" />
+            </footer>
+        </section>
+        
+        <!-- Select Question List Table -->
+        <section aura:id="section2" class="slds-card hidden">
+            <header class="slds-modal__header">
+                {!$Label.c.STRATEGY_COMMITTEE_LAB_SELECT_ANSWER_USER}
+            </header>
+            <div class="content">
+                <div class="RDSelect"><lightning:combobox class="picList" label="{!$Label.c.STRATEGY_COMMITTEE_LAB_REVIEWDIVISION}" value="{!v.picVal}" options="{! v.options }" onchange="{! c.onChange }"/>
+                    <!--
+                    <lightning:select label="{!$Label.c.STRATEGY_COMMITTEE_LAB_REVIEWDIVISION}" onchange="{! c.onChange }" value="{!v.QpicVal}" class="picList">
+                        <aura:iteration items="{!v.QreviewDivisionList}" var="obj" indexVar="idx">
+                            <option value="{!obj}">{!obj}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                    -->
+                </div>
+                
+                <div class="QTable">
+                    <lightning:datatable
+                            columns="{! v.Qcolumns }"
+                            data="{! v.QSelectData }"
+                            keyField="Id"
+                            selectedRows="{! v.QselectedRows }"
+                            onrowselection="{! c.updateSelectedUser }"
+                            onrowaction="{! c.handleRowAction }"
+                            resizeColumnDisabled = "{! v.resizeColumnDisabled}"/>
+                </div>
+            </div>
+            <footer class="slds-modal__footer">
+                <lightning:button class="floatLeft" variant="brand-outline" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_BACK}" title="Back" onclick="{! c.handleBack }" />
+                <lightning:button class="floatLeft" variant="brand-outline" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_CANCEL}" title="Cancel" onclick="{! c.handleCancel}" />
+                <lightning:button class="floatRight" variant="brand" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_CONFIRM}" title="Confirm" onclick="{! c.handleConfirm }" />
+                <lightning:button class="floatRight" variant="brand" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_SAVE2}" title="Save" onclick="{! c.handleSave }" />
+                <lightning:button class="floatRight" variant="brand" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_ADDUSER}" title="AddUser" onclick="{! c.handleAddUser }" />
+                <lightning:button class="floatRight" variant="brand" label="{!$Label.c.STRATEGY_COMMITTEE_LAB_DESCRIPTION}" title="Description" onclick="{! c.handleDescription }" />
+            </footer>
+        </section>
+
+        <aura:if isTrue="{!v.isModal}">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- 질문 상세 모달내용 -->
+                    <aura:if isTrue="{!v.modalType == 'Question_Detail'}">
+                        <header class="slds-modal__header">
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{!$Label.c.STRATEGY_COMMITTEE_LAB_QUESTION_DETAIL}</h2>
+                            <lightning:buttonIcon iconName="utility:close"  variant="bare-inverse" title="Close" alternativeText="Close window"/>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <ui:outputRichText class="slds-text-longform" value="{!v.QuestionDetail}" />
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning:button variant="brand-outline" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_CLOSE}" title="close" onclick="{! c.handleRowAction }" />
+                        </footer>
+                    </aura:if>
+                    
+                    <!-- 평가자 추가 모달내용 -->
+                    <aura:if isTrue="{!v.modalType == 'AddUser'}">
+                        <header class="slds-modal__header">
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{!$Label.c.STRATEGY_COMMITTEE_LAB_SELECT_ANSWER_USER}</h2>
+                            <lightning:buttonIcon iconName="utility:close"  variant="bare-inverse" title="Close" alternativeText="Close window"/>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium MselectAnswerUser" id="modal-content-id-1">
+                            <div class="modalCLookup">
+                                <c:customLookup aura:id="searchUser" objectName="User" label="" iconName="standard:user" required="false"  searchFields="Email" additionalDisplay="UserInfo__c" minimum="2"  onchange="{!c.selectOwner}"/>
+                            </div>
+                            <div class="modalQList">
+                                <lightning:datatable columns="{! v.Mcolumns }"
+                                                     data="{! v.QselectQuestion }"
+                                                     keyField="Id"
+                                                     hideCheckboxColumn="true"/>
+                            </div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning:button variant="brand-outline" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_CLOSE}" title="{!$Label.c.STRATEGY_COMMITTEE_BTN_CLOSE}" onclick="{! c.handleAddUser }" />
+                            <lightning:button variant="brand" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_SAVE}" title="save" onclick="{! c.handleAddUser }" />
+                        </footer>
+                    </aura:if>
+                    
+                    <!-- 주석 내용입력 모달내용 -->
+                    <aura:if isTrue="{!v.modalType == 'Description'}">
+                        <header class="slds-modal__header">
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{!$Label.c.STRATEGY_COMMITTEE_LAB_DESCRIPTION}</h2>
+                            <lightning:buttonIcon iconName="utility:close"  variant="bare-inverse" title="Close" alternativeText="Close window"/>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <lightning:textarea name="input1" label="" value="{!v.DescriptionNew}"/>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning:button variant="brand-outline" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_CLOSE}" title="{!$Label.c.STRATEGY_COMMITTEE_BTN_CLOSE}" onclick="{! c.handleDescription }" />
+                            <lightning:button variant="brand" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_SAVE}" title="{!$Label.c.STRATEGY_COMMITTEE_BTN_SAVE}" onclick="{! c.handleDescription }" />
+                        </footer>
+                    </aura:if>
+                    
+                    <!-- 새로운 버전 생성 모달내용 -->
+                    <!--
+                    <aura:if isTrue="{!v.modalType == 'NewVersion'}">
+                        <header class="slds-modal__header">
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Create New Version</h2>
+                            <lightning:buttonIcon iconName="utility:close"  variant="bare-inverse" title="Close" alternativeText="Close window"/>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            strategy committee that has already been confirmed. Would you like to create a new version?
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning:button variant="brand-outline" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_CANCEL}" title="{!$Label.c.STRATEGY_COMMITTEE_BTN_CANCEL}" onclick="{! c.handleNewChecklist }" />
+                            <lightning:button variant="brand" label="{!$Label.c.STRATEGY_COMMITTEE_BTN_CREATE}" title="{!$Label.c.STRATEGY_COMMITTEE_BTN_CREATE}" onclick="{! c.handleNewChecklist }" />
+                        </footer>
+                    </aura:if>
+                    -->
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
+    </section>
+</aura:component>

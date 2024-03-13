@@ -1,0 +1,43 @@
+<!--
+  @author            : hyunhak.roh@dkbmc.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2022-11-23
+  @last modified by  : hyunhak.roh@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2022-11-23   hyunhak.roh@dkbmc.com   	Initial Version
+-->
+<aura:component controller="OpportunitySearchController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="notice" type="Object" />
+    <aura:attribute name="recordId" type="String" default="" />
+    <aura:attribute name="contentDocumentId" type="String" default="" />
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    <aura:html tag="style">
+        .modal-body.scrollable.slds-modal__content.slds-p-around--medium{ padding: 1px !important; } 
+    </aura:html>
+    
+    <div >
+		<div class="slds-col modal-body scrollable modal-content" style="height: 100%; overflow-y: auto !important; background-color: white;">
+            <div class="tab-content">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1">
+                        <div id="activityRecordForm" class="slds-scrollable_y slds-card__body slds-p-around_small">
+                            <div aura:id="output" class="slds-box editor slds-text-longform" style="margin-bottom: 10px;">
+                                <lightning:formattedRichText class="formattedRichText" value="{!$Label.c.BOSEARCH_LAB_EXPORT_CONFIRM}"  />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer slds-modal__footer" style="height:58px;">
+            <lightning:button variant="brand" label="{!$Label.c.BOSEARCH_BTN_OK_SEND}" class="slds-float_right" onclick="{!c.confirm}"/>
+            <lightning:button variant="brand" label="{!$Label.c.BOSEARCH_BTN_NO_CANCEL}" class="slds-float_right" onclick="{!c.cancel}"/>
+        </div>
+	</div>
+</aura:component>

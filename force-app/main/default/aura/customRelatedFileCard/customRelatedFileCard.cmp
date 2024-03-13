@@ -1,0 +1,72 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 13-10-2023
+  @last modified by  : saurav.k@partner.samsung.com
+  Modifications Log 
+  Ver   Date         Author                                 Modification
+  1.0   11-09-2020   woomg@dkbmc.com                        Initial Version
+  1.1   13-10-2023   saurav.k@partner.samsung.com           MYSALES-324
+-->
+<aura:component
+    controller="CustomRelatedFilesController"
+    access="global">
+
+	<aura:attribute name="showSpinner" type="Boolean" default="false" />
+	<aura:attribute name="isMobile" type="Boolean"/>
+
+	<aura:attribute name="canDelete" type="Boolean" default="false"/>
+    <aura:attribute name="title" type="String" default="" />
+	<aura:attribute name="documentId" type="String" default=""/>
+    <aura:attribute name="fileType" type="String" default="" />
+    <aura:attribute name="fileSize" type="Integer" default="0" />
+    <aura:attribute name="createdDate" type="datetime" default="" /><!--MYSALES-324 -v1.1-->
+    <aura:attribute name="formattedType" type="String" default="" />
+    <aura:attribute name="formattedDate" type="String" default="" />
+    <aura:attribute name="formattedFileSize" type="String" default="" />
+    <aura:attribute name="formattedFileUnit" type="String" default="" />
+    <aura:attribute name="mobileUrl" type="String" default="" />
+	<aura:attribute name="onchilddeleted" type="Aura.Action" access="global" description="onchilddeleted event"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <li class="slds-var-p-horizontal_medium slds-var-p-vertical_x-small slds-col slds-size_1-of-1 slds-grid">
+        <aura:if isTrue="{!v.showSpinner}">
+            <lightning:spinner />
+        </aura:if>
+        <lightning:navigation aura:id="navService"/>
+        <div class="slds-col file-wrap" onclick="{!c.clickFile}" data-id="{!v.documentId}" data-name="{!v.title}">
+            <div class="filerow">
+                <div class="slds-size_12-of-12 slds-grid">
+                    <lightning:icon iconName="{!'doctype:' + v.formattedType}"/>
+                    <div class="slds-show_inline-block slds-float_left slds-p-left--x-small slds-truncate slds-m-right_x-small">
+                        <span class="itemTitle slds-text-body--regulardesktop slds-truncate" title="{!v.title}">{!v.title}</span>
+                        <p class="slds-m-around--none slds-text-body--small slds-truncate">
+                            <!-- <span class="formattedFileDate">{!v.formattedDate}</span> -->
+                            <lightning:formattedDateTime value="{!v.formattedDate}" year="numeric" month="numeric" day="numeric" hour="2-digit" minute="2-digit"  hour12="false" time-zone="Asia/Seoul"/><!--MYSALES-324 -v1.1-->
+                           
+                            <!--span class="formattedFileSize">
+                                <div class="fileSize">
+                                    <span class="">{!v.formattedFileSize}</span>
+                                    <span class="">{!v.formattedFileUnit}</span>
+                                </div>
+                            </span-->
+                            <span class="formattedFileType slds-truncate" style="margin-left: 5px;">{!v.fileType}</span><!--MYSALES-324 -v1.1-->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-col file-button">
+            <aura:if isTrue="{!not(v.isMobile)}">
+                <lightning:buttonMenu alternativeText="Show menu" menuAlignment="auto" onselect="{!c.handleSelect}">
+                    <lightning:menuItem value="Download" label="{!$Label.c.EFSS_COMP_BUTTON_DOWNLOAD}" /> <!-- Download -->
+                    <aura:if isTrue="{!v.canDelete}">
+                        <lightning:menuItem value="Delete" label="{!$Label.c.EFSS_COMP_BUTTON_DELETE}" /> <!-- Delete -->
+                    </aura:if>
+                </lightning:buttonMenu>    
+            </aura:if>
+        </div>
+    </li>
+</aura:component>

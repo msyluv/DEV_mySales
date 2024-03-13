@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>QA__c</object>
+                <object>Partner_Notice__c</object>
+                <object>Marketing_Tool__c</object>
+                <object>PartnerFundRequest</object>
+                <object>PartnerFundClaim</object>
+                <object>Partnership_Guide__c</object>
+                
+            </objects>
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="recordId" type="String" label="Record ID" description="Should be set to {!recordId}"/>
+            <property name="usedInCommunity" type="Boolean" default="false" label="Component is used in Community?" />
+        </targetConfig>
+    </targetConfigs>
+    
+</LightningComponentBundle>

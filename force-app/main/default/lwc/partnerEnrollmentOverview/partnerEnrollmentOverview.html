@@ -1,0 +1,84 @@
+<!--
+  @description       : 
+  @author            : zenith21c@test.com
+  @group             : 
+  @last modified on  : 16-11-2023
+  @last modified by  : gitesh.s@samsung.com
+  Modifications Log
+  Ver   Date         Author                 Modification
+  1.1   06-02-2023   gitesh.s@samsung.com   Partner Enrollment Request Button Hide
+  1.2   16-11-2023   gitesh.s@samsung.com   Partner Enrollment Request Button Unhide (MYSALES-362)
+-->
+<template>
+    <main>
+        <article class="top_suggest">
+            <section class="suggest">
+                <h2>파트너 참여 신청 안내</h2>
+                    <p class="text">
+                        삼성SDS는 여러분의 파트너 참여를 기다립니다. <br>
+                        아래의 신청 절차를 참고하여 신청해 주시기 바랍니다. 
+                    </p>
+                    <section class="btn_wrap">
+                        <!-- v1.1 and v1.2 - Gitesh Saini -->
+                        <a onclick={navigatePartnerEnrollmentRequest} class="link_suggest">파트너 참여<br>신청하기</a>
+                        <!-- v1.1 and v1.2 -->
+                        <a onclick={navigatePartnerEnrollmentStatusCheck} class="link_board">진행현황</a>
+                    </section>
+            </section>
+        </article>
+        <article class="bottom_suggest">    
+            <section class="suggest">
+                <section class="box">
+                    <div class="number">01</div>
+                        <p class="title">파트너 참여 신청</p>
+                        <hr>
+                        <p class="text">
+                            파트너 참여를 신청하시면 귀사가 입력한 
+                            이메일 주소로 접수 확인 메일을 보내드립니다.  <br><br>
+                            참여 신청시, 귀사의 영업 비밀이나 기밀사항, 각종 지식재산권 등에 해당하는 내용은 
+                            반드시 제외하고 공개 가능한 내용으로만 작성하여 주시기 바랍니다.
+                        </p>
+                        <p class="small_text">※ 귀사가 작성한 내용, 자료 등에 대해서 당사는 어떠한 책임도 지지 않습니다.</p>
+                </section>
+                <section class="arrow"></section>
+                <section class="box">
+                    <div class="number">02</div>
+                    <p class="title">양사 협의</p>
+                    <hr>
+                    <p class="text">
+                        신청하신 내용을 기반으로  10 영업일 이내의 기간동안 양사가 파트너 협력 방안을 
+                        협의합니다. (10일 이상의 기간이 필요한 경우 별도 협의를 통해 일정을 조정합니다.) <br><br>
+                        양사 간 협의 도중 추가 자료를 귀사에 요청할 수 있습니다. <br><br>
+                        보내주신 모든 자료는 파트너십 체결을 위한 협의 목적으로만 사용되고, 이후 즉시 폐기됩니다.
+                    </p>
+                </section>
+                <section class="arrow"></section>
+                <section class="box">
+                    <div class="number">03</div>
+                    <p class="title">계약 체결</p>
+                    <hr>
+                    <p class="text">
+                        양사가 협의를 완료한 이후, 귀사가 입력한 이메일 주소로 협의 결과를 보내드립니다. <br><br>
+                        협의 결과에 따라 귀사가 당사의 클라우드 서비스 파트너가 되지 않을 수도 있으며, 
+                        당사는 이와 관련하여 귀사에 대해 보상이나 의무 등 어떠한 책임도 지지 않습니다.  <br><br>
+                        귀사가 당사의 클라우드 서비스 파트너로 선정된 경우 최종적으로 당사와 귀사간의 
+                        클라우드 서비스 파트너 계약 체결을 통해 효력이 발생됩니다.
+                    </p>
+                </section>
+                <section class="arrow"></section>
+                <section class="box">
+                    <div class="number">04</div>
+                    <p class="title">파트너 등록</p>
+                    <hr>
+                    <p class="text">
+                        계약 체결 후 포털 및 각종 자료에 파트너 소개 콘텐츠가 게재됩니다. <br><br>
+                        삼성SDS에 담당자가 배정되어 기술 및 마케팅을 지원하며, 파트너를 위한 파트너 포털 사용이 가능합니다. 
+                    </p>
+                </section>
+            </section>
+            <section class="suggest_text">
+                <p class="bottom_text">※ 신청하신건의 진행사항은 ‘진행현황’ 에서 확인하실 수 있습니다.</p>
+            </section>
+        </article>
+    </main>
+</template>

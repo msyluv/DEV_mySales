@@ -1,0 +1,19 @@
+<!--
+  @description       : 
+  @author            : dongyoung.kim@dkbmc.com
+  @group             : 
+  @last modified on  : 11-05-2023
+  @last modified by  : anish.jain@partner.samsung.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   11-05-2023   anish.jain@partner.samsung.com  Initial Version -MS 216
+  1.1   2024-02-19   anish.jain@partner.samsung.com  BO Review Approval Issue Check (MS-418)
+-->
+<aura:event type="APPLICATION" access="global" description="Event template" >
+    <aura:attribute name="isConfirmed" type="boolean" default="false" />
+    <aura:attribute name="isBoReviewValue" type="boolean" default="false" />
+    <aura:attribute name="updatedOppData" type="Opportunity"/>
+    <aura:attribute name="updatedVrb" type="boolean" default="false" />
+    <aura:attribute name="knoxApproved" type="boolean" default="false" />
+    <aura:attribute name="knxStatus" type="String" default="" />
+</aura:event>

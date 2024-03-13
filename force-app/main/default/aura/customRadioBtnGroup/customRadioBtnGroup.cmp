@@ -1,0 +1,53 @@
+<!--
+  @description       : 
+  @author            : sh.shin@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-06-23
+  @last modified by  : seonju.jin@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author              Modification
+  1.0   2020-10-23   sh.shin@dkbmc.com   Initial Version
+-->
+<aura:component >    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <aura:attribute name="buttonName" type="String" />
+    <aura:attribute name="sOptions" type="List" default="[]"/>
+    <aura:attribute name="sOptions1" type="List" default="[]"/>
+    <aura:attribute name="sOptions2" type="List" default="[]"/>
+    <aura:attribute name="defaultValue" type="String" default=""/>
+    <aura:attribute name="resultValue" type="String" default=""/>
+    <aura:attribute name="emple" type="Integer" default=""/>
+    <aura:attribute name="disabled" type="Boolean" default="false"/>
+    <aura:attribute name="currArrayIndex" type="Integer" default="-1"/>
+    <aura:registerEvent name="groupBtnOnChangeEvt" type="c:groupBtnOnChangeEvt" />
+    
+    <div class="{!v.emple > 1 ? 'slds-hide' : '' }">
+        <div class="div-radiobutton">
+            <lightning:radioGroup name="{!v.buttonName + '1'}"
+                                options="{!v.sOptions1}"
+                                value="{!v.defaultValue}"
+                                type="button"
+                                disabled="{!v.disabled}"
+                                onchange="{!c.onChange}"
+                                />
+
+        </div>
+    </div>
+
+    <div class="{!v.emple > 1 ? '' : 'slds-hide' }">
+        <div class="div-radiobutton button-par">
+            <lightning:radioGroup name="{!v.buttonName  + '2'}"
+                                options="{!v.sOptions2}"
+                                value="{!v.defaultValue}"
+                                type="button"
+                                disabled="{!v.disabled}"
+                                onchange="{!c.onChange2}"
+                                />
+
+        </div>
+    </div>
+
+
+
+</aura:component>

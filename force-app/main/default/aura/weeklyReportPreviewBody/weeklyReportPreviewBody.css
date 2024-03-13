@@ -1,0 +1,20 @@
+/* @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 2023-11-02
+  @last modified by  : gitesh.s@samsung.com
+  Modifications Log 
+  Ver   Date         Author                  Modification
+  1.0   02-04-2021   woomg@dkbmc.com         Initial Version
+  1.1   2023-11-02   gitesh.s@samsung.com    Weekly Report Popup Size Increase (MYSALES-345)
+*/
+
+/* v1.1 - Gitesh Saini */
+.THIS {
+    height: 100%;
+}
+/* v1.1 */
+.THIS .rich-box {
+    max-width : 640px;
+    overflow-x : hidden
+}

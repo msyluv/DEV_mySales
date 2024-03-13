@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TimeLine__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>발주시기 도래</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Whether customer order will occur (change the stage to Hot when satisfying two or more BANTs)</inlineHelpText>
+    <label>Time Line</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

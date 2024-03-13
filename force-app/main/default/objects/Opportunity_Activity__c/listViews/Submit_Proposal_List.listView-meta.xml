@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Submit_Proposal_List</fullName>
+    <columns>NAME</columns>
+    <columns>TransactionName__c</columns>
+    <columns>BO_Code__c</columns>
+    <columns>OpenITSM_SR_ID__c</columns>
+    <columns>Proposal_Reg_Exception_Type__c</columns>
+    <columns>Proposal_Reg_Exception_Date__c</columns>
+    <columns>Proposal_Reg_Exception_Reasons__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>TransactionName__c</field>
+        <operation>equals</operation>
+        <value>ZP61</value>
+    </filters>
+    <label>Submit Proposal List</label>
+    <sharedTo>
+        <group>Service_Desk_Agency</group>
+    </sharedTo>
+</ListView>

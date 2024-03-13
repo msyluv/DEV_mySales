@@ -1,0 +1,128 @@
+<!--
+  @description       : 
+  @author            : hj.lee@dkbmc.com
+  @group             : 
+  @last modified on  : 2021-03-16
+  @last modified by  : hj.lee@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author             Modification
+  1.0   2021-03-09   hj.lee@dkbmc.com   Initial Version
+-->
+<aura:component>
+    <aura:attribute name="activityItem" type="Object" />
+    <aura:attribute name="recordId" type="String" description="Opportunity_Activity__c.Id" />
+    <aura:attribute name="parentId" type="String" description="Opportunity.Id" />    
+    <aura:attribute name="opportunity" type="Object" />
+    <aura:attribute name="close" type="Aura.Action" />
+    <!-- <aura:attribute name="isPendingKnoxApproval" type="Boolean" default="false" description="진행중인 Knox 결재 여부" /> -->
+    <!-- <aura:attribute name="isSelectedApprovalTab" type="Boolean" default="false" description="Knox Approval Tab 선택 여부" /> -->
+
+    <!-- [Attribute] : Master Activity Info (Static) -->
+    <aura:attribute name="MasterAct_IsRequiredWork"             type="Boolean" default="{!v.activityItem.MasterAct.IsRequiredWork__c}" description="추가 작업 필요 여부" />
+    <aura:attribute name="MasterAct_IsAutoInProgress"           type="Boolean" default="{!v.activityItem.MasterAct.IsAutoInProgress__c}" description="InProgress Status 자동" />
+    <aura:attribute name="MasterAct_IsRequiredKnoxApproval"     type="Boolean" default="{!v.activityItem.MasterAct.IsRequiredKnoxApproval__c}" description="Knox 결재상신 필요 여부" />
+    <aura:attribute name="MasterAct_WorkName"                   type="String" default="{!v.activityItem.MasterAct.WorkName__c}" />
+    <aura:attribute name="MasterAct_TransactionName"            type="String" default="{!v.activityItem.MasterAct.TransactionName__c}" />
+    <aura:attribute name="MasterAct_Type"                       type="String" default="{!v.activityItem.MasterAct.Type__c}" />
+    <aura:attribute name="owner" type="Object" />
+    
+    <aura:if isTrue="{! not(empty(v.recordId)) }" >
+        <lightning:recordViewForm aura:id="recordViewForm" 
+                                objectApiName="Opportunity_Activity__c" 
+                                recordId="{!v.recordId}" >
+            <!-- Modal Contents -->
+            <div class="slds-col modal-body scrollable modal-content">
+            <!-- Tab Contents-->
+                <div class="tab-content">
+                    <!-- <lightning:messages /> -->
+                    <div id="activityRecordForm" class="slds-scrollable_y slds-card__body slds-p-around_small">
+                        <aura:if isTrue="{!v.showSpinner}">
+                            <lightning:spinner alternativeText="Loading" size="medium" />
+                        </aura:if>
+
+                        <lightning:layout multipleRows="true">
+                            <!-- Transaction Name -->
+                            <lightning:layoutItem size="12">
+                                <lightning:outputField aura:id="fields" fieldName="TransactionName__c" variant="label-stacked" />
+                            </lightning:layoutItem>
+
+                            <!-- Status -->
+                            <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                <lightning:outputField aura:id="fields" fieldName="Status__c" variant="label-stacked" />
+                            </lightning:layoutItem>
+                        
+                            <!-- Due Date -->
+                            <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                <lightning:outputField aura:id="fields" fieldName="DueDate__c" variant="label-stacked" />
+                            </lightning:layoutItem>
+                        
+                            <!-- Start Date -->
+                            <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                <lightning:outputField aura:id="fields" fieldName="StartDate__c" variant="label-stacked" />
+                            </lightning:layoutItem>
+
+                            <!-- End Date (Disabled, Trigger Auto Setting) -->
+                            <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                <lightning:outputField aura:id="fields" fieldName="EndDate__c" variant="label-stacked" />
+                            </lightning:layoutItem> 
+
+                            <!-- [Activity Name] : Drop / Lost -->
+                            <aura:if isTrue="{!v.MasterAct_TransactionName == 'ZPZ2'}">  
+                                <!-- Lost Type -->
+                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                    <lightning:outputField aura:id="fields" fieldName="LostType__c" variant="label-stacked" />
+                                </lightning:layoutItem> 
+
+                                <!-- Lost Reason -->
+                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                    <lightning:outputField aura:id="fields" fieldName="LostReason__c" variant="label-stacked" />                                                          
+                                </lightning:layoutItem>
+                            </aura:if>
+                                
+                            <!-- Description -->
+                            <lightning:layoutItem size="12">
+                                <lightning:outputField aura:id="fields" fieldName="Description__c" variant="label-stacked" />
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="slds-col modal-footer slds-modal__footer">   
+                    	<!-- 신규추가시작 -->
+                        <c:opportunityActivityLinkButton transactionName="{!v.MasterAct_TransactionName}"
+                                                         opportunity="{!v.opportunity}" 
+                                                         hasEditAccess="{!v.hasEditAccess}" 
+                                                         owner="{!v.owner}" oppsID="{!v.parentId}"/>
+						<!-- 신규추가종료 -->
+                        <lightning:button label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{! v.close }" />
+
+                    </div>
+                    
+                </div> 
+                <!-- / Tab Contents--> 
+            </div>
+
+        <!-- / Modal Contents -->
+        </lightning:recordViewForm>
+
+        <aura:set attribute="else">
+            <div class="slds-col modal-body scrollable modal-content">
+                <div class="tab-content">
+                    <div class="slds-scrollable_y slds-card__body slds-p-around_small">
+                        <!-- 활동이 생성되지 않았습니다. -->
+                        <p class="slds-align_absolute-center slds-p-top_large">{!$Label.c.OPPTYACT_MSG_EXIST}</p>
+                    </div>
+
+                     <!-- Modal Footer -->
+                    <div class="slds-col modal-footer slds-modal__footer">   
+                        <lightning:button label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{! v.close }" />
+                    </div>
+                    
+                </div>
+
+            </div>
+        </aura:set>
+
+    </aura:if>
+
+</aura:component>

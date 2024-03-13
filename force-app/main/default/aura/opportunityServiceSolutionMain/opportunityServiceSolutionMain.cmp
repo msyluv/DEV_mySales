@@ -1,0 +1,138 @@
+<!--
+  @description       : 
+  @author            : seonju.jin@dkbmc.com
+  @group             : 
+  @last modified on  : 2022-01-17
+  @last modified by  : seonju.jin@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                 Modification
+  1.0   2020-11-16   seonju.jin@dkbmc.com   Initial Version
+-->
+<aura:component
+    controller="OpportunityServiceSolutionMainController"
+    implements="flexipage:availableForRecordHome,lightning:actionOverride,force:hasRecordId,lightning:isUrlAddressable,force:appHostable"
+    access="global" >
+
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler name="sendToSapEvt" event="c:opportunitySendToSapEvent" action="{!c.onConfirmSAP_evt}"/>
+    <aura:handler name="mainActEvt" event="c:OpportunityServiceMainActionEvt" action="{!c.onEvtAction}"/>         <!-- TA변경 이벤트 -->
+    
+
+    <!-- [registerEvent] : Event Handler -->
+    <aura:registerEvent name="opportunityActivityUpdateEvent" type="c:opportunityActivityUpdateEvent"/>
+
+    <!-- [Attribute] -->
+    <aura:attribute name="oppty"            type="Object"   access="public" default="{}"    description="Opportunity Info"/>
+    <aura:attribute name="recordId"         type="String"   access="public" default= ''     description="Opportunity RecordId"/>
+    <aura:attribute name="opptyActId"       type="String"   access="public" default=''      description="Opportunity Activity RecordId"/>
+    <aura:attribute name="actStatus"        type="String"   access="public" default=''      description="opportunity activity status"/> 
+    <aura:attribute name="isHQ"             type="Boolean"  access="public" default='false' description="Opprotunity CompanyCode__c 본사(true)/법인(false) "/>
+    <aura:attribute name="isCollaboration"  type="Boolean"  access="public" default='false' description="본사, 법인 협엽여부 "/>
+    <aura:attribute name="collaboBoId"      type="String"   access="public" default=''      description="협업 BO ID"/>
+    <aura:attribute name="companyCode"      type="String"   access="public" default=''      description=""/>
+    <aura:attribute name="locked"           type="Boolean"  access="public" default='false' description="레코드락 여부"/>
+    <aura:attribute name="initService"      type="Boolean"  access="public" default='true'  description="대상TA/비대상TA 변경가능 상태"/>
+    <aura:attribute name="refresh"          type="Boolean"  access="public" default='true'/>
+    <aura:attribute name="serviceList"      type="List"     access="public"                 description="서비스 솔루션 정보 리스트"/>
+    <aura:attribute name="itemNumberInfo"   type="List"     access="public" default='[]'    description="서비스 itemNumber"/>
+    <aura:attribute name="isLoading"        type="Boolean"  access="public" default='true'/>
+    <aura:attribute name="hasEditAccess"    type="Boolean"  access="public" default="false" description="Opportunity 프로필 편집 권한 유무" />
+    <aura:attribute name="treeItem"         type="List"     access="public" />
+    <aura:attribute name="forceSave"        type="Boolean"  access="public" default="false" description="create/change pjt 수행 전 저장" />
+    <aura:attribute name="isModalOpen"      type="Boolean"  access="public" default="false" description="임시저장 팝업 flag"/>
+    <aura:attribute name="isTempSave"       type="Boolean"  access="public" default="false" description="임시저장 flag"/>
+    <aura:attribute name="svcFirstIndex"    type="Integer"  access="public" default="0"     description="서비스 첫 행 index"/>
+    <aura:attribute name="pjtDisable"       type="Boolean"  access="public" default='false' description="버튼 클릭 후 비활성화"/>
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <aura:html tag='style'>
+        span.toastMessage.forceActionsText{
+            white-space : pre-line !important;
+        }
+
+        ul.slds-dropdown_fluid{
+            max-height: 18vh;
+            overflow-y: auto;
+        }
+
+        li.slds-listbox__item > span > span.slds-media__body{
+            text-align: left;
+        }
+        
+        <!-- .sendsap-false .slds-listbox[role="listbox"]  > lightning-base-combobox-item:nth-child(1) {
+            color:gray;
+        } -->
+    </aura:html>
+
+    <!-- [Body] -->
+    <div class="slds-grid slds-grid_vertical" style="height: 100%;">
+        <div class="slds-grid slds-grid_horizontal" style="height: calc(100% - 58px); width:100%;">
+            <aura:if isTrue="{!!v.isLoading}">
+                <div class="slds-grid slds-grid_vertical" style="height: 100%;width:75%;">
+                    <aura:if isTrue="{!v.refresh}">
+                        <aura:renderIf isTrue="{!v.serviceList}">
+                            <c:opportunityService 
+                            aura:id="serviceComp" 
+                            serviceList = "{!v.serviceList}"  
+                            isHQ = "{!v.isHQ}"
+                            isCollaboration = "{!v.isCollaboration}" 
+                            collaboBoId = "{!v.collaboBoId}" 
+                            boId ="{!v.recordId}"  
+                            companyCode="{!v.companyCode}" 
+                            locked="{!v.locked}"
+                            itemNumberInfo="{!v.itemNumberInfo}"
+                            isTempSave="{!v.isTempSave}"/>
+                        </aura:renderIf>
+
+                        <aura:set attribute="else">
+                            <div class="exampleHolder">
+                                <lightning:spinner alternativeText="Loading" size="small" />
+                            </div>
+                        </aura:set>
+                    </aura:if>
+                </div>
+                <!-- Service & Solution Tree -->
+                <div class="slds-grid slds-grid_vertical slds-box treeitem" data-set='tree' style="height: 100%;width:25%;border-left: #d2cccc 2px solid;overflow-y: auto; padding:0px;">
+                    <lightning:card>
+                        <lightning:tree items="{! v.treeItem }"  header="Service &amp; Solution" /> <!-- selectedItem="{!v.treeSelected}" -->
+                    </lightning:card>
+                </div>
+
+                <aura:set attribute="else">
+                    <div class="exampleHolder">
+                        <lightning:spinner alternativeText="Loading" size="small" />
+                    </div>
+                </aura:set>
+            </aura:if>
+        </div>
+        
+        <div class="modal-footer slds-modal__footer" style="height:58px;">
+            <!-- Confirm to Sap -->
+            <aura:if isTrue="{!v.locked}">
+                <lightning:button label="lock" iconName="utility:lock" iconPosition="left"  variant="destructive-text" class="lockButton slds-float_left" onclick="{!c.isLocked}" />
+                <aura:set attribute="else">
+                    <aura:if isTrue="{!v.hasEditAccess}">
+                        <lightning:button variant="brand" label="{!$Label.c.COMM_BTN_SEND_SAP}" class="slds-float_left" onclick="{!c.onConfirmSAP}" disabled="{!v.pjtDisable}"/>    <!-- or(v.isLoading, !v.isTempSave) -->
+                    </aura:if>
+                </aura:set>
+            </aura:if>
+            <!-- cancel -->
+            <lightning:button label='{!$Label.c.COMM_BTN_CANCEL}' title='{!$Label.c.COMM_BTN_CANCEL}' onclick="{!c.cancel}" disabled="{!v.isLoading}"/>
+            <!-- Save -->
+            <aura:if isTrue="{!v.locked}">
+                <lightning:button label="lock" iconName="utility:lock" iconPosition="left"  variant="destructive-text" class="lockButton" onclick="{!c.isLocked}" />
+                <aura:set attribute="else">
+                    <aura:if isTrue="{!v.hasEditAccess}">
+                        <lightning:button variant="brand" label='{!$Label.c.COMM_BTN_SAVE}' title='{!$Label.c.COMM_BTN_SAVE}' onclick="{!c.save}" disabled="{!v.isLoading}"/>
+                    </aura:if>
+                </aura:set>
+            </aura:if>
+        </div>
+    </div>
+
+    <!-- 임시저장시 알림팝업 -->
+    <aura:if isTrue="{! and(v.isModalOpen, v.isTempSave)}">
+        <c:opportunitySvcSolPoup openModal="{!v.isModalOpen}" hasEditAccess="{!v.hasEditAccess}" forceSave="{!v.forceSave}"/>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,40 @@
+.THIS .filter_item .slds-form-element__label{
+    font-weight: bold !important;
+}
+.THIS .btn_search{
+    padding:31px 0px 12px 12px;
+}
+.THIS .search_layout > div{
+    padding: 0px 12px 0px 12px;
+}
+.THIS .table{
+  border:1px solid black;
+}
+.THIS .td{
+  border:1px solid black;
+}
+.THIS .th{
+  border:1px solid black;
+}
+.THIS.spinnerClass{
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+.THIS .field{
+  padding: 5px;
+  border: 1px solid #dce4ec;
+  border-radius: 2px;
+}
+.THIS .border{
+    border-color: rgb(221, 219, 217);
+    padding-left: 9px;
+}
+.THIS .padding_less{
+  padding: 4px;
+}
+.THIS .btncl{
+  margin-left: 100px;
+  margin-bottom : -13px;
+}

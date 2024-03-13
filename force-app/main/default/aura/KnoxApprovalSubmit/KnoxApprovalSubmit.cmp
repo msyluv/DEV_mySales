@@ -1,0 +1,441 @@
+<!--
+  @description       : 
+  @author            : dongyoung.kim@dkbmc.com
+  @group             : 
+  @last modified on  : 11-05-2023
+  @last modified by  : anish.jain@partner.samsung.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2020-12-10   dongyoung.kim@dkbmc.com   Initial Version
+  1.1   2023-10-17   atul.k1@samusng.com       Mysales-318
+  1.2   11-05-2023   anish.jain@partner.samsung.com   MySales - 216
+-->
+<aura:component 
+    controller="KnoxApprovalSubmitController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader"
+    access="global">
+    
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <!-- [Attribute] -->
+    <aura:attribute name="opptyId" type="String" default=''/>
+    <aura:attribute name="opptyactId" type="String" default=''/>
+    <aura:attribute name="actTransactionCode" type="String" default=''/>
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="ApprovalData" type="Object" default="" />
+    <aura:attribute name="EmployeeList" type="List" default="[]" />
+    <aura:attribute name="UserKnoxInfo" type="String" default="" />
+    <aura:attribute name="toast" type="Object" default="{}" />
+    <aura:attribute name="toastMessage" type="String" default="" />
+    <aura:attribute name="toastType" type="String" default="" />
+    <aura:attribute name="isCloseModal" type="Boolean" default="true" />
+    <aura:attribute name="sobjecttype" type="String" default="{!v.sObjectName}"/>
+    <aura:attribute name="ProductReqeustCnt" type="Boolean" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="isApexLoading" type="Boolean" default="false" />
+    <aura:attribute name="bizReviewId" type="String" default=""/>
+    <aura:attribute name="messageTemp" type="String" /> <!-- Added by Anish-v 1.2 -->
+    <!-- V Anish- v 1.2 start-->
+    <aura:attribute name="isReviewTypeConfirm" type="Boolean" default="false" />
+    <aura:attribute name="fileUploadKnoxId" type="String" />
+    <aura:attribute name="AttachFileList" type="List" default="[]" />
+    <aura:attribute name="AttachFileListVault" type="List" default="[]" />
+    <!-- V Anish- v 1.2 end-->
+
+    <aura:attribute name="activityItem" type="Object" />
+    <aura:attribute name="isAdminProfile" type="Boolean" />
+    <aura:attribute name="oppty" type="Object" />
+    <aura:attribute name="userLang" type="String" /> <!--V 1.1 Mysales-318-->
+    
+    <!-- 병렬 결재, 및 선택 추가기능 관련-->
+    <aura:attribute name="selectRecords" type="List" /> 
+                
+    <aura:attribute name="buttonType1" type="List" default="[]"/>
+    <aura:attribute name="buttonType2" type="List" default="[]"/>
+    
+    <!-- 결재 타입 -->
+    <aura:attribute name="templateOptions" type="List" default="[{label: '-- None --' , value : '-'}]"/>
+    <aura:attribute name="templateOptionValue" type="String" default="-"/>
+    
+    <!-- 파일 -->
+    <aura:attribute name="FileList" type="List" default="[]"/>
+    <aura:attribute name="nFileList" type="List" default="[]"/>
+    <aura:attribute name="FileLimitSize" type="Integer" default="2621440" description="lightning param이 4MB제한으로, 2.5MB로 제한 / 최대 첨부 가능한 파일 크기(byte) : 6MB(6291456byte) 제한으로 설정 (20210511 기준)" />
+    <aura:attribute name="FileAttachSize" type="Integer" default="10" description="첨부 가능한 파일 개수 : Knox Approval 첨부 최대 제한 10개" />
+
+    <!-- 결재 본문 -->
+    <aura:attribute name="approvalHTML" type="String" default=""/>
+    <aura:attribute name="approvalMISID" type="String" default=""/>
+    <aura:attribute name="requestBusinessLevel" type="String" default="" />
+
+    <!-- 결재선 관련 변수 -->
+    <aura:attribute name="isCompletedGetApproval" type="Boolean" default="false" />
+    <aura:attribute name="isSuccessGetApproval" type="Boolean" default="false" />
+    <aura:attribute name="useApprovalLine" type="Boolean" default="true" />
+    <aura:attribute name="approvalTypeCode" type="String" default="" />
+    <aura:attribute name="MinusProfitVal" type="String" default="" /><!--V 1.1 Mysales-318-->
+    <aura:attribute name="actTransactionLabel" type="String" default=''/><!--V 1.1 Mysales-318-->
+
+    <!-- 협업 BO 결재 사전 점검 관련 변수 -->
+    <aura:attribute name="isRequiredCollaboValid" type="Boolean" default="false" />
+    <aura:attribute name="isSuccessCollaboValid" type="Boolean" default="false" />
+    <aura:attribute name="collaboApprovalTypeCode" type="String" default="" />
+    
+    <!-- [Event Handler] -->
+    <aura:handler name="recordSelectedEvent" event="c:customLookupSelectedEvent" action="{!c.handleComponentEvent}"/> <!-- Select CustomLookup EVENT-->  
+    <!-- Global App event -->
+    <aura:handler event="c:approvalLinePassEvent"           action="{!c.setApprovalLine}"/>        <!-- 결재선 정보 받기 (APPLICATION EVENT)-->  
+    <aura:handler event="c:knoxApprovalPreviewPassEvent"    action="{!c.setApprovalHtml}"/> <!-- html 본문 받기 (APPLICATION EVENT)-->  
+    <aura:handler event="c:knoxApprovalPreviewReplaceEvent" action="{!c.changeRequestBusinessLevel}"/>          
+    <aura:handler event="c:knoxApprovalSubmitEvent"         action="{!c.clickApprove}"/>         <!-- Knox 상신 (APPLICATION EVENT)  -->
+    <aura:handler event="c:groupBtnOnChangeEvt"             action="{!c.onChangeParallel}"/>         <!-- 병렬 합의,결재버튼 change event  -->
+    <aura:handler name="FileValidationEvent" event="c:FileValidationEvent" action="{!c.handleFileFlag}"/> <!-- Event Handler --> <!-- Added by Anish-v 1.2 -->
+	<aura:handler name="VaultFileEvent" event="c:VaultFileEvent" action="{!c.handleFileVaultFlag}"/> <!-- Event Handler --> <!-- Added by Anish-v 1.2 -->
+    
+    <!-- [Register Event] -->
+    <aura:registerEvent name="knoxApprovalFieldPassEvent"       type="c:knoxApprovalFieldPassEvent"/> <!-- Pass field preivew -->
+    <aura:registerEvent name="knoxApprovalHtmlGetEvent"         type="c:knoxApprovalHtmlGetEvent"/>         
+    <aura:registerEvent name="knoxApprovalApexLoadingEvent"     type="c:knoxApprovalApexLoadingEvent"/>
+    <aura:registerEvent name="approvalLineGetEvent"             type="c:approvalLineGetEvent"/> <!-- 결재선 호출 -->
+    <aura:registerEvent name="opportunityActivityUpdateEvent"   type="c:opportunityActivityUpdateEvent"/> <!-- Event Handler -->
+
+    <force:recordData layoutType="FULL"
+                        recordId="{!v.opptyId}"
+                        targetFields="{!v.record}" 
+                        recordUpdated="{!c.init}"  />  
+
+        
+        <div style="height: calc( 100% - 58px );">
+            <!-- Knox Approval Table -->
+            <div style="height: 100%">
+                <!--<div class="quick-modal__content slds-grid slds-grid_vertical slds-nowrap slds-p-around_large slds-scrollable_y">-->
+                <!-- Modal Header -->
+                <c:customToastModal toastHeightPostion="10%" isStack="true" toast="{!v.toast}" />    
+                
+                <!-- Modal Contents -->
+                <div class="quick-modal__content slds-grid slds-grid_vertical slds-nowrap slds-p-around_large slds-scrollable_y">
+                    <div class="slds-form slds-form_stacked slds-is-editing cover-custom" srole="list" style="padding:5px 25px 5px 25px;">
+                        <!--<div class="slds-form-element slds-hint-parent custom-lookup category-custom" style="margin-bottom: 0;">
+                                <lightning:combobox name="general" label="{!$Label.c.APPR_LAB_TEMPLATECATEGORY}" value="{!v.templateOptionValue}" options="{! v.templateOptions }" onchange="{! c.changeTemplate }"/>
+                            </div>-->
+                        
+                        
+                        <!-- Title -->
+                        <div class="slds-form-element slds-hint-parent custom-lookup" style="margin-bottom: 0;">
+                            <label class="slds-form-element__label" for="lookup-348">
+                                <abbr class="slds-required" title="required">*</abbr>
+                                {!$Label.c.COMM_LAB_TITLE}
+                            </label>                    
+                            <ui:inputText updateOn="keyup" maxlength="80" class="slds-lookup__search-input slds-input" value="{!v.ApprovalData.KnoxApproval.Name}"/>
+                        </div>
+                        
+                        <!-- [Request Change Approval / ZPG1] -->
+                        <aura:if isTrue="{!v.actTransactionCode == 'ZPG1'}">
+                            <force:recordData aura:id="recordDataOpportunity"
+                                              fields="Name, FinalBusinessLevel__c"
+                                              recordId="{!v.opptyId}"
+                                              targetFields="{!v.oppty}" />  
+                            
+                            <!-- Opportunity Business Level -->
+                            <lightning:recordEditForm aura:id="recordEditFormKnoxApproval" 
+                                                      objectApiName="KnoxApproval__c"
+                                                      recordId=""> 
+                                <lightning:layout multipleRows="true">
+                                    <!-- (Read Only) Opportunity Business Level (Before)-->
+                                    <lightning:layoutItem size="6" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6">
+                                        <div style="padding-right:1rem">
+                                            <div class="slds-form-element slds-form-element_readonly" >
+                                                <span class="slds-form-element__label" style="margin-bottom: 8px;">{!$Label.c.APPR_LAB_BIZ_LEVEL_BEFORE}</span>
+                                                <div class="slds-form-element__control">
+                                                    <div class="slds-form-element__static">{!v.oppty.FinalBusinessLevel__c}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </lightning:layoutItem>
+                                    
+                                    <!-- [Picklist] Request Business Level : 사업 등급 변경 요청 필드 -->
+                                    <lightning:layoutItem size="6" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6">
+                                        <lightning:inputField aura:id="RequestBusinessLevel" fieldName="RequestBusinessLevel__c" variant="label-stacked" required="true"
+                                                              onchange="{!c.changeRequestBusinessLevel}" /> 
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                            </lightning:recordEditForm>
+                        </aura:if>
+                        <!-- // [Request Change Approval / ZPG1] -->
+                        
+                        <!-- Field Area-->
+                        <div class="slds-form-element slds-hint-parent custom-lookup" style="margin-bottom: 0;">
+                            <div class="slds-form-element__control">
+                                <!-- To -->
+                                
+                                <c:customLookup aura:id="clookup"
+                                                lookupType="MultiHide"
+                                                iconName="standard:user"
+                                                label="{!$Label.c.APPR_LAB_APPROVER}"
+                                                placeholder="{!$Label.c.APPR_LAB_ADD_APPROVER}"
+                                                objectName="Employee__c"
+                                                minimum="2" 
+                                                searchFields="EvEName__c"
+                                                additionalDisplay="Employee_Info__c"
+                                                additionalSelect="EvMailAddr__c, EvUniqID__c, EvSdeptNM__c"
+                                                filterFields="EvStatus__c"
+                                                filterConditions="eq"
+                                                filterValues="1"
+                                                filterExpression="(Status__c != 'R')"
+                                                required="True"
+                                                enableMultiRecord="True"
+                                                isIgnoredDuplicatedRule="True"
+                                                numOfQuery="15" />
+                                <!--
+                                        <div class="my-approve-button">
+                                            <lightning:button variant="neutral" disabled="true">내 결재 라인</lightning:button>
+                                        </div>
+                                        -->
+                            </div>
+                        </div>
+                        
+                        
+                        <!-- [S] : 결재자 추가 List -->
+                        <div class="slds-card__body table_Wrapper">
+                            <table class="slds-table slds-table--bordered slds-table--cell-buffer table_thead">
+                                <colgroup>
+                                    <col width="4%"></col>
+                                    <col width="26%"></col>
+                                    <col width="18%"></col>
+                                    <col width="20%"></col>
+                                    <col width="23%"></col>
+                                    <col width="8%"></col>
+                                    <col width="1%"></col>
+                                </colgroup>
+                                <thead>
+                                    <tr class="slds-line-height">
+                                        <th scope="col" class="name" style="padding-left:8px !important">
+                                            <ui:outputText value="No." class="slds-truncate" />
+                                        </th>
+                                        <th scope="col" class="name slds-border_left btnGroupHead">
+                                            
+                                            <a onclick="{!c.mergeApproval}" class="slds-p-right_x-small slds-text-link_reset">
+                                                <lightning:buttonIcon iconName="utility:contract"  variant="bare" alternativeText="contract" />      
+                                                {!$Label.c.APPR_BTN_PARALLEL}
+                                            </a>
+                                            <a onclick="{!c.mergeCancelApproval}" class="slds-p-right_x-small slds-text-link_reset">
+                                                <lightning:buttonIcon iconName="utility:expand_alt"  variant="bare" alternativeText="contract" />    
+                                                {!$Label.c.APPR_BTN_CANCELPARALLEL}
+                                            </a>                                    
+                                            
+                                            <div class="slds-button-group" role="group">
+                                                <a onclick="{!c.moveItem}" data-itemid="itemDownBtn" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                    <lightning:buttonIcon iconName="utility:down"  variant="bare" alternativeText="down" />                                        
+                                                </a>
+                                                
+                                                <a onclick="{!c.moveItem}" data-itemid="itemUpBtn" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                    <lightning:buttonIcon iconName="utility:up"  variant="bare" alternativeText="up" />
+                                                </a>     
+                                            </div>                                   
+                                            
+                                        </th>
+                                        
+                                        <th scope="col" class="name slds-border_left">
+                                            <ui:outputText value="{!$Label.c.COMM_LAB_NAME}" class="slds-truncate" />
+                                        </th>
+                                        <th scope="col" class="name ">
+                                            <ui:outputText value="{!$Label.c.COMM_LAB_DEPARTMENT}" class="slds-truncate" />
+                                        </th>
+                                        <th scope="col" class="name ">
+                                            <ui:outputText value="{!$Label.c.COMM_LAB_EMAIL}" class="slds-truncate" />
+                                        </th>
+                                        
+                                        <th scope="col" class="name">
+                                            
+                                        </th>
+                                        <th scope="col" class="name">
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="table_tbody_Wrapper">
+                                <table class="slds-table slds-table--bordered slds-table--cell-buffer table_tbody">
+                                    <colgroup>
+                                        <col width="4%"></col>
+                                        <col width="26%"></col>
+                                        <col width="18%"></col>
+                                        <col width="20%"></col>
+                                        <col width="23%"></col>
+                                        <col width="8%"></col>
+                                        <col width="1%"></col>
+                                    </colgroup>
+                                    <tbody>
+                                        
+                                        <aura:iteration items="{!v.EmployeeList}" var="emps" indexVar="index">
+                                            <aura:iteration items="{!emps}" var="item" indexVar="idx" >
+                                                <!-- [2021-05-10 수정] 결재선 여부 관계없이 순서 이동 가능하도록 변경 
+                                                        결재선의 순서를 변경하지 못하도록 하려면 아래 Class를 tr Class 에 추가한다.        
+                                                        + (item.IsGetApprovalLine__c  ? (v.isAdminProfile  ? '' : ' disabled-line') : '') 
+                                                    -->
+                                                <tr class="{! 'empList' + (item.check  ? ' selected-emp' : '') }" 
+                                                    onclick="{!c.clickApprover}" 
+                                                    aura-id="{!index + '-' +idx + '_employee'}" 
+                                                    data-itemid="{!index + '-' +idx + '_employee'}">
+                                                    <td style="padding-left:8px !important">
+                                                        <div class="slds-truncate " >
+                                                            <ui:outputText value="{!index+1}" title="{!index+1}" />
+                                                        </div>
+                                                    </td>
+                                                    <td calss="appType-button">      
+                                                        <!-- [2021-05-17 수정] 결재선 中 통보자 (ApproverType__c:9) 는 결재유형(결재,합의,통보) 변경 가능토록 수정 -->
+                                                        <c:customRadioBtnGroup aura:name="{!index + '_radio_' + idx}"
+                                                                               buttonName="{!index + '_radio_' + idx}"
+                                                                               sOptions="{!emps.length > 1 ? v.buttonType2 : v.buttonType1}"
+                                                                               sOptions1="{!v.buttonType1}"
+                                                                               sOptions2="{!v.buttonType2}"
+                                                                               emple="{!emps.length}"
+                                                                               disabled="{!and(item.IsGetApprovalLine__c, item.typeDisabled)}"
+                                                                               defaultValue="{!item.ApproverType__c}"
+                                                                               resultValue="{!item.ApproverType__c}"
+                                                                               currArrayIndex="{!index}"
+                                                                               />       
+                                                        <!-- defaultValue="{!not(empty(item.ApproverType__c)) ? item.ApproverType__c : emps.length > 1 ? '7' : '1' }" -->
+                                                    </td>
+                                                    
+                                                    <td >
+                                                        <div class="slds-truncate " >
+                                                            <ui:outputText value="{!item.Name + (item.EvEName__c == null ? '' : ' - ' + item.EvEName__c)}" title="{!item.Name + (item.EvEName__c == null ? '' : ' - ' + item.EvEName__c)}" /> 
+                                                        </div>
+                                                    </td>
+                                                    <td >
+                                                        <div class="slds-truncate " >
+                                                            <ui:outputText value="{!item.EvSdeptNM__c + ( item.EvSdeptNM__c == null || item.EnEvSdeptNM__c == null ? '' : ' - ')  +  item.EnEvSdeptNM__c}" 
+                                                                           title="{!item.EvSdeptNM__c + ( item.EvSdeptNM__c == null || item.EnEvSdeptNM__c == null ? '' : ' - ')  +  item.EnEvSdeptNM__c}"/>
+                                                        </div>
+                                                    </td>
+                                                    <td >                                            
+                                                        <div class="slds-truncate " >
+                                                            <ui:outputText value="{!item.EvMailAddr__c}" title="{!item.EvMailAddr__c}"  />
+                                                        </div>
+                                                        <!-- [2021-01-18 권한 변경 삭제]
+                                                            <div class="approval-typeBtn">
+                                                                
+                                                                <a onclick="{!c.clickTypeBtn}" data-itemid="{!index + '-' +idx + '_path'}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                    <lightning:buttonIcon iconName="utility:change_owner"  variant="bare" alternativeText="{!$Label.c.APPR_BTN_CHANGELINE}"  class="{!item.IsChangeLine__c ? 'click-button-img' : '' }"/>
+                                                                </a>
+                                                                <a onclick="{!c.clickTypeBtn}" data-itemid="{!index + '-' +idx + '_mod' }" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                    <lightning:buttonIcon iconName="utility:new_direct_message"  variant="bare" alternativeText="{!$Label.c.APPR_BTN_EDITTEXT}" class="{!item.IsEditText__c ? 'click-button-img' : '' }"/>
+                                                                </a>
+                                                                <a onclick="{!c.clickTypeBtn}" data-itemid="{!index + '-' +idx + '_dec'}" class="slds-p-horizontal_xx-small slds-text-link_reset">
+                                                                    <lightning:buttonIcon iconName="utility:brush"  variant="bare" alternativeText="{!$Label.c.APPR_BTN_ARBITARYDECISION}" class="{!item.IsArbitraryDecision__c ? 'click-button-img' : '' }"/>
+                                                                </a>	
+                                                                
+                                                            </div>
+                                                            -->
+                                                    </td>
+                                                    
+                                                    <td style="padding:0; margin:0;">
+                                                        <aura:if isTrue="{!not(item.IsGetApprovalLine__c)}">
+                                                            <div data-itemId="{!item.EvUniqID__c}" onclick="{!c.removeItem}" style="cursor:pointer;float: right; padding-right:.5rem;">
+                                                                <lightning:buttonIcon iconName="utility:close" variant="bare" alternativeText="Delete"/>
+                                                            </div>
+                                                            
+                                                            <aura:set attribute="else">
+                                                                <!-- 삭제 BTN -->
+                                                                <aura:if isTrue="{!v.isAdminProfile}"> <!-- Admin Profile은 결재선 삭제 가능-->
+                                                                    <div data-itemId="{!item.EvUniqID__c}" onclick="{!c.removeItem}" style="cursor:pointer;float: right; padding-right:.5rem;">
+                                                                        <lightning:buttonIcon iconName="utility:close" variant="bare" alternativeText="Delete"/>
+                                                                    </div>
+                                                                </aura:if>
+                                                                
+                                                                <!-- 결재선 icon -->
+                                                                <div>
+                                                                    <lightning:icon iconName="action:new_group" size="xx-small" alternativeText="{!$Label.c.APPR_LAB_APPROVAL_LINE}"
+                                                                                    title="{!$Label.c.APPR_LAB_APPROVAL_LINE}"/>
+                                                                </div>
+                                                            </aura:set>
+                                                        </aura:if>
+                                                        
+                                                    </td>
+                                                    <td style="padding:0; margin:0; width:0; height:0;">                                                
+                                                        <lightning:input value="{!item.EvUniqID__c}" class="slds-hidden"/>
+                                                    </td>
+                                                </tr>                                    
+                                            </aura:iteration>
+                                        </aura:iteration>
+                                        <aura:if isTrue="{!not(empty(v.EmployeeList))}">
+                                            <aura:set attribute="else">
+                                                <tr>
+                                                    <td colspan='6' class="notselectUser">
+                                                        <ui:outputText value="{!$Label.c.APPR_MSG_0001}" class="slds-truncate" /> 
+                                                        <!-- 승인자를 추가하여 주세요. -->
+                                                    </td>
+                                                </tr>                                            
+                                            </aura:set>                                        
+                                        </aura:if>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- [E] : 결재자 추가 List --> 
+                        
+                        <!-- Description -->
+                        <div class="slds-form-element slds-hint-parent">
+                            <!--<label class="slds-form-element__label font-red-custom" for="lookup-348">                            
+                                    <abbr class="slds-required" title="required">*</abbr>
+                                    <label class="font-red-custom" >                            
+                                        ({!$Label.c.COMM_MSG_0011})
+                                    </label>
+                                </label> -->
+                            <div class="slds-form-element__control">
+                                <!--<lightning:inputRichText class="richText" value="{!v.ApprovalData.KnoxApproval.Description__c}" label="{!$Label.c.APPR_LAB_APPROVALCONTENTS}">-->
+                                <lightning:inputRichText class="richText" value="{!v.ApprovalData.KnoxApproval.Description__c}" label="{!$Label.c.APPR_LAB_APPROVALCONTENTS}">
+                                    <lightning:insertImageButton/>
+                                </lightning:inputRichText>
+                                <lightning:textarea value="{!v.ApprovalData.KnoxApproval.Opinion__c}" class="textarea" label="{!$Label.c.APPR_LAB_OPINION}" minlength="1" maxlength="1000" required="true"/>
+                            </div>
+                        </div>
+                        <!--V 1.1 Mysales-318 start-->
+                          <aura:if isTrue="{!or(v.actTransactionCode == 'ZP82' , v.actTransactionLabel == 'Contract Approval')}">
+                            <aura:if isTrue="{!v.MinusProfitVal == 'Y'}">
+                                <div class="slds-box" style="background: #F3F3F3;">
+                                    <aura:if isTrue="{!v.userLang == 'ko'}">
+                                        <aura:unescapedHtml value="{!$Label.c.Knox_PJT_Alert_In_Korean}" />
+                                        <aura:set attribute="else">
+                                            <ui:outputText value="{!$Label.c.Knox_PJT_Alert}" class="TextAlign"/>
+                                        </aura:set>
+                                    </aura:if>
+                                </div>
+                            </aura:if>
+                            </aura:if>
+                            <!--V 1.1 Mysales-318 end-->
+                        
+                        <!-- [S] File Area -->
+                        <div class="slds-form-element slds-hint-parent" style="margin-bottom: 0;">
+                            <c:FileUpload FileList="{!v.FileList}" 
+                                          maximumFileSize="{!v.FileLimitSize}"
+                                          maximumAttachFile="{!v.FileAttachSize}"
+                                          activityName="{!v.actTransactionCode}"
+                                          />   <!-- Added by Anish-v 1.2 -->
+                        </div>
+                        <!-- [E] File Area -->
+                        
+                    </div>
+                </div>
+                <!--</div>-->
+            </div>
+        </div>
+        <div style="height: 58px;">
+            <!-- Modal Footer  -->
+            <div class="slds-col modal-footer slds-modal__footer" style="height: 100%">
+                <!-- [BTN] 결재선 조회-->
+                <aura:if isTrue="{!v.useApprovalLine}"> 
+                    <lightning:button variant="brand" label="{!$Label.c.APPR_BTN_GET_APPROVAL_LINE}" disabled="{!v.isSuccessGetApproval}" onclick="{!c.getApprovalLine}" class="slds-float_left" />
+                </aura:if>
+                <!-- <lightning:button variant="brand" label="{!$Label.c.APPR_BTN_GETTEAMMEMBER}" onclick="{!c.getTeamMember}"  class="slds-float_left" /> -->
+                <!-- <lightning:button variant="neutral" label="{!$Label.c.APPR_BTN_TEMPSAVE}" onclick="{!c.tempSave}" /> -->
+                <span class="slds-form-element__label" style="margin-bottom: 8px;">{!$Label.c.OPPTYACT_MSG_020}</span>
+                <lightning:button variant="neutral" label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{!c.clickCancel}" />
+                <lightning:button variant="brand" label="{!$Label.c.APPR_BTN_SUBMIT}" onclick="{!c.clickApprove}" disabled="{!v.isApexLoading}" />
+            </div>
+        </div>
+        
+        <lightning:spinner aura:id="spinner" variant="brand" size="large" class="slds-hide"/>
+
+</aura:component>

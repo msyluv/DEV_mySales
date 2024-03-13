@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_VOCs_from_Power_User</fullName>
+    <columns>NAME</columns>
+    <columns>VOC_Developer__c</columns>
+    <columns>Status__c</columns>
+    <columns>Category__c</columns>
+    <columns>RegistrationDate__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>VOC__c.Power_User</value>
+    </filters>
+    <label>All VOCs from Power Users</label>
+</ListView>

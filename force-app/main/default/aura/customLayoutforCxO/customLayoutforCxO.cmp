@@ -1,0 +1,38 @@
+<!--
+  @description       : 
+  @author            : chae_ho.yang@samsung.com
+  @group             : 
+  @last modified on  : 03-02-2023
+  @last modified by  : chae_ho.yang@samsung.com
+-->
+<aura:component implements="lightning:homeTemplate" description="Header for CxO Main Column with Sidebar and two columns below">
+<aura:attribute name="header" type="Aura.Component[]" description="Header region"/>
+<aura:attribute name="main" type="Aura.Component[]" description="Main region"/>
+<aura:attribute name="sidebar" type="Aura.Component[]" description="Sidebar region"/>
+<aura:attribute name="belowLeft" type="Aura.Component[]" description="Below Left region"/>
+<aura:attribute name="belowRight" type="Aura.Component[]" description="Below Right region"/>
+<div>
+        <lightning:layout class="slds-p-top_none" multipleRows="true">
+            <lightning:layoutItem flexibility="auto" size="8">
+                {!v.header}
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4" class="slds-p-left_small">
+                {!v.sidebar}
+            </lightning:layoutItem>
+        </lightning:layout>
+        <lightning:layout class="slds-p-around_x-small slds-p-left_none slds-p-right_none">
+            <lightning:layoutItem flexibility="auto">
+                {!v.main}
+            </lightning:layoutItem>
+        </lightning:layout>
+        <lightning:layout>
+            <lightning:layoutItem flexibility="auto" size="6" class="slds-p-around_x-small slds-p-left_none">
+                {!v.belowLeft}
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" class="slds-p-top_x-small slds-p-left_xxx-small">
+                {!v.belowRight}
+            </lightning:layoutItem>
+        </lightning:layout>
+        
+    </div>
+</aura:component>

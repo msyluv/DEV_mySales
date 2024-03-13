@@ -1,0 +1,60 @@
+<!--
+  @description       : 
+  @author            : chae_ho.yang@samsung.com
+  @group             : 
+  @last modified on  : 09-01-2023
+  @last modified by  : atul.k1@samsung.com
+  * Ver   Date         Author                   Modification
+  * 1.0   2023-09-06   atul.k1@samsung.com   Initial Version(MySales 290)
+
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome" controller="HomeURLController" access="global" >
+	
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <!-- [Attribute] -->
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <aura:attribute name="urlList" type="List" default="[]" />
+    <aura:attribute name="showSearchBox" type="Boolean" default="false" /> <!--Added by Atul Mysales-290 v-1.0-->
+    <aura:attribute name="heightofblock" type="String" default="height: 30px"/>
+	<article class="slds-card" style="height: auto;">
+        <aura:if isTrue="{!v.showSpinner}">
+            <lightning:spinner />
+            <aura:set attribute="else">
+                <lightning:layout>
+                    <!-- <lightning:layoutItem flexibility="auto" size="1" class="slds-text-align-center slds-text-title_bold slds-p-top-xx-small slds-p-left-small">                            
+                    </lightning:layoutItem> -->
+                    <aura:iteration items="{!v.urlList}" var="url">
+                        <lightning:layoutItem class="slds-p-top--xx-small slds-text-align--center slds-p-left--none" flexibility="auto" size="3">
+                            <!--Added by Atul Start Mysales-290-->
+                            <aura:if isTrue="{!(url.Name == $Label.c.Smart_Search)}">
+                                 <a href="javascript:void(0)" style="font-weight: bold;" onclick="{!c.searchBox}">{!url.Name}</a>
+                                 <aura:if isTrue="{!v.showSearchBox}">
+                                <div class="formcontrol" style="display:block">
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                                            <!--lightning:icon iconName="utility:search" class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default" alternativeText="Search" title="Search" size="small"/-->
+                                            <lightning:button onclick="{!c.searchButton}" iconName="utility:search" class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default" title="Search" />
+                                            <input type="text" id="someId" value="{!v.InputSerachVal}" onkeypress="{!c.searchEnterKey}" placeholder="{!$Label.c.Smart_Search_Text}" class="slds-input" />
+                                            <!--value="{!v.InputSerachVal}"-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--div class="slds-align_absolute-center" style="height:2.5rem">
+                                    <lightning:button variant="brand" class="btn" aura:id="button1" name="btn1" label="Search" title="Brand action" onclick="{!c.searchButton}" />
+                                </div-->
+                                     <!--/div-->
+                            </aura:if>
+                                 <aura:set attribute="else">
+                                    <!--Added by Atul End Mysales-290 v-1.0-->
+                            <lightning:formattedUrl value="{!url.Url}" label="{!url.Name}" tooltip="{!url.Name}" class="url"/>
+                                </aura:set>
+                            </aura:if>
+                        </lightning:layoutItem>
+                    </aura:iteration>            
+                </lightning:layout>
+            </aura:set>
+        </aura:if>
+    </article>
+</aura:component>

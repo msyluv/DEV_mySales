@@ -1,0 +1,26 @@
+.THIS  .slds-card__header {
+	background-color: #F3F2F2;
+    padding: var(--lwc-varSpacingVerticalSmall,0.75rem) var(--lwc-varSpacingHorizontalMedium, 1rem) var(--lwc-varSpacingVerticalXSmall,0.5rem) !important;
+    margin: 0 0 0 0 !important
+}
+.THIS .small-title {
+	font-size: 0.9rem;
+	font-weight: var(--lwc-cardFontWeight, 700);
+}
+.THIS .ownerSelect{
+	margin-left: 5px;
+    margin-right: 4px;
+}
+.THIS .card1{
+	width: 85%;
+    float: left;
+}
+.THIS .card2{
+	width: 15%;
+    margin-top: 0px;
+    float: left;
+}
+.THIS .card3{
+	width: 100%;
+    float: left;
+}

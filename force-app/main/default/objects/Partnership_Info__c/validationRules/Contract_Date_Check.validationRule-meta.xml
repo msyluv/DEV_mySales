@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contract_Date_Check</fullName>
+    <active>true</active>
+    <description>계약 만료일은 계약 시작일 이후로 지정해야 합니다.</description>
+    <errorConditionFormula>IF(Contract_End_Date__c &gt;= Contract_Start_Date__c, FALSE, 
+TRUE)</errorConditionFormula>
+    <errorMessage>계약 만료일은 계약 시작일 이후로 지정해야 합니다.</errorMessage>
+</ValidationRule>

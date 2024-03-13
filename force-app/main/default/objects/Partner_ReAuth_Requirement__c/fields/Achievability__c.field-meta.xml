@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Achievability__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Performance__c=&quot;완료&quot;,true,IF(AND(ISNUMBER(Goal__c), ISNUMBER(Performance__c), VALUE(Goal__c)&lt;=VALUE(Performance__c)),true,false))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Achievability</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

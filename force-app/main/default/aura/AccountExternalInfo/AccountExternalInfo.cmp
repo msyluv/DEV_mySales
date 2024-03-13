@@ -1,0 +1,72 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2021-03-17
+  @last modified by  : younghoon.kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2021-01-28   younghoon.kim@dkbmc.com   Initial Version
+-->
+<aura:component 
+    controller="AccountExternalInfoController" 
+    Implements="flexipage:availableForRecordHome,force:appHostable,force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride"
+    access="global">
+    
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+   
+    <!-- [Attribute] -->
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="exInfoList" type="List" default="[]"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="selectedColumn" type="Object" default="{}"/>
+    <aura:attribute name="financeList" type="List" default="[]"/>
+    <aura:attribute name="historyList" type="List" default="[]"/>
+    <aura:attribute name="managerList" type="List" default="[]"/>
+
+    <aura:html tag="style">
+        .slds-modal__container{   
+            width : 90%; 
+            max-width: 85rem !important; 
+            min-width: 85rem !important;         
+        }
+        .slds-spinner_container{
+            margin-bottom: -57px;
+        }
+    </aura:html>
+
+    <!-- <aura:if isTrue="{!v.isMobile == 'W'}"> -->
+        <div class="quick-modal">
+            <!-- [Spinner] -->
+            <section class="modal slds-modal slds-fade-in-open">
+                <div class="slds-modal__container modal__container">
+                    <aura:if isTrue="{!v.showSpinner}">
+                        <lightning:spinner />
+                    </aura:if>  
+                    <!--header-->
+                    <header class="slds-modal__header">
+                        <h2 class="title slds-text-heading--medium">{!$Label.c.EXINFO_LAB_HEADER}</h2>
+                    </header>
+                    <!--body-->
+                    <div class="slds-modal__content modal__content" id="modal-content-id-1" >
+                        <div class="modal_body">
+                            <lightning:datatable 
+                                keyField="id" 
+                                data="{!v.exInfoList}" 
+                                columns="{!v.columns}"
+                                maxRowSelection="1"
+                                onrowselection="{!c.columnSelect}"/>
+                        </div>
+                    </div>
+                    <!--footer-->
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="{!$Label.c.COMM_BTN_CANCEL}" title="Cancel" onclick="{!c.cancel}"></lightning:button>
+                        <lightning:button variant="brand" label="{!$Label.c.COMM_BTN_SAVE}" title="Save" onclick="{!c.save}" ></lightning:button>
+                    </footer>
+                </div>
+            </section>
+        </div>
+    <!-- </aura:if> -->
+</aura:component>

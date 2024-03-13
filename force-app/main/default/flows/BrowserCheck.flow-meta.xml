@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <assignments>
+        <name>JumpToHome</name>
+        <label>Jump To Home</label>
+        <locationX>103</locationX>
+        <locationY>495</locationY>
+        <assignmentItems>
+            <assignToReference>LoginFlow_FinishLocation</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>/home/home.jsp</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>matchTime</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>LogoutAssignment</name>
+        <label>Logout Assignment</label>
+        <locationX>817</locationX>
+        <locationY>158</locationY>
+        <assignmentItems>
+            <assignToReference>LoginFlow_ForceLogout</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>CheckBrowser</name>
+        <label>Check Browser</label>
+        <locationX>55</locationX>
+        <locationY>270</locationY>
+        <defaultConnector>
+            <targetReference>JumpToHome</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>IsIE11</name>
+            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>LoginFlow_Platform</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Windows 10</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>LoginFlow_UserAgent</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Trident/7.0;</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>LoginFlow_UserAgent</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Trident/8.0;</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Warning</targetReference>
+            </connector>
+            <label>Is IE11</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>matchTime</name>
+        <label>matchTime</label>
+        <locationX>367</locationX>
+        <locationY>506</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>matchTime1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Flow.CurrentDateTime</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <dateTimeValue>2022-01-12T01:30:00.000Z</dateTimeValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Flow.CurrentDateTime</leftValueReference>
+                <operator>LessThanOrEqualTo</operator>
+                <rightValue>
+                    <dateTimeValue>2022-01-12T02:00:00.000Z</dateTimeValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Notice</targetReference>
+            </connector>
+            <label>matchTime</label>
+        </rules>
+    </decisions>
+    <interviewLabel>Browser Check {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Browser Check</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Notice</name>
+        <label>Notice</label>
+        <locationX>656</locationX>
+        <locationY>503</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Notice_Text</name>
+            <fieldText>&lt;pre class=&quot;ql-syntax&quot; spellcheck=&quot;false&quot;&gt;시스템 업그레이드 작업으로 인하여 다음 시간대에 서비스가 원활하지 않을 수 있으니 양해 부탁드립니다.
+Please understand that the service may not be smooth due to the system upgrade work.
+ -Time : 2022/1/14 16:00 ~ 17:00(Korea, GMT+9)-
+
+
+
+&lt;/pre&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <helpText>&lt;p&gt;2022. 01. 12. AM 10:30&lt;/p&gt;</helpText>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Warning</name>
+        <label>Warning</label>
+        <locationX>508</locationX>
+        <locationY>168</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>LogoutAssignment</targetReference>
+        </connector>
+        <fields>
+            <name>WarningMessage</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 20px; color: rgb(255, 0, 0);&quot;&gt;IE11 does not supported, try with Chrome Browser!!&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>49</locationY>
+        <connector>
+            <targetReference>CheckBrowser</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <name>LoginFlow_FinishLocation</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>LoginFlow_ForceLogout</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>LoginFlow_Platform</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>LoginFlow_UserAgent</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,115 @@
+<!--
+  @description       : 
+  @author            : zenith21c@test.com
+  @group             : 
+  @last modified on  : 05-04-2022
+  @last modified by  : ukhyeon.lee@samsung.com
+-->
+<template>
+   <template if:true={showForm}>
+      <lightning-layout>
+         <lightning-layout-item size="3" padding="around-small"></lightning-layout-item>
+            <div style="padding: 12px 45px 35px 45px; border: 1px solid #D4D4D4; border-radius: 4px; width: 500px; margin: 0 auto;" class="slds-p-vertical_large slds-p-horizontal_small slds-medium-size_6-of-12">
+               <div class="slds-text-heading--large slds-align_absolute-center" style=" font-weight:500; margin-top: 10px;">{mainHeading}</div>
+                  <lightning-formatted-rich-text style="margin-top: 23px; font-size: 12px; text-align: center; line-height: 1.5;" class="custom-label slds-form-element__label slds-form-element_stacked slds-form-element" value={signupText}></lightning-formatted-rich-text> 
+                     <lightning-layout class="slds-grid_align-center form-top">
+                        <lightning-layout-item size="12" padding="around-small">
+                           <!-- Displaying fields  to get information. -->
+                           <lightning-input variant="label-inline" class="slds-form-element__control slds-grow" label={cName} name="CompanyName" 
+                              onchange={captureUIValues} required></lightning-input>
+                           <lightning-input type="text" variant="label-inline" class="slds-form-element__control slds-grow" label={fName} name="FirstName" 
+                              onchange={firstNameChangedHandler} required></lightning-input>
+                           <lightning-input type="text" variant="label-inline" class="slds-form-element__control slds-grow" label={lName} name="LastName" 
+                              onchange={lastNameChangedHandler} required></lightning-input>
+                           <lightning-input type="tel" variant="label-inline"  class="slds-form-element__control slds-grow" label={mobile} name="MobilePhone" 
+                              onchange={phoneChangedHandler} required></lightning-input>
+                           <lightning-input type="email" variant="label-inline" data-my-id="email" class="slds-form-element__control slds-grow" label={userEmail} name="userEmail" 
+                              onchange={emailChangedHandler} required></lightning-input>
+                           <div class="slds-grid">
+                              <button class="slds-button slds-button_brand" style="float:right; margin-left: 33.5%;" onclick={validateUserMail}>{availabilityButton}</button>
+                           </div>
+                        </lightning-layout-item>
+                     </lightning-layout>
+                  
+                     <h3 style="margin-top: 23px;font-size: 16px; font-weight: bold; line-height: 1.19; color: #606864; padding: 0 20px;" class="custom-label slds-form-element__label slds-form-element_stacked slds-form-element">{tnCSection}</h3>
+                        <lightning-layout>
+                           <lightning-layout-item padding="around-small" size="12">
+                              <div class="page-section page-left slds-form-element__control form-bottom">
+                                 <ul>
+                                    <li >
+                                       <lightning-input type="checkbox" style="margin-left: 0.1%;" id="check1"  value="allCheckbox" label={agreeAll} onclick={agreeAllAction} > 
+                                       </lightning-input>
+                                    </li>
+                                    <li>
+                                       <lightning-input type="checkbox" id="personalInfoCheckbox"  data-id="check" value="personalInfoCheckbox" label={personalUse} >
+                                       </lightning-input>
+                                       <a value="useOfPersonalInfo" data-id="personalInfo" onclick={termAndConditionsViewAction}>{viewDetail}</a>
+                                    </li>
+                                    <li>
+                                       <lightning-input type="checkbox" id="check3"  data-id="check" value="crossInfoCheckbox" label={crossTransfer} >
+                                       </lightning-input>
+                                       <a value="transferOfPersonalInfo" data-id="crossInfo" onclick={termAndConditionsViewAction}>{viewDetail}</a>
+                                    </li>
+                                    <li>
+                                       <lightning-input type="checkbox" id="check4" data-id="check" label={termsOfServ} value="termsCheckbox" >
+                                       </lightning-input>
+                                       <a value="termsOfService" data-id="termOfService" onclick={termAndConditionsViewAction}>{viewDetail}</a>
+                                    </li>
+                                    <li>
+                                       <lightning-input type="checkbox" id="check5" data-id="check" label={fourteenYearsLabel} value="fourteenYearsCheckbox" >
+                                       </lightning-input>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </lightning-layout-item>
+                           <!-- <div class="page-section page-right slds-form-element__control" >
+                                 <lightning-layout-item padding="around-small" size="12">
+                                    <ul style="margin-top:25px">
+                                       <li >
+                                          <a style="float:right; margin-top:-1%"  value="useOfPersonalInfo" data-id="personalInfo" onclick={termAndConditionsViewAction}>{viewDetail}</a>
+                                       </li>
+                                       <li >
+                                          <a style="float:right;  margin-top:-1%" value="transferOfPersonalInfo" data-id="crossInfo" onclick={termAndConditionsViewAction}>{viewDetail}</a>
+                                       </li>
+                                       <li>
+                                          <a style="float:right;  margin-top:-1%" value="termsOfService" data-id="termOfService" onclick={termAndConditionsViewAction}>{viewDetail}</a>
+                                       </li>
+                                    </ul>
+                                 </lightning-layout-item>
+                              </div> -->
+                        </lightning-layout>
+                  
+                     <div class="slds-align_absolute-center">
+                        <lightning-button variant="brand" class="slds-var-m-left_small" type="submit" label={regButton} onclick={createPsrRec}></lightning-button>
+                     </div>
+                  </div>
+         <lightning-layout-item size="3" padding="around-small"></lightning-layout-item>
+      </lightning-layout >
+   </template>
+
+   <template if:true={viewTnC}>
+      <!-- Modal/Popup Box LWC starts here -->
+      <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+          <div class="slds-modal__container">
+              <!-- Modal/Popup Box LWC header here -->
+              <header class="slds-modal__header">
+                  <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closetncAgreementModal}>
+                      <lightning-icon icon-name="utility:close"
+                          alternative-text="close"
+                          variant="inverse"
+                          size="small" ></lightning-icon>
+                      <span class="slds-assistive-text">Close</span>
+                  </button>
+                  <h2 id="modal-heading-01" style="font-weight:900" class="slds-text-heading_medium slds-hyphenate">{tnCheading}</h2>
+              </header>
+              <!-- Modal/Popup Box LWC body starts here -->
+              <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+               <lightning-formatted-rich-text value={tncContent}> </lightning-formatted-rich-text>
+              </div>
+              <!-- Modal/Popup Box LWC footer starts here -->
+             
+          </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+   </template>
+</template>

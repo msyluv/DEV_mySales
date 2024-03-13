@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BO_CONFIRM_YN__c</fullName>
+    <description>BO 점검 확정여부</description>
+    <externalId>false</externalId>
+    <label>BO_CONFIRM_YN</label>
+    <length>1</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

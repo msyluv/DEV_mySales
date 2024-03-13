@@ -1,0 +1,150 @@
+<!--
+  @description       : 
+  @author            : wonjune.oh@partner.samsung.com
+  @group             : 
+  @last modified on  : 2021-03-25
+  @last modified by  : Junghwa.Kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                           Modification
+  1.0   2020-11-24   wonjune.oh@partner.samsung.com   Initial Version
+-->
+<aura:component controller="VRBRequest">
+     <!-- [Attribute] : VRB Request -->
+    <aura:attribute name="VRBRequest" type="Object" />
+    <aura:attribute name="parentId" type="String" description="Opportunity.Id"/>
+    <aura:attribute name="parentActivityId" type="String" description="Opportunity_Ativity__C.Id"/>
+    <aura:attribute name="recordId" type="String" default = ""/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="opportunity" type="Object" />
+    <aura:attribute name="opportunityBizLevel" type="String" default="{!v.opportunity.BusinessLevel__c}"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="objectLabel" type="String"/>
+    <aura:attribute name="fieldLabel" type="Object"/>
+    <aura:attribute name="OPVflag" type="Boolean" default="false"/>
+    <aura:attribute name="teamMember" type="List"/>
+    <aura:attribute name="selectOwner" type="String"/>
+    <aura:attribute name="options" type="List"/>
+    <aura:attribute name="hasEditAccess" type="Boolean" default="false" description="Profile Opportunity Edit 권한 유무" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!-- [registerEvent] : Event Handler -->
+    <aura:registerEvent name="opportunityActivityUpdateEvent" type="c:opportunityActivityUpdateEvent"/>
+
+    <!-- [Library] -->
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <!-- [Attribute] : UI Attribute -->
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+
+        <lightning:recordEditForm aura:id="recordEditForm" 
+                                  objectApiName="VRBRequest__c" 
+                                  onsubmit="{!c.handleSubmit}"
+                                  onsuccess="{!c.handleSuccess}"
+                                  onerror="{!c.handleError}" > 
+
+            <!-- Modal Contents -->
+            <div class="slds-col modal-body scrollable modal-content"> 
+
+                <!-- [View] -->
+                <div id="activityRecordForm" class="slds-scrollable_y slds-card__body slds-p-around_small">
+
+                    <aura:if isTrue="{!v.showSpinner}">
+                        <lightning:spinner alternativeText="Loading" size="medium"/>
+                    </aura:if>
+
+                    <!-- [S] VRB Request History -->
+                    <lightning:card class="slds-card_boundary">
+                        <aura:set attribute="title">
+                            <span class="slds-var-m-right_medium small-title">{!v.objectLabel}</span>
+                        </aura:set>               
+                            <!-- the container element determine the height of the datatable -->
+                            <div style="height: 300px; margin-bottom : 10px">
+                                <lightning:datatable
+                                    keyField="Id"
+                                    data="{! v.data }"
+                                    columns="{! v.columns }"
+                                    hideCheckboxColumn="true"
+                                    showRowNumberColumn="true"
+                                    columnWidthsMode = "auto"/>
+                             </div>
+                    </lightning:card>
+                    <!-- [E] VRB Request History -->
+
+                    <!-- [S] New VRB Request Form -->
+                    <aura:if isTrue="{!v.hasEditAccess}">
+                        <lightning:card class="slds-card_boundary">
+                            <aura:set attribute="title">
+                                <span class="slds-var-m-right_medium small-title">{!$Label.c.OPPTYACT_LAB_NEW}&nbsp;{!v.objectLabel}</span>
+                            </aura:set>
+                        
+                            <lightning:layout multipleRows="true" >
+                                <!-- Business Level -->
+                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                    <lightning:recordEditForm aura:id="recordEditFormOppty" 
+                                                            objectApiName="Opportunity"
+                                                            recordId="{!v.parentId}">                 
+                                        <lightning:inputField aura:id="field2" fieldName="BusinessLevel__c" value="{!v.opportunityBizLevel}" variant="label-stacked" disabled="true"/>
+                                    </lightning:recordEditForm>
+                                </lightning:layoutItem>
+                                <!-- VRB Method -->
+                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                    <lightning:inputField aura:id="fields" fieldName="VRBMethod__c" value="{! v.VRBRequest__c.VRBMethod__c }" variant="label-stacked" required="true" />
+                                </lightning:layoutItem>
+
+
+                                <!-- Cost planning readiness -->
+                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                    <lightning:inputField aura:id="fields" fieldName="Costplanningreadiness__c" variant="label-stacked" required="true" onchange="{!c.handleCostplanningreadinessChange}"/>
+                                </lightning:layoutItem>
+                                
+                                <!-- Original Price Version -->
+                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                    <lightning:inputField aura:id="fields" fieldName="OriginalPriceVersion__c" variant="label-stacked" required="{!v.OPVflag}"/>
+                                </lightning:layoutItem>
+
+                                <!-- VRB Due Date -->
+                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                    <lightning:input aura:id="dateFields" type="date" name="VRBDueDate__c" label="{!v.fieldLabel.vrbduedate__c}" variant="label-stacked" dateStyle="short" 
+                                                    required="true"/>
+                                    <!-- <lightning:inputField aura:id="fields" fieldName="VRBDueDate__c" variant="label-stacked" required="true"/> -->
+                                </lightning:layoutItem>
+                            
+                                <!-- VRB Owner -->
+                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                                    <div class="ownerSelect">
+                                        <lightning:combobox aura:id="fields" label="{!$Label.c.OPPTYACT_LAB_OWNER}" value="{!v.selectOwner}" required="true" options="{! v.options }"/>
+                                        <!-- 
+                                        <lightning:select aura:id="fields" label="{!$Label.c.COMM_LAB_OWNER}" required="true" value="{!v.selectOwner}">
+                                            <option value="">{!$Label.c.ACCTEAM_LAB_NONE}</option>
+                                            <aura:iteration items="{!v.teamMember}" var="item">
+                                                <option value="{!item.UserId}">{!item.User.Name}</option>
+                                            </aura:iteration>
+                                        </lightning:select>
+                                        -->
+                                    </div>
+                                    <!--
+                                    <lightning:inputField aura:id="fields" fieldName="VRBOwner__c" variant="label-stacked" required="true"/>
+                                    -->
+                                </lightning:layoutItem>
+                                <!-- VRB Description -->
+                                <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                                    <lightning:inputField aura:id="fields" fieldName="Description__c" variant="label-stacked" />
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                        </lightning:card> 
+                    </aura:if>
+                    <!-- [E] New VRB Request Form-->   
+                    
+                </div>
+
+            
+                <!-- Modal Footer -->
+                <div class="slds-col modal-footer slds-modal__footer">   
+                    <lightning:button label="{!$Label.c.COMM_BTN_CANCEL}" onclick="{! c.cancel }" />
+                    <!-- <lightning:button label="Next" onclick="{! c.nextStep }" /> -->
+                    <lightning:button variant="brand" label="{!$Label.c.COMM_BTN_SAVE}" type="submit" /> 
+                </div>
+            </div>
+        </lightning:recordEditForm> 
+ 
+</aura:component>

@@ -1,0 +1,37 @@
+<!--
+  @description       : (1) Record의 잠금여부를 확인하여 toast Message를 띄움, (2) 잠금/잠금해제 Button 표시 (Modify All 권한이 있으면 표시)
+  @author            : hj.lee@dkbmc.com
+  @last modified on  : 2021-01-26
+  @last modified by  : hj.lee@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author             Modification
+  1.0   2020-12-10   hj.lee@dkbmc.com   Initial Version
+-->
+<aura:component
+    controller="RecordLockController"
+    implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasSObjectName,force:hasRecordId"
+    access="GLOBAL">
+
+    <!-- [Attribute] -->
+    <aura:attribute name="isLocked" type="Boolean" default="false"/>
+    <aura:attribute name="lockString" type="String" default="{!v.isLocked ? 'unlock' : 'lock'}"/>
+    <aura:attribute name="canModifyAll" type="Boolean" default="false"/>
+
+    <!-- [Design Attribute] -->
+    <aura:attribute name="toastTime"        type="Integer"  default="10000"/>
+    <aura:attribute name="toastMode"        type="String"   default="dismissible"/>
+    <aura:attribute name="toastType"        type="String"   default="info"/>
+    <aura:attribute name="showLockButton"   type="Boolean"  default="true"/>
+    <aura:attribute name="buttonVariant"    type="String"   default="brand"/>
+
+    <!-- [Handler] -->
+    <aura:handler name="init" value="{! this }" action="{! c.init }" />  
+    
+    <!-- UnLock/Lock Button -->
+    <aura:if isTrue="{!and(v.canModifyAll, v.showLockButton)}">
+        <div class="slds-path slds-text-align_center">
+          <lightning:button label="{!v.lockString}" iconName="{!'utility:'+v.lockString}" iconPosition="left"  variant="{!v.buttonVariant}" class="lockButton"
+                            onclick="{!c.handleClick}" />
+        </div>
+    </aura:if>
+</aura:component>

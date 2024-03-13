@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IF_Log__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>IF-050 IF_Log__c. (30일전 IF_Log 삭제되는 것 유의)</description>
+    <externalId>false</externalId>
+    <label>IF_Log</label>
+    <referenceTo>IF_Log__c</referenceTo>
+    <relationshipLabel>SvcSolSyncLog</relationshipLabel>
+    <relationshipName>SvcSolSyncLog</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SDS_PDM__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>SDS PDM(Employee__c)</description>
+    <externalId>false</externalId>
+    <label>SDS PDM</label>
+    <referenceTo>Employee__c</referenceTo>
+    <relationshipLabel>Partnership Infos</relationshipLabel>
+    <relationshipName>Partnership_Infos</relationshipName>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

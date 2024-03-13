@@ -1,0 +1,96 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 02-26-2024
+  @last modified by  : vikrant.ks@samsung.com
+  Modifications Log 
+  Ver   Date         Author            		Modification
+  1.0   09-22-2020   woomg@dkbmc.com   		Initial Version
+  1.1   02-26-2024   vikrant.ks@samsung.com MySales-447
+-->
+<aura:component
+    controller="CustomRelatedFilesController"
+    implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" 
+    access="global">
+
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+	<aura:attribute name="isMobile" type="Boolean"/>
+    <aura:attribute name="sObjectName" type="String" />
+    <aura:attribute name="isCreatable" type="Boolean" default="true"/>
+
+    <aura:attribute name="vaultToken" type="String" default=""/>
+    <aura:attribute name="contents" type="List" default="[]" />
+    <aura:attribute name="count" type="Integer" default="0" />
+	<aura:attribute name="isDeliveryManager" type="Boolean" default="false"/><!--V1.1-->
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+
+    <div class="slds">
+        <aura:if isTrue="{!v.showSpinner}">
+            <lightning:spinner />
+        </aura:if>
+
+        <lightning:card class="slds-card_boundary">
+            <aura:set attribute="title">
+                <lightning:icon iconName="standard:file" size="small" class="slds-var-m-right_medium"/>
+                <span class="small-title ">{!$Label.c.EFSS_COMP_LABEL} ({!v.count})</span> <!-- Files -->
+            </aura:set>
+            <aura:set attribute="actions">
+                <aura:if isTrue="{!and(not(v.isMobile), v.isCreatable)}">
+                    <!--
+                    <lightning:button label="Add File" onclick="{!c.clickAdd}"/>
+                    <input aura:id="file-upload" id="file-upload" type="file" accept="image/*, .docx, .xlsx, .pptx, .zip, .pdf" onchange="{! c.handle4PlainFiles }" onclick="{! c.resetInput}" style="display:none;"/>
+                    -->
+                    <lightning:input 
+                        disabled="{!v.isDeliveryManager}" 
+                        aura:id="upFileButton"
+                        name="file1" 
+                        class="fileUploadButton"
+                        type="file" 
+                        variant="label-hidden"
+                        multiple="false" 
+                        accept="image/*, .docx, .xlsx, .pptx, .zip, .pdf" 
+                        onchange="{!c.handle4LightningFiles}"/>
+                </aura:if>
+            </aura:set>
+            <div class="slds-card__body slds-card__body--inner">
+                <aura:if isTrue="{!v.count > 0}">
+                    <ul class="slds-grid slds-wrap">
+                        <aura:iteration items="{!v.contents}" var="item">
+                            <c:customRelatedFileCard
+                                title="{!item.ContentDocument.Title}"
+                                documentId="{!item.ContentDocumentId}"
+                                fileType="{!item.ContentDocument.FileExtension}"
+                                fileSize="{!item.ContentDocument.ContentSize}"
+                                createdDate="{!item.ContentDocument.ContentModifiedDate}"
+                                onchilddeleted="{!c.childDeleted}" />
+                        </aura:iteration>
+                    </ul>
+                    <aura:set attribute="else">
+                        <aura:if isTrue="{!and(not(v.isMobile), v.isCreatable)}">
+                            <div >
+                                <center>
+                                    <lightning:layout multipleRows="true" horizontalAlign="center" verticalAlign="center">
+                                        <lightning:layoutItem size="12" class="slds-var-p-vertical_xx-small custom-drop-zone">
+                                            <lightning:input 
+                                                disabled="{!v.isDeliveryManager}" 
+                                                aura:id="upFileZone"
+                                                name="file2" 
+                                                type="file" 
+                                                variant="label-hidden"
+                                                multiple="false" 
+                                                accept="image/*, .docx, .xlsx, .pptx, .zip, .pdf" 
+                                                onchange="{!c.handle4LightningFiles}"/>
+                                        </lightning:layoutItem>
+                                    </lightning:layout>
+                                </center>
+                            </div>
+                        </aura:if>
+                    </aura:set>
+                </aura:if>
+            </div>
+        </lightning:card>
+    </div>
+</aura:component>

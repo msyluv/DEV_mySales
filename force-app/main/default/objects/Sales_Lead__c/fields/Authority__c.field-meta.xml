@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Authority__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>권한</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Whether the customer in charge has obtained the right to perform the business (change the stage to Hot when satisfying two or more BANTs)</inlineHelpText>
+    <label>Authority</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WBSLevel__c</fullName>
+    <description>WBS Level</description>
+    <externalId>false</externalId>
+    <formula>IF(LEN(SUBSTITUTE(Name,&apos;-&apos;,&apos;&apos;)) == 13
+			, &apos;1&apos;
+			, IF(LEN(SUBSTITUTE(Name,&apos;-&apos;,&apos;&apos;)) == 15 , &apos;2&apos;, &apos;3&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>WBSLevel</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

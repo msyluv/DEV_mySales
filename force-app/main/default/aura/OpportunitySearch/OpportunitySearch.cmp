@@ -1,0 +1,574 @@
+<!--
+  @author            : younghoon.kim@dkbmc.com
+  @group             : 
+  @description       : 
+  @last modified on  : 2023-12-21
+  @last modified by  : sarthak.j1@samsung.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   2020-11-05   younghoon.kim@dkbmc.com   Initial Version
+  1.1   2021-04-08   seonju.jin@dkbmc.com      excel export 추가
+  1.2   2023-02-22   anish.jain@partner.samsung.com	   Changes Added for new Search box 'Intensive BO' regarding (My Sales - 141)
+  1.3   2023-03-13   anish.jain@partner.samsung.com	   Changes Added for Strategic Account regarding (My Sales - 149)
+  1.4   2023-12-20   sarthak.j1@samsung.com			   Changes added for MYSALES-385.		
+-->
+<aura:component implements="force:appHostable" controller="OpportunitySearchController" access="global" >
+	<!-- [Handler] -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <!-- <aura:handler name="change" value="{!v.selectedValue.Service}" action="{!c.serviceChange}"/> -->
+
+	<!-- [Picklist Attribute] -->
+	<aura:attribute name="status" type="List" default="[]"/>
+    <aura:attribute name="rcdType" type="List" default="[]"/>
+    <aura:attribute name="service" type="List" default="[]"/>
+    <aura:attribute name="techAttribute" type="Boolean" default="false"/>
+    <!-- Start Anish - v 1.2-->
+    <aura:attribute name="CSPCheck" type="Boolean" default="false"/>
+    <aura:attribute name="MSPCheck" type="Boolean" default="false"/>
+    <aura:attribute name="SCPCheck" type="Boolean" default="false"/>
+    <aura:attribute name="ERPCheck" type="Boolean" default="false"/>
+    <aura:attribute name="MESCheck" type="Boolean" default="false"/>
+    <!-- End Anish - v 1.2-->
+    <aura:attribute name="solution" type="List" default="[]"/>
+    <aura:attribute name="collaboration" type="List" default="[]"/>
+    <aura:attribute name="internalBiz" type="List" default="[]"/>
+    <aura:attribute name="StrategicAccount" type="List" default="[{'label':'All', 'value':'All'},{'label':'Strategic Account O', 'value':'Strategic Account O'},{'label':'Strategic Account X', 'value':'Strategic Account X' }]"/> <!-- Added by Anish - v 1.3-->
+
+    <!-- [Search Attribute] -->
+    <aura:attribute name="selectedValue" type="Object" default="{}"/>
+    <aura:attribute name="selectedServiceId" type="String" default=""/>
+    
+    <!-- [Attribute] -->
+    <aura:attribute name="searchKeyword" type="String" default=""/>
+    <aura:attribute name="OpptyList" type="List" default="[]"/>
+    <aura:attribute name="loading" type="Boolean" default="true"/>
+    <aura:attribute name="nowPage" type="Integer" default="1"/>
+    <aura:attribute name="totalPage" type="Integer" default="1"/>
+    <aura:attribute name="totalCount" type="String" default=""/>
+    
+    <aura:attribute name="isMobile" type="Boolean" default="false"/>
+    
+    <!-- datatable attribute -->
+    <aura:attribute name="selectedCurrValue" type="Object" default="{}"/>   <!-- 현재 조회된 리스트의 조건 -->
+    <aura:attribute name="data" type="Object" default="{}"/>
+    <aura:attribute name="columns" type="List" default="[]"/>
+
+    <aura:attribute name="loginUserId" type="String" default=""/>
+
+    <!-- ExcelExport required script -->
+    <ltng:require 
+    scripts="{!join(',',
+            $Resource.HTML2XLSX + '/html2xlsx/cash.min.js',
+            $Resource.HTML2XLSX + '/html2xlsx/cash.inliner.min.js',
+            $Resource.HTML2XLSX + '/html2xlsx/jszip.min.js',
+            $Resource.HTML2XLSX + '/html2xlsx/FileSaver.min.js',
+            $Resource.HTML2XLSX + '/html2xlsx/better-xlsx.min.js',
+            $Resource.HTML2XLSX + '/html2xlsx/moment.min.js',
+            $Resource.HTML2XLSX + '/html2xlsx/html2xlsx.js')}"
+            />
+
+    <lightning:card >
+        <!-- [S] Title & Button -->
+        <lightning:layout class='search_layout title' verticalAlign="center" > <!--  verticalAlign="center" class="x-large" -->
+            <!-- [S] Title -->
+            <lightning:layoutItem size='12' padding='around-small' class='customHeader'>
+                <lightning:icon iconName="standard:opportunity" title="{!$Label.c.BOSEARCH_LAB_HEADER}" class='headerIcon'/>
+                <h1 style='font-size:18px; font-weight:bold; display: inline-block;'>{!$Label.c.BOSEARCH_LAB_HEADER}</h1>
+                <!-- Start v 1.4 Relocated 'Search' and 'Excel Download' buttons-->
+				<!-- End v 1.4 -->                
+            </lightning:layoutItem>
+            <!-- [E] Title -->
+        </lightning:layout>
+        <!-- [E] Title & Button -->
+        <!-- Start v 1.4 -->
+        <lightning:layout class='search_layout' verticalAlign="center" > <!--  verticalAlign="center" class="x-large" -->
+            <lightning:layoutItem size='2' padding='around-small'>
+            </lightning:layoutItem>
+            
+            <lightning:layoutItem size='2' padding='around-small'>    
+            </lightning:layoutItem>
+            
+            <lightning:layoutItem size='2' padding='around-small'>    
+            </lightning:layoutItem>
+            
+            <lightning:layoutItem size='2' padding='around-small'>   
+            </lightning:layoutItem>
+            
+            <lightning:layoutItem size='2' padding='around-small'>
+                    <lightning:combobox options="{!v.rcdType}" dropdownAlignment="auto" value="{!v.selectedValue.RecordType}" label="{!$Label.c.BOSEARCH_LAB_RECORDTYPE}"/>
+            </lightning:layoutItem>
+            
+            <lightning:layoutItem size='2' padding='around-small'>
+                <div class="slds-float_right">
+                    <lightning:button variant="brand" label="{!$Label.c.BOSEARCH_BTN_SEARCH}" iconName="utility:search" iconPosition="left" title="Search" onclick="{!c.search}" />
+                    <lightning:button variant="brand-outline" label="Excel Download" iconName="utility:download" iconPosition="left" title="Download" onclick="{!c.scriptLoaded}" disabled="{!v.loading}" />
+                </div>
+            </lightning:layoutItem>
+            </lightning:layout>
+        <!-- End v 1.4 -->
+        <!-- [S] Search - 1st Line -->
+        <lightning:layout class='search_layout' verticalAlign="center" > <!--  verticalAlign="center" class="x-large" -->
+            <!-- [S] Opportunity Name -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <lightning:input name="Opportunity Name" label='{!$Label.c.BOSEARCH_LAB_BONAME}' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+            </lightning:layoutItem>
+            <!-- [E] Opportunity Name -->
+            <!-- [S] Opportunity Code -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <lightning:input name="Opportunity Code" label='{!$Label.c.BOSEARCH_LAB_BOCODE}' value="{!v.selectedValue.OpptyCode}" placeholder='Enter Opportunity Code...'/>
+            </lightning:layoutItem>
+            <!-- [E] Opportunity Code -->
+            <!-- [S] Project Code -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <lightning:input name="Project Code" label='{!$Label.c.BOSEARCH_LAB_PROJECTCODE}' value="{!v.selectedValue.ProjectCode}" placeholder='Enter Project Code...'/>
+            </lightning:layoutItem>
+            <!-- [E] Project Code -->
+            <!-- [S] Record Type -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <lightning:combobox options="{!v.status}" dropdownAlignment="auto" value="{!v.selectedValue.Status}" label="{!$Label.c.BOSEARCH_LAB_STATUS}"/> <!-- Added by Anish - v 1.3 -->
+            </lightning:layoutItem>
+            <!-- [E] Record Type -->
+            <!-- [S] Status -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <lightning:combobox options="{!v.StrategicAccount}" dropdownAlignment="auto" value="{!v.selectedValue.StrategicAccount}" label="{!$Label.c.BOSEARCH_Strategic_Account}"/> <!-- Added by Anish - v1.3 -->
+            </lightning:layoutItem>
+            <!-- [E] Status -->
+            <!-- [S] Intensive BO--> 
+            <!-- Start-Relocated by Anish - v 1.3 -->
+            <!-- Start-Added by Anish - v 1.2 -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <div class = "slds_black_padd">
+                    <p style="float: left; font-weight: 650; font-size: 0.75rem">{!$Label.c.OPP_SEARCH_INTENSIVE_BO}&nbsp;&nbsp;</p><br/>
+                    
+                    <div class = "slds_black">
+                        
+                        
+                        <input type="checkbox" name="options" id="checkbox-unique-id-82" value="checkbox-unique-id-82" checked="{!v.MSPCheck}" onchange = "{!c.CBCheck}" />
+                        <label class="slds-checkbox__label" for="checkbox-unique-id-82">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label">&nbsp;MSP</span>
+                        </label>
+                        
+                        <input type="checkbox" name="options" id="checkbox-unique-id-81" value="checkbox-unique-id-81" checked="{!v.CSPCheck}" onchange = "{!c.CBCheck}" />
+                        <label class="slds-checkbox__label" for="checkbox-unique-id-81">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label">&nbsp;CSP</span>
+                        </label>
+                        
+                        <input type="checkbox" name="options" id="checkbox-unique-id-83" value="checkbox-unique-id-83" checked="{!v.SCPCheck}" onchange = "{!c.CBCheck}" />
+                        <label class="slds-checkbox__label" for="checkbox-unique-id-83">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label">&nbsp;SCP</span>
+                        </label>
+                        
+                        <input type="checkbox" name="options" id="checkbox-unique-id-84" value="checkbox-unique-id-84" checked="{!v.ERPCheck}" onchange = "{!c.CBCheck}" />
+                        <label class="slds-checkbox__label" for="checkbox-unique-id-84">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label">&nbsp;ERP</span>
+                        </label>
+                        
+                        <input type="checkbox" name="options" id="checkbox-unique-id-85" value="checkbox-unique-id-85" checked="{!v.MESCheck}" onchange = "{!c.CBCheck}" />
+                        <label class="slds-checkbox__label" for="checkbox-unique-id-85">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label">&nbsp;MES</span>
+                        </label>
+                        
+                    </div>   
+                </div>
+            </lightning:layoutItem>
+            <!-- [E] Intensive BO--> <!-- End-Added by Anish - v 1.2 -->
+            <!-- End-Relocated by Anish - v 1.3 -->
+        </lightning:layout>
+        <!-- [E] Search - 1st Line -->
+        <!-- [S] Search - 2nd Line -->
+        <lightning:layout class='search_layout' verticalAlign="center" > <!--  verticalAlign="center" class="x-large" -->
+            <!-- [S] Owner -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <c:customLookup aura:id="clookup"
+                                iconName="standard:avatar"
+                                objectName="User"
+                                label="{!$Label.c.BOSEARCH_LAB_OWNER}"
+                                additionalDisplay="UserInfo__c"
+                                searchFields="Email"
+                                filterFields = "IsActive"
+                                filterValues = "TRUE"
+                                filterConditions = "eq"
+                                minimum="1" 
+                                numOfQuery="20"
+                                selectedRecord="{!v.selectedValue.Owner}"/>
+            </lightning:layoutItem>
+            <!-- [E] Owner -->
+            <!-- [S] Company Code -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <c:customLookup aura:id="clookup"
+                                iconName="custom:custom24"
+                                objectName="Company__c"
+                                label="{!$Label.c.BOSEARCH_LAB_COMPANYCODE}"
+                                additionalDisplay="CompanyCode__c"
+                                searchFields="Name, CompanyCode__c"
+                                minimum="1" 
+                                numOfQuery="20"
+                                selectedRecord="{!v.selectedValue.Company}"/>
+            </lightning:layoutItem>
+            <!-- [E] Company Code -->
+            <!-- [S] Account -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <c:customLookup aura:id="clookup"
+                                iconName="standard:account"
+                                objectName="Account"
+                                label="{!$Label.c.BOSEARCH_LAB_ACCOUNT}"
+                                additionalDisplay="AccountNumber"
+                                searchFields="Name, AccountNumber"
+                                minimum="1" 
+                                numOfQuery="20"
+                                selectedRecord="{!v.selectedValue.Account}"/>
+            </lightning:layoutItem>
+            <!-- [E] Account -->
+            <!-- [S] Origin Account -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <c:customLookup aura:id="clookup"
+                                iconName="standard:person_account"
+                                objectName="Account"
+                                label="{!$Label.c.BOSEARCH_LAB_ORIGNACCOUNT}"
+                                additionalDisplay="AccountNumber"
+                                searchFields="Name, AccountNumber"
+                                minimum="1" 
+                                numOfQuery="20"
+                                selectedRecord="{!v.selectedValue.OriginAccount}"/>
+            </lightning:layoutItem>
+            <!-- [E] Origin Account -->
+            <!-- Start-Relocated by Anish - v 1.2 -->
+            <!-- [S] Collaboration -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <lightning:combobox options="{!v.collaboration}" dropdownAlignment="auto" value="{!v.selectedValue.Collaboration}" label="{!$Label.c.BOSEARCH_LAB_COLLABORATION}"/>
+            </lightning:layoutItem>
+            <!-- [E] Collaborationn -->
+            <!-- End-Relocated by Anish - v 1.2 -->
+            <!-- Start - Relocated by Anish - v 1.3 -->
+            <!-- [S] CloseDate(Start) -->
+            <lightning:layoutItem size='1' padding='around-small'>
+                <lightning:input type="date" name="CloseDate(Start)" label="{!$Label.c.BOSEARCH_LAB_STARTDATE}" value="{!v.selectedValue.StartDate}"/>
+            </lightning:layoutItem>
+            <!-- [E] CloseDate(Start) -->
+            <!-- [S] CloseDate(End) -->
+            <lightning:layoutItem size='1' padding='around-small'>
+                <lightning:input type="date" name="CloseDate(End)" label="{!$Label.c.BOSEARCH_LAB_ENDDATE}" value="{!v.selectedValue.EndDate}"/>
+            </lightning:layoutItem>
+            <!-- [E] CloseDate(End) -->
+            <!-- End - Relocated by Anish - v 1.3 -->
+            
+        </lightning:layout>
+        <!-- [E] Search - 2nd Line -->
+        <!-- [S] Search - 3rd Line -->
+        <lightning:layout class='search_layout' verticalAlign="center" >
+            <!-- [S] Sales Dept -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <c:customLookup aura:id="clookup"
+                                iconName="standard:swarm_request"
+                                objectName="CostCenter__c"
+                                label="{!$Label.c.BOSEARCH_LAB_SALESDEPT}"
+                                minimum="2"
+                                numOfQuery="50"
+                                selectedRecord="{!v.selectedValue.SalesDept}"
+                                searchFields="CostCenter__c"
+                                additionalDisplay="CostCenter__c"/>
+            </lightning:layoutItem>
+            <!-- [E] Sales Dept -->
+            <!-- [S] Delivery Dept -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <c:customLookup aura:id="clookup"
+                                iconName="standard:swarm_request"
+                                objectName="CostCenter__c"
+                                label="{!$Label.c.BOSEARCH_LAB_DELIVERYDEPT}"
+                                minimum="2"
+                                numOfQuery="50"
+                                selectedRecord="{!v.selectedValue.PrimarySalesDept}"
+                                searchFields="CostCenter__c"
+                                additionalDisplay="CostCenter__c"/>
+            </lightning:layoutItem>
+            <!-- [E] Delivery Dept -->
+            <!-- [S] Service -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <lightning:combobox options="{!v.service}" dropdownAlignment="auto" value="{!v.selectedValue.Service}" label="{!$Label.c.BOSEARCH_LAB_SERVICE}" onchange="{!c.serviceChange}"/>
+            </lightning:layoutItem>
+            <!-- [E] Service -->
+            <!-- [S] Solution -->
+            <lightning:layoutItem size='2' padding='around-small'>               
+                <div class="slds-form-element__control slds-form-element_compound">
+                    <div class="slds-form-element__row" style="padding-top: 8px;">
+                        <div class="slds-size_1-of-6">
+                            <div class="slds-form-element">
+                                <label class="slds-checkbox__label" for="checkbox-unique-id-73">                                
+                                    
+                                    <p style="float: left;">{!$Label.c.SVC_LAB_TECH}</p>
+                                    <p><c:masterServiceDesc aura:id="svcDesc" customLabelName = "MS_TA_001" /></p>
+                                </label>
+                                <lightning:input type="checkbox" name="TechAttribute" checked="{!v.techAttribute}" onchange="{!c.serviceChange}"/>                            
+                            </div>
+                        </div>
+                        <div class="slds-size_5-of-6">
+                            <div class="slds-form-element">
+                            <lightning:combobox options="{!v.solution}" dropdownAlignment="auto" value="{!v.selectedValue.Solution}" label="{!$Label.c.BOSEARCH_LAB_SOLUTION}"/>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+            </lightning:layoutItem>
+            <!-- [E] Solution -->
+            <!-- [S] Empty -->
+            <!-- <lightning:layoutItem size='2' padding='around-small' /> -->
+            <!-- [E] Empty -->
+            <!-- [S] Group Internal -->
+            <lightning:layoutItem size='2' padding='around-small'>
+                <lightning:combobox options="{!v.internalBiz}" dropdownAlignment="auto" value="{!v.selectedValue.GroupInternal}" label="{!$Label.c.BOSEARCH_LAB_GROUPINTERNAL}"/>
+            </lightning:layoutItem>
+            <!-- [E] Group Internal -->
+            <!-- Start - Relocated by Anish - v 1.3 -->
+            <!-- [S] FirstCloseDate(Start) -->
+            <lightning:layoutItem size='1' padding='around-small'><!-- Modified by Anish - v 1.2 -->
+                <!-- 
+                <label class="slds-form-element__label slds-no-flex">{!$Label.c.BOSEARCH_LAB_COLLABORATION}</label>
+                <lightning:input type="toggle" label="" name="Collaboration" checked="{!v.selectedValue.Collaboration}"/> 
+                -->
+                <lightning:input type="date" name="FirstCloseDate(Start)" label="{!$Label.c.BOSEARCH_LAB_1STSTARTDATE}" value="{!v.selectedValue.FirstStartDate}"/>
+            </lightning:layoutItem>
+            <!-- [E] FirstCloseDate(Start) -->
+            <!-- [S] FirstClostDate(End) -->
+            <lightning:layoutItem size='1' padding='around-small'><!-- Modified by Anish - v 1.2 -->
+                <!--
+                <label class="slds-form-element__label slds-no-flex">{!$Label.c.BOSEARCH_LAB_GROUPINTERNAL}</label>
+                <lightning:input type="toggle" label="" name="GroupInternal" checked="{!v.selectedValue.GroupInternal}"/>
+                -->
+                <lightning:input type="date" name="FirstCloseDate(End)" label="{!$Label.c.BOSEARCH_LAB_1STENDDATE}" value="{!v.selectedValue.FirstEndDate}"/>
+            </lightning:layoutItem>
+            <!-- [E] FirstClostDate(End) -->
+            <!-- End - Relocated by Anish - v 1.3 -->
+            
+        </lightning:layout>
+        <!-- [E] Search - 3rd Line -->
+        <!-- [S] Body -->
+        <lightning:layout multipleRows='true' class='data_layout'>
+            <!-- [S] Datatable -->
+            <lightning:layoutItem size='12' padding='around-small' class='item_table'>
+                <div class="slds-grid slds-wrap">
+                    <aura:if isTrue="{!v.loading}">
+                        <lightning:spinner />
+                        <aura:set attribute="else">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_COMPANYID}">{!$Label.c.BOSEARCH_LAB_COMPANYID}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_COMPANYCODE}">{!$Label.c.BOSEARCH_LAB_COMPANYCODE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_BOCODE}">{!$Label.c.BOSEARCH_LAB_BOCODE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_BONAME}">{!$Label.c.BOSEARCH_LAB_BONAME}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_STATUS}">{!$Label.c.BOSEARCH_LAB_STATUS}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_STAGE}">{!$Label.c.BOSEARCH_LAB_STAGE}</div>
+                                        </th>
+                                        
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_ACCOUNTCODE}">{!$Label.c.BOSEARCH_LAB_ACCOUNTCODE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_ACCOUNT}">{!$Label.c.BOSEARCH_LAB_ACCOUNT}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_ORIGNACCOUNTCODE}">{!$Label.c.BOSEARCH_LAB_ORIGNACCOUNTCODE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_ORIGNACCOUNT}">{!$Label.c.BOSEARCH_LAB_ORIGNACCOUNT}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_BIZLEVEL}">{!$Label.c.BOSEARCH_LAB_BIZLEVEL}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_OWNER}">{!$Label.c.BOSEARCH_LAB_OWNER}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_SALESDIVISION}">{!$Label.c.BOSEARCH_LAB_SALESDIVISION}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_SALESDEPT}">{!$Label.c.BOSEARCH_LAB_SALESDEPT}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_DELIVERYDEVISION}">{!$Label.c.BOSEARCH_LAB_DELIVERYDEVISION}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_DELIVERYDEPT}">{!$Label.c.BOSEARCH_LAB_DELIVERYDEPT}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_COLLABORATION}">{!$Label.c.BOSEARCH_LAB_COLLABORATION}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_GROUPINTERNAL}">{!$Label.c.BOSEARCH_LAB_GROUPINTERNAL}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_DOMESTIC}">{!$Label.c.BOSEARCH_LAB_DOMESTIC}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_BIZTYPE}">{!$Label.c.BOSEARCH_LAB_BIZTYPE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_DEALBREAK}">{!$Label.c.BOSEARCH_LAB_DEALBREAK}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_CLOSEDATE}">{!$Label.c.BOSEARCH_LAB_CLOSEDATE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_1STCLOSEDATE}">{!$Label.c.BOSEARCH_LAB_1STCLOSEDATE}</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody style='overflow-y: auto;'>
+                                    <aura:if isTrue="{!not(empty(v.OpptyList))}">
+                                        <aura:iteration items="{!v.OpptyList}" var="data">
+                                            <tr class="slds-hint-parent">
+                                                <td data-label="CompCode">
+                                                    <div class="slds-truncate" title="{!data.CompCode}">{!data.CompCode}</div>
+                                                </td>
+                                                <td data-label="CompName">
+                                                    <div class="slds-truncate" title="{!data.CompName}">{!data.CompName}</div>
+                                                </td>
+                                                <th data-label="Opportunity Code" scope="row">
+                                                    <aura:if isTrue="{!data.Permission}">
+                                                        <div class="slds-truncate" title="{!data.OpptyCode}">
+                                                            <a href="{!'/' + data.Id}" tabindex="-1" target="_blank">{!data.OpptyCode}</a>
+                                                        </div>
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-truncate" title="{!data.OpptyCode}">{!data.OpptyCode}</div>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </th>
+                                                <th data-label="Opportunity Name" scope="row">
+                                                    <aura:if isTrue="{!data.Permission}">
+                                                        <div class="slds-truncate" title="{!data.Name}">
+                                                            <a href="{!'/' + data.Id}" tabindex="-1" target="_blank">{!data.Name}</a>
+                                                        </div>
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-truncate" title="{!data.Name}">{!data.Name}</div>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </th>
+                                                <td data-label="Status">
+                                                    <div class="slds-truncate" title="{!data.Status}">{!data.Status}</div>
+                                                </td>
+                                                <td data-label="Stage">
+                                                    <div class="slds-truncate" title="{!data.Stage}">{!data.Stage}</div>
+                                                </td>
+                                                
+                                                <td data-label="AccNumber">
+                                                    <div class="slds-truncate" title="{!data.AccNumber}">{!data.AccNumber}</div>
+                                                </td>
+                                                <td data-label="AccName">
+                                                    <div class="slds-truncate" title="{!data.AccName}">{!data.AccName}</div>
+                                                </td>
+                                                <td data-label="OriginAccNum">
+                                                    <div class="slds-truncate" title="{!data.OriginAccNum}">{!data.OriginAccNum}</div>
+                                                </td>
+                                                <td data-label="OriginAcctName">
+                                                    <div class="slds-truncate" title="{!data.OriginAcctName}">{!data.OriginAcctName}</div>
+                                                </td>
+                                                <td data-label="BizLevel" style="text-align: center;">
+                                                    <div class="slds-truncate" title="{!data.BizLevel}">{!data.BizLevel}</div>
+                                                </td>
+                                                <td data-label="OwnerName">
+                                                    <div class="slds-truncate" title="{!data.OwnerName}">{!data.OwnerName}</div>
+                                                </td>
+                                                <td data-label="SalesDiv">
+                                                    <div class="slds-truncate" title="{!data.SalesDiv}">{!data.SalesDiv}</div>
+                                                </td>
+                                                <td data-label="SalesDept">
+                                                    <div class="slds-truncate" title="{!data.SalesDept}">{!data.SalesDept}</div>
+                                                </td>
+                                                <td data-label="DeliveryDiv">
+                                                    <div class="slds-truncate" title="{!data.DeliveryDiv}">{!data.DeliveryDiv}</div>
+                                                </td>
+                                                <td data-label="DeliveryDept">
+                                                    <div class="slds-truncate" title="{!data.DeliveryDept}">{!data.DeliveryDept}</div>
+                                                </td>
+                                                <td data-label="Collaboration" style="text-align: center;">
+                                                    <div class="slds-truncate" title="{!data.Collaboration}">
+                                                        <lightning:input type="checkbox" name="Collaboration" class="dataCheck" checked="{!data.Collaboration}" disabled="true"/>
+                                                    </div>
+                                                </td>
+                                                <td data-label="GroupInternal" style="text-align: center;">
+                                                    <div class="slds-truncate" title="{!data.GroupInternal}">
+                                                        <lightning:input type="checkbox" name="GroupInternal" class="dataCheck" checked="{!data.GroupInternal}" disabled="true"/>
+                                                    </div>
+                                                </td>
+                                                <td data-label="KoreaDomestic" style="text-align: center;">
+                                                    <div class="slds-truncate" title="{!data.KoreaDomestic}">
+                                                        <lightning:input type="checkbox" name="KoreaDomestic" class="dataCheck" checked="{!data.KoreaDomestic}" disabled="true"/>
+                                                    </div>
+                                                </td>
+                                                <td data-label="BizType" style="text-align: center;">
+                                                    <div class="slds-truncate" title="{!data.BizType}">{!data.BizType}</div>
+                                                </td>
+                                                <td data-label="DealBreak" style="text-align: center;">
+                                                    <div class="slds-truncate" title="{!data.DealBreak}">
+                                                        <lightning:input type="checkbox" name="DealBreak" class="dataCheck" checked="{!data.DealBreak}" disabled="true"/>
+                                                    </div>
+                                                </td>
+                                                <td data-label="CloseDate">
+                                                    <div class="slds-truncate" title="{!data.CloseDate}">{!data.CloseDate}</div>
+                                                </td>
+                                                <td data-label="FirstCloseDate">
+                                                    <div class="slds-truncate" title="{!data.FirstCloseDate}">{!data.FirstCloseDate}</div>
+                                                </td>
+                                            </tr>
+                                        </aura:iteration>   
+                                        <!-- [S] Empty List -->
+                                        <aura:set attribute="else">
+                                            <tr>
+                                                <td colspan='5'>
+                                                    <div style='text-align: center;'>No items to display.</div>
+                                                </td>
+                                            </tr>
+                                        </aura:set>
+                                        <!-- [E] Empty List -->
+                                    </aura:if>
+                                </tbody>
+                            </table>
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </lightning:layoutItem>
+            <!-- [E] Datatable -->
+            <hr></hr>
+            <!-- [S] Pagination -->
+            <lightning:layoutItem size='12' class='item_paging'>
+                <lightning:layout verticalAlign="center" horizontalAlign='center' class="x-large">
+                    <!-- [S] Total Number -->
+                    <lightning:layoutItem size='2' flexibility="auto" padding="around-small">
+                        <p style='text-align:center;' class="slds-text-heading_small">Total : {!v.totalCount} Records</p>
+                    </lightning:layoutItem>
+                    <!-- [E] Total Number -->
+                    <!-- [S] Page Number -->
+                    <lightning:layoutItem size='8' flexibility="auto" padding="around-small">
+                        <p style='text-align:center;' class="slds-text-heading_small">Page {!v.nowPage} of {!v.totalPage}</p>
+                    </lightning:layoutItem>
+                    <!-- [E] Page Number -->
+                    <!-- [S] Button -->
+                    <lightning:layoutItem size='2' flexibility="auto" padding="around-small" alignmentBump="left">
+                        <lightning:button iconName="utility:chevronleft" iconPosition="left" onclick="{!c.onPrev}" disabled="{!v.nowPage == 1}"/>
+                        <lightning:button iconName="utility:chevronright" iconPosition="right" onclick="{!c.onNext}" disabled="{!v.nowPage == v.totalPage}"/>
+                    </lightning:layoutItem>
+                    <!-- [E] Button -->
+                </lightning:layout>
+            </lightning:layoutItem>
+            <!-- [E] Pagination -->
+        </lightning:layout>
+        <!-- [E] Body -->
+    </lightning:card>
+</aura:component>

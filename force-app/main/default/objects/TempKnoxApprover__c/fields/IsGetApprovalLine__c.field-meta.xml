@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsGetApprovalLine__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>IF 수신된 결재선 정보</description>
+    <externalId>false</externalId>
+    <label>Is Get Approval Line</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

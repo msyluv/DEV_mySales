@@ -1,0 +1,35 @@
+<!--
+  @description       : 
+  @author            : jiiiiii.park@partner.samsung.com.sds.dev
+  @group             : 
+  @last modified on  : 2021-04-02
+  @last modified by  : younghoon.kim@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author                                     Modification
+  1.0   2020-11-05   jiiiiii.park@partner.samsung.com.sds.dev   Initial Version
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome" controller="LoginUserInfoController" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <aura:attribute name="userInfo" type="Map"/>
+    <aura:attribute name="lastLogin" type="String"/>
+
+    <article class="slds-card" style="height: 73px;">
+        <div class="slds-card__body" style="margin-top: 0">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <p class="slds-p-horizontal_small">
+                        <p class="slds-m-vertical_xx-small">{!$Label.c.LOGIN_LAB_NAME} : <lightning:formattedText value="{!v.userInfo.userName}"/></p>
+                        <p class="slds-m-vertical_xx-small">IP : <lightning:formattedText value="{!v.userInfo.loginIp}"/></p> 
+                        <p class="slds-m-vertical_xx-small">{!$Label.c.LOGIN_LAB_LASTLOGIN} : {!v.lastLogin}</p>
+                    </p>
+                </div>
+                <div class="slds-col">
+                    <p class="slds-p-horizontal_small" style="float: right;font-weight: bold;color: red">
+                        <p class="slds-m-vertical_xx-small">confidential</p>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
+</aura:component>

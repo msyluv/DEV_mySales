@@ -1,0 +1,41 @@
+.THIS {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+.THIS .slds-card__header{
+    margin: 0;
+    padding: 0;
+}
+.THIS .slds-card__body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.THIS .header_layout{
+    height:10%;
+}
+.THIS .body_layout{
+    height:80%;
+}
+.THIS .footer_layout{
+    height:10%;
+}
+.THIS .item_table{
+    padding: 0;
+    min-height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+}
+.THIS .header_layoutItem{
+    padding: 0;
+}
+
+.THIS .footer_layoutItem{
+    padding: 0;
+}
+.THIS .slds-m-right_xxx-small{
+    display: none;
+}

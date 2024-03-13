@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KnoxEmailSend__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Knox Email 전송 여부</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Knox Email 전송 여부</inlineHelpText>
+    <label>KnoxEmailSend</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

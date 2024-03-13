@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>구매시 포인트(등급 포인트)</description>
+        <name>Copy_1_of_Purchase_Points_Marketing_Fund</name>
+        <label>Purchase Points(Tier Point)</label>
+        <locationX>176</locationX>
+        <locationY>575</locationY>
+        <actionName>creditPointsNotFound</actionName>
+        <actionType>creditPoints</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>CorrelationId</name>
+        </inputParameters>
+        <inputParameters>
+            <name>JournalId</name>
+            <value>
+                <elementReference>$Record.Id__NotFound</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>LoyaltyProgramMemberId</name>
+            <value>
+                <elementReference>Get_Member_Grade.MemberId__NotFound</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>Points</name>
+            <value>
+                <elementReference>purchase_Tier_point</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>PointsExpirationDate</name>
+        </inputParameters>
+        <inputParameters>
+            <name>ProgramCurrencyName</name>
+            <value>
+                <stringValue>등급 포인트</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>ProgramName</name>
+            <value>
+                <stringValue>Partner Network 2.0</stringValue>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <description>구매시 포인트</description>
+        <name>Purchase_Points</name>
+        <label>Purchase Points(Marketing Fund)</label>
+        <locationX>176</locationX>
+        <locationY>455</locationY>
+        <actionName>creditPointsNotFound</actionName>
+        <actionType>creditPoints</actionType>
+        <connector>
+            <targetReference>Copy_1_of_Purchase_Points_Marketing_Fund</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>JournalId</name>
+            <value>
+                <elementReference>$Record.Id__NotFound</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>LoyaltyProgramMemberId</name>
+            <value>
+                <elementReference>Get_Member_Grade.MemberId__NotFound</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>Points</name>
+            <value>
+                <elementReference>calculate_point</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>ProgramCurrencyName</name>
+            <value>
+                <stringValue>마케팅 펀트</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>ProgramName</name>
+            <value>
+                <stringValue>Partner Network 2.0</stringValue>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>57.0</apiVersion>
+    <description>구매시 포인트 적립을 위한 Flow 구현
+* Starter license에서는 Loyalty program process 기능 지원이 안되어 Flow로 구현</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>calculate_point</name>
+        <dataType>Number</dataType>
+        <expression>{!$Record.TransactionAmount}*0.01</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <description>구매시 등급 포인트 추가</description>
+        <name>purchase_Tier_point</name>
+        <dataType>Number</dataType>
+        <expression>{!$Record.TransactionAmount} *0.1</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>LM purchase {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>LM purchase</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Transaction Journal의 memberid로 부터.. member 등급 가져오기</description>
+        <name>Get_Member_Grade</name>
+        <label>Get Member Grade</label>
+        <locationX>176</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Purchase_Points</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id__NotFound</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id__NotFound</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>TransactionJournal__NotFound</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Member_Grade</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>LoyaltyProgramId__NotFound</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0lp1s0000004C93AAE</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>JournalTypeId__NotFound</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0lE1s0000004C93EAE</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>JournalSubTypeId__NotFound</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0lS1s0000004C9SEAU</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__NotFound</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Processed</stringValue>
+            </value>
+        </filters>
+        <object>TransactionJournal__NotFound</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

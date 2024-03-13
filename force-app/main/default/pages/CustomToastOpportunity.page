@@ -1,0 +1,56 @@
+<!--
+  @description       : 
+  @author            : woomg@dkbmc.com
+  @group             : 
+  @last modified on  : 03-15-2021
+  @last modified by  : woomg@dkbmc.com
+  Modifications Log 
+  Ver   Date         Author            Modification
+  1.0   03-15-2021   woomg@dkbmc.com   Initial Version
+-->
+<apex:page standardController="RevenueScheduleOpportunity__c" 
+    showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+        <apex:slds />
+        <script>
+            function closeModal(){
+                window.history.back();
+            }
+        </script>
+    </head>
+
+    <body class="slds-scope">
+        <section role="dialog" class="modal slds-modal slds-fade-in-open">
+            <div class="slds-modal__container modal__container">
+                <div class=""> <!--slds-notify_container-->
+                    <div class="slds-notify slds-notify_toast slds-theme_warning" style="min-width: 10rem;" role="alert">
+                        <span class="slds-icon_container slds-icon-utility-warning" >
+                            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#warning')}"></use>
+                                <!--use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#warning"></use-->
+                            </svg>
+                            <span class="slds-assistive-text">Warning</span>
+                        </span>
+                        <div class="slds-p-left_small slds-notify__content">
+                            <h2 class="slds-text-heading_small">
+                                {!$Label.REVENUE_SCHEDULE_REJECT_ACTION}
+                            </h2>
+                            <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-bare slds-p-top_large" 
+                                type="button" title="Close" onclick="closeModal();">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" style="opacity: 0.8;"></div>
+
+    </body>
+    </html>
+</apex:page>
