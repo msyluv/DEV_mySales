@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BizTeamAttributes01__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This is an item field managed by the business team. You can freely define and utilize within each business team. ex) Whether to secure customer budget, department responsible for customer, etc.</inlineHelpText>
+    <label>Sales Team Attributes01</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

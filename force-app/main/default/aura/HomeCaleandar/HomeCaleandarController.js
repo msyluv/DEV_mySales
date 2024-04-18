@@ -35,8 +35,9 @@
 
 	handleChange : function(component, event, helper){
 		helper.queryActivity(component, event);
-	},
+	}
     // Divyam knox changes
+     /*
       callKnoxData : function(component, event, helper){
        // helper.callKnoxData(component,event);
         
@@ -86,5 +87,6 @@
          
 
 	}
+    */
     
 })

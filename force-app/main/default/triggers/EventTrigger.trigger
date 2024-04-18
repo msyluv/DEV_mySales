@@ -11,9 +11,10 @@
 trigger EventTrigger on Event (before update, after insert, after update, after delete,before insert) {    
     TriggerSwitch__c trSwitch = TriggerSwitch__c.getInstance(UserInfo.getUserId()); 
     Boolean AllSwitch = trSwitch.All__c; 
-    Boolean EventSwitch = trSwitch.Event__c;
+    Boolean EventSwitch = trSwitch.Event__c;  
+    Boolean isSandbox = Utils.getIsSandbox();
+    User us = [select id, Email from user where Id =:UserInfo.getUserId()];
     public Employee__c loginEmployee = Utils.getLoginEmployeeData(UserInfo.getUserId());   
-    List<Refresh_Record_Event__e> RefreshEventList = new List<Refresh_Record_Event__e>();
     if(AllSwitch && EventSwitch) {     
         switch on Trigger.operationType {
             when BEFORE_UPDATE {
@@ -35,19 +36,15 @@ trigger EventTrigger on Event (before update, after insert, after update, after 
  when AFTER_INSERT {                
                 if(String.isNotBlank(loginEmployee.EvMailAddr__c)) {
                    // System.enqueueJob(new EventTriggerHelper(Trigger.new, null, Trigger.operationType, loginEmployee));
-                }
+                
                 // saurav change Start
                 if(!system.isBatch()){    
-                    
-                    for(Event e :Trigger.New){                        
+                    for(Event e :Trigger.New){     
+                        
                             IF_KnoxTaskCallOutAPIController.doCalloutCreatemySalesKnoxCalender(e.Id);  
-                        Refresh_Record_Event__e refreshevt = new Refresh_Record_Event__e();
-                        refreshevt.Record_Id__c = e.Id;
-                        RefreshEventList.add(refreshevt);
+                    } 
                     }        
-                    if(RefreshEventList.size() > 0){
-                        EventBus.publish(RefreshEventList);
-                    }
+                    
                     
                 }
                 
@@ -91,7 +88,7 @@ trigger EventTrigger on Event (before update, after insert, after update, after 
                 if(!system.isBatch()){               
                     for(Event ev :Trigger.Old){
                         if(ev.Knox_Schedule_ID__c != Null){
-                            IF_DeleteKnoxScheduleCalloutController.deleteSingleknoxSchedule(ev.Knox_Schedule_ID__c);                        
+                            IF_DeleteKnoxScheduleCalloutController.deleteSingleknoxSchedule(ev.Knox_Schedule_ID__c,ev.Knox_Calendar_Id__c);                        
                         }
                     }
             }

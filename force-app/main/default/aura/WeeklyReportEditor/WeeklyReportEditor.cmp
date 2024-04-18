@@ -1,3 +1,13 @@
+<!--
+  @description       : 
+  @author            : aditya.r2@samsung.com
+  @group             : 
+  @last modified on  : 2024-03-26
+  @last modified by  : aditya.r2@samsung.com
+  Modifications Log 
+  Ver   Date         Author                 	Modification
+  1.0   2024-03-26   aditya.r2@samsung.com      Initial Version (MySales-471)
+-->
 <aura:component implements="lightning:isUrlAddressable,lightning:hasPageReference,force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global">
     <lightning:notificationsLibrary aura:id="notifLib"/>
     <lightning:overlayLibrary aura:id="overlayLib"/>
@@ -9,11 +19,14 @@
     <aura:attribute name="showSpinner" type="Boolean" default="false"/>   
     <aura:attribute name="section" type="String"/>
     
-    <lightning:accordion aura:id="descAccordion" activeSectionName="{!v.section}" allowMultipleSectionsOpen="true">
+    <!--<lightning:accordion aura:id="descAccordion" activeSectionName="{!v.section}" allowMultipleSectionsOpen="true">
         <lightning:accordionSection name="Description" label="Description 2" >
             <iframe src="{!'/apex/customEditorVF?id='+v.recordId+'&amp;isReadOnly=Y'}" height="100%" width="100%" frameBorder="0" scrolling="yes" style="text-align:center;"/>
         </lightning:accordionSection>
-    </lightning:accordion>
-	
+    </lightning:accordion>-->
+    
+	<div style="height:480px;">
+		<iframe src="{!'/apex/customEditorVF?id='+v.recordId+'&amp;isReadOnly=Y'}" height="100%" width="100%" frameBorder="0" scrolling="yes" style="text-align:center;"/>
+	</div>
     
 </aura:component>

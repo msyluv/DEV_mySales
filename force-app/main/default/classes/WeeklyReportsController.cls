@@ -2,14 +2,18 @@
  * @description       : 
  * @author            : woomg@dkbmc.com
  * @group             : 
- * @last modified on  : 14-03-2023
- * @last modified by  : gitesh.s@samsung.com
+ * @last modified on  : 28-03-2024
+ * @last modified by  : vipul.k1@samsung.com
  * Modifications Log 
- * Ver   Date         Author                 Modification
- * 1.3   14-03-2023   gitesh.s@samsung.com   Changed Weekly/Issue Reports order by Report Date
- * 1.2   05-10-2021   woomg@dkbmc.com        Change sharing structure : private to share with same role and subs.
- * 1.1   05-07-2021   woomg@dkbmc.com        Add Report By, Department to Email template
- * 1.0   02-04-2021   woomg@dkbmc.com        Initial Version
+ * Ver   Date         Author                 	Modification
+ * 1.7   18-04-2024   divyam.gupta@samsung.com  Removed old Editor box(MySales-436)
+ * 1.6   28-03-2024   vipul.k1@samsung.com   	Added  filter data in SOQL to fetch the records (MySales-479)
+ * 1.5   28-03-2024   aditya.r2@samsung.com   	Added createdBy field in SOQL to fetch the field (MySales-483)
+ * 1.4   26-03-2024   aditya.r2@samsung.com   	Added New editor box data inside method getEmailIssuesContents (MySales-471)
+ * 1.3   14-03-2023   gitesh.s@samsung.com   	Changed Weekly/Issue Reports order by Report Date
+ * 1.2   05-10-2021   woomg@dkbmc.com        	Change sharing structure : private to share with same role and subs.
+ * 1.1   05-07-2021   woomg@dkbmc.com        	Add Report By, Department to Email template
+ * 1.0   02-04-2021   woomg@dkbmc.com        	Initial Version
 **/
 public without sharing class WeeklyReportsController {
     @AuraEnabled
@@ -36,7 +40,7 @@ public without sharing class WeeklyReportsController {
             lstWR = [SELECT Id, Name, OwnerId, Owner.Alias, Owner.Name, Department__c, 
                         Opportunity__c, Opportunity__r.Name, Opportunity__r.AccountId, Opportunity__r.Account.Name,
                         SalesLead__c, SalesLead__r.Name, SalesLead__r.AccountId__c, SalesLead__r.AccountId__r.Name,
-                        DisplayOrder__c, Contents__c, ReportingDate__c
+                        DisplayOrder__c, Contents__c, ReportingDate__c, CreatedBy.Name, CreatedById
                      FROM WeeklyReport__c
                      WHERE Critical__c = true
                         AND ReportingDate__c >= :startDate
@@ -179,23 +183,39 @@ public without sharing class WeeklyReportsController {
     }
 
     @AuraEnabled
-    public static list<WeeklyReport__c> getIssueReports(Date reportDate){
+    public static list<WeeklyReport__c> getIssueReports(Date reportDate , String filterName){// v1.6 added filterName parameter by vipul
         list<WeeklyReport__c> lstWR = new list<WeeklyReport__c>();
         try {
             Date startDate = reportDate.toStartOfWeek();
             Date endDate = startDate.addDays(7);
             list<User> owners = RoleUtil.getAllSubordinates(UserInfo.getUserRoleId());
             // v1.3 - Gitesh Saini
-            lstWR = [SELECT Id, Name, OwnerId, Owner.Alias, Owner.Name, Department__c, 
+            if(filterName != null){ // Start v1.6 added by vipul
+                String filterNameData = '%'+filterName+'%';
+                lstWR = [SELECT Id, Name, OwnerId, Owner.Alias, Owner.Name, Department__c, 
+                         Opportunity__c, Opportunity__r.Name, Opportunity__r.AccountId, Opportunity__r.Account.Name,
+                         SalesLead__c, SalesLead__r.Name, SalesLead__r.AccountId__c, SalesLead__r.AccountId__r.Name,
+                         DisplayOrder__c, IssueDescription__c, Issue_Description_Check__c, ReportingDate__c, CreatedBy.Name, CreatedById
+                         FROM WeeklyReport__c
+                         WHERE CheckedforIssue__c = true
+                         AND ReportingDate__c >= :startDate
+                         AND ReportingDate__c < :endDate
+                         AND OwnerId IN :owners AND NAME LIKE :filterNameData
+                         ORDER BY DisplayOrder__c ASC];  
+            } // end v1.6 added by vipul
+            else{
+              lstWR = [SELECT Id, Name, OwnerId, Owner.Alias, Owner.Name, Department__c, 
                         Opportunity__c, Opportunity__r.Name, Opportunity__r.AccountId, Opportunity__r.Account.Name,
                         SalesLead__c, SalesLead__r.Name, SalesLead__r.AccountId__c, SalesLead__r.AccountId__r.Name,
-                        DisplayOrder__c, IssueDescription__c, ReportingDate__c
+                        DisplayOrder__c, IssueDescription__c, Issue_Description_Check__c, ReportingDate__c, CreatedBy.Name, CreatedById
                      FROM WeeklyReport__c
                      WHERE CheckedforIssue__c = true
                         AND ReportingDate__c >= :startDate
                         AND ReportingDate__c < :endDate
                         AND OwnerId IN :owners 
-                     ORDER BY DisplayOrder__c ASC];
+                     ORDER BY DisplayOrder__c ASC];    
+            }
+            
             // v1.3
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -210,7 +230,7 @@ public without sharing class WeeklyReportsController {
             record = [SELECT Id, Name, OwnerId, Owner.Alias, Owner.Name, Department__c, Account_Name__c, 
                         Opportunity__c, Opportunity__r.Name, Opportunity__r.AccountId, Opportunity__r.Account.Name,
                         SalesLead__c, SalesLead__r.Name, SalesLead__r.AccountId__c, SalesLead__r.AccountId__r.Name,
-                        DisplayOrder__c, IssueDescription__c, ReportingDate__c
+                        DisplayOrder__c, IssueDescription__c, Issue_Description_Check__c, ReportingDate__c
                       FROM WeeklyReport__c
                       WHERE Id = :recordId];
         } catch (Exception e) {
@@ -220,11 +240,12 @@ public without sharing class WeeklyReportsController {
     }
 
     @AuraEnabled
-    public static Boolean saveIssuesContent(String recordId, String content, Integer order){
+    public static Boolean saveIssuesContent(String recordId, String content, Integer order, String contentNew){
         try {
             WeeklyReport__c record = new WeeklyReport__c();
             record.Id = recordId;
             record.IssueDescription__c = content;
+            record.Issue_Description_Check__c = contentNew;
             if(order != null) record.DisplayOrder__c = order;
             
             update record;
@@ -242,7 +263,7 @@ public without sharing class WeeklyReportsController {
             records = [SELECT Id, Name, OwnerId, Owner.Alias, Owner.Name, Department__c,
                         Opportunity__c, Opportunity__r.Name, Opportunity__r.AccountId, Opportunity__r.Account.Name,
                         SalesLead__c, SalesLead__r.Name, SalesLead__r.AccountId__c, SalesLead__r.AccountId__r.Name,
-                        DisplayOrder__c, IssueDescription__c, ReportingDate__c
+                        DisplayOrder__c, IssueDescription__c, Issue_Description_Check__c, ReportingDate__c
                        FROM WeeklyReport__c
                        WHERE Id IN :reportIds 
                        ORDER BY DisplayOrder__c ASC];
@@ -312,11 +333,17 @@ public without sharing class WeeklyReportsController {
                     //body += th1Header + Label.WEEKLY_ISSUE_REPORT_COL_ORDER + tdhFooter;
                     //body += td1Header + Integer.valueOf(record.DisplayOrder__c) + tdhFooter;
                     body += trFooter;
-
-                    body += trHeader;
+                    // V 1.7 Divyam 
+                   /*body += trHeader;
                     body += td4Header + record.IssueDescription__c + tdhFooter;
+                    body += trFooter; */
+                    
+                    //Start - v1.4
+                    body += trHeader;
+                    body += td4Header + record.Issue_Description_Check__c + tdhFooter;
                     body += trFooter;
-
+					//End - v1.4
+                    
                     body += tableFooter;
                     body += divFooter;
                 }
@@ -338,7 +365,8 @@ public without sharing class WeeklyReportsController {
         try {
             map<String, Object> resultMap = new map<String, Object>();
             list<String> emails = usrList;
-            // list<String> emails = new list<String>();
+            //list<String> emailString = new list<String>();
+            //emailString.add('aditya.r2@stage.samsung.com');
             // list<User> luser = [SELECT Email FROM User WHERE Id IN :usrList];
             // if(!luser.isEmpty()){
             //     for(User u : luser){
@@ -346,7 +374,7 @@ public without sharing class WeeklyReportsController {
             //             emails.add(u.Email);
             //     }
             // }
-
+			//emails.add('aditya.r2@stage.samsung.com');
             if(!emails.isEmpty()){
                 if(!Test.isRunningTest()){
                     KnoxEmailSendController mailCon = new KnoxEmailSendController();

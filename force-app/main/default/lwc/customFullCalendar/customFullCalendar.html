@@ -1,6 +1,6 @@
 <template>
-   
-    <lightning-card>
+   <div class = "">
+    <lightning-card >
         <template if:true={isLoaded}>
             <div  id="pleaseWaitDailog" class=" modal hide" data-backdrop="static" data-keyboard="false">
                 <lightning-spinner alternative-text="Loading...">
@@ -8,7 +8,7 @@
                 </lightning-spinner>
             </div>
         </template>
-        <div class="calendar-card">
+        <div >
             <div class="slds-theme_shade slds-box">
                 <div class="slds-grid slds-gutters">
                     <div class="slds-col slds-size_1-of-3">
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="slds-col slds-size_2-of-3 slds-clearfix">
-                        <div class="slds-float_right slds-p-top_xx-small">
+                        <div class="slds-float_right ">
                             <lightning-button-icon 
                                 variant="border-filled" 
                                 icon-name="utility:chevronleft" 
@@ -38,24 +38,25 @@
                                 value="next" 
                                 onclick={calendarActionsHandler}>
                             </lightning-button-icon>
-
                             <lightning-button 
+                            variant="border-filled"
                                 label="Today" 
-                                class="slds-m-horizontal_small" 
+                                class="slds-m-horizontal_x-small buttoncls" 
                                 value="today" 
                                 onclick={calendarActionsHandler}>
+                                
                             </lightning-button>
 
                             <lightning-button-icon 
                                 variant="border-filled" 
                                 icon-name="utility:refresh" 
-                                class="slds-m-left_medium" 
+                                class="slds-m-left_medium   " 
                                 value="refresh" 
                                 onclick={calendarActionsHandler}>
                             </lightning-button-icon>
 
                             <lightning-button-menu alternative-text="Show menu" variant="border-filled" 
-                                icon-name="utility:event" class="slds-m-horizontal_small" 
+                                icon-name="utility:event" class="slds-m-horizontal_x-small" 
                                 menu-alignment="auto" onselect={changeViewHandler}>
                                 <template for:each={viewOptions} for:item="menuItem">
                                     <lightning-menu-item
@@ -68,25 +69,45 @@
                             </lightning-button-menu>
 
                             <lightning-button 
-                                label="New"
-                                class="slds-m-horizontal_small" 
+                            variant="border-filled" 
+                                label="New Event"
+                                class="slds-m-horizontal_xx-small buttoncls" 
                                 value="new" 
                                 onclick={calendarActionsHandler}>
+                                
                             </lightning-button>
                             <lightning-button 
-                            label="knoxData"
-                            class="slds-m-horizontal_small" 
-                            value="knoxData" 
+                            variant="border-filled" 
+                            label="Knox Data"
+                            class="slds-m-horizontal_xx-small buttoncls" 
+                            value="knox Data" 
                             onclick={calendarknoxHandler}>
 
                         >
                         </lightning-button>
+                       
                         </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
+        <div class= "slds-grid slds-wrap">
+        <div class="slds-col slds-size_4-of-6">
+        </div>
+        <div class = "slds-col slds-size_2-of-6  slds-text-align_right chkbox">
+            <lightning-input
+               type ="checkbox"
+                label="Synchronize task with Knox" 
+                data-id ="knoxchekbox"
+                checked = {syncknoxtask}
+                onchange={callsynctask}>
+            </lightning-input>            
+        </div>
+    </div> 
+    <div class = "fullcalendarcustom overflow:auto">
         <div class="fullcalendar"></div>
+    </div>
     </lightning-card>
-    
+</div>
 </template>

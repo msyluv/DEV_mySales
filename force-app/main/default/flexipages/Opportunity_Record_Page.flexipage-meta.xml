@@ -754,8 +754,8 @@
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Delivery Manager(HQ)</rightValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>HQ</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

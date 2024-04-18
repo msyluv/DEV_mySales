@@ -19,6 +19,13 @@
     },
 
     loadPreview : function (component, event, helper) {
+        var recordId = component.get("v.recordId");
+        console.log('Record Id from Preview Controller : ', recordId);
+        var appEvent = $A.get("e.c:passRecId");
+        appEvent.setParams({"passData" : recordId});
+        console.log("Before event fired : ", appEvent);
+        appEvent.fire();
+        console.log("After event fired : ", appEvent);
         helper.loadPreview(component, event, helper);
     },
 

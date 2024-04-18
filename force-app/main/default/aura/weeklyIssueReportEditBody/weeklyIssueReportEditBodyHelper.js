@@ -5,8 +5,9 @@
  * @last modified on  : 02-04-2021
  * @last modified by  : woomg@dkbmc.com
  * Modifications Log 
- * Ver   Date         Author            Modification
- * 1.0   01-04-2021   woomg@dkbmc.com   Initial Version
+ * Ver   Date         Author            		Modification
+ * 1.0   01-04-2021   woomg@dkbmc.com   		Initial Version
+ * 1.1   2024-03-26   aditya.r2@samsung.com		Added new Editor field Issue_Description_Check__c
 **/
 ({
     doInit : function(component, event) {
@@ -18,7 +19,9 @@
             .then(function(result){
                 //console.log('getWeeklyReport -> ', result);
                 component.set("v.report", result);
+                //v1.1
                 component.set("v.content", result.IssueDescription__c);
+                component.set("v.contentNew", result.Issue_Description_Check__c);
                 if(result.DisplayOrder__c != undefined && result.DisplayOrder__c != null){
                     component.set("v.order", result.DisplayOrder__c);
                 }
@@ -34,10 +37,18 @@
         var self = this,
             recordId = component.get("v.recordId"),
             content = component.get("v.content"),
+            contentNew = component.get("v.contentNew"),
+            vfValue = component.get("v.vfValue"),
+            pressMe = component.get("v.pressMe"),
             order = component.get("v.order");
 
+        //v1.1
+        if(vfValue!= contentNew && pressMe == "1")
+            contentNew = vfValue;
+        
         component.set("v.showSpinner", true);
-        self.apex(component, 'saveIssuesContent', { recordId : recordId, content : content, order : order })
+        //v1.1
+        self.apex(component, 'saveIssuesContent', { recordId : recordId, content : content, order : order, contentNew : contentNew  })
             .then(function(result){
                 //console.log('saveContent -> ', result);
                 component.set("v.showSpinner", false);

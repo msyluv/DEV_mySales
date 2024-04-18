@@ -14,7 +14,10 @@ public class if_KnoxTaskListCallInController {
             String UserEmail = UserINfo.getUserEmail();
             List<String> parts = UserEmail.split('@');
             String userName = parts[0]; 
-            User loginUser = [Select Id,CalendarID__c,FederationIdentifier from User Where Id=:UserINfo.getUserId()];
+             List<Object> jsonMap = new List<Object>();        
+            User loginUser = [Select Id,CalendarID__c,FederationIdentifier,KnoxDataError__c from User Where Id=:UserINfo.getUserId()];
+
+        try{
             String userTargetId = loginUser.FederationIdentifier;
             IF_Callout call = new IF_Callout(INTERFACE_ID);
             OutputHeader output  = new OutputHeader();   
@@ -40,9 +43,9 @@ public class if_KnoxTaskListCallInController {
             HttpResponse response = (HttpResponse)resMap.get('HttpResponse');
             System.debug('response : '+resMap.get('Response'));
 			String jsonResponse =  response.getBody();   
+            if(response.getStatusCode() == 200){
             Map<String,Object> deserailse = (Map<String,Object>)JSON.deserializeUntyped(jsonResponse);
         //	List<Object> jsonMap = (List<Object>)JSON.deserializeUntyped(jsonResponse);
-        	List<Object> jsonMap = new List<Object>();
 		// SJOSHI: Start
         // adding If/Else Condition and commenting out 3 lines of code
         system.debug('SJOSHIDes>>' + deserailse);
@@ -50,6 +53,7 @@ public class if_KnoxTaskListCallInController {
             for(Object inst : (List<object>)deserailse.get('animals')){
             jsonMap.add(inst);
         	}
+            
         }
         else{
             for(Object inst : (List<object>)deserailse.get('data')){
@@ -60,6 +64,45 @@ public class if_KnoxTaskListCallInController {
         //    jsonMap.add((Map<String,object>)inst);
         //}
         // SJOSHI: End
+       interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID, guId, APEX_CLASS, METHOD_NAME, String.valueOf(resMap.get('Request')), String.valueOf(resMap.get('Response')));
+               loginUser.KnoxDataError__c = 'success';
+
+        }
+            else {
+                if(response.getStatusCode() == 403) {
+                  loginUser.KnoxDataError__c = 'noknoxuser';
+
+                }
+                 
+                if(response.getStatusCode() != 403){
+                   loginUser.KnoxDataError__c = 'errorcoming';
+   
+                }
+                system.debug('statuscodecoming'+response.getStatusCode());
+                List<String> errList = new List<String>();
+                interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID, guId, APEX_CLASS, METHOD_NAME, String.valueOf(resMap.get('Request')), String.valueOf(resMap.get('Response')),errList);
+        //   Map<String,Object> deserailse = (Map<String,Object>)JSON.deserializeUntyped(jsonResponse);
+          //      system.debug('errordetails'+deserailse.get('errorDetail'));
+                       /*    for(Object inst : (List<object>)deserailse.get('errorDetail')){
+                                jsonMap1.add((Map<String,object>)inst);
+                           } */
+            //  string errorcode = String.valueof((<Object>)deserailse.get('errorCode'));
+               // system.debug('errorcode'+errorcode);
+              //  loginUser.KnoxDataError__c = true;
+
+            }
+        }
+         catch (Exception e){
+                ifLog.addLog('Exception : ' + e.getMessage());
+                // errorMsgList.add('Exception : ' + e.getMessage());           
+                interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID, guId, APEX_CLASS, METHOD_NAME, String.valueOf(resMap.get('Request')), String.valueOf(resMap.get('Response')), e);          
+             //  loginUser.KnoxDataError__c = true;
+                              loginUser.KnoxDataError__c = 'errorcoming';
+
+
+         }
+                 ifLog.createLog(interfaceLog); 
+                  update loginUser;
         	system.debug('jsonMapIF-192____________' + jsonMap);       	    
             Return jsonMap;
            // }

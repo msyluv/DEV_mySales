@@ -13,7 +13,8 @@ global class massInsertOppYearlyRevenueSchedule Implements Database.Batchable <s
     
     global Database.queryLocator start(Database.BatchableContext bc) {
         String node = System.Label.YearlyRevenueScheduleNote2;
-        String SOQL = 'Select id,name,cRevenueStartDate__c,cRevenueEndDate__c,CurrencyIsoCode,Amount from Opportunity where cPrimarySalesDepartment__r.Node2__c =:node   AND cRevenueStartDate__c != null AND cRevenueEndDate__c != null AND Amount != null AND StageName NOT IN (\'Z07\',\'Z08\') AND CloseDate >= 2023-01-01 AND RecordType.Name = \'HQ\' AND CompanyCode__c = \'T100\''; //클라우드서비스사업부  \'T100S4\' and cPrimaryDeliveryDivision__c = \'솔루션사업부\' \'Z06\',
+        //String SOQL = 'Select id,name,cRevenueStartDate__c,cRevenueEndDate__c,CurrencyIsoCode,Amount from Opportunity where cPrimarySalesDepartment__r.Node2__c =:node   AND cRevenueStartDate__c != null AND cRevenueEndDate__c != null AND Amount != null AND StageName NOT IN (\'Z07\',\'Z08\') AND CloseDate >= 2023-01-01 AND RecordType.Name = \'HQ\' AND CompanyCode__c = \'T100\''; //클라우드서비스사업부  \'T100S4\' and cPrimaryDeliveryDivision__c = \'솔루션사업부\' \'Z06\',
+          String SOQL = 'SELECT id,name,cRevenueStartDate__c,cRevenueEndDate__c,CurrencyIsoCode,Amount from Opportunity where cRevenueStartDate__c != null AND cRevenueEndDate__c != null AND Amount != null AND StageName NOT IN (\'Z07\',\'Z08\') AND CloseDate >= 2023-01-01 AND RecordType.Name = \'HQ\' AND CompanyCode__c NOT IN (\'T100\',\'T110\',\'T120\',\'T140\',\'T170\',\'T640\',\'T641\',\'L1B0\',\'L1E0\',\'ZB01\',\'ZB10\')';
         return Database.getQueryLocator( SOQL );
         
     }

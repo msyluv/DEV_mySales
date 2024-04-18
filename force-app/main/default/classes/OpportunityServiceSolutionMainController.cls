@@ -2,8 +2,8 @@
  * @description       : 
  * @author            : seonju.jin@dkbmc.com
  * @group             : 
- * @last modified on  : 2023-10-26
- * @last modified by  : anish.jain@partner.samsung.com
+ * @last modified on  : 2024-04-05
+ * @last modified by  : sarthak.j1@samsung.com
  * Modifications Log 
  * Ver   Date         Author                 Modification
  * 1.0   2020-11-18   seonju.jin@dkbmc.com   Initial Version
@@ -43,6 +43,8 @@
  * 4.3   2023-05-23   gitesh.s@samsung.com    MYSALES-196 - Added error to check invalid Primary Sales Dept. (Lv.3) and Primary Delivery Dept. (Lv.3)
  * 4.4   2023-07-24   d.ashish@samsung.com    MYSALES-261 - Added Condition to not Complete BO Review automatically  when Opportunity is HQ collaboration and Related Subsidery business type is Implementation.
  * 4.5   2023-10-26   anish.jain@partner.samsung.com  MS-302
+ * 4.6   2024-04-05   sarthak.j1@samsung.com    Remove the logic related to BrityAP -> [MYSALES-491]
+ * 4.7   2024-04-12   d.ashish@samsung.com  Added Logic for Send Service -> [MYSALES-505]
 **/
 public without sharing class OpportunityServiceSolutionMainController {
     //Use resultMap Key name
@@ -1866,7 +1868,7 @@ public without sharing class OpportunityServiceSolutionMainController {
                 log.LogText__c = logMessage;
                 log.StatusCode__c = statusCode;
                 log.LogType__c = 'Interface';
-                log.EndDatetime__c 	= System.now();
+                log.EndDatetime__c  = System.now();
                 log.StartDatetime__c = System.now();
                 System.debug( 'LOGIC_REVIEWOPP creation'+ log);
                 insert log;
@@ -2678,9 +2680,11 @@ public without sharing class OpportunityServiceSolutionMainController {
                 if(opptyAct.Status__c != OPPTYACT_STATUS_COMPLETED){
                     opptyAct.Status__c =  OPPTYACT_STATUS_INPROGRESS;   //In Progress
                     //Start-Added by Anish - v 3.9 
+                    //Commented out below if-block as part of v-4.6
+                    /*
                     if(opptyAct.StartDate__c == null && opptyAct.WhatId__r.CompanyCode__c == 'T100' && opptyAct.WhatId__r.GroupInternal__c == False){
                         IF_171CallOutAPIController.doCalloutSendingReviewOpportunityInfo(opptyId); 
-                    }
+                    }*/
                     //End-Added by Anish - v 3.9 
                 }else{
                     return;
@@ -3018,6 +3022,13 @@ public without sharing class OpportunityServiceSolutionMainController {
         String monthStr = String.valueOf(dateInfo.month());
         String dayStr = String.valueOf(dateInfo.day());
         return dateInfo.year() + '.' + (((monthStr.length()== 1)) ? '0' : '')  +dateInfo.month() + '.' + ((dayStr.length() == 1) ? '0': '') + dateInfo.day();
+    }
+    //MS-505
+    @AuraEnabled
+    Public Static void SendServiceMethod(Id oppid){
+    system.debug('Test Ashish::'+oppid);
+         if(!Test.isRunningTest()) IF_LsDashboardController.calloutDashboardInfo(new Set<Id>{oppid}); 
+        
     }
 
     /* 화면에서 사용할 custom class */

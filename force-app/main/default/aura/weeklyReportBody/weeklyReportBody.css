@@ -24,10 +24,10 @@
 }
 
 .THIS .num-colhead {
-    text-align : right;
+    text-align : center;
     padding-right: 60px;
 }
 
 .THIS .num-colcell {
-    text-align : right;
+    text-align : center;
 }

@@ -28,19 +28,26 @@
 
     selectDate : function(component, event, helper){
         var reportDate = event.getSource().get("v.value");
-        component.set("v.reportDate", reportDate);
-        helper.getContents(component);
+        if(event.getSource().get("v.value")){
+            component.set("v.reportDate", reportDate);
+            helper.getContents(component);    
+        }
+        else{
+            var msg = $A.get('$Label.c.WEEKLY_ISSUE_REPORT_DATE_EMPTY');
+            helper.showMyToast('error', msg);
+        }
+        
     },
 
     clickReport : function(component, event, helper) {
         var recordId = event.currentTarget.id;
         console.log('click!', recordId);
         helper.callEditModal(component, recordId);
-    },
+    },   
 
     clickPreview : function(component, event, helper) {
         var records = component.get("v.selectedReports");
-
+console.log('--records--',records +'----'+ records.length);
         if(records.length < 1){
             helper.showMyToast('warning', $A.get('$Label.c.WEEKLYREPORT_MSG_0004'));
         }else{
@@ -96,5 +103,13 @@
         }
 
         component.set('v.selectedReports', selectedReports);
+    },
+    searchNameHandle: function(component, event, helper) { // Added By Vipul v1.4
+        var isEnterKey = event.keyCode === 13;
+        if(isEnterKey){
+            var qetNameValue = component.find('searchName').get('v.value');
+            component.set('v.filterNameValue',qetNameValue);
+            helper.getContents(component);
+        }
     }
 })

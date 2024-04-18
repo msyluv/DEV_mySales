@@ -5,8 +5,9 @@
 * @last modified on  : 2022-11-12
 * @last modified by  : anish.jain@partner.samsung.com
 * Modifications Log 
-* Ver   Date         Author                   Modification
+* Ver   Date         Author                          Modification
 * 1.0   2022-11-08   anish.jain@partner.samsung.com  Initial Version
+* 1.1   2024-04-05   sarthak.j1@samsung.com  		 Remove the logic related to BrityAP -> [MYSALES-491]
 **/
 
 @isTest
@@ -35,7 +36,7 @@ public class IF_171CallOutAPIController_Test {
         Test.startTest();
         oppty = [Select ID from opportunity limit 1];
         System.debug('Opportunity id is :' +oppty.Id);
-        IF_171CallOutAPIController.doCalloutSendingReviewOpportunityInfo(oppty.Id);
+        IF_171CallOutAPIController.doCalloutSendingReviewOpportunityInfo(oppty.Id); //Commented out as part of v-1.1
         Test.stopTest();
     }
 }

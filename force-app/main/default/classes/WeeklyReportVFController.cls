@@ -1,35 +1,38 @@
+/**
+ * @author            : sbest.han@samsung.com
+ * @group             : 
+ * @description       : Apex class for VF Page CustomEditorVF.vfp
+ * @last modified on  : 2024-03-26
+ * @last modified by  : aditya.r2@samsung.com
+ * Modifications Log 
+ * Ver   Date         Author                    Modification
+ * 1.0   2024-03-05   sbest.han@samsung.com		Initial Version
+ * 1.1	 2024-03-26   aditya.r2@samsung.com		Removed the Encoding & Decoding of the data (MySales-471)
+**/
 public with sharing class WeeklyReportVFController {
     
     public Id recordId { get; set; }
     public String issueDescriptionCheck {get; set;}
     
+    public WeeklyReportVFController(ApexPages.StandardController std){
+        
+    }
+    
     public void WeeklyReportVFController(){
         this.recordId = ApexPages.currentPage().getParameters().get('id');
         //this.recordId = 'a0w1s000002fEjYAAU';
-        
+        system.debug('Apex value==>'+this.recordId);
         WeeklyReport__c weeklyReport = [select IssueDescription__c,Issue_Description_Check__c from WeeklyReport__c where id = :recordId];
-        
+        system.debug('weeklyReportweeklyReport==>'+weeklyReport);
         if(weeklyReport.Issue_Description_Check__c == null){
             issueDescriptionCheck = null;
         } else{
-            issueDescriptionCheck = EncodingUtil.urlDecode(weeklyReport.Issue_Description_Check__c, 'UTF-8');
+            //v1.1
+            //issueDescriptionCheck = EncodingUtil.urlDecode(weeklyReport.Issue_Description_Check__c, 'UTF-8');
+            issueDescriptionCheck = weeklyReport.Issue_Description_Check__c;
         }
 			
     }
-    
-    /*@RemoteAction
-    public static String getIssueDescription(String recordId){
-        system.debug('recordId'+ recordId);
-        WeeklyReport__c weeklyReport = [select IssueDescription__c,Issue_Description_Check__c from WeeklyReport__c where id = :recordId];
-        system.debug('WeeklyReportData : '+ weeklyReport);
-        
-        if(weeklyReport.Issue_Description_Check__c == null){
-            return null;
-        }
-			
-        return  EncodingUtil.urlDecode(weeklyReport.Issue_Description_Check__c, 'UTF-8');
-        
-    }*/
     
     public static void deleteImage(String deleteSrc) {
         List<String> src = deleteSrc.split(' ');
@@ -76,7 +79,9 @@ public with sharing class WeeklyReportVFController {
             String issueDesc = Apexpages.currentPage().getParameters().get('issueDescription');
 			String deleteSrc   = Apexpages.currentPage().getParameters().get('deleteSrc');
             String uploadedImgSrcList   = Apexpages.currentPage().getParameters().get('uploadedImgSrcList');
-            
+            System.debug('stringCount1 : ' +issueDesc ); 
+            System.debug('stringCount2 : ' +deleteSrc ); 
+            System.debug('stringCount3 : ' +uploadedImgSrcList ); 
             String encodedContent = EncodingUtil.urlEncode(issueDesc, 'UTF-8');
             Integer stringCount = encodedContent.length(); 
             
@@ -98,8 +103,9 @@ public with sharing class WeeklyReportVFController {
             createImgPublicLink(uploadedImgSrcList); 
             
             WeeklyReport__c newWR = [select id,Issue_Description_Check__c from WeeklyReport__c where id = :recordId];
-        	
-            newWR.Issue_Description_Check__c = encodedContent;
+        	//v1.1
+            //newWR.Issue_Description_Check__c = encodedContent;
+            newWR.Issue_Description_Check__c = issueDesc;
         	update newWR;
 
         }
@@ -109,11 +115,5 @@ public with sharing class WeeklyReportVFController {
         System.debug('*************** do Save End *******************');
         return null;
     }
-    
-    /*public PageReference afterSave(){
-        PageReference redirect = new PageReference('/' + recordId);
-        redirect.setRedirect(true);
-        return redirect;
-    }*/
     
 }

@@ -2,21 +2,38 @@ public class EventknoxscheduleCont {
 
      @AuraEnabled
     public static String getknoxscheduledata(String eventid){
-       Event eve = [Select Id,Knox_Schedule_ID__c,Description,Isrecurrence__c,recurrence_con__c,EndType__c,Count_rec__c,freqInterval__c,Frequence__c from Event WHERE Id =: eventid];
+       Event eve = [Select Id,Knox_Schedule_ID__c,Description,Isrecurrence__c,recurrence_con__c,EndType__c,Count_rec__c,freqInterval__c,Frequence__c,OwnerId from Event WHERE Id =: eventid and ownerid =: UserInfo.getUserId()];
+      UserRecordAccess usr =[select RecordId ,HasEditAccess from UserRecordAccess where UserId =:UserInfo.getUserId() and RecordId =: eventid];
+        try{
+        if(usr.HasEditAccess){    
      String descrption = '';
+        String userid = UserInfo.getUserId();
         String msg = 'success';
+            
       List<Object> knoxData = if_KnoxSingletaskCallController.getSingleknoxSchedule(eventid);
         system.debug('knoxdata194'+knoxData);
-        if(knoxData != Null ){
+        system.debug('knoxDatasize'+knoxData.size());
+        if(knoxData != Null &&  eve.OwnerId == userid){
         for(Object record : knoxData){   
               Map<String,Object> objMap = (Map<String,Object>)record;    
          // descrption= String.valueof(objMap.get('contents'));
-            system.debug('descrtioncoming'+descrption);
+           // system.debug('descrtioncoming'+descrption);
             String base64Content = String.valueof(objMap.get('contents'));
+            system.debug('base64Content'+base64Content);
              if(base64Content != null && base64Content != ''){
                     String base64String = base64Content.substringAfter('Content-Transfer-Encoding: base64\n').substringBefore('\n\n');
-                    Blob decodeBlob = EncodingUtil.base64Decode(base64String);
-                    String descValue = decodeBlob.toString();
+                  Blob decodeBlob;
+                 String descValue;
+                 if((base64String == '' || base64String == null) && base64Content.contains('html')){
+                    // String base64Stringval = base64Content.substringAfter('Content-Transfer-Encoding: base64\n');
+                   //  decodeBlob = EncodingUtil.base64Decode(base64Content);
+                        descValue = base64Content;
+                 }
+                 else {
+                  decodeBlob = EncodingUtil.base64Decode(base64String);
+                       descValue = decodeBlob.toString();
+
+                 }
                     system.debug('descvauebeforehtml'+descValue);
                     //Start SJOSHI[15-Dec-2023]
                     String addline = descValue.replaceAll('</p>','linex');
@@ -64,6 +81,13 @@ public class EventknoxscheduleCont {
         }
          
         system.debug('knoxDataIF-194'+knoxData);
-        return 'success';
+        }
+        }
+ catch(Exception e){               
+          //  ifLog.addLog('Exception : ' + e.getMessage());
+            // errorMsgList.add('Exception : ' + e.getMessage());           
+            //interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID, guId, APEX_CLASS, METHOD_NAME, String.valueOf(resMap.get('Request')), String.valueOf(resMap.get('Response')), e);          
+        }        return 'success';
+        
     }
 }

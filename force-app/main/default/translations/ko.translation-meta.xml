@@ -591,6 +591,46 @@
         <name>BOSEARCH_BTN_SEARCH</name>
     </customLabels>
     <customLabels>
+        <label><!-- BOSEARCH_CloseDate_MSG_0001 --></label>
+        <name>BOSEARCH_CloseDate_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_CloseDate_MSG_0002 --></label>
+        <name>BOSEARCH_CloseDate_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_CloseDate_MSG_0003 --></label>
+        <name>BOSEARCH_CloseDate_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_ContractDate_MSG_0001 --></label>
+        <name>BOSEARCH_ContractDate_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_ContractDate_MSG_0002 --></label>
+        <name>BOSEARCH_ContractDate_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_ContractDate_MSG_0003 --></label>
+        <name>BOSEARCH_ContractDate_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label>계약 종료일</label>
+        <name>BOSEARCH_ContractEndDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>계약 시작일</label>
+        <name>BOSEARCH_ContractStartDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>매출 거점</label>
+        <name>BOSEARCH_DeliveryOrg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_Global_Bidding --></label>
+        <name>BOSEARCH_Global_Bidding</name>
+    </customLabels>
+    <customLabels>
         <label>최초수주일자</label>
         <name>BOSEARCH_LAB_1STCLOSEDATE</name>
     </customLabels>
@@ -613,6 +653,10 @@
     <customLabels>
         <label>모두</label>
         <name>BOSEARCH_LAB_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label>금액</label>
+        <name>BOSEARCH_LAB_Amount</name>
     </customLabels>
     <customLabels>
         <label>사업등급</label>
@@ -661,6 +705,14 @@
     <customLabels>
         <label>법인코드</label>
         <name>BOSEARCH_LAB_COMPANYID</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 예상일</label>
+        <name>BOSEARCH_LAB_CloseDate1</name>
+    </customLabels>
+    <customLabels>
+        <label>통화</label>
+        <name>BOSEARCH_LAB_Currency</name>
     </customLabels>
     <customLabels>
         <label>Deal Break</label>
@@ -727,6 +779,10 @@
         <name>BOSEARCH_LAB_HEADER</name>
     </customLabels>
     <customLabels>
+        <label>사업기회 검색 (물류)</label>
+        <name>BOSEARCH_LAB_HEADER_Logistic</name>
+    </customLabels>
+    <customLabels>
         <label>그룹내</label>
         <name>BOSEARCH_LAB_INTERNALBIZ</name>
     </customLabels>
@@ -779,6 +835,34 @@
         <name>BOSEARCH_LAB_STATUS</name>
     </customLabels>
     <customLabels>
+        <label>수주 권역</label>
+        <name>BOSEARCH_LAB_SalesRegion</name>
+    </customLabels>
+    <customLabels>
+        <label>하위 업종 구분</label>
+        <name>BOSEARCH_LAB_SubIndusrty</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 예상일(종료)</label>
+        <name>BOSEARCH_LAB_closeDateEnd</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 예상일(시작)</label>
+        <name>BOSEARCH_LAB_closeDateStart</name>
+    </customLabels>
+    <customLabels>
+        <label>고객 구분</label>
+        <name>BOSEARCH_LAB_customerType</name>
+    </customLabels>
+    <customLabels>
+        <label>글로벌 비딩</label>
+        <name>BOSEARCH_LAB_globalBidding</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LogisticRecordTypeId --></label>
+        <name>BOSEARCH_LogisticRecordTypeId</name>
+    </customLabels>
+    <customLabels>
         <label>수주 예상일(종료)를 입력하세요.</label>
         <name>BOSEARCH_MSG_0001</name>
     </customLabels>
@@ -795,12 +879,32 @@
         <name>BOSEARCH_MSG_0004</name>
     </customLabels>
     <customLabels>
+        <label>수주 거점</label>
+        <name>BOSEARCH_SalesOrganization</name>
+    </customLabels>
+    <customLabels>
         <label>전략고객여부</label>
         <name>BOSEARCH_Strategic_Account</name>
     </customLabels>
     <customLabels>
+        <label>사업 개발 유형</label>
+        <name>BOSEARCH_bizDevelopment</name>
+    </customLabels>
+    <customLabels>
+        <label>LBS 예외 유형</label>
+        <name>BOSEARCH_lbsExceptionType</name>
+    </customLabels>
+    <customLabels>
+        <label>유형</label>
+        <name>BOSEARCH_opportunityType</name>
+    </customLabels>
+    <customLabels>
         <label>프로젝트가 존재하므로 &apos;주 실행 부서(L3)&apos;에 대해 BA가 다른 부서로 변경할 수 없습니다.</label>
         <name>BO_Primary_Delivery_Dept_Lv_3_Validation</name>
+    </customLabels>
+    <customLabels>
+        <label>사업우선순위 체크리스트</label>
+        <name>BO_Priority_Check_List</name>
     </customLabels>
     <customLabels>
         <label><!-- BO REPORT SDSAE --></label>
@@ -1203,6 +1307,10 @@
         <name>COMM_BTN_SEND_SAP</name>
     </customLabels>
     <customLabels>
+        <label><!-- COMM_BTN_SEND_SERVICE --></label>
+        <name>COMM_BTN_SEND_SERVICE</name>
+    </customLabels>
+    <customLabels>
         <label><!-- COMM_BTN_USER_MANUAL --></label>
         <name>COMM_BTN_USER_MANUAL</name>
     </customLabels>
@@ -1283,6 +1391,10 @@
         <name>COMM_MSG_RECORD_LOCKED</name>
     </customLabels>
     <customLabels>
+        <label>서비스가 성공적으로 전송되었습니다 ...</label>
+        <name>COMM_SEND_SERVICE_Success</name>
+    </customLabels>
+    <customLabels>
         <label><!-- COMM_VAL_PREACTVALID_AFTER_DATE --></label>
         <name>COMM_VAL_PREACTVALID_AFTER_DATE</name>
     </customLabels>
@@ -1326,7 +1438,7 @@
         <name>CONVERT_LAB_LEAD_API</name>
     </customLabels>
     <customLabels>
-        <label>수주 예상일이 입력되지 않았습니다.</label>
+        <label>수주예상일 필드가 비어 있습니다.</label>
         <name>CONVERT_LAB_MSG01</name>
     </customLabels>
     <customLabels>
@@ -1346,7 +1458,7 @@
         <name>CONVERT_LAB_MSG05</name>
     </customLabels>
     <customLabels>
-        <label>사업리드의 단계가 Hot상태가 아닙니다. BANT정보를 체크해주세요(2개 항목 이상 체크시 변환 가능합니다.)</label>
+        <label>BO로 전환하려면 리드단계를 ‘Hot’으로 변경해야 합니다.</label>
         <name>CONVERT_LAB_MSG06</name>
     </customLabels>
     <customLabels>
@@ -1418,7 +1530,7 @@
         <name>CONVERT_LAB_MSG23</name>
     </customLabels>
     <customLabels>
-        <label>단계를 Hot으로 변경하려면 BANT를 2개 이상 체크해야 합니다.</label>
+        <label>리드단계를 ‘Hot’으로 변경하려면 BANT(Budget, Authority, Needs, Timeline) 2개 이상의 필드를 체크해야 합니다.</label>
         <name>CONVERT_LAB_MSG24</name>
     </customLabels>
     <customLabels>
@@ -1658,10 +1770,6 @@
         <name>DeliveryProbabilityHeading</name>
     </customLabels>
     <customLabels>
-        <label>예정 및 기한 초과</label>
-        <name>DeliveryProbabilitySecondHeading</name>
-    </customLabels>
-    <customLabels>
         <label>모두 보기</label>
         <name>DeliveryProbabilityViewAll</name>
     </customLabels>
@@ -1676,6 +1784,10 @@
     <customLabels>
         <label>Description</label>
         <name>Description_LOST_003</name>
+    </customLabels>
+    <customLabels>
+        <label>설명</label>
+        <name>Description_Review_Session</name>
     </customLabels>
     <customLabels>
         <label>상세 내용 (50자 이상 입력하세요)</label>
@@ -2084,8 +2196,24 @@
         <name>IF_ADMIN_MSG_001</name>
     </customLabels>
     <customLabels>
+        <label><!-- IF Mig User IDs Prod --></label>
+        <name>IF_Mig_User_IDs_Prod</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- IF Mig User IDs QA --></label>
+        <name>IF_Mig_User_IDs_QA</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- IF Mig User Names --></label>
+        <name>IF_Mig_User_Names</name>
+    </customLabels>
+    <customLabels>
         <label>개선방안</label>
         <name>Improvement</name>
+    </customLabels>
+    <customLabels>
+        <label>정보</label>
+        <name>Information_Review</name>
     </customLabels>
     <customLabels>
         <label><!-- JITTERBIT_IFERROR_Last_Minutes --></label>
@@ -2130,6 +2258,10 @@
     <customLabels>
         <label>녹스에 mySales 캘린더이 없습니다.</label>
         <name>Knox_calendar_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>동기화할 데이터가 없습니다.</label>
+        <name>Knoxtomysalesnodata</name>
     </customLabels>
     <customLabels>
         <label>결재선 유형을 찾을 수 없습니다. 시스템 관리자에게 문의하십시오.</label>
@@ -2483,6 +2615,14 @@ mySales는 데이터 조회만 가능합니다.
         <name>More_than_one_employee</name>
     </customLabels>
     <customLabels>
+        <label>에러가 발생하였습니다. 관리자에게 문의해주세요.</label>
+        <name>MysalesErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>새 점검 세션</label>
+        <name>New_Review_Session</name>
+    </customLabels>
+    <customLabels>
         <label>기본 팀을 추가할 수 없습니다. 기본 사업리드 팀을 설정 후 다시 시도하십시오.</label>
         <name>NoDefaultSalesLeadTeam</name>
     </customLabels>
@@ -2497,6 +2637,14 @@ mySales는 데이터 조회만 가능합니다.
     <customLabels>
         <label>저장된 데이터가 없습니다</label>
         <name>No_Data_Saved_Countermeasure</name>
+    </customLabels>
+    <customLabels>
+        <label>임직원 정보가 없습니다. 관리자에게 문의해주세요.</label>
+        <name>Noknoxuserpresent</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Note Review session --></label>
+        <name>Note_Review_session</name>
     </customLabels>
     <customLabels>
         <label>다음 단계 진행을 위해 현재 정보를 저장해주세요.</label>
@@ -3769,12 +3917,20 @@ mySales는 데이터 조회만 가능합니다.
         <name>RevenueScheduleNote2</name>
     </customLabels>
     <customLabels>
+        <label>세션 결과</label>
+        <name>Review_Session_Result</name>
+    </customLabels>
+    <customLabels>
         <label>Role,Profile &amp; Last Name은 필수입력값입니다.</label>
         <name>Role_ProfileMandatoryErrorMsg</name>
     </customLabels>
     <customLabels>
         <label>Role,Profile,Last Name &amp; Company Code 은 필수입력값입니다.</label>
         <name>Role_Profile_LastName_CompanyCodeMandatoryErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>리드상태는 &apos;In Process&apos;만 선택 가능합니다.</label>
+        <name>SALES_LEAD_STATUS_ERR</name>
     </customLabels>
     <customLabels>
         <label>Knox 결재 상태 조회가 완료되었습니다.</label>
@@ -4515,12 +4671,24 @@ Create/Change Project Code 버튼을 눌러야 변경된 내용이 SAP시스템�
         <name>SecondPopupMainHeading</name>
     </customLabels>
     <customLabels>
+        <label><!-- Select --></label>
+        <name>Select_Review</name>
+    </customLabels>
+    <customLabels>
         <label><!-- SelectuserError --></label>
         <name>SelectuserError</name>
     </customLabels>
     <customLabels>
         <label><!-- Service Desk Agency Profile ID --></label>
         <name>Service_Desk_Agency_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>세션 수행일</label>
+        <name>Session_Date</name>
+    </customLabels>
+    <customLabels>
+        <label>세션명</label>
+        <name>Session_Name</name>
     </customLabels>
     <customLabels>
         <label>스마트검색</label>
@@ -4539,8 +4707,28 @@ Create/Change Project Code 버튼을 눌러야 변경된 내용이 SAP시스템�
         <name>Special_Char_Err_Msg</name>
     </customLabels>
     <customLabels>
+        <label>Knox 일정과 정상적으로 동기화되었습니다. 단, 기간이 14일 초과인 일정은 동기화되지 않습니다.</label>
+        <name>SyncEventSuccessMsg</name>
+    </customLabels>
+    <customLabels>
         <label><!-- System Administrator Profile ID --></label>
         <name>System_Administrator_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label>수주 예상일</label>
+        <name>TARGET_BOSEARCH_CLOSEDATE</name>
+    </customLabels>
+    <customLabels>
+        <label>검색 조건을 1개 이상 입력해주세요.</label>
+        <name>TARGET_BOSEARCH_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label>금액</label>
+        <name>TARGET_BO_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>금일 점검 BO</label>
+        <name>TARGET_BO_TARGET_BO</name>
     </customLabels>
     <customLabels>
         <label>가져온 팀원입니다.</label>
@@ -4561,6 +4749,18 @@ Create/Change Project Code 버튼을 눌러야 변경된 내용이 SAP시스템�
     <customLabels>
         <label>[절대 취급금지 품목]</label>
         <name>TableSubHeading</name>
+    </customLabels>
+    <customLabels>
+        <label>대상 사업기회</label>
+        <name>Target_BO_Review</name>
+    </customLabels>
+    <customLabels>
+        <label>태스크가 저장되었으나, Knox와 동기화 중 에러가 발생하였습니다. 관리자에게 문의해주세요.</label>
+        <name>Task_Alert_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>설정 값이 저장되었습니다.</label>
+        <name>TasksyncMessage</name>
     </customLabels>
     <customLabels>
         <label>분석결과  저장</label>
@@ -4749,8 +4949,16 @@ update가 완료되면 화면이 새로고침 됩니다.</label>
         <name>WEEKLY_ISSUE_REPORT_COL_CONTENT</name>
     </customLabels>
     <customLabels>
+        <label>작성자</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_CREATEDBY</name>
+    </customLabels>
+    <customLabels>
         <label>현안</label>
         <name>WEEKLY_ISSUE_REPORT_COL_ISSUE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_COL_ISSUECHECK --></label>
+        <name>WEEKLY_ISSUE_REPORT_COL_ISSUECHECK</name>
     </customLabels>
     <customLabels>
         <label>제목</label>
@@ -4765,6 +4973,10 @@ update가 완료되면 화면이 새로고침 됩니다.</label>
         <name>WEEKLY_ISSUE_REPORT_COL_ORDER</name>
     </customLabels>
     <customLabels>
+        <label>보고자</label>
+        <name>WEEKLY_ISSUE_REPORT_COL_OWNER</name>
+    </customLabels>
+    <customLabels>
         <label>보고 날짜</label>
         <name>WEEKLY_ISSUE_REPORT_COL_REPORTDATE</name>
     </customLabels>
@@ -4775,6 +4987,10 @@ update가 완료되면 화면이 새로고침 됩니다.</label>
     <customLabels>
         <label>주간 보고 내용</label>
         <name>WEEKLY_ISSUE_REPORT_CONTENT</name>
+    </customLabels>
+    <customLabels>
+        <label>날짜 조건을 입력해주세요.</label>
+        <name>WEEKLY_ISSUE_REPORT_DATE_EMPTY</name>
     </customLabels>
     <customLabels>
         <label>부서명</label>

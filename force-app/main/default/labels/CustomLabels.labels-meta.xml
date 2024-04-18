@@ -2239,7 +2239,7 @@ Please note that the information acquired when reporting weekly reports should b
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CONVERT_LAB_MSG01</shortDescription>
-        <value>Expected Contract Date field is empty.</value>
+        <value>Close Date field is empty.</value>
     </labels>
     <labels>
         <fullName>CONVERT_LAB_MSG02</fullName>
@@ -2279,7 +2279,7 @@ Please note that the information acquired when reporting weekly reports should b
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CONVERT_LAB_MSG06</shortDescription>
-        <value>The stage of the sales lead is not Hot. Check the BANT information (can be converted if more than 2 items are checked.)</value>
+        <value>To convert to BO, you need to change Lead Stage to &apos;Hot&apos;.</value>
     </labels>
     <labels>
         <fullName>CONVERT_LAB_MSG07</fullName>
@@ -2423,7 +2423,7 @@ Please note that the information acquired when reporting weekly reports should b
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CONVERT_LAB_MSG24</shortDescription>
-        <value>To change Stage to Hot, two or more BANT must be checked.</value>
+        <value>To change Lead Stage to &apos;Hot&apos;, you need to check two or more fields of BANT(Budget, Authority, Needs, Timeline).</value>
     </labels>
     <labels>
         <fullName>CONVERT_LAB_MSG25</fullName>
@@ -9648,5 +9648,411 @@ Window will be refreshed.</value>
         <protected>false</protected>
         <shortDescription>YearlyRevenueScheduleNote2</shortDescription>
         <value>T100S4</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_CloseDate_MSG_0001</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_CloseDate_MSG_0001</shortDescription>
+        <value>Please select  Close Date (End)</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_CloseDate_MSG_0002</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_CloseDate_MSG_0002</shortDescription>
+        <value>Please select  Close Date (Start)</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_CloseDate_MSG_0003</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_CloseDate_MSG_0003</shortDescription>
+        <value>Please select Close Date (End) greater than  Close Date (Start)</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_ContractDate_MSG_0001</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_ContractDate_MSG_0001</shortDescription>
+        <value>Please select Contract End Date</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_ContractDate_MSG_0002</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_ContractDate_MSG_0002</shortDescription>
+        <value>Please select Contract Start Date</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_ContractDate_MSG_0003</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_ContractDate_MSG_0003</shortDescription>
+        <value>Please select Contract End Date  greater than Contract Start Date</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_ContractEndDATE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_ContractEndDATE</shortDescription>
+        <value>Contract End Date</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_ContractStartDATE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_ContractStartDATE</shortDescription>
+        <value>Contract Start Date</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_DeliveryOrg</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_DeliveryOrg</shortDescription>
+        <value>Delivery Organisation</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_Global_Bidding</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_Global_Bidding</shortDescription>
+        <value>Global Bidding</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_LAB_Amount</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_LAB_Amount</shortDescription>
+        <value>Amount</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_LAB_CloseDate1</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_LAB_CloseDate1</shortDescription>
+        <value>Close Date</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_LAB_Currency</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_LAB_Currency</shortDescription>
+        <value>Currency</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_LAB_HEADER_Logistic</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_LAB_HEADER_Logistic</shortDescription>
+        <value>Opportunity Search Logistics</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_LAB_SalesRegion</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_LAB_SalesRegion</shortDescription>
+        <value>Sales Region</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_LAB_SubIndusrty</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_LAB_SubIndusrty</shortDescription>
+        <value>Sub-Indusrty</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_LAB_closeDateEnd</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_LAB_closeDateEnd</shortDescription>
+        <value>Close Date(End)</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_LAB_closeDateStart</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_LAB_closeDateStart</shortDescription>
+        <value>Close Date (Start)</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_LAB_customerType</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_LAB_customerType</shortDescription>
+        <value>Customer Type</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_LAB_globalBidding</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_LAB_globalBidding</shortDescription>
+        <value>Global Bidding</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_LogisticRecordTypeId</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_LogisticRecordTypeId</shortDescription>
+        <value>0121s0000008rnzAAA</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_SalesOrganization</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_SalesOrganization</shortDescription>
+        <value>Sales Organization</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_bizDevelopment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_bizDevelopment</shortDescription>
+        <value>Biz. Development Type</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_lbsExceptionType</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_lbsExceptionType</shortDescription>
+        <value>LBS Exception Type</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_opportunityType</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_opportunityType</shortDescription>
+        <value>Opportunity Type</value>
+    </labels>
+    <labels>
+        <fullName>BO_Priority_Check_List</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BO Priority Check List</shortDescription>
+        <value>BO Priority Check List</value>
+    </labels>
+    <labels>
+        <fullName>COMM_BTN_SEND_SERVICE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>COMM_BTN_SEND_SERVICE</shortDescription>
+        <value>Send Service</value>
+    </labels>
+    <labels>
+        <fullName>COMM_SEND_SERVICE_Success</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>COMM_SEND_SERVICE_Success</shortDescription>
+        <value>Service Sent Successfully...</value>
+    </labels>
+    <labels>
+        <fullName>Description_Review_Session</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description Review Session</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>IF_Mig_User_IDs_Prod</fullName>
+        <categories>Opportunity</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IF Mig User IDs Prod</shortDescription>
+        <value>0052w000005kNkDAAU;0052w0000089w2vAAA</value>
+    </labels>
+    <labels>
+        <fullName>IF_Mig_User_IDs_QA</fullName>
+        <categories>Opportunity</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IF Mig User IDs QA</shortDescription>
+        <value>0051s0000010Y5dAAE;0051s000001D4ZSAA0</value>
+    </labels>
+    <labels>
+        <fullName>IF_Mig_User_Names</fullName>
+        <categories>Opportunity</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IF Mig User Names</shortDescription>
+        <value>IF_USER;Migration</value>
+    </labels>
+    <labels>
+        <fullName>Information_Review</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Information_Review</shortDescription>
+        <value>Information</value>
+    </labels>
+    <labels>
+        <fullName>Knoxtomysalesnodata</fullName>
+        <categories>Mysalesfullcalendar</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Knoxtomysalesnodata</shortDescription>
+        <value>There is no data to sync.</value>
+    </labels>
+    <labels>
+        <fullName>MysalesErrorMsg</fullName>
+        <categories>Mysalesfullcalendar</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MysalesErrorMsg</shortDescription>
+        <value>There is an error. Please contact system administrator.</value>
+    </labels>
+    <labels>
+        <fullName>New_Review_Session</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Review Session</shortDescription>
+        <value>New Review Session</value>
+    </labels>
+    <labels>
+        <fullName>Noknoxuserpresent</fullName>
+        <categories>Mysalesfullcalendar</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Noknoxuserpresent</shortDescription>
+        <value>There is no employee information. Please contact system administrator.</value>
+    </labels>
+    <labels>
+        <fullName>Note_Review_session</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Note Review session</shortDescription>
+        <value>Note</value>
+    </labels>
+    <labels>
+        <fullName>Review_Session_Result</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Review Session Result</shortDescription>
+        <value>Session Result</value>
+    </labels>
+    <labels>
+        <fullName>SALES_LEAD_STATUS_ERR</fullName>
+        <categories>Sales Lead</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SALES_LEAD_STATUS_ERR</shortDescription>
+        <value>Only &apos;In Process&apos; can be selected for the Lead Status.</value>
+    </labels>
+    <labels>
+        <fullName>Select_Review</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select</shortDescription>
+        <value>Select</value>
+    </labels>
+    <labels>
+        <fullName>Session_Date</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Session Date</shortDescription>
+        <value>Session Date</value>
+    </labels>
+    <labels>
+        <fullName>Session_Name</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Session Name</shortDescription>
+        <value>Session Name</value>
+    </labels>
+    <labels>
+        <fullName>SyncEventSuccessMsg</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SyncEventSuccessMsg</shortDescription>
+        <value>Synchronized successfully excluding the schedules which has more than 14 days duration.</value>
+    </labels>
+    <labels>
+        <fullName>TARGET_BOSEARCH_CLOSEDATE</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TARGET BOSEARCH CLOSEDATE</shortDescription>
+        <value>Close Date</value>
+    </labels>
+    <labels>
+        <fullName>TARGET_BOSEARCH_ERROR</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TARGET_BOSEARCH_ERROR</shortDescription>
+        <value>Please enter at least 1 search condition.</value>
+    </labels>
+    <labels>
+        <fullName>TARGET_BO_AMOUNT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TARGET BO AMOUNT</shortDescription>
+        <value>Amount</value>
+    </labels>
+    <labels>
+        <fullName>TARGET_BO_TARGET_BO</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TARGET BO TARGET_BO</shortDescription>
+        <value>Today&apos;s review BO</value>
+    </labels>
+    <labels>
+        <fullName>Target_BO_Review</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Target BO Review</shortDescription>
+        <value>Target BO</value>
+    </labels>
+    <labels>
+        <fullName>Task_Alert_Message</fullName>
+        <categories>Mysalesfullcalendar</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task Alert Message</shortDescription>
+        <value>Task saved successfully. But there is an error while synchronizing with Knox. Please contact system administrator.</value>
+    </labels>
+    <labels>
+        <fullName>TasksyncMessage</fullName>
+        <categories>Mysalesfullcalendar</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TasksyncMessage</shortDescription>
+        <value>Successfully saved the option.</value>
+    </labels>
+    <labels>
+        <fullName>WEEKLY_ISSUE_REPORT_COL_CREATEDBY</fullName>
+        <categories>WEEKLY_ISSUE_REPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>WEEKLY_ISSUE_REPORT_COL_CREATEDBY</shortDescription>
+        <value>Created by</value>
+    </labels>
+    <labels>
+        <fullName>WEEKLY_ISSUE_REPORT_COL_ISSUECHECK</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>WEEKLY_ISSUE_REPORT_COL_ISSUECHECK</shortDescription>
+        <value>Issue Description New</value>
+    </labels>
+    <labels>
+        <fullName>WEEKLY_ISSUE_REPORT_COL_OWNER</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>WEEKLY_ISSUE_REPORT_COL_OWNER</shortDescription>
+        <value>Report by</value>
+    </labels>
+    <labels>
+        <fullName>WEEKLY_ISSUE_REPORT_DATE_EMPTY</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>WEEKLY_ISSUE_REPORT_DATE_EMPTY</shortDescription>
+        <value>Please enter the date for searching.</value>
     </labels>
 </CustomLabels>

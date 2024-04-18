@@ -2,11 +2,12 @@
  * @description       : 
  * @author            : raeganja@partner.samsung.com
  * @group             : 
- * @last modified on  : 01-14-2021
- * @last modified by  : soohong0.kim@partner.samsung.com
+ * @last modified on  : 2024-04-01
+ * @last modified by  : vikrant.ks@samsung.com
  * Modifications Log 
  * Ver   Date         Author                         Modification
  * 1.0   2021-01-04   raeganja@partner.samsung.com   Initial Version
+ * 1.1   2024-04-01   vikrant.ks@samsung.com         Added DEL_YN in Request Message(MySales-484)
 **/
 @isTest
 public class IF_JudLegalRevContRecInfo_Test {
@@ -85,6 +86,7 @@ public class IF_JudLegalRevContRecInfo_Test {
             input.CONTRACT_NO = 'CT2020022901';
             input.CONTRACT_STATUS = status;
             input.CONFIRM_DATE = '';
+            input.DEL_YN = 'Y';//V1.1
             inputList.add(input);
             header.DATA = inputList;
 

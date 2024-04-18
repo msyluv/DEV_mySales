@@ -10,14 +10,14 @@
 **/
 ({
     doInit : function(component, event) {
-        //console.log('Get My Domain');
+        console.log('Get My Domain');
         var self = this,
             reportDate = component.get("v.reportDate");
 
         component.set("v.showSpinner", true);
         self.apex(component, 'getMyDomain', { })
             .then(function(result){
-                //console.log('getMyDomain -> ', result);
+                console.log('getMyDomain -> ', result);
                 var instanceUrl = 'https://' + result + '.lightning.force.com';
                 component.set("v.instanceUrl", instanceUrl);
                 component.set("v.showSpinner", false);

@@ -2,8 +2,11 @@
   @description       : 
   @author            : ukhyeon.lee@samsung.com
   @group             : 
-  @last modified on  : 02-29-2024
+  @last modified on  : 04-05-2024
   @last modified by  : sarthak.j1@samsung.com
+  * Modifications Log 
+  * Ver   Date         Author                    Modification
+  * 1.1   04-02-2024   sarthak.j1@samsung.com   Add the 'login' link to the error guide screen [MYSALES-487]
 -->
 <apex:page >
     <apex:slds />   
@@ -12,10 +15,19 @@
             <div class="slds-form-element slds-form-element_horizontal slds-is-editing slds-form-element_1-col">                
                 <label class="slds-form-element__label" for="horizontal-form-element-id-14"></label>                
                 <div class="slds-form-element__control" style="margin-top:2%;padding-left:5%;padding-right:5%;font-size:15px;line-height:200%;display:flex;">
-                    <div class="slds-box" style="flex:1;margin-right:5%;">
-                        <div style="font-size:30px;font-weight:bold;text-align:center;">
-                            &lt;How to trouble shoot for mySales login&gt;
+                    <div class="slds-box" style="flex:1; margin-right:5%;">
+                        <!--Start v-1.1-->
+                        <div class="slds-grid slds-gutters" style="">
+                            <div class="slds-col" style="font-size:20px;font-weight:bold;text-align:center; padding-left:7%; padding-right:3%;">   
+                                &lt;How to trouble shoot for mySales login&gt;
+                            </div>    
+                            <div class="slds-col" style="padding-left:0%;">
+                                <apex:form >
+                                    <apex:commandButton value="Re-Login" action="https://sdssfa.my.salesforce.com" style="font-size:12px; background: #2525b5; color: white; padding: 6px; width: 90%; border-radius: 0px;"/> 
+                                </apex:form>
+                            </div>    
                         </div>
+                        <!--End v-1.1-->
                         <br/>
                         If you are unable to sign into mySales system, please see below guide.<br/>
                         <br/>
@@ -34,11 +46,25 @@
                         &nbsp;&nbsp;※ If you do not connect for 3 months, You can not access  to mysales System<br/>
                         &nbsp;&nbsp;You must register SR at the service desk and request User activation.<br/>
                         &nbsp;&nbsp;: Service Desk : Sales / Purchase> mySales (Salesforce)<br/>
+                        <!--Start v-1.1-->
+                        <br/>
+                        3) After completing the confirmation and action, please log in again.<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- mySales Login : <a href="https://sdssfa.my.salesforce.com" target="_blank">https://sdssfa.my.salesforce.com</a><br/>  
+                        <!--End v-1.1-->
                     </div>
                     <div class="slds-box" style="flex:1;marging-left:5%;">
-                        <div style="font-size:30px;font-weight:bold;text-align:center;">
-                            &lt;mySales 접속오류 조치안내&gt;
+                        <!--Start v-1.1-->
+                        <div class="slds-grid slds-gutters" style="">
+                            <div class="slds-col" style="font-size:20px;font-weight:bold;text-align:center; padding-left:20%; padding-right:10%;">   
+                                &lt;mySales 접속오류 조치안내&gt;
+                            </div>    
+                            <div class="slds-col" style="padding-left:0%;">
+                                <apex:form >
+                                    <apex:commandButton value="재로그인" action="https://sdssfa.my.salesforce.com" style="font-size:12px; background: #2525b5; color: white; padding: 6px; width: 90%; border-radius: 0px;"/> 
+                                </apex:form>
+                            </div>    
                         </div>
+                        <!--End v-1.1-->
                         <br/>
                         mySales 접속 시 오류가 발생할 경우 아래 유형별 조치가이드를 참고하시기 바랍니다.<br/>
                         <br/>
@@ -56,7 +82,12 @@
                         2) mySales 계정이 정상인지 확인해 주세요.<br/>
                         &nbsp;&nbsp;※ 3개월동안 접속하지 않을 경우, 접근이 불가능하며,<br/>
                         &nbsp;&nbsp;서비스데스크에 SR등록하여 활성화 요청하셔야 합니다.<br/>
-                        &nbsp;&nbsp;: 서비스 데스크 : 영업/구매 > mySales(Salesforce)<br/>                        
+                        &nbsp;&nbsp;: 서비스 데스크 : 영업/구매 > mySales(Salesforce)<br/>
+						<!--Start v-1.1-->
+                        <br/>
+                        3) 확인 및 조치를 완료하신 후 다시 로그인 해주세요.<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- mySales 로그인 : <a href="https://sdssfa.my.salesforce.com" target="_blank">https://sdssfa.my.salesforce.com</a><br/>
+                        <!--End v-1.1-->                       
                     </div>
                 </div>
             </div>

@@ -181,7 +181,31 @@
 		component.set('v.refresh',false);
 		component.set('v.refresh',true);
 	},
-
+    //505
+	sendService: function(component, event,helper){ 
+	var recordId = component.get('v.recordId');	
+        var self = this;
+		//Opporutnity RecordId
+        var a = component.get('c.SendServiceMethod');	
+        a.setParams({
+            oppid: recordId
+        });
+        a.setCallback(this,function(response){
+            var state =response.getState();
+            if(response.getState()=='SUCCESS'){
+           /* var toastEvent = $A.get("e.force.showToast");
+                toastEvent.setParams({
+                    "title" : "Success!",
+                    "message" : "Service Sent Succesfully..."
+                });
+                toastEvent.fire();*/
+                	self.showToast('success','SUCCESS','Service Sent Successfully...');	//$A.get('$Label.c.COMM_SEND_SERVICE_Success')	//interface return success message
+			
+            }
+        });
+        $A.enqueueAction(a);
+    }
+    ,
 	/**
 	 * Service Solution 저장
 	 * @param {*} component 

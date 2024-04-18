@@ -15,11 +15,25 @@ public class OpportunityPopupController {
 
         RecordType rcdType = [SELECT Id, Name, DeveloperName, SobjectType FROM RecordType WHERE SobjectType = 'OpportunityNotice__c' AND Name =: type];
 
-        List<OpportunityNotice__c> OpptyNoticeList = [SELECT Id, Name, RecordTypeId, NoticeKR__c, NoticeEN__c, NoticeCN__c, CreatedDate 
+            //Start - Added by Anish - Safety Management Modification
+            List<OpportunityNotice__c> OpptyNoticeList = new List<OpportunityNotice__c>();
+            Boolean isSandbox = [SELECT IsSandbox FROM Organization LIMIT 1].IsSandbox;
+            if(isSandbox){
+             OpptyNoticeList = [SELECT Id, Name, RecordTypeId, NoticeKR__c, NoticeEN__c, NoticeCN__c, CreatedDate 
                                                         FROM OpportunityNotice__c 
-                                                       WHERE RecordTypeId =: rcdType.Id 
+                                                       WHERE RecordTypeId =: rcdType.Id and Name = 'ON-20210100002'
                                                        ORDER BY CreatedDate DESC 
                                                        LIMIT 1];
+            }
+            else{
+              OpptyNoticeList = [SELECT Id, Name, RecordTypeId, NoticeKR__c, NoticeEN__c, NoticeCN__c, CreatedDate 
+                                                        FROM OpportunityNotice__c 
+                                                       WHERE RecordTypeId =: rcdType.Id and Name = 'ON-20210300002'
+                                                       ORDER BY CreatedDate DESC 
+                                                       LIMIT 1];   
+            }
+        //End - Added by Anish - Safety Management Modification
+        
         if(OpptyNoticeList.size() > 0){
             if(OpptyNoticeList[0].NoticeKR__c != null) rtnMap.put('KR', OpptyNoticeList[0].NoticeKR__c);
             if(OpptyNoticeList[0].NoticeEN__c != null) rtnMap.put('EN', OpptyNoticeList[0].NoticeEN__c);

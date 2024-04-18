@@ -1,0 +1,70 @@
+<apex:page controller="OpportunitySearchControllerLogi"
+    cache="true"
+    showHeader="false"
+    docType="html-5.0"
+    standardStylesheets="false"
+    readOnly="true"
+    sidebar="false"
+    action="{!getOpptyListAll}" >
+    <!-- docType="html-5.0" -->
+    <apex:param name="searchKeywords" assignTo="{!searchKeywords}" value="" />
+    <!-- <apex:param name="opptySearchList" assignTo="{!opptySearchList}" value="" /> -->
+
+    <apex:outputPanel id="mainPanel" layout="none" >
+        <table id="quotePanel" width="100%" cellpadding="0" cellspacing="0" style="table-layout:fixed" >
+            <thead>
+                <tr>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_SalesRegion}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_BOCODE}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_BONAME}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_STATUS}</th> 
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_Amount}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_Currency}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_STAGE}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_ACCOUNT}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_customerType}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_SubIndusrty}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_OWNER}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_opportunityType}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_bizDevelopment}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_lbsExceptionType}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_SalesOrganization}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_DeliveryOrg}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_globalBidding}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_LAB_CloseDate1}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_ContractStartDATE}</th>
+                    <th style="border:solid 1px black;background-color:#f5f5ed;font-weight: bold;">{!$Label.BOSEARCH_ContractEndDATE}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!objList}" var="items">
+                    <apex:repeat value="{!items}" var="item">
+                        <tr>
+                            <td >{!item.SalesRegion}</td>
+                            <td >{!item.OpptyCode}</td>
+                            <td >{!item.Name}</td>
+                            <td >{!item.Status}</td>
+                            <td >{!item.Amount}</td>
+                            <td >{!item.CurrencyType}</td>
+                            <td >{!item.Stage}</td>
+                            <td >{!item.AccName}</td>
+                            <td >{!item.customerType}</td>
+                            <td >{!item.SubIndusrty}</td>
+                            <td >{!item.OwnerName}</td>
+                            <td >{!item.opportunityType}</td>
+                            <td >{!item.bizDevelopment}</td>
+                            <td >{!item.lbsExceptionType}</td>
+                            <td >{!item.SalesOrganization}</td>
+                            <td >{!item.DeliveryOrganization}</td>
+                            <td >{!IF(item.globalBidding == TRUE, 'O', 'X')}</td>
+                            <td >{!item.CloseDate}</td>
+                            <td >{!item.ContractStartDate}</td>
+                            <td >{!item.ContractEndDate}</td>
+                           
+                        </tr>
+                    </apex:repeat>
+                </apex:repeat>
+            </tbody>
+        </table>
+    </apex:outputPanel>
+</apex:page>

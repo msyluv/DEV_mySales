@@ -2,21 +2,28 @@
   @description       : 
   @author            : woomg@dkbmc.com
   @group             : 
-  @last modified on  : 02-04-2021
-  @last modified by  : woomg@dkbmc.com
+  @last modified on  : 26-03-2024
+  @last modified by  : aditya.r2@samsung.com
   Modifications Log 
-  Ver   Date         Author            Modification
-  1.0   01-04-2021   woomg@dkbmc.com   Initial Version
+  Ver   Date         Author            		Modification
+  1.0   01-04-2021   woomg@dkbmc.com   		Initial Version
+  1.1   2024-03-26   aditya.r2@samsung.com  Added new Editor (Rich Text Area) field (MYSALES-471)
+  1.2   2024-04-28   divyam.gupta@samsung.com Removed old Editor(MYSALES-436)
 -->
 <aura:component
     controller="WeeklyReportsController"
     access="global">
 
     <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <!-- v1.1 -->
     <aura:attribute name="recordId" type="String" default="" />
+    <aura:attribute name="vfHost" type="String" default="https://sdssfa--qa--c.sandbox.vf.force.com" />
+    <aura:attribute name="vfValue" type="String" default="" />
+    <aura:attribute name="pressMe" type="String" default="0" />
     <aura:attribute name="report" type="Object" default="{}" />
     <aura:attribute name="order" type="Integer" default="1" />
     <aura:attribute name="content" type="String" default="" />
+    <aura:attribute name="contentNew" type="String" default="" />
     <aura:attribute name="formats" type="List" default="[
         'font', 'size', 'bold', 'italic', 'underline', 'strike', 'list', 'indent', 
         'align', 'link', 'image', 'clean', 'table', 'header', 'color', 'background', 
@@ -26,13 +33,12 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:method name="clickSave" action="{!c.clickSave}" access="PUBLIC"/>
 
-    <!--aura:html tag="style">
-        .edit-modal .modal-container {
-            width : 790px !important;
-            max-width: 790px !important;
-            min-width: 790px !important;
+    <aura:html tag="style">
+
+		.edit-modal .modal-body {
+            height: 100%;
         }
-    </aura:html-->
+    </aura:html>
 
     <lightning:overlayLibrary aura:id="overlayLib"/>
     <div>
@@ -52,12 +58,18 @@
                 <lightning:input type="number" label="{!$Label.c.WEEKLY_ISSUE_REPORT_DISPLAY_ORDER}" value="{!v.order}" 
                     variant="label-inline" class="slds-p-bottom_small"/> <!-- Display Order -->
             </lightning:layoutItem>
+            <!-- V 1.2 Divyam
             <lightning:layoutItem size="12">
                 <lightning:inputRichText label="{!$Label.c.WEEKLY_ISSUE_REPORT_ISSUE_DESCRIPTION}" formats="{!v.formats}" 
-                    variant="label-stacked" value="{!v.content}" shareWithEntityId="{!v.recordId}"> <!-- Issue Description -->
+                    variant="label-stacked" value="{!v.content}" shareWithEntityId="{!v.recordId}"> 
                     <lightning:insertImageButton />
                 </lightning:inputRichText>        
+            </lightning:layoutItem> -->
+            <!--Start v1.1 -->
+            <lightning:layoutItem size="12">
+       			<iframe aura:id="vfFrame" src="{!'/apex/customEditorDetailPageVF?id='+v.recordId+'&amp;isReadOnly=N'}" height="400px" width="100%" frameBorder="0" scrolling="yes" style="text-align:center;"/>
             </lightning:layoutItem>
+            <!--End v1.1 -->
         </lightning:layout>
     </div>
 </aura:component>

@@ -46,11 +46,11 @@ public without sharing class WeeklyReportsController_Test {
 		Test.startTest();
         system.debug(WeeklyReportsController.getMyDomain());
         system.debug(WeeklyReportsController.getWeeklyReports(system.today()));
-        system.debug(WeeklyReportsController.getIssueReports(system.today()));
+        system.debug(WeeklyReportsController.getIssueReports(system.today(), 'test'));
         system.debug(WeeklyReportsController.getWeeklyReport(wr.Id));
         system.debug(WeeklyReportsController.getIssueReport(wr.Id));
         system.debug(WeeklyReportsController.saveWeeklyContent(wr.Id, '<div>update</div>', 1));
-        system.debug(WeeklyReportsController.saveIssuesContent(wr.Id, '<div>update</div>', 1));
+        system.debug(WeeklyReportsController.saveIssuesContent(wr.Id, '<div>update</div>', 1, '<div>update1</div>'));
         list<String> lwr = new list<String>{wr.Id};
         system.debug(WeeklyReportsController.getEmailWeeklyContents(lwr));
         system.debug(WeeklyReportsController.getEmailIssuesContents(lwr));
@@ -83,7 +83,7 @@ public without sharing class WeeklyReportsController_Test {
     @isTest static void testMethodThree() {
         Test.startTest();
         try {
-            system.debug(WeeklyReportsController.getIssueReports(null));
+            system.debug(WeeklyReportsController.getIssueReports(null, ''));
         } catch(Exception e){
             //
         }
@@ -93,7 +93,7 @@ public without sharing class WeeklyReportsController_Test {
             //
         }
         try {
-            system.debug(WeeklyReportsController.saveIssuesContent(null, '<div>update</div>', 1));
+            system.debug(WeeklyReportsController.saveIssuesContent(null, '<div>update</div>', 1, '<div>update1</div>'));
         } catch(Exception e){
             //
         }

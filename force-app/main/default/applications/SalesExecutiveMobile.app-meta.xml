@@ -50,14 +50,6 @@
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Opportunity</pageOrSobjectType>
         <type>Flexipage</type>
-        <profile>Sales Manager(HQ)</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Opportunity_Record_Page_ME</content>
-        <formFactor>Small</formFactor>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
-        <type>Flexipage</type>
         <profile>Sales Executive(Logi)</profile>
     </profileActionOverrides>
     <profileActionOverrides>
@@ -67,6 +59,14 @@
         <pageOrSobjectType>Opportunity</pageOrSobjectType>
         <type>Flexipage</type>
         <profile>Sales Executive(Logi)</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Opportunity_Record_Page_ME</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Opportunity</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Sales Manager(HQ)</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -221,7 +221,25 @@
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Opportunity_Record_Page_ME</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Opportunity</pageOrSobjectType>
+        <recordType>Opportunity.Logistics</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Manager(Logi)</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Opportunity_Record_Page_ME</content>
         <formFactor>Large</formFactor>
+        <pageOrSobjectType>Opportunity</pageOrSobjectType>
+        <recordType>Opportunity.Logistics</recordType>
+        <type>Flexipage</type>
+        <profile>Sales Manager(Logi)</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Opportunity_Record_Page_ME</content>
+        <formFactor>Small</formFactor>
         <pageOrSobjectType>Opportunity</pageOrSobjectType>
         <recordType>Opportunity.Logistics</recordType>
         <type>Flexipage</type>
@@ -230,25 +248,7 @@
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Opportunity_Record_Page_ME</content>
-        <formFactor>Small</formFactor>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
-        <recordType>Opportunity.Logistics</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Manager(Logi)</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Opportunity_Record_Page_ME</content>
         <formFactor>Large</formFactor>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
-        <recordType>Opportunity.Logistics</recordType>
-        <type>Flexipage</type>
-        <profile>Sales Manager(Logi)</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Opportunity_Record_Page_ME</content>
-        <formFactor>Small</formFactor>
         <pageOrSobjectType>Opportunity</pageOrSobjectType>
         <recordType>Opportunity.Logistics</recordType>
         <type>Flexipage</type>

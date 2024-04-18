@@ -30,5 +30,13 @@
         var mailBody = component.get("v.emailBody");
         mailBody.clickSend();
     },
+            
+    handleEvent : function(component, event, helper) {
+    	var data = event.getParam("passData");
+        console.log("Record Id from Preview Body : ", data);
+        component.set("v.recordId", data); 
+        var ab = component.get("v.recordId");
+        console.log("Record Id from Preview Body1 : ", ab);
+    }
 
 })

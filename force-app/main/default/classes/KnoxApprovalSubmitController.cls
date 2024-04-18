@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : dongyoung.kim@dkbmc.com
  * @group             : 
- * @last modified on  : 11-05-2023
+ * @last modified on  : 01-04-2024
  * @last modified by  : anish.jain@partner.samsung.com
  * Modifications Log 
  * Ver   Date         Author                    Modification
@@ -17,6 +17,7 @@
  * 1.8   2023-10-23   anish.jain@partner.samsung.com   Mysales-315 
  * 1.9   2023-11-08   vikrant.ks@samsung.com    Save attachment on mySales when raising bo review approval(Mysales-350) Part of MS-216
  * 2.0   11-05-2023   anish.jain@partner.samsung.com   MySales - 216
+ * 2.1   01-04-2024   anish.jain@partner.samsung.com   Add a tracking logs to contract approval case (MS-482)
 **/
 public class KnoxApprovalSubmitController {
     
@@ -509,12 +510,13 @@ public class KnoxApprovalSubmitController {
             
             // 수정 후 로직
              if(isSuccessCollaboValid) {
-                Opportunity oppty = [SELECT Id, CollaborationBOId__c FROM Opportunity WHERE Id = :recordId];
+                Opportunity oppty = [SELECT Id, CollaborationBOId__c, CollaborationBOId__r.CompanyCode__c, CollaborationBOId__r.OpportunityCode__c FROM Opportunity WHERE Id = :recordId];  //Added by Anish - v 2.1
                 // [Insert Knox Approval] 법인의 최초 수주 품의 완결 전 인 경우, 법인의 Knox Approval-Knox Approver 를 복사하여 본사 Knox Approval 을 생성
                 System.debug( ' ## Original Approval : ' +  approval);
                 System.debug( ' ## Original Approval.Id : ' +  approval.Id);
                 //Id collaboApprovalId = copyCollaboContractApproval(oppty.CollaborationBOId__c, collaboApprovalTypeCode, approval);
-                Id collaboActId = getCollaboOpptyActId(oppty.CollaborationBOId__c);
+                Id collaboActId = getCollaboOpptyActId(oppty.CollaborationBOId__c , oppty.CollaborationBOId__r.CompanyCode__c, oppty.CollaborationBOId__r.OpportunityCode__c); //Added by Anish - V 2.1
+                createInterfaceLog3('SaveApproval', 'BO_CODE : '+ oppty.CollaborationBOId__r.OpportunityCode__c + ', COMPANY_CODE : ' + oppty.CollaborationBOId__r.CompanyCode__c +  '\n' + ' Contract Approval Activity Created for Collab BO : Success, Id : ' + collaboActId , 'S'); //Added by Anish - v 2.1
                 KnoxApproval__c copyKnoxApproval = approval.clone();
                 copyKnoxApproval.OriginKnoxApproval__c = approval.Id;   // 원본 Knox Approval Lookup
                 copyKnoxApproval.Id = null;                             // 복사를 위한 Id null 
@@ -530,7 +532,8 @@ public class KnoxApprovalSubmitController {
 
             callout_if135(approval.Id); // origin knox 결재중 처리
             
-        } catch (Exception e) {          
+        } catch (Exception e) { 
+            createInterfaceLog3('SaveApproval',  ', Status : ' + 'Processing' + '\n' + '3. Knox Approval Cloning for Collab BO : Failed, Id : ' + recordId + ' ,detailed fail message : '+ e.getStackTraceString()  + ' Message : ' + e.getMessage() , 'F'); //Added by Anish - V 2.1
             System.debug('**********************************************************************');
             System.debug(System.LoggingLevel.ERROR, ' e.getLineNumber() : ' + e.getLineNumber());
             System.debug(System.LoggingLevel.ERROR, ' e.getTypeName() : ' + e.getTypeName());
@@ -834,7 +837,7 @@ public class KnoxApprovalSubmitController {
     * @param Id collaboOpptyId 
     * @return Id 
     **/
-    public static Id getCollaboOpptyActId(Id collaboOpptyId){
+    public static Id getCollaboOpptyActId(Id collaboOpptyId , String companyCode , String oppCode){  //Added by Anish - v 2.1
         system.debug(' *************** createCollaboOpptyAct ***************');
         Id actId;
         try{
@@ -858,9 +861,12 @@ public class KnoxApprovalSubmitController {
                 // opptyActContractApproval.Status__c = 'In Progress'; // 진행 처리를 생성 시 칠지, Knox Approval 에서 칠지..
                 // update opptyActContractApproval;
             }
-
+            
+            createInterfaceLog3('getCollaboOpptyActId', 'BO_CODE : '+ oppCode + ', COMPANY_CODE : ' + companyCode +  '\n' + ' Contract Approval Activity Created for Collab BO : Success, Id : ' + actId , 'S'); //Added by Anish - V 2.1
             actId = contractApprovalOpptyAct.Id;
+            
         }catch(Exception e){
+            createInterfaceLog3('getCollaboOpptyActId', 'BO_CODE : '+ oppCode + ', COMPANY_CODE : ' + companyCode +  '\n' + ' Contract Approval Activity Created for Collab BO : Failed' , 'F'); //Added by Anish - V 2.1
             System.debug('**********************************************************************');
             System.debug(System.LoggingLevel.ERROR, ' e.getLineNumber() : ' + e.getLineNumber());
             System.debug(System.LoggingLevel.ERROR, ' e.getTypeName() : ' + e.getTypeName());

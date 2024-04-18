@@ -10,6 +10,6 @@
 	"invalid_elements": "script",
 	"codeview_indent": true,
 	"menubar": false,
-	"panel": "edit",
-	"toolbar":"fontfamily fontsize | bold italic underline | fontcolor fontbgcolor | alignment.left alignment.center alignment.right alignment.ju stify | indent outdent"
+	"panel": "edit"
+	
 }

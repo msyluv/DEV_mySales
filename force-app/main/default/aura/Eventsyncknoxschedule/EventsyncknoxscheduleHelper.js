@@ -18,7 +18,7 @@
             //console.log('activity status Test@@ : ', result);  
            
         }).catch(function(errors){
-            self.errorHandler(errors);
+            //self.errorHandler(errors);
         });
         
     },

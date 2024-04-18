@@ -366,7 +366,8 @@ trigger KnoxApprovalTrigger on KnoxApproval__c (after insert, after update) {
                         // [수주 품의] Opportunity Activity
                         if(opptyWonIdSet.contains(targetOpptyAct.WhatId__c)) { 
                             /* seonju.jin@dkbmc.com | 2021-03-26 
-                            * 사업기회 수주품의(최초) 결재 승인 후 상태 마감(WON)으로 변경 (after)*/  
+                            * 사업기회 수주품의(최초) 결재 승인 후 상태 마감(WON)으로 변경 (after)*/ 
+                            System.debug('targetOpptyAct.WhatId__c :'+targetOpptyAct.WhatId__c);
                             opp.StageName = OpportunityActivityHelper.OPP_STAGE_WON;
                             bUpdateBO = true;
                         }
@@ -730,7 +731,7 @@ trigger KnoxApprovalTrigger on KnoxApproval__c (after insert, after update) {
             }
 
         }
-          
+        System.debug('stageUpdate :'+stageUpdate);//V
             
         //사업기회 stageName Won할 대상인 Knox Approval Id Set 반환
         return wonUpdateOpptyIdSet;

@@ -14,6 +14,7 @@
  * 1.5   2023-09-20   atul.k1@samsung.com                 Task - (Logistics) Create Alert Message
  * 1.6   2024-01-18   sarthak.j1@samsung.com           Fixing REQUIRED_FIELD_MISSING error
  * 1.7   2024-02-26   sarthak.j1@samsung.com           For increasing code coverage.
+ * 1.8   2024-03-19   atul.k1@samsung.com              For increasing code coverage.
 **/
 @isTest
 public with sharing class OpportunityTrigger_Test {
@@ -29,6 +30,7 @@ public with sharing class OpportunityTrigger_Test {
     static Opportunity opptyHQ2; 
     static Opportunity opptyHQ3; 
     static Opportunity opptyHQ4; 
+    static Opportunity opptyHQ5; 
     static Opportunity opptyHQ_WON_1; 
     static Opportunity opptyHQ_WON_NEW; 
     static Opportunity opptyHQ_WON1;
@@ -228,7 +230,9 @@ public with sharing class OpportunityTrigger_Test {
         
         cCenter1 = new CostCenter__c(
         Name = 'Digital Grouping',
-        Node2__c = 'T514S4'
+        Node2__c = 'T514S4',
+        BA__c = 'ET36'   //V 1.8
+            
         );
         insert cCenter1;
         //End-Anish v-1.2
@@ -236,9 +240,8 @@ public with sharing class OpportunityTrigger_Test {
         cCenter_S4 = new CostCenter__c(
         Name = 'Digital Groups',
         Node2__c = 'T100S4',
-        ZZCheck__c= true
-        
-            
+        ZZCheck__c= true,
+        BA__c = 'ET36'   // V 1.8
         );
         insert cCenter_S4;
         
@@ -250,6 +253,7 @@ public with sharing class OpportunityTrigger_Test {
             CloseDate = Date.today(),
             AccountId = accMDG.Id
         );
+        
         
         //Akash end
         opptyHQ_WON  = new Opportunity(
@@ -656,5 +660,34 @@ public with sharing class OpportunityTrigger_Test {
         Test.stopTest();
     }
     //End v-1.7
+    //Start v-1.8
+    @isTest
+    static void test_BussinessAreaChange(){
+        Test.startTest();
+        Account accMDG = new Account( 
+            Name = 'Test Account',
+            MDGCheck__c = true
+        );
+       
+        
+        opptyHQ5  = new Opportunity(
+            Name = 'Test Opportunity HQ5',
+            RecordTypeId = RT_OPPTY_HQ.Id,
+            cPrimarySalesDepartment__c = cCenter_S4.Id, //Anish v-1.2
+            StageName = OpportunityActivityHelper.OPP_STAGE_IDENTIFIED,
+            CloseDate = Date.today(),
+            AccountId = accMDG.Id
+        );
+        insert opptyHQ5;
+        Project__c prj = new Project__c();
+        prj.Opportunity__c = opptyHQ5.id;
+        prj.DeletionFlag__c = false;
+        insert prj;
+        opptyHQ5.cPrimarySalesDepartment__c= cCenter1.id;
+        Update opptyHQ5;
+        Test.stopTest();
+    }
+    //End v-1.8 
+    
 
 }

@@ -2,7 +2,7 @@
 * @description       : 
 * @author            : Junghwa.Kim@dkbmc.com
 * @group             : 
-* @last modified on  : 2024-02-19
+* @last modified on  : 2024-04-17
 * @last modified by  : sarthak.j1@samsung.com
 * Modifications Log 
 * Ver   Date         Author                  Modification
@@ -14,6 +14,7 @@
 * 1.5   2024-01-24   sarthak.j1@samsung.com  Sales Lead Enhancement -> MYSALES-413 / MYSALES-413 Additional Changes
 * 1.6   2024-01-25   vikrant.ks@samsung.com  Added a new function 'OwnershipChangeTime' and commented a function 'shareSetting'.(MySales-389)
 * 1.7   2024-02-15   sarthak.j1@samsung.com  Sales Lead - Internal/External field changing -> MYSALES-448
+* 1.8   2024-04-17   sarthak.j1@samsung.com  Sales Lead Enhancement -> MYSALES-497
 **/
 trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, before delete, after insert, after update) {
 
@@ -44,6 +45,7 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
                 if(!MigSwitch){
                     validation(Trigger.new);
                     //validation2(Trigger.new); //Commented out v-1.5 [MYSALES-413]
+                    checkSalesLeadStage(Trigger.new); // Added as part of v-1.8
                 }
                 //End v-1.5 [MYSALES-413]
                 costCenterSetting(Trigger.new);
@@ -701,6 +703,7 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
             //------------------------------------------------------------------------------------------
         }//end of for
     }
+    
     //Start v-1.5 [MYSALES-413]
     public static void setSLIntExtOnInsert(List<Sales_Lead__c> newSLList){
         Set<Id> accIds = new Set<Id>();
@@ -850,4 +853,13 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
         }
     }
     //End v-1.6
+    //Start v-1.8
+    public static void checkSalesLeadStage(List<Sales_Lead__c> newList){
+        for(Sales_Lead__c sl :newList){
+            if(sl.LeadStatus__c != 'In Process'){
+                sl.LeadStatus__c.addError(System.Label.SALES_LEAD_STATUS_ERR);
+            }
+        }
+    }
+    //End v-1.8
 }

@@ -2,22 +2,22 @@
  * @description       : 
  * @author            : woomg@dkbmc.com
  * @group             : 
- * @last modified on  : 04-09-2021
- * @last modified by  : woomg@dkbmc.com
+ * @last modified on  : 02-26-2024
+ * @last modified by  : vikrant.ks@samsung.com
  * Modifications Log 
- * Ver   Date         Author            Modification
- * 1.0   09-22-2020   woomg@dkbmc.com   Initial Version
+ * Ver   Date         Author            	  Modification
+ * 1.0   09-22-2020   woomg@dkbmc.com   	  Initial Version
+ * 1.1   02-26-2024   vikrant.ks@samsung.com      Disable "Upload Files" button for Delivery Manager Profile(MYSALES-447)
 **/
 ({
     doInit : function(component) {
         var self = this,
             recordId = component.get("v.recordId"),
             objectName = component.get("v.sObjectName");
-            console.log('isCreatable : ', recordId);
+            
         component.set("v.showSpinner", true);
         self.apex(component, 'isCreatable', { objectName : objectName })
             .then(function(result){
-                //console.log('isCreatable : ', result);
                 component.set("v.isCreatable", result);
 
                 return self.apex(component, 'getRelatedFiles', { recordId : recordId });

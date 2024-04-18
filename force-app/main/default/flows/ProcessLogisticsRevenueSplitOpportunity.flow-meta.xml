@@ -276,7 +276,8 @@
 
 ||
 
-([Opportunity].RecordType.Name == &apos;HQ&apos; &amp;&amp; [Opportunity].CompanyCode__c == &apos;T100&apos; &amp;&amp; (ISNEW() || ISCHANGED([Opportunity].Amount) || ISCHANGED([Opportunity].cRevenueStartDate__c) || ISCHANGED([Opportunity].cRevenueEndDate__c) || ISCHANGED([Opportunity].CurrencyIsoCode)))
+([Opportunity].RecordType.Name == &apos;HQ&apos; &amp;&amp; [Opportunity].CompanyCode__c == &apos;T100&apos; &amp;&amp; (ISNEW() || ISCHANGED([Opportunity].Amount) || ISCHANGED([Opportunity].cRevenueStartDate__c) || ISCHANGED([Opportunity].cRevenueEndDate__c) || ISCHANGED([Opportunity].CurrencyIsoCode) || 
+ISCHANGED([Opportunity].cPrimaryDeliveryDivision__c)))
 
 )</stringValue>
             </value>
@@ -293,11 +294,12 @@
 
 ||
 
-({!myVariable_current.RecordType.Name} == &apos;HQ&apos; &amp;&amp; {!myVariable_current.CompanyCode__c} == &apos;T100&apos; &amp;&amp; (ISNEW() || ISCHANGED({!myVariable_current.Amount}) || ISCHANGED({!myVariable_current.cRevenueStartDate__c}) || ISCHANGED({!myVariable_current.cRevenueEndDate__c}) || ISCHANGED({!myVariable_current.CurrencyIsoCode})))
+({!myVariable_current.RecordType.Name} == &apos;HQ&apos; &amp;&amp; {!myVariable_current.CompanyCode__c} == &apos;T100&apos; &amp;&amp; (ISNEW() || ISCHANGED({!myVariable_current.Amount}) || ISCHANGED({!myVariable_current.cRevenueStartDate__c}) || ISCHANGED({!myVariable_current.cRevenueEndDate__c}) || ISCHANGED({!myVariable_current.CurrencyIsoCode}) || 
+ISCHANGED({!myVariable_current.cPrimaryDeliveryDivision__c})))
 
 )</expression>
     </formulas>
-    <interviewLabel>ProcessLogisticsRevenueSplitOpportunity-15_InterviewLabel</interviewLabel>
+    <interviewLabel>ProcessLogisticsRevenueSplitOpportunity-16_InterviewLabel</interviewLabel>
     <label>Logistics Revenue Split Opportunity</label>
     <processMetadataValues>
         <name>ObjectType</name>

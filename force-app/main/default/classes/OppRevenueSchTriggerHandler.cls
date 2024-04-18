@@ -3,18 +3,21 @@
 * @author            : d.ashish@samsung.com
 * @group             : 
 * @last modified on  : 2024-02-22
-* @last modified by  : d.ashish@samsung.com
+* @last modified by  : anish.jain@partner.samsung.com
 * Modifications Log 
 * Ver   Date         Author                    Modification
-* 1.0   2024-02-22   d.ashish@samsung.com          Initial Version
+* 1.0   2024-02-22   d.ashish@samsung.com      Initial Version
+* 1.1   2024-03-20   anish.jain@partner.samsung.com    Added the functionality to show Yearly Revenue Schedule Records for only 'Solution' Division 솔루션사업부
 **/
 public class OppRevenueSchTriggerHandler {
     
     public static void afterUpdate(List<RevenueScheduleOpportunity__c> newlist, Map<id,RevenueScheduleOpportunity__c> newmap ,Map<id,RevenueScheduleOpportunity__c> oldmap){
         String node = System.Label.YearlyRevenueScheduleNote2;
         Set<String> oppYearlyRevSet = new Set<String>();
+        Set<String> oppYearlyDelSet = new Set<String>(); //Added by Anish - v 1.1
         Map<String,set<integer>> months = new Map<String,set<integer>>();
         for(RevenueScheduleOpportunity__c Obj: newList){
+            if(Obj.BO_Primary_Delivery_Division__c == '솔루션사업부'){ //Added by Anish - v 1.1
             oppYearlyRevSet.add(Obj.Parent__c);
             if(months.containskey(Obj.Parent__c+'-'+ Obj.ScheduleDate__c.year())){
                 Set<integer> monthSet = months.get(Obj.Parent__c+'-'+ Obj.ScheduleDate__c.year());
@@ -25,12 +28,24 @@ public class OppRevenueSchTriggerHandler {
                 monthSet.add(Obj.ScheduleDate__c.month());
                 months.put(Obj.Parent__c+'-'+ Obj.ScheduleDate__c.year(),monthSet);
             }
+            }
+            else{
+            oppYearlyDelSet.add(Obj.Parent__c);  //Added by Anish - v 1.1
+            }
         }
         Map<id,Opportunity> oppMap = new Map<id,Opportunity>([Select id, CompanyCode__c,RecordType.Name,cPrimarySalesDepartment__r.Node2__c from opportunity where id in: oppYearlyRevSet]);
         Map<String,Delivery_Probabiliy__c> delList = new Map<String,Delivery_Probabiliy__c>();
         for(Delivery_Probabiliy__c Obj: [Select id, name,Opportunity__c from Delivery_Probabiliy__c where Opportunity__c in: oppYearlyRevSet ]){
             delList.put(Obj.Opportunity__c,Obj);
         }
+        //Start - Added by Anish - v 1.1
+        List<Yearly_Revenue_Schedule__c> delYrs = new List<Yearly_Revenue_Schedule__c>();
+        delYrs= [Select id, Name,ContractYear__c, Delivery_probability__c,ContractYearDate__c,CurrencyIsoCode, OpportunityId__c,M1__c,M2__c,M3__c,M4__c,M5__c,M6__c,M7__c,M8__c,M9__c,M10__c,M11__c,M12__c from Yearly_Revenue_Schedule__c  where OpportunityId__c in: oppYearlyDelSet and OpportunityId__r.RecordType.Name = 'HQ' AND OpportunityId__r.CompanyCode__c = 'T100' ]; // Added by Anish - v 1.1
+        if(!delYrs.isEmpty()){
+        database.delete(delYrs,false);
+        }
+        //End - Added by Anish - v 1.1
+        
         List<Yearly_Revenue_Schedule__c> needToBeDeleteYRS = new List<Yearly_Revenue_Schedule__c>();
         Map<String,Yearly_Revenue_Schedule__c> oppYearly = new Map<String,Yearly_Revenue_Schedule__c>();
         for(Yearly_Revenue_Schedule__c yrs:[Select id, Name,ContractYear__c, Delivery_probability__c,ContractYearDate__c,CurrencyIsoCode, OpportunityId__c,M1__c,M2__c,M3__c,M4__c,M5__c,M6__c,M7__c,M8__c,M9__c,M10__c,M11__c,M12__c from Yearly_Revenue_Schedule__c  where OpportunityId__c in: oppYearlyRevSet and OpportunityId__r.RecordType.Name = 'HQ' AND OpportunityId__r.CompanyCode__c = 'T100' ]){

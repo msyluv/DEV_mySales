@@ -14,13 +14,15 @@ public class if_KnoxSingletaskCallController {
             List<String> parts = UserEmail.split('@');
             String userName = parts[0]; 
             User loginUser = [Select Id,CalendarID__c from User Where Id=:UserINfo.getUserId()];
-            Event ev = [Select Id,Knox_Schedule_ID__c,Description,Isrecurrence__c from Event WHERE Id =: newrecordID];
+            Event ev = [Select Id,Knox_Schedule_ID__c,Knox_Calendar_Id__c,Description,Isrecurrence__c from Event WHERE Id =: newrecordID];
             InputHeader input = New InputHeader();
             if(ev.Knox_Schedule_ID__c != Null){
                 if(ev.Description == '' || ev.Description == Null){
                     String knoxschid = ev.Knox_Schedule_ID__c; 
+                    
               String knoxorgid = knoxschid.substring(0,27);
               input.knoxSchedulId = knoxorgid;
+              input.knoxcalendarId = ev.Knox_Calendar_Id__c;
 
                 }
                 else {
@@ -33,7 +35,7 @@ public class if_KnoxSingletaskCallController {
             OutputHeader output  = new OutputHeader();              
             //need to store calendar id first in org and use on the basis of current user             
             String jsonBody = JSON.serialize(output);
-            String urlParam = '?userId='+ userName + '&'+'calendarId='+loginUser.CalendarID__c+'&'+'scheduleId='+input.knoxSchedulId;                        
+            String urlParam = '?userId='+ userName + '&'+'calendarId='+input.knoxcalendarId+'&'+'scheduleId='+input.knoxSchedulId;                        
             InputHeader inputHeader = new InputHeader();        
             resMap = call.httpKnoxCallout('', urlParam);
             System.debug('request : '+resMap.get('Request')); 
@@ -47,6 +49,8 @@ public class if_KnoxSingletaskCallController {
               object inst = (object)deserailse.get('data');
                 jsonMap.add((Map<String,object>)inst);
                 system.debug('deserailse'+deserailse);
+                 interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID, guId, APEX_CLASS, METHOD_NAME, String.valueOf(resMap.get('Request')), String.valueOf(resMap.get('Response')));          
+
             }
         }
         catch(Exception e){               
@@ -68,5 +72,6 @@ public class if_KnoxSingletaskCallController {
     }
     public class InputHeader{
         Public String knoxSchedulId;
+        Public String knoxcalendarId;
     }
 }

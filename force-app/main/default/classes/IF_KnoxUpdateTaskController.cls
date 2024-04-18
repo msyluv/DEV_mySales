@@ -24,7 +24,7 @@ public class IF_KnoxUpdateTaskController implements Database.AllowsCallouts {
         HttpResponse res;
         guId= IF_KnoxChatSendController.generateUid();
         // try{
-        List<Event> listofEvent =[SELECT Id,Subject,ActivityDate,StartDateTime,EndDateTime,OwnerId,Owner.Email,Knox_Schedule_ID__c,Location,Description,IsAllDayEvent,Isrecurrence__c,recurrence_con__c,Frequence__c,freqInterval__c,EndType__c,Count_rec__c,Until_RecurrenceDate__c FROM Event WHERE Id =:newEvent];
+        List<Event> listofEvent =[SELECT Id,Subject,ActivityDate,StartDateTime,EndDateTime,OwnerId,Owner.Email,Knox_Schedule_ID__c,Location,Description,IsAllDayEvent,Isrecurrence__c,recurrence_con__c,Frequence__c,freqInterval__c,EndType__c,Count_rec__c,Until_RecurrenceDate__c,Knox_Calendar_Id__c FROM Event WHERE Id =:newEvent];
         system.debug('listofTasks________' + listofEvent);
         List<InputClass_190> input190List = new  List<InputClass_190>();
         String UserEmail = USerINfo.getUserEmail();
@@ -54,7 +54,7 @@ public class IF_KnoxUpdateTaskController implements Database.AllowsCallouts {
                 input190.priority= null;//task.Priority;                                       
                 input190.userId = userName;       
                 input190.sendMailYn = null;
-                input190.calendarId = loginUser.CalendarID__c;
+                input190.calendarId = String.valueof(event.Knox_Calendar_Id__c);
                 input190.contentsType = null;
                 system.debug('descptionfrommysales'+event.Description);
                 input190.contents = String.valueof(event.Description);
@@ -82,7 +82,8 @@ public class IF_KnoxUpdateTaskController implements Database.AllowsCallouts {
                 }
                 starttheTime sTime = new starttheTime();
                 sTime.xdate = String.valueof(event.ActivityDate);
-                //sTime.xdate =  event.IsAllDayEvent  ? dateTimeToDateString(event.StartDateTime) : '';
+
+                sTime.xdate =  event.IsAllDayEvent  ? dateTimeToDateString(event.StartDateTime) : String.valueof(event.ActivityDate);
 
                 //sTime.sDateTime = event.StartDateTime;
                 sTime.sDateTime = !event.IsAllDayEvent ? datetimeToString_ISO8601(event.StartDateTime) : '';  
@@ -92,7 +93,7 @@ public class IF_KnoxUpdateTaskController implements Database.AllowsCallouts {
                 // StartDate----- 
                 // EndDate-------               
                 endtTheTime eTime = new endtTheTime();
-               eTime.xdate = String.valueof(event.ActivityDate);
+               eTime.xdate =  event.IsAllDayEvent  ? dateTimeToDateString(event.EndDateTime) : String.valueof(event.ActivityDate);
                // eTime.xdate =  event.IsAllDayEvent  ? dateTimeToDateString(event.EndDateTime) : '';
 
                // eTime.eDateTime = event.EndDateTime;
@@ -113,6 +114,7 @@ public class IF_KnoxUpdateTaskController implements Database.AllowsCallouts {
              // String knoxorgid = knoxschid.substring(0,27);
             // inputData.userKnoxCalendarId = knoxorgid;
                  inputData.userKnoxCalendarId= event.Knox_Schedule_ID__c;
+                 inputData.mysalesknoxCalendarId = event.Knox_Calendar_Id__c;
                 }             
             }
         }        
@@ -123,7 +125,8 @@ public class IF_KnoxUpdateTaskController implements Database.AllowsCallouts {
         jsonBody = jsonBody.Replace('eDateTime','DateTime');
         jsonBody = jsonBody.Replace('Outclass','class');
         system.debug('Demand Response jsonBody : '+ jsonBody);
-        String urlParam = '?userId='+ userName+'&'+'calendarId='+loginUser.CalendarID__c+'&'+'scheduleId='+inputData.userKnoxCalendarId+'&'+'recurrenceModType=ONE';        
+    //    String urlParam = '?userId='+ userName+'&'+'calendarId='+loginUser.CalendarID__c+'&'+'scheduleId='+inputData.userKnoxCalendarId+'&'+'recurrenceModType=ONE';        
+        String urlParam = '?userId='+ userName+'&'+'calendarId='+inputData.mysalesknoxCalendarId+'&'+'scheduleId='+inputData.userKnoxCalendarId+'&'+'recurrenceModType=ONE';        
         resMap = call.httpKnoxCallout(jsonBody, urlParam);
         res = (HttpResponse)resMap.get('HttpResponse');
         System.debug('request : '+resMap.get('Request')); 
@@ -223,5 +226,6 @@ return   false;
     }
     public class InputHeader{
         public String userKnoxCalendarId;
+        public String mysalesknoxCalendarId;
     }
 }

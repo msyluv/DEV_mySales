@@ -414,6 +414,14 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>Batch_DuplicateBOCode</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Batch_DuplicateBOCode_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Batch_EccEmployeeController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -692,6 +700,18 @@
     <classAccesses>
         <apexClass>Batch_OpportunityForDataLake_Test</apexClass>
         <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Batch_OpportunityShareRecordCreateComp</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Batch_OpportunityShareRecordCreation</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Batch_OpportunityShareRecordCrtCmpTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>Batch_OpptyEmailAlertController</apexClass>
@@ -1078,6 +1098,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>DeliveryProbabilityCmpController_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>EmailNotficationBatch</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1328,6 +1352,10 @@
     <classAccesses>
         <apexClass>IF_CoCostCenterHierarchyController_Test</apexClass>
         <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IF_DeleteKnoxCalendarCallout</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>IF_DeleteKnoxScheduleCalloutController</apexClass>
@@ -1696,6 +1724,10 @@
     <classAccesses>
         <apexClass>IF_KnoxUpdateScheduleController_Test</apexClass>
         <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IF_KnoxUpdateTaskCallout</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>IF_KnoxUpdateTaskController</apexClass>
@@ -2462,6 +2494,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>OpportunityReviewSessionOverride</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>OpportunityReviewSyncController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -2480,6 +2516,10 @@
     <classAccesses>
         <apexClass>OpportunitySearchControllerAdminTest</apexClass>
         <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OpportunitySearchControllerLogi</apexClass>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>OpportunitySearchControllerTest</apexClass>
@@ -2934,6 +2974,14 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TargetOpportunitySearchController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TaskTrigger_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestApexAdi</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -3102,6 +3150,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>WeeklyReportVFController_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>WeeklyReportsController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -3138,11 +3190,23 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>customFullCalendarcontrollerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dropActivtyLostResultRecCreation</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>dropActivtyLostResultRecCreation_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>editWeeklyReportVFController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>editWeeklyReportVFController_Test</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -3175,6 +3239,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>knoxCreateScheduleQuableClass_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>knoxCreateScheduleTask</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -3235,6 +3303,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>newWeeklyReportVFController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>newWeeklyReportVFController_Test</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -3288,6 +3360,10 @@
     <classAccesses>
         <apexClass>soapIlSdsSamsungCom</apexClass>
         <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>taskAlertMessageController</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>testCalendar</apexClass>
@@ -8349,6 +8425,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>OpportunityReviewSession__c.Note__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>OpportunityReviewSession__c.Session_Result__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>OpportunityReviewTarget__c.Today_Review_Target__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Opportunity_ActivityHistory__c.EndDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10703,6 +10794,11 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>RevenueScheduleOpportunity__c.BO_Primary_Delivery_Division__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>RevenueScheduleOpportunity__c.Description__c</field>
         <readable>true</readable>
@@ -10820,6 +10916,31 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Sales_Lead__c.Authority__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Lead__c.BizTeamAttributes01__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Lead__c.BizTeamAttributes02__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Lead__c.BizTeamAttributes03__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Lead__c.BizTeamAttributes04__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Lead__c.BizTeamAttributes05__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11038,6 +11159,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Lead__c.SalesTeam_Number1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Lead__c.SalesTeam_Number2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Sales_Lead__c.SalesTeam__c</field>
         <readable>true</readable>
@@ -11045,6 +11176,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Sales_Lead__c.Sales_Alert_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Lead__c.Sales_Team_Amount1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Lead__c.Sales_Team_Amount2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sales_Lead__c.Sales_Team_Amount3__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14127,6 +14273,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>OpportunityExcelLogistic</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>OpportunitySearchExcel</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -14163,6 +14313,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>TestCustomEditorVF</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>Unauthorized</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -14191,12 +14345,16 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>customEditorDetailPageVF</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>customEditorVF</apexPage>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>editWeeklyReportVF</apexPage>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>jefflee1st</apexPage>
@@ -14204,7 +14362,7 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>newWeeklyReportVF</apexPage>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>ref_ReportDashboard</apexPage>

@@ -2,15 +2,16 @@
  * @description       : Opportunity 상황판 조회
  * @author            : wonjune.oh@partner.samsung.com
  * @group             : 
- * @last modified on  : 2024-01-30
- * @last modified by  : atul.k1@samusng.com
+ * @last modified on  : 2024-03-20
+ * @last modified by  : vikrant.ks@samusng.com  
  * Modifications Log 
  * Ver   Date         Author                           Modification
  * 1.0   2020-10-29   wonjune.oh@partner.samsung.com   Initial Version
  * 1.1   2023-10-27   gitesh.s@samsung.com             SCP Quotation Activity color change (MYSALES-339)
  * 1.3   2024-01-30   atul.k1@samusng.com              Task - (IT) Add TXP link Button in BO Activity (MYSALES-421)
+ * 1.4   2024-03-20   vikrant.ks@samusng.com           Task - (IT) Add BO Priority Check List Button in BO Activity (MYSALES-468)
 **/
-public without sharing class OpportunityActivityPanelController {
+public without sharing class OpportunityActivityPanelController{
     
     public static Boolean canClickSwitch = FunctionSwitch__c.getInstance(UserInfo.getUserId()).OpportunityActivityPanel__c; // 상황판 클릭 가능 여부
     
@@ -25,6 +26,8 @@ public without sharing class OpportunityActivityPanelController {
                                             AND RecordId = :recordId].HasEditAccess;
         SCPSimulation__c scpList = new SCPSimulation__c();
         Boolean isSubsidiary = false; //V 1.3 MYSALES-421
+	    Boolean isSandbox = Utils.getIsSandbox(); // V 1.4 MYSALES-468
+
         Map<String, Object> resultMap = new Map<String, Object>{
             'panelList'     => panelMap,
             'oppty'         => oppty,
@@ -32,7 +35,7 @@ public without sharing class OpportunityActivityPanelController {
             'hasEditAccess' => hasEditAccess,
             'canClickSwitch' => canClickSwitch,
             'isSubsidiary'          => isSubsidiary, // V 1.3 MYSALES-421
-
+	        'isSandbox'          => isSandbox, // V 1.4 MYSALES-468
             // v1.1 - Gitesh Saini (MYSALES-339)
             'scpList'       => scpList
         };
@@ -44,6 +47,8 @@ public without sharing class OpportunityActivityPanelController {
             if(isDelTempAct) OpportunityActivityHelper.deleteTempOpportunityActivity(recordId);
 
             // Get Opportunity Info
+      //      String opptySOQL = Utils.getQueryAddSelect('Opportunity', 'RecordType.DeveloperName, Account.AccountNumber, cLeadID__r.CreatedDate', ' WHERE  Id = \'' + recordId + '\'', false);
+       // V 1.4 Added Collaboration field in the query.
             String opptySOQL = Utils.getQueryAddSelect('Opportunity', 'RecordType.DeveloperName, Account.AccountNumber, cLeadID__r.CreatedDate', ' WHERE  Id = \'' + recordId + '\'', false);
             List<Opportunity> opptyList = System.Database.query(opptySOQL);
             System.debug('### opptyList.size() ' + opptyList.size());
@@ -74,7 +79,8 @@ public without sharing class OpportunityActivityPanelController {
                 'hasEditAccess' => hasEditAccess,
                 'canClickSwitch' => canClickSwitch,
                 'isSubsidiary'   => isSubsidiary, //V 1.3 MYSALES-421
-                'scpList'       => scpList
+                'scpList'       => scpList,
+                'isSandbox'          => isSandbox // V 1.4 MYSALES-468
             };
             // v1.1 - Gitesh Saini
             

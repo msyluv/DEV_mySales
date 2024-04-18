@@ -287,7 +287,7 @@ public class KnoxApprovalSubmitController_Test {
             KnoxApprovalSubmitController.copyCollaboContractApproval(opp_collabo.Id, 'ZCM9000001', knoxApprovalObj);
             KnoxApprovalSubmitController.callout_if135(knoxApprovalObj.Id);
             
-            KnoxApprovalSubmitController.getCollaboOpptyActId(opp.Id);
+            KnoxApprovalSubmitController.getCollaboOpptyActId(opp.Id , opp.CompanyCode__c , opp.OpportunityCode__c); //Added by Anish - New
         }
         Test.stopTest();
 

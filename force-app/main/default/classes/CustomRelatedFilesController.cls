@@ -9,7 +9,7 @@
  * 1.0   09-22-2020   woomg@dkbmc.com                  Initial Version
  * 1.1   10-05-2023   anish.jain@partner.samsung.com   Initial Version
  * 1.2   10-13-2023   saurav.k@partner.samsung.com     MYSALES-324
- * 1.3   02-26-2024   vikrant.ks@samsung.com           MYSALES-447
+ * 1.3   02-26-2024   vikrant.ks@samsung.com           Disable "Upload Files" button for Delivery Manager Profile(MYSALES-447)
 **/
 public with sharing class CustomRelatedFilesController {
 

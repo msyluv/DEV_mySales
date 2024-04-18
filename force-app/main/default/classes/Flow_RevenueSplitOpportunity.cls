@@ -12,7 +12,7 @@ public with sharing class Flow_RevenueSplitOpportunity {
 
     @InvocableMethod(label='Create Splitted Revenue' description='Create Splitted Revenue')
     public static list<list<RevenueScheduleOpportunity__c>> createRevenues(list<String> params){
-         system.debug('Opportunity one called');
+         system.debug('Opportunity one called' + params);
         list<RevenueScheduleOpportunity__c> lrs = RevenueScheduleController.getNewOpportunitySchedules(params[0]);
         
         return new list<list<RevenueScheduleOpportunity__c>>{lrs};

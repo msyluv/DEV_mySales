@@ -1,11 +1,22 @@
+/**
+ * @author            : aditya.r2@samsung.com
+ * @group             : 
+ * @description       : Apex class for VF Page newWeeklyReportVF.vfp
+ * @last modified on  : 2024-03-26
+ * @last modified by  : aditya.r2@samsung.com
+ * Modifications Log 
+ * Ver   Date         Author                    Modification
+ * 1.0   2024-03-26   aditya.r2@samsung.com		Initial Version
+**/
 public class newWeeklyReportVFController {
 
+    public Id recordId { get; set; }
+    public String issueDescriptionCheck {get; set;}
+    public WeeklyReport__c wr { get; set; }
+    
     public newWeeklyReportVFController(ApexPages.StandardController std){
         
     }
-    
-    public Id recordId { get; set; }
-    public String issueDescriptionCheck {get; set;}
     
     public static void deleteImage(String deleteSrc) {
         List<String> src = deleteSrc.split(' ');
@@ -106,7 +117,8 @@ public class newWeeklyReportVFController {
             system.debug('Present9');
             newWR.Flag__c = Flag;
             system.debug('Present10');
-            if(encodedContent != null) newWR.Issue_Description_Check__c = encodedContent;
+            //if(encodedContent != null) newWR.Issue_Description_Check__c = encodedContent;
+            if(issueDesc != null) newWR.Issue_Description_Check__c = issueDesc;
             if(ComplianceGuide != null) newWR.ComplianceGuide__c = ComplianceGuide;
             if(ReportContent != null) newWR.Contents__c = ReportContent;
             if(IssueDescription1 != null) newWR.IssueDescription__c = IssueDescription1;

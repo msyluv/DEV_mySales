@@ -1,3 +1,13 @@
+/**
+ * @description       : 
+ * @author            : vikrant.ks@samsung.com
+ * @group             : 
+ * @last modified on  : 02-26-2024
+ * @last modified by  : vikrant.ks@samsung.com
+ * Modifications Log 
+ * Ver   Date         Author            			   Modification
+ * 1.0   02-26-2024   vikrant.ks@samsung.com           Initial Version (MYSALES-447)
+**/
 public class DeliveryProbabilityCmpController{
     @AuraEnabled    
     public static String DeliveryProbabilityList(String oppId){

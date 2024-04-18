@@ -58,12 +58,16 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>Edit</actionName>
-        <type>Default</type>
+        <content>editWeeklyReportVF</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>Edit</actionName>
+        <content>EditWeeklyReportEditor</content>
         <formFactor>Large</formFactor>
-        <type>Default</type>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>LightningComponent</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>Edit</actionName>
@@ -180,13 +184,13 @@
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <searchResultsAdditionalFields>Account_Name__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Opportunity__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>SalesLead__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ReportingDate__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Critical__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Contents__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CheckedforIssue__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>DisplayOrder__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>IssueDescription__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>

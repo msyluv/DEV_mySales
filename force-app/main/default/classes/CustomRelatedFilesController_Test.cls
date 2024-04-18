@@ -2,11 +2,12 @@
  * @description       : 
  * @author            : woomg@dkbmc.com
  * @group             : 
- * @last modified on  : 04-09-2021
- * @last modified by  : woomg@dkbmc.com
+ * @last modified on  : 02-26-2024
+ * @last modified by  : vikrant.ks@samsung.com
  * Modifications Log 
  * Ver   Date         Author            Modification
  * 1.0   11-16-2020   woomg@dkbmc.com   Initial Version
+ * 1.1   02-26-2024   vikrant.ks@samsung.com   MySales-447
 **/
 @isTest
 private class CustomRelatedFilesController_Test {
@@ -69,6 +70,11 @@ private class CustomRelatedFilesController_Test {
         try{
             system.debug(CustomRelatedFilesController.getVaultFileId(null));
         } catch(Exception e){}
+        //V1.1 Start
+        try{
+            system.debug(CustomRelatedFilesController.DisableUploadButton(docId));
+        } catch(Exception e){}
+        //V1.1 End
         Test.stopTest();
     }
 
