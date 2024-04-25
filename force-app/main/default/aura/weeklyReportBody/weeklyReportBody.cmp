@@ -2,12 +2,13 @@
   @description       : 
   @author            : woomg@dkbmc.com
   @group             : 
-  @last modified on  : 2023-11-03
-  @last modified by  : gitesh.s@samsung.com
+  @last modified on  : 2024-03-28
+  @last modified by  : aditya.r2@samsung.com
   Modifications Log 
   Ver   Date         Author                 Modification
   1.0   02-04-2021   woomg@dkbmc.com        Initial Version
   1.1   2023-11-03   gitesh.s@samsung.com   Weekly Report Popup Size Increase (MYSALES-345)
+  1.2   2024-03-28   aditya.r2@samsung.com  Added CreatedBy field (MYSALES-483)
 -->
 <aura:component
     controller="WeeklyReportsController"
@@ -75,8 +76,10 @@
                                 <th class="slds-col slds-size_1-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Account">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_ACCOUNT}</span></th>
                                 <th class="slds-col slds-size_1-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Opportunity">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_OPPORTUNITY}</span></th>
                                 <th class="slds-col slds-size_1-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Report Date">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_REPORTDATE}</span></th>
-                                <th class="slds-col slds-size_6-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Contents">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_CONTENT}</span></th>
+                                <th class="slds-col slds-size_4-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Contents">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_CONTENT}</span></th>
                                 <th class="slds-col slds-size_1-of-12 num-colhead"><span class="slds-cell-fixed" style="padding: .5rem;" title="Order">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_ORDER}</span></th>
+                            	<th class="slds-col slds-size_1-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Contents">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_OWNER}</span></th>
+                                <th class="slds-col slds-size_1-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Contents">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_CREATEDBY}</span></th>                  
                             </tr>
                         </thead>
                         <tbody>
@@ -129,12 +132,30 @@
                                     <td class="slds-col slds-size_1-of-12">
                                         <div class="slds-truncate" title="{!report.ReportingDate__c}"><lightning:formattedDateTime value="{!report.ReportingDate__c}"/></div>
                                     </td>
-                                    <td class="slds-col slds-size_6-of-12" id="{!report.Id}" onclick="{!c.clickReport}">
+                                    <td class="slds-col slds-size_4-of-12" id="{!report.Id}" onclick="{!c.clickReport}">
                                         <div class="slds-scrollable_y longtext-box" data-label="Contents"><lightning:formattedText value="{!report.Contents__c}"/></div>
                                     </td>
                                     <td class="slds-col slds-size_1-of-12 num-colcell">
                                         <div class="slds-truncate" title="{!report.DisplayOrder__c}"><lightning:formattedNumber value="{!report.DisplayOrder__c}" maximumFractionDigits="0"/></div>
                                     </td>
+                                    <!-- v1.2 Start  -->
+                                    <td class="slds-col slds-size_1-of-12">
+                                        <!--<div class="slds-truncate" data-label="CreatedBy"><lightning:formattedText value="{!report.Owner.Name}"/></div>-->
+                                    	<div class="slds-truncate" title="{!report.Owner.Name}">
+                                                <a href="{!'/lightning/r/User/'+report.OwnerId+'/view'}" target="_blank">
+                                                    {!report.Owner.Name}
+                                                </a>
+                                            </div>
+                                    </td>
+                                    <td class="slds-col slds-size_1-of-12">
+                                        <!--<div class="slds-truncate" data-label="CreatedBy"><lightning:formattedText value="{!report.CreatedBy.Name}"/></div>-->
+                                    	<div class="slds-truncate" title="{!report.CreatedBy.Name}">
+                                                <a href="{!'/lightning/r/User/'+report.CreatedById+'/view'}" target="_blank">
+                                                    {!report.CreatedBy.Name}
+                                                </a>
+                                            </div>
+                                    </td>
+                                    <!-- v1.2 End  -->
                                 </tr>
                             </aura:iteration>
                         </tbody>

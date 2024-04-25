@@ -38,7 +38,7 @@
             reportDate = component.get("v.reportDate");
 
         component.set("v.showSpinner", true);
-        self.apex(component, 'getIssueReports', { reportDate : reportDate})
+        self.apex(component, 'getIssueReports', { reportDate : reportDate , filterName : component.get("v.filterNameValue")}) // // Added By Vipul v1.4
             .then(function(result){
                 //console.log('getIssueReports -> ', result);
                 if(result != null && result.length > 0) component.set("v.hasReports", true);

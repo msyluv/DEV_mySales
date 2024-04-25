@@ -1,0 +1,19 @@
+.THIS .modal{
+    width:100%;
+    height:100vh;
+    max-width: 100%;
+}
+.THIS .slds-modal__footer{
+    background-color: white;
+}
+.THIS .datatable{
+    min-height:19rem;
+    overflow-x: scroll;
+}
+.THIS .search_layout{
+    font-weight:bold;
+}
+.THIS .spinner{
+    position: relative;   
+    display: inline-block;
+}

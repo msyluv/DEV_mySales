@@ -12,10 +12,5 @@
     <columns>CREATED_DATE</columns>
     <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>EvMailAddr__c</field>
-        <operation>equals</operation>
-        <value>sy6703.lee@samsung.com</value>
-    </filters>
     <label>All</label>
 </ListView>

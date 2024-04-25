@@ -5,12 +5,16 @@
 * @last modified on  : 07-07-2023
 * @last modified by  : chae_ho.yang@samsung.com
 * Modifications Log 
-* Ver   Date         Author                   Modification
+* Ver   Date         Author                          Modification
 * 1.0   2022-11-08   anish.jain@partner.samsung.com  Initial Version
+* 1.1   2024-04-05   sarthak.j1@samsung.com  		 Remove the logic related to BrityAP -> [MYSALES-491]
 **/
 public class IF_171CallOutAPIController {
+    
     @future(callout=true)
     public static void doCalloutSendingReviewOpportunityInfo(ID oppID){
+		//Commented out the complete method as part of v-1.1
+		/*
         String APEX_CLASS   = 'IF_171CallOutAPIController';
         String METHOD_NAME_171  = 'doCalloutSendingReviewOpportunityInfo';
         String INTERFACE_ID_171 = 'IF-171';
@@ -61,9 +65,10 @@ public class IF_171CallOutAPIController {
         }
         ID iFLogId = log.createLog2(ifLog);
         system.debug('iFLogId **' + iFLogId);
-        
+        */
     }
-    
+    //Commented out the below as part of v-1.1
+    /*
     public class InputClass_171{
         public String instanceName;
         public String variableSetName;
@@ -82,6 +87,6 @@ public class IF_171CallOutAPIController {
         public string instanceName;
         public Boolean ended;
         public Boolean suspended;
-    }
-    
+    } 
+    */
 }

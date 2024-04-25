@@ -1,0 +1,139 @@
+<aura:component controller="OpportunityReviewSessionOverride" implements="lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="targetOpportunity" type="List" default="[]" />
+    <aura:attribute name="SelectedOpportunityMap" type="Map"/>
+    <aura:attribute name="targetBOPopUpOpen" type="Boolean" default="false" />
+    <aura:attribute name="reivewSession" type="Object" />
+    <aura:attribute name="reviewTarget" type="OpportunityReviewTarget__c[]" />
+    <aura:handler name="selectedOppEvent" event="c:TargetOpportunityEvent" action="{!c.handleComponentEvent}"/>
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    
+    <div class="slds-grid slds-wrap slds-theme_default">
+        <div class="slds-size_1-of-1 slds-page-header" style="padding:15px;font-size:medium">
+            <lightning:icon iconName="standard:search" alternativeText ="search" title="search" size="medium"/>
+            &nbsp;&nbsp;&nbsp;<b>Review Session View</b>
+        </div><br/><br/>
+        <div class="slds-size_1-of-1" style="padding:10px">
+         <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="OpportunityReviewSession__c">
+               <div class="slds-grid slds-wrap">
+                <div class="slds-size_1-of-1" style="background-color: #F0F0F0;font-size:16px;margin-top:22px;padding:3px;margin-bottom:10px">
+                    &nbsp;&nbsp;Information
+                </div>
+                <div class="slds-size_1-of-6" style="text-align:center"><b>Session Name</b><abbr class="slds-required" title="required">*</abbr></div>
+                <div class="slds-size_1-of-6">
+                    <lightning:input type="text" required="true" name="Session Name"  disabled="true" value="{!v.reivewSession.Name}" variant="label-hidden"  label="Session Name" aura:id="selectName"  style="padding-top:0;" class="slds-col slds-p-right_x-small"/>
+                    
+                   </div>
+                <div class="slds-size_1-of-6"></div>
+                <div class="slds-size_1-of-6" style="text-align:center"><b>Session Date</b><abbr class="slds-required">*</abbr></div>
+                <div class="slds-size_1-of-6">
+                    <lightning:input type="date" required="true" name="Session Date"  variant="label-hidden"  disabled="true" value="{!v.reivewSession.Session_Date__c}" label="Session Date"  aura:id="selectDate" style="padding-top:0;" class="slds-col slds-p-right_x-small"/>
+                </div>
+                <div class="slds-size_1-of-6"></div>
+                
+                <div class="slds-size_1-of-1" style="background-color: #F0F0F0;font-size:16px;margin-top:22px;padding:3px;margin-bottom:10px">
+                    
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-size_1-of-2"> &nbsp;&nbsp;Target BO</div>
+                        <div class="slds-size_1-of-2" style="text-align:end">
+                            <!--button class="slds-button slds-button_brand" onclick="{!c.clickPreview}" style="height:20px">Select</button-->
+                        <!--    <lightning:button label="Select" onclick="{!c.clickTargetBOPopUp}" variant="brand"/> 
+                       --> </div>
+                    </div>
+                    
+                </div>
+                <div class="slds-size_1-of-1 slds-box" style="padding: 6px;" >
+                    <p aura:id="contentBody" class="card-body">
+                        <div aura:id="tableBody" class="slds-table_header-fixed_container table-body">
+                            <div class="slds-scrollable_y" style="height:100%;">
+                                <table class="slds-table slds-table_bordered slds-table_header-fixed slds-table_fixed-layout">
+                                    <thead>
+                                        <tr class="slds-text-title--caps slds-grid">
+                                            <th class="slds-col slds-size_1-of-8"><span class="slds-cell-fixed" style="padding: .5rem; padding-bottom: 0;">Target BO</span></th>
+                                            <th class="slds-col slds-size_1-of-8"><span class="slds-cell-fixed" style="padding: .5rem;" title="Name">Opportunity Code</span></th> 
+                                            <th class="slds-col slds-size_1-of-8"><span class="slds-cell-fixed" style="padding: .5rem;" title="Account">Opportunity Name</span></th> 
+                                            <th class="slds-col slds-size_1-of-8"><span class="slds-cell-fixed" style="padding: .5rem;" title="Opportunity">Account Number</span></th> 
+                                            <th class="slds-col slds-size_1-of-8"><span class="slds-cell-fixed" style="padding: .5rem;" title="Report Date">Contract Account</span></th> 
+                                            <th class="slds-col slds-size_1-of-8"><span class="slds-cell-fixed" style="padding: .5rem;" title="Issue">Amount</span></th> 
+                                            <th class="slds-col slds-size_1-of-8"><span class="slds-cell-fixed" style="padding: .5rem;" title="Issue">Close Date</span></th> 
+                                            <th class="slds-col slds-size_1-of-8 "><span class="slds-cell-fixed" style="padding: .5rem;" title="Order"></span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <aura:iteration items="{!v.reviewTarget}" var="trOp">
+                                            <tr class="slds-grid">
+                                                <td class="slds-col slds-size_1-of-8">
+                                                    <div class="slds-truncate">
+                                                    	<input class="slds-align_absolute-center" type="checkbox" disabled="true" value="{!trOp.Today_Review_Target__c}" name="{!trOp.Opportunity__c}" onchange="{!c.setBoxes}" checked="{!trOp.Today_Review_Target__c}"></input>
+                                                    </div>
+                                                </td>
+                                                <td class="slds-col slds-size_1-of-8">
+                                                    <div class="slds-truncate">
+                                                        <a href="{!'/lightning/r/Opportunity/'+trOp.Opportunity__c+'/view'}" target="_blank">
+                                                            {!trOp.Opportunity__r.OpportunityCode__c}
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td class="slds-col slds-size_1-of-8">
+                                                    <div class="slds-truncate">
+                                                        <a href="{!'/lightning/r/Opportunity/'+trOp.Opportunity__c+'/view'}" target="_blank">
+                                                            {!trOp.Opportunity__r.Name}
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td class="slds-col slds-size_1-of-8">
+                                                    <div class="slds-truncate">
+                                                            {!trOp.Opportunity__r.Account.AccountNumber}
+                                                    </div>
+                                                </td>
+                                                <td class="slds-col slds-size_1-of-8">
+                                                    <div class="slds-truncate">
+                                                            {!trOp.Opportunity__r.Account.Name}
+                                                    </div>
+                                                </td>
+                                                <td class="slds-col slds-size_1-of-8">
+                                                    <div class="slds-truncate">
+                                                            {!trOp.Opportunity__r.Amount}
+                                                    </div>
+                                                </td>
+                                                <td class="slds-col slds-size_1-of-8">
+                                                    <div class="slds-truncate">
+                                                            {!trOp.Opportunity__r.CloseDate}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </aura:iteration>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+                
+                <div class="slds-size_1-of-1 " style="background-color: #F0F0F0;font-size:16px;margin-top:22px;padding:3px;margin-bottom:10px">
+                    &nbsp;&nbsp;Description
+                </div>
+                <div class="slds-size_1-of-6" style="text-align:center;padding-top:10px"><b>Note</b></div>
+                <div class="slds-size_5-of-6" style="padding-top:10px">
+                    <lightning:inputRichText  aura:id="getNote" variant="label-hidden" value="{!v.reivewSession.Note__c}" label="Note"  class="slds-col slds-p-right_x-small"  disabled="true"></lightning:inputRichText>
+                </div>
+                <div class="slds-size_1-of-6" style="text-align:center;padding-top:10px"><b>Session Result</b></div>
+                <div class="slds-size_5-of-6"  style="padding-top:10px;padding-bottom:50px">
+                    <lightning:inputRichText aura:id="getSessionResult" variant="label-hidden"  value="{!v.reivewSession.Session_Result__c}"  label="Session Result"  class="slds-col slds-p-right_x-small" disabled="true"></lightning:inputRichText>
+                </div>
+                
+               <!-- <div class="slds-size_1-of-1 slds-docked-form-footer" style="text-align:center;padding-top:10px">
+                    <lightning:button label="Cancel" onclick="{!c.clickCancel}" variant="neutral"/> 
+                    <lightning:button label="Save" onclick="{!c.clickSave}" variant="brand"/> 
+                </div>-->
+            </div>
+            </lightning:recordViewForm>
+            </div>
+    </div>
+   <!-- <aura:if isTrue="{!v.targetBOPopUpOpen}">
+        <c:TargetOpportunitySearch></c:TargetOpportunitySearch>
+    </aura:if>
+    <aura:dependency resource="markup://c:TargetOpportunitySearch" />
+    <aura:dependency resource="markup://c:TargetOpportunityEvent" type="EVENT" />
+    -->
+</aura:component>

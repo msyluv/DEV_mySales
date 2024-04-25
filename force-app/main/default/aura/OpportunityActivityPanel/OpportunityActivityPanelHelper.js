@@ -2,14 +2,15 @@
  * @description       : 
  * @author            : wonjune.oh@partner.samsung.com
  * @group             : 
- * @last modified on  : 2024-01-30
- * @last modified by  : atul.k1@samsung.com
+ * @last modified on  : 2024-03-20
+ * @last modified by  : vikrant.ks@samsung.com
  * Modifications Log 
  * Ver   Date         Author                           Modification
  * 1.0   2020-11-05   wonjune.oh@partner.samsung.com   Initial Version
  * 1.1   2023-10-27   gitesh.s@samsung.com             SCP Quotation Activity color change (MYSALES-339)
  * 1.2   2023-11-15   atul.k1@samsung.com              Add Link Button on Opportunity main (MYSALES-358)
  * 1.3   2024-01-30   atul.k1@samsung.com              Task - (IT) Add TXP link Button in BO Activity (MYSALES-421)
+ * 1.4   2024-03-20   vikrant.ks@samsung.com           Task - (IT) Add BO Priority Check List Button in BO Activity (MYSALES-468)
 **/
 ({
     DEBUG : true,
@@ -34,6 +35,7 @@
                 
                 component.set('v.oppty',result['oppty']);
                 component.set('v.isSubsidiary',result.isSubsidiary); // V 1.3 MYSALES-421
+                component.set('v.isSandbox',result['isSandbox']); // V 1.4 MYSALES-468
                 component.set('v.recordTypeDevName',result['recordTypeDevName']);
                 component.set('v.hasEditAccess',result['hasEditAccess']);
                 component.set('v.canClickSwitch',result['canClickSwitch']);
@@ -47,6 +49,11 @@
                     component.set('v.VRBTypeConfirm',true);
                 }
                 //V 1.2 MYSALES-358 End
+                //V 1.4 MYSALES-468 Start
+                if(result['oppty'].Collaboration__c == true){
+                    component.set('v.isCollaboration',true);
+                }
+                //V 1.4 MYSALES-468 End
                 // component.set('v.activityItemList',result['1']);
                 // component.set('v.activityItemListDetail',result['2']);
                 

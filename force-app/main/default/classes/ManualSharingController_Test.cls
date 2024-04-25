@@ -137,6 +137,7 @@ public class ManualSharingController_Test {
         insert costCenter;
         sl = new Sales_Lead__c(
             Name = 'TestSalesLead', 
+            LeadStatus__c = 'In Process',
             CampaignId__c = campaign1.Id,
             Company__c = 'Company__c',
             Email__c = 'tse@sdfjo.com.vop',

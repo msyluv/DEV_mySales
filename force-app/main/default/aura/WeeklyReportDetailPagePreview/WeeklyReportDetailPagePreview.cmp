@@ -19,6 +19,7 @@
     <aura:attribute name="value" type="String" default="weekly-report-content" />
     <aura:attribute name="selectedValue" type="String" default="weekly-report-content" />
 
+    <aura:registerEvent name="PassR" type="c:passRecId" />
     <aura:handler name="init" value="{!this}" action="{!c.init}" />
 
     <aura:html tag="style">

@@ -2,15 +2,15 @@
  * @description       : 
  * @author            : soohong0.kim@partner.samsung.com
  * @group             : 
- * @last modified on  : 2024-01-19
- * @last modified by  : divyam.gupta@samsung.com 
+ * @last modified on  : 01-04-2024
+ * @last modified by  : vikrant.ks@samsung.com 
  * Modifications Log 
  * Ver   Date         Author                             Modification
  * 1.0   12-03-2020   soohong0.kim@partner.samsung.com   Initial Version
  * 1.0.1 12-14-2020   raegganja@partner.samsung.com      class name change
  * 1.0.2 01-13-2021   soohong0.kim@partner.samsung.com   setActivity method add
  * 1.1   01-19-2024   divyam.gupta@samsung.com           Mysales-412 fiexd Iflog creation logic.
-
+ * 1.2   28-03-2024   vikrant.ks@samsung.com             Add DEL_YN field in request Message and if DEL_YN = 'Y' comes then set change LegalReviewNo__c to null and change Legal Review Activity status to N/A.(MySales-484)
 **/
 
 //XP52 - 법무검토 완료
@@ -61,6 +61,24 @@ global class IF_JudLegalRevContRecInfoController {
             upsertActList.addAll(setActivity(opp.id,'XP52',oppActXp52List,input));
             //XP57 Dataset (기존의 OpportunityActivity가 있으면 Status 만 변경 후 Return, 없으면 Status 및 데이터 매핑 후 Return
             upsertActList.addAll(setActivity(opp.id,'XP57',oppActXp57List,input));
+            
+            //V1.2 Start
+            if(input.DEL_YN == 'Y'){
+                opp.LegalReviewNo__c = Null;
+                if(input.CONTRACT_STATUS == '00401' || input.CONTRACT_STATUS == '00404' || input.CONTRACT_STATUS == '00410' || input.CONTRACT_STATUS == '00417'){
+                    for(Opportunity_Activity__c obj:upsertActList){
+                        if(obj.TransactionName__c == 'XP52'){
+                            obj.Status__c = 'N/A';
+                        }
+                    }
+                }else{
+                    if(oppActXp52List.size() > 0){
+                        oppActXp52List[0].Status__c = 'N/A';
+                        update oppActXp52List;
+                    }
+                }
+            }
+            //V1.2 End
 
             update opp;
             upsert upsertActList;
@@ -205,5 +223,7 @@ global class IF_JudLegalRevContRecInfoController {
         public String CONTRACT_STATUS;
         @AuraEnabled
         public String CONFIRM_DATE;
+        @AuraEnabled
+        public String DEL_YN;//V1.2
     }
 }

@@ -1,3 +1,13 @@
+<!--
+  @description       : 
+  @author            : aditya.r2@samsung.com
+  @group             : 
+  @last modified on  : 2024-03-26
+  @last modified by  : aditya.r2@samsung.com
+  Modifications Log 
+  Ver   Date         Author                 	Modification
+  1.0   26-03-2024   aditya.r2@samsung.com      Initial Version
+-->
 <aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,force:lightningQuickAction,lightning:actionOverride" access="global" >
     
     <aura:attribute name="isOpen" type="Boolean" default="true"/>

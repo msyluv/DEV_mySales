@@ -37,6 +37,10 @@
         console.log('isSaveButtonProject:');
 		helper.saveServiceSolution(component, true); 
 	},
+	onSendService : function(component, event, helper){
+        console.log('isSendServiceButtonProject:');
+		helper.sendService(component, event, helper); 
+	},
 
 	/**
 	 * opporutnitySvcSolPopup event를 통한 sendSAP 실행

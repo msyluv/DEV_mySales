@@ -2,12 +2,16 @@
   @description       : 
   @author            : woomg@dkbmc.com
   @group             : 
-  @last modified on  : 2023-11-03
-  @last modified by  : gitesh.s@samsung.com
+  @last modified on  : 2024-03-28
+  @last modified by  : vipul.k1@samsung.com
   Modifications Log 
   Ver   Date         Author                 Modification
   1.0   02-04-2021   woomg@dkbmc.com        Initial Version
   1.1   2023-11-03   gitesh.s@samsung.com   Weekly Report Popup Size Increase (MYSALES-345)
+  1.2   2024-03-26   aditya.r2@samsung.com  Added new Editor (Rich Text Area) field (MYSALES-471)
+  1.3   2024-03-28   aditya.r2@samsung.com  Added CreatedBy field (MYSALES-483)
+  1.4   2024-03-28   vipul.k1@samsung.com   Added a name filter on UI (MYSALES-479)
+  1.5   2024-04-18   divyam.gupta@samsung.com Removed old Editor(Mysales-436)
 -->
 <aura:component
     controller="WeeklyReportsController"
@@ -29,7 +33,7 @@
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
-
+    <aura:attribute name="filterNameValue" type="String" /> <!--Added By Vipul v1.4 -->
     <!-- v1.1 - Gitesh Saini -->
     <aura:html tag="style">
         .preview-modal .slds-modal__container {
@@ -58,6 +62,8 @@
         </aura:set>
         <aura:set attribute="actions">
             <div class="slds-grid">
+              <!--Added By Vipul v1.4 -->
+                <div onkeyup="{!c.searchNameHandle}"><lightning:input aura:id="searchName" type="search" name="searchName" label="Select" variant="label-hidden" style="padding-top:0;" class="slds-col slds-p-right_x-small"/></div>
                 <lightning:input type="date" name="reportdate" label="Select" value="{!v.reportDate}" onchange="{!c.selectDate}" variant="label-hidden" style="padding-top:0;" class="slds-col slds-p-right_x-small"/>
                 <lightning:button label="{!$Label.c.WEEKLY_ISSUE_REPORT_PREVIEW}" onclick="{!c.clickPreview}" class="action-button slds-col"/> <!-- Preview -->
                 <lightning:buttonIcon iconName="utility:screen" onclick="{!c.clickFullScreen}"/>
@@ -74,8 +80,12 @@
                                 <th class="slds-col slds-size_1-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Account">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_ACCOUNT}</span></th> <!-- Account -->
                                 <th class="slds-col slds-size_1-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Opportunity">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_OPPORTUNITY}</span></th> <!-- Opportunity -->
                                 <th class="slds-col slds-size_1-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Report Date">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_REPORTDATE}</span></th> <!-- Report Date -->
-                                <th class="slds-col slds-size_6-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Issue">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_ISSUE}</span></th> <!-- Issue -->
+                               <!-- V 1.5 Divyam--> 
+                              <!--  <th class="slds-col slds-size_2-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Issue">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_ISSUE}</span></th>  --> <!-- Issue -->
+                                <th class="slds-col slds-size_4-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Issue">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_ISSUECHECK}</span></th> <!-- Issue -->
                                 <th class="slds-col slds-size_1-of-12 num-colhead"><span class="slds-cell-fixed" style="padding: .5rem;" title="Order">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_ORDER}</span></th> <!-- Order -->
+                                <th class="slds-col slds-size_1-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Contents">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_OWNER}</span></th>
+                                <th class="slds-col slds-size_1-of-12"><span class="slds-cell-fixed" style="padding: .5rem;" title="Contents">{!$Label.c.WEEKLY_ISSUE_REPORT_COL_CREATEDBY}</span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -128,12 +138,37 @@
                                     <td class="slds-col slds-size_1-of-12">
                                         <div class="slds-truncate" title="{!report.ReportingDate__c}"><lightning:formattedDateTime value="{!report.ReportingDate__c}"/></div>
                                     </td>
-                                    <td class="slds-col slds-size_6-of-12" id="{!report.Id}" onclick="{!c.clickReport}">
+                                    <!-- V 1.5 Divyam--> 
+                                    <!--
+                                    <td class="slds-col slds-size_2-of-12" id="{!report.Id}" onclick="{!c.clickReport}">
                                         <div class="slds-scrollable_y richtext-box" data-label="Issue Description"><lightning:formattedRichText value="{!report.IssueDescription__c}"/></div>
+                                    </td> -->
+                                    <!--Start v1.2 -->
+                                    <td class="slds-col slds-size_4-of-12" id="{!report.Id}" onclick="{!c.clickReport}">
+                                        <div class="slds-scrollable_y richtext-box" data-label="Issue Description"><lightning:formattedRichText value="{!report.Issue_Description_Check__c}"/></div>
                                     </td>
+                                    <!--End v1.2 -->
                                     <td class="slds-col slds-size_1-of-12 num-colcell">
                                         <div class="slds-truncate" title="{!report.DisplayOrder__c}"><lightning:formattedNumber value="{!report.DisplayOrder__c}" maximumFractionDigits="0"/></div>
                                     </td>
+                                    <!-- v1.3 Start  -->
+                                    <td class="slds-col slds-size_1-of-12">
+                                        <!--<div class="slds-truncate" data-label="CreatedBy"><lightning:formattedText value="{!report.Owner.Name}"/></div>-->
+                                    	<div class="slds-truncate" title="{!report.Owner.Name}">
+                                                <a href="{!'/lightning/r/User/'+report.OwnerId+'/view'}" target="_blank">
+                                                    {!report.Owner.Name}
+                                                </a>
+                                            </div>
+                                    </td>
+                                    <td class="slds-col slds-size_1-of-12">
+                                        <!--<div class="slds-truncate" data-label="CreatedBy"><lightning:formattedText value="{!report.CreatedBy.Name}"/></div>-->
+                                    	<div class="slds-truncate" title="{!report.CreatedBy.Name}">
+                                                <a href="{!'/lightning/r/User/'+report.CreatedById+'/view'}" target="_blank">
+                                                    {!report.CreatedBy.Name}
+                                                </a>
+                                            </div>
+                                    </td>
+                                    <!-- v1.3 End  -->
                                 </tr>
                             </aura:iteration>
                         </tbody>

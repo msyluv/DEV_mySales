@@ -480,7 +480,7 @@ global with sharing class HomeCalendarController {
 		return rtnMap;
 	}
 
-    //Divyam knox Changes
+   /* //Divyam knox Changes
  @auraEnabled
     global Static String getKnoxSchedules(){
         system.debug('hello');  
@@ -540,7 +540,7 @@ global with sharing class HomeCalendarController {
          AsyncApexJob aaj = [Select Id, Status,JobItemsProcessed, TotalJobItems, NumberOfErrors From AsyncApexJob Where Id =: jobid];
         String Status = aaj.Status;
         return aaj;
-    }  
+    }  */
 	global class HomeActivity {
 		@AuraEnabled
 		global String id		{get; set;} // 레코드 id

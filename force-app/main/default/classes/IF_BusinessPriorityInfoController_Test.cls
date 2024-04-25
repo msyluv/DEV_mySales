@@ -73,7 +73,7 @@ public class IF_BusinessPriorityInfoController_Test {
         request.requestURI = REQUEST_URL;   
         request.httpMethod = 'POST';
 		
-        String reqeustBody ='{"ZZCCODE":"SDS-23205170","BURKS":"T100","ORDER_PROBABILITY":"50","BUSINESS_IMPORTANCE":"10000","TOTAL_SCORE":"20000","DELETE_FLAG":"Y"}';
+        String reqeustBody ='{"API_1_request":{"BUKRS":"T100","DELETE_FLAG":"","ZZCCODE":"SDS-23205170","BUSINESS_IMPORTANCE":"100.0","TOTAL_SCORE":"180.0","ORDER_PROBABILITY":"80.0"}}';
 		request.requestBody = Blob.valueOf(reqeustBody);
         RestContext.request  = request;
         RestContext.response = response;
@@ -96,7 +96,7 @@ public class IF_BusinessPriorityInfoController_Test {
         request.requestURI = REQUEST_URL;   
         request.httpMethod = 'POST';
 		
-        String reqeustBody ='{"ZZCCODE":"","BURKS":"T100","ORDER_PROBABILITY":"50","BUSINESS_IMPORTANCE":"10000","TOTAL_SCORE":"20000","DELETE_FLAG":"Y"}';
+        String reqeustBody ='{"API_1_request":{"ZZCCODE":"","BUKRS":"T100","ORDER_PROBABILITY":"50","BUSINESS_IMPORTANCE":"10000","TOTAL_SCORE":"20000","DELETE_FLAG":"Y"}}';
 		request.requestBody = Blob.valueOf(reqeustBody);
         RestContext.request  = request;
         RestContext.response = response;
@@ -142,7 +142,7 @@ public class IF_BusinessPriorityInfoController_Test {
         request.requestURI = REQUEST_URL;   
         request.httpMethod = 'POST';
 		
-        String reqeustBody ='{"ZZCCODE":"SDS-23205170","BURKS":"T100","ORDER_PROBABILITY":"","BUSINESS_IMPORTANCE":"","TOTAL_SCORE":"","DELETE_FLAG":"Y"}';
+        String reqeustBody ='{"API_1_request":{"ZZCCODE":"SDS-23205170","BUKRS":"T100","ORDER_PROBABILITY":"","BUSINESS_IMPORTANCE":"","TOTAL_SCORE":"","DELETE_FLAG":"Y"}}';
 		request.requestBody = Blob.valueOf(reqeustBody);
         RestContext.request  = request;
         RestContext.response = response;
@@ -165,7 +165,7 @@ public class IF_BusinessPriorityInfoController_Test {
         request.requestURI = REQUEST_URL;   
         request.httpMethod = 'POST';
 		
-        String reqeustBody ='{"ZZCCODE":"SDS-23205170","BURKS":"T100","ORDER_PROBABILITY":"","BUSINESS_IMPORTANCE":"ANBC","TOTAL_SCORE":"","DELETE_FLAG":"Y"}';
+        String reqeustBody ='{"API_1_request":{"ZZCCODE":"SDS-23205170","BUKRS":"T100","ORDER_PROBABILITY":"","BUSINESS_IMPORTANCE":"ANBC","TOTAL_SCORE":"","DELETE_FLAG":"Y"}}';
 		request.requestBody = Blob.valueOf(reqeustBody);
         RestContext.request  = request;
         RestContext.response = response;
@@ -188,7 +188,7 @@ public class IF_BusinessPriorityInfoController_Test {
         request.requestURI = REQUEST_URL;   
         request.httpMethod = 'POST';
 		
-        String reqeustBody ='{"ZZCCODE":"SDS-23205170","BURKS":"T170","ORDER_PROBABILITY":"","BUSINESS_IMPORTANCE":"ANBC","TOTAL_SCORE":"","DELETE_FLAG":"Y"}';
+        String reqeustBody ='{"API_1_request":{"ZZCCODE":"SDS-23205170","BUKRS":"T170","ORDER_PROBABILITY":"","BUSINESS_IMPORTANCE":"ANBC","TOTAL_SCORE":"","DELETE_FLAG":"Y"}}';
 		request.requestBody = Blob.valueOf(reqeustBody);
         RestContext.request  = request;
         RestContext.response = response;

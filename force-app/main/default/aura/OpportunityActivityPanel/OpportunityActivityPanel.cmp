@@ -2,8 +2,8 @@
 @description       : 
 @author            : wonjune.oh@partner.samsung.com
 @group             : 
-@last modified on  : 2024-01-30
-@last modified by  : atul.k1@samsung.com
+@last modified on  : 2024-03-20
+@last modified by  : vikrant.ks@samsung.com
 Modifications Log 
 Ver   Date         Author                           Modification
 1.0   2020-11-05   wonjune.oh@partner.samsung.com   Initial Version
@@ -12,6 +12,7 @@ Ver   Date         Author                           Modification
 1.3   2023-11-06   atul.k1@samsung.com              Task - (IT) Archtect Search button addition for HQ BO (MYSALES-349)
 1.4   2023-11-15   atul.k1@samsung.com              Add Link Button on Opportunity main (MYSALES-358)
 1.5   2024-01-30   atul.k1@samsung.com              Task - (IT) Add TXP link Button in BO Activity (MYSALES-421)
+1.6   2024-03-20   vikrant.ks@samsung.com           Task - (IT) Add BO Priority Check List Button in BO Activity (MYSALES-468)
 -->
 <aura:component controller="OpportunityActivityPanelController"
         implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasSObjectName,force:hasRecordId"
@@ -29,6 +30,8 @@ Ver   Date         Author                           Modification
 <aura:attribute name="canClickSwitch" type="Boolean" default="false" description="Panel Click 가능 여부 (FunctionSwitch__c.OpportunityActivityPanel__c)" />
 <aura:attribute name="CurrentUser" type="Object"/>
 <aura:attribute name="isSubsidiary" type="Boolean" default="false" description="자회사여부" /> <!-- V 1.5 MYSALES-421 -->
+<aura:attribute name="isSandbox" type="Boolean" default="false" /> <!-- V 1.6 MYSALES-468 -->
+<aura:attribute name="isCollaboration" type="Boolean" default="false" /> <!-- V 1.6 MYSALES-468 -->
 
 <!-- v1.2 - Gitesh Saini (MYSALES-339) -->
 <aura:attribute name="scpSimList" type="Object" default="" />
@@ -154,6 +157,21 @@ Ver   Date         Author                           Modification
                                         </aura:if>
                                         
                                         <!-- V 1.5 MYSALES-421 End-->
+                                        <!-- V 1.6 MYSALES-468 Start-->
+                                        <aura:if isTrue="{!v.recordTypeDevName == 'HQ'}">
+                                            <aura:if isTrue="{!v.oppty.CompanyCode__c == 'T100'}">
+                                                <aura:if isTrue="{!not(v.isCollaboration)}">
+                                                    <div style="text-align:center; padding-top:0.5rem;">
+                                                        <lightning:button aura:id="BO_CheckList" class="slds-path__mark-complete-colour" 
+                                                                          label="{!$Label.c.BO_Priority_Check_List}"
+                                                                          value="{!$Label.c.BO_Priority_Check_List}"
+                                                                          onclick="{!c.handleOpenLink}" />
+                                                    </div>
+                                                </aura:if>
+                                            </aura:if>
+                                        </aura:if>
+                                        <!-- V 1.6 MYSALES-468 End-->
+                                        
                                         <!-- Notice Button-->
                                         <aura:if isTrue="{!v.oppty.CompanyCode__c == 'T100'}"> <!-- V 1.5 MYSALES-421-->
                                         <div style="text-align:center; padding-top:2.65rem;">

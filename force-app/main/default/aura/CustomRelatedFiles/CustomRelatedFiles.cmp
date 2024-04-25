@@ -7,7 +7,7 @@
   Modifications Log 
   Ver   Date         Author            		Modification
   1.0   09-22-2020   woomg@dkbmc.com   		Initial Version
-  1.1   02-26-2024   vikrant.ks@samsung.com MySales-447
+  1.1   02-26-2024   vikrant.ks@samsung.com Disable "Upload Files" button for Delivery Manager Profile(MYSALES-447)
 -->
 <aura:component
     controller="CustomRelatedFilesController"

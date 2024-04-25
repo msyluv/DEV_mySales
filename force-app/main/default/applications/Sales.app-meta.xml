@@ -130,6 +130,7 @@
     <tabs>Home_URL__c</tabs>
     <tabs>Test_Tab</tabs>
     <tabs>CompanyLoginAverage__c</tabs>
+    <tabs>Opportunity_Search_Logistic</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Sales_UtilityBar1</utilityBar>
 </CustomApplication>

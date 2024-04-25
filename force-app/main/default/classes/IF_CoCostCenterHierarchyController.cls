@@ -2,8 +2,8 @@
  * @description       : 
  * @author            : soohong0.kim@partner.samsung.com
  * @group             : 
- * @last modified on  : 2021-03-26
- * @last modified by  : raeganja@partner.samsung.com
+ * @last modified on  : 2024-03-04
+ * @last modified by  : atul.k1@samsung.com
  * Modifications Log 
  * Ver   Date         Author                             Modification
  * 1.0   11-20-2020   soohong0.kim@partner.samsung.com   Initial Version
@@ -63,7 +63,7 @@ global class IF_CoCostCenterHierarchyController {
                 cc.CostCenterName__c    = obj.KOSTL_KTEXT;
                 cc.ZZCheck__c           = obj.ZZCHECK   == 'X' ? true : false;
                 cc.L_ORGEH__c           = obj.L_ORGEH;
-                cc.BA__c                = obj.GSBER;
+                cc.BA__c                = obj.GSBER; // V 1.5 MYSALES-462
                 // cc.Bkzer__c             = obj.BKZER     == 'X' ? true : false;
                 // cc.Bkzkp__c             = obj.BKZKP     == 'X' ? true : false;
                 // cc.Bkzks__c             = obj.BKZKS     == 'X' ? true : false;
@@ -273,7 +273,7 @@ global class IF_CoCostCenterHierarchyController {
         public String ZEXPIRED;
         public String ZZCHECK;
         public String L_ORGEH;
-        public String GSBER;
+        public String GSBER; // V 1.5 MYSALES-462
         // public String BKZER;
         // public String BKZKP;
         // public String BKZKS;

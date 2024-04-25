@@ -6,6 +6,8 @@ public class knoxCreateScheduleQuableClass implements Queueable, Database.Allows
         
     }
     public void execute(QueueableContext context) { 
+        IF_Log ifLog = new IF_Log();
+        IF_Log.InterfaceLog interfaceLog;
         String APEX_CLASS   = 'IF_KnoxTaskCallOutAPIController';
         String METHOD_NAME_190  = 'doCalloutSendingTaskInfo';
         String INTERFACE_ID_190 = 'IF-073';
@@ -30,6 +32,7 @@ public class knoxCreateScheduleQuableClass implements Queueable, Database.Allows
         InputParam.calendarId = loginUser.CalendarID__c;
         InputParam.userId = userName;           
         ScheduleInfo scheduleInfo = New ScheduleInfo();
+        try {
         if(listofEvents != Null){
             for(Event event: listofEvents){
                 scheduleInfo.invitedYn = null;
@@ -88,7 +91,7 @@ public class knoxCreateScheduleQuableClass implements Queueable, Database.Allows
 
         String s;
                 String s1;
-
+             String KnoxcalendarId ='';
           if(response.getStatusCode() == 200){
               String scheduleId;
                Map<String,object> jssone = new Map<String,object>();
@@ -101,7 +104,7 @@ public class knoxCreateScheduleQuableClass implements Queueable, Database.Allows
                     Map<String,Object> dMap = (Map<String,Object>) jsonMap.get('data');
                     if(dMap != null){
                           scheduleId = (String) dMap.get('scheduleId');
-                      }
+                          KnoxcalendarId = (String) dMap.get('calendarId');                      }
               		System.debug('SJOSHI>>'+scheduleId);
                     //[SJOSHI]End
 
@@ -113,11 +116,28 @@ public class knoxCreateScheduleQuableClass implements Queueable, Database.Allows
         System.debug('temp2_________ '+ temp2); 
         Event e = [Select Id,Knox_Schedule_ID__c FROM Event WHERE ID =: eventId];        
         e.Knox_Schedule_ID__c = temp2;
+        e.Knox_Calendar_Id__c = KnoxcalendarId;
 		isCheck = true;        
         if(temp2 != Null &&  String.isNotBlank(temp2)){
             update e;
         }
+                     interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID_190, guId, APEX_CLASS, METHOD_NAME_190, String.valueOf(resMap.get('Request')), String.valueOf(resMap.get('Response')));
+
           }
+                   else {
+                 List<String> errList = new List<String>();
+               
+                 interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID_190, guId, APEX_CLASS, METHOD_NAME_190, String.valueOf(resMap.get('Request')), String.valueOf(resMap.get('Response')),errList);
+             }
+  
+        }
+        catch (Exception e){
+                ifLog.addLog('Exception : ' + e.getMessage());
+                // errorMsgList.add('Exception : ' + e.getMessage());           
+                interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID_190, guId, APEX_CLASS, METHOD_NAME_190, String.valueOf(resMap.get('Request')), String.valueOf(resMap.get('Response')), e);          
+         }
+                     ifLog.createLog(interfaceLog); 
+
     }
     public static String datetimeToString_ISO8601(Datetime dt){
         String datetimeString_ISO8601 = '';

@@ -6,7 +6,7 @@ public class IF_DeleteKnoxScheduleCalloutController {
     private static Integer errorCount = 0;
     public static Map<String,Object> resMap = new Map<String,Object>();
     @future(callout=true)
-    public static void deleteSingleknoxSchedule(String knoxScheduleId){//set<Id> deleteTask
+    public static void deleteSingleknoxSchedule(String knoxScheduleId,String knoxCalendarId){//set<Id> deleteTask
         system.debug('knoxScheduleId______' +knoxScheduleId);
         if(knoxScheduleId != Null){
         IF_Log ifLog = new IF_Log();
@@ -18,7 +18,8 @@ public class IF_DeleteKnoxScheduleCalloutController {
                 User loginUser = [Select Id,CalendarID__c,FederationIdentifier from User Where Id=:UserINfo.getUserId()];
                 IF_Callout call = new IF_Callout(INTERFACE_ID);               
                 //need to store calendar id first in org and use on the basis of current user                                      
-                String urlParam = '?userId='+ userName +'&'+'calendarId='+loginUser.CalendarID__c+'&'+'scheduleId='+knoxScheduleId;//inputData.userKnoxCalendarId;           
+              //  String urlParam = '?userId='+ userName +'&'+'calendarId='+loginUser.CalendarID__c+'&'+'scheduleId='+knoxScheduleId;//inputData.userKnoxCalendarId;           
+                String urlParam = '?userId='+ userName +'&'+'calendarId='+knoxCalendarId+'&'+'scheduleId='+knoxScheduleId;//inputData.userKnoxCalendarId;           
                 InputHeader inputHeader = new InputHeader();        
                 resMap = call.httpKnoxCallout('', urlParam);
                 System.debug('request : '+resMap.get('Request')); 

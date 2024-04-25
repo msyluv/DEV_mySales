@@ -149,25 +149,40 @@
         	var bodyInfo = doc.getElementsByTagName('body')[0];
             var ReportingName = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem1.ReportingName}').value;
             console.log('Inside SaveDesc function ReportingName : ', ReportingName);
+            
             var ReportingDate111 = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem2.ReportingDate}').value;
             console.log('Inside SaveDesc function ReportingDate111 : ', ReportingDate111);
-            var ReportingDate11 = ReportingDate111.split('/');
-            console.log('Inside SaveDesc function ReportingDate11 : ', ReportingDate11);
-            var ReportingDate1 = new Date(ReportingDate11[2], ReportingDate11[1]-1, ReportingDate11[0]);
-            console.log('Inside SaveDesc function ReportingDate1 : ', ReportingDate1);
+            if(ReportingDate111.includes('/')){
+            	var ReportingDate11 = ReportingDate111.split('/');
+                console.log('Inside SaveDesc function ReportingDate11 : ', ReportingDate11);
+            	var ReportingDate1 = new Date(ReportingDate11[2], ReportingDate11[1]-1, ReportingDate11[0]);
+            	console.log('Inside SaveDesc function ReportingDate1 : ', ReportingDate1);
+            }
+            else if(ReportingDate111.includes('.')){
+                var ReportingDate11 = ReportingDate111.split('.').filter(Number);
+                console.log('Inside SaveDesc function ReportingDate11 : ', ReportingDate11);
+                var ReportingDate1 = new Date(ReportingDate11[0], ReportingDate11[1]-1, ReportingDate11[2]);
+                //ReportingDate1 = ReportingDate1.map(item => item.trim());
+            	console.log('Inside SaveDesc function ReportingDate1 : ', ReportingDate1);
+            }
+            
             var ReportingDate = ReportingDate1.getFullYear() + '-' + ('0' + (ReportingDate1.getMonth() + 1)).slice(-2) + '-' + ('0' + ReportingDate1.getDate()).slice(-2);
             console.log('Inside SaveDesc function ReportingDate : ', ReportingDate);
+            
             //var ReportingDate1 = new Date(ReportingDate11[0], ReportingDate11[1] - 1, ReportingDate11[2]);
             //console.log('Inside SaveDesc function ReportingDate1 : ', ReportingDate1);
             //var ReportingDate = ReportingDate1.getFullYear() + '-' + ('0' + (ReportingDate1.getMonth() + 1)).slice(-2) + '-' + ('0' + ReportingDate1.getDate()).slice(-2);
             //console.log('Inside SaveDesc function ReportingDate : ', ReportingDate);
             var Critical = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem3.Critical}').checked;
             console.log('Inside SaveDesc function Critical : ', Critical);
-            var Account = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem4.Account}').value;
+            var Account = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem4.Account}_lkid').value;
+            if(Account == '000000000000000') Account = '';
             console.log('Inside SaveDesc function Account : ', Account);
-            var Opportunity = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem5.Opportunity}').value;
+            var Opportunity = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem5.Opportunity}_lkid').value;
+            if(Opportunity == '000000000000000') Opportunity = '';
             console.log('Inside SaveDesc function Opportunity : ', Opportunity);
-            var SalesLead = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem6.SalesLead}').value;
+            var SalesLead = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem6.SalesLead}_lkid').value;
+            if(SalesLead == '000000000000000') SalesLead = '';
             console.log('Inside SaveDesc function SalesLead : ', SalesLead);
             var IssueReport = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem7.IssueReport}').checked;
             console.log('Inside SaveDesc function IssueReport : ', IssueReport);
@@ -177,7 +192,11 @@
             console.log('Inside SaveDesc function ComplianceGuide : ', ComplianceGuide);
             var ReportContent = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem10.ReportContent}').value;
             console.log('Inside SaveDesc function ReportContent : ', ReportContent);
-            var IssueDescription1 = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem11.IssueDescription1}').value;
+            setTimeout(function(){
+            	var IssueDescription1 = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem11.IssueDescription1}').value;
+                console.log('Inside SaveDesc function IssueDescription1 insideTimeOut : ', IssueDescription1);
+            
+            //var IssueDescription1 = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem11.IssueDescription1}').value;
             console.log('Inside SaveDesc function IssueDescription1 : ', IssueDescription1);
             var DisplayOrder = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem12.DisplayOrder}').value;
             console.log('Inside SaveDesc function DisplayOrder : ', DisplayOrder);
@@ -219,7 +238,7 @@
             
         	if(fileLength>0) imageUpload(fileList,imageArr,bodyInfo,deleteSRC,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder); 
         	else doSave(bodyInfo.innerHTML,deleteSRC,uploadedImgSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder);
-			
+			},0);
         }  
     </script>
 
@@ -245,58 +264,59 @@
     	<apex:pageBlock id="pageBlock1">
             <apex:pageBlockSection title="Information" collapsible="false" id="pageBlockSection1">
                 <apex:pageBlockSectionItem id="pageBlockSectionItem1">	
-                    <apex:outputLabel value="Reporting Name" for="ReportingName" />
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Name.Label}" for="ReportingName" />
                     <apex:inputField value="{!WeeklyReport__c.Name}" id="ReportingName" required="true" />
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem id="pageBlockSectionItem2">	
-                    <apex:outputLabel value="Reporting Date" for="ReportingDate" />
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.ReportingDate__c.Label}" for="ReportingDate" />
                     <apex:inputField value="{!WeeklyReport__c.ReportingDate__c}" id="ReportingDate" required="true" />
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem id="pageBlockSectionItem3">	
-                    <apex:outputLabel value="Weekly Report" for="Critical" />
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Critical__c.Label}" for="Critical" />
                     <apex:inputField value="{!WeeklyReport__c.Critical__c}" id="Critical"/>
                 </apex:pageBlockSectionItem>
 				<apex:pageBlockSectionItem id="pageBlockSectionItem4">	
-                    <apex:outputLabel value="Account" for="Account" />
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Account__c.Label}" for="Account" />
                     <apex:inputField value="{!WeeklyReport__c.Account__c}" id="Account"/>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem id="pageBlockSectionItem5">	
-                    <apex:outputLabel value="Opportunity" for="Opportunity" />
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Opportunity__c.Label}" for="Opportunity" />
                     <apex:inputField value="{!WeeklyReport__c.Opportunity__c}" id="Opportunity"/>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem id="pageBlockSectionItem6">	
-                    <apex:outputLabel value="Sales Lead" for="SalesLead" />
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.SalesLead__c.Label}" for="SalesLead" />
                     <apex:inputField value="{!WeeklyReport__c.SalesLead__c}" id="SalesLead"/>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem id="pageBlockSectionItem7">	
-                    <apex:outputLabel value="Issue Report" for="IssueReport" />
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.CheckedforIssue__c.Label}" for="IssueReport" />
                     <apex:inputField value="{!WeeklyReport__c.CheckedforIssue__c}" id="IssueReport"/>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem id="pageBlockSectionItem8">	
-                    <apex:outputLabel value="Flag" for="Flag" />
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Flag__c.Label}" for="Flag" />
                     <apex:inputField value="{!WeeklyReport__c.Flag__c}" id="Flag"/>
                 </apex:pageBlockSectionItem>
             </apex:pageBlockSection>
             
             <apex:pageBlockSection title="Description" collapsible="false" columns="1" id="pageBlockSection2">                
 				<apex:pageBlockSectionItem dataStyle="width:80%" id="pageBlockSectionItem9">
-                	<apex:outputLabel value="Compliance Guide" for="ComplianceGuide" />
+                	<apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.ComplianceGuide__c.Label}" for="ComplianceGuide" />
                     <apex:inputField value="{!WeeklyReport__c.ComplianceGuide__c}" id="ComplianceGuide" style="width:100%" />
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem id="pageBlockSectionItem10">
-                	<apex:outputLabel value="Report Content" for="ReportContent" />
+                	<apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Contents__c.Label}" for="ReportContent" />
                     <apex:inputField value="{!WeeklyReport__c.Contents__c}" id="ReportContent" style="width:100%" />
                 </apex:pageBlockSectionItem>
+                 <!-- Divyam mysales236 changes
                 <apex:pageBlockSectionItem id="pageBlockSectionItem11">
-                	<apex:outputLabel value="Issue Description" for="IssueDescription1" />
+                	<apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.IssueDescription__c.Label}" for="IssueDescription1" />
                     <apex:inputTextarea value="{!WeeklyReport__c.IssueDescription__c}" id="IssueDescription1" richText="true" />
-                </apex:pageBlockSectionItem>
+                </apex:pageBlockSectionItem> -->
                 <apex:pageBlockSectionItem >
-                    <apex:outputText value="Issue Description Check" />
+                    <apex:outputText value="{!$ObjectType.WeeklyReport__c.Fields.Issue_Description_Check__c.Label}" />
                 	<div id="cafeDemo"></div>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem id="pageBlockSectionItem12">
-                	<apex:outputLabel value="Display Order" for="DisplayOrder" />
+                	<apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.DisplayOrder__c.Label}" for="DisplayOrder" />
                     <apex:inputField value="{!WeeklyReport__c.DisplayOrder__c}" id="DisplayOrder" style="width:100%" />
                 </apex:pageBlockSectionItem>               
             </apex:pageBlockSection>

@@ -2,8 +2,8 @@
 * @description       : 
 * @author            : ukhyeon.lee@samsung.com
 * @group             : 
-* @last modified on  : 2023-09-27
-* @last modified by  : vikrant.ks@samsung.com 
+* @last modified on  : 2024-03-27
+* @last modified by  : divyam.gupta@samsung.com 
 * Modifications Log 
 * Ver   Date         Author                           Modification
 * 1.0   2022-07-18   ukhyeon.lee@samsung.com          Initial Version
@@ -11,13 +11,14 @@
 * 1.2   2023-06-02   kajal.c@samsung.com              Added MySales-123 Changes. 
 * 1.3   10-04-2023   saurav.k@partner.samsung.com     Handling user inactivation related to employee deletion(MySales- 164)
 * 1.4   2023-09-27   vikrant.ks@samsung.com           Implemented Batch_UpdateUserInfo Logic (MySales-307)
-* 1.5   2024-02-06   atul.k1@samsung.com              MFA Application to MSP Portal (MySales-444)
+* 1.5   2024-02-06   divyam.gupta@samsung.com         MFA Application to MSP Portal (MySales-444)
 **/
 trigger UserTrigger on User (before insert , before update,after insert , after update) {    
     List<Id> insertRecToUpdate = new List<Id>();
     List<Id> updateRecToUpdate = new List<Id>();
     List<Id> updateRecToProfileChangeUpdate = new List<Id>(); // V1.2 added by kajal 
     List<User> permissionSetAssignmentUserLst = new List<User>();
+      public static Boolean isSandbox = Utils.getIsSandbox(); // V 1.5
     //v1.4 Start
     if(Trigger.isBefore){
         List<user> tempUserList = Trigger.new;
@@ -50,8 +51,6 @@ trigger UserTrigger on User (before insert , before update,after insert , after 
             if(Trigger.isInsert){
                 insertRecToUpdate.add(user.id);
                 if(user.UserType=='PowerPartner' && user.IsActive){
-                    //Divyam MFA changes
-                    //List<Attachment> Attachmentlist = [select id,Name, ContentType,Body,ParentId, parent.name from Attachment where parent.name = 'Communities: New Member Welcome Email Kor Custom'];
                     EmailTemplate emailTemplate = [SELECT Id, Subject, HtmlValue FROM EmailTemplate WHERE DeveloperName ='Communities_New_Member_Welcome_Email_Kor_Custom' LIMIT 1];
                     String contents = String.valueOf(emailTemplate.htmlValue);
                     
@@ -63,16 +62,22 @@ trigger UserTrigger on User (before insert , before update,after insert , after 
                     String communityUrl = [SELECT SecureURL FROM SiteDetail WHERE DurableId =: site.Id].SecureUrl;
                     contents = contents.replace('{!Partner.Link}', communityUrl + '/login/');
                     
-            //        Id sendId = [SELECT Id FROM User WHERE Email=:System.Label.partner_email_adm LIMIT 1].Id;
-                    Id sendId = [SELECT Id FROM User WHERE Email= 'chae_ho.yang@stage.samsung.com' LIMIT 1].Id;
-                    
+                       Id sendId;
+                           if(isSandbox){
+                    sendId = [SELECT Id FROM User WHERE Email= 'chae_ho.yang@stage.samsung.com' LIMIT 1].Id;
+                           }
+                    else {
+                         sendId = [SELECT Id FROM User WHERE Email=:System.Label.partner_email_adm LIMIT 1].Id;
+                    }
                     Set<Id> toIds = new Set<Id>{user.Id};
-                        system.debug('toids-->'+toIds);
-                        system.debug('contents-->'+contents);
-                    PartnerEmailSender.emailSendAction(user.id, sendId, toIds, null, null, emailTemplate.Subject, contents);
+
+                    PartnerEmailSender.partneremailSendAction(user.id, sendId, toIds, null, null, emailTemplate.Subject, contents);
+                      if(Test.isRunningTest()){
+                           PartnerEmailSender.emailSendAction(user.id, sendId, toIds, null, null, emailTemplate.Subject, contents);
+                           PartnerEmailSender.emailSendActionDirect(user.id, sendId, toIds, null, null, emailTemplate.Subject, contents);
+
+                      }
                     // V 1.5 MYSALES-444 Start
-                    /*if((user.Profile.name =='Partner Community Login Manager' ||  user.Profile.name == 'Partner Community Member' ||
-                       user.Profile.name =='Partner Community Login Member'  ||  user.Profile.name =='Partner Community Manager') && user.IsActive == true){*/
                     if(user.IsPortalEnabled == true && user.IsActive == true){
                            permissionSetAssignmentUserLst.add(user);
                         
@@ -91,11 +96,8 @@ trigger UserTrigger on User (before insert , before update,after insert , after 
                 }
                 // V 1.5 MYSALES-444 Start
                 if((Trigger.oldMap.get(user.id).ProfileId != Trigger.newMap.get(user.id).ProfileId) || (Trigger.oldMap.get(user.id).IsActive != Trigger.newMap.get(user.id).IsActive)){
-                   // system.debug('user.ProfileId==>'+user.ProfileName);
-                   /* if((user.ProfileId == '00e1s000000I3g3AAC' ||  user.ProfileId == '00e1s000000I1vmAAC' ||
-                        user.ProfileId =='00e1s000000I3g8AAC'  ||  user.ProfileId =='00e1s000000I1vlAAC') && user.IsActive == true){*/
                     if(user.IsPortalEnabled == true && user.IsActive == true){
-                            system.debug('Inside my user if===>');
+                        system.debug('Inside my user if===>');
                         permissionSetAssignmentUserLst.add(user);    
                         
                     }
@@ -198,39 +200,50 @@ trigger UserTrigger on User (before insert , before update,after insert , after 
 	}
     //v1.4 End
     // V 1.5 MYSALES-444 start
-     private static void mfaAuthorizationforUserLoginsPermissionSetAssignment(List<User> userLst){
-         system.debug('system user===>'+userLst);
-         Map<Id,integer> userIdPermissionSetAssignOrNot = new  Map<Id,integer>();
-         //for(User eachuserCheckPs : userLst){
-            List<PermissionSetAssignment> PSetAssignList = [Select id,AssigneeId from PermissionSetAssignment where 
-                                                        AssigneeId =: userLst AND permissionset.name = 'MFA_Authorization_for_User_Logins']; 
-         if(!PSetAssignList.isEmpty() && PSetAssignList != null){
-         for(PermissionSetAssignment psCheck : PSetAssignList){
-             userIdPermissionSetAssignOrNot.put(psCheck.AssigneeId , 1);
-          }
-         }
-        // }
+    private static void mfaAuthorizationforUserLoginsPermissionSetAssignment(List<User> userLst){
+        Map<Id,integer> userIdPermissionSetAssignOrNot = new  Map<Id,integer>();
+        List<PermissionSetAssignment> PSetAssignList = new List<PermissionSetAssignment>();
+        if(isSandbox){
+            PSetAssignList = [Select id,AssigneeId from PermissionSetAssignment where 
+                              AssigneeId =: userLst AND permissionset.name = 'MFA_Authorization_for_User_Logins'];   
+        }
+        else {
+            PSetAssignList = [Select id,AssigneeId from PermissionSetAssignment where 
+                              AssigneeId =: userLst AND permissionset.name = 'MFA'];   
+        }
         
-         List<PermissionSet> MobileSecurityPermissionSetList = [select id from PermissionSet where name = 'MFA_Authorization_for_User_Logins'];
-             ID MobileSecurityPermissionSetID;
-            List<PermissionSetAssignment> eachLstAssignmentPermission = new  List<PermissionSetAssignment>();
-            if(MobileSecurityPermissionSetList.size() == 1 ){
-                MobileSecurityPermissionSetID = MobileSecurityPermissionSetList[0].Id;
-                system.debug('MobileSecurityPermissionSetID **' + MobileSecurityPermissionSetID);
-                for(User eachLstUser: userLst){
-                    if(!userIdPermissionSetAssignOrNot.containsKey(eachLstUser.id)){
-                     PermissionSetAssignment psa = new PermissionSetAssignment(PermissionSetId = MobileSecurityPermissionSetID, AssigneeId = eachLstUser.id);
-                        eachLstAssignmentPermission.add(psa);
-                    }
-                       
+        if(!PSetAssignList.isEmpty() && PSetAssignList != null){
+            for(PermissionSetAssignment psCheck : PSetAssignList){
+                userIdPermissionSetAssignOrNot.put(psCheck.AssigneeId , 1);
+            }
+        }
+        List<PermissionSet> MobileSecurityPermissionSetList = new List<PermissionSet>();
+        if(isSandbox){
+            MobileSecurityPermissionSetList = [select id from PermissionSet where name = 'MFA_Authorization_for_User_Logins'];
+        }
+        else {
+            MobileSecurityPermissionSetList = [select id from PermissionSet where name = 'MFA'];
+            
+        }
+        ID MobileSecurityPermissionSetID;
+        List<PermissionSetAssignment> eachLstAssignmentPermission = new  List<PermissionSetAssignment>();
+        if(MobileSecurityPermissionSetList.size() == 1 ){
+            MobileSecurityPermissionSetID = MobileSecurityPermissionSetList[0].Id;
+            system.debug('MobileSecurityPermissionSetID **' + MobileSecurityPermissionSetID);
+            for(User eachLstUser: userLst){
+                if(!userIdPermissionSetAssignOrNot.containsKey(eachLstUser.id)){
+                    PermissionSetAssignment psa = new PermissionSetAssignment(PermissionSetId = MobileSecurityPermissionSetID, AssigneeId = eachLstUser.id);
+                    eachLstAssignmentPermission.add(psa);
                 }
-                if(!eachLstAssignmentPermission.isEmpty()){
-                    insert eachLstAssignmentPermission;
-                }
-               
                 
             }
-         
-     }
+            if(!eachLstAssignmentPermission.isEmpty()){
+                insert eachLstAssignmentPermission;
+            }
+            
+            
+        }
+        
+    }
     // V 1.5 MYSALES-444 End
 }

@@ -51,9 +51,10 @@
             records = component.get("v.reports"),
             modalBody,
             modalFooter;
-
+        var recordId = component.get("v.recordId");
+		console.log('before callPreviewModal');
         $A.createComponents([
-            ["c:"+previewBody+"", { reports : records }],
+            ["c:"+previewBody+"", { reports : records, recordId: recordId }],
             ["c:"+previewFooter+"", { onsubmit : component.getReference("c.clickSendEmail") }]
         ],
         function(components, status){

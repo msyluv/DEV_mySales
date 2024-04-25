@@ -1,0 +1,224 @@
+<aura:component  controller="TargetOpportunitySearchController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+    <aura:registerEvent name="selectedOppEvent" type="c:TargetOpportunityEvent" />
+    
+    <aura:attribute name="OpportunityList" type="Opportunity[]"/>
+    <aura:attribute name="OpportunityMap" type="Map"/> 
+    <aura:attribute name="SelectedOpportunityMap" type="Map"/>
+    <aura:attribute name="PageNumber" type="integer" default="1"/>
+    <aura:attribute name="TotalPages" type="integer" default="1"/>
+    <aura:attribute name="TotalRecords" type="integer" default="0"/>
+    <aura:attribute name="RecordStart" type="integer" default="0"/>
+    <aura:attribute name="RecordEnd" type="integer" default="0"/>
+    <aura:attribute name="selectedValue" type="Object" default="{}"/>
+    <aura:attribute name="status" type="List" default="[]"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="showPageNumber" type="Boolean" default="false"/>
+    
+    
+    <div class="slds" id="cmp">
+        <div class="slds-modal slds-fade-in-open" aria-hidden="false" role="dialog">
+            <div class="slds-modal__container modal">
+                
+                    <header class="slds-modal__header slds-text-heading_small" style="text-align:left;font-weight:bold;"><lightning:icon class="slds-m-right_xx-small" iconName="standard:search" size="small"/>Target Opportunity Select</header>
+                    <div class="slds-modal__content">
+                        <aura:if isTrue="{!v.showSpinner}">
+                        <div class="spinner">
+                            <lightning:spinner alternativeText="Loading..." size="medium" />
+                        </div>
+                    </aura:if>
+                        <lightning:layout verticalAlign="center">
+                            <lightning:layoutItem size='3' padding='around-small'>
+                                <lightning:input name="Opportunity Name" label='{!$Label.c.BOSEARCH_LAB_BONAME}' value="{!v.selectedValue.BOName}" placeholder='{!$Label.c.BOSEARCH_LAB_ENTERBONAME}'/>
+                            </lightning:layoutItem>
+                            
+                            <lightning:layoutItem size='3' padding='around-small'>
+                                <lightning:input name="Opportunity Code" label='{!$Label.c.BOSEARCH_LAB_BOCODE}' value="{!v.selectedValue.OpptyCode}" placeholder='Enter Opportunity Code...'/>
+                            </lightning:layoutItem>
+                            
+                            <lightning:layoutItem size='3' padding='around-small'>
+                                <lightning:combobox options="{!v.status}" dropdownAlignment="auto" value="{!v.selectedValue.Status}" label="{!$Label.c.BOSEARCH_LAB_STATUS}"/> <!-- Added by Anish - v 1.3 -->
+                            </lightning:layoutItem>
+                            <div class="slds-float_right" style="padding-top:1.25rem;"> 
+                                <lightning:button variant="brand" label="{!$Label.c.BOSEARCH_BTN_SEARCH}" iconName="utility:search" iconPosition="left" title="Search" onclick="{!c.search}" />
+                            </div>
+                        </lightning:layout>
+                        <lightning:layout verticalAlign="center" >
+                            <lightning:layoutItem size='3' padding='around-small'>
+                                <c:customLookup aura:id="clookup"
+                                                iconName="standard:avatar"
+                                                objectName="User"
+                                                label="{!$Label.c.BOSEARCH_LAB_OWNER}"
+                                                additionalDisplay="UserInfo__c"
+                                                searchFields="Email"
+                                                filterFields = "IsActive"
+                                                filterValues = "TRUE"
+                                                filterConditions = "eq"
+                                                minimum="1" 
+                                                numOfQuery="20"
+                                                selectedRecord="{!v.selectedValue.Owner}"/>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size='3' padding='around-small'>
+                                <c:customLookup aura:id="clookup"
+                                                iconName="standard:swarm_request"
+                                                objectName="CostCenter__c"
+                                                label="{!$Label.c.BOSEARCH_LAB_SALESDEPT}"
+                                                minimum="2"
+                                                numOfQuery="50"
+                                                selectedRecord="{!v.selectedValue.SalesDept}"
+                                                searchFields="CostCenter__c"
+                                                additionalDisplay="CostCenter__c"/>
+                            </lightning:layoutItem>
+                            
+                            <lightning:layoutItem size='3' padding='around-small'>
+                                <c:customLookup aura:id="clookup"
+                                                iconName="standard:swarm_request"
+                                                objectName="CostCenter__c"
+                                                label="{!$Label.c.BOSEARCH_LAB_DELIVERYDEPT}"
+                                                minimum="2"
+                                                numOfQuery="50"
+                                                selectedRecord="{!v.selectedValue.PrimarySalesDept}"
+                                                searchFields="CostCenter__c"
+                                                additionalDisplay="CostCenter__c"/>
+                            </lightning:layoutItem>
+                            
+                        </lightning:layout>
+                        <!-- [S] Body -->
+                        <div class="datatable">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="">  </div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_BOCODE}">{!$Label.c.BOSEARCH_LAB_BOCODE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_BONAME}">{!$Label.c.BOSEARCH_LAB_BONAME}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_STATUS}">{!$Label.c.BOSEARCH_LAB_STATUS}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_STAGE}">{!$Label.c.BOSEARCH_LAB_STAGE}</div>
+                                        </th>
+                                        
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_ACCOUNTCODE}">{!$Label.c.BOSEARCH_LAB_ACCOUNTCODE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_ACCOUNT}">{!$Label.c.BOSEARCH_LAB_ACCOUNT}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_ORIGNACCOUNTCODE}">{!$Label.c.BOSEARCH_LAB_ORIGNACCOUNTCODE}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_ORIGNACCOUNT}">{!$Label.c.BOSEARCH_LAB_ORIGNACCOUNT}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_OWNER}">{!$Label.c.BOSEARCH_LAB_OWNER}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_SALESDEPT}">{!$Label.c.BOSEARCH_LAB_SALESDEPT}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_DELIVERYDEPT}">{!$Label.c.BOSEARCH_LAB_DELIVERYDEPT}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="{!$Label.c.TARGET_BOSEARCH_CLOSEDATE}">{!$Label.c.TARGET_BOSEARCH_CLOSEDATE}</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody style='overflow-y: auto;'>
+                                    <aura:if isTrue="{!not(empty(v.OpportunityList))}">
+                                        <aura:iteration items="{!v.OpportunityList}" var="data">
+                                            <tr class="slds-hint-parent">
+                                                <td data-label="Select">
+                                                    <input class="slds-align_absolute-center" type="checkbox" value="{!data}" name="{!data.Id}" onchange="{!c.setBoxes}" checked="{!data.Checked}"></input>
+                                                </td>
+                                                <th data-label="Opportunity Code" scope="row">
+                                                    <aura:if isTrue="{!data.Permission}">
+                                                        <div class="slds-truncate" title="{!data.OpportunityCode__c}">
+                                                            <a href="{!'/' + data.Id}" tabindex="-1" target="_blank">{!data.OpportunityCode__c}</a>
+                                                        </div>
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-truncate" title="{!data.OpportunityCode__c}">{!data.OpportunityCode__c}</div>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </th>
+                                                <th data-label="Opportunity Name" scope="row">
+                                                    <aura:if isTrue="{!data.Permission}">
+                                                        <div class="slds-truncate" title="{!data.Name}">
+                                                            <a href="{!'/' + data.Id}" tabindex="-1" target="_blank">{!data.Name}</a>
+                                                        </div>
+                                                        <aura:set attribute="else">
+                                                            <div class="slds-truncate" title="{!data.Name}">{!data.Name}</div>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                    
+                                                </th>
+                                                <td data-label="Status">
+                                                    <div class="slds-truncate" title="{!data.OpportunityStatus__c}">{!data.OpportunityStatus__c}</div>
+                                                </td>
+                                                <td data-label="Stage">
+                                                    <div class="slds-truncate" title="{!data.StageName}">{!data.StageName}</div>
+                                                </td>
+                                                <td data-label="AccNumber">
+                                                    <div class="slds-truncate" title="{!data.Account.AccountNumber}">{!data.Account.AccountNumber}</div>
+                                                </td>
+                                                <td data-label="AccName">
+                                                    <div class="slds-truncate" title="{!data.Account.Name}">{!data.Account.Name}</div>
+                                                </td>
+                                                <td data-label="OriginAccNum">
+                                                    <div class="slds-truncate" title="{!data.cOriginAcc__r.AccountNumber}">{!data.cOriginAcc__r.AccountNumber}</div>
+                                                </td>
+                                                <td data-label="OriginAcctName">
+                                                    <div class="slds-truncate" title="{!data.cOriginAcc__r.Name}">{!data.cOriginAcc__r.Name}</div>
+                                                </td>
+                                                <td data-label="OwnerName">
+                                                    <div class="slds-truncate" title="{!data.Owner.Name}">{!data.Owner.Name}</div>
+                                                </td>
+                                                <td data-label="SalesDept">
+                                                    <div class="slds-truncate" title="{!data.SalesDepartment__r.Name}">{!data.SalesDepartment__r.Name}</div>
+                                                </td>
+                                                <td data-label="DeliveryDept">
+                                                    <div class="slds-truncate" title="{!data.cPrimarySalesDepartment__r.Name}">{!data.cPrimarySalesDepartment__r.Name}</div>
+                                                </td>
+                                                <td data-label="CloseDate">
+                                                    <div class="slds-truncate" title="{!data.CloseDate}">{!data.CloseDate}</div>
+                                                </td>
+                                            </tr>
+                                        </aura:iteration>   
+                                        <!-- [S] Empty List -->
+                                        <aura:set attribute="else">
+                                            <tr>
+                                                <td colspan='13'>
+                                                    <div style='text-align: center;'>No items to display.</div>
+                                                </td>
+                                            </tr>
+                                        </aura:set>
+                                        <!-- [E] Empty List -->
+                                    </aura:if>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- [E] Body -->
+                    </div>
+                    <div class="slds-modal__footer slds-clearfix">
+                        <aura:if isTrue="{!v.showPageNumber}">
+                            <div>
+                                <div class="slds-float_right">            
+                                    <lightning:button disabled="{!v.PageNumber == 1}" iconName="utility:chevronleft" aura:id="prevPage" onclick="{!c.handlePrev}" />            
+                                    <lightning:button disabled="{!v.PageNumber == v.TotalPages}" aura:id="nextPage" iconName="utility:chevronright" onclick="{!c.handleNext}"/>
+                                </div>
+                                <p class="slds-text-heading--small slds-align_absolute-center">Page {!v.PageNumber} of {!v.TotalPages}</p>
+                            </div>
+                        </aura:if>
+                        <lightning:button class="slds-align_absolute-center slds-m-top_x-small" disabled="" aura:id="SelectButton" variant="brand" label="SELECT" onclick="{!c.clickSelect}"/>
+                    </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

@@ -14,5 +14,10 @@
         <operation>contains</operation>
         <value>111</value>
     </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
     <label>IF-111</label>
 </ListView>

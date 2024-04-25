@@ -11,7 +11,7 @@
 @isTest
 public class IF_DeliveryProbabilityController_Test {
     
-    final static String REQUEST_URL = '/services/apexrest/WebService/IF187';
+    final static String REQUEST_URL = '/services/apexrest/WebService/deliveryprob';
     static User member1;
     static Opportunity opptyHQ;
     static Opportunity opptyHQ1;

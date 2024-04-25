@@ -105,6 +105,19 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>taskAlertMessageCont</componentName>
+                <identifier>c_taskAlertMessageCont</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Taskalertmsg__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>tabs</value>

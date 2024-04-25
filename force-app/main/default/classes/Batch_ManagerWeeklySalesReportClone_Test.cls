@@ -1027,5 +1027,68 @@ public class Batch_ManagerWeeklySalesReportClone_Test {
         Batch_ManagerWeeklySalesReportClone.tempCoverage();
     }
     
+    @isTest
+    public static void testWeeklySalesBatch1_1(){
+        List<user> ulist = new List<user>();
+            if(isSandbox) ulist = [ Select Id , name, Profile.Name,Email from User where  Profile.Name = 'Sales Manager(HQ)'  AND IsActive = true ];
+            else ulist = [ Select Id , name, Profile.Name,Email from User where Name = '곽 승동' AND IsActive = true ];
+            system.debug('ash ulist'+ulist);
+            system.debug('adi ulist size '+ulist.size());
+            RecordType recordId = [SELECT Id FROM RecordType WHERE SobjectType = 'Opportunity' AND Name = 'HQ' Limit 1];
+            Account acc = [select id,name from Account where name = 'Test Account' Limit 1];
+            CostCenter__c costCenterHQ = [select id,name,CompanyCode__c from CostCenter__c where name = '기술전략팀(T100-10384)' Limit 1];
+            //CostCenter__c costCenterHQ1 = [select id,name,CompanyCode__c from CostCenter__c where name = '기술전략팀(T100-10384)' Limit 1];
+            System.debug('Cost Center Company Code : ' + costCenterHQ.CompanyCode__c);
+            User u = [select id,name from user where email = 'Test1@Test.com' Limit 1];
+            
+            DateTime dt = DateTime.now().addDays(-7);
+
+            Opportunity oppty = new Opportunity(Name ='Test1', RecordTypeId = recordId.Id, AccountId =acc.Id, CurrencyIsoCode = 'KRW', Amount = 100000,
+                                cRevenueStartDate__c = system.today(), cRevenueEndDate__c = System.today().addMonths(2), CloseDate = System.today(), 
+                                StageName = 'Z01', cPrimarySalesDepartment__c = costCenterHQ.Id, SalesDepartment__c = costCenterHQ.Id, cOriginAcc__c = acc.Id, 
+            					CspMspType__c = 'CSP', OtherCSP__c = 'CSP1', MSP_Amount__c = 200, cLeadID__c = NULL, XP7_CONDUCT_DATE__c =Date.today().adddays(2), 
+            					XP6_CONDUCT_DATE__c=Date.today().adddays(2), ZP61_PROPOSAL_SUBMIT_DATE__c=Date.today().adddays(2), Opportunitycode__c= 'SDS-123456');
+        
+           Sales_Lead__c sl1 = new Sales_Lead__c();
+           List<Sales_Lead__c> slList = new List<Sales_Lead__c>();
+           //sl1.CompanyCode__c = 'T100';
+           sl1.LeadStatus__c = 'In Process';
+           sl1.CloseDate__c = System.today();
+           sl1.SalesDepartment__c = costCenterHQ.Id;
+           sl1.AccountId__c = acc.Id;
+           sl1.Amount__c = 765;
+           slList.add(sl1);
+            system.runAs(u){
+                Id ProfileId = UserInfo.getProfileId();
+                Id CurrentUser = userinfo.getUserid();
+                String CurrentCompanyCode = [select id,name,CompanyCode__c from user where id =: CurrentUser].CompanyCode__c;
+                String ProfileName = [select id,name from profile where id =: ProfileId].Name;
+                system.debug('Current user profile : '+ ProfileName + ' SalesDepartment__c Closed : '+ oppty.SalesDepartment__r.Closed__c + ' Current user Company code : '+ CurrentCompanyCode + 'Oppty Comapny Code : ' + oppty.SalesDepartment__r.CompanyCode__c + 'Oppty ZZCode : ' + oppty.SalesDepartment__r.ZZCheck__c + 'Opp Owner Id: ' + oppty.ownerId + ' Current user Id : '+ CurrentUser);
+                insert oppty;
+                insert slList;
+            }
+        
+        	opportunityamt__c oppamt = new opportunityamt__c(name = 'Test', Opportunitycode__c= 'SDS-123456', Companycode__c= 'T100', Version__c= 'S001', CurrencyIsoCode= 'KRW', Opportunity__c= oppty.Id, DiffAmt__c= 1000,DiffAmtLoc__c= 1000);
+            insert oppamt;
+        
+        	WeeklyReport__c weere = new WeeklyReport__c(name = 'Test', ReportingDate__c = system.today(), Opportunity__c = oppty.id);
+            insert weere;
+        
+            List<Opportunity> lstOpp = new List<Opportunity>();
+            lstOpp = [select Id, Amount,Name,OpportunityCode__c,ZP61_PROPOSAL_SUBMIT_DATE__c,ProposalPM__c,ProposalPM__r.Name, cOriginAcc__c, cOriginAcc__r.Owner.Name,cOriginAcc__r.Name, Opportunity_Review_VRB_Type_Confirm__c, StageName,BO1stRegistrationDate__c,CloseDate,XP7_CONDUCT_DATE__c,XP6_CONDUCT_DATE__c, Account.mDomesticForeign__c, CMBizType__c, AccountId,Account.Owner.Name,Account.Name,OriginAcc_BizTypeL1__c,BusinessLevel__c, RecordType.Name,CompanyCode__c from opportunity where  OwnerId = : u.Id];
+            system.debug('ashish lstOpp'+lstOpp);
+            
+            BulletinBoard__c bulletinRec = new BulletinBoard__c();
+       	 	bulletinRec.Name = 'Bulletin Rec2';
+        	bulletinRec.Notice__c = true; // V 1.2
+       		// bulletinRec.RecordTypeId = '0121s0000008wCnAAI';
+        	insert bulletinRec;
+        
+            test.startTest();
+            Batch_ManagerWeeklySalesReportClone obj = new Batch_ManagerWeeklySalesReportClone();
+            database.executeBatch(obj);
+        	test.stopTest();
+    }
+    
    
 }

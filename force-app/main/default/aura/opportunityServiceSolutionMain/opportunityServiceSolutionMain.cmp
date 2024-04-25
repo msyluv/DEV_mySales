@@ -44,6 +44,10 @@
     <aura:attribute name="isTempSave"       type="Boolean"  access="public" default="false" description="임시저장 flag"/>
     <aura:attribute name="svcFirstIndex"    type="Integer"  access="public" default="0"     description="서비스 첫 행 index"/>
     <aura:attribute name="pjtDisable"       type="Boolean"  access="public" default='false' description="버튼 클릭 후 비활성화"/>
+    
+    <aura:attribute name="CurrentUser"       type="Object"/>
+    <force:recordData recordId="{!$SObjectType.CurrentUser.Id}" fields="Profile.Name" targetFields="{!v.CurrentUser}"/>
+    
     <lightning:overlayLibrary aura:id="overlayLib"/>
 
     <aura:html tag='style'>
@@ -114,7 +118,10 @@
                 <aura:set attribute="else">
                     <aura:if isTrue="{!v.hasEditAccess}">
                         <lightning:button variant="brand" label="{!$Label.c.COMM_BTN_SEND_SAP}" class="slds-float_left" onclick="{!c.onConfirmSAP}" disabled="{!v.pjtDisable}"/>    <!-- or(v.isLoading, !v.isTempSave) -->
-                    </aura:if>
+                        <aura:if isTrue="{!OR(equals(v.CurrentUser.Profile.Name,'System Administrator'),equals(v.CurrentUser.Profile.Name,'시스템 관리자'))}">
+                        <lightning:button variant="brand" label="{!$Label.c.COMM_BTN_SEND_SERVICE}" class="slds-float_left" onclick="{!c.onSendService}" disabled="{!v.pjtDisable}"/>    <!-- or(v.isLoading, !v.isTempSave) -->
+                        </aura:if>
+                        </aura:if>
                 </aura:set>
             </aura:if>
             <!-- cancel -->

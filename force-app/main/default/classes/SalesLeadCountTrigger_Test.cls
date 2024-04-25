@@ -2,13 +2,14 @@
  * @author            : younghoon.kim@dkbmc.com
  * @group             : 
  * @description       : 
- * @last modified on  : 2024-02-15
+ * @last modified on  : 2024-04-17
  * @last modified by  : sarthak.j1@samsung.com
  * Modifications Log 
  * Ver   Date         Author                    Modification
  * 1.0   2021-02-08   younghoon.kim@dkbmc.com   Initial Version
  * 1.1   2024-01-24   sarthak.j1@samsung.com    Changes for resolving test class errors as part of MYSALES-413
  * 1.2   2024-02-15   sarthak.j1@samsung.com	Sales Lead - Internal/External field changing -> MYSALES-448
+ * 1.3   2024-04-17   sarthak.j1@samsung.com	Sales Lead Enhancement -> MYSALES-497
 **/
 @isTest(SeeAllData=true) //Added SeeAllData=true as part of v-1.2 [MYSALES-448]
 public class SalesLeadCountTrigger_Test {
@@ -63,6 +64,7 @@ public class SalesLeadCountTrigger_Test {
             , Email__c = 'tse@sdfjo.com.vop'
             , OwnerId = owner.Id
             , LeadStage__c = 'Warm'
+            , LeadStatus__c = 'In Process' // Added as part of v-1.3
         	, CloseDate__c = Date.valueOf('2024-01-10'));
         	//, SalesDepartment__c = costCenter.Id);
         insert salesLead;
@@ -98,6 +100,7 @@ public class SalesLeadCountTrigger_Test {
             , Email__c = 'tse@sdfjo.com.vop'
             , OwnerId = owner.Id
             , LeadStage__c = 'Warm'
+            , LeadStatus__c = 'In Process' // Added as part of v-1.3
             //Start v-1.1 [MYSALES-413]
         	, CloseDate__c = Date.valueOf('2024-01-10'));
         	//, SalesDepartment__c = costCenter.Id);
@@ -120,6 +123,7 @@ public class SalesLeadCountTrigger_Test {
                 , Email__c = 'tse@sdfjo.com.vop'
                 , OwnerId = salesUser1.Id
                 , LeadStage__c = 'Warm'
+                , LeadStatus__c = 'In Process' // Added as part of v-1.3
                 //Start v-1.1 [MYSALES-413]
                 , CloseDate__c = Date.valueOf('2024-01-10'));
                 //, SalesDepartment__c = costCenter.Id);

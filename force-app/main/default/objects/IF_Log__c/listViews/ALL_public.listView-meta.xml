@@ -14,7 +14,12 @@
     <filters>
         <field>CREATED_DATE</field>
         <operation>greaterThan</operation>
-        <value>2/20/2024 12:00 AM</value>
+        <value>4/15/2024 12:00 AM</value>
+    </filters>
+    <filters>
+        <field>InterfaceId__c</field>
+        <operation>contains</operation>
+        <value>IF-040</value>
     </filters>
     <label>ALL</label>
 </ListView>

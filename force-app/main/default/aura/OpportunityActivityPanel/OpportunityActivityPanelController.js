@@ -2,14 +2,15 @@
  * @description       : 
  * @author            : wonjune.oh@partner.samsung.com
  * @group             : 
- * @last modified on  : 2024-02-80
- * @last modified by  : atul.k1@samsung.com
+ * @last modified on  : 2024-03-20
+ * @last modified by  : vikrant.ks@samsung.com
  * Modifications Log 
  * Ver   Date         Author                           Modification
  * 1.0   2020-11-05   wonjune.oh@partner.samsung.com   Initial Version
  * 1.1   2023-06-11   atul.k1@samsung.com              Task - (IT) Archtect Search button addition for HQ BO (MYSALES-349)
  * 1.2   2023-11-15   atul.k1@samsung.com              Add Link Button on Opportunity main (MYSALES-358)
  * 1.3   2024-02-08   atul.k1@samsung.com              Task - (IT) Add TXP link Button in BO Activity (MYSALES-421)
+ * 1.4   2024-03-20   vikrant.ks@samsung.com           Task - (IT) Add BO Priority Check List Button in BO Activity (MYSALES-468)
 **/
 ({
     doInit : function(component, event, helper) {
@@ -101,6 +102,16 @@
                 urlValue = urlValue.replace("{!BO_NO}",boCodeVal[1].slice(0,-1));
 				break;
             // V 1.3 MYSALES-421 End
+            // V 1.4 MYSALES-468 Start
+            case 'BO_CheckList':
+                var IsSandbox = component.get('v.isSandbox');
+                if(IsSandbox == true){
+                	urlValue = 'http://ieqh1201.sds.samsung.net:50000/irj/servlet/prt/portal/prtroot/controller.TransactionIViewController?system=SDS_ECC&tcode=ZLP3SDC4000&autostart=true&params=GS_HEADER-ZZCCODE='+opptyCode;
+                }else{
+                    urlValue = 'http://ep.sds.samsung.net/irj/servlet/prt/portal/prtroot/controller.TransactionIViewController?system=SDS_ECC&tcode=ZLP3SDC4000&autostart=true&params=GS_HEADER-ZZCCODE='+opptyCode.replace('-','');
+                }
+                break;
+            // V 1.4 MYSALES-468 End
         }
         
 		console.log('## URL : ', urlValue);

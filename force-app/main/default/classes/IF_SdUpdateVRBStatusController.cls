@@ -2,13 +2,14 @@
 * @description       : 	
 * @author            : ukhyeon.lee@samsung.com	
 * @group             : 	
-* @last modified on  : 2022-10-26	
-* @last modified by  : Kajal.c@samsung.com	
+* @last modified on  : 2024-03-28
+* @last modified by  : vikrant.ks@samsung.com	
 * Modifications Log 	
 * Ver   Date         Author                    Modification	
 * 1.0   07-13-2021   ukhyeon.lee@samsung.com   Initial Version	
-* 1.1	 02-11-2022   younghoon.kim@dkbmc.com 수전위 수정사항 추가(수전위 요청일, 수전위 시행일, RFP 공고일, 제안 제출일, 사업기회 개요)	
-* 1.2   2022-11-02   Kajal.c@samsung.com 	   Add IV_VRB_TYPE value to store in 'Opportunity_Review_VRB_Type__c' opportunity field. 
+* 1.1	02-11-2022   younghoon.kim@dkbmc.com 수전위 수정사항 추가(수전위 요청일, 수전위 시행일, RFP 공고일, 제안 제출일, 사업기회 개요)	
+* 1.2   2022-11-02   Kajal.c@samsung.com 	   Add IV_VRB_TYPE value to store in 'Opportunity_Review_VRB_Type__c' opportunity field.
+* 1.3   2024-03-28   vikrant.ks@samsung.com    If IV_VERSION = 'XP63' OR 'XP73' then updated the 'XP63_EndDate_c' OR 'XP73_EndDate_c' field as APPR_DATE respectively.(MySales-481)
 **/
 @RestResource(urlMapping = '/IF144/*')
 global class IF_SdUpdateVRBStatusController {
@@ -77,7 +78,7 @@ global class IF_SdUpdateVRBStatusController {
                                     if(!VRB_NEW.equals(vrbNew)){                                        //품의결과수신           
                                         if(ACTIVITY_BIZ_PART_APPR.equals(transactionName)){
                                             queryTransactionArr = ACTIVITY_BIZ_PART;
-                                           	if(String.isNotBlank(vrbApporvalType)){
+                                            if(String.isNotBlank(vrbApporvalType)){
                                                 opportunity.XP63_VRB_APPROVAL_TYPE__c = vrbApporvalType;
                                             }
                                         } 
@@ -101,9 +102,9 @@ global class IF_SdUpdateVRBStatusController {
                                             opportunity.XP73_VRB_APPROVAL_TYPE__c = null;
                                         }                    
                                     }
-
-						/**V1.2-START--Kajal**/	
-							if(ACTIVITY_BIZ_PART_APPR.equals(transactionName)){
+                            
+                            /**V1.2-START--Kajal**/	
+                            if(ACTIVITY_BIZ_PART_APPR.equals(transactionName)){
                                 system.debug('Entry1');
                                 //Required Date START
                                 transactionArr.add(ACTIVITY_BIZ_PART_REQ);
@@ -114,7 +115,8 @@ global class IF_SdUpdateVRBStatusController {
                                 //Approval Date
                                 transactionArr.add(ACTIVITY_BIZ_PART_APPR);
                                 //Conduct Date
-                                opportunity.XP6_CONDUCT_DATE__c = Util_String.convertStringDate(conductDate); 
+                                opportunity.XP6_CONDUCT_DATE__c = Util_String.convertStringDate(conductDate);
+                                opportunity.XP63_EndDate__c = Util_String.convertStringDate(apprDate);//V1.3
                                 
                             }else if(ACTIVITY_BID_DECI_APPR.equals(transactionName)){
                                 system.debug('Entry2');
@@ -128,12 +130,13 @@ global class IF_SdUpdateVRBStatusController {
                                 transactionArr.add(ACTIVITY_BID_DECI_APPR);
                                 //Conduct Date
                                 opportunity.XP7_CONDUCT_DATE__c = Util_String.convertStringDate(conductDate);
+                                opportunity.XP73_EndDate__c = Util_String.convertStringDate(apprDate);//V1.3
                             }   
-                         /**V1.2-END--Kajal**/
+                            /**V1.2-END--Kajal**/
                             system.debug('Entry3' + transactionArr.size());
                             system.debug('Entry4' + queryTransactionArr.size());
                             
-                         
+                            
                             opportunity.XP31_RFP_ANNOUNCE_DATE__c = Util_String.convertStringDate(announceDate); // RFP 공고일
                             opportunity.ZP61_PROPOSAL_SUBMIT_DATE__c = Util_String.convertStringDate(submitDate); // 제안 제출일    
                             
@@ -165,23 +168,23 @@ global class IF_SdUpdateVRBStatusController {
                             
                             /**V1.2-START--Kajal**/	
                             for(String trans : transactionArr){
-                                    if(transactionList==null || !transactionList.contains(trans)){
-                                        Opportunity_Activity__c opptyAct = new Opportunity_Activity__c();
-                                        opptyAct.WhatId__c = opportunity.id;
-                                        opptyAct.TransactionName__c = trans;
-                                        opportunityActivityList.add(opptyAct);
-                                    }
+                                if(transactionList==null || !transactionList.contains(trans)){
+                                    Opportunity_Activity__c opptyAct = new Opportunity_Activity__c();
+                                    opptyAct.WhatId__c = opportunity.id;
+                                    opptyAct.TransactionName__c = trans;
+                                    opportunityActivityList.add(opptyAct);
                                 }
+                            }
                             for(Opportunity_Activity__c opptyAct : opportunityActivityList){ 
                                 if(ACTIVITY_BIZ_PART_REQ.equals(opptyAct.TransactionName__c) || ACTIVITY_BID_DECI_REQ.equals(opptyAct.TransactionName__c)){
-                                        opptyAct.EndDate__c = Util_String.convertStringDate(reqDate);                           
-                                    }                            
-                                    if(ACTIVITY_BIZ_PART_COST.equals(opptyAct.TransactionName__c) || ACTIVITY_BID_DECI_COST.equals(opptyAct.TransactionName__c)){
-                                        opptyAct.EndDate__c = Util_String.convertStringDate(costDate);
-                                    }
-                                    if(ACTIVITY_BIZ_PART_APPR.equals(opptyAct.TransactionName__c) || ACTIVITY_BID_DECI_APPR.equals(opptyAct.TransactionName__c)){
-                                        opptyAct.EndDate__c = Util_String.convertStringDate(apprDate);
-                                    }
+                                    opptyAct.EndDate__c = Util_String.convertStringDate(reqDate);                           
+                                }                            
+                                if(ACTIVITY_BIZ_PART_COST.equals(opptyAct.TransactionName__c) || ACTIVITY_BID_DECI_COST.equals(opptyAct.TransactionName__c)){
+                                    opptyAct.EndDate__c = Util_String.convertStringDate(costDate);
+                                }
+                                if(ACTIVITY_BIZ_PART_APPR.equals(opptyAct.TransactionName__c) || ACTIVITY_BID_DECI_APPR.equals(opptyAct.TransactionName__c)){
+                                    opptyAct.EndDate__c = Util_String.convertStringDate(apprDate);
+                                }
                             }
                             if(!VRB_NEW.equals(vrbNew)){  
                                 system.debug('Test@@4');

@@ -73,7 +73,7 @@ global class IF_LOG_Jitter_Bit_Batch Implements Database.Batchable<sObject>, Dat
         String  LogInfo = '';
         for(IF_Log__c Obj:listRecords){
             //V1.1 added IF Condition
-            if(Obj.ErrorMessage__c != ''){
+            if(Obj.ErrorMessage__c != '' && Obj.ErrorMessage__c != null){
             if(Obj.ErrorMessage__c.ContainsIgnoreCase('Communication Error') || Obj.ErrorMessage__c.ContainsIgnoreCase('StatusCode : 500')){
             logid += Obj.InterfaceId__c + ', '; 
             LogInfo += 'Interface Id:'+Obj.InterfaceId__c+'<br/><br/>';

@@ -398,6 +398,7 @@ public with sharing class KnoxEmailSendController {
         Map<String,Object> resMap = new Map<String,Object>();
 
         Employee__c senderEmployee = Utils.getLoginEmployeeData(UserInfo.getUserId());
+        system.debug('Sender Employee : '+ senderEmployee);                                      
         IF_KnoxEmailSendController.InputClass bodyMap = new IF_KnoxEmailSendController.InputClass();
 
         bodyMap.subject = subject;

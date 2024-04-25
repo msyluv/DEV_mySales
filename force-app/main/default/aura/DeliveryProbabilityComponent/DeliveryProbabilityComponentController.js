@@ -1,3 +1,13 @@
+/**
+ * @description       : 
+ * @author            : vikrant.ks@samsung.com
+ * @group             : 
+ * @last modified on  : 02-26-2024
+ * @last modified by  : vikrant.ks@samsung.com
+ * Modifications Log 
+ * Ver   Date         Author            			   Modification
+ * 1.0   02-26-2024   vikrant.ks@samsung.com           Initial Version (MYSALES-447)
+**/
 ({
     init : function(component, event, helper) { 
 		let oppId = component.get('v.recordId');
@@ -24,8 +34,7 @@
         				component.set("v.ShowButton",value); 
                     }
                     else{
-                        console.log('Less Than 300');
-                        console.log('res300: '+res);
+                        
                         var x = 0;
                         for(let i=0;i<5 && x<res.length;i++){ 
                             x= res.indexOf("\n",x+1);
@@ -37,11 +46,9 @@
                         if(x>0){
                             var index = res.indexOf(" ",x-1);
                             if(index>x){index = x;}
-                            console.log('Here');
                             component.set("v.DeliveryProbabilityPartial",res.substring(0,index));   
                         }else{
                             var index = res.indexOf(" ",299);
-                            console.log('Here1');
                             component.set("v.DeliveryProbabilityPartial",res.substring(0,index));
                         }
                     }

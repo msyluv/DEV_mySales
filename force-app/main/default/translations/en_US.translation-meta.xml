@@ -593,6 +593,46 @@ Would you like to return to the Business Opportunity-Details screen for the chan
         <name>BOSEARCH_BTN_SEARCH</name>
     </customLabels>
     <customLabels>
+        <label><!-- BOSEARCH_CloseDate_MSG_0001 --></label>
+        <name>BOSEARCH_CloseDate_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_CloseDate_MSG_0002 --></label>
+        <name>BOSEARCH_CloseDate_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_CloseDate_MSG_0003 --></label>
+        <name>BOSEARCH_CloseDate_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_ContractDate_MSG_0001 --></label>
+        <name>BOSEARCH_ContractDate_MSG_0001</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_ContractDate_MSG_0002 --></label>
+        <name>BOSEARCH_ContractDate_MSG_0002</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_ContractDate_MSG_0003 --></label>
+        <name>BOSEARCH_ContractDate_MSG_0003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_ContractEndDATE --></label>
+        <name>BOSEARCH_ContractEndDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_ContractStartDATE --></label>
+        <name>BOSEARCH_ContractStartDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_DeliveryOrg --></label>
+        <name>BOSEARCH_DeliveryOrg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_Global_Bidding --></label>
+        <name>BOSEARCH_Global_Bidding</name>
+    </customLabels>
+    <customLabels>
         <label><!-- BOSEARCH_LAB_1STCLOSEDATE --></label>
         <name>BOSEARCH_LAB_1STCLOSEDATE</name>
     </customLabels>
@@ -615,6 +655,10 @@ Would you like to return to the Business Opportunity-Details screen for the chan
     <customLabels>
         <label><!-- BOSEARCH_LAB_ALL --></label>
         <name>BOSEARCH_LAB_ALL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_Amount --></label>
+        <name>BOSEARCH_LAB_Amount</name>
     </customLabels>
     <customLabels>
         <label><!-- BOSEARCH_LAB_BIZLEVEL --></label>
@@ -663,6 +707,14 @@ Would you like to return to the Business Opportunity-Details screen for the chan
     <customLabels>
         <label><!-- BOSEARCH_LAB_COMPANYID --></label>
         <name>BOSEARCH_LAB_COMPANYID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_CloseDate1 --></label>
+        <name>BOSEARCH_LAB_CloseDate1</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_Currency --></label>
+        <name>BOSEARCH_LAB_Currency</name>
     </customLabels>
     <customLabels>
         <label><!-- BOSEARCH_LAB_DEALBREAK --></label>
@@ -729,6 +781,10 @@ Would you like to return to the Business Opportunity-Details screen for the chan
         <name>BOSEARCH_LAB_HEADER</name>
     </customLabels>
     <customLabels>
+        <label><!-- BOSEARCH_LAB_HEADER_Logistic --></label>
+        <name>BOSEARCH_LAB_HEADER_Logistic</name>
+    </customLabels>
+    <customLabels>
         <label><!-- BOSEARCH_LAB_INTERNALBIZ --></label>
         <name>BOSEARCH_LAB_INTERNALBIZ</name>
     </customLabels>
@@ -781,6 +837,34 @@ Would you like to return to the Business Opportunity-Details screen for the chan
         <name>BOSEARCH_LAB_STATUS</name>
     </customLabels>
     <customLabels>
+        <label><!-- BOSEARCH_LAB_SalesRegion --></label>
+        <name>BOSEARCH_LAB_SalesRegion</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_SubIndusrty --></label>
+        <name>BOSEARCH_LAB_SubIndusrty</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_closeDateEnd --></label>
+        <name>BOSEARCH_LAB_closeDateEnd</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_closeDateStart --></label>
+        <name>BOSEARCH_LAB_closeDateStart</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_customerType --></label>
+        <name>BOSEARCH_LAB_customerType</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_globalBidding --></label>
+        <name>BOSEARCH_LAB_globalBidding</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LogisticRecordTypeId --></label>
+        <name>BOSEARCH_LogisticRecordTypeId</name>
+    </customLabels>
+    <customLabels>
         <label><!-- BOSEARCH_MSG_0001 --></label>
         <name>BOSEARCH_MSG_0001</name>
     </customLabels>
@@ -797,12 +881,32 @@ Would you like to return to the Business Opportunity-Details screen for the chan
         <name>BOSEARCH_MSG_0004</name>
     </customLabels>
     <customLabels>
+        <label><!-- BOSEARCH_SalesOrganization --></label>
+        <name>BOSEARCH_SalesOrganization</name>
+    </customLabels>
+    <customLabels>
         <label><!-- BOSEARCH_Strategic_Account --></label>
         <name>BOSEARCH_Strategic_Account</name>
     </customLabels>
     <customLabels>
+        <label><!-- BOSEARCH_bizDevelopment --></label>
+        <name>BOSEARCH_bizDevelopment</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_lbsExceptionType --></label>
+        <name>BOSEARCH_lbsExceptionType</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_opportunityType --></label>
+        <name>BOSEARCH_opportunityType</name>
+    </customLabels>
+    <customLabels>
         <label><!-- BO Primary Delivery Dept.(Lv.3) Validation --></label>
         <name>BO_Primary_Delivery_Dept_Lv_3_Validation</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Priority Check List --></label>
+        <name>BO_Priority_Check_List</name>
     </customLabels>
     <customLabels>
         <label><!-- BO REPORT SDSAE --></label>
@@ -1205,6 +1309,10 @@ Would you like to return to the Business Opportunity-Details screen for the chan
         <name>COMM_BTN_SEND_SAP</name>
     </customLabels>
     <customLabels>
+        <label><!-- COMM_BTN_SEND_SERVICE --></label>
+        <name>COMM_BTN_SEND_SERVICE</name>
+    </customLabels>
+    <customLabels>
         <label><!-- COMM_BTN_USER_MANUAL --></label>
         <name>COMM_BTN_USER_MANUAL</name>
     </customLabels>
@@ -1283,6 +1391,10 @@ Would you like to return to the Business Opportunity-Details screen for the chan
     <customLabels>
         <label><!-- COMM_MSG_RECORD_LOCKED --></label>
         <name>COMM_MSG_RECORD_LOCKED</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- COMM_SEND_SERVICE_Success --></label>
+        <name>COMM_SEND_SERVICE_Success</name>
     </customLabels>
     <customLabels>
         <label><!-- COMM_VAL_PREACTVALID_AFTER_DATE --></label>
@@ -1660,10 +1772,6 @@ Please note that the information acquired when reporting weekly reports should b
         <name>DeliveryProbabilityHeading</name>
     </customLabels>
     <customLabels>
-        <label><!-- DeliveryProbabilitySecondHeading --></label>
-        <name>DeliveryProbabilitySecondHeading</name>
-    </customLabels>
-    <customLabels>
         <label><!-- DeliveryProbabilityViewAll --></label>
         <name>DeliveryProbabilityViewAll</name>
     </customLabels>
@@ -1678,6 +1786,10 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- Description_LOST_003 --></label>
         <name>Description_LOST_003</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Description Review Session --></label>
+        <name>Description_Review_Session</name>
     </customLabels>
     <customLabels>
         <label><!-- Detail --></label>
@@ -2084,8 +2196,24 @@ Please note that the information acquired when reporting weekly reports should b
         <name>IF_ADMIN_MSG_001</name>
     </customLabels>
     <customLabels>
+        <label><!-- IF Mig User IDs Prod --></label>
+        <name>IF_Mig_User_IDs_Prod</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- IF Mig User IDs QA --></label>
+        <name>IF_Mig_User_IDs_QA</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- IF Mig User Names --></label>
+        <name>IF_Mig_User_Names</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Improvement --></label>
         <name>Improvement</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Information_Review --></label>
+        <name>Information_Review</name>
     </customLabels>
     <customLabels>
         <label><!-- JITTERBIT_IFERROR_Last_Minutes --></label>
@@ -2130,6 +2258,10 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- Knox calendar Message --></label>
         <name>Knox_calendar_Message</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Knoxtomysalesnodata --></label>
+        <name>Knoxtomysalesnodata</name>
     </customLabels>
     <customLabels>
         <label><!-- LAPP_MSG_001 --></label>
@@ -2476,6 +2608,14 @@ Please note that the information acquired when reporting weekly reports should b
         <name>More_than_one_employee</name>
     </customLabels>
     <customLabels>
+        <label><!-- MysalesErrorMsg --></label>
+        <name>MysalesErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- New Review Session --></label>
+        <name>New_Review_Session</name>
+    </customLabels>
+    <customLabels>
         <label><!-- No Default Sales Lead Team --></label>
         <name>NoDefaultSalesLeadTeam</name>
     </customLabels>
@@ -2490,6 +2630,14 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- No Data Saved Countermeasure --></label>
         <name>No_Data_Saved_Countermeasure</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Noknoxuserpresent --></label>
+        <name>Noknoxuserpresent</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Note Review session --></label>
+        <name>Note_Review_session</name>
     </customLabels>
     <customLabels>
         <label><!-- OPPTYACTY_ERR_MSG001 --></label>
@@ -3744,12 +3892,20 @@ Please note that the information acquired when reporting weekly reports should b
         <name>RevenueScheduleNote2</name>
     </customLabels>
     <customLabels>
+        <label><!-- Review Session Result --></label>
+        <name>Review_Session_Result</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Role&amp;ProfileMandatoryErrorMsg --></label>
         <name>Role_ProfileMandatoryErrorMsg</name>
     </customLabels>
     <customLabels>
         <label><!-- Role&amp;Profile&amp;LastName&amp;CompanyCodeMandatoryErrorMsg --></label>
         <name>Role_Profile_LastName_CompanyCodeMandatoryErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SALES_LEAD_STATUS_ERR --></label>
+        <name>SALES_LEAD_STATUS_ERR</name>
     </customLabels>
     <customLabels>
         <label><!-- SAPP_MSG_0001 --></label>
@@ -4488,12 +4644,24 @@ Please note that the information acquired when reporting weekly reports should b
         <name>SecondPopupMainHeading</name>
     </customLabels>
     <customLabels>
+        <label><!-- Select --></label>
+        <name>Select_Review</name>
+    </customLabels>
+    <customLabels>
         <label><!-- SelectuserError --></label>
         <name>SelectuserError</name>
     </customLabels>
     <customLabels>
         <label><!-- Service Desk Agency Profile ID --></label>
         <name>Service_Desk_Agency_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Session Date --></label>
+        <name>Session_Date</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Session Name --></label>
+        <name>Session_Name</name>
     </customLabels>
     <customLabels>
         <label><!-- Smart Search --></label>
@@ -4512,8 +4680,28 @@ Please note that the information acquired when reporting weekly reports should b
         <name>Special_Char_Err_Msg</name>
     </customLabels>
     <customLabels>
+        <label><!-- SyncEventSuccessMsg --></label>
+        <name>SyncEventSuccessMsg</name>
+    </customLabels>
+    <customLabels>
         <label><!-- System Administrator Profile ID --></label>
         <name>System_Administrator_Profile_ID</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TARGET BOSEARCH CLOSEDATE --></label>
+        <name>TARGET_BOSEARCH_CLOSEDATE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TARGET_BOSEARCH_ERROR --></label>
+        <name>TARGET_BOSEARCH_ERROR</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TARGET BO AMOUNT --></label>
+        <name>TARGET_BO_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TARGET BO TARGET_BO --></label>
+        <name>TARGET_BO_TARGET_BO</name>
     </customLabels>
     <customLabels>
         <label><!-- TEAM_MSG_0003 --></label>
@@ -4534,6 +4722,18 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- TableSubHeading --></label>
         <name>TableSubHeading</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Target BO Review --></label>
+        <name>Target_BO_Review</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Task Alert Message --></label>
+        <name>Task_Alert_Message</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TasksyncMessage --></label>
+        <name>TasksyncMessage</name>
     </customLabels>
     <customLabels>
         <label><!-- Temporary --></label>
@@ -4720,8 +4920,16 @@ Please note that the information acquired when reporting weekly reports should b
         <name>WEEKLY_ISSUE_REPORT_COL_CONTENT</name>
     </customLabels>
     <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_COL_CREATEDBY --></label>
+        <name>WEEKLY_ISSUE_REPORT_COL_CREATEDBY</name>
+    </customLabels>
+    <customLabels>
         <label>Issue</label>
         <name>WEEKLY_ISSUE_REPORT_COL_ISSUE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_COL_ISSUECHECK --></label>
+        <name>WEEKLY_ISSUE_REPORT_COL_ISSUECHECK</name>
     </customLabels>
     <customLabels>
         <label>Name</label>
@@ -4736,6 +4944,10 @@ Please note that the information acquired when reporting weekly reports should b
         <name>WEEKLY_ISSUE_REPORT_COL_ORDER</name>
     </customLabels>
     <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_COL_OWNER --></label>
+        <name>WEEKLY_ISSUE_REPORT_COL_OWNER</name>
+    </customLabels>
+    <customLabels>
         <label>Report Date</label>
         <name>WEEKLY_ISSUE_REPORT_COL_REPORTDATE</name>
     </customLabels>
@@ -4746,6 +4958,10 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label>Weekly Report Content</label>
         <name>WEEKLY_ISSUE_REPORT_CONTENT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- WEEKLY_ISSUE_REPORT_DATE_EMPTY --></label>
+        <name>WEEKLY_ISSUE_REPORT_DATE_EMPTY</name>
     </customLabels>
     <customLabels>
         <label><!-- WEEKLY_ISSUE_REPORT_DEPT_NAME --></label>

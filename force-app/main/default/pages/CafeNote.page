@@ -2,8 +2,8 @@
   @description       : 
   @author            : sbest.han@samsung.com
   @group             : 
-  @last modified on  : 
-  @last modified by  : 
+  @last modified on  : 04-08-2024
+  @last modified by  : chae_ho.yang@samsung.com
 -->
 <apex:page controller="CafeNoteController" showHeader="false" sidebar="false" applyBodyTag="false" docType="html-5.0" lightningStylesheets="true" action="{!CafeNoteController}" contentType="text/html;charset=UTF-8">
 <apex:slds />

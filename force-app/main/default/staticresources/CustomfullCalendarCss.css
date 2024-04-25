@@ -1,5 +1,9 @@
-.fc-col-header-cell .fc-scrollgrid-sync-inner {
+.fc-col-header-cell .fc-scrollgrid-sync-inner table{
     padding: 8px;
+    width : 100%;
+    overflow-x : scroll;
+    height : 100%;
+    display: table;
 }
 
 .fc-col-header-cell-cushion, .fc-daygrid-day-number {
@@ -11,30 +15,64 @@
 
 .fc-col-header-cell-cushion:hover, .fc-daygrid-day-number:hover {
     text-decoration: none;
-    cursor: none;
+    cursor: auto;
     color: rgb(24, 24, 24);
 }
 
 .fc-daygrid-event {
     display: inline-block;
     padding: 0.2em;
-    width: 90%;
+   width: 100%; 
     font-size: 13px;
 }
 
 .fc-daygrid-event-harness {
     display: flex;
-    justify-content: center;
+    justify-content: space-between; 
+
 }
 
 .fc-event-time {
     font-weight: normal;
+    display: flex;
+    justify-content: flex-start; 
+    overflow:visible;
+
 }
 
 .fc-event-title {
+   /*white-space :normal; */
+   text-overflow: ellipsis; 
     font-weight: bold;
+    display: flex;
+    justify-content: flex-end; 
+
+
 }
 
 .fc-daygrid-block-event .fc-event-time {
     font-weight: normal;
+}
+
+.chkbox {
+    float: right; 
+    /*padding-left: 1675px;  */
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-top: 10px;
+
+
+}
+.buttoncls {
+    
+    position : relative;
+    top: 2px;
+
+
+}
+.fullcalendarcustom {
+    width : 100%;
+    height : 100%;
+    overflow:auto;
 }

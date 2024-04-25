@@ -17,7 +17,7 @@
         component.set("v.showSpinner", true);
         self.apex(component, 'getEmailWeeklyContents', { reportIds : reportIds })
             .then(function(result){
-                //console.log('getEmailContents -> ', result);
+                console.log('getEmailContents -> ', result);
                 component.set("v.contents", result);
                 component.set("v.showSpinner", false);
                 //closes the modal or popover from the component
@@ -38,6 +38,11 @@
             recipients = component.get("v.recipients"),
             comments = component.get("v.comments"),
             emails = new Array();
+        console.log(subject);
+        console.log(contents);
+        console.log(recipients);
+        console.log(comments);
+        console.log(error);
 
         if(recipients.length < 1){
             error = true;
@@ -63,7 +68,7 @@
 
         if(!error){
             var mailBody = comments + contents;
-            //console.log('email contents =>', mailBody)
+            console.log('email contents =>', mailBody)
             self.sendKnoxEmail(component, emails, subject, mailBody);    
         }
     },
@@ -79,7 +84,7 @@
             content : mailBody
             })
             .then(function(result){
-                //console.log('sendIssueKnoxEmail -> ', result);
+                console.log('sendIssueKnoxEmail -> ', result);
                 if(result){
                     var msg = $A.get("$Label.c.WEEKLY_ISSUE_REPORT_MSG_SUCCESS");
                     self.showMyToast("success",msg);

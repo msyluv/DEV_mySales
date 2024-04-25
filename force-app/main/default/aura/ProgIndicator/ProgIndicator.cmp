@@ -1,0 +1,127 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+	
+    <aura:attribute name="intLastStep" type="Integer" default="5" />
+    <aura:attribute name="intCurrentStep" type="Integer" default="1" />
+    
+    <!-- Init handler -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <br/>
+    <lightning:card class="slds-p-around_xx-small custom-height" title="Custom Progress Indicator">
+        <br/>
+        
+        <!-- Progress Indicator STARTS -->
+        <div style="text-align:center">
+            <div class="circle-parent">
+                <span class="circle cicrle-top-padding" aura:id="circle1">
+                    <aura:if isTrue="{!lessthanorequal(v.intCurrentStep, 1)}">
+                        <div class="cicrle-top-padding-step">1</div>
+                    	<aura:set attribute="else">
+                        	<lightning:icon class="activeStep activeBackground" aura:id="check1" iconName="action:check" alternativeText="Completed" title="Completed" size="x-small"/>
+                        </aura:set>
+                    </aura:if>
+                </span>
+                <span class="stepLabel" aura:id="label1">Step 1</span>
+            </div>
+            <span class="line" aura:id="line1"></span>
+            <div class="circle-parent">
+                <span class="circle" aura:id="circle2">
+                	<aura:if isTrue="{!lessthanorequal(v.intCurrentStep, 2)}">
+                        <div class="cicrle-top-padding-step">2</div>
+                    	<aura:set attribute="else">
+                        	<lightning:icon class="activeStep activeBackground" aura:id="check1" iconName="action:check" alternativeText="Completed" title="Completed" size="x-small"/>
+                        </aura:set>
+                    </aura:if>
+                </span>
+                <span class="stepLabel" aura:id="label2">Step 2</span>
+            </div>
+            <span class="line" aura:id="line2"></span>
+            <div class="circle-parent">
+                <span class="circle" aura:id="circle3">
+                	<aura:if isTrue="{!lessthanorequal(v.intCurrentStep, 3)}">
+                        <div class="cicrle-top-padding-step">3</div>
+                    	<aura:set attribute="else">
+                        	<lightning:icon class="activeStep activeBackground" aura:id="check1" iconName="action:check" alternativeText="Completed" title="Completed" size="x-small"/>
+                        </aura:set>
+                    </aura:if>
+                </span>
+                <span class="stepLabel" aura:id="label3">Step 3</span>
+            </div>
+            <span class="line" aura:id="line3"></span>
+            <div class="circle-parent">
+                <span class="circle" aura:id="circle4">
+                	<aura:if isTrue="{!lessthanorequal(v.intCurrentStep, 4)}">
+                        <div class="cicrle-top-padding-step">4</div>
+                    	<aura:set attribute="else">
+                        	<lightning:icon class="activeStep activeBackground" aura:id="check1" iconName="action:check" alternativeText="Completed" title="Completed" size="x-small"/>
+                        </aura:set>
+                    </aura:if>
+                </span>
+                <span class="stepLabel" aura:id="label4">Step 4</span>
+            </div>
+            <span class="line" aura:id="line4"></span>
+            <div class="circle-parent">
+                <span class="circle" aura:id="circle5">
+                	<aura:if isTrue="{!lessthanorequal(v.intCurrentStep, 5)}">
+                        <div class="cicrle-top-padding-step">5</div>
+                    	<aura:set attribute="else">
+                        	<lightning:icon class="activeStep activeBackground" aura:id="check1" iconName="action:check" alternativeText="Completed" title="Completed" size="x-small"/>
+                        </aura:set>
+                    </aura:if>
+                </span>
+                <span class="stepLabel " aura:id="label5">Step 5</span>
+            </div>
+        </div>
+        <!-- Progress Indicator ENDS -->
+        
+        <!-- Form Content of Steps STARTS -->
+        <div class="slds-p-around_xx-large">
+        	
+            <!-- All your Forms should be insde these respective sections -->
+            <aura:if isTrue="{!v.intCurrentStep == 1}">
+                <p class="content slds-align_absolute-center">Form Content for Step 1</p>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.intCurrentStep == 2}">
+                <p class="content slds-align_absolute-center">Form Content for Step 2</p>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.intCurrentStep == 3}">
+                <p class="content slds-align_absolute-center">Form Content for Step 3</p>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.intCurrentStep == 4}">
+                <p class="content slds-align_absolute-center">Form Content for Step 4</p>
+            </aura:if>
+            
+            <aura:if isTrue="{!v.intCurrentStep == 5}">
+                <p class="content slds-align_absolute-center">Form Content for Final Step</p>
+            </aura:if>
+            <!-- Form Contet of Steps ENDS -->
+            
+            <br/>
+            <br/>
+            
+            <!-- Buttons STARTS -->
+            <aura:if isTrue="{!v.intCurrentStep == 1}">
+                <!-- Cancel Button -->
+                <lightning:button label="Cancel" title="Neutral action" onclick="{! c.handleClick }"/>
+            </aura:if>
+            <aura:if isTrue="{!v.intCurrentStep != 1}">
+                <!-- Back Button -->
+            	<lightning:button label="Back" title="Neutral action" onclick="{! c.handleBack }"/>
+            </aura:if>
+            <aura:if isTrue="{!v.intCurrentStep != v.intLastStep}">
+                <!-- Next Button -->
+            	<lightning:button variant="brand" label="Next" title="Brand action" onclick="{! c.handleNext }" />
+            </aura:if>
+            <aura:if isTrue="{!v.intCurrentStep == v.intLastStep}">
+                <!-- Submit Button -->
+            	<lightning:button variant="brand" label="Submit" title="Brand action" onclick="{! c.handleClick }" />
+            </aura:if>
+            <!-- Buttons ENDS -->
+            
+        </div>
+	</lightning:card>
+    
+</aura:component>

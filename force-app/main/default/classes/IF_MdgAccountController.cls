@@ -2,13 +2,14 @@
  * @description       : 
  * @author            : ghkil@partner.samsung.com
  * @group             : 
- * @last modified on  : 2022-12-28
- * @last modified by  : anish.jain@partner.samsung.com
+ * @last modified on  : 2024-04-05
+ * @last modified by  : vikrant.ks@samsung.com
  * Modifications Log 
  * Ver   Date         Author                      Modification
  * 1.0   2020-11-10   ghkil@partner.samsung.com   Initial Version
  * 1.1   2021-02-15   kilhwan.an@partner.samsung.com   신용 등급 신규 필드 추가
  * 1.2   2022-12-28   anish.jain@partner.samsung.com   Changes made for scheduled batch run regarding the Account Information update after IF-111
+ * 1.3   2024-04-05   vikrant.ks@samsung.com      Replaced condition for updating TEL_NUMBER__c field (obj3.CONSNUMBER == '001' condition with obj3.R3_USER == '1').(MySales-494)
 **/
 @RestResource(urlMapping = '/IF111/*')
 global class IF_MdgAccountController {
@@ -74,7 +75,7 @@ global class IF_MdgAccountController {
                         }*/
                         if(obj2.ADR2 != null){
                             for(ADRESS_ADR2 obj3 : obj2.ADR2){
-                                if(obj3.CONSNUMBER == '001'){
+                                if(obj3.R3_USER == '1'){ //V1.3 Replaced obj3.CONSNUMBER == '001' condition with obj3.R3_USER == '1'
                                     acc.TEL_NUMBER__c = obj3.TEL_NUMBER;
                                 }
                             }

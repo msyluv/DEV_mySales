@@ -1,0 +1,10 @@
+.THIS .datatable{
+    width: 100%;
+    overflow: auto;
+    border: 1px solid grey;
+    min-height:5rem;
+    max-height:10rem;
+}
+.THIS .slds-table_bordered{
+    border-top: 0px;
+}
