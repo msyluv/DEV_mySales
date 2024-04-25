@@ -8,7 +8,7 @@
  * Ver   Date         Author                  Modification
  * 1.0   11-11-2020   Junghwa.Kim@dkbmc.com   Initial Version
 **/
-@isTest
+@isTest(SeeAllData = false)
 public with sharing class SalesLeadToOppModalController_Test {
     static Lead l;
    	static Sales_Lead__c sl;
@@ -22,13 +22,14 @@ public with sharing class SalesLeadToOppModalController_Test {
     static Profile logipf;
     static MasterActivity__c ma;
     static OpptyCodeSetting__c ocs;
+    static CostCenter__c costCenter;
     static {
         adminpf =  [SELECT Id FROM Profile WHERE Name = 'System Administrator' OR Name = '시스템 관리자' limit 1];
         logipf = [SELECT Id FROM Profile WHERE Name Like '%Logi%' LIMIT 1];   
         
         adminUser = new User(
             Alias = 'testUser'
-            , Email = 'adminUser@test.com.test'
+            , Email = 'admin11User@test.com.test'
             , EmailEncodingKey = 'UTF-8'
             , LastName = 'Testing'
             , LanguageLocaleKey = 'en_US'
@@ -36,14 +37,14 @@ public with sharing class SalesLeadToOppModalController_Test {
             , EmployeeNumber = 'AC100000'
             , TimeZoneSidKey = 'Asia/Seoul'
             , ProfileId = adminpf.Id
-            , UserName = 'adminUser@test.com.test'
+            , UserName = 'admin11User@test.com.test'
             , FederationIdentifier = 'epId1'
         );
                                 
         insert adminUser;
         logiUser = new User(
             Alias = 'testUser'
-            , Email = 'logiUser@test.com.test'
+            , Email = 'logi12User@test.com.test'
             , EmailEncodingKey = 'UTF-8'
             , LastName = 'Testing'
             , LanguageLocaleKey = 'en_US'
@@ -51,15 +52,15 @@ public with sharing class SalesLeadToOppModalController_Test {
             , EmployeeNumber = 'AC100000'
             , TimeZoneSidKey = 'Asia/Seoul'
             , ProfileId = adminpf.Id
-            , UserName = 'logiUser@test.com.test'
+            , UserName = 'logi12User@test.com.test'
             , FederationIdentifier = 'epId2'
         );
                                 
         insert logiUser;
 
         emp = new Employee__c(
-            Name = 'logiUser',
-            EvMailAddr__c = 'logiUser' + '@samsung.com',
+            Name = 'logi12User',
+            EvMailAddr__c = 'logi12User' + '@samsung.com',
             EvUniqID__c = 'epId2'            
         );
         insert emp;
@@ -76,12 +77,45 @@ public with sharing class SalesLeadToOppModalController_Test {
                      PersonalInfoAgreement__c = true, 
                      Company='TestCompany');
         insert l;
+        costCenter = new CostCenter__c(CostCenterName__c = 'Test1', Name ='Test1');
+        insert costCenter;
         
         List<Sales_Lead__c> slList = new List<Sales_Lead__c>();
         sl = new Sales_Lead__c(
             Name = 'TestSalesLead', 
             LeadStage__c = 'Hot',
+            LeadStatus__c = 'In Process',
             Lead__c = L.Id, 
+            Amount__c = 5000, 
+            CloseDate__c = Date.today().addDays(1),  
+            RevenueEndDate__c = Date.today().addDays(3), 
+            RevenueStartDate__c = Date.today().addDays(2),
+            Budget__c = true,
+            Authority__c = true,
+            LeadChannel__c = 'Marketing Lead Converted',
+            Internal_External__c = 'Internal',
+            SalesDepartment__c = costCenter.Id,
+            CustomerContactDate__c = DateTime.now()
+        );
+        insert sl;
+
+        sl2 = new Sales_Lead__c(
+            Name = 'TestSalesLead', 
+            LeadStage__c = 'Warm',
+            LeadStatus__c = 'In Process',
+            Amount__c = 5000,
+            Lead__c = L.Id, 
+            RevenueEndDate__c = Date.today().addDays(3), 
+            RevenueStartDate__c = Date.today().addDays(2),
+            LeadChannel__c = 'Marketing Lead Converted',
+            Internal_External__c = 'Internal'
+        );
+        insert sl2;
+
+        sl3 = new Sales_Lead__c(
+            Name = 'TestSalesLead', 
+            LeadStage__c = 'Hot',
+            LeadStatus__c = 'In Process',
             Amount__c = 5000, 
             AccountId__c = acc.Id,
             CloseDate__c = Date.today().addDays(1),  
@@ -89,33 +123,11 @@ public with sharing class SalesLeadToOppModalController_Test {
             RevenueStartDate__c = Date.today().addDays(2),
             Budget__c = true,
             Authority__c = true,
-            LeadChannel__c = 'Marketing Lead Converted'
+            Internal_External__c = 'Internal',
+            SalesDepartment__c = costCenter.Id
         );
-        slList.add(sl);
-
-        sl2 = new Sales_Lead__c(
-            Name = 'TestSalesLead', 
-            LeadStage__c = 'Warm',
-            Lead__c = L.Id, 
-            RevenueEndDate__c = Date.today().addDays(3), 
-            RevenueStartDate__c = Date.today().addDays(2),
-            LeadChannel__c = 'Marketing Lead Converted'
-        );
-        slList.add(sl2);
-
-        sl3 = new Sales_Lead__c(
-            Name = 'TestSalesLead', 
-            LeadStage__c = 'Hot',
-            Amount__c = 5000, 
-            AccountId__c = acc.Id,
-            CloseDate__c = Date.today().addDays(1),  
-            RevenueEndDate__c = Date.today().addDays(3), 
-            RevenueStartDate__c = Date.today().addDays(2),
-            Budget__c = true,
-            Authority__c = true
-        );
-        slList.add(sl3);
-        insert slList;
+        insert sl3;
+        //insert slList;
 
         L.SalesLeadID__c = sl.Id;
         update L;
