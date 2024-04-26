@@ -2,11 +2,12 @@
   @description       : 
   @author            : Junghwa.Kim@dkbmc.com
   @group             : 
-  @last modified on  : 2021-10-01
-  @last modified by  : younghoon.kim@dkbmc.com
+  @last modified on  : 19-04-2024
+  @last modified by  : vikrant.ks@samsung.com
   Modifications Log 
   Ver   Date         Author                  Modification
   1.0   11-05-2020   Junghwa.Kim@dkbmc.com   Initial Version
+  1.1   19-04-2024   vikrant.ks@samsung.com  Removed extra white spaces coming above and below the modal while loading and Added new field(Owner) in UI.(MySales-508)
 -->
 <aura:component controller="SalesLeadToOppModalController"
                 implements="lightning:isUrlAddressable,lightning:hasPageReference,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:appHostable,force:hasSObjectName,force:hasRecordId" access="global">
@@ -35,7 +36,7 @@
     
     <ltng:require styles="{!$Resource.multilineToastCSS}" />
 
-    <div>
+    <div class="slds-is-relative"><!--V1.1 Added class="slds-is-relative" -->
         <aura:if isTrue="{!v.showSpinner}">
             <lightning:spinner />
         </aura:if>
@@ -54,14 +55,20 @@
                             <tr>
                                 <td class="{!obj.sfApi == 'AccountId__c' ? 'inputwidth accTD' : 'inputwidth '}">
                                     <aura:if isTrue="{!obj.sfApi == 'Amount__c'}">
-        								<lightning:input aura:id = "{!obj.sfApi}" type="number" disabled="true" value="{!obj.sfValue}" label="{!obj.sfLabel}" step="0.01" class="AmountField"/>
-                                        <aura:set attribute="else">                                    
-                                            <lightning:inputField aura:id = "{!obj.sfApi}" fieldName="{!obj.sfApi}" value="{!obj.sfValue}" disabled="true"/>
+                                        <lightning:input aura:id = "{!obj.sfApi}" type="number" disabled="true" value="{!obj.sfValue}" label="{!obj.sfLabel}" step="0.01" class="AmountField"/>
+                                        <aura:set attribute="else"><!-- V1.1 Start -->                                   
+                                            <aura:if isTrue="{!obj.sfApi == 'OwnerId'}">
+                                                <label for="fieldid" class="slds-form-element__label slds-p-horizontal_xx-small">{!obj.sfLabel}</label>
+                                                <lightning:inputField class="OwnerCss" aura:id ="{!obj.sfApi}" fieldName="{!obj.sfApi}" value="{!obj.sfValue}" disabled="true" variant="label-hidden"/>
+                                                <aura:set attribute="else">   <!-- V1.1 End -->                                  
+                                                    <lightning:inputField aura:id = "{!obj.sfApi}" fieldName="{!obj.sfApi}" value="{!obj.sfValue}" disabled="true"/>
+                                                </aura:set>
+                                            </aura:if>
                                         </aura:set>
                                     </aura:if>
                                 </td>
                                 <td class="textCenter pointer">
-                                    <div>
+                                    <div class="verticalCenter" >
                                         <lightning:icon iconName="utility:forward" class="slds-icon slds-icon_small" size="x-small"/>
                                     </div>
                                 </td>
