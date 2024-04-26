@@ -2,8 +2,8 @@
 * @description       : 
 * @author            : Junghwa.Kim@dkbmc.com
 * @group             : 
-* @last modified on  : 09-27-2023 
-* @last modified by  : chae_ho.yang@samsung.com
+* @last modified on  : 2024-04-19
+* @last modified by  : vikrant.ks@samsung.com
 * Modifications Log 
 * Ver   Date         Author                    Modification
 * 1.0   11-05-2020   Junghwa.Kim@dkbmc.com     Initial Version
@@ -11,6 +11,7 @@
 * 1.2   2022-08-09   akash.g@samsung.com       Add new condition when converting sales lead to opportunity in case of lead channel is demand i.e. can convert when Sales Lead Type is System Enhancement, New System ,Solution/Service or Consulting.
 * 1.3   2023-07-10   divyam.gupta@samsung.com  Mysales-251 Change customer contact date with Date.today() to Datetime.now().
 * 1.4   2023-09-27   chae_ho.yang@samsung.com  Mysales-304 Change customer contact date only on Marketing Lead
+* 1.5   2024-04-19   vikrant.ks@samsung.com    If owner of converting Sales Lead doesn't have CREATE access on Opportunity object then show warning message and Added new field Owner in UI.(MySales-508)
 **/
 public without sharing class SalesLeadToOppModalController {
     @AuraEnabled
@@ -32,11 +33,12 @@ public without sharing class SalesLeadToOppModalController {
         Boolean check_Contact = false;
         // V1.2 -> Add new condition when converting sales lead to opportunity in case of lead channel is demand
         Boolean check_LeadTypeDemand = false;
+        Boolean check_OpportunityCreateAccess = true; //V1.5
         
         try{
-            //V1.2 -> Add LeadChannel__c in SOQL query.
+            //V1.2 -> Add LeadChannel__c in SOQL query. //V1.5 Add Owner.Profile.Name in SOQL query.
             List<Sales_Lead__c> slList = [SELECT Id, Lead__c, LeadStage__c, OwnerId, recordTypeId, OpportunityName__c, AccountId__c, Amount__c, CloseDate__c, AccountId__r.MDGCheck__c,
-                                                 SalesDepartment__c , RevenueEndDate__c, RevenueStartDate__c, Type__c, SalesOrganization__c, LeadType__c, LeadStatus__c, CustomerContactDate__c , LeadChannel__c
+                                                 SalesDepartment__c , RevenueEndDate__c, RevenueStartDate__c, Type__c, SalesOrganization__c, LeadType__c, LeadStatus__c, CustomerContactDate__c , LeadChannel__c,Owner.Profile.Name
                                             FROM Sales_Lead__c 
                                            WHERE Id = :recordId 
                                            LIMIT 1];
@@ -79,7 +81,14 @@ public without sharing class SalesLeadToOppModalController {
                     if(SLList[0].Type__c == null) check_Type = true;
                     if(SLList[0].SalesOrganization__c == null) check_SalesOrganization = true;
                 }
-
+                //V1.5 Start
+                List<ObjectPermissions> ObjPermission = [Select Id, PermissionsCreate from ObjectPermissions where SobjectType = 'Opportunity' and Parent.Profile.Name = :SLList[0].Owner.Profile.Name];
+                if(ObjPermission.size() > 0){
+                    if(ObjPermission[0].PermissionsCreate == true){
+                        check_OpportunityCreateAccess = false;
+                    }
+                }
+                //V1.5 End
                 returnMap.put('check_Convert', check_Convert);
                 returnMap.put('check_Warm', check_Warm);
                 returnMap.put('check_Account', check_Account);
@@ -96,6 +105,7 @@ public without sharing class SalesLeadToOppModalController {
                 returnMap.put('check_Contact', check_Contact);
                 // V1.2 -> Add new condition when converting sales lead to opportunity in case of lead channel is demand
                 returnMap.put('check_LeadTypeDemand', check_LeadTypeDemand);
+                returnMap.put('check_OpportunityCreateAccess', check_OpportunityCreateAccess);//V1.5
             }
         }catch(Exception e){
             throw new AuraHandledException(e.getMessage());
@@ -171,6 +181,12 @@ public without sharing class SalesLeadToOppModalController {
                 sfMap.put('sfValue', salesleadVal.get(sf) == null ? '' : String.valueOf(salesleadVal.get(sf)));
                 sfMap.put('sfApi', SalesleadfieldMap.get(sf).getDescribe().getName());
                 if(SalesleadfieldMap.get(sf).getDescribe().getName() == 'Amount__c') sfMap.put('sfLabel', String.valueOf(SalesleadfieldMap.get(sf).getDescribe().getLabel()));
+                //V1.5 Start
+                if(SalesleadfieldMap.get(sf).getDescribe().getName() == 'OwnerId'){
+                    String s = String.valueOf(SalesleadfieldMap.get(sf).getDescribe().getLabel());
+                    sfMap.put('sfLabel',s.remove('ID').trim());
+                }
+                //V1.5 End
                 sfMap.put('oppName',String.valueOf(oppfieldMap.get(key).getDescribe().getLabel()));
                 sfMap.put('oppValue', salesleadVal.get(sf) == null ? '' : String.valueOf(salesleadVal.get(sf)));
                 sfMap.put('oppApi',  oppfieldMap.get(api).getDescribe().getName());
