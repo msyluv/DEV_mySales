@@ -2,7 +2,7 @@
  * @description       :
  * @author            : ukhyeon.lee@samsung.com
  * @group             :
- * @last modified on  : 11-05-2023
+ * @last modified on  : 2024-04-25
  * @last modified by  : anish.jain@partner.samsung.com
  * Modifications Log
  * Ver   Date         Author                    Modification
@@ -14,6 +14,7 @@
  * 1.4   09-15-2023   anish.jain@partner.samsung.com  BO Review Confirm error on CollaborationBO - MS -298
  * 1.5   11-05-2023   anish.jain@partner.samsung.com   MySales - 216
  * 1.6   2024-02-19   anish.jain@partner.samsung.com           BO Review Approval Issue Check (MS-418)
+ * 1.7   2024-04-25   anish.jain@partner.samsung.com  Analysis the cause of 'Review Opportunity' issue -> [MYSALES-495]
 **/
 public class OpportunityReviewMainController {
 
@@ -68,6 +69,7 @@ public class OpportunityReviewMainController {
                                     , CollaborationBOId__c
                                     , WonCount__c
                                     , VRB_Account_Change__c
+                                    , cOriginAcc__r.AccountGroup__c  //531
                                    
                                     
                                 FROM Opportunity
@@ -709,7 +711,7 @@ public class OpportunityReviewMainController {
     @AuraEnabled
     public static Map<String, Object> confirmBoData(String recordId, String inputDatas){
         Map<String,Object> resultMap = new Map<String,Object>();
-
+        System.debug('confirmBoData AJ');
         //기본 성공메세지
         String result = 'S';
         String message = System.Label.OPPTYACT_BO_REVIEW_SAVE;
@@ -823,6 +825,11 @@ public class OpportunityReviewMainController {
                 upsertOpportunityActivity(opptyData.id, OPPTYACT_STATUS_COMPLETED, isEdit,true);
                 }
                 else{
+                    //Add 531 origin Account condition here
+                    if(opptyData.cOriginAcc__r.AccountGroup__c == 'ZIC2' || opptyData.cOriginAcc__r.AccountGroup__c == 'ZIC'){
+                    upsertOpportunityActivity(opptyData.id, OPPTYACT_STATUS_COMPLETED, isEdit,true);    
+                    }
+                    else{
                 if(oppApproved == false){
                     System.debug('AJ Entry');
                 upsertOpportunityActivity(opptyData.id, OPPTYACT_STATUS_INPROGRESS, isEdit,true);
@@ -832,9 +839,13 @@ public class OpportunityReviewMainController {
                     System.debug('AJ Entry');
                 upsertOpportunityActivity(opptyData.id, OPPTYACT_STATUS_COMPLETED, isEdit,true);
                  }
+                    }
                 }
             } 
-            }
+                if (!opptyData.Opportunity_Review_Checkbox1__c && !opptyData.Opportunity_Review_Checkbox2__c && opptyData.Opportunity_Review_VRB_Type__c == '30' && knxApproved == true){ //Added by Anish- v 1.7
+                 upsertOpportunityActivity(opptyData.id, OPPTYACT_STATUS_COMPLETED, isEdit,true);
+                }
+                }
             //Added by Anish - v 1.6
             if(opptyData.VRB_Account_Change__c == true){
              if (!opptyData.Opportunity_Review_Checkbox1__c && !opptyData.Opportunity_Review_Checkbox2__c && opptyData.Opportunity_Review_VRB_Type__c == '30'){ //Added by Anish-v 1.5
@@ -844,8 +855,14 @@ public class OpportunityReviewMainController {
                 }
                 else{
                 //if(oppApproved == false){
+                //Add 531 codition for origin Account
                     System.debug('AJ Entry');
+                    if(opptyData.cOriginAcc__r.AccountGroup__c == 'ZIC2' || opptyData.cOriginAcc__r.AccountGroup__c == 'ZIC'){
+                upsertOpportunityActivity(opptyData.id, OPPTYACT_STATUS_COMPLETED, isEdit,true);    
+                    }
+                    else{
                 upsertOpportunityActivity(opptyData.id, OPPTYACT_STATUS_INPROGRESS, isEdit,true);
+                    }
                 // }
                 /*if(oppApproved == true){
                     System.debug('AJ Entry');

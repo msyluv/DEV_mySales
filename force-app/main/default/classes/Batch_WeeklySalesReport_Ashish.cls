@@ -2,7 +2,7 @@
 * @description       : 
 * @author            : rakshit.s@samsung.com  d.ashish@samsung.com  aditya.r2@samsung.com
 * @group             : 
-* @last modified on  : 12-21-2023
+* @last modified on  : 04-04-2024
 * @last modified by  : atul.k1@samsung.com
 * Ver   Date         Author                   Modification
  * 1.0  11-24-2022   atul.k1@samsung.com      (IT) HQ mailing improvement MYSALES-361
@@ -337,11 +337,6 @@ global class Batch_WeeklySalesReport_Ashish implements DataBase.Batchable<SObjec
                     }
                 }
                 //table 7
-                System.debug('Test111==>'+opp.CloseDate);
-                System.debug('Test112==>'+opp.CloseDate);
-                System.debug('Test113==>'+opp.OpportunityStatus__c );
-                 System.debug('Test114==>'+opp.Account.mDomesticForeign__c );
-                 System.debug('Test115==>'+opp.account.lastmodifieddate  );
                 if((opp.CloseDate > system.today() && opp.CloseDate <= firstDayOfMonth.addmonths(+4) && opp.OpportunityStatus__c == 'E0002' && opp.Account.mDomesticForeign__c == '20' && ((opp.account.lastmodifieddate < Date.today().toStartOfMonth().addmonths(-3) && !adminUserIds.contains(opp.account.LastModifiedById) ) || (opp.cOriginAcc__r.lastmodifieddate < Date.today().toStartOfMonth().addmonths(-3) && !adminUserIds.contains(opp.cOriginAcc__r.LastModifiedById) ))))
                 {
                     
@@ -388,7 +383,7 @@ global class Batch_WeeklySalesReport_Ashish implements DataBase.Batchable<SObjec
             
             if(tableOneCount > 0 || lstOpp2.Size()>0){
                 // table1 = true;
-                strEmail = strEmail.replace('{!checkPadding}', 'box_padding');
+                strEmail = strEmail.replace('{!checkPadding}', 'box_padding'); // Added By vIpul
                 String strTemp = '';
                 //String amt = dec > 0 ? String.valueOf(dec/1000000) : '0' ;
                 String amt = String.valueOf(tableOneAmountSum /1000000); // String amt = tableOneAmountSum  > 0 ? String.valueOf(tableOneAmountSum /1000000) : '0'; //MYSALES-361 V 1.0
@@ -464,12 +459,7 @@ global class Batch_WeeklySalesReport_Ashish implements DataBase.Batchable<SObjec
             if(tableOneCount==0 && lstOpp2.Size()==0){
                 a= true;
                 strEmail = strEmail.replace('<tr><td><table class="title_wrap"><tr><td class="title">1. 연간 누적 사업기회 수주 현황<a class="add_btn" href="https://sdssfa.lightning.force.com/lightning/r/Report/00O2w00000E3Zv5EAF/view?queryScope=userFolders">수주완료 상세보기</a></td></tr></table><table class="table">{!tableString1}</table> <ul class="gray_text"><li>수주완료 건수 : \'Curent_Year년 수주/변경 품의 BO 건수 (수주 변경금액이 0원인 경우 제외, 동일한 BO번호는 1건으로 집계)</li><li2>수주완료 금액 : \'Curent_Year년 수주금액 및 수주 변경금액(차액) 의 합계 </li2><li>변경 품의 금액은 해당 BO 의 Related > Opportunity Amount 에서 확인 가능합니다.</li></ul></td></tr>',''); //MYSALES-361 V 1.0 Add css  //MYSALES-381
-                //SJOSHI Start
-           		/* if(lstOpp3.size() > 0){
-              		 strEmail.replace('<tr><td class="box_padding"><p class="title">2. 지연 BO, 사업리드 및 수주 예상일 도래 BO</p><div class="sub_table_wrap">', '<tr><td class="title_wrap"><p class="title">2. 지연 BO, 사업리드 및 수주 예상일 도래 BO[SJ]</p><div class="sub_table_wrap">'); 
-            	 }*/
-            	//SJOSHI End
-            	 strEmail = strEmail.replace('{!checkPadding}', '');
+            	 strEmail = strEmail.replace('{!checkPadding}', '');//Added By vIpul
             }
             //lstOpp1 = null;
             lstOpp2 = null;
@@ -534,11 +524,6 @@ global class Batch_WeeklySalesReport_Ashish implements DataBase.Batchable<SObjec
                 strEmail = strEmail.replace('{!DateValue}', sDate +' --  '+ listScope[0].Name +' -- '+ listScope[0].Email);
                 strEmail = strEmail.replace('{!tableString2}', strTemp);
                 table2 = true;
-                //SJOSHI Start
-           		 /*if(tableOneCount == 0 && lstOpp2 == null && lstOpp3.size() > 0){
-              		 strEmail.replace('<tr><td class="box_padding"><p class="title">2. 지연 BO, 사업리드 및 수주 예상일 도래 BO</p><div class="sub_table_wrap">', '<tr><td class="title_wrap"><p class="title">2. 지연 BO, 사업리드 및 수주 예상일 도래 BO</p><div class="sub_table_wrap">'); 
-            	 }*/
-            	//SJOSHI End
             } 
      
             if(tableSalesLeadList.size() > 0){//Start 1.3 Added By Vipul
@@ -652,7 +637,7 @@ global class Batch_WeeklySalesReport_Ashish implements DataBase.Batchable<SObjec
             if(lstOpp4.Size()==0 && lstOpp3.Size()==0 && tableSalesLeadList.size() == 0){
                 strEmail = strEmail.replace('<tr><td class="box_padding"><p class="title">2. 지연 BO, 사업리드 및 수주 예상일 도래 BO</p><div class="sub_table_wrap">', '');
                 strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">i. 지연 BO</td></tr></table><table class="table box_margin">{!tableString2}</table>', '');
-                strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">ii. 지연 사업리드</td></tr></table><table class="table">{!tableString2New}</table>', '');//1.3 Added By Vipul
+                strEmail = strEmail.replace('<table class="title_wrap" ><tr><td  class="sub_title" style="width:100%">ii. 지연 사업리드</td></tr></table><table class="table box_margin">{!tableString2New}</table>', '');//1.3 Added By Vipul
                 strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">iii. 수주예상일 도래 BO (D-13)</td></tr></table><table class="table">{!tableString3}</table>', '');//1.3 Added By Vipul
             }else{  //Adi complete else part
                 String sTemp = '<p class="title">' + count + '. 지연 BO, 사업리드 및 수주 예상일 도래 BO</p>';
@@ -669,7 +654,7 @@ global class Batch_WeeklySalesReport_Ashish implements DataBase.Batchable<SObjec
             
             Boolean SalesLeadC = false; //1.3 Added By Vipul
             if(tableSalesLeadList.Size()==0){
-                strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">ii. 지연 사업리드</td></tr></table><table class="table box_margin">{!tableString2New}</table>', '');
+                strEmail = strEmail.replace('<table class="title_wrap" ><tr><td  class="sub_title" style="width:100%">ii. 지연 사업리드</td></tr></table><table class="table box_margin">{!tableString2New}</table>', '');
                 SalesLeadC= true;  
             }
             
@@ -1164,7 +1149,7 @@ global class Batch_WeeklySalesReport_Ashish implements DataBase.Batchable<SObjec
             strEmail = strEmail.replace('<tr><td><table class="title_wrap"><tr><td class="title">1. 연간 누적 사업기회 수주 현황<a class="add_btn" href="https://sdssfa.lightning.force.com/lightning/r/Report/00O2w00000E3Zv5EAF/view?queryScope=userFolders">수주완료 상세보기</a></td></tr></table><table class="table">{!tableString1}</table> <ul class="gray_text"><li>수주완료 건수 : \'Curent_Year년 수주/변경 품의 BO 건수 (수주 변경금액이 0원인 경우 제외, 동일한 BO번호는 1건으로 집계)</li><li2>수주완료 금액 : \'Curent_Year년 수주금액 및 수주 변경금액(차액) 의 합계 </li2><li>변경 품의 금액은 해당 BO 의 Related > Opportunity Amount 에서 확인 가능합니다.</li></ul></td></tr>','');//※ 수주 변경한 BO의 수주금액은 변경분(차액)으로 집계됩니다. // MYSALES-361 V 1.0 css end
             strEmail = strEmail.replace('<tr><td class="box_padding"><p class="title">2. 지연 BO, 사업리드 및 수주 예상일 도래 BO</p><div class="sub_table_wrap">', '');
             strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">i. 지연 BO</td></tr></table><table class="table box_margin">{!tableString2}</table>', '');
-            strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">ii. 지연 사업리드</td></tr></table><table class="table box_margin">{!tableString2New}</table>', '');
+            strEmail = strEmail.replace('<table class="title_wrap" ><tr><td  class="sub_title" style="width:100%">ii. 지연 사업리드</td></tr></table><table class="table box_margin">{!tableString2New}</table>', '');
             strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">iii. 수주예상일 도래 BO (D-13)</td></tr></table><table class="table">{!tableString3}</table>', '');
             strEmail = strEmail.replace('<tr><td class="box_padding"><p class="title">3. 사업수행 사전준비</p><div class="sub_table_wrap">', '');
             strEmail = strEmail.replace('<p class="sub_title">i. 수전위 사전준비</p><p class="text">사참 수전위는 수주예상일 2개월전, 입찰 수전위는 수주예상일 2주전 완료해 주시기 바랍니다.<br>- PM: 자가점검 체크리스트 수행, 인력투입계획 수립, 수전위 원가판 편성<br>- 영업대표: 수전위 원가판 확정 </p><p class="gray_text">※ 심의부서에 체크리스트 심의의견 작성시 참고 할 수 있는 보고서, RFP, 제안서 등을 공유하여 주시기 바랍니다. </p><table class="table box_margin">{!tableString4}</table><table class="table box_margin">{!tableString5}</table>', '');

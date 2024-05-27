@@ -98,6 +98,7 @@ public class OpportunitySearchControllerTest {
             Code__c = '30000001', 
             Service__c = svc.Id,
             Use__c = true,
+            intensivetype__c = 'SaaS',
             ValidityStartDate__c = Date.today().AddDays(-11), //Added by Anish - v 1.1
             ValidityEndDate__c = Date.today().AddDays(11) //Added by Anish - v 1.1
         );
@@ -241,7 +242,9 @@ public class OpportunitySearchControllerTest {
         OpportunitySearchController.getOpptyList('20', '', 'Next', JSON.serialize(sv), true, false, false, true, false, false);  //Added by Anish - v 1.1
         OpportunitySearchController.getOpptyList('20', '', 'Prev', JSON.serialize(sv1), true, false, false, false, true, false);  //Added by Anish - v 1.1
         OpportunitySearchController.getOpptyList('20', '', 'Next', JSON.serialize(sv), true, false, false, false, false, true);  //Added by Anish - v 1.1
+        Test.stopTest();
         //OpportunitySearchControllerAdmin.getOpptyList('20', '', 'Next', JSON.serialize(sv), true, true, true, false, false, false);  //Added by Anish - v 1.1
+        
         OpportunitySearchController.generateHTML(JSON.serialize(sv));
         OpportunitySearchController.getIBOpptyIdSet('true','true','true','true','true','true');
         OpportunitySearchController.getIBOpptyIdSet('true','true','true','true','true','false');
@@ -274,7 +277,7 @@ public class OpportunitySearchControllerTest {
 
         OpportunitySearchController osc = new OpportunitySearchController();
         osc.getOpptyListAll();
-
-        Test.stopTest();
+		
+        
     }
 }

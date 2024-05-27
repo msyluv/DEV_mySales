@@ -374,7 +374,6 @@ public without sharing class WeeklyReportsController {
             //             emails.add(u.Email);
             //     }
             // }
-			//emails.add('aditya.r2@stage.samsung.com');
             if(!emails.isEmpty()){
                 if(!Test.isRunningTest()){
                     KnoxEmailSendController mailCon = new KnoxEmailSendController();

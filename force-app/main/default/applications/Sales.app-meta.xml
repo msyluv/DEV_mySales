@@ -131,6 +131,7 @@
     <tabs>Test_Tab</tabs>
     <tabs>CompanyLoginAverage__c</tabs>
     <tabs>Opportunity_Search_Logistic</tabs>
+    <tabs>OpportunityReviewSession__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Sales_UtilityBar1</utilityBar>
 </CustomApplication>

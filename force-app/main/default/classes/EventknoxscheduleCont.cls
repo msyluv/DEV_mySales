@@ -1,93 +1,111 @@
+/**
+        * @description       : Controller Class for customFullCalendar LWC 
+        * @author            : divyam.gupta@samsung.com
+        * @group             : 
+        * @last modified on  : 2024-05-24
+        * @last modified by  : divyam.gupta@samsung.com
+        * Modifications Log 
+        * Ver   Date         Author                      Modification
+        * 1.0   2024-05-24   divyam.gupta@samsung.com   Initial Version for MYSALES-264
+        **/
 public class EventknoxscheduleCont {
 
-     @AuraEnabled
+    @AuraEnabled
     public static String getknoxscheduledata(String eventid){
-       Event eve = [Select Id,Knox_Schedule_ID__c,Description,Isrecurrence__c,recurrence_con__c,EndType__c,Count_rec__c,freqInterval__c,Frequence__c,OwnerId from Event WHERE Id =: eventid and ownerid =: UserInfo.getUserId()];
-      UserRecordAccess usr =[select RecordId ,HasEditAccess from UserRecordAccess where UserId =:UserInfo.getUserId() and RecordId =: eventid];
-        try{
-        if(usr.HasEditAccess){    
-     String descrption = '';
-        String userid = UserInfo.getUserId();
-        String msg = 'success';
+        Event eve = [SELECT Id,
+                            Knox_Schedule_ID__c,
+                            Description,
+                            Isrecurrence__c,
+                            recurrence_con__c,
+                            EndType__c,
+                            Count_rec__c,
+                            freqInterval__c,
+                            Frequence__c,
+                            OwnerId 
+                       FROM Event 
+                      WHERE Id =: eventid 
+                        AND ownerid =: UserInfo.getUserId()];
+
+        UserRecordAccess usr = [SELECT RecordId,
+                                       HasEditAccess 
+                                  FROM UserRecordAccess 
+                                 WHERE UserId =:UserInfo.getUserId() 
+                                   AND RecordId =:eventid];
+        try {
+				if(usr.HasEditAccess) {    
+                	String descrption = '';
+                	String userid = UserInfo.getUserId();
+                	String msg = 'success';
             
-      List<Object> knoxData = if_KnoxSingletaskCallController.getSingleknoxSchedule(eventid);
-        system.debug('knoxdata194'+knoxData);
-        system.debug('knoxDatasize'+knoxData.size());
-        if(knoxData != Null &&  eve.OwnerId == userid){
-        for(Object record : knoxData){   
-              Map<String,Object> objMap = (Map<String,Object>)record;    
-         // descrption= String.valueof(objMap.get('contents'));
-           // system.debug('descrtioncoming'+descrption);
-            String base64Content = String.valueof(objMap.get('contents'));
-            system.debug('base64Content'+base64Content);
-             if(base64Content != null && base64Content != ''){
-                    String base64String = base64Content.substringAfter('Content-Transfer-Encoding: base64\n').substringBefore('\n\n');
-                  Blob decodeBlob;
-                 String descValue;
-                 if((base64String == '' || base64String == null) && base64Content.contains('html')){
-                    // String base64Stringval = base64Content.substringAfter('Content-Transfer-Encoding: base64\n');
-                   //  decodeBlob = EncodingUtil.base64Decode(base64Content);
-                        descValue = base64Content;
-                 }
-                 else {
-                  decodeBlob = EncodingUtil.base64Decode(base64String);
-                       descValue = decodeBlob.toString();
+                	List<IF_KnoxCalendar> knoxData = if_KnoxSingletaskCallController.getSingleknoxSchedule(eventid);
+					system.debug('knoxDatasize '+knoxData.size());
+                	system.debug('knoxdata '+knoxData);
+                	
 
-                 }
-                    system.debug('descvauebeforehtml'+descValue);
-                    //Start SJOSHI[15-Dec-2023]
-                    String addline = descValue.replaceAll('</p>','linex');
-                    system.debug('addlinevalue'+addline);
-                    //String extractedText = descValue.stripHTMLTags();
-                    String extractedText = addline.stripHTMLTags();
-                    system.debug('Desccoming'+extractedText);
+                	if(knoxData != Null && eve.OwnerId == userid){
+            			for(IF_KnoxCalendar record : knoxData){   
+                			
+                    		String base64Content = record.contents;
+                    		system.debug('base64Content'+base64Content);
 
-                    String extractedText2 = extractedText.replaceAll('linex', '\n');
+                    		if(base64Content != null && base64Content != ''){
+                        		String base64String = base64Content.substringAfter('Content-Transfer-Encoding: base64\n').substringBefore('\n\n');
+                        		Blob decodeBlob;
+                        		String descValue;
+
+								if((base64String == '' || base64String == null) && base64Content.contains('html')){
+									descValue = base64Content;
+								} else {
+									decodeBlob = EncodingUtil.base64Decode(base64String);
+									descValue = decodeBlob.toString();
+								}
+
+                    			system.debug('descvauebeforehtml'+descValue);
                     
-                    if(extractedText2 == '' || extractedText2 == null){
-                       descrption =  base64Content;
-                      system.debug('Desccomingnull'+base64Content);
+								String addline = descValue.replaceAll('</p>','linex');
+								system.debug('addlinevalue'+addline);
+						
+								String extractedText = addline.stripHTMLTags();
+								system.debug('Desccoming'+extractedText);
 
-                    }
-                    else {
-                    system.debug('descriptionmsg'+extractedText2);
-                    descrption = extractedText2;  
-                    }
-                    //End SJOSHI[15-Dec-2023]
-                }
-            eve.Description = descrption;
-            eve.IsIF_152__c = true;
-            if(objMap.containskey('recurrence')){
-           Map<String,Object> recurrencemap = (Map<String,Object>) objMap.get('recurrence');
-                system.debug('recurrencemap'+recurrencemap);
-                if(recurrencemap != null){
-                    eve.Isrecurrence__c = true;
-                     eve.recurrence_con__c = String.valueof(recurrencemap.get('condition'));
-                     eve.EndType__c = String.valueof(recurrencemap.get('endType'));
-                     eve.Count_rec__c = String.valueof(recurrencemap.get('count'));
-                     eve.freqInterval__c = Integer.valueof(recurrencemap.get('freqInterval'));
-                     eve.Frequence__c =  String.valueof(recurrencemap.get('freq'));
-                    eve.Until_RecurrenceDate__c = String.valueof(recurrencemap.get('until'));
-                }
-               
-            }
-             else {
-                 eve.Isrecurrence__c = false;
+								String extractedText2 = extractedText.replaceAll('linex', '\n');
+						
+								if(extractedText2 == '' || extractedText2 == null){
+									descrption =  base64Content;
+									system.debug('Desccomingnull'+base64Content);
+								} else {
+									system.debug('descriptionmsg'+extractedText2);
+									descrption = extractedText2;  
+								}
+                			}
 
-                }
-        }
-            update eve;
-            
-        }
+            				eve.Description = descrption;
+            				eve.IsIF_152__c = true;
+
+            				if(record.recurrence != null){
+								system.debug('recurrence_____' + record.recurrence);
+								
+								eve.Isrecurrence__c = true;
+								eve.recurrence_con__c = record.recurrence.condition;
+								eve.EndType__c = record.recurrence.endType;
+								eve.Count_rec__c = record.recurrence.count;
+								eve.freqInterval__c = Integer.valueof(record.recurrence.freqInterval);
+								eve.Frequence__c =  record.recurrence.freq;
+								eve.Until_RecurrenceDate__c = record.recurrence.until;
+								
+            				} else {
+                 				eve.Isrecurrence__c = false;
+							}
+        				}//end for
+
+            			update eve;
+        			}
          
-        system.debug('knoxDataIF-194'+knoxData);
-        }
-        }
- catch(Exception e){               
-          //  ifLog.addLog('Exception : ' + e.getMessage());
-            // errorMsgList.add('Exception : ' + e.getMessage());           
-            //interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID, guId, APEX_CLASS, METHOD_NAME, String.valueOf(resMap.get('Request')), String.valueOf(resMap.get('Response')), e);          
-        }        return 'success';
-        
+        			system.debug('knoxDataIF-194'+knoxData);
+        		}
+			} catch (Exception e){               
+			
+			} 
+		return 'success';
     }
 }

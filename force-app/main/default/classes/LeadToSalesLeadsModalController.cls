@@ -139,12 +139,14 @@ public without sharing class LeadToSalesLeadsModalController {
         if(CList.size() > 0) saleslead.CampaignId__c = CList[0].Id;
 
         try{
+            
+            System.debug('AJ LeadToSalesLead');
             insert saleslead;
 
             lead.SalesLeadID__c = saleslead.Id;
             lead.CloseReason__c = 'Sales Lead Converted';
             lead.Status = 'Close';
-            lead.LeadStage__c = 'Converted';
+            lead.LeadStage__c = 'Converted'; 
             update lead;
 
             //--------------------------------------------------------------------

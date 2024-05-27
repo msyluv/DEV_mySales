@@ -27,26 +27,6 @@
                 <label>Newsletter Subscribe</label>
             </value>
             <value>
-                <fullName>EBC Inquiry</fullName>
-                <default>false</default>
-                <label>EBC Inquiry</label>
-            </value>
-            <value>
-                <fullName>Partner apply</fullName>
-                <default>false</default>
-                <label>Partner apply</label>
-            </value>
-            <value>
-                <fullName>global network</fullName>
-                <default>false</default>
-                <label>global network</label>
-            </value>
-            <value>
-                <fullName>Offline Event</fullName>
-                <default>false</default>
-                <label>Offline Event</label>
-            </value>
-            <value>
                 <fullName>Webinar</fullName>
                 <default>false</default>
                 <label>Webinar</label>
@@ -55,21 +35,6 @@
                 <fullName>Exhibition/Tradeshow</fullName>
                 <default>false</default>
                 <label>Exhibition/Tradeshow</label>
-            </value>
-            <value>
-                <fullName>MyTrial Members</fullName>
-                <default>false</default>
-                <label>MyTrial Members</label>
-            </value>
-            <value>
-                <fullName>MyTrial User</fullName>
-                <default>false</default>
-                <label>MyTrial User</label>
-            </value>
-            <value>
-                <fullName>Targeted Landingpage</fullName>
-                <default>false</default>
-                <label>Targeted Landingpage</label>
             </value>
             <value>
                 <fullName>Other</fullName>

@@ -48,6 +48,7 @@
                     close.fire();
                     refresh.fire();
                     self.showMyToast('success', $A.get( "$Label.c.COLLABO_MSG_0001")); // Collaboration save success.
+                    console.log('In saveCollaboration');
                 }
             })
             .catch(function(errors){

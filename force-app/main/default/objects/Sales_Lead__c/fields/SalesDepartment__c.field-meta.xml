@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <deleteConstraint>Restrict</deleteConstraint>
     <externalId>false</externalId>
+    <inlineHelpText>Required Information only for HQ users when creating IT Sales Lead / Required information when converting</inlineHelpText>
     <label>Sales Dept. 3(*)</label>
     <lookupFilter>
         <active>true</active>

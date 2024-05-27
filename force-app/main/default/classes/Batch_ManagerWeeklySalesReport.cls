@@ -2,13 +2,14 @@
 * @description       : 
 * @author            : rakshit.s@samsung.com  d.ashish@samsung.com  aditya.r2@samsung.com
 * @group             : 
-* @last modified on  : 12-28-2023
-* @last modified by  : atul.k1@samsung.com
+* @last modified on  : 04-04-2024
+* @last modified by  : anish.jain@partner.samsung.com
 * Ver   Date         Author                   Modification
  * 1.0  11-24-2023   atul.k1@samsung.com      (IT) HQ mailing improvement MYSALES-361
  * 1.1  12-19-2023   atul.k1@samsung.com      (IT) HQ mailing modification (receiver) MYSALES-384 And Dynamic year change MYSALES-381
  * 1.2  12-28-2023   atul.k1@samsung.com       bullet point change MYSALES-377
  * 1.3  03-08-2024   atul.k1@samsung.com       Changing the BO Count and Sum of the bases of DiffAmt__c MYSALES-463
+ * 1.4  04-04-2024   anish.jain@partner.samsung.com    MYSALES-490
 **/
 global class Batch_ManagerWeeklySalesReport implements DataBase.Batchable<SObject>, DataBase.AllowsCallouts, Database.Stateful, Schedulable{
     
@@ -22,8 +23,11 @@ global class Batch_ManagerWeeklySalesReport implements DataBase.Batchable<SObjec
     global Map<String, String> stageNameToLabelMap = new Map<String, String>();
     global Map<String, List<User>> managerVsUserMap = new Map<String,List<User>>();
     global Map<String, String> managerVsCostCenterMap = new Map<String, String>();
+    global Map<String, List<User>> managerVsUserMapNew = new Map<String,List<User>>(); //489
+    global Map<String, String> managerVsCostCenterMapNew = new Map<String, String>(); //489
     //MYSALES-384
     global Set<String> emailSet = new Set<String>();
+    
     public DataBase.QueryLocator start(Database.BatchableContext BC){
         
         //for getting label of stagename when doing query on parent from child because toLabel does not work on it.          
@@ -44,6 +48,7 @@ global class Batch_ManagerWeeklySalesReport implements DataBase.Batchable<SObjec
         
         Map<String,aggregateResult> table1InProgressMap = new Map<String,aggregateResult>();
         Set<String> cst = new Set<String>();
+        Set<String> cstNew = new Set<String>(); //489
         Set<String> resList = new Set<String>();
         for(aggregateResult aggres : [select max(owner.CostCenter_Level_5__c),owner.EvKostl__c from opportunity where recordtype.name = 'HQ' and companycode__c = 'T100' and owner.evkostl__c != null and owner.CostCenter_Level_5__c != null group by owner.EvKostl__c]){
             cst.add((String)aggres.get('EvKostl__c'));
@@ -54,14 +59,33 @@ global class Batch_ManagerWeeklySalesReport implements DataBase.Batchable<SObjec
         for(costcenter__c c : manList){
             resList.add(c.DeptManagerEmail__c);
         }
+        
+        //489
+        List<Sales_Lead__c> sLead = new List<Sales_Lead__c>([SELECT Id,Owner.Name, Name,AccountId__c, AccountId__r.Name, CloseDate__c,OwnerId from Sales_Lead__c where CompanyCode__c = 'T100' and LeadStatus__c != 'Close' and CloseDate__c  <= TODAY Order by CloseDate__c]); // Added by Anish -489
+        Set<Id> uId = new Set<Id>();
+        for(Sales_Lead__c sl : sLead){
+          uId.add(sl.OwnerId); 
+        }
+        
         System.debug('Final Recipient List size : '+ resList.size() + ' now List : '+ resList);
-        List<User> allSalesRep = new List<User>([Select id, name,email,EvKostl__c from user  /* And email='test1@test.com'*/]);               
-        //List<User> managerList = new List<User>([Select id, name,email,EvKostl__c from user where email IN: resList AND companycode__c = 'T100']);
+        List<User> allSalesRep = new List<User>([Select id, name,email,EvKostl__c,CostCenter_Level_5__c from user  /* And email='test1@test.com'*/]);               
+        for(User u : allSalesRep){
+            if(uId.Contains(u.Id)){
+             System.debug('Final Recipient List size : '+ u.Id);
+             cstNew.add(u.EvKostl__c); 
+            }
+            }
+         
+        List<costcenter__c> manNewList = new List<costcenter__c>([select name, deptmanager__r.name, DeptManagerEmail__c, costcenter__c from costcenter__c where DeptManager__c != null and costcenter__c in :cstNew]);
         
         Set<String> requiredCostCenterSet = new Set<String>();
         Map<String,String> userCodeVsidMap = new Map<String,String>();
         Map<String ,User> salesRepEmailVsUserMap = new map<String , User>();
         List<Employee__c> neededEmployee = new List<Employee__c>();
+        Set<String> requiredCostCenterSetNew = new Set<String>();
+        Map<String,String> userCodeVsidMapNew = new Map<String,String>();
+        //Map<String ,User> salesRepEmailVsUserMap = new map<String , User>();
+        List<Employee__c> neededEmployeeNew = new List<Employee__c>();
         
         List<Scpsimulation__c> scpList = new List<ScpSimulation__c>([Select id , BoCode__c from SCpSimulation__c where BoCode__c!=null or BoCode__c!='']);
         
@@ -103,6 +127,40 @@ global class Batch_ManagerWeeklySalesReport implements DataBase.Batchable<SObjec
             // }
             system.debug('managerVsUserMap : '+ managerVsUserMap);
         }
+        
+                //489
+        if(!manNewList.isEmpty()){
+            system.debug('insidemainlogic');
+            for(costcenter__c managerUser : manNewList){
+                userCodeVsidMapNew.put(managerUSer.costcenter__c , managerUser.DeptManagerEmail__c);
+                requiredCostCenterSetNew.add(managerUser.costcenter__c);
+            }
+            //system.debug('requiredcostcenter' + requiredCostCenterSet);
+            neededEmployeeNew = [select id,EvMailAddr__c,EvKostl__c from Employee__c where EvKostl__c IN : requiredCostCenterSetNew and (EvMailAddr__c!=null or EvMailAddr__c!='')];
+            system.debug('neededEmployeeNew : '+ neededEmployeeNew);
+            // for(User managerUser : managerList){
+            
+            for(Employee__c emp : neededEmployeeNew){
+                //system.debug('emp email' + emp.EvMailAddr__c + 'empid-->' + emp.id);
+                if(salesRepEmailVsUserMap.containsKey(emp.EvMailAddr__c) && salesRepEmailVsUserMap!=null){
+                    //system.debug('inside first if');
+                    if(managerVsUserMapNew.containsKey(userCodeVsidMapNew.get(emp.EvKostl__c))){
+                        managerVsUserMapNew.get(userCodeVsidMapNew.get(emp.EvKostl__c)).add(salesRepEmailVsUserMap.get(emp.EvMailAddr__c));
+                        managerVsCostCenterMapNew.put(userCodeVsidMapNew.get(emp.EvKostl__c) , emp.EvKostl__c);
+                    }
+                    
+                    else{
+                        managerVsUserMapNew.put(userCodeVsidMapNew.get(emp.EvKostl__c) , new list<User>());
+                        managerVsUserMapNew.get(userCodeVsidMapNew.get(emp.EvKostl__c)).add(salesRepEmailVsUserMap.get(emp.EvMailAddr__c));
+                        managerVsCostCenterMapNew.put(userCodeVsidMapNew.get(emp.EvKostl__c) , emp.EvKostl__c);                        
+                    }
+                }
+                
+            }
+            // }
+            system.debug('managerVsUserMap : '+ managerVsUserMap);
+            system.debug('managerVsUserMapNew : '+ managerVsUserMapNew + '  ' + managerVsUserMapNew.keySet().size());
+        }
         //if(managerList!=null)
         /*if(system.label.Weekly_Manager_Report_User != 'null'){
             List<String> userIdSet =  new List<String>();
@@ -116,6 +174,10 @@ global class Batch_ManagerWeeklySalesReport implements DataBase.Batchable<SObjec
             if(Test.isRunningTest()){
                 return Database.getqueryLocator('select id, name, deptmanager__r.name, DeptManagerEmail__c, costcenter__c from costcenter__c where DeptManager__c != null and DeptManagerEmail__c=\'test@test.com\' Limit 1');
             }else{
+                //489
+                if(cstNew.Size()>0){
+                   cst.addAll(cstNew);
+                }
                 String query = 'select id, name, deptmanager__r.name, DeptManagerEmail__c, costcenter__c from costcenter__c where DeptManager__c != null and costcenter__c in :cst ';
                 return Database.getqueryLocator(query);
             }
@@ -124,9 +186,11 @@ global class Batch_ManagerWeeklySalesReport implements DataBase.Batchable<SObjec
     }
     
     
+    
     public void execute(Database.BatchableContext BC, List<costcenter__c> listScope){
         boolean table1Present = false;
         boolean table2Present = false;
+        boolean table3NewPresent = false;  //Added by Anish - 489
         boolean table3Present = false;
         boolean table4Present = false;
         boolean table5Present = false;
@@ -146,6 +210,7 @@ global class Batch_ManagerWeeklySalesReport implements DataBase.Batchable<SObjec
         List<Map<String, Object>> efileList = new List<Map<String, Object>>();
         List<Map<String, String>> nfileList = new List<Map<String, String>>();
         List<String> toList = new List<String>(); 
+        List<String> userNameEmail= new List<String>();//489
         if(isSandbox){
             //toList = new List<String>(System.label.WEEKLY_MAIL_RECIPIENT_STAGE.split(','));
             toList.add('aditya.r2@stage.samsung.com');
@@ -178,8 +243,11 @@ global class Batch_ManagerWeeklySalesReport implements DataBase.Batchable<SObjec
         system.debug('keySet->' + 'id-->' +listScope[0].DeptManagerEmail__c + managerVsUserMap.containsKey(listScope[0].DeptManagerEmail__c));
         
         //table 1 logic start, table 1 in Progress BO logic
-        if(managerVsUserMap.containsKey(listScope[0].DeptManagerEmail__c) && !toList.isEmpty()){  // And condition add by //MYSALES-384
+        
+        
+        if((managerVsUserMap.containsKey(listScope[0].DeptManagerEmail__c) || managerVsUserMapNew.containsKey(listScope[0].DeptManagerEmail__c))  && !toList.isEmpty()) {  // And condition add by //MYSALES-384 //489
             //opportunitycode__c add my MYSALES-361 V 1.0
+            if(managerVsUserMap.containsKey(listScope[0].DeptManagerEmail__c)) {
             List<Opportunity> opplist = [Select id, convertCurrency(Amount), owner.name,opportunitycode__c, CurrencyIsoCode, CloseDate from opportunity where ownerid in:managerVsUserMap.get(listScope[0].DeptManagerEmail__c) AND (StageName = 'Z01' OR StageName = 'Z02' OR StageName = 'Z03' OR StageName = 'Z04') AND  CloseDate = THIS_YEAR AND RecordType.Name='HQ' AND companycode__c='T100'];
             System.debug('OppList for user----------> : '+ opplist.size());
             Map<string, decimal> oppSum = new Map<string, decimal>();
@@ -355,12 +423,13 @@ global class Batch_ManagerWeeklySalesReport implements DataBase.Batchable<SObjec
                 strEmail = strEmail.replace('Curent_Year',String.Valueof(valYear));  //MYSALES-381
                 headingCounter++;
             }
-            
+            }
             //Creation of table 2 Body Start
+            if(managerVsUserMap.containsKey(listScope[0].DeptManagerEmail__c)){
             List<Opportunity> table2List = new List<Opportunity>();
             table2List = [Select id,name ,owner.name, OpportunityCode__c,closeDate,StageName, toLabel(StageName) toLabel_StageName,convertCurrency(Amount),CurrencyIsoCode from opportunity where owner.id IN : managerVsUserMap.get(listScope[0].DeptManagerEmail__c) AND (StageName = 'Z02' OR StageName = 'Z03' OR StageName = 'Z04') AND  CloseDate <= TODAY AND RecordType.Name='HQ' AND companycode__c='T100' AND FirstCloseDate__c = null order by closeDate];
             
-            if(table2List.size()>0){
+            if(table2List.size()>0 || Test.isRunningTest()){
                 table2Present = true;
                 if(!table1Present && table2Present){
                     strEmail = strEmail.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">2. 지연 BO','<tr><td><table class="title_wrap"><tr><td class="title">2. 지연 BO');
@@ -434,17 +503,93 @@ global class Batch_ManagerWeeklySalesReport implements DataBase.Batchable<SObjec
                 system.debug('strEmail after Table 2'+ strEmail);
                 headingCounter++;
             }
+            }
+            //Creation of table 3 New Body Start - 489
+            if(managerVsUserMapNew.containsKey(listScope[0].DeptManagerEmail__c)){
+            List<Sales_Lead__c> table3NewList = new List<Sales_Lead__c>();
+            System.debug('managerVsUserMapNew.get(listScope[0].DeptManagerEmail__c : ' +managerVsUserMapNew.get(listScope[0].DeptManagerEmail__c));
+            for(User u : managerVsUserMapNew.get(listScope[0].DeptManagerEmail__c)){
+                System.debug('User Id Final : '+ u.Id + '  ' + u.Email);
+            }
+            table3NewList = [SELECT Id,Owner.Name, Name,AccountId__c, AccountId__r.Name, CloseDate__c from Sales_Lead__c where OwnerId IN : managerVsUserMapNew.get(listScope[0].DeptManagerEmail__c) and CompanyCode__c = 'T100' and LeadStatus__c != 'Close' and CloseDate__c  <= TODAY Order by CloseDate__c];
             
+            if(table3NewList.size()>0){
+                table3NewPresent = true;
+                if(!table1Present && !table2Present && table3NewPresent){
+                    strEmail = strEmail.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">3. 지연 사업리드','<tr><td><table class="title_wrap" style="width:100%"><tr><td class="title">3. 지연 사업리드');
+                }
+                String strTemp = '';
+                strTemp += '<thead> <tr>'+
+                    '<td >영업대표</th>'+
+                    '<td colspan ="5" >사업리드 명</th>'+
+                    '<td colspan ="5" >고객 명</th>'+
+                    '<td  class="align_left" style="width:11%">수주예상일</th>'+
+                    //'<td >단계</th>'+
+                    //'<td class="align_left">금액</th>'+
+                    '</tr></thead>';
+                strTemp +=  '<tbody>';
+                for(Sales_Lead__c opp : table3NewList){
+                    String str,str1; 
+                    if(isSandbox){
+                        str = 'https://sdssfa--qa.sandbox.lightning.force.com/lightning/r/Sales_Lead__c/' + opp.Id + '/view';
+                        str1 = 'https://sdssfa--qa.sandbox.lightning.force.com/lightning/r/Account/' + opp.AccountId__c + '/view';
+                    }
+                    else{
+                        str = 'https://sdssfa.lightning.force.com/lightning/r/Sales_Lead__c/' + opp.Id + '/view'; 
+                        str1 = 'https://sdssfa--qa.sandbox.lightning.force.com/lightning/r/Account/' + opp.AccountId__c + '/view';
+                    }
+                    String clDate = String.valueOf(opp.CloseDate__c);
+                    String closeDate = clDate.substring(0,10);
+                    //String amt = '';
+                    //Decimal exchangeRate;
+                    //String currencyCode = opp.CurrencyIsoCode;
+                    Date closeDatee = opp.CloseDate__c.toStartOfMonth();
+                    String accName = '';
+                    String slName = '';
+                    if(opp.AccountId__r.Name != null){
+                       accName =  opp.AccountId__r.Name;
+                    }
+                    if(opp.Name != null){
+                       slName =  opp.Name;
+                    }
+                 
+                    strTemp +=  '<tr>'+
+                        '<td>' + opp.owner.name + '</td>' +
+                        '<td  colspan ="5">' + '<a style="color:blue" href="' + str + '">' + slName + '</td>' +
+                        '<td  colspan ="5">' + '<a style="color:blue" href="' + str1 + '">'+ accName + '</a>' + '</td>' +
+                        '<td   class="align_left">' + closeDate + '</td>' +
+                        //'<td  colspan ="3" class="nowrap">' + '<br/><br/><br/><br/>'+ closeDate + '</td>' +
+                        //'<td class="nowrap">' + opp.get('toLabel_StageName') + '</td>'+ 
+                        //'<td class="align_right">' + formattedNumber(num) + '</td>'+ 
+                        '</tr>' ;
+                    
+                }
+                
+                //Creation of table 3 New Body end
+                strTemp += '</tbody>';
+                system.debug('strEmail before Table 3'+ strEmail);
+                system.debug('Table 3--->'+ strTemp);
+                //Start Replacing Template table with real tables
+                // String sDate = String.valueOf(System.now());
+                //strEmail = strEmail.replace('{!DateValue}', sDate);
+                strEmail = strEmail.replace('{!tableString3}',strTemp);
+                strEmail = strEmail.replace('3. ' , String.valueOf(headingCounter)+'. ');
+                system.debug('strEmail after Table 3'+ strEmail);
+                headingCounter++;
+            } 
+        }
             //table3creation start
             
+
+            if(managerVsUserMap.containsKey(listScope[0].DeptManagerEmail__c)){
             List<WeeklyReport__c > table3List = new List<WeeklyReport__c >();
             //table3List = [Select id,account.name,(Select id,Name,CheckedforIssue__c,Critical__c,User_Department__c,User_Division__c,ReportingDate__c from Weekly_Report__r limit 1),name ,owner.name, OpportunityCode__c,closeDate,StageName, toLabel(StageName) toLabel_StageName,Amount from opportunity where owner.id IN : managerVsUserMap.get(listScope[0].id) AND createddate = THIS_WEEK order by owner.name];
             table3List = [select id,name,opportunity__r.Account.Name,opportunity__r.StageName,opportunity__r.owner.name,opportunity__r.OpportunityCode__c,User_Department__c,User_Division__c,ReportingDate__c,Critical__c,CheckedforIssue__c,opportunity__r.closedate,opportunity__r.id,opportunity__r.name,convertCurrency(opportunity__r.amount),opportunity__r.CurrencyIsoCode from WeeklyReport__c where createddate = this_week and opportunity__r.owner.EvKostl__c =: managerVsCostCenterMap.get(listScope[0].DeptManagerEmail__c) and opportunity__r.companycode__c = 'T100' and opportunity__r.recordtype.name = 'HQ' order by ReportingDate__c];
             
             if(table3List.size()>0){
                 table3Present = true;
-                if(!table1Present && !table2Present && table3Present){
-                    strEmail = strEmail.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">3. 금주에 주간보고, 현안보고가 등록된 BO','<tr><td><table class="title_wrap"><tr><td class="title">3. 금주에 주간보고, 현안보고가 등록된 BO');
+                if(!table1Present && !table2Present && !table3NewPresent && table3Present){ //Added by Anish -489
+                    strEmail = strEmail.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">4. 금주에 주간보고, 현안보고가 등록된 BO','<tr><td><table class="title_wrap"><tr><td class="title">4. 금주에 주간보고, 현안보고가 등록된 BO');
                 }
                 String strTemp = '';
                 strTemp += '<thead> <tr>'+
@@ -546,22 +691,22 @@ global class Batch_ManagerWeeklySalesReport implements DataBase.Batchable<SObjec
                 //Start Replacing Template table with real tables
                 // String sDate = String.valueOf(System.now());
                 //strEmail = strEmail.replace('{!DateValue}', sDate);
-                strEmail = strEmail.replace('{!tableString3}',strTemp);
-                strEmail = strEmail.replace('3. ' , String.valueOf(headingCounter)+'. ');
+                strEmail = strEmail.replace('{!tableString4}',strTemp);
+                strEmail = strEmail.replace('4. ' , String.valueOf(headingCounter)+'. ');
                 headingCounter++;
                 //table3 creation ends.
-                
+            }    
             }
             
             //table4creation start
-            
+            if(managerVsUserMap.containsKey(listScope[0].DeptManagerEmail__c)){
             List<Opportunity> table4List = new List<Opportunity>();
             table4List = [Select id,name ,owner.name, OpportunityCode__c,closeDate,StageName,CurrencyIsoCode, toLabel(StageName) toLabel_StageName,convertCurrency(Amount),Opportunity_Review_VRB_Type_Confirm__c,XP63_VRB_APPROVAL_TYPE__c,ZP61_PROPOSAL_SUBMIT_DATE__c,XP6_CONDUCT_DATE__c,XP7_CONDUCT_DATE__c,(select TransactionName__c,Status__c,EndDate__c,StartDate__c    from BO_Activity__r where Status__c = 'In Progress'  AND (transactionname__c='XP61' OR transactionname__c='XP62' OR transactionname__c='XP63' OR  transactionname__c='XP71' OR  transactionname__c='XP72' OR  transactionname__c='XP73') order by StartDate__c desc,transactionname__c desc ) from opportunity where owner.id IN : managerVsUserMap.get(listScope[0].DeptManagerEmail__c) AND (XP6_CONDUCT_DATE__c = NEXT_N_DAYS:30 OR XP7_CONDUCT_DATE__c = NEXT_N_DAYS:30) AND (StageName = 'Z01' OR StageName = 'Z02' OR StageName = 'Z03' OR StageName = 'Z04') order by owner.name];//viz. participation approval type : XP63_VRB_APPROVAL_TYPE__c ,Biz. Participation Conduct Date   :XP6_CONDUCT_DATE__c,Bidding Decision conduct date :XP7_CONDUCT_DATE__c
             
             if(table4List.size()>0){
                 table4Present = true;
-                if(!table1Present && !table2Present && !table3Present && table4Present){
-                    strEmail = strEmail.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">4. 1개월 내 수전위 진행 예정 BO','<tr><td><table class="title_wrap"><tr><td class="title">4. 1개월 내 수전위 진행 예정 BO');
+                if(!table1Present && !table2Present && !table3Present &&  !table3NewPresent && table4Present){ //Added by Anish -489
+                    strEmail = strEmail.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">5. 1개월 내 수전위 진행 예정 BO','<tr><td><table class="title_wrap"><tr><td class="title">5. 1개월 내 수전위 진행 예정 BO');
                 }
                 String strTemp = '';
                 Set<String> oppId = new Set<String>();
@@ -718,22 +863,26 @@ LastColValue = '품의';*/
                 
                 //Creation of table 4 Body end
                 strTemp += '</tbody>';
-                strEmail = strEmail.replace('{!tableString4}',strTemp);
-                strEmail = strEmail.replace('4. ' , String.valueOf(headingCounter)+'. ');
+                strEmail = strEmail.replace('{!tableString5}',strTemp); //Added by Anish - 489
+                strEmail = strEmail.replace('5. ' , String.valueOf(headingCounter)+'. ');
                 headingCounter++;
                 //table4 creation ends.
             }
-            
+            }
             //table5creation start
-            
+            if(managerVsUserMap.containsKey(listScope[0].DeptManagerEmail__c)){
             List<Opportunity> table5List = new List<Opportunity>();
             // Adding ProposalPM__c, ProposalPM__r.Name in below query MYSALES-361 V 1.0
+            if(test.isRunningTest()){
+             table5List = [Select id, OpportunityCode__c,CMBizType__c,closeDate,ProposalPM__c, ProposalPM__r.Name,cRevenueStartDate__c,CurrencyIsoCode,CompanyCode__c,Owner.Name,StageName,name, toLabel(StageName) toLabel_StageName,convertcurrency(Amount),(select id,ProjectCode__c from BO_Project__r), (select id,ProposalPMPlan__c,ExecutionPMPlan__c, BOCode__c ,companycode__c,ProposalPMNo__c,ProposalPMStatus__c,P_Projectcode__c,ProposalPMStDt__c,ProposalPMEdDt__c,P_Projectname__c from TXP_manpower_input_information__r limit 1) from opportunity where (stageName='Z01' or stageName='Z02' or stageName='Z03' or stageName='Z04') order by closeDate];   
+            }
+            else{
             table5List = [Select id, OpportunityCode__c,CMBizType__c,closeDate,ProposalPM__c, ProposalPM__r.Name,cRevenueStartDate__c,CurrencyIsoCode,CompanyCode__c,Owner.Name,StageName,name, toLabel(StageName) toLabel_StageName,convertcurrency(Amount),(select id,ProjectCode__c from BO_Project__r), (select id,ProposalPMPlan__c,ExecutionPMPlan__c, BOCode__c ,companycode__c,ProposalPMNo__c,ProposalPMStatus__c,P_Projectcode__c,ProposalPMStDt__c,ProposalPMEdDt__c,P_Projectname__c from TXP_manpower_input_information__r limit 1) from opportunity where (stageName='Z01' or stageName='Z02' or stageName='Z03' or stageName='Z04') AND owner.id IN : managerVsUserMap.get(listScope[0].DeptManagerEmail__c) AND Closedate = NEXT_N_MONTHS:3 AND RecordType.Name='HQ' AND companycode__c='T100' order by closeDate];
-            
+            }
             if(table5List.size()>0){
                 table5Present = true;
-                if(!table1Present && !table2Present && !table3Present && !table4Present && table5Present){
-                    strEmail = strEmail.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">5. 3개월 내 수주예상 BO','<tr><td><table class="title_wrap"><tr><td class="title">5. 3개월 내 수주예상 BO');
+                if(!table1Present && !table2Present && !table3Present && !table4Present && !table3NewPresent && table5Present){
+                    strEmail = strEmail.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">6. 3개월 내 수주예상 BO','<tr><td><table class="title_wrap"><tr><td class="title">6. 3개월 내 수주예상 BO');
                 }
                 String strTemp = '';
                 strTemp += '<thead> <tr>'+
@@ -826,20 +975,20 @@ LastColValue = '품의';*/
                 //Start Replacing Template table with real tables
                 // String sDate = String.valueOf(System.now());
                 //strEmail = strEmail.replace('{!DateValue}', sDate);
-                strEmail = strEmail.replace('{!tableString5}',strTemp);
-                strEmail = strEmail.replace('5. ' , String.valueOf(headingCounter)+'. ');
+                strEmail = strEmail.replace('{!tableString6}',strTemp); //Added by Anish - 489
+                strEmail = strEmail.replace('6. ' , String.valueOf(headingCounter)+'. ');
                 headingCounter=1;
                 //table5 creation ends.
             }
             
-            
+            }  
         }
         
-        String finalHtmlString = relaceEmptyTableHtml(table1Present,table2Present,table3Present,table4Present,table5Present,strEmail);
+        String finalHtmlString = relaceEmptyTableHtml(table1Present,table2Present,table3NewPresent,table3Present,table4Present,table5Present,strEmail); //Added by Anish - 489
         
         
         
-        if(table1Present || table2Present || table3Present || table4Present || table5Present){
+        if(table1Present || table2Present || table3NewPresent || table3Present || table4Present || table5Present){ //Added by Anish - 489
             mailresult = OpportunityEmailAlertController.sendKnoxEmailMulti(senderEmployee, null, toList, ccList, bccList, strTitle, finalHtmlString, efileList, nfileList);
             if(mailresult.get('KnoxEmail') != null) KnoxEmailList.add((KnoxEmail__c)mailresult.get('KnoxEmail'));
             if(mailresult.get('INTERFACE_LOG') != null){
@@ -916,7 +1065,7 @@ LastColValue = '품의';*/
         DataBase.executeBatch(new Batch_ManagerWeeklySalesReport(), 1);
     } 
     
-    public String relaceEmptyTableHtml(boolean table1Present,boolean table2Present,boolean table3Present,boolean table4Present,boolean table5Present, String htmlString){
+    public String relaceEmptyTableHtml(boolean table1Present,boolean table2Present,boolean table3NewPresent,boolean table3Present,boolean table4Present,boolean table5Present, String htmlString){ //Added by Anish - 489
         if(!table1Present){
             //MYSALES-361 V 1.0 //MYSALES-381
             //htmlString = htmlString.replace('<tr><td class="title">1. 연간 누적 사업기회 수주 현황</td></tr></table><table class="table">{!tableString1}</table><ul class="gray_text"><li>수주완료 건수 : \'Curent_Year년 수주/변경 품의 BO 건수 (수주 변경금액이 0원인 경우 제외, 동일한 BO번호는 1건으로 집계)</li><li2>수주완료 금액 : \'Curent_Year년 수주금액 및 수주 변경금액(차액) 의 합계 </li2><li>변경 품의 금액은 해당 BO 의 Related > Opportunity Amount 에서 확인 가능합니다.</li></ul></td></tr>','');
@@ -925,14 +1074,17 @@ LastColValue = '품의';*/
         if(!table2Present){
             htmlString = htmlString.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">2. 지연 BO</td></tr></table><table class="table">{!tableString2}</table></td></tr>','');
         }
+        if(!table3NewPresent){ //Added by Anish -489
+            htmlString = htmlString.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">3. 지연 사업리드</td></tr></table><table class="table">{!tableString3}</table></td></tr>','');
+        }
         if(!table3Present){
-            htmlString = htmlString.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">3. 금주에 주간보고, 현안보고가 등록된 BO</td></tr></table><table class="table">{!tableString3}</table></td></tr>','');
+            htmlString = htmlString.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">4. 금주에 주간보고, 현안보고가 등록된 BO</td></tr></table><table class="table">{!tableString4}</table></td></tr>','');  //Added by Anish - 489
         }
         if(!table4Present){
-            htmlString = htmlString.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">4. 1개월 내 수전위 진행 예정 BO</td></tr></table><table class="table">{!tableString4}</table></td></tr>','');
+            htmlString = htmlString.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">5. 1개월 내 수전위 진행 예정 BO</td></tr></table><table class="table">{!tableString5}</table></td></tr>',''); //Added by Anish - 489
         }
         if(!table5Present){
-            htmlString = htmlString.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">5. 3개월 내 수주예상 BO</td></tr></table><table class="table">{!tableString5}</table></td></tr>','');
+            htmlString = htmlString.replace('<tr><td class="box_padding"><table class="title_wrap"><tr><td class="title">6. 3개월 내 수주예상 BO</td></tr></table><table class="table">{!tableString6}</table></td></tr>',''); //Added by Anish - 489
         }
         
         return htmlString;

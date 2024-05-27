@@ -16,6 +16,7 @@ global without sharing class OpportunitySearchControllerLogi {
     public static Map<String,String> bizDevTypeMap;
     public static Map<String,String> LBSTypeMap;
     public static Map<String,String> subIndustryTypeMap;
+    public static Map<String,String> customerTypeMap;
 
     static{
         stageMap = new Map<String,String>();
@@ -70,6 +71,14 @@ global without sharing class OpportunitySearchControllerLogi {
         }
 
 
+       customerTypeMap = new Map<String,String>();
+
+        Schema.DescribeFieldResult customerTypeFieldResult = Opportunity.LogisticsCustomerType__c.getDescribe();
+        List<Schema.PicklistEntry> customerTypeList = customerTypeFieldResult.getPicklistValues();
+        for (Schema.PicklistEntry custType: customerTypeList) {
+            customerTypeMap.put(custType.getValue(), custType.getLabel());
+        }
+
         subIndustryTypeMap = new Map<String,String>();
 
         Schema.DescribeFieldResult subIndustryTypeFieldResult = Opportunity.SubIndusrty__c.getDescribe();
@@ -100,6 +109,21 @@ global without sharing class OpportunitySearchControllerLogi {
         }
         rtnMap.put('Status', statusPickList);
         // Opportunity Status Picklist Setting End
+      //TODO New Addition start
+         // Record Type Picklist Setting
+        List<Map<String,String>> rcdMapList = new List<Map<String,String>>();
+       rcdMapList.add(defaultMap);
+        List<RecordType> rcdList = [SELECT Id, toLabel(Name), DeveloperName, SobjectType, IsActive FROM RecordType WHERE SobjectType = 'Opportunity' AND IsActive = TRUE ];
+        for (RecordType rcd : rcdList) {
+            Map<String,String> rcdMap = new Map<String,String>();
+            rcdMap.put('label', rcd.Name);
+            rcdMap.put('value', rcd.Id);
+            rcdMapList.add(rcdMap);
+        }
+        
+        rtnMap.put('RecordType', rcdMapList);
+       //TOdo new addition ends
+        // Service Picklist Setting
          
         // Customer Type  Picklist Setting Start
          List<Map<String, String>> customerType = new List<Map<String, String>>();
@@ -147,48 +171,7 @@ global without sharing class OpportunitySearchControllerLogi {
      
         return rtnMap;
     }
-      /*
-    @AuraEnabled    
-    global static List<Map<String, String>> getSolutionList(String serviceId, Boolean bTechAttribute){
-        // Default Map Setting
-        Map<String, String> defaultMap = new Map<String, String>();
-        defaultMap.put('label', System.Label.BOSEARCH_LAB_ALL);
-        defaultMap.put('value', '');
-        
-        List<Map<String, String>> rtnList = new List<Map<String, String>>();
-        rtnList.add(defaultMap);
-        //Start - Modified by Anish - v 1.4
-        List<Master_Solution__c> masterSolList = new List<Master_Solution__c>();
-        //TA CheckBox 선택시 TA에 해당되는 Service의 Solution를 리턴
-        if(bTechAttribute){
-            masterSolList = [SELECT Id, Name, Use__c, ValidityStartDate__c, ValidityEndDate__c, Service__c 
-                             FROM Master_Solution__c 
-                             WHERE Use__c = TRUE 
-                             AND Service__r.TechAttribute__c = TRUE
-                             AND (ValidityStartDate__c < :System.today() AND ValidityEndDate__c > :System.today()) 
-                             ORDER BY Name];
-        }
-        else{
-            masterSolList = [SELECT Id, Name, Use__c, ValidityStartDate__c, ValidityEndDate__c, Service__c 
-                             FROM Master_Solution__c 
-                             WHERE Use__c = TRUE 
-                             AND Service__c =: serviceId
-                             AND (ValidityStartDate__c < :System.today() AND ValidityEndDate__c > :System.today()) 
-                             ORDER BY Name];
-        }
-        //End - Modified by Anish - v 1.4
-        if(masterSolList.size() > 0){
-            for(Master_Solution__c masterSol : masterSolList){
-                Map<String, String> masterSolMap = new Map<String, String>();
-                masterSolMap.put('label', masterSol.Name);
-                masterSolMap.put('value', masterSol.Id);
-                rtnList.add(masterSolMap);
-            }
-        }
-        
-        return rtnList;
-    }
-     */
+      
     @AuraEnabled
     global static Map<String, String> getOpptyList(String pageSize,String rcdId, String searchType, String selectedValue, Boolean globalBiddingCheck){
         selectedValue sv = (selectedValue)JSON.deserialize(selectedValue, selectedValue.class);
@@ -221,16 +204,19 @@ global without sharing class OpportunitySearchControllerLogi {
         str_SELECT += 'cOriginAcc__c, cOriginAcc__r.Name, cOriginAcc__r.AccountNumber, BusinessLevel__c, OwnerId, Owner.Name, SalesDivision__c, ';
         str_SELECT += 'SalesDepartment__c, SalesDepartment__r.Name, cPrimaryDeliveryDivision__c, cPrimarySalesDepartment__c, cPrimarySalesDepartment__r.Name, ';
         str_SELECT += 'Collaboration__c, GroupInternal__c, KoreaDomestic__c, BusinessType__c, DealBreak__c, CloseDate, FirstCloseDate__c, RecordTypeId, RecordType.Name, BO1stRegistrationDate__c, ';//v1.9 Added BO1stRegistrationDate__c
-        str_SELECT += 'SalesRegion__c, Amount, CurrencyIsoCode, LogisticsCustomerType__c, SubIndusrty__c, Type, LogisticsBizDevelopmentType__c, LBSExceptionType__c, SalesOrganization__c,SalesOrganization__r.Name, DeliveryOrganization__c,DeliveryOrganization__r.Name,Global_Bidding_Y_N__c,cRevenueStartDate__c,cRevenueEndDate__c '; //TOdo Added in Query
+        str_SELECT += 'SalesRegion__c, Amount, CurrencyIsoCode, LogisticsCustomerType__c, SubIndusrty__c, Type, LogisticsBizDevelopmentType__c, LBSExceptionType__c, SalesOrganization__c,SalesOrganization__r.Name, DeliveryOrganization__c,DeliveryOrganization__r.Name,Global_Bidding_Y_N__c,cRevenueStartDate__c,cRevenueEndDate__c,Auto_OpptyCode__c '; //TOdo Added in Query
 
         str_SELECT += 'FROM Opportunity';
         String str_WHERE = ' WHERE (Name LIKE \'%' + sv.BOName + '%\')';
         str_WHERE += ' AND (OpportunityCode__c LIKE \'%' + sv.OpptyCode + '%\')';
-        str_WHERE += ' AND RecordTypeId = \'' + System.Label.BOSEARCH_LogisticRecordTypeId + '\''; //Todo 
-        String str_ORDER = ' order by CloseDate desc nulls Last'; //v1.9 //Added by Anish - v 2.0 //todo order by changed from bofirst close date to close date
+      //  str_WHERE += ' AND RecordTypeId = \'' + System.Label.BOSEARCH_LogisticRecordTypeId + '\''; //Todo 
+        String str_ORDER = ' order by Auto_OpptyCode__c desc nulls Last';  //todo order by changed from bofirst close date to close date
         String str_LIMIT = ' LIMIT ' + pageSize;
 
-        
+        if(sv.RecordType != '' )
+        {
+          str_WHERE += ' AND RecordTypeId = \'' + sv.RecordType + '\'';
+        }
        
         if(sv.Status != '') str_WHERE += ' AND OpportunityStatus__c = \'' + sv.Status + '\'';
         if(sv.customerType != '') {
@@ -251,11 +237,7 @@ global without sharing class OpportunitySearchControllerLogi {
         }
     
 
-     /*   if((sv.Company).Id != null){
-            String companyCode = [SELECT Id, Name, CompanyCode__c FROM Company__c WHERE Id =: (sv.Company).Id].CompanyCode__c;
-            str_WHERE += ' AND CompanyCode__c = \'' + companyCode + '\'';
-        }
-      */
+     
         if((sv.Account).Id != null){
             str_WHERE += ' AND AccountId = \'' + (sv.Account).Id + '\'';
         }
@@ -276,35 +258,9 @@ global without sharing class OpportunitySearchControllerLogi {
         if((sv.DeliveryOrganization).Id != null){
             str_WHERE += ' AND DeliveryOrganization__c = \'' + (sv.DeliveryOrganization).Id + '\'';
         }
-           /*
-        if((sv.SalesDept).Id != null){
-            str_WHERE += ' AND SalesDepartment__c = \'' + (sv.SalesDept).Id + '\'';
-        }
-      
-        if((sv.PrimarySalesDept).Id != null){
-            str_WHERE += ' AND cPrimarySalesDepartment__c = \'' + (sv.PrimarySalesDept).Id + '\'';
-        } 
-        if(sv.ProjectCode != null && sv.ProjectCode != ''){
-            if(sv.ProjectCode.length()>15){
-                sv.ProjectCode = sv.ProjectCode.substring(0,15);
-            }
-            List<Project__c> projectList= [SELECT Opportunity__c FROM Project__c WHERE ProjectCode__c =:sv.ProjectCode LIMIT 1];
-            String opptyId = '';
-            if(!projectList.isEmpty()){
-                opptyId = projectList[0].opportunity__c;
-            }
-            str_WHERE += ' AND Id = \'' + opptyId + '\'';
-        } */
+           
         
-        // TOdo Remove below Start- 
-        Set<String> OpptySCIdSet  = new Set<String>();
-        Set<String> OpptySCIdSet1 = new Set<String>();
-        Set<String> OpptyMSPIdSet = new Set<String>();
-        Set<String> OpptyCSPIdSet = new Set<String>();
-        Set<String> OpptySCPIdSet = new Set<String>();
-        Set<String> OpptyERPIdSet = new Set<String>();
-        Set<String> OpptyMESIdSet = new Set<String>();
-        // TOdo Remove below End-
+       
                  
         
         
@@ -344,13 +300,13 @@ global without sharing class OpportunitySearchControllerLogi {
             String sign = '';
             if(searchType.equals('Next')){
                 sign = '<';
-                str_ORDER = ' order by CloseDate DESC nulls Last'; //TODO Change order by from  BO1stRegistrationDate__c  to close date
+                str_ORDER = ' order by Auto_OpptyCode__c DESC nulls Last'; //TODO Change order by from  BO1stRegistrationDate__c  to close date
             }else if(searchType.equals('Prev')){
                 sign = '>';
-                str_ORDER = ' order by CloseDate ASC nulls Last'; //TODO Change order by from  BO1stRegistrationDate__c  to close date
+                str_ORDER = ' order by Auto_OpptyCode__c ASC nulls Last'; //TODO Change order by from  BO1stRegistrationDate__c  to close date
             }
 
-            if(String.isNotEmpty(rcdId)) str_WHERE += ' AND CloseDate ' + sign + ' ' + rcdId ; //TODO Change  from  BO1stRegistrationDate__c  to close date
+            if(String.isNotEmpty(rcdId)) str_WHERE += ' AND Auto_OpptyCode__c ' + sign + ' ' + '\''+ rcdId+ '\'' ; //TODO Change  from  BO1stRegistrationDate__c  to close date
         } 
 		//v1.9 End
 		
@@ -372,13 +328,11 @@ global without sharing class OpportunitySearchControllerLogi {
              System.debug('Count query debug >> ' + str_COUNT + str_WHERE);
             totalPage = Database.countQuery(str_COUNT + str_WHERE);
             totalCount = totalPage;
-            //if(totalCount > 1000) str_totalCount = '1000+';
-            //else str_totalCount = String.valueOf(totalCount);
+            
             str_totalCount = String.valueOf(totalCount);
             totalPage = Math.ceil(totalPage/20);
             totalPage = (totalPage == 0) ? 1 : totalPage;
-            //OpptyIdSet1.addAll(OpptyMSPIdSet); //Anish Testing
-            //str_WHERE += ' AND Id IN: OpptyIdSet1'; //Anish Testing
+            
             
             System.debug('Ani Query String to display : '+ str_SELECT + str_WHERE  + str_ORDER + str_LIMIT);  
             resultOpptyList = Database.query(str_SELECT + str_WHERE  + str_ORDER + str_LIMIT); 
@@ -398,9 +352,10 @@ global without sharing class OpportunitySearchControllerLogi {
                 for(Opportunity opp : resultOpptyList){
                     returnObject rtnObj = new returnObject();
                     rtnObj.SalesRegion = opp.SalesRegion__c; //todo start
+                    rtnObj.Auto_OpptyCode = opp.Auto_OpptyCode__c;
                     rtnObj.Amount = opp.Amount;
                     rtnObj.CurrencyType = opp.CurrencyIsoCode;
-                    rtnObj.customerType = opp.LogisticsCustomerType__c;
+                    rtnObj.customerType = customerTypeMap.get(opp.LogisticsCustomerType__c);
                     rtnObj.SubIndusrty = subIndustryTypeMap.get(opp.SubIndusrty__c);
                     rtnObj.opportunityType = oppTypeMap.get(opp.Type);
                     rtnObj.bizDevelopment = bizDevTypeMap.get(opp.LogisticsBizDevelopmentType__c);
@@ -489,7 +444,7 @@ global without sharing class OpportunitySearchControllerLogi {
         String resultMsg = '';  
         String strippedBody = '';
 
-        //String match.replaceAll 용량 제한을 위해 String을 나눠서 replaceAll 수행
+       
         
         if(getOpptyCnt(selectedValue) > 1000){
             resultMsg = System.Label.BOSEARCH_LAB_EXPORT_LIMIT;
@@ -507,7 +462,7 @@ global without sharing class OpportunitySearchControllerLogi {
                     b = html.getContent();
                     
                 }
-                //HTML Contents만 남김
+                
                 resultMsg = 'SUCCESS';
                 
                 Integer index = (b.toString()).indexOf ('<table');
@@ -553,7 +508,7 @@ global without sharing class OpportunitySearchControllerLogi {
     private static String formatWhereClause(selectedValue sv){
         String str_WHERE = ' WHERE (Name LIKE \'%' + sv.BOName + '%\')';
         str_WHERE += ' AND (OpportunityCode__c LIKE \'%' + sv.OpptyCode + '%\')';
-        str_WHERE += ' AND RecordTypeId = \'' + System.Label.BOSEARCH_LogisticRecordTypeId + '\''; //Todo
+     //   str_WHERE += ' AND RecordTypeId = \'' + System.Label.BOSEARCH_LogisticRecordTypeId + '\''; //Todo
 
         if(sv.StartDate != null && sv.EndDate != null){
             String srt_StartYear = String.valueOf((sv.StartDate).year());
@@ -585,7 +540,10 @@ global without sharing class OpportunitySearchControllerLogi {
             str_WHERE += ' AND cRevenueEndDate__c <= ' + str_FirstEndDate;
         }
 
-       
+         if(sv.RecordType != '' )
+        {
+          str_WHERE += ' AND RecordTypeId = \'' + sv.RecordType + '\'';
+        }
         if(sv.Status != '') str_WHERE += ' AND OpportunityStatus__c = \'' + sv.Status + '\'';
        
         if(sv.customerType != '') {
@@ -636,7 +594,7 @@ global without sharing class OpportunitySearchControllerLogi {
         str_SELECT += 'cOriginAcc__c, cOriginAcc__r.Name, cOriginAcc__r.AccountNumber, BusinessLevel__c, OwnerId, Owner.Name, SalesDivision__c, ';
         str_SELECT += 'SalesDepartment__c, SalesDepartment__r.Name, cPrimaryDeliveryDivision__c, cPrimarySalesDepartment__c, cPrimarySalesDepartment__r.Name, ';
         str_SELECT += 'Collaboration__c, GroupInternal__c, KoreaDomestic__c, BusinessType__c, DealBreak__c, CloseDate, FirstCloseDate__c, RecordTypeId, RecordType.Name, ';
-        str_SELECT += 'SalesRegion__c, Amount, CurrencyIsoCode, LogisticsCustomerType__c, SubIndusrty__c, Type, LogisticsBizDevelopmentType__c, LBSExceptionType__c, SalesOrganization__c,SalesOrganization__r.Name, DeliveryOrganization__c,DeliveryOrganization__r.Name,Global_Bidding_Y_N__c,cRevenueStartDate__c,cRevenueEndDate__c '; //TOdo Added in Query
+        str_SELECT += 'SalesRegion__c, Amount, CurrencyIsoCode, LogisticsCustomerType__c, SubIndusrty__c, Type, LogisticsBizDevelopmentType__c, LBSExceptionType__c, SalesOrganization__c,SalesOrganization__r.Name, DeliveryOrganization__c,DeliveryOrganization__r.Name,Global_Bidding_Y_N__c,cRevenueStartDate__c,cRevenueEndDate__c,Auto_OpptyCode__c '; //TOdo Added in Query
         str_SELECT += 'FROM Opportunity';
         
     
@@ -652,12 +610,12 @@ global without sharing class OpportunitySearchControllerLogi {
             
         opptyCount = database.countQuery('select count() from Opportunity' + str_WHERE/*  + ' LIMIT 1000' */);
         System.debug('opportunity count:' + opptyCount);
-        System.debug('Ani Query String final : '+ str_SELECT + str_WHERE + ' order by CloseDate desc nulls Last LIMIT 1000');
+        System.debug('Ani Query String final : '+ str_SELECT + str_WHERE + ' order by Auto_OpptyCode__c desc nulls Last LIMIT 1000');
         
 
        
      
-        for(Opportunity oppty : Database.query(str_SELECT + str_WHERE + ' ORDER BY CloseDate desc nulls Last LIMIT 1000')){  //TODO Change order by from  BO1stRegistrationDate__c  to close date
+        for(Opportunity oppty : Database.query(str_SELECT + str_WHERE + ' ORDER BY Auto_OpptyCode__c desc nulls Last LIMIT 1000')){  //TODO Change order by from  BO1stRegistrationDate__c  to close date
             opptyList.add(oppty);
           
         }
@@ -669,9 +627,10 @@ global without sharing class OpportunitySearchControllerLogi {
         for(Opportunity opp : opptyList){
             returnObject rtnObj = new returnObject();
             rtnObj.SalesRegion = opp.SalesRegion__c; //todo start
+            rtnObj.Auto_OpptyCode= opp.Auto_OpptyCode__c;
             rtnObj.Amount = opp.Amount;
             rtnObj.CurrencyType = opp.CurrencyIsoCode;
-            rtnObj.customerType = opp.LogisticsCustomerType__c;
+            rtnObj.customerType = customerTypeMap.get(opp.LogisticsCustomerType__c);
             rtnObj.SubIndusrty = subIndustryTypeMap.get(opp.SubIndusrty__c);
             rtnObj.opportunityType = oppTypeMap.get(opp.Type);
             rtnObj.bizDevelopment = bizDevTypeMap.get(opp.LogisticsBizDevelopmentType__c);
@@ -872,6 +831,8 @@ global without sharing class OpportunitySearchControllerLogi {
         global Date CloseDateSort {get; set;}//todo new field added 
         @AuraEnabled  //todo Start 
         global String SalesRegion {get; set;}
+        @AuraEnabled
+        global String Auto_OpptyCode {get; set;}
         @AuraEnabled
         global Decimal Amount {get; set;}
         @AuraEnabled

@@ -2,8 +2,8 @@
   @description       : 
   @author            : woomg@dkbmc.com
   @group             : 
-  @last modified on  : 26-03-2024
-  @last modified by  : aditya.r2@samsung.com
+  @last modified on  : 05-09-2024
+  @last modified by  : chae_ho.yang@samsung.com
   Modifications Log 
   Ver   Date         Author            		Modification
   1.0   01-04-2021   woomg@dkbmc.com   		Initial Version
@@ -67,7 +67,7 @@
             </lightning:layoutItem> -->
             <!--Start v1.1 -->
             <lightning:layoutItem size="12">
-       			<iframe aura:id="vfFrame" src="{!'/apex/customEditorDetailPageVF?id='+v.recordId+'&amp;isReadOnly=N'}" height="400px" width="100%" frameBorder="0" scrolling="yes" style="text-align:center;"/>
+       			<iframe aura:id="vfFrame" src="{!'/apex/customEditorDetailPageVF?id='+v.recordId+'&amp;isReadOnly=N'}" height="520px" width="100%" frameBorder="0" scrolling="yes" style="text-align:center;"/>
             </lightning:layoutItem>
             <!--End v1.1 -->
         </lightning:layout>

@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : wonjune.oh@partner.samsung.com
  * @group             : 
- * @last modified on  : 11-05-2023
+ * @last modified on  : 2024-04-25
  * @last modified by  : anish.jain@partner.samsung.com
  * Modifications Log 
  * Ver   Date         Author                           Modification
@@ -12,6 +12,7 @@
  * 1.3   2022-10-17   divyam.gupta@samsung.com         Add new tab Analysis of Reason for Drop Lost and Postmortem Result..
  * 1.4   11-05-2023   anish.jain@partner.samsung.com   MySales - 216
  * 1.5   2024-02-19   anish.jain@partner.samsung.com   BO Review Approval Issue Check (MS-418)
+ * 1.6   2024-04-25   anish.jain@partner.samsung.com   Analysis the cause of 'Review Opportunity' issue -> [MYSALES-495]
 
 **/
 ({
@@ -103,6 +104,17 @@
          // helper.init(cmp,event);
 
     },    
+    
+        //v 1.6
+    tabTest: function(cmp, event, helper){
+       
+        console.log('handled tabTest');
+         var showKnox = event.getParam("isImplementation");
+        console.log('handled tabTest showKnox',showKnox);
+            if(showKnox){
+         cmp.set('v.MasterAct_IsRequiredKnoxApproval',false);
+            }
+    }, 
      
     ShowKnoxTabs: function(cmp, event, helper) {
         console.log('from component event refreshed');

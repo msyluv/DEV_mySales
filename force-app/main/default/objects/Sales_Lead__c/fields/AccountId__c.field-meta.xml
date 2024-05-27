@@ -4,6 +4,7 @@
     <deleteConstraint>Restrict</deleteConstraint>
     <description>Contract Account</description>
     <externalId>false</externalId>
+    <inlineHelpText>Required Information only for HQ users when creating IT Sales Lead / Required information when converting</inlineHelpText>
     <label>Account(*)</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Sales Leads</relationshipLabel>

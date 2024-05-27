@@ -59,7 +59,7 @@
 		component.set('v.nowPage', nowPage - 1);
 
 		var dataList = component.get('v.OpptyList');
-		var firstRecordId = dataList[0].CloseDateSort;   //TODO Change  by from  BO1stRegistrationDate__c  to close date
+		var firstRecordId = dataList[0].Auto_OpptyCode;   //TODO Change  by from  BO1stRegistrationDate__c  to close date
 		
 		helper.getOppList(component, event, firstRecordId, 'Prev');
 	},
@@ -71,7 +71,7 @@
 		component.set('v.nowPage', nowPage + 1)
 		
 		var dataList = component.get('v.OpptyList');
-		var lastRecordId = dataList[dataList.length - 1].CloseDateSort;  //TODO Change  by from  BO1stRegistrationDate__c  to close date
+		var lastRecordId = dataList[dataList.length - 1].Auto_OpptyCode;  //TODO Change  by from  BO1stRegistrationDate__c  to close date
 
 		helper.getOppList(component, event, lastRecordId, 'Next');
 	},

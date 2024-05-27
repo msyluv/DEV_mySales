@@ -1,3 +1,12 @@
+/**
+ * @description       : 
+ * @author            : chae_ho.yang@samsung.com
+ * @group             : 
+ * @last modified on  : 05-08-2024
+ * @last modified by  : chae_ho.yang@samsung.com
+ * 
+ * v1.1 2024-05-08   chae_ho.yang@samsung.com  MYSALES-523 Miracom getGubun modification
+**/
 public class IF_040_Automation {
     
     private final static String KEY_MSG = 'MSG';
@@ -1325,7 +1334,7 @@ public class IF_040_Automation {
         //SvcSolBizAttr__c 사업속성, 사업유형, 수익인식기준 조회
         for(Solution__c sol: lnewsol){
             IF_PsCreatePjtNoController.IT_SERVICE itService = new IF_PsCreatePjtNoController.IT_SERVICE();
-            String gubun = WBSHelper.getGubun(sol.sSolutionType__c, companyCode);
+            String gubun = WBSHelper.getGubun(sol.sSolutionType__c, companyCode, sol); //v1.1 sol added
 
             if(sol.ItemNumber__c != 10) zzsubs_pjt = '';
             itService.SERVICE           = sol.Service__r.sService__r.Code__c;                   //서비스

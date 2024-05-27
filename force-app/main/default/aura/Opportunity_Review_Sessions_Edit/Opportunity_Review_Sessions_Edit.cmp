@@ -1,54 +1,151 @@
+<!--
+  @description       : 
+  @author            : akash.g@samsung.com
+  @group             : 
+  @last modified on  : 2024-05-09
+  @last modified by  : akash.g@samsung.com
+  Modifications Log 
+  Ver   Date         Author                           Modification
+  1.0   2024-05-09   akash.g@samsung.com              Initial Version(MYSALES-499)
+  -->
 <aura:component controller="OpportunityReviewSessionOverride" implements="lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-    <aura:attribute name="targetOpportunity" type="List" default="[]" />
+    <aura:attribute name="targetOpportunity" type="List" />
     <aura:attribute name="SelectedOpportunityMap" type="Map"/>
     <aura:attribute name="targetBOPopUpOpen" type="Boolean" default="false" />
-    <aura:attribute name="name" type="String" />
-    <aura:attribute name="date1" type="Date" />
-    <aura:handler name="selectedOppEvent" event="c:TargetOpportunityEvent" action="{!c.handleComponentEvent}"/>
+    <aura:attribute name="reivewSession" type="Object" />
+    <aura:attribute name="reviewTarget" type="OpportunityReviewTarget__c[]" />
     <lightning:overlayLibrary aura:id="overlayLib"/>
-    <div class="slds-grid slds-wrap slds-theme_default">
+    
+    <div class="slds-grid slds-wrap slds-theme_default slds-grid_vertical-align-center">
         <div class="slds-size_1-of-1 slds-page-header" style="padding:15px;font-size:medium">
             <lightning:icon iconName="standard:search" alternativeText ="search" title="search" size="medium"/>
-            &nbsp;&nbsp;&nbsp;<b>New Review Session</b>
+            &nbsp;&nbsp;&nbsp;<b>{!$Label.c.Edit_Opportunity_Review_Session}</b>
         </div><br/><br/>
         <div class="slds-size_1-of-1" style="padding:10px">
-            <div class="slds-grid slds-wrap">
-                <div class="slds-size_1-of-1" style="background-color: #F0F0F0;font-size:16px;margin-top:22px;padding:3px;margin-bottom:10px">
-                    &nbsp;&nbsp;Information
+            <div class="slds-grid slds-wrap slds-grid_vertical-align-center">
+                <div class="slds-size_1-of-1" style="background-color: #F0F0F0;font-size:15px;margin-top:22px;padding:0.25rem;margin-bottom:10px">
+                    &nbsp;&nbsp;{!$Label.c.Information_Review}
                 </div>
-                <div class="slds-size_1-of-6" style="text-align:center"><b>Session Name</b><abbr class="slds-required" title="required">*</abbr></div>
+                <div class="slds-size_1-of-6" style="text-align:center"><b>{!$Label.c.Session_Name}</b><abbr class="slds-required" title="required">*</abbr></div>
                 <div class="slds-size_1-of-6">
-                    <lightning:input type="text" required="true" value="{!v.name}" name="Session Name" variant="label-hidden"  label="Session Name" aura:id="selectName"  style="padding-top:0;" class="slds-col slds-p-right_x-small"/>
+                    <lightning:input type="text" required="true" name="Session Name" value="{!v.reivewSession.Name}" variant="label-hidden"  label="{!$Label.c.Session_Name}" aura:id="selectName"  style="padding-top:0;" class="slds-col slds-p-right_x-small"/>
                 </div>
                 <div class="slds-size_1-of-6"></div>
-                <div class="slds-size_1-of-6" style="text-align:center"><b>Session Date</b><abbr class="slds-required">*</abbr></div>
+                <div class="slds-size_1-of-6" style="text-align:center"><b>{!$Label.c.Session_Date}</b><abbr class="slds-required">*</abbr></div>
                 <div class="slds-size_1-of-6">
-                    <lightning:input type="date" required="true" value="{!v.date1}" name="Session Date"  variant="label-hidden"  label="Session Date"  aura:id="selectDate" style="padding-top:0;" class="slds-col slds-p-right_x-small"/>
+                    <lightning:input type="date" required="true" name="Session Date"  variant="label-hidden" value="{!v.reivewSession.Session_Date__c}" label="{!$Label.c.Session_Date}"  aura:id="selectDate" style="padding-top:0;" class="slds-col slds-p-right_x-small"/>
                 </div>
                 <div class="slds-size_1-of-6"></div>
                 
-                <div class="slds-size_1-of-1" style="background-color: #F0F0F0;font-size:16px;margin-top:22px;padding:3px;margin-bottom:10px">
+                <div class="slds-size_1-of-1" style="background-color: #F0F0F0;font-size:15px;margin-top:22px;margin-bottom:10px">
                     
                     <div class="slds-grid slds-wrap">
-                        <div class="slds-size_1-of-2"> &nbsp;&nbsp;Target BO</div>
-                        <div class="slds-size_1-of-2" style="text-align:end">
-                            <!--button class="slds-button slds-button_brand" onclick="{!c.clickPreview}" style="height:20px">Select</button-->
-                            <lightning:button label="Select" onclick="{!c.clickTargetBOPopUp}" variant="brand"/> 
+                        <div class="slds-size_1-of-2"  style="padding:0.25rem;"> &nbsp;&nbsp;{!$Label.c.Target_BO_Review}</div>
+                        <div class="slds-size_1-of-2" style="text-align:end;padding:0 0.25rem;">
+                            <button class="slds-button slds-button_brand" onclick="{!c.clickTargetBOPopUp}" style="height:1.875rem;padding-right:0.5rem;padding-left:0.5rem;">{!$Label.c.Select_Review}</button>
                         </div>
                     </div>
                     
                 </div>
-                              
-               
-                
+                <aura:if isTrue="{!not(empty(v.targetOpportunity))}">
+                    <div class="datatable slds-m-around_xx-small" style="border: 1px solid rgb(201, 201, 201) !important">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"  style="width: 0px;padding:5px">
+                                        <div class="slds-truncate slds-align_absolute-center" title="{!$Label.c.TARGET_BO_TARGET_BO}">{!$Label.c.TARGET_BO_TARGET_BO}</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_BOCODE}">{!$Label.c.BOSEARCH_LAB_BOCODE}</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_BONAME}">{!$Label.c.BOSEARCH_LAB_BONAME}</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="{!$Label.c.Account_Name_Review_Session}">{!$Label.c.Account_Name_Review_Session}</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="{!$Label.c.BOSEARCH_LAB_ACCOUNT}">{!$Label.c.BOSEARCH_LAB_ACCOUNT}</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="{!$Label.c.TARGET_BO_AMOUNT}">{!$Label.c.TARGET_BO_AMOUNT}</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="{!$Label.c.TARGET_BOSEARCH_CLOSEDATE}">{!$Label.c.TARGET_BOSEARCH_CLOSEDATE}</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title=""></div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody style='overflow-y: auto;'>
+                                <aura:iteration items="{!v.targetOpportunity}" var="data">
+                                    <tr class="slds-hint-parent">
+                                        <td data-label="Select" style="padding:0px">
+                                            <input class="slds-align_absolute-center" type="checkbox" value="{!data}" name="{!data.Id}" onchange="{!c.setBoxes}" checked="{!data.Checked}"></input>
+                                        </td>
+                                        <td data-label="Opportunity Code" scope="row">
+                                            <aura:if isTrue="{!data.Permission}">
+                                                <div class="slds-truncate" title="{!data.OpportunityCode__c}">
+                                                    <a href="{!'/' + data.Id}" tabindex="-1" target="_blank">{!data.OpportunityCode__c}</a>
+                                                </div>
+                                                <aura:set attribute="else">
+                                                    <div class="slds-truncate" title="{!data.OpportunityCode__c}">{!data.OpportunityCode__c}</div>
+                                                </aura:set>
+                                            </aura:if>
+                                        </td>
+                                        <td data-label="Opportunity Name" scope="row">
+                                            <aura:if isTrue="{!data.Permission}">
+                                                <div class="slds-truncate" title="{!data.Name}">
+                                                    <a href="{!'/' + data.Id}" tabindex="-1" target="_blank">{!data.Name}</a>
+                                                </div>
+                                                <aura:set attribute="else">
+                                                    <div class="slds-truncate" title="{!data.Name}">{!data.Name}</div>
+                                                </aura:set>
+                                            </aura:if>
+                                            
+                                        </td>
+                                        <td data-label="AccNumber">
+                                            <div class="slds-truncate" title="{!data.Account.AccountNumber}">{!data.Account.AccountNumber}</div>
+                                        </td>
+                                        <td data-label="AccName">
+                                            <div class="slds-truncate" title="{!data.Account.Name}">{!data.Account.Name}</div>
+                                        </td>
+                                        <td data-label="DeliveryDept">
+                                            <div class="slds-truncate" title="{!data.cPrimarySalesDepartment__r.Amount}">{!data.CurrencyIsoCode}&nbsp;{!data.Amount}</div>
+                                        </td>
+                                        <td data-label="CloseDate">
+                                            <div class="slds-truncate" title="{!data.CloseDate}">{!data.CloseDate}</div>
+                                        </td>
+                                        <td style="padding: 0.25rem 1rem;" data-label="Remove">
+                                            <div class="slds-truncate" title=""><lightning:buttonIcon class="slds-align_absolute-center" iconName="utility:close" size="x-small" variant="brand" name="{!data.Id}" onclick="{!c.clickRemove}"/></div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>   
+                            </tbody>
+                        </table>
+                    </div>
+                </aura:if>
+                <div class="slds-size_1-of-1 " style="background-color: #F0F0F0;font-size:15px;margin-top:22px;padding:3px;margin-bottom:10px">
+                    &nbsp;&nbsp;{!$Label.c.Description_Review_Session}
+                </div>
+                <div class="slds-size_1-of-6" style="text-align:center;padding-top:10px"><b>{!$Label.c.Note_Review_session}</b></div>
+                <div class="slds-size_5-of-6" style="padding-top:10px">
+                    <lightning:inputRichText  aura:id="getNote" variant="label-hidden"  label="{!$Label.c.Note_Review_session}"  value="{!v.reivewSession.Note__c}" class="slds-col slds-p-right_x-small"></lightning:inputRichText>
+                </div>
+                <div class="slds-size_1-of-6" style="text-align:center;padding-top:10px"><b>{!$Label.c.Review_Session_Result}</b></div>
+                <div class="slds-size_5-of-6"  style="padding-top:10px;padding-bottom:50px">
+                    <lightning:inputRichText aura:id="getSessionResult" variant="label-hidden"  value="{!v.reivewSession.Session_Result__c}" label="{!$Label.c.Review_Session_Result}"  class="slds-col slds-p-right_x-small"></lightning:inputRichText>
+                </div>
                 <div class="slds-size_1-of-1 slds-docked-form-footer" style="text-align:center;padding-top:10px">
-                    <lightning:button label="Cancel" onclick="{!c.clickCancel}" variant="neutral"/> 
-                    <lightning:button label="Save" onclick="{!c.clickSave}" variant="brand"/> 
+                    <lightning:button label="{!$Label.c.cancel_review}" onclick="{!c.clickCancel}" variant="neutral"/> 
+                    <lightning:button label="{!$Label.c.SaveButton}" onclick="{!c.clickSave}" variant="brand"/> 
                 </div>
             </div>
         </div>
     </div>
-   
-
+    <aura:if isTrue="{!v.targetBOPopUpOpen}">
+        <c:TargetOpportunitySearch></c:TargetOpportunitySearch>
+    </aura:if>
 </aura:component>

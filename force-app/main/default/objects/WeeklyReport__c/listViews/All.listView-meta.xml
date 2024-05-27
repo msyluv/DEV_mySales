@@ -13,7 +13,6 @@
     <columns>CheckedforIssue__c</columns>
     <columns>Flag__c</columns>
     <columns>DisplayOrder__c</columns>
-    <columns>IssueDescription__c</columns>
     <filterScope>Everything</filterScope>
     <label>All Weekly Reports</label>
 </ListView>

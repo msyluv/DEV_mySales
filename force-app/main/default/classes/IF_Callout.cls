@@ -7,7 +7,7 @@
  * Modifications Log 
  * Ver   Date         Author                      Modification
  * 1.0   2020-10-28   ghkil@partner.samsung.com   Initial Version
- * 
+ * 1.1   2024-05-23   sbest.han@samsung.com       Add getSIISToken() beacuse of modification of getting authorization token from SIIS
  * 
  * 
 
@@ -46,6 +46,7 @@ public class IF_Callout {
     private final Integer       CALLOUT_TIME = 110000;
     private static Boolean isSandbox = Utils.getIsSandbox();
     private static final Boolean DEBUG_FLAG = IF_Util.DEBUG_FLAG;
+    private String SIIS_TOKEN;
 
     /**
     * @description IF 정보
@@ -138,8 +139,48 @@ public class IF_Callout {
         //  IF-HUB  정보
         List<IF_SystemInfo__mdt> ifSystemInfoList  = getSystemInfo( ifConfig.SystemInfo__c);
         if ( ifSystemInfoList.size() > 0) this.ifSystemInfo = ifSystemInfoList.get( 0);
+
+        if(ifConfig.SystemInfo__c.contains('SIIS')){
+            getSIISToken();
+        }
     }
 
+    /**
+    * @description : Get SIIS Token
+    * @author sbest.han@samsung.com | 2024-05-23 
+    **/
+    private void getSIISToken(){
+        HttpRequest  request    = new HttpRequest();
+
+        request.setHeader('Accept', 'application/json');
+        request.setHeader('Content-Type', 'application/x-www-form-urlencoded');
+        String clientIdWithSecret = this.ifSystemInfo.ClientId__c + ':' + this.ifSystemInfo.ClientSecret__c;
+        
+        request.setHeader('Authorization', 'Basic ' + EncodingUtil.base64Encode(Blob.valueOf(clientIdWithSecret)));
+        
+        request.setMethod( 'POST' );
+        
+        request.setBody('grant_type=' + this.ifSystemInfo.GrantType__c + 
+                        '&username=' + this.ifSystemInfo.UserName__c + 
+                        '&password=' + this.ifSystemInfo.Password__c + 
+                        '&scope=default_scope');
+        request.setEndpoint( this.ifSystemInfo.IfUrl__c + '/sds/kr/long/oauth2/token');            
+        
+        Http         http       = new Http();
+        HttpResponse response    = http.send(request);
+        system.debug('response : '+ response);
+        system.debug('response body : '+ response.getBody());
+
+        if( response.getStatusCode() == 200){
+            String jsonResponse = response.getBody();
+
+            Map<String, Object> tokenMap = (Map<String, Object>) JSON.deserializeUntyped(jsonResponse);
+            this.SIIS_TOKEN = String.valueOf(tokenMap.get('token_type')) + ' ' + String.valueOf(tokenMap.get('access_token'));
+            system.debug('tokenMap : '+ tokenMap);
+            system.debug('SIIS_TOKEN : '+ SIIS_TOKEN);
+        }
+
+    }
     /**
     * @description http callout method
     * @param bodyParm : 요청 파라미터
@@ -271,6 +312,7 @@ public class IF_Callout {
         result.put('DEBUG_LOG' , debugCalloutLog);
         return result;
     }
+
     //knox calendar integration
 	public Map<String,Object> httpKnoxCallout( String bodyParam, String urlParam) {
 
@@ -292,54 +334,50 @@ public class IF_Callout {
         HttpRequest  request    = new HttpRequest();
         HttpResponse response   = new HttpResponse();
         Http         http       = new Http();
+
         try {
 
             // 추가 인증 Header 정보
             if( !String.isEmpty( this.ifConfig.AddHeader__c)){
-
                 Map<String, Object> addHeaderMap = ( Map<String, Object>) JSON.deserializeUntyped( this.ifConfig.AddHeader__c);
 
                 Set<String> headers = addHeaderMap.keySet();
                 for(String  header : headers){
-
                     request.setHeader( header, String.valueOf(addHeaderMap.get(header)));
+                    system.debug(' header map -' +header+ 'Value of -- '+String.valueOf(addHeaderMap.get(header)));
                 }
             }
+
             //Passing knox system id and authorization bearer in header
             if(isSandbox){
-          
-            request.setHeader('System-ID',Label.Sandbox_Knox_System_Id);
+                request.setHeader('System-ID',Label.Sandbox_Knox_System_Id);
             }else{
-            request.setHeader('System-ID',Label.Prod_Knox_System_Id);
+                request.setHeader('System-ID',Label.Prod_Knox_System_Id);
             }
+
             system.debug('knox_systemid_______' + request.getHeader('System-ID'));
+            
             // Authorization: 로그인 인증 정보
-            if( !String.isEmpty( this.ifSystemInfo.Authorization__c)){
-               request.setHeader( 'SIIS-Backend-Authorization', Label.Sandbox_Knox_Bearer_IF_073);
-                request.setHeader( 'Authorization',  this.ifSystemInfo.Authorization__c);
-                       
-                system.debug('header_______' + request.getHeader('Authorization'));
-            }else if( this.ifConfig.SystemInfo__c == 'Salesforce'){ // 세일즈포스에서 자체 로그인 처리
+            
+            request.setHeader( 'SIIS-Backend-Authorization', Label.Sandbox_Knox_Bearer);
+            system.debug(' SIIS-Backend-Authorization -' + Label.Sandbox_Knox_Bearer);
 
-                request.setHeader( 'Authorization', 'OAuth ' + UserInfo.getSessionId());
-
-                if (DEBUG_FLAG) System.debug( ':::ddddddddd:::' + 'OAuth ' + UserInfo.getSessionId());
-            }
+            request.setHeader( 'Authorization',  this.SIIS_TOKEN);
+            system.debug(' Authorization -' + this.SIIS_TOKEN);       
             
 
             // Content-type : 전송 인코딩 방식
             if ( !String.isEmpty( this.ifConfig.ContentType__c)) {
-
                 request.setHeader( 'Content-Type', this.ifConfig.ContentType__c);
+                system.debug(' Content-Type -' +  this.ifConfig.ContentType__c );
             }
 
             // Method 방식
             if( !String.isEmpty( this.ifConfig.Method__c)){
-
                 request.setMethod( this.ifConfig.Method__c.toUpperCase());
-            }
                 system.debug('IF METHOD ::: ' + request.getMethod());
-            
+            }
+                
 
             // 호출  url
             String fPrefix  = Util_String.nvlStr( ifSystemInfo.RemoteSite__c);
@@ -347,40 +385,30 @@ public class IF_Callout {
             String version  = ifConfig.Version__c;
             string url;
             if(version != '' && version != null){
-             url      = ifSystemInfo.IfUrl__c + fPrefix + '/' + version + ifConfig.Endpoint__c;
+                url = ifSystemInfo.IfUrl__c + fPrefix + '/' + version + ifConfig.Endpoint__c;
             }
             else {
-                url      = ifSystemInfo.IfUrl__c + fPrefix  + ifConfig.Endpoint__c;
-
+                url = ifSystemInfo.IfUrl__c + fPrefix  + ifConfig.Endpoint__c;
             }
+
             if (DEBUG_FLAG) System.debug( 'Endpoint::::' + url);
-           // passing knox api query in endpoint
+
+            // passing knox api query in endpoint
             request.setEndpoint( EncodingUtil.urlDecode(url,'UTF-8').trim() + urlParam);            
+
             // 요청 파라미터 
             if( bodyParam != '') request.setBody( bodyParam);
             request.setTimeout( CALLOUT_TIME);
             calloutLog  = '{"Request" : "'+ String.valueOf( request) + ', "Body" : ' + String.valueOf( request.getBody());
             result.put('Request' , calloutLog);
             system.debug('Demand Request :' + calloutLog);
+            system.debug(' Request debug :' + request);
+            system.debug(' Request debug header:' + request.getHeader('System-ID'));
+            system.debug('result : before callout'+result);
             response    = http.send( request);
             system.debug('response : '+response);
             debugCalloutLog += '"Response :"' + response + '\n';
 
-            /*
-            if(response == null || ( response.getStatusCode() != 200 && response.getStatusCode() != 202) ){
-                Integer cnt = 0;
-                do{
-                    Utils.sleep(500);
-                    response = http.send(request);
-                    cnt++;
-                    if(response != null && ( response.getStatusCode() == 200 || response.getStatusCode() == 202) ) ){
-                        break;
-                    }
-                    
-                }
-                while(cnt < 3);
-            }
-            */
             calloutLog += '"Response" : "'+ String.valueOf( response) + '"}';
             debugCalloutLog += '"Response toString" : "'+ String.valueOf( response) + '"}';
             result.put('Response', String.valueOf( response.getBody()));
@@ -390,7 +418,6 @@ public class IF_Callout {
 
             // result.put( 'StatusCode'  , 400);
             if( response.getStatusCode() >= 300){
-
                result.put( 'IF_MSG', System.Label.IF_ADMIN_MSG_001);
             }else {
                result.put( 'IF_MSG' , '');

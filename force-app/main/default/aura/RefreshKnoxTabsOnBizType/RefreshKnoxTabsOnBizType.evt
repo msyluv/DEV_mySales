@@ -1,0 +1,14 @@
+<!--
+  @description       : 
+  @author            : anish.jain@partner.samsung.com
+  @group             : 
+  @last modified on  : 24-04-2024
+  @last modified by  : anish.jain@partner.samsung.com
+  Modifications Log 
+  Ver   Date         Author                    Modification
+  1.0   11-05-2023   anish.jain@partner.samsung.com  Initial Version -MS 495
+
+-->
+<aura:event type="APPLICATION" access="global" description="Event template" >
+    <aura:attribute name="isImplementation" type="boolean" default="false" />
+</aura:event>

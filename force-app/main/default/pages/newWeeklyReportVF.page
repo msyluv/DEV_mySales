@@ -1,15 +1,208 @@
+<!--
+ * @author            : aditya.r2@samsung.com
+ * @group             : 
+ * @description       : VF page for Aura component newWeeklyReportEditor.cmp  
+ * @last modified on  : 2024-04-26
+ * @last modified by  : aditya.r2@samsung.com
+ * Modifications Log 
+ * Ver   Date         Author                    Modification
+ * 1.0   2024-04-26   aditya.r2@samsung.com		Initial Version (MySales-519)
+-->
 <apex:page standardController="WeeklyReport__c" extensions="newWeeklyReportVFController" showQuickActionVfHeader="false" docType="html-5.0" lightningStylesheets="true"  contentType="text/html;charset=UTF-8">
-    
-    <apex:includeScript value="{!URLFOR($Resource.cafe + '/2.3.27/cafe_2.3.27.min.js')}"/>
+  <!--  <apex:includeScript value="{!URLFOR($Resource.cafe + '/2.3.27/cafe_2.3.27.min.js')}"/> -->
+ <!--   <apex:includeScript value="{!URLFOR($Resource.cafeNote + '/Demo/cafe/2.3.28.1/cafe_2.3.28.1.min.js')}"/> -->
+    <apex:includeScript value="{!URLFOR($Resource.cafeNote + '/cafe/2.3.28.2/cafe_2.3.28.2.min.js')}"/>
 	<apex:includeScript value="{!URLFOR($Resource.jquery)}"/>
+    <!--apex:actionFunction name="cancel" oncomplete=/-->
+    <!--<apex:includeScript value="lightning/lightning.out.js"/>-->
+    <style>
+        body .bPageBlock .detailList .labelCol{
+        	text-align: left;
+        }
+    .dateFormat {
+        display : none;
+        visibility : hidden;
+        }
+
+        .slds-modal__content{
+       width: 120% !important;
+    max-width: 120% !important;
+        }
+        .uiModal--horizontalForm .modal-container{
+        width: 1200px !important;
+    max-width: 1200px !important;
+    min-width: 1200px !important;
+        
+        }
+         .modal-container{
+        width: 100% !important;
+    max-width: 100% !important;
+        
+        }
+        .modal{
+         width: 100% !important;
+    max-width: 100% !important;
+        
+        }
+        .modal-body{
+        width: 1200px !important;
+    max-width: 1200px !important;
+    min-width: 1200px !important;
+        
+        
+        }
+    </style>
+    <script type="text/javascript" src="/canvas/sdk/js/publisher.js">
+     </script>
+      
     <script type="text/javascript" language="javascript">
+            var newWin=null;
+   function closeQuickActionPopUp(){
+console.log('in closepopup');
+           sforce.one.back(true);
+           sforce.one.navigateToSObject('{!$CurrentPage.parameters.id}');
+       //window.close();  
+       //Sfdc.canvas.publisher.publish({name:"publisher.close",payload:{refresh:"false"}});
+        }
+	function closeQuickActionPopUpCancel(){
+console.log('in closepopup cancel');
+        window.history.back();
+       
+        //              sforce.one.back(true);
+        // sforce.one.navigateToUrl('https://sdssfa--qa.sandbox.lightning.force.com/lightning/o/WeeklyReport__c/list?filterName=Recent');
+            //Sfdc.canvas.publisher.publish({name:"publisher.close",payload:{refresh:"false"}});
+        }
+    function closeQuickActionPopUp1(){
+console.log('in closepopup cancel');
+        // window.history.back();
+       
+                      sforce.one.back(true);
+         sforce.one.navigateToUrl('https://sdssfa--qa.sandbox.lightning.force.com/lightning/o/WeeklyReport__c/list?filterName=Recent');
+            //Sfdc.canvas.publisher.publish({name:"publisher.close",payload:{refresh:"false"}});
+        }
+     function handleEnterkey(evt,name, id,objectname){
+        console.log('keycode',evt.keyCode);
+        
+        if(evt.keyCode == 13){
+            evt.preventDefault();
+            openLookupPopup(name, id,objectname);
+            }
+    }
+    function handleonchange(evnt,objectname){
+        if(objectname == 'Opportunity'){
+            console.log('onchnagecall');
+           document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem5.targetIdO}').value = '';
+
+            }
+                if(objectname == 'Sales Lead'){
+                    document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem6.targetIdSales}').value = '';
+                    }
+               if(objectname == 'Account'){
+                 document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem4.targetId}').value = '';
+
+                   }
+
+
+        }
+      function openLookupPopup(name, id,objectname)
+    {
+        
+        
+
+        var casename ='';
+        if(objectname == 'Account'){
+            casename = $('[id$=targetName]').val();
+        }
+         else if(objectname == 'Opportunity'){
+            casename = $('[id$=targetNameO]').val();
+        }
+         else if(objectname == 'Sales Lead'){
+            casename = $('[id$=targetNameSales]').val();
+        }
+        console.log('name: '+casename);
+        console.log('idval:' +id);
+        console.log('namecoming'+name);
+        console.log('objectname'+objectname);
+        var url="/apex/LookupPopup?namefield=" + name + "&idfield=" + id+ "&name=" + casename+ "&objname=" +objectname;
+        var widhtparent = screen.width;
+        var parentheight = screen.height;
+        console.log('widhtparent'+widhtparent);
+        console.log('heightparent'+parentheight);
+        var width = screen.width * 0.55;
+        var height = screen.height * 0.5;
+        var left= (screen.width/2) - width/2;
+        var top= (screen.height/2) - height/2;
+        console.log('width: '+width);
+        console.log('height: '+height);
+        console.log('left: '+left);
+        console.log('top: '+top);
+        console.log(window.screen.width +' '+window.screen.height +' '+window.screen.left +' '+window.screen.top);
+        newWin=window.open(url, 'Popup','height='+height+',width='+width+',left='+left+',top='+top+',resizable=yes,scrollbars=yes,toolbar=no,status=no,location=no');
+        if (window.focus) 
+        {
+            newWin.focus();
+        }    
+               
+            return false;
+    }   
+      function openLookupPopupclick(name, id,objectname)
+    {
+        console.log('window.event: '+window.event);
+        console.log('window.event.keyCode: '+window.event.keyCode);
+        //  console.log('ev.which: '+ev.which);
+        
+        if((window.event && window.event.keyCode == 13)){
+
+        var casename ='';
+        if(objectname == 'Account'){
+            casename = $('[id$=targetName]').val();
+        }
+         else if(objectname == 'Opportunity'){
+            casename = $('[id$=targetNameO]').val();
+        }
+         else if(objectname == 'Sales Lead'){
+            casename = $('[id$=targetNameSales]').val();
+        }
+        console.log('name: '+casename);
+        console.log('idval:' +id);
+        console.log('namecoming'+name);
+        console.log('objectname'+objectname);
+        var url="/apex/LookupPopup?namefield=" + name + "&idfield=" + id+ "&name=" + casename+ "&objname=" +objectname;
+        var widhtparent = screen.width;
+        var parentheight = screen.height;
+        console.log('widhtparent'+widhtparent);
+        console.log('heightparent'+parentheight);
+        var width = screen.width * 0.55;
+        var height = screen.height * 0.5;
+        var left= (screen.width/2) - width/2;
+        var top= (screen.height/2) - height/2;
+        console.log('width: '+width);
+        console.log('height: '+height);
+        console.log('left: '+left);
+        console.log('top: '+top);
+        console.log(window.screen.width +' '+window.screen.height +' '+window.screen.left +' '+window.screen.top);
+        newWin=window.open(url, 'Popup','height='+height+',width='+width+',left='+left+',top='+top+',resizable=yes,scrollbars=yes,toolbar=no,status=no,location=no');
+        if (window.focus) 
+        {
+            newWin.focus();
+        }    
+        }        
+        //    return false;
+    }   
+      function closeLookupPopup()
+    {
+       if (null!=newWin)
+       {
+          newWin.close();
+       }  
+    }
     	var imageUpload;
     	$(function(){  
         	var fileLenght=0;  
         	var fileUploading = 0;  
         	var fileUploaded = 0;  
         	var ids = new Array(); 
-        	imageUpload = function(fileList,imageArr,bodyInfo,deleteSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder){
+        	imageUpload = function(fileList,imageArr,bodyInfo,deleteSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,ComplianceGuide,ReportContent){
             	fileLenght = fileList.length;
             	for(var i = 0 ; i < fileLenght ; i++){
                 	uploadImageFile(fileList[i],function(err,res){
@@ -17,7 +210,7 @@
                     	if(fileLenght === fileUploading){
                         	console.log('Upload Completed'); 
                         	console.log('Contentversion Uploaded Ids : ' + ids); 
-                        	saveHTML(ids,imageArr,bodyInfo,deleteSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder); 
+                        	saveHTML(ids,imageArr,bodyInfo,deleteSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,ComplianceGuide,ReportContent); 
                     	}
                 	})
             	}
@@ -76,9 +269,28 @@
     	var isReadOnly = "{!$CurrentPage.parameters.isReadOnly}";
         var recordId = "{!$CurrentPage.parameters.id}";
         var arg = {'format':'html'};
-        
+    var cafejson = "{!URLFOR($Resource.cafeNote + '/cafe/2.3.28.2/config.json')}";
+        jQuery.getJSON(cafejson,function(data){
+    console.log('JSON STRING ::'+data);
+     var lan= '{!TEXT($User.LanguageLocaleKey)}'
+    console.log('lan'+lan);
+    if(lan !== 'ko'){data.language = lan;
+    console.log('JSON STRING language::'+data.language);}
+          cafe.create("cafeDemo", 
+                data, 
+                "GET", 
+                function (){cafe.setContent( "cafeDemo", '{!JSENCODE(issueDescriptionCheck)}', arg);
+                            if(isReadOnly == "Y"){
+                                cafe.setReadOnly("cafeDemo", true);
+                                $("body .pbBottomButtons").css("display", "none");
+                            }
+                           }
+               );
+            
+    });
+    /*
     	cafe.create("cafeDemo", 
-                    "{!URLFOR($Resource.cafe + '/2.3.27/config.json')}", 
+                    "{!URLFOR($Resource.cafeNote + '/cafe/2.3.28.2/config.json')}", 
                     "GET", 
                     function (){cafe.setContent( "cafeDemo", '{!JSENCODE(issueDescriptionCheck)}', arg);
                                 if(isReadOnly == "Y"){
@@ -89,12 +301,8 @@
                    );
     
     
-        function closeQuickActionPopUp(){
-            sforce.one.back(true);
-            sforce.one.navigateToSObject('{!$CurrentPage.parameters.id}');
-        }
-		
-    	function saveHTML(ids,imageArr,bodyInfo,deleteSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder){
+    	*/
+    	function saveHTML(ids,imageArr,bodyInfo,deleteSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,ComplianceGuide,ReportContent){
         	console.log('Start Save Proces..'); 
         	console.log(ids); 
         	var imageArr2 = bodyInfo.getElementsByTagName('img'); // img tag Array 
@@ -108,7 +316,7 @@
             	}
             	else continue; 
         	}
-        	doSave(bodyInfo.innerHTML,deleteSrcList,uploadedImgSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder);
+        	doSave(bodyInfo.innerHTML,deleteSrcList,uploadedImgSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,ComplianceGuide,ReportContent);
     	}
     	
     	function buildFile(dataUrl,index){
@@ -144,6 +352,7 @@
     
         function saveIssueDescription(){
             var content = cafe.getContent("cafeDemo");
+            console.log('ashish content leng::'+content.length);
             let parser = new DOMParser(); 
             const doc = parser.parseFromString(content,'text/html'); 
         	var bodyInfo = doc.getElementsByTagName('body')[0];
@@ -152,6 +361,23 @@
             
             var ReportingDate111 = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem2.ReportingDate}').value;
             console.log('Inside SaveDesc function ReportingDate111 : ', ReportingDate111);
+          if(ReportingName === '' || ReportingName === null || ReportingName === 'undefined' || ReportingDate111 === '' || ReportingDate111 === null || ReportingDate111 === 'undefined'){  
+            if(ReportingName === '' || ReportingName === null || ReportingName === 'undefined'){
+             var ReportingNameerror = document.getElementById('ReportingNameError').style.display = 'block';
+                document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem1.ReportingName}').style.border = '2px solid red';
+           }
+           if(ReportingDate111 === '' || ReportingDate111 === null || ReportingDate111 === 'undefined'){
+               var ReportingNameerror = document.getElementById('ReportingDateError').style.display = 'block';
+                document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem2.ReportingDate}').style.border = '2px solid red';
+          
+            }
+              }
+          else{
+             var ReportingNameerror = document.getElementById('ReportingNameError').style.display = 'none';
+                  document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem1.ReportingName}').style.border = 'none';
+               var ReportingNameerror = document.getElementById('ReportingDateError').style.display = 'none';
+                document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem2.ReportingDate}').style.border = 'none';
+          
             if(ReportingDate111.includes('/')){
             	var ReportingDate11 = ReportingDate111.split('/');
                 console.log('Inside SaveDesc function ReportingDate11 : ', ReportingDate11);
@@ -175,31 +401,66 @@
             //console.log('Inside SaveDesc function ReportingDate : ', ReportingDate);
             var Critical = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem3.Critical}').checked;
             console.log('Inside SaveDesc function Critical : ', Critical);
-            var Account = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem4.Account}_lkid').value;
+            //        var Account = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem4.Account}_lkid').value;
+            var Account = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem4.targetId}').value;
             if(Account == '000000000000000') Account = '';
+                if(Account == '') {
+                console.log('inside account');
+                document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem4.targetName}').value = '';
+            }
+             var Acctargetname = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem4.targetName}').value;
+            console.log('Acctargetval',Acctargetname);
+            if(Acctargetname == '' || Acctargetname == ' ')
+            {
+                Account =''; 
+            }
             console.log('Inside SaveDesc function Account : ', Account);
-            var Opportunity = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem5.Opportunity}_lkid').value;
+            // var Opportunity = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem5.Opportunity}_lkid').value;
+            var Opportunity = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem5.targetIdO}').value;
             if(Opportunity == '000000000000000') Opportunity = '';
+               if(Opportunity == ''){
+                document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem5.targetNameO}').value = '';
+            }
+               var opptargetname = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem5.targetNameO}').value;
+            console.log('opptargetname',opptargetname);
+            if(opptargetname == '' || opptargetname == ' ')
+            {
+                Opportunity =''; 
+            }
             console.log('Inside SaveDesc function Opportunity : ', Opportunity);
-            var SalesLead = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem6.SalesLead}_lkid').value;
+            //var SalesLead = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem6.SalesLead}_lkid').value;
+             var SalesLead = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem6.targetIdSales}').value;      
             if(SalesLead == '000000000000000') SalesLead = '';
+               if(SalesLead == ''){
+                document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem6.targetNameSales}').value = '';
+            }
+               var salestargetname = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem6.targetNameSales}').value;
+            if(salestargetname == '' || salestargetname == ' ')
+            {
+                SalesLead =''; 
+            }
             console.log('Inside SaveDesc function SalesLead : ', SalesLead);
             var IssueReport = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem7.IssueReport}').checked;
             console.log('Inside SaveDesc function IssueReport : ', IssueReport);
-            var Flag = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem8.Flag}').value;
-            console.log('Inside SaveDesc function Flag : ', Flag);
+            //var Flag = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem8.Flag}').value;
+            //console.log('Inside SaveDesc function Flag : ', Flag);
             var ComplianceGuide = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem9.ComplianceGuide}').value;
+            if(ComplianceGuide == 'undefined'){
+                console.log('undefined');
+                
+                }
+     
             console.log('Inside SaveDesc function ComplianceGuide : ', ComplianceGuide);
             var ReportContent = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem10.ReportContent}').value;
             console.log('Inside SaveDesc function ReportContent : ', ReportContent);
             setTimeout(function(){
-            	var IssueDescription1 = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem11.IssueDescription1}').value;
-                console.log('Inside SaveDesc function IssueDescription1 insideTimeOut : ', IssueDescription1);
+                //var IssueDescription1 = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem11.IssueDescription1}').value;
+                //console.log('Inside SaveDesc function IssueDescription1 insideTimeOut : ', IssueDescription1);
             
             //var IssueDescription1 = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem11.IssueDescription1}').value;
-            console.log('Inside SaveDesc function IssueDescription1 : ', IssueDescription1);
-            var DisplayOrder = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem12.DisplayOrder}').value;
-            console.log('Inside SaveDesc function DisplayOrder : ', DisplayOrder);
+                //console.log('Inside SaveDesc function IssueDescription1 : ', IssueDescription1);
+                //var DisplayOrder = document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection2.pageBlockSectionItem12.DisplayOrder}').value;
+                //console.log('Inside SaveDesc function DisplayOrder : ', DisplayOrder);
             
             var fileList = []; 
         	var imageArr = bodyInfo.getElementsByTagName('img'); // img tag Array 
@@ -234,15 +495,57 @@
             
 			var fileLength = fileList.length; 
         	var uploadedImgSrcList = ''; 
+                var contentbodyvar =  encodeURIComponent(bodyInfo.innerHTML);//bodyInfo.innerHTML.replace(/<[^>]*>?/gm,'');
+                   console.log('ashish bro 1'+contentbodyvar);
+                  console.log('ashish bro 2::'+bodyInfo.innerHTML.length);
+                  console.log('ashish bro 2222::'+contentbodyvar.length);
+                
+               
+                /*            if(bodyInfo.innerHTML.length > 131072 ) {       
+                          // var str ='<h1>test</h1>';
+                    
+                        var Reportingcafeerror = document.getElementById('cafeDemoError').style.display = 'block';
+                document.getElementById('cafeDemo').style.border = '2px solid red';
+document.getElementById('cafeDemo').style.display = 'block';          
+                          var te = bodyInfo.innerHTML.replace(/<[^>]*>?/gm,'');
+                          console.log('ashish bro 3'+bodyInfo.innerHTML);
+                  console.log('ashish bro 4'+contentbodyvar);}*/
+                //  else{
+                      var Reportingcafeerror = document.getElementById('cafeDemoError').style.display = 'none';
+                document.getElementById('cafeDemo').style.border = 'none';
+document.getElementById('cafeDemo').style.display = 'none';  
+                       document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem4.targetName}').value = '';
+                    document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem5.targetNameO}').value = '';
+                    document.getElementById('{!$Component.form1.pageBlock1.pageBlockSection1.pageBlockSectionItem6.targetNameSales}').value = '';
+             console.log('fileLength'+fileLength);
+                //if(fileLength>0) imageUpload(fileList,imageArr,bodyInfo,deleteSRC,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder); 
+        	if(fileLength>0) imageUpload(fileList,imageArr,bodyInfo,deleteSRC,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,ComplianceGuide,ReportContent); 
+        	else doSave(bodyInfo.innerHTML,deleteSRC,uploadedImgSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,ComplianceGuide,ReportContent);
+                //}
+                  },0);
+          
+          }  
+                       //                       }
             
-            
-        	if(fileLength>0) imageUpload(fileList,imageArr,bodyInfo,deleteSRC,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder); 
-        	else doSave(bodyInfo.innerHTML,deleteSRC,uploadedImgSrcList,ReportingName,ReportingDate,Critical,Account,Opportunity,SalesLead,IssueReport,Flag,ComplianceGuide,ReportContent,IssueDescription1,DisplayOrder);
-			},0);
         }  
+    
+    
+    function noenter(ev,name,id,objectname){
+    if(window.event && window.event.keyCode == 13 || ev.which ==13){
+    console.log('Ashish enter key pressed');
+        console.log('test ashihs'+objectname);
+        //   openLookupPopup(name, id,objectname);
+
+    }else{
+    console.log('Ashish other key pressed');
+    
+    }
+        
+        
+    }
     </script>
 
-    <apex:form id="form1" >  
+    <apex:form id="form1" style="width:100%;">  
         <apex:actionFunction name="doSave" action="{!doSave}" reRender="pageMessages,script-block" oncomplete="closeQuickActionPopUp();return false; ">
             <apex:param id="issueDescription" name="issueDescription" value=""></apex:param>
             <apex:param id="deleteSrc" name="deleteSrc" value=""></apex:param>
@@ -254,56 +557,112 @@
             <apex:param id="Opportunity" name="Opportunity" value=""></apex:param>
     		<apex:param id="SalesLead" name="SalesLead" value=""></apex:param>
             <apex:param id="IssueReport" name="IssueReport" value=""></apex:param>
-    		<apex:param id="Flag" name="Flag" value=""></apex:param>
+    		<!--apex:param id="Flag" name="Flag" value=""></apex:param-->
             <apex:param id="ComplianceGuide" name="ComplianceGuide" value=""></apex:param>
             <apex:param id="ReportContent" name="ReportContent" value=""></apex:param>
-    		<apex:param id="IssueDescription1" name="IssueDescription1" value=""></apex:param>
-            <apex:param id="DisplayOrder" name="DisplayOrder" value=""></apex:param>
+            <!--<apex:param id="IssueDescription1" name="IssueDescription1" value=""></apex:param> -->
+            <!--apex:param id="DisplayOrder" name="DisplayOrder" value=""></apex:param-->
         </apex:actionFunction>
-
+<div >
+            <apex:pageMessages id="pageMessages" showDetail="false"></apex:pageMessages>
+             <!--apex:outputText rendered="true" id="pageMessages">
+<span style="color:red; ">{!issueDescriptionCheckError}</span>
+</apex:outputText-->                       
+            
+        </div>
+        
     	<apex:pageBlock id="pageBlock1">
-            <apex:pageBlockSection title="Information" collapsible="false" id="pageBlockSection1">
+            <div style="float: right;">
+                <span style="color:red; ">*</span> <span style="color:black; ">= {!$Label.Required_Information}</span>
+            </div>
+            <apex:outputPanel layout="block" style="color:black;">
+            <apex:pageBlockSection title="{!$Label.Information}" collapsible="false"  id="pageBlockSection1"   >
                 <apex:pageBlockSectionItem id="pageBlockSectionItem1">	
-                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Name.Label}" for="ReportingName" />
-                    <apex:inputField value="{!WeeklyReport__c.Name}" id="ReportingName" required="true" />
+                    <apex:outputLabel for="ReportingName" style="text-align:left; width: 100%;"><span style="color:red; ">*</span> {!$ObjectType.WeeklyReport__c.Fields.Name.Label}</apex:outputLabel>
+                    <apex:outputPanel > <apex:inputField value="{!WeeklyReport__c.Name}" id="ReportingName"   required="false" />
+                    <div id="ReportingNameError" style="visiblity: hidden; display: none;"><span style="color:red; ">{!$Label.reporting_name_error}</span></div></apex:outputPanel>
+                    
                 </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem22">	
+                    <apex:outputLabel value="{!$Label.OwnerLabel}" for="Owner"  style="text-align:left; width: 100%;"/>
+                  <!--  <apex:outputField value="{!$User.CompanyName}" id="ownerName"/>--> {!$User.FirstName} {!$User.LastName}
+                </apex:pageBlockSectionItem>
+				
                 <apex:pageBlockSectionItem id="pageBlockSectionItem2">	
-                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.ReportingDate__c.Label}" for="ReportingDate" />
-                    <apex:inputField value="{!WeeklyReport__c.ReportingDate__c}" id="ReportingDate" required="true" />
-                </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem id="pageBlockSectionItem3">	
+                    <apex:outputLabel for="ReportingDate"  style="text-align:left; width: 100%;"><span style="color:red; ">*</span> {!$ObjectType.WeeklyReport__c.Fields.ReportingDate__c.Label}</apex:outputLabel>
+                    <apex:outputPanel > <apex:inputField value="{!WeeklyReport__c.ReportingDate__c}"  id="ReportingDate"  style="width:100%; min-width:100%;"  required="false" />
+      <div id="ReportingDateError" style="visiblity: hidden; display: none;"><span style="color:red; ">{!$Label.reporting_date_error}</span></div></apex:outputPanel>
+              
+                    </apex:pageBlockSectionItem>
+                <!--<apex:pageBlockSectionItem id="pageBlockSectionItem3">	
                     <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Critical__c.Label}" for="Critical" />
                     <apex:inputField value="{!WeeklyReport__c.Critical__c}" id="Critical"/>
-                </apex:pageBlockSectionItem>
+                </apex:pageBlockSectionItem>-->
+                <!--
 				<apex:pageBlockSectionItem id="pageBlockSectionItem4">	
-                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Account__c.Label}" for="Account" />
-                    <apex:inputField value="{!WeeklyReport__c.Account__c}" id="Account"/>
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Account__c.Label}" for="Account"  style="text-align:left; width: 100%;" />
+                    <apex:inputField value="{!WeeklyReport__c.Account__c}" id="Account" html-placeholder="Search Accounts..." />
                 </apex:pageBlockSectionItem>
+                
                 <apex:pageBlockSectionItem id="pageBlockSectionItem5">	
-                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Opportunity__c.Label}" for="Opportunity" />
-                    <apex:inputField value="{!WeeklyReport__c.Opportunity__c}" id="Opportunity"/>
+                   <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Opportunity__c.Label}" for="Opportunity"  style="text-align:left; width: 100%;"/>
+                   <apex:inputField value="{!WeeklyReport__c.Opportunity__c}" id="Opportunity" html-placeholder="Search Opportunities..."/>
+
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem id="pageBlockSectionItem6">	
-                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.SalesLead__c.Label}" for="SalesLead" />
-                    <apex:inputField value="{!WeeklyReport__c.SalesLead__c}" id="SalesLead"/>
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.SalesLead__c.Label}" for="SalesLead"  style="text-align:left; width: 100%;"/>
+                    <apex:inputField value="{!WeeklyReport__c.SalesLead__c}" id="SalesLead" html-placeholder="Search Sales Leads..."/>
+                </apex:pageBlockSectionItem> -->
+                   <apex:pageBlockSectionitem id="pageBlockSectionItem4">
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Account__c.Label}" style="text-align:left; width: 100%;"/>
+                    <apex:outputPanel layout="inline" style="vertical-align:middle;display:inline;" >
+                        <apex:inputHidden value="{!WeeklyReport__c.Account__c}" id="targetId" />
+                        <apex:inputField id="targetName"  style="min-width: 20rem;margin:0;" value="{!WeeklyReport__c.Account__c}"  onkeypress="handleEnterkey(event,'{!$Component.targetName}', '{!$Component.targetId}','Account')" onchange="handleonchange(event,'Account')"/><!-- onkeypress="return noenter(event,'{!$Component.targetName}', '{!$Component.targetId}','Account');"  --->
+                        <apex:commandButton image="/apexpages/slds/latest/assets/icons/utility/search_60.png" onclick="openLookupPopup('{!$Component.targetName}', '{!$Component.targetId}','Account'); return false" style="scale: 0.32;vertical-align: middle;border: none;background-color: white;position: absolute;top: -0.35rem;left: 17.5rem;;padding: 0;margin: 0;"/>                      
+                    </apex:outputPanel>
+                </apex:pageBlockSectionitem>
+                                  <apex:pageBlockSectionitem id="pageBlockSectionItem5">
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Opportunity__c.Label}" style="text-align:left; width: 100%;"/>
+                    <apex:outputPanel layout="inline" style="vertical-align:middle;display:inline;">
+                        <apex:inputHidden value="{!WeeklyReport__c.Opportunity__c}" id="targetIdO" />
+                        <apex:inputField id="targetNameO"  style="min-width: 20rem;margin:0;" value="{!WeeklyReport__c.Opportunity__c}" onkeypress="handleEnterkey(event,'{!$Component.targetNameO}', '{!$Component.targetIdO}','Opportunity')" onchange="handleonchange(event,'Opportunity')"/>
+                        <apex:commandButton image="/apexpages/slds/latest/assets/icons/utility/search_60.png" onclick="openLookupPopup('{!$Component.targetNameO}', '{!$Component.targetIdO}','Opportunity'); return false" style="scale: 0.32;vertical-align: middle;border: none;background-color: white;position: absolute;top: -0.35rem;left: 17.5rem;;padding: 0;margin: 0;"/>
+                    </apex:outputPanel>
+                    
+                </apex:pageBlockSectionitem>
+                     <apex:pageBlockSectionitem id="pageBlockSectionItem6">
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.SalesLead__c.Label}" style="text-align:left; width: 100%;"/>
+                    <apex:outputPanel layout="inline" style="vertical-align:middle;display:inline;">
+                        <apex:inputHidden value="{!WeeklyReport__c.SalesLead__c}" id="targetIdSales" />
+                        <apex:inputField id="targetNameSales"  style="min-width: 20rem;margin:0;" value="{!WeeklyReport__c.SalesLead__c}"  onkeypress="handleEnterkey(event,'{!$Component.targetNameSales}', '{!$Component.targetIdSales}','Sales Lead')" onchange="handleonchange(event,'Sales Lead')"/>
+                        <apex:commandButton image="/apexpages/slds/latest/assets/icons/utility/search_60.png" onclick="openLookupPopup('{!$Component.targetNameSales}', '{!$Component.targetIdSales}','Sales Lead'); return false" style="scale: 0.32;vertical-align: middle;border: none;background-color: white;position: absolute;top: -0.35rem;left: 17.5rem;;padding: 0;margin: 0;"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionitem>
+                <apex:pageBlockSectionItem id="pageBlockSectionItem3">	
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Critical__c.Label}" for="Critical"  style="text-align:left; width: 100%; padding-top: inherit;"/>
+                    <apex:inputField value="{!WeeklyReport__c.Critical__c}" id="Critical"/>
                 </apex:pageBlockSectionItem>
+				
                 <apex:pageBlockSectionItem id="pageBlockSectionItem7">	
-                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.CheckedforIssue__c.Label}" for="IssueReport" />
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.CheckedforIssue__c.Label}" for="IssueReport"  style="text-align:left; width: 100%; padding-top: inherit;"/>
                     <apex:inputField value="{!WeeklyReport__c.CheckedforIssue__c}" id="IssueReport"/>
                 </apex:pageBlockSectionItem>
+                 <!--apex:outputPanel style="display:none;">
                 <apex:pageBlockSectionItem id="pageBlockSectionItem8">	
                     <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Flag__c.Label}" for="Flag" />
                     <apex:inputField value="{!WeeklyReport__c.Flag__c}" id="Flag"/>
                 </apex:pageBlockSectionItem>
+                </apex:outputPanel-->
             </apex:pageBlockSection>
-            
-            <apex:pageBlockSection title="Description" collapsible="false" columns="1" id="pageBlockSection2">                
+            </apex:outputPanel>
+            <apex:outputPanel layout="block" style="color:black;">
+            <apex:pageBlockSection title="{!$Label.Description}" collapsible="false" columns="1" id="pageBlockSection2">                
 				<apex:pageBlockSectionItem dataStyle="width:80%" id="pageBlockSectionItem9">
-                	<apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.ComplianceGuide__c.Label}" for="ComplianceGuide" />
-                    <apex:inputField value="{!WeeklyReport__c.ComplianceGuide__c}" id="ComplianceGuide" style="width:100%" />
+                	<apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.ComplianceGuide__c.Label}" for="ComplianceGuide"  style="text-align:left; width: 100%;"/>
+                    <apex:inputField value="{!WeeklyReport__c.ComplianceGuide__c}" id="ComplianceGuide" style="width:100%; height:77px" />
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem id="pageBlockSectionItem10">
-                	<apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Contents__c.Label}" for="ReportContent" />
+                	<apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Contents__c.Label}" for="ReportContent"  style="text-align:left; width: 100%;"/>
                     <apex:inputField value="{!WeeklyReport__c.Contents__c}" id="ReportContent" style="width:100%" />
                 </apex:pageBlockSectionItem>
                  <!-- Divyam mysales236 changes
@@ -312,18 +671,24 @@
                     <apex:inputTextarea value="{!WeeklyReport__c.IssueDescription__c}" id="IssueDescription1" richText="true" />
                 </apex:pageBlockSectionItem> -->
                 <apex:pageBlockSectionItem >
-                    <apex:outputText value="{!$ObjectType.WeeklyReport__c.Fields.Issue_Description_Check__c.Label}" />
+                    <apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.Issue_Description_Check__c.Label}"  style="text-align:left; width: 100%;"/>
                 	<div id="cafeDemo"></div>
+                     <div id="cafeDemoError" style="visiblity: hidden; display: none;"><span style="color:red; ">{!$Label.CharacterLimitError}</span></div>
+     
                 </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem id="pageBlockSectionItem12">
+                <!--apex:outputPanel style="display:none;">
+               <apex:pageBlockSectionItem id="pageBlockSectionItem12">
                 	<apex:outputLabel value="{!$ObjectType.WeeklyReport__c.Fields.DisplayOrder__c.Label}" for="DisplayOrder" />
                     <apex:inputField value="{!WeeklyReport__c.DisplayOrder__c}" id="DisplayOrder" style="width:100%" />
-                </apex:pageBlockSectionItem>               
+                </apex:pageBlockSectionItem>
+                    </apex:outputPanel-->
             </apex:pageBlockSection>
-            <div id="buttons">
+            </apex:outputPanel>
+                <div id="buttons">
                	<apex:pageBlockButtons location="bottom">
-               		<!--apex:commandButton value="Cancel" immediate="true" onclick="closeQuickActionPopUp()"/-->
-               		<apex:commandButton value="Save" reRender="none" onclick="saveIssueDescription();" style="background-color: rgba(23,92,170,1);color: white;border: none;"/>
+               		<apex:commandButton value="{!$Label.CancelButton}" immediate="true" html-formnovalidate="formnovalidate" onclick="closeQuickActionPopUpCancel(); return false; "/>
+               		<!--apex:commandButton value="Save & New" reRender="none" onclick="saveIssueDescription1();" style="background-color: rgba(23,92,170,1);color: white;border: none;"/-->
+    				<apex:commandButton value="{!$Label.SaveButton}" reRender="none" onclick="saveIssueDescription();" style="background-color: rgba(23,92,170,1);color: white;border: none;"/>
     			</apex:pageBlockButtons> 
             </div>
         </apex:pageBlock>

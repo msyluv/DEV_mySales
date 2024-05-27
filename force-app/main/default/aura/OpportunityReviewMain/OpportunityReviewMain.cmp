@@ -10,6 +10,7 @@
   1.1   09-01-2021   seonju.jin@dkbmc.com      hasEditAccess 추가
   1.2   10-25-2023   rakshit.s@samsung.com     MySales-336
   1.3   11-05-2023   anish.jain@partner.samsung.com  MySales - 216
+  1.4   22-05-2024   vipul.k1@samsung.com  MYSALES-535
 -->
 <aura:component controller="OpportunityReviewMainController" implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
 	<lightning:overlayLibrary aura:id="overlayLib" />
@@ -41,7 +42,8 @@
 	<aura:attribute name="hasEditAccess" type="Boolean" default="false" description="Opportunity 프로필 편집 권한 유무" />
 	<aura:attribute name="isAmtDisabled" type="Boolean" default="true"/><!-- 수주예상금액 변경 가능 여부 -->
 	<aura:attribute name="isSaveDisabled" type="Boolean" default="false"/><!-- 저장버튼 사용가능 여부 -->
-  
+      <aura:attribute name="isModalOpenBOReviewConfirmation"  type="Boolean"  access="public" default="false"/>
+
 	<!-- 임시저장 알림 팝업 FLAG -->
 	<aura:attribute name="isModalOpen" type="boolean" default="false"/>
 		<!-- 1.2 changes -->
@@ -186,4 +188,21 @@
 	<aura:if isTrue="{!v.isModalOpen}">
 		<c:opportunityReviewSolPopup openModal="{!v.isModalOpen}" />
 	</aura:if>
+     <!--Added By Vipul -->
+    <aura:if isTrue="{!v.isModalOpenBOReviewConfirmation}">
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small svcAlertPopup" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+            <div class="slds-modal__container " style="width: 40%;min-width: 40%;">
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="text-align:center;padding:22px">
+                    
+                   <ui:outputRichText value="{!$Label.c.BO_Review_Confirmation_Body}"></ui:outputRichText>
+                     
+                </div>
+                <footer class="slds-modal__footer" style="text-align:right">
+                     <lightning:button label='{!$Label.c.BO_Review_Confirmation_No}' title='{!$Label.c.BO_Review_Confirmation_No}' onclick="{!c.BOConfirmationClose}" />
+                    <lightning:button variant = "brand" label='{!$Label.c.BO_Review_Confirmation_Yes}' title='{!$Label.c.BO_Review_Confirmation_Yes}' onclick="{!c.BOConfirmationYes}" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>  
 </aura:component>

@@ -110,7 +110,7 @@ global class Batch_LsDashboardController implements DataBase.stateful, DataBase.
 
         List<Service__c> targetList = Database.query(queryString);
 
-        IF_LsDashboardController.OutputHeader outHeader = IF_LsDashboardController.getDashboardDetailInfo(targetList);
+        IF_LsDashboardController.OutputHeader outHeader = IF_LsDashboardController.getDashboardDetailInfo(targetList,null);
 
         if (DEBUG_FLAG) ifExcuteLog.addLog('Service 처리 건수 : ' + outHeader.BO_SERVICE.size());
         if (DEBUG_FLAG) ifExcuteLog.addLog('Solution 처리 건수 : ' + outHeader.BO_SOLUTION.size());

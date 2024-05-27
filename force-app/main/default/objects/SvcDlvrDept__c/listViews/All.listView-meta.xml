@@ -9,5 +9,10 @@
     <columns>UPDATEDBY_USER</columns>
     <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Service__c</field>
+        <operation>equals</operation>
+        <value>security</value>
+    </filters>
     <label>All</label>
 </ListView>

@@ -9,12 +9,13 @@
 * 1.0   2020-12-17   Junghwa.Kim@dkbmc.com   Initial Version
 * 1.1   2021-05-18   seonju.jin@dkbmc.com    INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY 에러 수정(원인: Share에  SaleLead Owner가 추가되어 에러발생)
 * 1.2   2021-07-12   seonju.jin@dkbmc.com    Marketing Lead에서 Sales Lead로 변환된 경우 Marketing Lead의 Owner가 Sales Lead의 Read 권한을 갖도록 로직 추가
-* 1.3	2022-06-16   hyunhak.roh@dkbmc.com	 사업리드 Converted BO가 삭제 시 해당 사업리드 단계를 되돌리는 로직 추가
-* 1.4	2023-09-22   chae_ho.yang@samsung.com SDSA 미발송처리
+* 1.3   2022-06-16   hyunhak.roh@dkbmc.com   사업리드 Converted BO가 삭제 시 해당 사업리드 단계를 되돌리는 로직 추가
+* 1.4   2023-09-22   chae_ho.yang@samsung.com SDSA 미발송처리
 * 1.5   2024-01-24   sarthak.j1@samsung.com  Sales Lead Enhancement -> MYSALES-413 / MYSALES-413 Additional Changes
 * 1.6   2024-01-25   vikrant.ks@samsung.com  Added a new function 'OwnershipChangeTime' and commented a function 'shareSetting'.(MySales-389)
 * 1.7   2024-02-15   sarthak.j1@samsung.com  Sales Lead - Internal/External field changing -> MYSALES-448
 * 1.8   2024-04-17   sarthak.j1@samsung.com  Sales Lead Enhancement -> MYSALES-497
+* 1.9   2024-04-24   kajal.c@samsung.com  Sales Lead Owner Change -> MYSALES-518
 **/
 trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, before delete, after insert, after update) {
 
@@ -26,7 +27,7 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
     Sales_Lead_Update__c slUpdate = Sales_Lead_Update__c.getValues('UpdateLead');
     Boolean applyValidation = false;
     if(!Test.isRunningTest()){
-    	applyValidation = slUpdate.Update_Through_Account__c;
+        applyValidation = slUpdate.Update_Through_Account__c;
     }
     //End v-1.7 [MYSALES-448]
     
@@ -39,11 +40,12 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
         switch on trigger.operationType{    
             
             when BEFORE_INSERT{
-                bantCheck(Trigger.new, 'I');
-                //if(!MigSwitch) validation(Trigger.new);	//Commented out v-1.5 [MYSALES-413]
+                //bantCheck(Trigger.new, 'I'); //524
+                //if(!MigSwitch) validation(Trigger.new);   //Commented out v-1.5 [MYSALES-413]
                 //Start v-1.5 [MYSALES-413]
                 if(!MigSwitch){
                     validation(Trigger.new);
+                    //userSettingConvertInsert(Trigger.new);
                     //validation2(Trigger.new); //Commented out v-1.5 [MYSALES-413]
                     checkSalesLeadStage(Trigger.new); // Added as part of v-1.8
                 }
@@ -58,8 +60,9 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
             }
             
             when BEFORE_UPDATE{
-                bantCheck(Trigger.new, 'U');
+                //bantCheck(Trigger.new, 'U'); //524
                 if(!MigSwitch){
+                    userSettingConvert(Trigger.new, Trigger.oldMap);
                     stageSetting(Trigger.new, Trigger.oldMap);
                     validation(Trigger.new);
                 } 
@@ -80,18 +83,20 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
             when AFTER_INSERT{
                 //관련 캠페인에 변환한 sales lead 갯수 설정
                 afterInsertSL(Trigger.new);
+                updateParantLeadStatus(Trigger.new);
     
                 // Sales Lead 공유대상 추가
                 //if(!MigSwitch) shareSetting(Trigger.new);//V1.6
     
                 // 마케팅리드 -> 사업리드 변환된 경우 마케팅리드의 Status와 SalesLeadID__C 필드 업데이트
-                // updateParantLeadStatus(Trigger.new);
+                 
             }
             
             when AFTER_UPDATE{
                 //관련 캠페인에 변환한 sales lead 갯수 설정
                 afterUpdateSL(Trigger.new, Trigger.old);
-    
+                updateParantLeadStatus(Trigger.new);
+                updateParantLead(Trigger.new, Trigger.oldMap);
                 //owner변경시 knox 이메일 발송
                 sendOwnerChangeKnoxEmail(Trigger.new, Trigger.old);
     
@@ -115,7 +120,7 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
                 }
             }else{
                 //Marketing Lead 에서 넘어오지 않았는데 Marketing Lead 선택시
-                if('Marketing Lead Converted'.equals(rowSalesLead.LeadChannel__c)){	
+                if('Marketing Lead Converted'.equals(rowSalesLead.LeadChannel__c)){ 
                     rowSalesLead.addError('LeadChannel__c',System.Label.CONVERT_LAB_MSG27);
                 } 
             }
@@ -125,7 +130,7 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
     }
     
         
-    private static void bantCheck(List<Sales_Lead__c> newObjList, String type){
+    /*private static void bantCheck(List<Sales_Lead__c> newObjList, String type){
         for(Sales_Lead__c sl : newObjList){
             if(sl.LeadStage__c != 'Converted'){
                 Integer cnt = 0;
@@ -143,7 +148,7 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
                 }
             }
         }
-    }
+    }*/
     
     // Stage Setting
     // 1. Stage는 역행할 수 없음 (Stage 순서 : Cold -> Warm -> Hot -> Converted)
@@ -166,10 +171,20 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
                 if(beforeStage > afterStage){
                     sl.addError(System.Label.CONVERT_LAB_MSG21); // The Lead Stage cannot be retrograde.
                 }
-			}
+            }
         }
     }
 
+    private static void userSettingConvert(List<Sales_Lead__c> newList, Map<Id, Sales_Lead__c> oldMap){
+        for(Sales_Lead__c sl : newList){
+            if(sl.Lead__c != null){
+                if(sl.Lead__c!= oldMap.get(sl.Id).Lead__c){
+                sl.Converted_by_user_setting__c = true;
+                }  
+            }
+        }
+    }
+    
     // Cancel Close
     // 1. Sales Lead Status가 Close에서 In Process로 변경되는 경우 Close Reason(종결사유) 초기화
     private static void cancelClose(List<Sales_Lead__c> newList, Map<Id, Sales_Lead__c> oldMap){
@@ -427,28 +442,53 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
         
         if(insertList.size() > 0) insert insertList;
     }  */
+    
+    private static void updateParantLead(List<Sales_Lead__c> newObjList , Map<Id, Sales_Lead__c> oldMap){
+        Map<String, String> leadSalesLeadMap = new Map<String, String>();
+        System.debug('updateParantLead ' );
+         for(Sales_Lead__c salesLead : newObjList){
+           if(salesLead.Lead__c == null && (salesLead.Lead__c != oldMap.get(salesLead.Id).Lead__c)) leadSalesLeadMap.put(oldMap.get(salesLead.Id).Lead__c, salesLead.Id);
+       }
+   
+     List<Lead> leadList = [SELECT Id, Name, Status, SalesLeadID__c FROM Lead WHERE Id =: leadSalesLeadMap.KeySet()];
+   if(leadList.size() > 0){
+    for(Lead lead : leadList){
+    System.debug('lead.LeadStage__c entry');
+    lead.SalesLeadID__c = null;
+    lead.LeadStage__c = 'Warm';
+    //lead.Marketing_Lead_Removed__c = true;
+    //lead.Status = 'In Process';
+    }
+           update leadList;
+        }
+    }
 
     /**
     * @description 마케팅리드 -> 사업리드 변환된 경우 마케팅리드의 Status와 SalesLeadID__C 필드 업데이트
     * @author younghoon.kim@dkbmc.com | 2021-07-07
     * @param List<Sales_Lead__c> newObjList 
     **/
-    // private static void updateParantLeadStatus(List<Sales_Lead__c> newObjList){
-    //     Map<String, String> leadSalesLeadMap = new Map<String, String>();
-    // 
-    //     for(Sales_Lead__c salesLead : newObjList){
-    //         if(salesLead.Lead__c != null) leadSalesLeadMap.put(salesLead.Lead__c, salesLead.Id);
-    //     }
-    // 
-    //     List<Lead> leadList = [SELECT Id, Name, Status, SalesLeadID__c FROM Lead WHERE Id =: leadSalesLeadMap.KeySet()];
-    //     if(leadList.size() > 0){
-    //         for(Lead lead : leadList){
-    //             lead.SalesLeadID__c = leadSalesLeadMap.get(lead.Id);
-    //             lead.Status = 'Warm';
-    //         }
-    //         update leadList;
-    //     }
-    // }
+     private static void updateParantLeadStatus(List<Sales_Lead__c> newObjList){
+        Map<String, String> leadSalesLeadMap = new Map<String, String>();
+        Map<String, Boolean> leadSalesLeadNew = new Map<String, Boolean>();
+         for(Sales_Lead__c salesLead : newObjList){
+             if(salesLead.Lead__c != null) {leadSalesLeadMap.put(salesLead.Lead__c, salesLead.Id);
+                                            leadSalesLeadNew.put(salesLead.Id,salesLead.Converted_by_user_setting__c);
+                                           }
+       }
+   
+     List<Lead> leadList = [SELECT Id, Name, Status, SalesLeadID__c FROM Lead WHERE Id =: leadSalesLeadMap.KeySet()];
+   if(leadList.size() > 0){
+    for(Lead lead : leadList){
+        lead.SalesLeadID__c = leadSalesLeadMap.get(lead.Id);
+        if(leadSalesLeadNew.get(lead.SalesLeadID__c) == true){
+       lead.LeadStage__c = 'Converted';
+        }
+       //lead.Status = 'Converted';
+    }
+           update leadList;
+        }
+    }
 
     private static void sendOwnerChangeKnoxEmail(List<Sales_Lead__c> newList, List<Sales_Lead__c> oldObjList){ // Migration에서는 제외
 
@@ -495,22 +535,33 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
                 //User newUser = getUser(newOwnerId);
                 Employee__c newEmployee = Utils.getEmployeeData(newUser.FederationIdentifier);
                 Employee__c senderEmployee;
-
+                //V1.9 Start added the condition
+                if(newEmployee.Id == null || newUser.FederationIdentifier == Null || newUser.FederationIdentifier == ''){
+                    System.debug('KajalTestFederation: '+newUser.FederationIdentifier);
+                   sales.addError(System.Label.SL_OWNER_FED_NULL_CHK);
+                    System.debug('Kajal: '+newUser.FederationIdentifier);
+                }
+                //V1.9 End
                 SalesLeadBeforeOwner   = oldUser.LastName + oldUser.FirstName;
                 oldOwnerEmail          = oldEmployee.EvMailAddr__c;
                 oldOwnerEpId           = oldUser.FederationIdentifier;
                 SalesLeadAfterOwner    = newUser.LastName + newUser.FirstName;
                 newOwnerEmail          = newEmployee.EvMailAddr__c;
                 newOwnerEpId           = newUser.FederationIdentifier;
+                
+                
 
                 //QA
                 if(isSandbox){
                     systemEmail = 'chae_ho.yang@stage.samsung.com'; //'oldman.sea@stage.samsung.com';
                     systemId    = 'a091s0000035Ax2AAE';
                     LinkAddress = 'https://sdssfa--qa.lightning.force.com/lightning/r/Sales_Lead__c/'+sales.Id+'/view';
-
-                    oldOwnerEmail = oldOwnerEmail.replace('@samsung.com', '@stage.samsung.com');
-                    newOwnerEmail = newOwnerEmail.replace('@samsung.com', '@stage.samsung.com');
+                    //V1.9 Added if Condition
+                    if(oldOwnerEmail !=null){
+                        oldOwnerEmail = oldOwnerEmail.replace('@samsung.com', '@stage.samsung.com');}
+                    //V1.9 Added if Condition
+                    if(newOwnerEmail !=null){
+                        newOwnerEmail = newOwnerEmail.replace('@samsung.com', '@stage.samsung.com');}
                 }
                 //REAL
                 else{
@@ -518,7 +569,7 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
                     LinkAddress = 'https://sdssfa.lightning.force.com/lightning/r/Sales_Lead__c/'+sales.Id+'/view';
 
                     List<User> userList = [SELECT Id, Name From User WHERE Username = :systemEmail];
-		            if(userList.size() > 0)
+                    if(userList.size() > 0)
                         senderEmployee = Utils.getLoginEmployeeData(userList.get(0).Id);
                     if(senderEmployee != null) 
                         systemId = senderEmployee.Id;
@@ -736,12 +787,12 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
                         }
                         //Start v-1.7 [MYSALES-448]
                         if(accGIMap.get(sl.AccountId__c).mDomesticForeign__c == null){
-                        	sl.Internal_External__c = 'Undefined';
-                    	}
+                            sl.Internal_External__c = 'Undefined';
+                        }
                         //End v-1.7 [MYSALES-448]
                     }
                 } // Added as part of v-1.7 [MYSALES-448]
-        	}
+            }
         }
     }
     
@@ -782,13 +833,13 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
                         }
                     }
                 } // Added as part of v-1.7 [MYSALES-448] 
-        	}
+            }
         }
         
         if(slList2.size() > 0){
             for(Sales_Lead__c sl: slList2){
                 sl.Internal_External__c = 'Undefined';
-        	}
+            }
         }
     }
     
@@ -838,7 +889,7 @@ trigger SalesLeadCountTrigger on Sales_Lead__c (before insert, before update, be
             } 
         }  
         if(SalesLeadIdSet.size()>0){
-        	List<Sales_Lead_Team__c> sltList = [SELECT Id, OwnerId, AccessLevel__c, SalesLead_TeamMember__c, Sales_Lead__c, Team_Role__c FROM Sales_Lead_Team__c where Sales_Lead__c IN :SalesLeadIdSet];
+            List<Sales_Lead_Team__c> sltList = [SELECT Id, OwnerId, AccessLevel__c, SalesLead_TeamMember__c, Sales_Lead__c, Team_Role__c FROM Sales_Lead_Team__c where Sales_Lead__c IN :SalesLeadIdSet];
             List<Sales_Lead__Share> slsList = [Select Id,UserOrGroupId,ParentId,AccessLevel from Sales_Lead__Share where ParentId IN :SalesLeadIdSet and RowCause = 'Manual'];
             if(sltList.size()>0) Delete sltList;
             if(slsList.size()>0) Delete slsList;

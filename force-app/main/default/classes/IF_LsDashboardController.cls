@@ -2,8 +2,8 @@
 * @description       : 사업기회 현황 중, 대시보드로 서비스/솔루션 정보 송신
 * @author            : ghkil@partner.samsung.com
 * @group             : 
-* @last modified on  : 2023-20-04
-* @last modified by  : saurav.k@partner.samsun.com 
+* @last modified on  : 2024-21-05
+* @last modified by  : akash.g@samsung.com
 * Modifications Log 
 * Ver   Date         Author                            Modification
 * 1.0   2021-01-27   ghkil@partner.samsung.com         Initial Version
@@ -16,6 +16,8 @@
 * 1.7   2021-08-06   seonju.jin@dkbmc.com              solutionAmt 수정(수주품의 전까지 솔루션금액=사업기회금액/솔루션갯수 , 수주품의 후에는 솔루션금액 그대로 전송)
 * 1.8   2021-09-01   seonju.jin@dkbmc.com              ZZTECH_YN 추가
 * 2.0   2023-20-04   saurav.k@partner.samsung.com       (MySales -171) -IF-042(Send Service/Solution Info to Legacy) modification
+* 2.1   2024-21-05   akash.g@samsung.com       MYSALES-532
+
 **/
 public class IF_LsDashboardController {
     
@@ -62,7 +64,6 @@ public class IF_LsDashboardController {
     
     @Future(callout=true)
     public static void calloutDashboardInfo(Set<Id> OpptyIdSet){        
-        
         Map<String, Object> result = new Map<String, Object>();
         
         String reqMsg = '';
@@ -75,13 +76,13 @@ public class IF_LsDashboardController {
         queryString += ' ORDER BY Opportunity__c';
         
         List<Service__c> scopeList = Database.query(queryString);
-        
+        system.debug('akash5'+ scopeList.size());
         if (DEBUG_FLAG) ifLog.addLog('처리 대상 : ' + scopeList.size());
         
         // *************************************
         // Dashboard 상세정보 정보 가져오기
         // *************************************
-        OutputHeader outHeader = getDashboardDetailInfo(scopeList);
+        OutputHeader outHeader = getDashboardDetailInfo(scopeList,OpptyIdSet);
         
         // *************************************
         // Interface 통신
@@ -130,7 +131,7 @@ public class IF_LsDashboardController {
         }
     }
     
-    public static OutputHeader getDashboardDetailInfo(List<Service__c> scopeList) {
+    public static OutputHeader getDashboardDetailInfo(List<Service__c> scopeList,Set<Id>OpptyIdSet) {
         
         // *************************************
         // Dashboard 상세정보 정보 가져오기
@@ -331,7 +332,29 @@ public class IF_LsDashboardController {
         
         // Service 정보
         List<OUTPUT_BO_SERVICE> outBoServiceList = new List<OUTPUT_BO_SERVICE>();
-        
+        if((scopeList.size() == 0) && OpptyIdSet != null){ // Start Added By Akash v.2.1 
+            List<Opportunity> oppList = [SELECT Id,OpportunityCode__c,CompanyCode__c,Name,EPCompanyCode__c FROM Opportunity WHERE Id IN:OpptyIdSet];
+            For(Opportunity opp : oppList){
+                OUTPUT_BO_SERVICE outBoService = new OUTPUT_BO_SERVICE();  
+                outBoService.ZZORDER_ID         = opp.OpportunityCode__c;
+                outBoService.ZZBUKRS_H          = opp.CompanyCode__c; 
+                outBoService.GUID               = opp.Id;  
+                outBoService.DESCRIPTION        = opp.Name; 
+                outBoService.COMPANY            = opp.EPCompanyCode__c;
+                outBoService.NUMBERINT          = '0';  
+                outBoService.AERDAT             = Util_String.convertDateString(System.today(), 'Asia/Seoul');
+                outBoService.ZZTECH_YN  = '';
+                outBoService.ZZSERVICE_CLASS  = '';
+                outBoService.ZZSALES_CELL_NAM  = '';
+                outBoService.ZZSALES_CELL_L  = '';
+                outBoService.ZZDEVELOP_CELL_N  = '';
+                outBoService.ZZDEVELOP_CELL_L  = '';
+                outBoService.KSCHL_SER = '';
+                outBoServiceList.add(outBoService);
+            }
+            
+        }
+        else{ // End Added By Akash v.2.1
         for (Service__c serviceData : scopeList) {
             
             OUTPUT_BO_SERVICE outBoService = new OUTPUT_BO_SERVICE();
@@ -375,266 +398,293 @@ public class IF_LsDashboardController {
             
             outBoServiceList.add(outBoService);
         }
-        
+        }
         // Solution 정보
         List<OUTPUT_BO_SOLUTION> outBoSolutionList = new List<OUTPUT_BO_SOLUTION>();
         Set<String> uniqueKey = New Set<String>(); //V2.0 - MySales 171
-        for(Solution__c solutionData : solutionList){
-            
-            String comboKey = String.valueOf(solutionData.Service__r.Opportunity__r.Id) + String.valueOf(Integer.valueOf(solutionData.Service__r.ItemNumber__c)) + String.valueOf(solutionData.Solution__r.Code__c); // V2.0-MySales-171
-            if(uniqueKey.isEmpty()){ //V2.0 - MySales 171
-                
-                uniqueKey.add(comboKey); //V2.0 - MySales 171
-                
-                OUTPUT_BO_SOLUTION outBoSolution = new OUTPUT_BO_SOLUTION();
-                
-                // Department__c wbsSolutionOwnerdepartment = departmentMap.get(wbsSolutionOwnerMap.get(solutionData.Service__r.Opportunity__r.Id + 
-                //                                                                                         String.valueOf(Integer.valueOf(solutionData.Service__r.ItemNumber__c)).leftPad(10, '0') + 
-                //                                                                                         solutionData.Service__r.Service__r.Code__c +
-                //                                                                                         solutionData.Solution__r.Code__c
-                //                                                                                     ));
-                
-                // CostCenter__c wbsSolutionOwnerCostCenter = costMap.get(wbsSolutionOwnerMap.get(solutionData.Service__r.Opportunity__r.Id + 
-                //                                                                                         String.valueOf(Integer.valueOf(solutionData.Service__r.ItemNumber__c))/* .leftPad(10, '0') */ + 
-                //                                                                                         solutionData.Service__r.Service__r.Code__c +
-                //                                                                                         solutionData.Solution__r.Code__c
-                //                                                                                     ));
-                CostCenter__c wbsSolutionOwnerCostCenter = (solutionData.SendSAP__c ) ? costMap.get(wbsSolutionOwnerMap.get(solutionData.WBSCode__c)) : null;
-                
-                outBoSolution.GUID              = solutionData.Service__r.Opportunity__r.Id;                                                 // 사업기회ID
-                outBoSolution.ZZORDER_ID        = solutionData.Service__r.Opportunity__r.OpportunityCode__c;                                 // 사업기회Code
-                outBoSolution.DESCRIPTION       = solutionData.Service__r.Opportunity__r.Name;                                               // 사업기회명
-                outBoSolution.NUMBERINT         = String.valueOf(Integer.valueOf(solutionData.Service__r.ItemNumber__c));                    // Item Number
-                outBoSolution.ZZSERVICE_CLASS   = solutionData.Service__r.Service__r.Code__c; //2.0(MySales -171)(IF)                                               // 서비스코드
-                outBoSolution.ZZSALES_CELL_NAM  = solutionData.Service__r.SalesDepartment__r.CostCenter__c; //2.0(MySales -171)(IF)                                // 수주부서 코스트센터(수주부서SAP코드)
-                outBoSolution.ZZDEVELOP_CELL_N  = solutionData.Service__r.DeliveryDepartment__r.CostCenter__c;//2.0(MySales -171)(IF)
-                
-                // 개발부서 코스트센터(매출부서SAP코드)
-                // String ZzSalesCellL = null;
-                // if (departmentMap.get(solutionData.Service__r.SalesDepartment__r.CostCenter__c) != null) {
-                //     ZzSalesCellL = departmentMap.get(solutionData.Service__r.SalesDepartment__r.CostCenter__c).Abtel__c;
-                // }
-                // outBoSolution.ZZSALES_CELL_L    = ZzSalesCellL;                                                                              // 수주부서 부서코드
-                // String ZzDevelopCellL = null;
-                // if (departmentMap.get(solutionData.Service__r.DeliveryDepartment__r.CostCenter__c) != null) {
-                //     ZzDevelopCellL = departmentMap.get(solutionData.Service__r.DeliveryDepartment__r.CostCenter__c).Abtel__c;
-                // }
-                // outBoSolution.ZZDEVELOP_CELL_L  = ZzDevelopCellL; 
-                // 매출부서 부서코드
-                String ZzSalesCellL = null;
-                if (costMap.get(solutionData.Service__r.SalesDepartment__r.CostCenter__c) != null) {//2.0(MySales -171)
-                    ZzSalesCellL = costMap.get(solutionData.Service__r.SalesDepartment__r.CostCenter__c).L_ORGEH__c;//2.0(MySales -171)
-                }
-                outBoSolution.ZZSALES_CELL_L    = ZzSalesCellL;                                                                              // 수주부서 부서코드
-                String ZzDevelopCellL = null;
-                if (costMap.get(solutionData.Service__r.DeliveryDepartment__r.CostCenter__c) != null) {//2.0(MySales -171)
-                    ZzDevelopCellL = costMap.get(solutionData.Service__r.DeliveryDepartment__r.CostCenter__c).L_ORGEH__c;//2.0(MySales -171)
-                }
-                outBoSolution.ZZDEVELOP_CELL_L  = ZzDevelopCellL;                                                                            // 매출부서 부서코드
-                outBoSolution.ZZSOLUTION        = solutionData.Solution__r.Code__c;   //2.0(MySales -171)(IF)                                                       // 솔루션 코드
-                outBoSolution.KSCHL_SOL         = solutionData.Solution__r.Name;     //2.0(MySales -171)(IF)                                                        // 솔루션
-                // String kostl = null;    // 코스트센터코드
-                // String ektext = null;   // 일반이름(E)
-                // String abtel = null;    // 부서
-                // if (wbsSolutionOwnerdepartment != null) {
-                //     kostl   = wbsSolutionOwnerdepartment.Kostl__c;
-                //     ektext  = wbsSolutionOwnerdepartment.EKText__c;
-                //     abtel   = wbsSolutionOwnerdepartment.Abtel__c;
-                // }
-                
-                String kostl = null;    // 코스트센터코드
-                String abtel = null;    // 부서
-                if (wbsSolutionOwnerCostCenter != null) {
-                    kostl   = wbsSolutionOwnerCostCenter.CostCenter__c;
-                    abtel   = wbsSolutionOwnerCostCenter.L_ORGEH__c;
-                }
-                outBoSolution.SOLUTION_OWNER   = kostl;                                                                                    // (손익기준)코스트센터 코드
-                outBoSolution.SOLUTION_OWNER_L = abtel;                                                                                    // (손익기준)부서
-                Decimal calculationResult = 0;
-                String CompanyCurrencyIsoCode = null;
-                if (companyMap.get(solutionData.Service__r.Opportunity__r.CompanyCode__c) != null) {
-                    CompanyCurrencyIsoCode = companyMap.get(solutionData.Service__r.Opportunity__r.CompanyCode__c).CurrencyIsoCode;
-                }
-                // Solution의 Amount가 없으면 해당 Opportuniy의 Amount를 Opportuniy의 Solution 갯수로 1/N 처리
-                // if (solutionData.Amount__c == null || solutionData.Amount__c == 0) {
-                //     if (solutionData.Service__r.Opportunity__r.Amount == null || solutionData.Service__r.Opportunity__r.Amount == 0) {
-                //         calculationSolutionAmt = 0;
-                //     } else {
-                //         if (solutionAmountNullMap.get(solutionData.Service__r.Opportunity__r.Id) != null) {
-                //             calculationSolutionAmt = solutionData.Service__r.Opportunity__r.Amount / solutionAmountNullMap.get(solutionData.Service__r.Opportunity__r.Id);
-                //         } else {
-                //             calculationSolutionAmt = 0;
-                //         }
-                //     }
-                // } else {
-                //     calculationSolutionAmt = solutionData.Amount__c;
-                // }
-                // 2021.08.06 seonju.jin | 수주품의 전까지 솔루션금액=사업기회금액/솔루션갯수 , 수주품의 후에는 솔루션금액 그대로 전송
-                Decimal calculationSolutionAmt = 0;
-                if(opptyCmplApprSet.contains(solutionData.Service__r.Opportunity__r.Id)){
-                    calculationSolutionAmt = (solutionData.Amount__c == null) ? 0 : solutionData.Amount__c;
-                }else{
-                    if (solutionData.Service__r.Opportunity__r.Amount == null || solutionData.Service__r.Opportunity__r.Amount == 0) {
-                        calculationSolutionAmt = 0;
-                    } else {
-                        if (solutionAmountNullMap.get(solutionData.Service__r.Opportunity__r.Id) != null) {
-                            calculationSolutionAmt = solutionData.Service__r.Opportunity__r.Amount / solutionAmountNullMap.get(solutionData.Service__r.Opportunity__r.Id);
-                        } else {
-                            calculationSolutionAmt = 0;
-                        }
-                    }
-                }
-                outBoSolution.solutionAmt       = calculationSolutionAmt.setScale(2, System.RoundingMode.HALF_UP).toPlainString();         // 솔루션 금액
-                outBoSolution.currency_SFDC     = solutionData.Service__r.Opportunity__r.CurrencyIsoCode;                                  // 통화                
-                // Solution Local 통화로 환산 (2021-03-18 개선, 분기별 환율 적용)
-                if (conversionRateMap.get(solutionData.Service__r.Opportunity__r.CurrencyIsoCode) != null && conversionRateMap.get(CompanyCurrencyIsoCode) != null) {
-                    if (conversionRateMap.get(solutionData.Service__r.Opportunity__r.CurrencyIsoCode) == conversionRateMap.get(CompanyCurrencyIsoCode)) {
-                        calculationResult = calculationSolutionAmt;                             // 솔루션 Local 금액 (Solution__c의 Amount 기준/없는 경우 1/N 계산된 값으로 계산, 2021-01-29 변경)
-                    } else {
-                        
-                        String fromIsoCode = solutionData.Service__r.Opportunity__r.CurrencyIsoCode;
-                        String toIsocode = CompanyCurrencyIsoCode;
-                        Date startDate = quarterDateMap.get(solutionData.Service__r.Opportunity__r.CloseDate);
-                        Decimal fromUsdRate = 0;
-                        Decimal toUsdRate = 0;
-                        
-                        if (conversionPastRateMap.get(fromIsoCode + startDate) != null) {
-                            fromUsdRate = conversionPastRateMap.get(fromIsoCode + startDate).ConversionRate;
-                        } else {
-                            fromUsdRate = conversionRateMap.get(fromIsoCode).ConversionRate;
-                        }
-                        
-                        if (conversionPastRateMap.get(toIsoCode + startDate) != null) {
-                            toUsdRate = conversionPastRateMap.get(toIsoCode + startDate).ConversionRate;
-                        } else {
-                            toUsdRate = conversionRateMap.get(toIsoCode).ConversionRate;
-                        }
-                        
-                        calculationResult = IF_Util.calculationCurrency(    fromIsoCode
-                                                                        , calculationSolutionAmt
-                                                                        , toIsoCode
-                                                                        , fromUsdRate
-                                                                        , toUsdRate
-                                                                       );  // 솔루션 Local 금액 (Solution__c의 Amount 기준/없는 경우 1/N 계산된 값으로 계산, 2021-01-29 변경)
-                    }
-                }
-                if (calculationResult != null) {
-                    outBoSolution.solutionAmtLocal  = calculationResult.setScale(2, System.RoundingMode.HALF_UP).toPlainString();           // 솔루션 Local 금액              
-                } else {
-                    outBoSolution.solutionAmtLocal  = '0.00';
-                }
-                outBoSolution.currencyLocal     = CompanyCurrencyIsoCode;                                                                   // Local 통화
-                outBoSolution.ZZBUKRS_H         = solutionData.Service__r.Opportunity__r.CompanyCode__c;                                    // BO 회사코드 SAP코드
-                outBoSolution.COMPANY           = solutionData.Service__r.Opportunity__r.EPCompanyCode__c;                                  // BO 회사코드 인사코드 [12.01 필드 삭제]                    
-                outBoSolution.AERDAT            = Util_String.convertDateString(solutionData.LastModifiedDate, 'Asia/Seoul');                             // 솔루션 업데이트 일자
-                
-                outBoSolutionList.add(outBoSolution);
+        if((solutionList.size() == 0) && OpptyIdSet != null){ // Start Added By Akash v.2.1
+         List<Opportunity> oppList = [SELECT Id,OpportunityCode__c,CompanyCode__c,Name,EPCompanyCode__c FROM Opportunity WHERE Id IN:OpptyIdSet];    
+            For(Opportunity opp : oppList){
+             OUTPUT_BO_SOLUTION outBoSolution = new OUTPUT_BO_SOLUTION(); 
+                outBoSolution.ZZORDER_ID         = opp.OpportunityCode__c;
+                outBoSolution.GUID              = opp.Id; 
+                outBoSolution.DESCRIPTION       = opp.Name;                                               
+                outBoSolution.NUMBERINT         = '0';                    
+                outBoSolution.ZZSERVICE_CLASS   = ''; 
+                outBoSolution.ZZSALES_CELL_NAM  = '';                             
+                outBoSolution.ZZDEVELOP_CELL_N  = '';
+                outBoSolution.currencyLocal     = '';                                                                   
+                outBoSolution.ZZBUKRS_H         = opp.CompanyCode__c;                                  
+                outBoSolution.COMPANY           = opp.EPCompanyCode__c;                                                
+                outBoSolution.AERDAT            = Util_String.convertDateString(system.today(), 'Asia/Seoul'); 
+                outBoSolution.ZZSALES_CELL_L = '';
+                outBoSolution.ZZDEVELOP_CELL_L = '';
+                outBoSolution.solutionAmtLocal = '';
+                outBoSolution.solutionAmt = '';
+                outBoSolution.SOLUTION_OWNER_L = '';
+                outBoSolution.SOLUTION_OWNER = '';
+                outBoSolution.KSCHL_SOL = '';
+                outBoSolution.currency_SFDC = '';
+             outBoSolutionList.add(outBoSolution);
             }
-            //Start- V2.0 - MySales 171
-            if(!uniqueKey.isEmpty() && !uniqueKey.contains(comboKey)){
-                uniqueKey.add(comboKey);
-                OUTPUT_BO_SOLUTION outBoSolution = new OUTPUT_BO_SOLUTION();
-                
-                CostCenter__c wbsSolutionOwnerCostCenter = (solutionData.SendSAP__c ) ? costMap.get(wbsSolutionOwnerMap.get(solutionData.WBSCode__c)) : null;
-                
-                outBoSolution.GUID              = solutionData.Service__r.Opportunity__r.Id;                                                 // 사업기회ID
-                outBoSolution.ZZORDER_ID        = solutionData.Service__r.Opportunity__r.OpportunityCode__c;                                 // 사업기회Code
-                outBoSolution.DESCRIPTION       = solutionData.Service__r.Opportunity__r.Name;                                               // 사업기회명
-                outBoSolution.NUMBERINT         = String.valueOf(Integer.valueOf(solutionData.Service__r.ItemNumber__c));                    // Item Number
-                outBoSolution.ZZSERVICE_CLASS   = solutionData.Service__r.Service__r.Code__c;//2.0(MySales -171)(IF)                                                // 서비스코드
-                outBoSolution.ZZSALES_CELL_NAM  = solutionData.Service__r.SalesDepartment__r.CostCenter__c;   //2.0(MySales -171) (IF)                               // 수주부서 코스트센터(수주부서SAP코드)
-                outBoSolution.ZZDEVELOP_CELL_N  = solutionData.Service__r.DeliveryDepartment__r.CostCenter__c;    //2.0(MySales -171)(IF)                            // 개발부서 코스트센터(매출부서SAP코드)
-                
-                String ZzSalesCellL = null;
-                if (costMap.get(solutionData.Service__r.SalesDepartment__r.CostCenter__c) != null) {//2.0(MySales -171)
-                    ZzSalesCellL = costMap.get(solutionData.Service__r.SalesDepartment__r.CostCenter__c).L_ORGEH__c;//2.0(MySales -171)
-                }
-                outBoSolution.ZZSALES_CELL_L    = ZzSalesCellL;                                                                              // 수주부서 부서코드
-                String ZzDevelopCellL = null;
-                if (costMap.get(solutionData.Service__r.DeliveryDepartment__r.CostCenter__c) != null) {//2.0(MySales -171)
-                    ZzDevelopCellL = costMap.get(solutionData.Service__r.DeliveryDepartment__r.CostCenter__c).L_ORGEH__c;//2.0(MySales -171)
-                }
-                outBoSolution.ZZDEVELOP_CELL_L  = ZzDevelopCellL;                                                                            // 매출부서 부서코드
-                outBoSolution.ZZSOLUTION        = solutionData.Solution__r.Code__c; //2.0(MySales -171) (IF)                                                         // 솔루션 코드
-                outBoSolution.KSCHL_SOL         = solutionData.Solution__r.Name;  //2.0(MySales -171)  (IF)                                                          // 솔루션
-                
-                String kostl = null;    // 코스트센터코드
-                String abtel = null;    // 부서
-                if (wbsSolutionOwnerCostCenter != null) {
-                    kostl   = wbsSolutionOwnerCostCenter.CostCenter__c;
-                    abtel   = wbsSolutionOwnerCostCenter.L_ORGEH__c;
-                }
-                outBoSolution.SOLUTION_OWNER   = kostl;                                                                                    // (손익기준)코스트센터 코드
-                outBoSolution.SOLUTION_OWNER_L = abtel;                                                                                    // (손익기준)부서
-                Decimal calculationResult = 0;
-                String CompanyCurrencyIsoCode = null;
-                if (companyMap.get(solutionData.Service__r.Opportunity__r.CompanyCode__c) != null) {
-                    CompanyCurrencyIsoCode = companyMap.get(solutionData.Service__r.Opportunity__r.CompanyCode__c).CurrencyIsoCode;
-                }
-                
-                Decimal calculationSolutionAmt = 0;
-                if(opptyCmplApprSet.contains(solutionData.Service__r.Opportunity__r.Id)){
-                    calculationSolutionAmt = (solutionData.Amount__c == null) ? 0 : solutionData.Amount__c;
-                }else{
-                    if (solutionData.Service__r.Opportunity__r.Amount == null || solutionData.Service__r.Opportunity__r.Amount == 0) {
-                        calculationSolutionAmt = 0;
-                    } else {
-                        if (solutionAmountNullMap.get(solutionData.Service__r.Opportunity__r.Id) != null) {
-                            calculationSolutionAmt = solutionData.Service__r.Opportunity__r.Amount / solutionAmountNullMap.get(solutionData.Service__r.Opportunity__r.Id);
-                        } else {
-                            calculationSolutionAmt = 0;
-                        }
-                    }
-                }
-                outBoSolution.solutionAmt       = calculationSolutionAmt.setScale(2, System.RoundingMode.HALF_UP).toPlainString();         // 솔루션 금액
-                outBoSolution.currency_SFDC     = solutionData.Service__r.Opportunity__r.CurrencyIsoCode;                                  // 통화                
-                
-                if (conversionRateMap.get(solutionData.Service__r.Opportunity__r.CurrencyIsoCode) != null && conversionRateMap.get(CompanyCurrencyIsoCode) != null) {
-                    if (conversionRateMap.get(solutionData.Service__r.Opportunity__r.CurrencyIsoCode) == conversionRateMap.get(CompanyCurrencyIsoCode)) {
-                        calculationResult = calculationSolutionAmt;                             
-                    } else {
-                        
-                        String fromIsoCode = solutionData.Service__r.Opportunity__r.CurrencyIsoCode;
-                        String toIsocode = CompanyCurrencyIsoCode;
-                        Date startDate = quarterDateMap.get(solutionData.Service__r.Opportunity__r.CloseDate);
-                        Decimal fromUsdRate = 0;
-                        Decimal toUsdRate = 0;
-                        
-                        if (conversionPastRateMap.get(fromIsoCode + startDate) != null) {
-                            fromUsdRate = conversionPastRateMap.get(fromIsoCode + startDate).ConversionRate;
-                        } else {
-                            fromUsdRate = conversionRateMap.get(fromIsoCode).ConversionRate;
-                        }
-                        
-                        if (conversionPastRateMap.get(toIsoCode + startDate) != null) {
-                            toUsdRate = conversionPastRateMap.get(toIsoCode + startDate).ConversionRate;
-                        } else {
-                            toUsdRate = conversionRateMap.get(toIsoCode).ConversionRate;
-                        }
-                        
-                        calculationResult = IF_Util.calculationCurrency(    fromIsoCode
-                                                                        , calculationSolutionAmt
-                                                                        , toIsoCode
-                                                                        , fromUsdRate
-                                                                        , toUsdRate
-                                                                       );  // 솔루션 Local 금액 (Solution__c의 Amount 기준/없는 경우 1/N 계산된 값으로 계산, 2021-01-29 변경)
-                    }
-                }
-                if (calculationResult != null) {
-                    outBoSolution.solutionAmtLocal  = calculationResult.setScale(2, System.RoundingMode.HALF_UP).toPlainString();           // 솔루션 Local 금액              
-                } else {
-                    outBoSolution.solutionAmtLocal  = '0.00';
-                }
-                outBoSolution.currencyLocal     = CompanyCurrencyIsoCode;                                                                   // Local 통화
-                outBoSolution.ZZBUKRS_H         = solutionData.Service__r.Opportunity__r.CompanyCode__c;                                    // BO 회사코드 SAP코드
-                outBoSolution.COMPANY           = solutionData.Service__r.Opportunity__r.EPCompanyCode__c;                                  // BO 회사코드 인사코드 [12.01 필드 삭제]                    
-                outBoSolution.AERDAT            = Util_String.convertDateString(solutionData.LastModifiedDate, 'Asia/Seoul');                             // 솔루션 업데이트 일자
-                
-                outBoSolutionList.add(outBoSolution);   
-            }
-            //End- V2.0 - MySales 171
         }
-        
+        else{// End Added By Akash v.2.1
+            for(Solution__c solutionData : solutionList){
+                
+                String comboKey = String.valueOf(solutionData.Service__r.Opportunity__r.Id) + String.valueOf(Integer.valueOf(solutionData.Service__r.ItemNumber__c)) + String.valueOf(solutionData.Solution__r.Code__c); // V2.0-MySales-171
+                if(uniqueKey.isEmpty()){ //V2.0 - MySales 171
+                    
+                    uniqueKey.add(comboKey); //V2.0 - MySales 171
+                    
+                    OUTPUT_BO_SOLUTION outBoSolution = new OUTPUT_BO_SOLUTION();
+                    
+                    // Department__c wbsSolutionOwnerdepartment = departmentMap.get(wbsSolutionOwnerMap.get(solutionData.Service__r.Opportunity__r.Id + 
+                    //                                                                                         String.valueOf(Integer.valueOf(solutionData.Service__r.ItemNumber__c)).leftPad(10, '0') + 
+                    //                                                                                         solutionData.Service__r.Service__r.Code__c +
+                    //                                                                                         solutionData.Solution__r.Code__c
+                    //                                                                                     ));
+                    
+                    // CostCenter__c wbsSolutionOwnerCostCenter = costMap.get(wbsSolutionOwnerMap.get(solutionData.Service__r.Opportunity__r.Id + 
+                    //                                                                                         String.valueOf(Integer.valueOf(solutionData.Service__r.ItemNumber__c))/* .leftPad(10, '0') */ + 
+                    //                                                                                         solutionData.Service__r.Service__r.Code__c +
+                    //                                                                                         solutionData.Solution__r.Code__c
+                    //                                                                                     ));
+                    CostCenter__c wbsSolutionOwnerCostCenter = (solutionData.SendSAP__c ) ? costMap.get(wbsSolutionOwnerMap.get(solutionData.WBSCode__c)) : null;
+                    
+                    outBoSolution.GUID              = solutionData.Service__r.Opportunity__r.Id;                                                 // 사업기회ID
+                    outBoSolution.ZZORDER_ID        = solutionData.Service__r.Opportunity__r.OpportunityCode__c;                                 // 사업기회Code
+                    outBoSolution.DESCRIPTION       = solutionData.Service__r.Opportunity__r.Name;                                               // 사업기회명
+                    outBoSolution.NUMBERINT         = String.valueOf(Integer.valueOf(solutionData.Service__r.ItemNumber__c));                    // Item Number
+                    outBoSolution.ZZSERVICE_CLASS   = solutionData.Service__r.Service__r.Code__c; //2.0(MySales -171)(IF)                                               // 서비스코드
+                    outBoSolution.ZZSALES_CELL_NAM  = solutionData.Service__r.SalesDepartment__r.CostCenter__c; //2.0(MySales -171)(IF)                                // 수주부서 코스트센터(수주부서SAP코드)
+                    outBoSolution.ZZDEVELOP_CELL_N  = solutionData.Service__r.DeliveryDepartment__r.CostCenter__c;//2.0(MySales -171)(IF)
+                    
+                    // 개발부서 코스트센터(매출부서SAP코드)
+                    // String ZzSalesCellL = null;
+                    // if (departmentMap.get(solutionData.Service__r.SalesDepartment__r.CostCenter__c) != null) {
+                    //     ZzSalesCellL = departmentMap.get(solutionData.Service__r.SalesDepartment__r.CostCenter__c).Abtel__c;
+                    // }
+                    // outBoSolution.ZZSALES_CELL_L    = ZzSalesCellL;                                                                              // 수주부서 부서코드
+                    // String ZzDevelopCellL = null;
+                    // if (departmentMap.get(solutionData.Service__r.DeliveryDepartment__r.CostCenter__c) != null) {
+                    //     ZzDevelopCellL = departmentMap.get(solutionData.Service__r.DeliveryDepartment__r.CostCenter__c).Abtel__c;
+                    // }
+                    // outBoSolution.ZZDEVELOP_CELL_L  = ZzDevelopCellL; 
+                    // 매출부서 부서코드
+                    String ZzSalesCellL = null;
+                    if (costMap.get(solutionData.Service__r.SalesDepartment__r.CostCenter__c) != null) {//2.0(MySales -171)
+                        ZzSalesCellL = costMap.get(solutionData.Service__r.SalesDepartment__r.CostCenter__c).L_ORGEH__c;//2.0(MySales -171)
+                    }
+                    outBoSolution.ZZSALES_CELL_L    = ZzSalesCellL;                                                                              // 수주부서 부서코드
+                    String ZzDevelopCellL = null;
+                    if (costMap.get(solutionData.Service__r.DeliveryDepartment__r.CostCenter__c) != null) {//2.0(MySales -171)
+                        ZzDevelopCellL = costMap.get(solutionData.Service__r.DeliveryDepartment__r.CostCenter__c).L_ORGEH__c;//2.0(MySales -171)
+                    }
+                    outBoSolution.ZZDEVELOP_CELL_L  = ZzDevelopCellL;                                                                            // 매출부서 부서코드
+                    outBoSolution.ZZSOLUTION        = solutionData.Solution__r.Code__c;   //2.0(MySales -171)(IF)                                                       // 솔루션 코드
+                    outBoSolution.KSCHL_SOL         = solutionData.Solution__r.Name;     //2.0(MySales -171)(IF)                                                        // 솔루션
+                    // String kostl = null;    // 코스트센터코드
+                    // String ektext = null;   // 일반이름(E)
+                    // String abtel = null;    // 부서
+                    // if (wbsSolutionOwnerdepartment != null) {
+                    //     kostl   = wbsSolutionOwnerdepartment.Kostl__c;
+                    //     ektext  = wbsSolutionOwnerdepartment.EKText__c;
+                    //     abtel   = wbsSolutionOwnerdepartment.Abtel__c;
+                    // }
+                    
+                    String kostl = null;    // 코스트센터코드
+                    String abtel = null;    // 부서
+                    if (wbsSolutionOwnerCostCenter != null) {
+                        kostl   = wbsSolutionOwnerCostCenter.CostCenter__c;
+                        abtel   = wbsSolutionOwnerCostCenter.L_ORGEH__c;
+                    }
+                    outBoSolution.SOLUTION_OWNER   = kostl;                                                                                    // (손익기준)코스트센터 코드
+                    outBoSolution.SOLUTION_OWNER_L = abtel;                                                                                    // (손익기준)부서
+                    Decimal calculationResult = 0;
+                    String CompanyCurrencyIsoCode = null;
+                    if (companyMap.get(solutionData.Service__r.Opportunity__r.CompanyCode__c) != null) {
+                        CompanyCurrencyIsoCode = companyMap.get(solutionData.Service__r.Opportunity__r.CompanyCode__c).CurrencyIsoCode;
+                    }
+                    // Solution의 Amount가 없으면 해당 Opportuniy의 Amount를 Opportuniy의 Solution 갯수로 1/N 처리
+                    // if (solutionData.Amount__c == null || solutionData.Amount__c == 0) {
+                    //     if (solutionData.Service__r.Opportunity__r.Amount == null || solutionData.Service__r.Opportunity__r.Amount == 0) {
+                    //         calculationSolutionAmt = 0;
+                    //     } else {
+                    //         if (solutionAmountNullMap.get(solutionData.Service__r.Opportunity__r.Id) != null) {
+                    //             calculationSolutionAmt = solutionData.Service__r.Opportunity__r.Amount / solutionAmountNullMap.get(solutionData.Service__r.Opportunity__r.Id);
+                    //         } else {
+                    //             calculationSolutionAmt = 0;
+                    //         }
+                    //     }
+                    // } else {
+                    //     calculationSolutionAmt = solutionData.Amount__c;
+                    // }
+                    // 2021.08.06 seonju.jin | 수주품의 전까지 솔루션금액=사업기회금액/솔루션갯수 , 수주품의 후에는 솔루션금액 그대로 전송
+                    Decimal calculationSolutionAmt = 0;
+                    if(opptyCmplApprSet.contains(solutionData.Service__r.Opportunity__r.Id)){
+                        calculationSolutionAmt = (solutionData.Amount__c == null) ? 0 : solutionData.Amount__c;
+                    }else{
+                        if (solutionData.Service__r.Opportunity__r.Amount == null || solutionData.Service__r.Opportunity__r.Amount == 0) {
+                            calculationSolutionAmt = 0;
+                        } else {
+                            if (solutionAmountNullMap.get(solutionData.Service__r.Opportunity__r.Id) != null) {
+                                calculationSolutionAmt = solutionData.Service__r.Opportunity__r.Amount / solutionAmountNullMap.get(solutionData.Service__r.Opportunity__r.Id);
+                            } else {
+                                calculationSolutionAmt = 0;
+                            }
+                        }
+                    }
+                    outBoSolution.solutionAmt       = calculationSolutionAmt.setScale(2, System.RoundingMode.HALF_UP).toPlainString();         // 솔루션 금액
+                    outBoSolution.currency_SFDC     = solutionData.Service__r.Opportunity__r.CurrencyIsoCode;                                  // 통화                
+                    // Solution Local 통화로 환산 (2021-03-18 개선, 분기별 환율 적용)
+                    if (conversionRateMap.get(solutionData.Service__r.Opportunity__r.CurrencyIsoCode) != null && conversionRateMap.get(CompanyCurrencyIsoCode) != null) {
+                        if (conversionRateMap.get(solutionData.Service__r.Opportunity__r.CurrencyIsoCode) == conversionRateMap.get(CompanyCurrencyIsoCode)) {
+                            calculationResult = calculationSolutionAmt;                             // 솔루션 Local 금액 (Solution__c의 Amount 기준/없는 경우 1/N 계산된 값으로 계산, 2021-01-29 변경)
+                        } else {
+                            
+                            String fromIsoCode = solutionData.Service__r.Opportunity__r.CurrencyIsoCode;
+                            String toIsocode = CompanyCurrencyIsoCode;
+                            Date startDate = quarterDateMap.get(solutionData.Service__r.Opportunity__r.CloseDate);
+                            Decimal fromUsdRate = 0;
+                            Decimal toUsdRate = 0;
+                            
+                            if (conversionPastRateMap.get(fromIsoCode + startDate) != null) {
+                                fromUsdRate = conversionPastRateMap.get(fromIsoCode + startDate).ConversionRate;
+                            } else {
+                                fromUsdRate = conversionRateMap.get(fromIsoCode).ConversionRate;
+                            }
+                            
+                            if (conversionPastRateMap.get(toIsoCode + startDate) != null) {
+                                toUsdRate = conversionPastRateMap.get(toIsoCode + startDate).ConversionRate;
+                            } else {
+                                toUsdRate = conversionRateMap.get(toIsoCode).ConversionRate;
+                            }
+                            
+                            calculationResult = IF_Util.calculationCurrency(    fromIsoCode
+                                                                            , calculationSolutionAmt
+                                                                            , toIsoCode
+                                                                            , fromUsdRate
+                                                                            , toUsdRate
+                                                                           );  // 솔루션 Local 금액 (Solution__c의 Amount 기준/없는 경우 1/N 계산된 값으로 계산, 2021-01-29 변경)
+                        }
+                    }
+                    if (calculationResult != null) {
+                        outBoSolution.solutionAmtLocal  = calculationResult.setScale(2, System.RoundingMode.HALF_UP).toPlainString();           // 솔루션 Local 금액              
+                    } else {
+                        outBoSolution.solutionAmtLocal  = '0.00';
+                    }
+                    outBoSolution.currencyLocal     = CompanyCurrencyIsoCode;                                                                   // Local 통화
+                    outBoSolution.ZZBUKRS_H         = solutionData.Service__r.Opportunity__r.CompanyCode__c;                                    // BO 회사코드 SAP코드
+                    outBoSolution.COMPANY           = solutionData.Service__r.Opportunity__r.EPCompanyCode__c;                                  // BO 회사코드 인사코드 [12.01 필드 삭제]                    
+                    outBoSolution.AERDAT            = Util_String.convertDateString(solutionData.LastModifiedDate, 'Asia/Seoul');                             // 솔루션 업데이트 일자
+                    
+                    outBoSolutionList.add(outBoSolution);
+                }
+                //Start- V2.0 - MySales 171
+                if(!uniqueKey.isEmpty() && !uniqueKey.contains(comboKey)){
+                    uniqueKey.add(comboKey);
+                    OUTPUT_BO_SOLUTION outBoSolution = new OUTPUT_BO_SOLUTION();
+                    
+                    CostCenter__c wbsSolutionOwnerCostCenter = (solutionData.SendSAP__c ) ? costMap.get(wbsSolutionOwnerMap.get(solutionData.WBSCode__c)) : null;
+                    
+                    outBoSolution.GUID              = solutionData.Service__r.Opportunity__r.Id;                                                 // 사업기회ID
+                    outBoSolution.ZZORDER_ID        = solutionData.Service__r.Opportunity__r.OpportunityCode__c;                                 // 사업기회Code
+                    outBoSolution.DESCRIPTION       = solutionData.Service__r.Opportunity__r.Name;                                               // 사업기회명
+                    outBoSolution.NUMBERINT         = String.valueOf(Integer.valueOf(solutionData.Service__r.ItemNumber__c));                    // Item Number
+                    outBoSolution.ZZSERVICE_CLASS   = solutionData.Service__r.Service__r.Code__c;//2.0(MySales -171)(IF)                                                // 서비스코드
+                    outBoSolution.ZZSALES_CELL_NAM  = solutionData.Service__r.SalesDepartment__r.CostCenter__c;   //2.0(MySales -171) (IF)                               // 수주부서 코스트센터(수주부서SAP코드)
+                    outBoSolution.ZZDEVELOP_CELL_N  = solutionData.Service__r.DeliveryDepartment__r.CostCenter__c;    //2.0(MySales -171)(IF)                            // 개발부서 코스트센터(매출부서SAP코드)
+                    
+                    String ZzSalesCellL = null;
+                    if (costMap.get(solutionData.Service__r.SalesDepartment__r.CostCenter__c) != null) {//2.0(MySales -171)
+                        ZzSalesCellL = costMap.get(solutionData.Service__r.SalesDepartment__r.CostCenter__c).L_ORGEH__c;//2.0(MySales -171)
+                    }
+                    outBoSolution.ZZSALES_CELL_L    = ZzSalesCellL;                                                                              // 수주부서 부서코드
+                    String ZzDevelopCellL = null;
+                    if (costMap.get(solutionData.Service__r.DeliveryDepartment__r.CostCenter__c) != null) {//2.0(MySales -171)
+                        ZzDevelopCellL = costMap.get(solutionData.Service__r.DeliveryDepartment__r.CostCenter__c).L_ORGEH__c;//2.0(MySales -171)
+                    }
+                    outBoSolution.ZZDEVELOP_CELL_L  = ZzDevelopCellL;                                                                            // 매출부서 부서코드
+                    outBoSolution.ZZSOLUTION        = solutionData.Solution__r.Code__c; //2.0(MySales -171) (IF)                                                         // 솔루션 코드
+                    outBoSolution.KSCHL_SOL         = solutionData.Solution__r.Name;  //2.0(MySales -171)  (IF)                                                          // 솔루션
+                    
+                    String kostl = null;    // 코스트센터코드
+                    String abtel = null;    // 부서
+                    if (wbsSolutionOwnerCostCenter != null) {
+                        kostl   = wbsSolutionOwnerCostCenter.CostCenter__c;
+                        abtel   = wbsSolutionOwnerCostCenter.L_ORGEH__c;
+                    }
+                    outBoSolution.SOLUTION_OWNER   = kostl;                                                                                    // (손익기준)코스트센터 코드
+                    outBoSolution.SOLUTION_OWNER_L = abtel;                                                                                    // (손익기준)부서
+                    Decimal calculationResult = 0;
+                    String CompanyCurrencyIsoCode = null;
+                    if (companyMap.get(solutionData.Service__r.Opportunity__r.CompanyCode__c) != null) {
+                        CompanyCurrencyIsoCode = companyMap.get(solutionData.Service__r.Opportunity__r.CompanyCode__c).CurrencyIsoCode;
+                    }
+                    
+                    Decimal calculationSolutionAmt = 0;
+                    if(opptyCmplApprSet.contains(solutionData.Service__r.Opportunity__r.Id)){
+                        calculationSolutionAmt = (solutionData.Amount__c == null) ? 0 : solutionData.Amount__c;
+                    }else{
+                        if (solutionData.Service__r.Opportunity__r.Amount == null || solutionData.Service__r.Opportunity__r.Amount == 0) {
+                            calculationSolutionAmt = 0;
+                        } else {
+                            if (solutionAmountNullMap.get(solutionData.Service__r.Opportunity__r.Id) != null) {
+                                calculationSolutionAmt = solutionData.Service__r.Opportunity__r.Amount / solutionAmountNullMap.get(solutionData.Service__r.Opportunity__r.Id);
+                            } else {
+                                calculationSolutionAmt = 0;
+                            }
+                        }
+                    }
+                    outBoSolution.solutionAmt       = calculationSolutionAmt.setScale(2, System.RoundingMode.HALF_UP).toPlainString();         // 솔루션 금액
+                    outBoSolution.currency_SFDC     = solutionData.Service__r.Opportunity__r.CurrencyIsoCode;                                  // 통화                
+                    
+                    if (conversionRateMap.get(solutionData.Service__r.Opportunity__r.CurrencyIsoCode) != null && conversionRateMap.get(CompanyCurrencyIsoCode) != null) {
+                        if (conversionRateMap.get(solutionData.Service__r.Opportunity__r.CurrencyIsoCode) == conversionRateMap.get(CompanyCurrencyIsoCode)) {
+                            calculationResult = calculationSolutionAmt;                             
+                        } else {
+                            
+                            String fromIsoCode = solutionData.Service__r.Opportunity__r.CurrencyIsoCode;
+                            String toIsocode = CompanyCurrencyIsoCode;
+                            Date startDate = quarterDateMap.get(solutionData.Service__r.Opportunity__r.CloseDate);
+                            Decimal fromUsdRate = 0;
+                            Decimal toUsdRate = 0;
+                            
+                            if (conversionPastRateMap.get(fromIsoCode + startDate) != null) {
+                                fromUsdRate = conversionPastRateMap.get(fromIsoCode + startDate).ConversionRate;
+                            } else {
+                                fromUsdRate = conversionRateMap.get(fromIsoCode).ConversionRate;
+                            }
+                            
+                            if (conversionPastRateMap.get(toIsoCode + startDate) != null) {
+                                toUsdRate = conversionPastRateMap.get(toIsoCode + startDate).ConversionRate;
+                            } else {
+                                toUsdRate = conversionRateMap.get(toIsoCode).ConversionRate;
+                            }
+                            
+                            calculationResult = IF_Util.calculationCurrency(    fromIsoCode
+                                                                            , calculationSolutionAmt
+                                                                            , toIsoCode
+                                                                            , fromUsdRate
+                                                                            , toUsdRate
+                                                                           );  // 솔루션 Local 금액 (Solution__c의 Amount 기준/없는 경우 1/N 계산된 값으로 계산, 2021-01-29 변경)
+                        }
+                    }
+                    if (calculationResult != null) {
+                        outBoSolution.solutionAmtLocal  = calculationResult.setScale(2, System.RoundingMode.HALF_UP).toPlainString();           // 솔루션 Local 금액              
+                    } else {
+                        outBoSolution.solutionAmtLocal  = '0.00';
+                    }
+                    outBoSolution.currencyLocal     = CompanyCurrencyIsoCode;                                                                   // Local 통화
+                    outBoSolution.ZZBUKRS_H         = solutionData.Service__r.Opportunity__r.CompanyCode__c;                                    // BO 회사코드 SAP코드
+                    outBoSolution.COMPANY           = solutionData.Service__r.Opportunity__r.EPCompanyCode__c;                                  // BO 회사코드 인사코드 [12.01 필드 삭제]                    
+                    outBoSolution.AERDAT            = Util_String.convertDateString(solutionData.LastModifiedDate, 'Asia/Seoul');                             // 솔루션 업데이트 일자
+                    
+                    outBoSolutionList.add(outBoSolution);   
+                }
+                //End- V2.0 - MySales 171
+            }
+        }
         // Output Data 적재
         outHeader.BO_SERVICE = outBoServiceList;
         outHeader.BO_SOLUTION = outBoSolutionList;

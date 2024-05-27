@@ -2,8 +2,8 @@
  * @description       : 
  * @author            : seonju.jin@dkbmc.com
  * @group             : 
- * @last modified on  : 2022-02-10
- * @last modified by  : seonju.jin@dkbmc.com
+ * @last modified on  : 2024-04-25
+ * @last modified by  : anish.jain@partner.samsung.com
  * Modifications Log 
  * Ver   Date         Author                 Modification
  * 1.0   2020-11-17   seonju.jin@dkbmc.com   Initial Version
@@ -12,6 +12,7 @@
  * 1.3   2021-03-14	  seonju.jin@dkbmc.com	 WBS중복체크 수정(WBSClass - > (Soltuion + WBSClass)로 중복체크)
  * 1.4   2021-05-14	  seonju.jin@dkbmc.com	 Professional Service 중복 체크 제거
  * 1.5   2021-07-07	  seonju.jin@dkbmc.com	 서비스의 솔루션정보가 없을경우 신규 행 추가
+ * 1.6   2024-04-25   anish.jain@partner.samsung.com  Analysis the cause of 'Review Opportunity' issue -> [MYSALES-495]
 **/
 ({
 	REFRESH_TREEITEM:'refreshTreeItem',
@@ -199,7 +200,7 @@
                     "message" : "Service Sent Succesfully..."
                 });
                 toastEvent.fire();*/
-                	self.showToast('success','SUCCESS','Service Sent Successfully...');	//$A.get('$Label.c.COMM_SEND_SERVICE_Success')	//interface return success message
+                	self.showToast('success','SUCCESS','Service Sent Successfully...');		//interface return success message
 			
             }
         });
@@ -594,7 +595,7 @@
 		var self = this;
 		var alertMsg = '';
 		var resultMsg = '';
-
+        console.log('AJ Entry onConfirmToSAP');
 		var apexParams ={
 			opprtyId: component.get('v.recordId')
 		};
@@ -606,6 +607,8 @@
 			resultMsg = result.MSG;
 			var resultChange = result.RESULT.CHANGE_PROJECT;		//IF-050 프로젝트 변경 결과
 			var resultPjtCreate = result.RESULT.CREATE_PROJECT;		//IF-040 프로젝트 생성 결과
+            console.log('result.RESULT',result.RESULT);
+            console.log('result Ani New',result.BizType);
 
 			if(!$A.util.isEmpty(resultPjtCreate)){
 				alertMsg += resultPjtCreate.MSG + '\n';
@@ -613,6 +616,16 @@
 			if(!$A.util.isEmpty(resultChange)){
 				alertMsg += resultChange.MSG + '\n'
 			};
+           
+            if(result.BizType != 'TI'){    //v 1.6
+                console.log('Entered result New',result.BizType);
+                var appEvent = $A.get("e.c:RefreshKnoxTabsOnBizType");
+                appEvent.setParams({
+                    isImplementation: true
+                });
+               appEvent.fire(); 
+            }
+            
 			self.doInit(component);
 		}).catch(function(errors){
 			console.log(errors);

@@ -11,26 +11,26 @@
 **/
 
 ({
-	init : function(component, event, helper) {
-		console.log('OpportunityReviewMainController init Start');
-
+    init : function(component, event, helper) {
+        console.log('OpportunityReviewMainController init Start');
+        
         helper.helperinit(component, event);
-	},
-  
-	cancel : function(component, event, helper){
+    },
+    
+    cancel : function(component, event, helper){
         if (!helper.canClose(component, event)){
             return;
         }
-		component.find("overlayLib").notifyClose();
+        component.find("overlayLib").notifyClose();
     },
     
     //Added by Anish- v 1.1
     download : function(component, event, helper) {
-		var cdId = component.get('v.contentDocumentId');
-		window.console.log('cdId : ', cdId);
-		if(cdId != '') helper.downloadFile(component, event, cdId);
-		else 		   helper.showToast('error', 'There are no attachments.');
-	},
+        var cdId = component.get('v.contentDocumentId');
+        window.console.log('cdId : ', cdId);
+        if(cdId != '') helper.downloadFile(component, event, cdId);
+        else 		   helper.showToast('error', 'There are no attachments.');
+    },
     
     onRefresh: function(Component, event, helper){
         helper.helperinit(Component, event);
@@ -41,14 +41,14 @@
         helper.handleCheck(component, event);
         
     },
-
+    
     //사업심의유형 변경 시
     checkReviewExc: function(component, event, helper) {
         if(component.get('v.isAdmin')){                                                                 //1. 어드민
             if(!component.get('v.opptyData_origin.Opportunity_Review_Exception__c')){                   //2. 사업심의유형이 예외가 아니었던 경우               
                 var before  = component.get('v.opptyData.Opportunity_Review_VRB_Type_Confirm__c');      
                 var after = event.getSource().get("v.value");
-                 if(!$A.util.isUndefinedOrNull(before)){                                                  //3. 사업심의유형 확정값이 존재
+                if(!$A.util.isUndefinedOrNull(before)){                                                  //3. 사업심의유형 확정값이 존재
                     if(before!==after){                                                                 //4.1 확정값 != 셀렉트 박스값
                         component.set('v.opptyData.Opportunity_Review_Exception__c', true);             //5. 사업심의유형 예외처리
                         component.set("v.isExcDisabled", false);             
@@ -61,22 +61,36 @@
         }
     },
     
-
+    
     //저장
     save : function(component, event, helper) {
         console.log('OpportunityReviewMainController save');
         helper.saveData(component, event);
     },
-
+    
     //사업심의유형 조회
     retrieveCheckType : function(component, event, helper) {
-       console.log('OpportunityReviewMainController retrieveBusinessCheckType');        
-       helper.retrieveBusinessCheckType(component);
+        console.log('OpportunityReviewMainController retrieveBusinessCheckType');        
+        helper.retrieveBusinessCheckType(component);
     },
-
-     //사업심의유형 확정
-     confirm : function(component, event, helper) {
+    
+    //사업심의유형 확정
+    confirm : function(component, event, helper) {
         console.log('OpportunityReviewMainController confirm');
         helper.confirmData(component, event);
+    },
+    BOConfirmationClose: function(component, event, helper){// Added By Vipul v1.4
+        component.set('v.isModalOpenBOReviewConfirmation',false);
+        var close = $A.get("e.force:closeQuickAction");
+        var refresh = $A.get('e.force:refreshView');
+    },
+    BOConfirmationYes: function(component, event, helper){// Added By Vipul v1.4
+        component.set('v.isModalOpenBOReviewConfirmation',false);
+        var close = $A.get("e.force:closeQuickAction");
+        var refresh = $A.get('e.force:refreshView');
+        var oppData = component.get('v.opptyData');
+        var url = 'http://ieqh1201.sds.samsung.net:50000/irj/servlet/prt/portal/prtroot/controller.TransactionIViewController?system=SDS_ECC&tcode=ZLP3SDC4000&autostart=true&params=GS_HEADER-ZZCCODE='+oppData.OpportunityCode__c;
+        console.log(url);
+        window.open(url,'_blank');
     }
 })

@@ -1,0 +1,266 @@
+<template>
+   <!-- modal start -->    
+   <template lwc:if={showmodalevent}>
+
+<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+<div class="slds-modal__container modal">
+<!-- modal header start -->
+  <header class="slds-modal__header">
+     <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+        <lightning-icon icon-name="utility:close"
+           alternative-text="close"
+           variant="inverse"
+           size="small" ></lightning-icon>
+        <span class="slds-assistive-text">Close</span>
+     </button>
+     <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Event Detail Page</h2>
+  </header>
+
+  <!-- modal body start -->
+  <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+           
+     <lightning-input label="Subject" value={eventdata.Subject}  onchange={handlechange} required></lightning-input>
+     <div if:true={showdatetime}>
+     <lightning-input id="starttime" type="datetime-local" label="Start" value={eventdata.StartDateTime}  onchange={handlechange} required></lightning-input>
+     </div>
+     <div if:true={showdate}>
+        <lightning-input id="startdate" type="date" label="Start" value={eventdata.StartDateTime}  onchange={handlechange} required></lightning-input>
+        </div>
+     <div if:true={showdatetime}>
+     <lightning-input d="endtime" type="datetime-local" label="End" value={eventdata.EndDateTime}  onchange={handlechange} required></lightning-input>
+    </div>
+    <div if:true={showdate}>
+        <lightning-input id="enddate" type="date" label="End" value={eventdata.EndDateTime}  onchange={handlechange} required></lightning-input>
+       </div>
+       <div class ="slds-p-top_small">
+     <lightning-input type="checkbox" label="All-Day Event" value={eventdata.IsAllDayEvent} checked ={eventdata.IsAllDayEvent}  onchange={handlechange}></lightning-input>
+    </div>
+    <div class ="slds-p-top_small slds-p-bottom_small">
+     <lightning-input type="checkbox" label="Private" value={eventdata.IsPrivate}  checked ={eventdata.IsPrivate} onchange={handlechange}></lightning-input>
+     </div>
+     <lightning-textarea  label="Description" value={eventdata.Description} onchange={handlechange}></lightning-textarea>
+    
+</div>
+<div class="slds-col slds-size_1-of-2">
+    <div class="lookup-container">
+        <label for="lookupInput" class ="slds-form-element__label" required="true" >Assigned To</label>
+        <input
+            id ="lookupInput"
+            type="text"
+            class="slds-input"
+            label ="Assigned To"
+            placeholder="Search Assigned To"
+            value={searchTerm}
+            oninput={handleInputChange}
+            isrequired = "true">
+        <template if:true={showDropdown}>
+            <ul class="slds-listbox slds-listbox_vertical">
+                <template for:each={filteredUsers} for:item="user">
+                    <li key={user.Id} class="slds-listbox__item" role="presentation">
+                        <div class="slds-media slds-listbox__option" role="option" onclick={handleUserSelect} data-id={user.Id}>
+                            <span class="slds-media__figure slds-listbox__option-icon">
+                                <img src={user.SmallPhotoUrl} alt={user.Name}/>
+                            </span>
+                            <span class="slds-media__body">
+                                <span class="slds-truncate" title={user.Name}>{user.Name}</span>
+                            </span>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </template>
+    </div>
+    <div>
+        <label for="Activitycr" class ="slds-form-element__label" required>Activity Currency</label>
+        <div>
+        <select id="Activitycr" onchange={handleActivityCurrencyChange} style="width: 200px; height:30px;" required >
+            <option value="">{eventdata.CurrencyIsoCode}</option>
+            <template for:each={eventTypes} for:item="eventTypeOption">
+                <option key={eventTypeOption.value} value={eventTypeOption.value}>{eventTypeOption.label}</option>
+            </template>
+        </select>
+    </div>
+    </div>
+    <lightning-input label="Location" value={eventdata.Location}  onchange={handlechange}></lightning-input>
+    <lightning-input label="Type" value={eventdata.Type}  onchange={handlechange}></lightning-input>
+
+</div>
+        </div>
+  </div>
+
+  <!-- modal footer start-->
+  <footer class="slds-modal__footer">
+    <button class="slds-button slds-button_brand" onclick={saveModal}>Save</button>
+    <button class="slds-button slds-button_neutral" onclick={handleDelete}>Delete</button>
+     <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>
+  </footer>
+
+</div>
+</section>
+<div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+<!-- modal end -->
+<template if:true={showmodaltask}>
+
+    <!--
+        I Used SLDS for this code
+        Here is link https://www.lightningdesignsystem.com/components/modals/
+    --> 
+
+<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+<div class="slds-modal__container modal">
+<!-- modal header start -->
+  <header class="slds-modal__header">
+     <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+        <lightning-icon icon-name="utility:close"
+           alternative-text="close"
+           variant="inverse"
+           size="small" ></lightning-icon>
+        <span class="slds-assistive-text">Close</span>
+     </button>
+     <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Task Detail Page</h2>
+  </header>
+
+  <!-- modal body start -->
+  <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+ 
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+
+     <lightning-input name="task_subject" label="Subject" value={taskdata.Subject}  onchange={handetaskchange}></lightning-input>
+     <lightning-input name="task_Assignor" label="Assignor" value={taskdata.Assignor__c} onchange={handetaskchange}></lightning-input>
+     <div class="lookup-container">
+        <label for="lookupInputTask" class ="slds-form-element__label">Assigned To</label>
+        <input
+            id ="lookupInputTask"
+            type="text"
+            class="slds-input"
+            label ="Assigned To"
+            placeholder="Search Assigned To"
+            value={searchTermtask}
+            oninput={handleInputChangeTask}
+            isrequired = "true">
+        <template if:true={showDropdown}>
+            <ul class="slds-listbox slds-listbox_vertical">
+                <template for:each={filteredUsers} for:item="user">
+                    <li key={user.Id} class="slds-listbox__item" role="presentation">
+                        <div class="slds-media slds-listbox__option" role="option" onclick={handleUserSelectTask} data-id={user.Id}>
+                            <span class="slds-media__figure slds-listbox__option-icon">
+                                <img src={user.SmallPhotoUrl} alt={user.Name}/>
+                            </span>
+                            <span class="slds-media__body">
+                                <span class="slds-truncate" title={user.Name}>{user.Name}</span>
+                            </span>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </template>
+    </div>
+    <div class="lookup-container">
+        <label for="lookupInputTaskcon" class ="slds-form-element__label">Name</label>
+        <input
+            id ="lookupInputTaskcon"
+            type="text"
+            class="slds-input"
+            label ="Name"
+            placeholder="Search Contact"
+            value={searchTermcontact}
+            oninput={handleInputChangeTaskCon}
+            isrequired = "true">
+        <template if:true={showDropdowncont}>
+            <ul class="slds-listbox slds-listbox_vertical">
+                <template for:each={filteredContacts} for:item="user">
+                    <li key={user.Id} class="slds-listbox__item" role="presentation">
+                        <div class="slds-media slds-listbox__option" role="option" onclick={handleUserSelectTaskCon} data-id={user.Id}>
+                            
+                            <span class="slds-media__body">
+                                <span class="slds-truncate" title={user.Name}>{user.Name}</span>
+                            </span>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </template>
+    </div>
+    <div class = "slds-p-top_medium slds-p-bottom_medium">
+     <lightning-input name="task_Private" type="checkbox" label="Private"  checked ={taskdata.PrivateTask__c} onchange={handetaskchange}></lightning-input>
+    </div>
+</div>
+<div class="slds-col slds-size_1-of-2">
+    <lightning-input name="task_date" type ="date" label="Due Date" value={taskdata.ActivityDate} onchange={handetaskchange} ></lightning-input>
+    <div>
+        <label for="Activitycrtsk" class ="slds-form-element__label" required>Activity Currency</label>
+        <div>
+        <select id="Activitycrtsk" onchange={handleActivityCurrencyChangetsk} style="width: 200px; height:30px;" required >
+            <option value="">{taskdata.CurrencyIsoCode}</option>
+            <template for:each={eventTypes} for:item="eventTypeOption">
+                <option key={eventTypeOption.value} value={eventTypeOption.value}>{eventTypeOption.label}</option>
+            </template>
+        </select>
+    </div>
+    </div>
+    <div>
+        <label for="Taskstatus" class ="slds-form-element__label" required>Status</label>
+        <div>
+        <select id="Taskstatus" onchange={handetaskchangestatus} style="width: 200px; height:30px;" required >
+            <option value="">{taskdata.Status}</option>
+            <template for:each={taskStatus} for:item="eventTypeOption">
+                <option key={eventTypeOption.value} value={eventTypeOption.value}>{eventTypeOption.label}</option>
+            </template>
+        </select>
+    </div>
+    </div>
+    <div>
+        <label for="TaskPriority" class ="slds-form-element__label" required>Priority</label>
+        <div>
+        <select id="TaskPriority" onchange={handetaskchangepriority} style="width: 200px; height:30px;" required >
+            <option value=""> {taskdata.Priority}</option>
+            <template for:each={taskpriority} for:item="eventTypeOption">
+                <option key={eventTypeOption.value} value={eventTypeOption.value}>{eventTypeOption.label}</option>
+            </template>
+        </select>
+    </div>
+    </div>
+   <!-- <lightning-input  label="Related To" value="" onchange={handetaskchange} ></lightning-input> -->
+
+</div>
+
+        </div>
+        <lightning-textarea  name ="task_Comments" label="Comments" value={taskdata.Description} onchange={handetaskchange}></lightning-textarea>
+
+        <!--
+        <section class ='slds-p-top_medium slds-p-bottom_medium'>
+            <h2>Additional Information</h2>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-2">
+                  
+                    \
+                    </div>
+                    </div>
+            
+
+        </section>-->
+  </div>
+
+  <!-- modal footer start-->
+  <footer class="slds-modal__footer">
+    <button class="slds-button slds-button_brand" onclick={saveModalTask}>Save</button>
+    <button class="slds-button slds-button_neutral" onclick={handleDeletetask}>Delete</button>
+     <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>
+  </footer>
+
+</div>
+</section>
+<div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+    <!--
+    <div class="modal" style="display: {modalDisplay}">
+        <div class="modal-content">
+            <span class="close" onclick={closeModal}>&times;</span>
+     <iframe src={recordUrl} frameborder="0" style="width:100%; height:100%;"></iframe> 
+        </div>
+    </div> -->
+</template>

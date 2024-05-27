@@ -20,7 +20,7 @@
                     <span class="slds-assistive-text">Close</span>
                 </button>
                 <h1 class='fontSize'>
-                New Weekly Report
+                {!$Label.c.New_Weekly_Report}
                 </h1>
             </header>
             <div class="slds-modal__content slds-p-around_medium">
@@ -30,5 +30,5 @@
          </div>
     </div>
     </aura:if>
-    <div class="slds-backdrop slds-backdrop_open"></div>
+     <div class="slds-backdrop slds-backdrop_open"></div>
 </aura:component>

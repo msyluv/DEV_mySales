@@ -33,7 +33,6 @@
     <!-- selected record(s) -->
     <aura:attribute name="selectedRecord" type="sObject" default="{}" description="Store selected record"/>
     <aura:attribute name="selectedRecords" type="List" default="[]" description="Store selected records"/>
-
     <!-- optional parameters -->
     <aura:attribute name="lookupType" type="string" default="Base"/> <!-- Base / Multi / GroupBase / GroupMulti / MultiHide / Email -->
     <aura:attribute name="required" type="Boolean" default="false" description="mark required"/>

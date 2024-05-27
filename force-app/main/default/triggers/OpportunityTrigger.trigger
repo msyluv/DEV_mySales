@@ -2,8 +2,8 @@
 * @description       : 
 * @author            : hj.lee@dkbmc.com
 * @group             : 
-* @last modified on  : 2024-04-03
-* @last modified by  : sarthak.j1@samsung.com
+* @last modified on  : 2024-04-23
+* @last modified by  : vikrant.ks@samsung.com   
 * Modifications Log 
 * Ver   Date         Author                              Modification
 * 1.0   2020-11-10   hj.lee@dkbmc.com                    Initial Version
@@ -61,13 +61,15 @@
 * 5.9   2023-12-05   vikrant.ks@samsung.com              Restructure of IF-184 calling from opportunityTrigger. (MySales-374)
 * 6.0   2024-01-17   sarthak.j1@samsung.com              Opportunity - new 'Probability' Field Creation -> MYSALES-416
 * 6.1   2024-02-19   anish.jain@partner.samsung.com      BO Review Approval Issue Check (MS-418)
-* 6.2   2024-02-26   sarthak.j1@samsung.com				 Sales Lead Conversion Issue [SOQL-101] -> MYSALES-452
+* 6.2   2024-02-26   sarthak.j1@samsung.com              Sales Lead Conversion Issue [SOQL-101] -> MYSALES-452
 * 6.3   2024-03-06   atul.k1@samsung.com                 Opportunity-Checking BA when Delivery Department is changed (MYSALES-462)
-* 6.4   2024-03-11	 sarthak.j1@samsung.com				 Apply new Probability Field to Logistics -> MYSALES-470
+* 6.4   2024-03-11   sarthak.j1@samsung.com              Apply new Probability Field to Logistics -> MYSALES-470
 * 6.5   2024-03-12   vikrant.ks@samsung.com              Create new delivery_probability__c record everytime a new HQ opportunity is created. (MySales-447)
-* 6.6   2024-03-28	 sarthak.j1@samsung.com				 Task - (IT) When BO Closed (WON/DROP/LOST) change Delivery Prob on Delivery_Probabiliy__c -> MYSALES-478
-* 6.7   2024-03-26	 vipul.k1@samsung.com				 Update the firstDate field on opportunity record -> MYSALES-477
-* 6.8   2024-04-03	 sarthak.j1@samsung.com				 IF_USER & Mig01 user related changes -> [MYSALES-477]
+* 6.6   2024-03-28   sarthak.j1@samsung.com              Task - (IT) When BO Closed (WON/DROP/LOST) change Delivery Prob on Delivery_Probabiliy__c -> MYSALES-478
+* 6.7   2024-03-26   vipul.k1@samsung.com                Update the firstDate field on opportunity record -> MYSALES-477
+* 6.8   2024-04-03   sarthak.j1@samsung.com              IF_USER & Mig01 user related changes -> [MYSALES-477]
+* 6.9   2024-04-23   vikrant.ks@samsung.com              Modifying the Delivery_Probabiliy__c creation logic in case of Collaboration BO [MYSALES-517]
+* 7.0   2024-04-03   vikrant.ks@samsung.com              Success probability field should not be populated or changed in insertion and stage change respectively incase of IT-T100-non collab opportunity. [MYSALES-468]
 **/
 trigger OpportunityTrigger on Opportunity (before insert, before update, before delete, after insert, after update, after delete) {
     
@@ -253,7 +255,7 @@ WHERE Id = :UserInfo.getProfileId()]);*/
                     //Start v-6.0 [MYSALES-416]
                     setSuccessProbability(Trigger.new);
                     //End v-6.0 [MYSALES-416]
-                     setOpptyFirstCloseDateForHQ(Trigger.new, Trigger.oldMap); //Added By Vipul MySales-477 V6.7 
+                    setOpptyFirstCloseDateForHQ(Trigger.new, Trigger.oldMap); //Added By Vipul MySales-477 V6.7 
                 } //Added as part of v-6.2 MYSALES-452
                 
             }
@@ -290,6 +292,7 @@ WHERE Id = :UserInfo.getProfileId()]);*/
                         chkAmtValid(Trigger.new);
                         insertOpptyTeamProposalPmUser(Trigger.new, Trigger.oldMap);
                         upsertOpportunityAmountHistory(Trigger.new, Trigger.oldMap);
+                        System.debug('SJ-504'); //SJOSHI
                         if(OpportunitySendToSAPSwitch) sendToSAP(Trigger.new); // We Can check
                         //owner변경시 knox 이메일 발송
                         sendOwnerChangeKnoxEmail(Trigger.new, Trigger.old);
@@ -628,7 +631,6 @@ WHERE Id = :UserInfo.getProfileId()]);*/
         // SDS-년도(2자리) / 고유넘버(5자리) / 0 <- (맨 마지막 한자리)사업기회 고유표시
         
         // TODO : BO 코드 채번 어떻게 했었는지 김영훈 과장에 확인 후 아래 로직 주석 처리.(-1)
-        
         integer codeInt = 0;
         Date today = system.today();
         string year = (String.valueof(today)).substring(2,4);
@@ -712,7 +714,6 @@ codeInt++;
                             if(costMap.get(String.valueOf(empMap.get(String.valueOf(userMap.get(opp.ownerId).FederationIdentifier)).EvKostl__c)) != null){
                                 opp.SalesDepartment__c = costMap.get(String.valueOf(empMap.get(String.valueOf(userMap.get(opp.ownerId).FederationIdentifier)).EvKostl__c)).id;
                                 opp.cPrimarySalesDepartment__c = costMap.get(String.valueOf(empMap.get(String.valueOf(userMap.get(opp.ownerId).FederationIdentifier)).EvKostl__c)).id;
-                                
                             }else{
                                 //V 4.7 -> Changes for MySales-110
                                 //opp.SalesDepartment__c = null;
@@ -823,6 +824,7 @@ Biz Level은 한화 기준
             if(oppty.BusinessType__c != 'TI' && oldMap.get(oppty.Id).BusinessType__c == 'TI'){
                 oppty.Opportunity_Review_VRB_Type_Confirm__c = null;
                 oppty.Opportunity_Review_VRB_Type__c = null;
+
             }
         }
     }
@@ -1002,6 +1004,7 @@ Biz Level은 한화 기준
                     opptyIdList_if125_hq.add(oppty.Id); 
                 } else {
                     opptyIdList_if125_hq.add(oppty.Id);  
+                    System.debug('SJ-504-a'); //SJOSHI
                 }
             }
         }
@@ -1025,7 +1028,11 @@ Biz Level은 한화 기준
         } else {
             /** Trigger 첫 시작 시 */
             if(opptyIdList_if094_logi.size() > 0) IF_EccOpportunityLogisController.calloutOpportunityLogisInfo(opptyIdList_if094_logi);  
-            if(opptyIdList_if125_hq.size() > 0) IF_EccOpportunityController.calloutOpportunityInfo(opptyIdList_if125_hq); 
+            if(opptyIdList_if125_hq.size() > 0){
+                System.debug('SJ-504-b'); //SJOSHI
+                IF_EccOpportunityController.calloutOpportunityInfo(opptyIdList_if125_hq); 
+                System.debug('SJ-504-c'); //SJOSHI
+            } 
             
             // System.enqueueJob(new IF_EccOpportunityLogisController(opptyIdList_if094_logi)); // Logistics
             // System.enqueueJob(new IF_EccOpportunityController(opptyIdList_if125_hq)); // hq
@@ -2013,7 +2020,7 @@ Medium-sized Forwarding - 08
         for(Opportunity oppty :opptyList){
             if((!((oppty.Probability_new__c >= 0) && (oppty.Probability_new__c <= 100))) && (oppty.Probability_new__c != null)){
                 oppty.addError('Probability_new__c', System.Label.OPPTY_ERR_SUC_PB);
-            }
+            }//V7.0 Start
             if(!(oppty.RecordTypeId == RT_OPPTY_HQ_ID && oppty.CompanyCode__c == 'T100' && oppty.Collaboration__c == false)){
                 if(trigger.isInsert && oppty.Probability_new__c == Null){
                     oppty.Probability_new__c = 10;
@@ -2024,7 +2031,7 @@ Medium-sized Forwarding - 08
                 if(oppty.StageName == 'Z06' || oppty.StageName == 'Z07' || oppty.StageName == 'Z08'){
                     oppty.Probability_new__c = 0;
                 }
-            }
+            }//V7.0 End
         }
     }
     //End v-6.0 [MYSALES-416] 
@@ -2773,12 +2780,30 @@ System.enqueueJob(new TXPInfoUpdateQueue(BoList));
         List<Delivery_Probabiliy__c> DPList = new List<Delivery_Probabiliy__c>();
         for(Opportunity rowBO : newList){
             if(rowBO.RecordTypeId == RT_OPPTY_HQ_ID){
-                Delivery_Probabiliy__c DP = new Delivery_Probabiliy__c();
-                DP.Opportunity__c = rowBO.Id; 
-                DP.Companycode__c = rowBO.CompanyCode__c;
-                DP.TXP_Link__c    = 'http://txp.sds.samsung.net/front/#/management/?busn='+rowBO.Auto_OpptyCode__c;
-                DP.Dashboardlink__c = 'http://bos.sds.samsung.net/app/detail?orderId=SDS-'+rowBO.Auto_OpptyCode__c+'0&sapCompany='+rowBO.CompanyCode__c+'&lang=ko';
-                DPList.add(DP);
+                if(rowBO.Collaboration__c == True){//V6.9 Start
+                    List<Opportunity> oppList = [Select id,OpportunityCode__c from Opportunity where Id = :rowBO.CollaborationBOId__c];
+                    String BOCODE = '';
+                    String TXPBoCode = '';
+                    if(oppList.size()>0){
+                        String s = oppList[0].OpportunityCode__c;
+                        TXPBoCode = s.substring(4,s.length()-1);
+                        BOCODE = oppList[0].OpportunityCode__c;
+                    }
+                    Delivery_Probabiliy__c DP = new Delivery_Probabiliy__c();
+                    DP.Opportunity__c = rowBO.Id; 
+                    DP.Companycode__c = rowBO.CompanyCode__c;
+                    DP.TXP_Link__c    = 'http://txp.sds.samsung.net/front/#/management/?busn='+TXPBoCode;
+                    DP.Dashboardlink__c = 'http://bos.sds.samsung.net/app/detail?orderId='+BOCODE+'&sapCompany='+rowBO.CompanyCode__c+'&lang=ko';
+                    DPList.add(DP);
+                }
+                else{//V6.9 End
+                    Delivery_Probabiliy__c DP = new Delivery_Probabiliy__c();
+                    DP.Opportunity__c = rowBO.Id; 
+                    DP.Companycode__c = rowBO.CompanyCode__c;
+                    DP.TXP_Link__c    = 'http://txp.sds.samsung.net/front/#/management/?busn='+rowBO.Auto_OpptyCode__c;
+                    DP.Dashboardlink__c = 'http://bos.sds.samsung.net/app/detail?orderId=SDS-'+rowBO.Auto_OpptyCode__c+'0&sapCompany='+rowBO.CompanyCode__c+'&lang=ko';
+                    DPList.add(DP);
+                }
             }
         }
         if(DPList.size() > 0){ insert DPList;}
@@ -2795,7 +2820,7 @@ System.enqueueJob(new TXPInfoUpdateQueue(BoList));
             }
         }
         catch(exception e){
-          System.debug('Exception '+ e);  
+            System.debug('Exception '+ e);  
         }
     } //End V6.7
 }

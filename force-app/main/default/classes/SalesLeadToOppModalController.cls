@@ -147,7 +147,21 @@ public without sharing class SalesLeadToOppModalController {
         
         List<Map<String, String>> fieldMaplist  = new List<Map<String, String>>();
         // Name, CurrencyIsoCode, AccountId__c, Amount__c, CampaignId__c, CloseDate__c, Description__c, RevenueStartDate__c, RevenueEndDate__c, Type__c, SalesDepartment__c, SalesOrganization__c
-        List<String> apiStr = System.Label.CONVERT_LAB_SALES_LEAD_API.replaceAll(' ' , '').split(',');
+        
+        //524
+        String uProf;
+        User u = new User();
+        Id usrId = UserInfo.getUserId();
+        u = [Select Id, Profile.Name from User where Id =: usrId ];
+        uProf = u.Profile.Name ;
+        List<String> apiStr = new List<String>(); 
+        if(uProf == 'CxO-Overseas Corp' || uProf == 'Sales Manager(Overseas Corp)' || uProf == 'Sales Rep.(Overseas Corp)' || uProf == 'Sales Rep.(HQ)'){
+        apiStr = System.Label.CONVERT_LAB_SALES_LEAD_TARGET_PROFILE.replaceAll(' ' , '').split(',');
+        }
+        else{
+        apiStr = System.Label.CONVERT_LAB_SALES_LEAD_API.replaceAll(' ' , '').split(',');    
+        }
+        
         System.debug('### getOppLabel, apiStr : ' + apiStr);
         for (String sf: apiStr) {
             String label = SalesleadfieldMap.get(sf).getDescribe().getName();

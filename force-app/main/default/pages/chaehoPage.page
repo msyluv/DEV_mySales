@@ -2,7 +2,7 @@
   @description       : 
   @author            : chae_ho.yang@samsung.com
   @group             : 
-  @last modified on  : 04-16-2024
+  @last modified on  : 05-24-2024
   @last modified by  : chae_ho.yang@samsung.com
 -->
 <apex:page controller="ChaehoController">
@@ -13,8 +13,8 @@
         [id$="MyReport"] >.pbSubsection tr:first-of-type td, [id$="MyReport"] >.pbSubsection tr:first-of-type th {
             border-top:1px solid rgb(212, 218, 220)!important;
         }
-        [id$="MyReport"] > .pbSubsection th, [id$="MyReport"] > .pbSubsection td {
-            font-size: 12px;
+        [id$="MyReport1"] > .pbSubsection th, [id$="MyReport"] > .pbSubsection td {
+            font-size: 13px;
             padding:3px 6px 3px 5px;
             background-color:#fff;            
             border-color:rgb(212, 218, 220)!important;
@@ -30,7 +30,7 @@
             display:none;
         }
     </style>
-<!-- Begin Default Content REMOVE THIS -->
+<!-- Begin Default Content REMOVE THIS change-->
 <h1>Congratulations</h1>
 This is your new Page
 <!-- End Default Content REMOVE THIS -->

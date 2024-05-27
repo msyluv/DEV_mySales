@@ -1,0 +1,13 @@
+{
+	"height": 350,
+	"plugins": "autolink dragdrop emoticon exmhtmlloader expaste findreplace image lineheight link lists listsstyle lock media mhtmlloader pagebreak paragraphformat readonly superscript subscript table typo2kr customapi",
+	"default_font_size": "10",
+	"default_font_family": "'맑은 고딕', Gulim, Arial",
+	"default_line_height": "1.2",
+	"font_formats": [ "맑은 고딕", "Arial", "Courier", "sans-serif", "Verdana" ],
+	"font_size_style_values": [ "8pt", "9pt", "10pt", "11pt", "12pt", "14pt", "16pt", "20pt", "36pt", "48pt" ],
+	"line_heights": [ "0.5", "1", "1.2", "1.5", "1.9", "2", "3", "4", "5" ],
+	"invalid_elements": "script",
+	"codeview_indent": true,
+	"toolbar": "undo redo | findreplace fontfamily fontsize | bold italic underline strikethrough superscript subscript | fontcolor fontbgcolor | alignment.left alignment.center alignment.right alignment.justify | indent outdent | image emoticon media link table"
+}

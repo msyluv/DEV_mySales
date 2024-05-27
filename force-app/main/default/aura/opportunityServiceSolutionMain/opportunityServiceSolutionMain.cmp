@@ -2,11 +2,12 @@
   @description       : 
   @author            : seonju.jin@dkbmc.com
   @group             : 
-  @last modified on  : 2022-01-17
-  @last modified by  : seonju.jin@dkbmc.com
+  @last modified on  : 2024-04-25
+  @last modified by  : anish.jain@partner.samsung.com
   Modifications Log 
   Ver   Date         Author                 Modification
   1.0   2020-11-16   seonju.jin@dkbmc.com   Initial Version
+  1.1   2024-04-25   anish.jain@partner.samsung.com  Analysis the cause of 'Review Opportunity' issue -> [MYSALES-495]
 -->
 <aura:component
     controller="OpportunityServiceSolutionMainController"
@@ -21,6 +22,7 @@
 
     <!-- [registerEvent] : Event Handler -->
     <aura:registerEvent name="opportunityActivityUpdateEvent" type="c:opportunityActivityUpdateEvent"/>
+    <aura:registerEvent name="myApplicationEvent" type="c:RefreshKnoxTabsOnBizType"/><!--Added by Anish v 1.1-->
 
     <!-- [Attribute] -->
     <aura:attribute name="oppty"            type="Object"   access="public" default="{}"    description="Opportunity Info"/>

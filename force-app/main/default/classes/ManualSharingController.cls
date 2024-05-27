@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : hj.lee@dkbmc.com
  * @group             : 
- * @last modified on  : 2024-04-17
+ * @last modified on  : 2024-04-22
  * @last modified by  : vikrant.ks@samsung.com
  * Modifications Log 
  * Ver   Date         	Author             			 Modification
@@ -10,7 +10,7 @@
  * 1.0   2020-11-09     younghoon.kim@dkbmc.com   	 init 기능 수정(Sharing기능 사용 권한 수정)
  * 1.1   2024-01-30     divyam.gupta@samsung.com     Sales Lead Sharing Error Fix
  * 1.2   2024-02-01		vikrant.ks@samsung.com       Updating and Deleting Sales Lead Team Members in Case of Sales_Lead__Share(MySales-389)
- * 1.3   2024-04-17		vikrant.ks@samsung.com       I have removed AccessLevel != 'Read' condition from query.
+ * 1.3   2024-04-22		vikrant.ks@samsung.com       I have removed all three query that were checking AccessLevel in init function and replaced it with one query.(MySales-512)
 **/
 public class ManualSharingController {
     /*
@@ -20,27 +20,15 @@ public class ManualSharingController {
     @AuraEnabled
     public static boolean init(Id recordId){
         Boolean result = false;
-        String shareObjAPiName = getShareObjectName(recordId);
-        String objectAPiName =String.valueOf(recordId.getSObjectType());
         String userId = UserInfo.getUserId();
-
-        // Owner여부 체크
-        String sQuery = 'SELECT Id , Name, OwnerId' ;
-		sQuery += ' FROM ' + objectAPiName ;
-        sQuery += ' WHERE Id = \'' + recordId + '\' AND OwnerId = \'' + userId + '\'';
-        List<sObject> IsOwner = Database.query(sQuery);
-
-        // Admin여부 체크
-        List<User> IsAdmin = [SELECT Id, Username, ProfileId, Profile.Name FROM User WHERE (Profile.Name LIKE '%Admin%' OR Profile.Name LIKE '%시스템 관리자%') AND Id = :userId];
-        
-        // Edit Sharing 권한 체크
-        String permissionQuery = 'SELECT Id, ParentId, UserOrGroupId, AccessLevel';
-		permissionQuery += ' FROM ' + shareObjAPiName;
-		permissionQuery += ' WHERE ParentId = \'' + recordId + '\' AND UserOrGroupId = \'' + userId + '\' ';//V1.3
-        List<sObject> permissionList = Database.query(permissionQuery);
-        
-        if(IsOwner.size() > 0 || IsAdmin.size() > 0 || permissionList.size() > 0) result = true;
-            
+		//V1.3 Start
+        List<UserRecordAccess> permissionList = [SELECT RecordId, HasReadAccess FROM UserRecordAccess WHERE UserId = :userId AND RecordId = :recordId limit 1];
+        if(permissionList.size() > 0){
+            if(permissionList[0].HasReadAccess == true){
+                result = true;
+            }
+        }
+        //V1.3 End
         return result;
     }
     /*

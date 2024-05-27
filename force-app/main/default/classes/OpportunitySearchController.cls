@@ -2,8 +2,8 @@
  * @author            : younghoon.kim@dkbmc.com
  * @group             : 
  * @description       : 
- * @last modified on  : 2023-10-01
- * @last modified by  : anish.jain@partner.samsung.com
+ * @last modified on  : 2024-05-26
+ * @last modified by  : akash.g@samsung.com
  * Modifications Log 
  * Ver   Date         Author                    	Modification
  * 1.0   2020-11-05   younghoon.kim@dkbmc.com   	Initial Version
@@ -14,8 +14,9 @@
  * 1.6   2023-03-10   anish.jain@partner.samsung.com   Changes Added for Excel download regarding (My Sales - 148)
  * 1.7   2023-03-13   anish.jain@partner.samsung.com   Changes Added for Strategic Account regarding (My Sales - 149)
  * 1.8   2023-03-28   anish.jain@partner.samsung.com   Changes Added for Service/Solution Excel Download regarding (My Sales - 158)
- * 1.9   2023-09-18   vikrant.ks@samsung.com    	Result should be ordered by BO1stRegistrationDate desc (My Sales - 301)
- * 2.0   2023-10-01   anish.jain@partner.samsung.com    	MS-304
+ * 1.9   2023-09-18   vikrant.ks@samsung.com    	   Result should be ordered by BO1stRegistrationDate desc (My Sales - 301)
+ * 2.0   2023-10-01   anish.jain@partner.samsung.com   MS-304
+ * 2.1   2024-05-26   akash.g@samsung.com              Changes added for MYSALES-534
 **/
 global without sharing class OpportunitySearchController {
     public static Map<String,String> stageMap;
@@ -179,7 +180,7 @@ global without sharing class OpportunitySearchController {
     }
 
     @AuraEnabled
-    global static Map<String, String> getOpptyList(String pageSize, String rcdId, String searchType, String selectedValue, Boolean bTechAttribute,  Boolean CSPCheck, Boolean MSPCheck, Boolean SCPCheck, Boolean ERPCheck, Boolean MESCheck){ //Added by Anish - v 1.4
+    global static Map<String, String> getOpptyList(String pageSize, String rcdId, String searchType, String selectedValue, Boolean bTechAttribute,  Boolean CSPCheck, Boolean MSPCheck, Boolean SCPCheck, Boolean ERPCheck, Boolean SaaSCheck){ //Added by Anish - v 1.4
         selectedValue sv = (selectedValue)JSON.deserialize(selectedValue, selectedValue.class);
         System.debug('sv Company : ' + (sv.Company).Id);
         System.debug('sv Account : ' + (sv.Account).Id);
@@ -268,33 +269,47 @@ global without sharing class OpportunitySearchController {
         }
         
         //Start- Added by Anish - v 1.5
-        Set<String> OpptySCIdSet  = new Set<String>();
-        Set<String> OpptySCIdSet1 = new Set<String>();
+        //Set<String> OpptySCIdSet  = new Set<String>();
+        //Set<String> OpptySCIdSet1 = new Set<String>();
         Set<String> OpptyMSPIdSet = new Set<String>();
         Set<String> OpptyCSPIdSet = new Set<String>();
+        //Set<String> OpptySaaSIdSet = new Set<String>();
         Set<String> OpptySCPIdSet = new Set<String>();
-        Set<String> OpptyERPIdSet = new Set<String>();
-        Set<String> OpptyMESIdSet = new Set<String>();
-        
+        Set<String> OpptySCIdSet  = new Set<String>();
+        Set<String> OpptySCIdSet1 = new Set<String>();
+        //Set<String> OpptyMESIdSet = new Set<String>();
+        //V2.1 Akash changes start
         if(MSPCheck == true || CSPCheck == true || SCPCheck == true){
-            List<Opportunity> oppList = [sELECT Id,CspMspType__c, CMBizType__c from Opportunity where (Name LIKE '%%') AND (OpportunityCode__c LIKE '%%') AND (CspMspType__c = 'CSP' OR CspMspType__c = 'MSP' OR CMBizType__c = 'CSP_SCP')];
-             System.debug('Anish Testing OpptySCIdSet 5 :');
-            if(oppList.size() > 0){
-                for(Opportunity opp : oppList){
-                    if(opp.CspMspType__c == 'CSP'){
-                    OpptyCSPIdSet.add(opp.Id);
+           // List<Opportunity> oppList = [sELECT Id,CspMspType__c, CMBizType__c from Opportunity where (Name LIKE '%%') AND (OpportunityCode__c LIKE '%%') AND (CspMspType__c = 'CSP' OR CspMspType__c = 'MSP')];
+            List<Solution__c> sList = [Select Id,Opportunity__c,Solution__r.intensivetype__c from Solution__c where (Opportunity__r.Name LIKE '%%') AND 
+                                       (Opportunity__r.OpportunityCode__c LIKE '%%') AND 
+                                       (Solution__r.intensivetype__c = 'CSP' OR Solution__r.intensivetype__c = 'MSP')];
+            if(sList.size() > 0){
+                for(Solution__c sol: sList){
+                    if(sol.Solution__r.intensivetype__c == 'CSP'){
+                        OpptyCSPIdSet.add(sol.Opportunity__c);
                     }
-                    if(opp.CspMspType__c == 'MSP'){
-                    OpptyMSPIdSet.add(opp.Id);
-                    }
-                    if(opp.CMBizType__c == 'CSP_SCP'){
-                    OpptySCPIdSet.add(opp.Id);
+                    if(sol.Solution__r.intensivetype__c == 'MSP'){
+                        OpptyMSPIdSet.add(sol.Opportunity__c); 
                     }
                 }
-                System.debug('Anish Testing OpptySCIdSet 4 :'+ OpptyCSPIdSet.Size() + '-' + OpptyMSPIdSet.Size() + '-' + OpptySCPIdSet.Size());
-            }
+            } 
+            System.debug('Anish Testing OpptySCIdSet 5 :');
+            List<Opportunity> oppList = [SELECT Id,CspMspType__c, CMBizType__c from Opportunity where (Name LIKE '%%') AND (OpportunityCode__c LIKE '%%') AND 
+                                         (CspMspType__c = 'CSP'  OR CspMspType__c = 'MSP'  OR CMBizType__c = 'CSP_SCP')];
+             for(Opportunity opp: oppList){
+                 if(opp.CspMspType__c == 'CSP'){
+                     OpptyCSPIdSet.add(opp.Id);
+                 }
+                 if(opp.CspMspType__c == 'MSP'){
+                     OpptyMSPIdSet.add(opp.Id); 
+                 }
+                 if(opp.CMBizType__c == 'CSP_SCP'){
+                     OpptySCPIdSet.add(opp.Id);
+                 }
+             }
         }
-        
+        //Akash chnages end V2.1
         if(ERPCheck == true){
             List<Service__c> sList = [Select Id,Opportunity__c from Service__c where sService__r.Code__c = '20000028' AND sService__r.Name = 'ERP' AND DeletionFlag__c = False AND sendSAP__c = True AND TechAttribute__c =:bTechAttribute];
             if(sList.size() > 0){
@@ -305,23 +320,21 @@ global without sharing class OpportunitySearchController {
             }
         }
         
-        if(MESCheck == true){
-            List<Service__c> sList = [Select Id,Opportunity__c from Service__c where sService__r.Code__c = '20000001' AND sService__r.Name = 'MES' AND DeletionFlag__c = False AND sendSAP__c = True AND TechAttribute__c =:bTechAttribute];
+        if(SaaSCheck == true){
+            List<Solution__c> sList = [Select Id,Opportunity__c from Solution__c where Solution__r.intensivetype__c = 'SaaS'];
             if(sList.size() > 0){
-                for(Service__c svc : sList){
-                    OpptySCIdSet1.add(svc.Opportunity__c);
+                for(Solution__c sol : sList){
+                    OpptySCIdSet1.add(sol.Opportunity__c);
                 }
-                System.debug('Anish Testing OpptySCIdSet1 4 :'+ OpptySCIdSet1);
+                System.debug('Anish Testing OpptySCIdSet 4 :'+ OpptySCIdSet1);
             }
         }
         
-        
-        if(CSPCheck == true && MSPCheck == true && SCPCheck == true && ERPCheck == true && MESCheck == true){
-        OpptySCIdSet1.addAll(OpptySCIdSet);
-        System.debug('MES/ERP Size : '+ OpptySCIdSet1.size());
-        OpptySCIdSet1.addAll(OpptyCSPIdSet);
-        OpptySCIdSet1.addAll(OpptyMSPIdSet);
-        OpptySCIdSet1.addAll(OpptySCPIdSet);
+     	if(CSPCheck == true && MSPCheck == true && SCPCheck == true && ERPCheck == true && SaaSCheck == true){
+            OpptySCIdSet1.addAll(OpptySCIdSet);
+            OpptySCIdSet1.addAll(OpptyCSPIdSet);
+            OpptySCIdSet1.addAll(OpptyMSPIdSet);
+            OpptySCIdSet1.addAll(OpptySCPIdSet);
             System.debug('Anish Testing OpptySCIdSet1 6 : '+ OpptySCIdSet1.Size());
             str_WHERE += ' AND ( Id IN: OpptySCIdSet1)';
         }
@@ -342,7 +355,6 @@ global without sharing class OpportunitySearchController {
                 }
                 System.debug('finalstring Ani 12 :'+str_WHERE);
             }
-            
             
             if(SCPCheck == true){
                 if(str_WHERE.contains(' AND (Id IN: OpptyCSPIdSet(Int. CSP))')){
@@ -365,7 +377,9 @@ global without sharing class OpportunitySearchController {
                 System.debug('finalstring Ani 123 :'+str_WHERE);
             }
             
+            
             if(ERPCheck == true){
+                system.debug('akash1');
                 if(str_WHERE.contains(' AND (Id IN: OpptyCSPIdSet(Int. CSP))')){
                     OpptyCSPIdSet.addAll(OpptySCIdSet);
                     str_WHERE  = str_WHERE.replace(' AND (Id IN: OpptyCSPIdSet(Int. CSP))', '') + ' AND (Id IN: OpptyCSPIdSet(Int. CSP/ERP))';
@@ -401,88 +415,88 @@ global without sharing class OpportunitySearchController {
                 else  {
                     str_WHERE += str_WHERE =  ' AND (Id IN: OpptySCIdSet(Int. ERP))';
                 }
-                System.debug('finalstring Ani 123 :'+str_WHERE);
+                System.debug('finalstring Ani ERP 123 :'+str_WHERE);
             }
             
-            if(MESCheck == true){
-                 if(str_WHERE.contains(' AND (Id IN: OpptyCSPIdSet(Int. CSP))')){
+            if(SAASCheck == true){
+                if(str_WHERE.contains(' AND (Id IN: OpptyCSPIdSet(Int. CSP))')){
                     OpptyCSPIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE  = str_WHERE.replace(' AND (Id IN: OpptyCSPIdSet(Int. CSP))', '') + ' AND (Id IN: OpptyCSPIdSet(Int. CSP/MES))';
+                    str_WHERE = str_WHERE.replace(' AND (Id IN: OpptyCSPIdSet(Int. CSP))', '') + ' AND (Id IN: OpptyCSPIdSet(Int. CSP/SaaS))';
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP))'))
                 {
                     OpptyMSPIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE  = str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/MES))';
+                    str_WHERE =  str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/SaaS))';
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptyMSPIdSet(Int. MSP))'))
                 {
                     OpptyMSPIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE  = str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. MSP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. MSP/MES))';
+                    str_WHERE =  str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. MSP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. MSP/SaaS))';
                 }
                 else if (str_WHERE.contains(' AND (Id IN: OpptySCPIdSet(Int. SCP))')){
                     OpptySCPIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE  =  str_WHERE.replace(' AND (Id IN: OpptySCPIdSet(Int. SCP))', '') + ' AND (Id IN: OpptySCPIdSet(Int. SCP/MES))';
+                    str_WHERE  =  str_WHERE.replace(' AND (Id IN: OpptySCPIdSet(Int. SCP))', '') + ' AND (Id IN: OpptySCPIdSet(Int. SCP/SaaS))';
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptyCSPIdSet(Int. CSP/SCP))')){
                     OpptyCSPIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE  = str_WHERE.replace(' AND (Id IN: OpptyCSPIdSet(Int. CSP/SCP))', '') + ' AND (Id IN: OpptyCSPIdSet(Int. CSP/SCP/MES))';
+                    str_WHERE  = str_WHERE.replace(' AND (Id IN: OpptyCSPIdSet(Int. CSP/SCP))', '') + ' AND (Id IN: OpptyCSPIdSet(Int. CSP/SCP/SaaS))';
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptyMSPIdSet(Int. SCP/MSP))'))
                 {
                     OpptyMSPIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE  = str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. SCP/MSP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. SCP/MSP/MES))';
+                    str_WHERE  = str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. SCP/MSP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. SCP/MSP/SaaS))';
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/SCP))'))
                 {
                     OpptyMSPIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE  = str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/SCP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/SCP/MES))';
+                    str_WHERE  = str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/SCP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/SCP/SaaS))';
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptySCIdSet(Int. ERP))'))
                 {   OpptySCIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE = str_WHERE.replace(' AND (Id IN: OpptySCIdSet(Int. ERP))', '') + ' AND (Id IN: OpptySCIdSet(Int. ERP/MES))';
+                    str_WHERE = str_WHERE.replace(' AND (Id IN: OpptySCIdSet(Int. ERP))', '') + ' AND (Id IN: OpptySCIdSet(Int. ERP/SaaS))';
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/SCP/ERP))')){
                     OpptyMSPIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE = str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/SCP/ERP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/SCP/ERP/MES))';  //Added by Anish - v 1.6
+                    str_WHERE = str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/SCP/ERP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/SCP/ERP/SaaS))';  //Added by Anish - v 1.6
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptyMSPIdSet(Int. MSP/ERP))'))
                 {
                     OpptyMSPIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE =  str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. MSP/ERP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. MSP/ERP/MES))';
+                    str_WHERE =  str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. MSP/ERP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. MSP/ERP/SaaS))';
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptyCSPIdSet(Int. CSP/ERP))'))
                 {
                     OpptyCSPIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE =  str_WHERE.replace(' AND (Id IN: OpptyCSPIdSet(Int. CSP/ERP))', '') + ' AND (Id IN: OpptyCSPIdSet(Int. CSP/ERP/MES))';
+                    str_WHERE =  str_WHERE.replace(' AND (Id IN: OpptyCSPIdSet(Int. CSP/ERP))', '') + ' AND (Id IN: OpptyCSPIdSet(Int. CSP/ERP/SaaS))';
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptySCPIdSet(Int. SCP/ERP))'))
                 {   
                     OpptySCPIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE =  str_WHERE.replace(' AND (Id IN: OpptySCPIdSet(Int. SCP/ERP))', '') + ' AND (Id IN: OpptySCPIdSet(Int. SCP/ERP/MES))';
+                    str_WHERE =  str_WHERE.replace(' AND (Id IN: OpptySCPIdSet(Int. SCP/ERP))', '') + ' AND (Id IN: OpptySCPIdSet(Int. SCP/ERP/SaaS))';
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/ERP))')){
                     OpptyMSPIdSet.addAll(OpptySCIdSet1);
-                    str_WHERE = str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/ERP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/ERP/MES))';
+                    str_WHERE = str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/ERP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. CSP/MSP/ERP/SaaS))';
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptyMSPIdSet(Int. SCP/MSP/ERP))'))
                 {
                     OpptyMSPIdSet.addAll(OpptySCIdSet1);
-                   str_WHERE = str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. SCP/MSP/ERP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. SCP/MSP/ERP/MES))'; 
+                   str_WHERE = str_WHERE.replace(' AND (Id IN: OpptyMSPIdSet(Int. SCP/MSP/ERP))', '') + ' AND (Id IN: OpptyMSPIdSet(Int. SCP/MSP/ERP/SaaS))'; 
                 }
                 else if(str_WHERE.contains(' AND (Id IN: OpptyCSPIdSet(Int. CSP/SCP/ERP))'))
                 {
                     OpptyCSPIdSet.addAll(OpptySCIdSet1);
-                str_WHERE = str_WHERE.replace(' AND (Id IN: OpptyCSPIdSet(Int. CSP/SCP/ERP))', '') + ' AND (Id IN: OpptyCSPIdSet(Int. CSP/SCP/ERP/MES))';
+                str_WHERE = str_WHERE.replace(' AND (Id IN: OpptyCSPIdSet(Int. CSP/SCP/ERP))', '') + ' AND (Id IN: OpptyCSPIdSet(Int. CSP/SCP/ERP/SaaS))';
                 System.debug('finalstring Ani :'+str_WHERE);
                 }
                 else{
-                    str_WHERE += ' AND (Id IN: OpptySCIdSet1(Int. MES))';  
+                    str_WHERE += ' AND (Id IN: OpptySCIdSet1(Int. SaaS))';
                 }
                 System.debug('finalstring Ani 123 :'+str_WHERE);
             }
             
             
-            if((MSPCheck == true || CSPCheck == true || SCPCheck == true || ERPCheck == true || MESCheck == true))
+            if((MSPCheck == true || CSPCheck == true || SCPCheck == true || ERPCheck == true || SaaSCheck == true))
              {
                 str_WHERE = str_WHERE.replace('(Int. CSP)','');
                 str_WHERE = str_WHERE.replace('(Int. MSP)','');
@@ -499,23 +513,24 @@ global without sharing class OpportunitySearchController {
                 str_WHERE = str_WHERE.replace('(Int. SCP/MSP/ERP)','');
                 str_WHERE = str_WHERE.replace('(Int. CSP/MSP/SCP/ERP)','');
                 str_WHERE = str_WHERE.replace('(Int. ERP)',''); 
-                str_WHERE = str_WHERE.replace('(Int. CSP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. CSP/MSP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. MSP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. SCP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. CSP/SCP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. SCP/MSP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. CSP/MSP/SCP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. ERP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. CSP/MSP/SCP/ERP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. MSP/ERP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. CSP/ERP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. SCP/ERP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. CSP/MSP/ERP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. SCP/MSP/ERP/MES)','');
-                str_WHERE = str_WHERE.replace('(Int. CSP/SCP/ERP/MES)',''); 
-                str_WHERE = str_WHERE.replace('(Int. MES)',''); 
+                str_WHERE = str_WHERE.replace('(Int. CSP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. CSP/MSP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. MSP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. SCP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. CSP/SCP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. SCP/MSP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. CSP/MSP/SCP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. ERP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. CSP/MSP/SCP/ERP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. MSP/ERP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. CSP/ERP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. SCP/ERP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. CSP/MSP/ERP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. SCP/MSP/ERP/SaaS)','');
+                str_WHERE = str_WHERE.replace('(Int. CSP/SCP/ERP/SaaS)',''); 
+                str_WHERE = str_WHERE.replace('(Int. SaaS)',''); 
             }
+            
             
         }
         //End- Added by Anish - v 1.5
@@ -561,7 +576,7 @@ global without sharing class OpportunitySearchController {
             for(Solution__c sol : solList){
                 OpptyIdSet1.add(sol.Opportunity__c);
             }
-            System.debug('Anish Testing opptyId :'+ OpptyIdSet1);
+            System.debug('Anish Testing opptyId :'+ OpptyIdSet1.size());
         }
 		        
         //if(OpptyIdSet1.size() >0){
@@ -629,7 +644,9 @@ global without sharing class OpportunitySearchController {
 		
         System.debug('str_COUNT : ' + str_COUNT);
         System.debug('str_SELECT : ' + str_SELECT);
-        System.debug('str_WHERE : ' + str_WHERE);
+        System.debug('akash1 str_WHERE : ' + OpptyCSPIdSet.size());
+        System.debug('akash2 str_WHERE : ' + OpptyIdSet1.size());
+        System.debug('akash3 str_WHERE : ' + str_WHERE);
         System.debug('str_ORDER : ' + str_ORDER);
         System.debug('str_LIMIT : ' + str_LIMIT);
         System.debug('result String : ' + str_SELECT + str_WHERE + str_ORDER + str_LIMIT);
@@ -658,6 +675,7 @@ global without sharing class OpportunitySearchController {
 
             Set<String> resultIdSet = new Set<String>();
             Map<String, Boolean> opptyPermissionMap = new Map<String, Boolean>();
+           
             if(resultOpptyList.size() > 0){
                 for(Opportunity opp : resultOpptyList){
                     resultIdSet.add(opp.Id);
@@ -667,6 +685,8 @@ global without sharing class OpportunitySearchController {
                 for(UserRecordAccess access : accessList){
                     opptyPermissionMap.put(access.RecordId, access.HasReadAccess);
                 }
+               
+
                 List<Company__c> companyList = [SELECT Name, CompanyCode__c FROM Company__c];
                 for(Opportunity opp : resultOpptyList){
                     returnObject rtnObj = new returnObject();
@@ -685,6 +705,8 @@ global without sharing class OpportunitySearchController {
                     rtnObj.AccName = opp.Account.Name;
                     rtnObj.OriginAccNum = opp.cOriginAcc__r.AccountNumber;
                     rtnObj.OriginAcctName = opp.cOriginAcc__r.Name;
+                    rtnObj.AccId = opp.AccountId; // MYSALES-522
+                    rtnObj.ContractAccId = opp.cOriginAcc__c; // MYSALES-522
                     rtnObj.BizLevel = opp.BusinessLevel__c;
                     rtnObj.OwnerName = opp.Owner.Name;
                     rtnObj.SalesDiv = opp.SalesDivision__c;
@@ -705,6 +727,7 @@ global without sharing class OpportunitySearchController {
                         rtnObj.FirstCloseDate = '';
                     }
                     rtnObj.Permission = opptyPermissionMap.get(opp.Id);
+                    
                     rtnObj.BO1stRegistrationDate = opp.BO1stRegistrationDate__c; //v1.9
 
                     returnList.add(rtnObj);
@@ -786,11 +809,11 @@ global without sharing class OpportunitySearchController {
         System.debug('Ani sv2 : '+sv.MSP);
         System.debug('Ani sv3 : '+sv.SCP);
         System.debug('Ani sv4 : '+sv.ERP);
-        System.debug('Ani sv5 : '+sv.MES);
+        System.debug('Ani sv5 : '+sv.SaaS);
         System.debug('Ani sv6 : '+sv.TechAttribute);
          
         Set<String> opptyIdSet = getOpptyIdSet(sv.Service, sv.Solution, sv.TechAttribute); //Modified by Anish - v 1.8
-        Set<String> opptyIBIdSet = getIBOpptyIdSet(sv.CSP, sv.MSP, sv.SCP, sv.ERP, sv.MES,sv.TechAttribute); //Added by Anish - v 1.6
+        Set<String> opptyIBIdSet = getIBOpptyIdSet(sv.CSP, sv.MSP, sv.SCP, sv.ERP, sv.SaaS,sv.TechAttribute); //Added by Anish - v 1.6
         
         String str_WHERE = formatWhereClause(sv);
         //Start - Added by Anish - v 1.6 //Start - Modified by Anish v 1.8
@@ -865,7 +888,7 @@ global without sharing class OpportunitySearchController {
      
     
     //Start-Added by Anish - v 1.6
-    public static Set<String> getIBOpptyIdSet(String CSP, String MSP, String SCP, String ERP, String MES,String TechAttribute){
+    public static Set<String> getIBOpptyIdSet(String CSP, String MSP, String SCP, String ERP, String SaaS,String TechAttribute){
         Set<String> OpptyIdSet = new Set<String>();
         
         Set<String> OpptySCIdSet  = new Set<String>();
@@ -874,7 +897,7 @@ global without sharing class OpportunitySearchController {
         Set<String> OpptyCSPIdSet = new Set<String>();
         Set<String> OpptySCPIdSet = new Set<String>();
         Set<String> OpptyERPIdSet = new Set<String>();
-        Set<String> OpptyMESIdSet = new Set<String>();
+        Set<String> OpptySaaSIdSet = new Set<String>();
         Set<String> OpptyFinalIdSet = new Set<String>();
         Boolean bTechAttribute;
         
@@ -886,22 +909,36 @@ global without sharing class OpportunitySearchController {
         }
         
         if(MSP == 'true' || CSP == 'true' || SCP == 'true'){
-            List<Opportunity> oppList = [sELECT Id,CspMspType__c, CMBizType__c from Opportunity where (Name LIKE '%%') AND (OpportunityCode__c LIKE '%%') AND (CspMspType__c = 'CSP' OR CspMspType__c = 'MSP' OR CMBizType__c = 'CSP_SCP')];
-
-            if(oppList.size() > 0){
-                for(Opportunity opp : oppList){
-                    if(opp.CspMspType__c == 'CSP'){
-                    OpptyCSPIdSet.add(opp.Id);
+            //List<Opportunity> oppList = [sELECT Id,CspMspType__c, CMBizType__c from Opportunity where (Name LIKE '%%') AND (OpportunityCode__c LIKE '%%') AND (CspMspType__c = 'CSP' OR CspMspType__c = 'MSP' OR CMBizType__c = 'CSP_SCP')];
+			List<Solution__c> sList = [Select Id,Opportunity__c,Opportunity__r.CspMspType__c,Opportunity__r.CMBizType__c,Solution__r.intensivetype__c from Solution__c where (Opportunity__r.Name LIKE '%%') AND (Opportunity__r.OpportunityCode__c LIKE '%%') 
+                                       AND (Solution__r.intensivetype__c = 'CSP' OR Solution__r.intensivetype__c = 'MSP')];
+            
+            if(sList.size() > 0){
+                for(Solution__c sol: sList){
+                    if(sol.Solution__r.intensivetype__c == 'CSP'){
+                        OpptyCSPIdSet.add(sol.Opportunity__c);
                     }
-                    if(opp.CspMspType__c == 'MSP'){
-                    OpptyMSPIdSet.add(opp.Id);
-                    }
-                    if(opp.CMBizType__c == 'CSP_SCP'){
-                    OpptySCPIdSet.add(opp.Id);
+                    if(sol.Solution__r.intensivetype__c == 'MSP'){
+                        OpptyMSPIdSet.add(sol.Opportunity__c); 
                     }
                 }
-                System.debug('Anish Testing OpptySCIdSet 4 :'+ OpptyCSPIdSet.Size() + '-' + OpptyMSPIdSet.Size() + '-' + OpptySCPIdSet.Size());
+               // System.debug('Anish Testing OpptySCIdSet 4 :'+ OpptyCSPIdSet.Size() + '-' + OpptyMSPIdSet.Size() + '-' + OpptySCPIdSet.Size());
             }
+            
+            System.debug('Anish Testing OpptySCIdSet 5 :');
+            List<Opportunity> oppList = [SELECT Id,CspMspType__c, CMBizType__c from Opportunity where (Name LIKE '%%') AND (OpportunityCode__c LIKE '%%') AND 
+                                         (CspMspType__c = 'CSP'  OR CspMspType__c = 'MSP'  OR CMBizType__c = 'CSP_SCP')];
+             for(Opportunity opp: oppList){
+                 if(opp.CspMspType__c == 'CSP'){
+                     OpptyCSPIdSet.add(opp.Id);
+                 }
+                 if(opp.CspMspType__c == 'MSP'){
+                     OpptyMSPIdSet.add(opp.Id); 
+                 }
+                 if(opp.CMBizType__c == 'CSP_SCP'){
+                     OpptySCPIdSet.add(opp.Id);
+                 }
+             }
         }
         
         if(ERP == 'true'){
@@ -915,19 +952,18 @@ global without sharing class OpportunitySearchController {
             }
         }
         
-        if(MES == 'true'){
-            //List<Service__c> sList = new List<Service__c>();
-            List<Service__c> sList = [Select Id,Opportunity__c from Service__c where sService__r.Code__c = '20000001' AND sService__r.Name = 'MES' AND DeletionFlag__c = False AND sendSAP__c = True AND TechAttribute__c =:bTechAttribute];
+        if(SaaS == 'true'){
+            List<Solution__c> sList = [Select Id,Opportunity__c from Solution__c where Solution__r.intensivetype__c = 'SaaS'];
             if(sList.size() > 0){
-                for(Service__c svc : sList){
-                    OpptySCIdSet1.add(svc.Opportunity__c);
+                for(Solution__c sol : sList){
+                    OpptySCIdSet1.add(sol.Opportunity__c);
                 }
-                System.debug('Anish Testing OpptySCIdSet1 4 :'+ OpptySCIdSet1);
+                System.debug('Anish Testing OpptySCIdSet 4 :'+ OpptySCIdSet1);
             }
         }
         
         
-        if(CSP == 'true' && MSP == 'true' && SCP == 'true' && ERP == 'true' && MES == 'true'){
+        if(CSP == 'true' && MSP == 'true' && SCP == 'true' && ERP == 'true' && SaaS == 'true'){
         OpptySCIdSet1.addAll(OpptySCIdSet);
         OpptySCIdSet1.addAll(OpptyCSPIdSet);
         OpptySCIdSet1.addAll(OpptyMSPIdSet);
@@ -1014,7 +1050,7 @@ global without sharing class OpportunitySearchController {
                 System.debug('finalstring Ani 123 :'+OpptyFinalIdSet);
             }
             
-            if(MES == 'true'){
+            if(SaaS == 'true'){
                  if(CSP == 'true'){
                     OpptyCSPIdSet.addAll(OpptySCIdSet1);
                     OpptyFinalIdSet.addAll(OpptyCSPIdSet);
@@ -1207,7 +1243,8 @@ global without sharing class OpportunitySearchController {
         str_SELECT += 'FROM Opportunity';
         
         Set<String> opptyIdSet = getOpptyIdSet(sv.Service, sv.Solution, sv.TechAttribute); // Modified by Anish - v 1.8
-        Set<String> opptyIBIdSet = getIBOpptyIdSet(sv.CSP, sv.MSP, sv.SCP, sv.ERP, sv.MES,sv.TechAttribute); //Added by Anish - v 1.6
+        //change by akash
+        Set<String> opptyIBIdSet = getIBOpptyIdSet(sv.CSP, sv.MSP, sv.SCP, sv.ERP, sv.SaaS,sv.TechAttribute); //Added by Anish - v 1.6
         System.debug('Ani Size :' + opptyIdSet.Size() + '-' + opptyIBIdSet.Size());
         String str_WHERE = formatWhereClause(sv);
         //Start - Added by Anish - v 1.6 //Start - Modified by Anish v 1.8
@@ -1355,7 +1392,7 @@ global without sharing class OpportunitySearchController {
         @AuraEnabled
         global String ERP {get; set;}
         @AuraEnabled
-        global String MES {get; set;}
+        global String SaaS {get; set;}
         @AuraEnabled
         global String TechAttribute {get; set;}
         //End-Added by Anish - v 1.6
@@ -1421,6 +1458,10 @@ global without sharing class OpportunitySearchController {
         global String FirstCloseDate {get; set;}
         @AuraEnabled
         global Boolean Permission {get; set;}
+        @AuraEnabled
+        global String AccId {get; set;}   // MYSALES-522
+        @AuraEnabled
+        global String ContractAccId {get; set;} // MYSALES-522
         @AuraEnabled
         global DateTime BO1stRegistrationDate {get; set;}//v1.9
     }

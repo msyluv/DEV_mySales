@@ -2,13 +2,14 @@
 * @description       : 
 * @author            : rakshit.s@samsung.com  d.ashish@samsung.com  aditya.r2@samsung.com
 * @group             : 
-* @last modified on  : 12-28-2023
+* @last modified on  : 04-04-2024
 * @last modified by  : atul.k1@samsung.com
 * Ver   Date         Author                   Modification
  * 1.0  11-24-2022   atul.k1@samsung.com      (IT) HQ mailing improvement MYSALES-361
  * 1.1  12-19-2023   atul.k1@samsung.com       Dynamic year change MYSALES-381
  * 1.2  12-28-2023   atul.k1@samsung.com       bullet point change MYSALES-377
  * 1.3  03-08-2024   atul.k1@samsung.com       Changing the BO Count and Sum of the bases of DiffAmt__c MYSALES-463
+ * 1.3  04-04-2024   vipul.k1@samsung.com       Weekly Sales Report Logic Change (Added One Table)  MYSALES-489
 **/
 global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Database.Stateful ,DataBase.AllowsCallouts, Schedulable {
     private static Boolean isSandbox = Utils.getIsSandbox();
@@ -30,6 +31,7 @@ global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Dat
     Boolean table7 =false;
     Boolean table8 =false;
     boolean masterTable4 = false;
+    boolean salesLead = false;//1.3 Added By Vipul
     
     private static Boolean bTest = false;  //운영 테스트를 위한 Flag 값;
     
@@ -194,6 +196,10 @@ global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Dat
             AND RecordType.Name='HQ' AND companycode__c='T100' order by closeDate Asc, Amount Desc           
         ];
         
+        List<Sales_Lead__c> tableSalesLeadList = new List<Sales_Lead__c>();//1.3 Added By Vipul
+        tableSalesLeadList = [SELECT Id,CloseDate__c ,LeadStatus__c,CompanyCode__c,OpportunityName__c,Name,AccountId__c, AccountId__r.Name FROM Sales_Lead__c 
+                                      WHERE OwnerId = : listScope[0].Id AND CompanyCode__c = 'T100' AND LeadStatus__c !='Close' AND CloseDate__c <=today Order by CloseDate__c];  // Added by Vipul
+        
         Set<String> scpCodes = new Set<String>();
 
         for(SCPSimulation__c scp : [select bocode__c  from SCPSimulation__c where companycode__c = 'T100' Limit 500]){//and ownerId = : listScope[0].Id SCP fix by Ashish
@@ -286,7 +292,7 @@ global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Dat
         
         Decimal tableOneAmountSum = getBORelatedAmount(compositeKeySet,BO_AmountMap,listScope[0]);
         //sequence change fro table 9 amd 1 end
-        if(lstOpp.Size()>0 || lstOppTable4.size()>0 || tableOneCount >0){
+        if(lstOpp.Size()>0 || lstOppTable4.size()>0 || tableSalesLeadList.size()>0 || tableOneCount >0){ // added by vipul 
             masterTable = true;
             for(Opportunity Opp : lstOpp){
                 String str = '';
@@ -377,6 +383,7 @@ global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Dat
             
             if(tableOneCount > 0 || lstOpp2.Size()>0){
                 // table1 = true;
+                strEmail = strEmail.replace('{!checkPadding}', 'box_padding'); // Added By vIpul
                 String strTemp = '';
                 //String amt = dec > 0 ? String.valueOf(dec/1000000) : '0' ;
                 String amt = String.valueOf(tableOneAmountSum /1000000); // String amt = tableOneAmountSum  > 0 ? String.valueOf(tableOneAmountSum /1000000) : '0'; //MYSALES-361 V 1.0
@@ -454,6 +461,7 @@ global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Dat
             if(tableOneCount==0 && lstOpp2.Size()==0){
                 a= true; 
                 strEmail = strEmail.replace('<tr><td><table class="title_wrap"><tr><td class="title">1. 연간 누적 사업기회 수주 현황<a class="add_btn" href="https://sdssfa.lightning.force.com/lightning/r/Report/00O2w00000E3Zv5EAF/view?queryScope=userFolders">수주완료 상세보기</a></td></tr></table><table class="table">{!tableString1}</table> <ul class="gray_text"><li>수주완료 건수 : \'Curent_Year년 수주/변경 품의 BO 건수 (수주 변경금액이 0원인 경우 제외, 동일한 BO번호는 1건으로 집계)</li><li2>수주완료 금액 : \'Curent_Year년 수주금액 및 수주 변경금액(차액) 의 합계 </li2><li>변경 품의 금액은 해당 BO 의 Related > Opportunity Amount 에서 확인 가능합니다.</li></ul></td></tr>',''); //MYSALES-361 V 1.0 Add css  //MYSALES-381
+                strEmail = strEmail.replace('{!checkPadding}', '');//Added By vIpul
             }
             //lstOpp1 = null;
             lstOpp2 = null;
@@ -520,6 +528,52 @@ global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Dat
                 table2 = true;
             }
             
+             if(tableSalesLeadList.size() > 0 || test.isRunningTest()){//Start 1.3 Added By Vipul
+              String strTemp = '';
+              strTemp += ' <thead><tr>'+ 
+                  '<td  colspan ="4">사업리드 명</th>'+
+                  '<td  colspan ="4">고객 명</th>'+
+                  '<td  colspan ="2"></th>'+
+                  '<td style="width:11%" class="align_left">수주예상일</th>'+
+                  '</tr></thead>';
+                strTemp +=  '<tbody>';
+                for(Sales_Lead__c sld : tableSalesLeadList){
+                  String str;
+                  String acc;
+                   if(isSandbox){
+                        str = 'https://sdssfa--qa.sandbox.lightning.force.com/lightning/r/Sales_Lead__c/' + sld.Id + '/view';
+                        acc = 'https://sdssfa--qa.sandbox.lightning.force.com/lightning/r/Account/' + sld.AccountId__c + '/view';
+                    }
+                    else{
+                        str = 'https://sdssfa.lightning.force.com/lightning/r/Sales_Lead__c/' + sld.Id + '/view';  
+                        acc = 'https://sdssfa.lightning.force.com/lightning/r/Account/' + sld.AccountId__c + '/view';
+                    }
+                                        
+                    String clDate = String.valueOf(sld.CloseDate__c);
+                    String closeDate = clDate.substring(0,10);
+                    String accName = '';
+                    if(sld.AccountId__r.Name != null){
+                      accName =  sld.AccountId__r.Name;
+                   }
+                     strTemp +=  '<tr>'+
+                        '<td  colspan ="4">' + '<a style="color:blue" href="' + str + '">'+ sld.Name + '</a>' + '</td>' + 
+                        '<td  colspan ="4">' + '<a style="color:blue" href="' + acc + '">'+ accName + '</a>' + '</td>' +
+                        '<td colspan ="2"> </td>' +
+                        '<td class="align_left">' + closeDate + '</td>' +
+                        '</tr>' ;
+                }
+                strTemp +=  '</tbody>';
+                String sTemp = IntRoman(subHeadingCount) +'지연 사업리드';    
+                strEmail = strEmail.replace('ii. 지연 사업리드', sTemp);    
+                strEmail = strEmail.replace('{!tableString2New}', strTemp);
+                subHeadingCount++;
+                datetime dt1 = Date.today();
+                String sDate = String.valueOf(dt1.format('yyyy-MM-dd'));
+                strEmail = strEmail.replace('{!DateValue}', sDate +' --  '+ listScope[0].Name +' -- '+ listScope[0].Email);
+                salesLead = true;
+            }//End 1.3 Added By Vipul
+
+            
             if(lstOpp4.Size()>0){
                 //table3 = true;
                 String strTemp = '';
@@ -573,22 +627,22 @@ global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Dat
                 }
                 strTemp +=  '<tbody>';
                 String sTemp = IntRoman(subHeadingCount) +'수주예상일 도래 BO (D-13)';    //Adi
-                strEmail = strEmail.replace('ii. 수주예상일 도래 BO (D-13)', sTemp);    //Adi
+                strEmail = strEmail.replace('iii. 수주예상일 도래 BO (D-13)', sTemp);    //Adi // added by vipul
                 strEmail = strEmail.replace('{!tableString3}', strTemp);
                 datetime dt1 = Date.today();
 				String sDate = String.valueOf(dt1.format('yyyy-MM-dd'));
                 strEmail = strEmail.replace('{!DateValue}', sDate);
                 table3 = true;
             }
-            
-            if(lstOpp4.Size()==0 && lstOpp3.Size()==0){
-                strEmail = strEmail.replace('<tr><td class="box_padding"><p class="title">2. 지연 BO 및 수주 예상일 도래 BO</p><div class="sub_table_wrap">', '');
+            if(lstOpp4.Size()==0 && lstOpp3.Size()==0 && tableSalesLeadList.size() == 0){
+                strEmail = strEmail.replace('<tr><td class="box_padding"><p class="title">2. 지연 BO, 사업리드 및 수주 예상일 도래 BO</p><div class="sub_table_wrap">', '');
                 strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">i. 지연 BO</td></tr></table><table class="table box_margin">{!tableString2}</table>', '');
-                strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">ii. 수주예상일 도래 BO (D-13)</td></tr></table><table class="table">{!tableString3}</table>', '');
+                strEmail = strEmail.replace('<table class="title_wrap" ><tr><td  class="sub_title" style="width:100%">ii. 지연 사업리드</td></tr></table><table class="table box_margin">{!tableString2New}</table>', '');//1.3 Added By Vipul
+                strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">iii. 수주예상일 도래 BO (D-13)</td></tr></table><table class="table">{!tableString3}</table>', '');//1.3 Added By Vipul
             }else{  //Adi complete else part
-                String sTemp = '<p class="title">' + count + '. 지연 BO 및 수주 예상일 도래 BO</p>';
+                String sTemp = '<p class="title">' + count + '. 지연 BO, 사업리드 및 수주 예상일 도래 BO</p>';
                 system.debug('Count inside Main table 2 : '+ count);
-                strEmail = strEmail.replace('<p class="title">2. 지연 BO 및 수주 예상일 도래 BO</p>', sTemp);
+                strEmail = strEmail.replace('<p class="title">2. 지연 BO, 사업리드 및 수주 예상일 도래 BO</p>', sTemp);
                 count = count +1;
             }
             
@@ -598,14 +652,21 @@ global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Dat
                 b= true;  
             }
             
+            Boolean SalesLeadC = false; //1.3 Added By Vipul
+            if(tableSalesLeadList.Size()==0){
+                strEmail = strEmail.replace('<table class="title_wrap" ><tr><td  class="sub_title" style="width:100%">ii. 지연 사업리드</td></tr></table><table class="table box_margin">{!tableString2New}</table>', '');
+                SalesLeadC= true;  
+            }
+            
             Boolean c = false;
             if(lstOpp4.Size()==0){
-                strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">ii. 수주예상일 도래 BO (D-13)</td></tr></table><table class="table">{!tableString3}</table>', '');
+                strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">iii. 수주예상일 도래 BO (D-13)</td></tr></table><table class="table">{!tableString3}</table>', '');
                 c= true;   
             }
             
             lstOpp3 = null;   
             lstOpp4 = null;
+            tableSalesLeadList = null;
             subHeadingCount = 1;  //Adi
             
             if(lstOpp5.Size()>0){
@@ -1086,9 +1147,10 @@ global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Dat
         }else{
             String cs = 'CSP_SCP';
             strEmail = strEmail.replace('<tr><td><table class="title_wrap"><tr><td class="title">1. 연간 누적 사업기회 수주 현황<a class="add_btn" href="https://sdssfa.lightning.force.com/lightning/r/Report/00O2w00000E3Zv5EAF/view?queryScope=userFolders">수주완료 상세보기</a></td></tr></table><table class="table">{!tableString1}</table> <ul class="gray_text"><li>수주완료 건수 : \'Curent_Year년 수주/변경 품의 BO 건수 (수주 변경금액이 0원인 경우 제외, 동일한 BO번호는 1건으로 집계)</li><li2>수주완료 금액 : \'Curent_Year년 수주금액 및 수주 변경금액(차액) 의 합계 </li2><li>변경 품의 금액은 해당 BO 의 Related > Opportunity Amount 에서 확인 가능합니다.</li></ul></td></tr>','');//※ 수주 변경한 BO의 수주금액은 변경분(차액)으로 집계됩니다. // MYSALES-361 V 1.0 css end
-            strEmail = strEmail.replace('<tr><td class="box_padding"><p class="title">2. 지연 BO 및 수주 예상일 도래 BO</p><div class="sub_table_wrap">', '');
+            strEmail = strEmail.replace('<tr><td class="box_padding"><p class="title">2. 지연 BO, 사업리드 및 수주 예상일 도래 BO</p><div class="sub_table_wrap">', '');
             strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">i. 지연 BO</td></tr></table><table class="table box_margin">{!tableString2}</table>', '');
-            strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">ii. 수주예상일 도래 BO (D-13)</td></tr></table><table class="table">{!tableString3}</table>', '');
+            strEmail = strEmail.replace('<table class="title_wrap" ><tr><td  class="sub_title" style="width:100%">ii. 지연 사업리드</td></tr></table><table class="table box_margin">{!tableString2New}</table>', '');
+            strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">iii. 수주예상일 도래 BO (D-13)</td></tr></table><table class="table">{!tableString3}</table>', '');
             strEmail = strEmail.replace('<tr><td class="box_padding"><p class="title">3. 사업수행 사전준비</p><div class="sub_table_wrap">', '');
             strEmail = strEmail.replace('<p class="sub_title">i. 수전위 사전준비</p><p class="text">사참 수전위는 수주예상일 2개월전, 입찰 수전위는 수주예상일 2주전 완료해 주시기 바랍니다.<br>- PM: 자가점검 체크리스트 수행, 인력투입계획 수립, 수전위 원가판 편성<br>- 영업대표: 수전위 원가판 확정 </p><p class="gray_text">※ 심의부서에 체크리스트 심의의견 작성시 참고 할 수 있는 보고서, RFP, 제안서 등을 공유하여 주시기 바랍니다. </p><table class="table box_margin">{!tableString4}</table><table class="table box_margin">{!tableString5}</table>', '');
             strEmail = strEmail.replace('<table class="title_wrap"><tr><td class="sub_title">ii. 인력투입 계획 수립</td><td class="title_small">수주예상일 3개월 전 인력투입 계획을 수립해 주시기 바랍니다.</td></tr></table><table class="table box_margin">{!tableString6}</table>', '');
@@ -1272,7 +1334,7 @@ global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Dat
                     
                     if(mastertable){
                         system.debug('mainlistpopulated');
-                        if(!table1 && !table2 && !table3 && !table4 && !table5 && !table6 && !table7 && !table8 && !mastertable4){
+                        if(!table1 && !table2 && !salesLead && !table3 && !table4 && !table5 && !table6 && !table7 && !table8 && !mastertable4){
                             //create if log
                             system.debug('otherlistzero');
                             userInfoWrap uu = new userInfoWrap();
@@ -1316,7 +1378,7 @@ global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Dat
                     
                     if(mastertable || mastertable4 || table1){
                         system.debug('mainlistpopulated');
-                        if(!table1 && !table2 && !table3 && !table4 && !table5 && !table6 && !table7 && !table8 && !mastertable4){
+                        if(!table1 && !table2 && !salesLead && !table3 && !table4 && !table5 && !table6 && !table7 && !table8 && !mastertable4){
                             //create if log
                             system.debug('otherlistzero');
                             userInfoWrap uu = new userInfoWrap();
@@ -1371,7 +1433,7 @@ global class Batch_WeeklySalesReport implements DataBase.Batchable<SObject>, Dat
                 //existing end
             }
         }
-        table1= false; table2=false;  table3=false; table4=false; table5=false; table6=false; table7=false; table8=false;  mastertable = false; mastertable4=false;
+        table1= false; table2=false; salesLead=false; table3=false; table4=false; table5=false; table6=false; table7=false; table8=false;  mastertable = false; mastertable4=false;
     }
     
     public void finish(Database.BatchableContext BC){

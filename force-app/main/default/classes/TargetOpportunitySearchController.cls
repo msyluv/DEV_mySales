@@ -1,27 +1,34 @@
+/**
+* @description       : 
+* @author            : akash.g@samsung.com
+* @group             : 
+* @last modified on  : 2024-05-09
+* @last modified by  : akash.g@samsung.com 
+* Modifications Log 
+* Ver   Date         Author                              Modification
+* 1.0   2024-05-09   akash.g@samsung.com                 Initial Version(MYSALES-499)
+**/
 public without sharing class TargetOpportunitySearchController {
     @AuraEnabled    
     public static List<Map<String, String>> defaultSetting(){
-        
         Map<String, String> defaultMap = new Map<String, String>();
         defaultMap.put('label', System.Label.BOSEARCH_LAB_ALL);
         defaultMap.put('value', '');
-
+        
         // Status Picklist Setting
         List<Map<String, String>> statusPickList = new List<Map<String, String>>();
         statusPickList.add(defaultMap);
-
+        
         List<Map<String, String>> opptyStatusList = Utils.getPicklistOptionType('Opportunity', 'OpportunityStatus__c');
         for(Integer i = 0; i < opptyStatusList.size(); i++){
             statusPickList.add(opptyStatusList[i]);
         }        
-     
         return statusPickList;
     }
-
+    
     
     @AuraEnabled
     public static OpportunityDataTableWrapper getOpportunityData(String SelectedValue,Integer pageNumber, Integer pageSize) {
-        System.debug('Inside Apex');
         Integer offset = (pageNumber - 1) * pageSize;
         Integer recordEnd = pageSize * pageNumber;
         
@@ -34,7 +41,7 @@ public without sharing class TargetOpportunitySearchController {
         String str_LIMIT = ' LIMIT '+pageSize+' OFFSET '+offset;
         Integer totalRecords = Database.countQuery(str_COUNT + str_WHERE);
         
-
+        
         //Instance of Opportunity DataTable Wrapper Class
         OpportunityDataTableWrapper objDT =  new OpportunityDataTableWrapper();  
         objDT.pageSize = pageSize;
@@ -80,7 +87,7 @@ public without sharing class TargetOpportunitySearchController {
         if((sv.SalesDept).Id != null){
             str_WHERE += ' AND SalesDepartment__c = \'' + (sv.SalesDept).Id + '\'';
         }
-
+        
         if((sv.PrimarySalesDept).Id != null){
             str_WHERE += ' AND cPrimarySalesDepartment__c = \'' + (sv.PrimarySalesDept).Id + '\'';
         }
@@ -117,7 +124,7 @@ public without sharing class TargetOpportunitySearchController {
         @AuraEnabled
         public customObject PrimarySalesDept {get; set;}
     }
-
+    
     public class customObject {
         @AuraEnabled
         public String Id {get; set;}

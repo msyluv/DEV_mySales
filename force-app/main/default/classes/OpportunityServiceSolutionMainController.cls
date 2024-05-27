@@ -2,8 +2,8 @@
  * @description       : 
  * @author            : seonju.jin@dkbmc.com
  * @group             : 
- * @last modified on  : 2024-04-05
- * @last modified by  : sarthak.j1@samsung.com
+ * @last modified on  : 05-08-2024
+ * @last modified by  : chae_ho.yang@samsung.com
  * Modifications Log 
  * Ver   Date         Author                 Modification
  * 1.0   2020-11-18   seonju.jin@dkbmc.com   Initial Version
@@ -45,6 +45,8 @@
  * 4.5   2023-10-26   anish.jain@partner.samsung.com  MS-302
  * 4.6   2024-04-05   sarthak.j1@samsung.com    Remove the logic related to BrityAP -> [MYSALES-491]
  * 4.7   2024-04-12   d.ashish@samsung.com  Added Logic for Send Service -> [MYSALES-505]
+ * 4.8   2024-04-25   anish.jain@partner.samsung.com  Analysis the cause of 'Review Opportunity' issue -> [MYSALES-495]
+ * 4.9   2024-05-08   chae_ho.yang@samsung.com  MYSALES-523 Miracom getGubun modification
 **/
 public without sharing class OpportunityServiceSolutionMainController {
     //Use resultMap Key name
@@ -907,7 +909,7 @@ public without sharing class OpportunityServiceSolutionMainController {
     * @param Id opptyId 
     * 2021-08-17 @성유라 프로요청 Project/WBS 생성 이후 변경 되도록 수정
     **/
-    public static void updateOpptyBizType(Opportunity oppty, List<Solution__c> solList){
+    public static String updateOpptyBizType(Opportunity oppty, List<Solution__c> solList){ //Added by Anish - v 4.8
         try{
             /** 2020.12.16 opportunity BusinessType__c update
              *  TI 가 하나라도 있으면 --> TI    
@@ -925,11 +927,14 @@ public without sharing class OpportunityServiceSolutionMainController {
                 }
             }
             oppty.BusinessType__c = bizType;
+            
             update oppty;
             createInterfaceLog3('updateOpptyBizType', 'BO_CODE : '+oppty.OpportunityCode__c + ', COMPANY_CODE : ' + oppty.CompanyCode__c + '\n' + '5.Biz type 1 Updated : Success , Value : ' + bizType , 'S'); //Added by Anish - v 4.1
+            return bizType; // v 4.8
         }catch(Exception e){
             createInterfaceLog3('updateOpptyBizType', 'BO_CODE : '+oppty.OpportunityCode__c + ', COMPANY_CODE : ' + oppty.CompanyCode__c + '\n' + '5.Biz type 1 Failed : ' +e.getStackTraceString()  + ' Message : ' + e.getMessage() , 'F'); //Added by Anish - v 4.1
             System.debug(LoggingLevel.ERROR, e.getStackTraceString());
+            return e.getMessage(); // v 4.8
         }
     }
 
@@ -945,6 +950,7 @@ public without sharing class OpportunityServiceSolutionMainController {
         Map<String,Object> resultMap = new Map<String,Object>();
         Map<String,Object> result = new Map<String,Object>();
         String resultMsg = 'S';
+        String bizMessage = ''; //v 4.8
 
         try {
             //select Insert, Update, Delete Service
@@ -1227,7 +1233,10 @@ public without sharing class OpportunityServiceSolutionMainController {
                             AND (Changed__c = true OR Service__r.Changed__c = true)
                             AND DeletionFlag__c = false     // SAP에서 삭제된 데이터들은 제외 
                             ORDER BY Service__r.ItemNumber__c, sDeletionFlag__c];
-
+			system.debug('akash001'+ lnewSol.size());
+            system.debug('akash002'+ lnewSvc.size());
+             system.debug('akash003'+ luptSvc.size());  
+                system.debug('akash004'+ luptSol.size()); 
                 Integer svcSolCnt = lnewSol.size() + lnewSvc.size() + luptSvc.size() + luptSol.size();
 
                 Object objectLog = null;
@@ -1284,6 +1293,7 @@ public without sharing class OpportunityServiceSolutionMainController {
                             Map<String,String> createResultMap = saveProject(opprty, lnewSvc, lnewSol , pjtCreateResult, 'IF-040');
                             result.put('CREATE_PROJECT', createResultMap);
                             resultMsg = createResultMap.get(KEY_RESULT);
+                            bizMessage = createResultMap.get('Biz Type'); //v 4.8
                             
                             system.debug('### OpportunityServiceSolutionMainController :: onConfirmToSAP :: resultMsg = ' + resultMsg);
 
@@ -1356,6 +1366,7 @@ public without sharing class OpportunityServiceSolutionMainController {
                                 Map<String,String> changeResultMap = saveProject(opprty, lsvcSAP, lsolSAP, pjtChangeResult, 'IF-050');
                                 result.put('CHANGE_PROJECT', changeResultMap);
                                 resultMsg = changeResultMap.get(KEY_RESULT);
+                                bizMessage = changeResultMap.get('Biz Type'); //v 4.8
 
                                 /* 2021.05.17 추가 activity 상태값 업데이트 */
                                 if(resultMsg != 'E') upsertOpportunityActivity(opprty.Id,opprty.CompanyCode__c, OPPTYACT_STATUS_COMPLETED); 
@@ -1379,7 +1390,7 @@ public without sharing class OpportunityServiceSolutionMainController {
 
         resultMap.put(KEY_MSG, resultMsg);
         resultMap.put(KEY_RESULT, result);
-
+        resultMap.put('BizType', bizMessage); //v 4.8
         return resultMap;
     }
 
@@ -1441,7 +1452,7 @@ public without sharing class OpportunityServiceSolutionMainController {
         //SvcSolBizAttr__c 사업속성, 사업유형, 수익인식기준 조회
         for(Solution__c sol: lnewsol){
             IF_PsCreatePjtNoController.IT_SERVICE itService = new IF_PsCreatePjtNoController.IT_SERVICE();
-            String gubun = WBSHelper.getGubun(sol.sSolutionType__c, companyCode);
+            String gubun = WBSHelper.getGubun(sol.sSolutionType__c, companyCode, sol); // 4.9 modification added sol
 
             if(sol.ItemNumber__c != 10) zzsubs_pjt = '';
             itService.SERVICE           = sol.Service__r.sService__r.Code__c;                   //서비스
@@ -1677,7 +1688,7 @@ public without sharing class OpportunityServiceSolutionMainController {
             IF_PsChangePjtController.IT_SOLUTION itSolution = new IF_PsChangePjtController.IT_SOLUTION();
             if(beforeDelete){
                 IF_PsChangePjtController.IT_SOLUTION itSolutionDel = new IF_PsChangePjtController.IT_SOLUTION();
-                String gubun = WBSHelper.getGubun(sol.SolutionType__c, companyCode);
+                String gubun = WBSHelper.getGubun(sol.SolutionType__c, companyCode, sol); // 4.9 modification added sol
 
                 itSolutionDel.SERVICE_CODE     = sol.SvcWBSCode__c;
                 itSolutionDel.SOLUTION_CODE    = sol.WBSCode__c;
@@ -1692,7 +1703,7 @@ public without sharing class OpportunityServiceSolutionMainController {
                 litSolution.add(itSolutionDel);
             }
             
-            String gubun = WBSHelper.getGubun((OPTION == KEY_DELETE) ? sol.SolutionType__c : sol.sSolutionType__c, companyCode);
+            String gubun = WBSHelper.getGubun((OPTION == KEY_DELETE) ? sol.SolutionType__c : sol.sSolutionType__c, companyCode, sol); // 4.9 modification added sol
             itSolution.SERVICE_CODE     = (beforeDelete || (SVC_OPTION == KEY_CREATE && OPTION == KEY_CREATE)) ? '' : svcWBSCode;
             itSolution.SOLUTION_CODE    = (beforeDelete || OPTION == KEY_CREATE) ? ''       : sol.WBSCode__c;
             itSolution.SOLUTION         = (OPTION == KEY_DELETE) ? sol.Solution__r.Code__c  : sol.sSolution__r.Code__c;
@@ -1786,7 +1797,7 @@ public without sharing class OpportunityServiceSolutionMainController {
 
                     if(beforeDelete){
                         IF_EccWbsDeleteController.OUTPUT_IT_SOLUTION itSolutionDel = new IF_EccWbsDeleteController.OUTPUT_IT_SOLUTION();
-                        String gubun = WBSHelper.getGubun(sol.SolutionType__c, opprty.CompanyCode__c);
+                        String gubun = WBSHelper.getGubun(sol.SolutionType__c, opprty.CompanyCode__c, sol); // 4.9 modification added sol
 
                         itSolutionDel.SERVICE_CODE     = sol.SvcWBSCode__c;
                         itSolutionDel.SOLUTION_CODE    = sol.WBSCode__c;
@@ -1801,7 +1812,7 @@ public without sharing class OpportunityServiceSolutionMainController {
                         litSolution.add(itSolutionDel);
                     }
                 }else{
-                    String gubun = WBSHelper.getGubun(sol.SolutionType__c, opprty.CompanyCode__c);
+                    String gubun = WBSHelper.getGubun(sol.SolutionType__c, opprty.CompanyCode__c, sol); // 4.9 modification added sol
                     String svcWBSCode = sol.SvcWBSCode__c;
                     itSolution.SERVICE_CODE     = svcWBSCode;
                     itSolution.SOLUTION_CODE    = sol.WBSCode__c;
@@ -1864,7 +1875,12 @@ public without sharing class OpportunityServiceSolutionMainController {
             IF_Log__c log = new IF_Log__c();
                 log.ApexName__c = 'OpportunityServiceSolutionMainController';
                 log.ApexMethod__c =  apexMethod;
+                if(apexMethod == 'Callout_IF093'){
+                log.InterfaceId__c = 'Callout_IF093';
+                }
+                else{
                 log.InterfaceId__c = 'LOGIC_REVIEWOPP';
+                }
                 log.LogText__c = logMessage;
                 log.StatusCode__c = statusCode;
                 log.LogType__c = 'Interface';
@@ -1900,6 +1916,7 @@ public without sharing class OpportunityServiceSolutionMainController {
         Integer errCnt = 0;         //결과 실패 카운트
         Integer syncWBSCnt = 0;     //저장 후 데이터 Sync 결과값(ET_WBS_INFO가 있는 경우에만 Count)
         Id ifLogId;             //IF 로그 recordId. 동기화 로그를 위한 Id 변수
+        String bizType = ''; //v 4.8
 
         try{
             List<Object> letMessage = (List<Object>)pjtResult.get('ET_MESSAGE');
@@ -1964,7 +1981,7 @@ public without sharing class OpportunityServiceSolutionMainController {
                 resultMap.put(KEY_MSG , resultMsg);
                 return resultMap;
             }
-
+			
             //Knox메일에 사용할 서비스, 솔루션 정보
             List<Service__c> lchangeService= new List<Service__c>();
             List<Solution__c> lchangesolution = new List<Solution__c>();
@@ -2053,7 +2070,6 @@ public without sharing class OpportunityServiceSolutionMainController {
                 }
                 upsert lnewProject ProjectCode__c; //Project upsert. 2021.10.20 IF-007이 실시간으로 변경되어 Delete/Insert -> upsert로 dml 변경
                 createInterfaceLog3('saveProject', 'BO_CODE : '+opprty.OpportunityCode__c + ', COMPANY_CODE : ' + opprty.CompanyCode__c + '\n' + '3.New Project Created : Success' , 'S'); //Added by Anish - v 4.1
-                
                 //WBS 생성, 서비스/솔루션 업데이트
                 for(Integer i = 0 ; i < pjtWBSInfo.size(); i++){
                     Object obj = pjtWBSInfo[i];
@@ -2221,7 +2237,11 @@ public without sharing class OpportunityServiceSolutionMainController {
                 
                 // ----------------------------------------- 사기검 후처리
                 // 사기검 후처리 - 1)IF-042 2)IF-093, 3)이메일 전송
-                if(!Test.isRunningTest()) IF_LsDashboardController.calloutDashboardInfo(new Set<Id>{opprty.Id}); 
+                system.debug('akash1');
+                if(!Test.isRunningTest()){
+                    IF_LsDashboardController.calloutDashboardInfo(new Set<Id>{opprty.Id}); 
+                }
+                   
                 system.debug('hi this project code' );
                 //1) IF-042 신대시보드 전송. 2021.07.29 (조미옥 프로요청) 서비스솔루션 전송 후 신대시보드 전송(화면값 기준으로 전송함)
                 if(lChangeService.size() > 0 || lChangeSolution.size() > 0){
@@ -2254,7 +2274,7 @@ public without sharing class OpportunityServiceSolutionMainController {
                 }
                 upsert lnewWBS Name;  //WBS upsert. 2021.10.20 IF-007이 실시간으로 변경되어 Delete/Insert -> upsert로 dml 변경
                 createInterfaceLog3('saveProject', 'BO_CODE : '+opprty.OpportunityCode__c + ', COMPANY_CODE : ' + opprty.CompanyCode__c + '\n' + '4.New WBS Created : Success', 'S'); //Added by Anish - v 4.1
-                if(solActiveList.size() > 0) updateOpptyBizType(opprty, solActiveList); //2021.08.17 @성유라프로 요청 - Project 수정/생성 이후 사업기회 사업유형 1 업데이트
+                if(solActiveList.size() > 0) bizType = updateOpptyBizType(opprty, solActiveList); //2021.08.17 @성유라프로 요청 - Project 수정/생성 이후 사업기회 사업유형 1 업데이트 //v 4.8
 
                 // result set
                 resultType = 'S';
@@ -2299,6 +2319,7 @@ public without sharing class OpportunityServiceSolutionMainController {
 
         resultMap.put(KEY_RESULT, resultType);
         resultMap.put(KEY_MSG, resultMsg);
+        resultMap.put('Biz Type', bizType); //v 4.8
         System.debug('### OpportunityServiceSolutionMainController, saveProject, resultMap => ' + resultMap);
         return resultMap;
     }
@@ -2329,6 +2350,7 @@ public without sharing class OpportunityServiceSolutionMainController {
             output.CT_SOL = new List<IF_EccPaymentProgChangeController.CT_SOL>();
             
             Map<String,Object> returnMap = IF_EccPaymentProgChangeController.paymentProgChange(JSON.serialize(output));
+            createInterfaceLog3('Callout_IF093', 'BO_CODE : '+oppty.OpportunityCode__c + ', COMPANY_CODE : ' + oppty.CompanyCode__c + '\n' + 'IF-093 Called : Success', 'S'); //v 4.8
             createInterfaceLog(returnMap.get('INTERFACE_LOG'), oppty.Id);
         }
     }
@@ -2733,8 +2755,34 @@ public without sharing class OpportunityServiceSolutionMainController {
                             opptyAct.EndDate__c = null;
                         }                        
                     }                
-                } else if(Utils.isSubsidiary(opportunity[0].CompanyCode__c) || opportunity[0].Collaboration__c == false || (opportunity[0].Collaboration__c == true && opportunity[0].CollaborationBOId__r.BusinessType__c != 'TI')){//V4.4 MYSALES-261
+                } else if(Utils.isSubsidiary(opportunity[0].CompanyCode__c) || (opportunity[0].Collaboration__c == false && opportunity[0].BusinessType__c != 'TI') || (opportunity[0].Collaboration__c == true && opportunity[0].CollaborationBOId__r.BusinessType__c != 'TI')){//V4.4 MYSALES-261 // v 4.8
                     opptyAct.Status__c = OPPTYACT_STATUS_COMPLETED;   
+                }
+                else if((opportunity[0].Collaboration__c == false && opportunity[0].BusinessType__c == 'TI') && (opportunity[0].Opportunity_Review_VRB_Type_Confirm__c == '30')){//V4.8
+                    System.debug('ZP21 Ser/Sol Entry');
+                    List<KnoxApproval__c> requestBOApproval = [
+                            SELECT  Id,Status__c
+                            FROM    KnoxApproval__c
+                            WHERE   Opportunity__c = :opptyId
+                                AND OpportunityActivity__r.TransactionName__c = 'ZP21'
+                                ORDER BY CreatedDate Desc
+                        ];
+                    if(!requestBOApproval.isEmpty()){
+                        System.debug('ZP21 Ser/Sol Entry');
+                        if(requestBOApproval[0].Status__c == KnoxApprovalHelper.KNOX_APPROVAL_STATUS_COMPLETED
+                                    || requestBOApproval[0].Status__c == KnoxApprovalHelper.KNOX_APPROVAL_STATUS_ARBITRARY_CONFIRMED
+                           || requestBOApproval[0].Status__c == KnoxApprovalHelper.KNOX_APPROVAL_STATUS_AFTER_CONFIRMED){
+                            opptyAct.Status__c = OPPTYACT_STATUS_COMPLETED;   
+                           }
+                        else{
+                            opptyAct.Status__c = OPPTYACT_STATUS_INPROGRESS; 
+                        }
+                    }
+                    
+                    else{
+                        System.debug('ZP21 Ser/Sol Entry');
+                    opptyAct.Status__c = OPPTYACT_STATUS_INPROGRESS; 
+                    }
                 }
                 //신규추가종료                                    
             }

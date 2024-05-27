@@ -36,7 +36,7 @@ trigger TaskTrigger on Task (before update, after insert, after update, after de
                 if(!system.isBatch()){					                  
                     for(Task tsk :Trigger.New){
                         if(userrec.Synchronize_task__c){
-                        if((Trigger.OldMap.get(tsk.Id).Subject != tsk.Subject) || (Trigger.OldMap.get(tsk.Id).ActivityDate != tsk.ActivityDate) || (Trigger.OldMap.get(tsk.Id).Description != tsk.Description) ){
+                        if((Trigger.OldMap.get(tsk.Id).Subject != tsk.Subject) || (Trigger.OldMap.get(tsk.Id).ActivityDate != tsk.ActivityDate) || (Trigger.OldMap.get(tsk.Id).Description != tsk.Description) || (Trigger.OldMap.get(tsk.Id).PrivateTask__c != tsk.PrivateTask__c)){
                            system.debug('hi');
                             if( tsk.ActivityDate!=null && Trigger.OldMap.get(tsk.Id).ActivityDate != null) {
                             IF_KnoxUpdateTaskCallout.doCalloutSendingUpdatedTasktoknox(tsk.Id); 

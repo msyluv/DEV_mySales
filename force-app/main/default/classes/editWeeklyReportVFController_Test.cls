@@ -19,6 +19,15 @@ public class editWeeklyReportVFController_Test {
         String RichTextValue = '<p>test</p>'+
             				   //'<p><img src="https://sdssfa.file.force.com/servlet/servlet.ImageServer?id=0152w000002Hb8K&oid=00D2w000008robw&lastMod=1654233710000"></p>';
             				   '<p><img src="data:image/png;base64,'+imageBase64Data+'"alt="Test Data"></p>';
+        
+          RecordType rcdType_Acc_MDG = [SELECT Id FROM RecordType WHERE SobjectType = 'Account' AND DeveloperName = 'MDG' Limit 1];
+
+          Account acc_1 = new Account(
+            Name = 'Test Account 1',
+            RecordTypeId = rcdType_Acc_MDG.Id,
+            MDGCheck__c = true
+        );
+        insert acc_1;   
                 
         WeeklyReport__c weeklyReport = new WeeklyReport__c();
         
@@ -54,7 +63,10 @@ public class editWeeklyReportVFController_Test {
         ApexPages.currentPage().getParameters().put('deleteSrc', delCont);
         ApexPages.currentPage().getParameters().put('ReportingName', 'Test1');
         ApexPages.currentPage().getParameters().put('ReportingDate', String.valueOf(System.today()));
-        
+        ApexPages.currentPage().getParameters().put('Critical','false');
+         ApexPages.currentPage().getParameters().put('Account',acc_1.Id);
+         ApexPages.currentPage().getParameters().put('IssueReport','true');
+
         ApexPages.StandardController std = new ApexPages.StandardController(weeklyReport);
         editWeeklyReportVFController controller = new editWeeklyReportVFController(std);
         controller.recordID = weeklyReport.Id;

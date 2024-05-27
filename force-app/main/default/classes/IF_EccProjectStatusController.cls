@@ -2,11 +2,12 @@
  * @description       : 
  * @author            : ghkil@partner.samsung.com
  * @group             : 
- * @last modified on  : 2021-05-21
- * @last modified by  : ghkil@partner.samsung.com
+ * @last modified on  : 2024-05-13
+ * @last modified by  : vipul.k1@samsung.com
  * Modifications Log 
  * Ver   Date         Author                      Modification
  * 1.0   2020-11-23   ghkil@partner.samsung.com   Initial Version
+ * 1.1   2024-05-13   vipul.k1@samsung.com        MYSALES-529 Add IF-042 call logic for IF-007(Receive project delete status from PS)
 **/
 @RestResource( UrlMapping='/IF007/*')
 global class IF_EccProjectStatusController {
@@ -21,7 +22,7 @@ global class IF_EccProjectStatusController {
 
     @HttpPost
     global static void updateProjectSatus(){
-
+        Set<Id> oppId = new Set<Id>(); //v1.1 Added by vipul
         String guId = IF_Util.generateGuid();
         
         OutputHeader outHeader   = new OutputHeader();
@@ -127,6 +128,7 @@ global class IF_EccProjectStatusController {
                         if( wb.Solution__c != null) solIdMap.put( wb.Solution__c, prj.DeletionFlag__c);
                     }
                 }
+                oppId.add(prj.Opportunity__r.Id);//v1.1 Added by vipul
             }
             // 업데이트 처리 : Project/WBS
             update upPrjList;
@@ -190,6 +192,9 @@ global class IF_EccProjectStatusController {
 
             ifLog.addLog('Response : ' + sendData);            
             interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID, guId, APEX_CLASS, METHOD_NAME, inputJsonData, sendData);  
+            if(oppId != null){ //v1.1 Added by vipul
+                IF_LsDashboardController.calloutDashboardInfo(oppId);
+            }
 
         }catch( Exception e){            
             Database.rollback(sp);

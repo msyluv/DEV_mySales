@@ -121,7 +121,7 @@ global class Batch_LsDashboardMigController implements DataBase.stateful, DataBa
         // ifExcuteLog.addLog('처리 대상(Service 기준) : ' + scopeList.size());
         // system.debug('처리 대상(Service 기준) : ' + scopeList.size());
 
-        IF_LsDashboardController.OutputHeader outHeader = IF_LsDashboardController.getDashboardDetailInfo(scopeList);
+        IF_LsDashboardController.OutputHeader outHeader = IF_LsDashboardController.getDashboardDetailInfo(scopeList,null);
 
         if (DEBUG_FLAG) ifExcuteLog.addLog('Service 처리 건수 : ' + outHeader.BO_SERVICE.size());
         if (DEBUG_FLAG) ifExcuteLog.addLog('Solution 처리 건수 : ' + outHeader.BO_SOLUTION.size());

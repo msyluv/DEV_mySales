@@ -1,0 +1,17 @@
+.modal {
+    width:50%;
+    height:100vh;
+    max-width: 100%;
+   
+}
+.THIS .slds-modal__footer{
+    background-color: white;
+}
+
+.slds-modal__content {
+    overflow-y: auto !important;
+    }
+.required :before {
+    content:"*";
+    color: red;
+}

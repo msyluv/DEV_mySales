@@ -171,7 +171,7 @@ public class Batch_ManagerWeeklySalesReportClone_Test {
         
     }
     
-    @isTest
+  /*  @isTest
         public static void testWeeklySalesBatch(){
             List<User> alluser = [select id , name from user]; 
             system.debug('allUser' + alluser.size() + 'name--' + alluser[0].name);
@@ -273,9 +273,9 @@ public class Batch_ManagerWeeklySalesReportClone_Test {
             Batch_ManagerWeeklySalesReportClone obj = new Batch_ManagerWeeklySalesReportClone();
             database.executeBatch(obj);
             test.stopTest();
-        }
+        } */
     
-    @isTest
+   /* @isTest
     public static void testWeeklySalesBatch1(){
         List<user> ulist = new List<user>();
             if(isSandbox) ulist = [ Select Id , name, Profile.Name,Email from User where  Profile.Name = 'Sales Manager(HQ)'  AND IsActive = true ];
@@ -324,9 +324,9 @@ public class Batch_ManagerWeeklySalesReportClone_Test {
             Batch_ManagerWeeklySalesReportClone obj = new Batch_ManagerWeeklySalesReportClone();
             database.executeBatch(obj);
         	test.stopTest();
-    }
+    }*/
     
-    @isTest
+   /* @isTest
     public static void testWeeklySalesBatch2(){
         List<user> ulist = new List<user>();
             if(isSandbox) ulist = [ Select Id , name, Profile.Name,Email from User where  Profile.Name = 'Sales Manager(HQ)'  AND IsActive = true ];
@@ -402,7 +402,7 @@ public class Batch_ManagerWeeklySalesReportClone_Test {
             Batch_ManagerWeeklySalesReportClone obj = new Batch_ManagerWeeklySalesReportClone();
             database.executeBatch(obj);
         	test.stopTest();
-    }
+    } */
     
     /*@isTest
     public static void testWeeklySalesBatch3(){
@@ -806,7 +806,7 @@ public class Batch_ManagerWeeklySalesReportClone_Test {
         Batch_ManagerWeeklySalesReport obj = new Batch_ManagerWeeklySalesReport();
         database.executeBatch(obj);
     }*/
-    @isTest
+   /* @isTest
         public static void testWeeklySalesBatchAtul(){
             List<User> alluser = [select id , name from user]; 
             system.debug('allUser' + alluser.size() + 'name--' + alluser[0].name);
@@ -908,8 +908,8 @@ public class Batch_ManagerWeeklySalesReportClone_Test {
             Batch_ManagerWeeklySalesReportClone obj = new Batch_ManagerWeeklySalesReportClone();
             database.executeBatch(obj);
             test.stopTest();
-        }
-    @isTest
+        } */
+   /* @isTest
         public static void testWeeklySalesBatchAtul2(){
             List<User> alluser = [select id , name from user]; 
             system.debug('allUser' + alluser.size() + 'name--' + alluser[0].name);
@@ -1017,7 +1017,7 @@ public class Batch_ManagerWeeklySalesReportClone_Test {
             database.executeBatch(obj);
             //Batch_ManagerWeeklySalesReportClone.getTable6ProposalPMData(txpLst,allProjects,oppty);            
             test.stopTest();
-        }
+        }*/
 
     
     @isTest

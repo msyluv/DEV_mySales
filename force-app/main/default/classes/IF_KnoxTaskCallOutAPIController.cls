@@ -3,246 +3,191 @@
 * @author            : saurav.k@partner.samsung.com
 * @group             : 
 
-* @last modified on  : 04/08/2023
-* @last modified by  : saurav.k@partner.samsung.com
+* @last modified on  : 05/10/2024
+* @last modified by  : sbest.han@samsung.com
 * Modifications Log 
 * Ver   Date         Author                          Modification
 * 1.0   04/08/2023   saurav.k@partner.samsung.com    Initial Version
+* 1.1   05/10/2024   sbest.han@samsung.com           Modify doCalloutCreatemySalesKnoxCalenderTask because of SIIS change and delete method doCalloutCreatemySalesKnoxCalenderTask1(Not used)
+* 1.2   05/13/2024   sbest.han@samsung.com           Modify doCalloutCreatemySalesKnoxCalender because of SIIS change
 **/
-public class IF_KnoxTaskCallOutAPIController implements Database.AllowsCallouts {  
+public class IF_KnoxTaskCallOutAPIController implements Database.AllowsCallouts {
+    private static final String INTERFACE_ID = 'IF-191';
+    private static final String APEX_CLASS   = 'IF_KnoxTaskCallOutAPIController';
+
     @future(callout=true)
     //create knox calendar
     Public Static void  doCalloutCreatemySalesKnoxCalender(Id eventNewId){
-        String APEX_CLASS   = 'IF_KnoxTaskCallOutAPIController';
-        String METHOD_NAME_190  = 'doCalloutCreatemySalesKnoxCalender';
-        String INTERFACE_ID_190 = 'IF-191';
-        Map<String,Object> resMap = new Map<String,Object>();
-        IF_Log log = new IF_Log();
-        String guId = '';
-        IF_Callout call;
-        String jsonBody = '';
-        HttpResponse Response;
-        call = new IF_Callout(INTERFACE_ID_190);
-        List<calenderCreation> calenderList = new  List<calenderCreation>();
-        String UserEmail = USerINfo.getUserEmail();
-        List<String> parts = UserEmail.split('@');
-        String userName = parts[0];
-        calenderCreation cC = new calenderCreation();
-        cC.defaultYn = null;
-        cC.displayType = 'VISIBLE';
-        cC.calendarId = null;
-        cC.color = '#ffc71b';
-        cC.subject = 'mySales_Event';
-        cC.timezone = 'Asia/Seoul';
-        cC.authority = null;
-        cC.description = 'mySales Calendar';
-        cC.type = 'NORMAL';
-        cC.userId = userName;
-        cC.seq = null;        
-        jsonBody = JSON.serialize(cC);
-        system.debug('Demand Response jsonBody : '+ jsonBody);
-        String urlParam = '';
-        //String urlParam = '?' +'userId='+ userName;
-
-        user u = [Select Id,CalendarID__c,Email FROM User WHERE ID =:USerINfo.getUserId()];
-        String emailid = u.Email;
-            
+        String METHOD_NAME  = 'doCalloutCreatemySalesKnoxCalender';
         
-       String mysalecalendarid = If_KnoxTaskCallInController.getknoxcalendarList();
-        system.debug('mysalecalendarid'+mysalecalendarid);
-             //if((u.CalendarID__c == Null || String.isBlank(u.CalendarID__c)) || (mysalecalendarid == null || String.isBlank(mysalecalendarid))){
-             if(mysalecalendarid == null || String.isBlank(mysalecalendarid)){
+        IF_Log log = new IF_Log();       
+        IF_Callout call = new IF_Callout(INTERFACE_ID);
+
+        List<String> emailToUserId = UserInfo.getUserEmail().split('@');
+        String userId = emailToUserId[0];
+        String urlParam = '?' +'userId='+ userId;
+
+        CalenderCreation cal = new CalenderCreation();
+        cal.defaultYn = null;
+        cal.displayType = 'VISIBLE';
+        cal.calendarId = null;
+        cal.color = '#ffc71b';
+        cal.subject = 'mySales_Event';
+        cal.timezone = 'Asia/Seoul';
+        cal.authority = null;
+        cal.description = 'mySales Calendar';
+        cal.type = 'NORMAL';
+        cal.userId = userId;
+        cal.seq = null;   
+
+        String jsonBody = JSON.serialize(cal);
+        system.debug('Demand Response jsonBody : '+ jsonBody);
+
+
+        User loginUser = [Select Id, CalendarID__c, Email FROM User WHERE ID =:UserInfo.getUserId()];
+            
+        String mysaleEventCalendarId = If_KnoxTaskCallInController.getKnoxCalendarList();
+
+        system.debug('mysaleEventCalendarId' + mysaleEventCalendarId);
+
+        Map<String,Object> resMap = new Map<String,Object>();
+
+        if(mysaleEventCalendarId == null || String.isBlank(mysaleEventCalendarId)){
             resMap = call.httpKnoxCallout(jsonBody, urlParam);        
             system.debug('res____________________' + resMap);
-            Response = (HttpResponse)resMap.get('HttpResponse');    
+
+            HttpResponse Response = (HttpResponse) resMap.get('HttpResponse');    
             System.debug('response : '+resMap.get('Response'));
+
             String jsonResponse = response.getBody();
-             System.debug('response__________ '+jsonResponse);
+            System.debug('response__________ '+jsonResponse);
+
             if(response.getStatusCode() == 200){
                 Map<String,Object> jsonMap = (Map<String,Object>)JSON.deserializeUntyped(jsonResponse);
-                 Map<String,Object> dMap = (Map<String,Object>) jsonMap.get('data');
 
                 System.debug('response__________ '+jsonMap);
-                InputHeader inputData = new InputHeader();
                 
+                String newEventCalendarId = '';
+
                 //SJOSHI Start
-                System.debug('dMap01'+dMap);
                 if(!Test.isRunningTest()){
-                    if(dMap.containsKey('calendarId') && dMap.get('subject') =='mySales_Event'){
-                    inputData.userKnoxCalendarId = String.valueof(dMap.get('calendarId')); 
+                    if(jsonMap.containsKey('calendarId') && jsonMap.get('subject') =='mySales_Event'){
+                        newEventCalendarId = String.valueof(jsonMap.get('calendarId')); 
                 	}
-                }
-                else{
-                    inputData.userKnoxCalendarId = 'TEST123'; 
+                } else {
+                    newEventCalendarId = 'TEST123'; 
                 }
                 //SJOSHI End
                 
-                User loginUser = [Select Id,CalendarID__c from User Where Id=:UserINfo.getUserId()];
-                loginUser.CalendarID__c = inputData.userKnoxCalendarId;
-                if(loginUser.CalendarID__c!= Null && String.isNotBlank(loginUser.CalendarID__c)){
-                  Update loginUser;
-                }
+                loginUser.CalendarID__c = newEventCalendarId;
+
+                Update loginUser;
                 
             }
             System.enqueueJob(new knoxCreateScheduleQuableClass(eventNewId));
-        }else{
-              u.CalendarID__c = mysalecalendarid;
-                if(u.CalendarID__c!= Null && String.isNotBlank(u.CalendarID__c)){
-                 Update u;
-                }
+        } else {
+        
+            if(loginUser.CalendarID__c != mysaleEventCalendarId){
+                loginUser.CalendarID__c = mysaleEventCalendarId;
+
+                update loginUser;
+            }    
+            
             System.debug('mySales Calendar already exist for current user');
             System.enqueueJob(new knoxCreateScheduleQuableClass(eventNewId));
         }        
-        IF_Log.InterfaceLog ifLog;
-        ifLog = new IF_Log.InterfaceLog(INTERFACE_ID_190, guId, APEX_CLASS, METHOD_NAME_190, String.valueOf(calenderList), String.valueOf(resMap.get('Response')));
+
+        IF_Log.InterfaceLog ifLog = new IF_Log.InterfaceLog(INTERFACE_ID, '', APEX_CLASS, METHOD_NAME, '', String.valueOf(resMap.get('Response')));
         ID iFLogId = log.createLog2(ifLog);
         system.debug('iFLogId **' + iFLogId);
-        System.debug('After calenderList'+calenderList); 
-      //  return   true;     
     }    
    
-     Public Static string  doCalloutCreatemySalesKnoxCalenderTask(){
-         String knoxtaskcakid;
-        String APEX_CLASS   = 'IF_KnoxTaskCallOutAPIController';
-        String METHOD_NAME_190  = 'doCalloutCreatemySalesKnoxCalender';
-        String INTERFACE_ID_190 = 'IF-191';
+    public static string doCalloutCreatemySalesKnoxCalenderTask(){
+        
+        String METHOD_NAME_191  = 'doCalloutCreatemySalesKnoxCalenderTask';
+        
         Map<String,Object> resMap = new Map<String,Object>();
-        IF_Log log = new IF_Log();
-        String guId = '';
-        IF_Callout call;
-        String jsonBody = '';
-        HttpResponse Response;
-        call = new IF_Callout(INTERFACE_ID_190);
-        List<calenderCreation> calenderList = new  List<calenderCreation>();
-        String UserEmail = USerINfo.getUserEmail();
-        List<String> parts = UserEmail.split('@');
-        String userName = parts[0];
-        calenderCreation cC = new calenderCreation();
-        cC.defaultYn = null;
-        cC.displayType = 'VISIBLE';
-        cC.calendarId = null;
-       // cC.color = '#87cefa';
-        cC.color = '#25b3f7';
-        cC.subject = 'mySales_task';
-        cC.timezone = 'Asia/Seoul';
-        cC.authority = null;
-        cC.description = 'mySales_task';
-        cC.type = 'NORMAL';
-        cC.userId = userName;
-        cC.seq = null;        
-        jsonBody = JSON.serialize(cC);
-        system.debug('Demand Response jsonBody : '+ jsonBody);
-        String urlParam = '';
-        //String urlParam = '?' +'userId='+ userName;
 
-        user u = [Select Id,CalendarID__c,Task_CalendarId__c FROM User WHERE ID =:USerINfo.getUserId()];
-     //  String mysalecalendarid = If_KnoxTaskCallInController.getknoxcalendarList();
-         String mysalecalendarid = If_KnoxTaskCallInController.getknoxcalendarListTask();
-         knoxtaskcakid = mysalecalendarid;
-        system.debug('mysalecalendarid'+mysalecalendarid);
-             //if((u.CalendarID__c == Null || String.isBlank(u.CalendarID__c)) || (mysalecalendarid == null || String.isBlank(mysalecalendarid))){
-             if(mysalecalendarid == null || String.isBlank(mysalecalendarid)){
+        IF_Log log = new IF_Log();
+
+        IF_Callout call = new IF_Callout(INTERFACE_ID);
+        List<CalenderCreation> calenderList = new  List<CalenderCreation>();
+        
+        List<String> emailToUserId = UserInfo.getUserEmail().split('@');
+        String userId = emailToUserId[0];
+
+        CalenderCreation calendar = new CalenderCreation();
+        calendar.defaultYn = null;
+        calendar.displayType = 'VISIBLE';
+        calendar.calendarId = null;
+        calendar.color = '#25b3f7';
+        calendar.subject = 'mySales_task';
+        calendar.timezone = 'Asia/Seoul';
+        calendar.authority = null;
+        calendar.description = 'mySales_task';
+        calendar.type = 'NORMAL';
+        calendar.userId = userId;
+        calendar.seq = null;        
+
+        String jsonBody = JSON.serialize(calendar);
+        system.debug('Demand Response jsonBody : '+ jsonBody);
+        
+        String urlParam = '?' +'userId='+ userId;
+
+        User loginUser = [Select Id, Task_CalendarId__c FROM User WHERE ID =:UserInfo.getUserId()];
+     
+        String mysaleTaskCalendarId = If_KnoxTaskCallInController.getKnoxCalendarListTask();
+        system.debug('mysaleTaskCalendarId'+mysaleTaskCalendarId);
+
+            
+        if(mysaleTaskCalendarId == null || String.isBlank(mysaleTaskCalendarId)){
             resMap = call.httpKnoxCallout(jsonBody, urlParam);        
             system.debug('res____________________' + resMap);
-            Response = (HttpResponse)resMap.get('HttpResponse');    
-                System.debug('response : '+resMap.get('Response'));
+
+            HttpResponse response = (HttpResponse) resMap.get('HttpResponse');    
+            System.debug('response : '+resMap.get('Response'));
+
             String jsonResponse = response.getBody();
-             System.debug('response__________ '+jsonResponse);
+            System.debug('response__________ '+jsonResponse);
+
             if(response.getStatusCode() == 200){
-                Map<String,Object> jsonMap = (Map<String,Object>)JSON.deserializeUntyped(jsonResponse);
-                 Map<String,Object> dMap = (Map<String,Object>) jsonMap.get('data');
+                Map<String,Object> jsonMap = (Map<String,Object>) JSON.deserializeUntyped(jsonResponse);
 
                 System.debug('response__________ '+jsonMap);
-                InputHeader inputData = new InputHeader();
-                
+
                 //SJOSHI Start
-                System.debug('dMap01'+dMap);
                 if(!Test.isRunningTest()){
-                    if(dMap.containsKey('calendarId') && dMap.get('subject') =='mySales_task'){
-                    inputData.userKnoxCalendarId = String.valueof(dMap.get('calendarId')); 
+                    if(jsonMap.containsKey('calendarId') && jsonMap.get('subject') =='mySales_task'){
+                        mysaleTaskCalendarId = String.valueof(jsonMap.get('calendarId')); 
                 	}
                 }
                 else{
-                    inputData.userKnoxCalendarId = 'TEST123'; 
+                    mysaleTaskCalendarId = 'TEST123'; 
                 }
                 //SJOSHI End
                 
-                User loginUser = [Select Id,CalendarID__c,Task_CalendarId__c from User Where Id=:UserINfo.getUserId()];
-                loginUser.Task_CalendarId__c = inputData.userKnoxCalendarId;
-                knoxtaskcakid = inputData.userKnoxCalendarId;
-                if(loginUser.Task_CalendarId__c!= Null && String.isNotBlank(loginUser.Task_CalendarId__c)){
-                   Update loginUser;
-                }
+                loginUser.Task_CalendarId__c = mysaleTaskCalendarId;
+                
+                Update loginUser;
                 
             }
-           // System.enqueueJob(new knoxCreateScheduleQuableClass(taskNewId));
-             // System.enqueueJob(new knoxCreateScheduleTask(taskNewId));
-              //  knoxCreateScheduleTask.createtaskonknox(taskNewId);
+           
         }else{
-            if(mysalecalendarid != u.Task_CalendarId__c){
-              u.Task_CalendarId__c = mysalecalendarid;
-                if(u.Task_CalendarId__c!= Null && String.isNotBlank(u.Task_CalendarId__c)){
-                   Update u;
-                }
+            if(mysaleTaskCalendarId != loginUser.Task_CalendarId__c){
+                loginUser.Task_CalendarId__c = mysaleTaskCalendarId;
+                Update loginUser;
             }
             System.debug('mySales Calendar already exist for current user');
-         // System.enqueueJob(new knoxCreateScheduleTask(taskNewId));
-         
-             // knoxCreateScheduleTask.createtaskonknox(taskNewId);
         }        
-        IF_Log.InterfaceLog ifLog;
-        ifLog = new IF_Log.InterfaceLog(INTERFACE_ID_190, guId, APEX_CLASS, METHOD_NAME_190, String.valueOf(calenderList), String.valueOf(resMap.get('Response')));
+        
+        IF_Log.InterfaceLog ifLog = new IF_Log.InterfaceLog(INTERFACE_ID, '', APEX_CLASS, METHOD_NAME_191, '', String.valueOf(resMap.get('Response')));
         ID iFLogId = log.createLog2(ifLog);
         system.debug('iFLogId **' + iFLogId);
-        System.debug('After calenderList'+calenderList); 
-      //  return   true;   
-         return knoxtaskcakid;
+      
+        return mysaleTaskCalendarId;
     } 
     
-      @future(callout=true)
-     Public Static void  doCalloutCreatemySalesKnoxCalenderTask1(String taskNewId){
-         String knoxtaskcakid;
-        String APEX_CLASS   = 'IF_KnoxTaskCallOutAPIController';
-        String METHOD_NAME_190  = 'doCalloutCreatemySalesKnoxCalender';
-        String INTERFACE_ID_190 = 'IF-191';
-        Map<String,Object> resMap = new Map<String,Object>();
-        IF_Log log = new IF_Log();
-        String guId = '';
-        IF_Callout call;
-        String jsonBody = '';
-        HttpResponse Response;
-        call = new IF_Callout(INTERFACE_ID_190);
-        List<calenderCreation> calenderList = new  List<calenderCreation>();
-        String UserEmail = USerINfo.getUserEmail();
-        List<String> parts = UserEmail.split('@');
-        String userName = parts[0];
-       
-        //String urlParam = '?' +'userId='+ userName;
-
-        user u = [Select Id,CalendarID__c,Task_CalendarId__c FROM User WHERE ID =:USerINfo.getUserId()];
-     //  String mysalecalendarid = If_KnoxTaskCallInController.getknoxcalendarList();
-         if(u.CalendarID__c == '' || u.CalendarID__c  == null){
-         String mysalecalendarid = If_KnoxTaskCallInController.getknoxcalendarListTask();
-         knoxtaskcakid = mysalecalendarid;
-        system.debug('mysalecalendarid'+mysalecalendarid);
-             //if((u.CalendarID__c == Null || String.isBlank(u.CalendarID__c)) || (mysalecalendarid == null || String.isBlank(mysalecalendarid))){
-       
-            if(mysalecalendarid != u.Task_CalendarId__c){
-              u.Task_CalendarId__c = mysalecalendarid;
-                if(u.Task_CalendarId__c!= Null && String.isNotBlank(u.Task_CalendarId__c)){
-                   Update u;
-                }
-            }
-            System.debug('mySales Calendar already exist for current user');
-         
-             // knoxCreateScheduleTask.createtaskonknox(taskNewId);
-        }        
-              System.enqueueJob(new knoxCreateScheduleTask(taskNewId));
-
-      //  return   true;   
-        // return knoxtaskcakid;
-    }   
-    Public class calenderCreation{
+    public class CalenderCreation{
         public String defaultYn;
         public String displayType;
         public String calendarId;
@@ -255,7 +200,4 @@ public class IF_KnoxTaskCallOutAPIController implements Database.AllowsCallouts 
         public String userId;
         public integer seq;
     }   
-    public class InputHeader{
-    public String userKnoxCalendarId;
-    }
 }

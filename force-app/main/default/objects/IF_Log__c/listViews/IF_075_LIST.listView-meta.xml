@@ -11,8 +11,8 @@
     <filterScope>Everything</filterScope>
     <filters>
         <field>InterfaceId__c</field>
-        <operation>contains</operation>
-        <value>075</value>
+        <operation>equals</operation>
+        <value>IF-075</value>
     </filters>
     <label>IF-075</label>
 </ListView>

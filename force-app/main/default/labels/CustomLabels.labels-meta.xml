@@ -2502,7 +2502,7 @@ Please note that the information acquired when reporting weekly reports should b
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CONVERT_LAB_SALES_LEAD_API</shortDescription>
-        <value>Name, CurrencyIsoCode, AccountId__c, Amount__c, CampaignId__c, CloseDate__c, Description__c, RevenueStartDate__c, RevenueEndDate__c, Type__c, SalesDepartment__c, SalesOrganization__c</value>
+        <value>Name, CurrencyIsoCode, AccountId__c, Amount__c, CampaignId__c, CloseDate__c, Description__c, RevenueStartDate__c, RevenueEndDate__c, Type__c, SalesDepartment__c, SalesOrganization__c,OwnerId</value>
     </labels>
     <labels>
         <fullName>CONVERT_LAB_SUCCESSCONVERT</fullName>
@@ -3513,16 +3513,13 @@ Please contact the administrator</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MAIN_NOTICE_MSG</shortDescription>
-        <value>□ Notice HQ Reorganization
+        <value>□ Notice System Maintenance
 
-mySales service will be temporarily restricted as follows,
-due to HQ reorganization reflection work.
-Headquarters users, please refer to it for your work.
+Please note that mySales service will be temporarily restricted as follows due to Salesforce maintenance work.
 All data is Read-Only on this period.
 
-1. Work Purpose : HQ Reorganization
-2. Service restriction date: &apos;23.12.4(Mon) 20:00 ~ 12.13(Wed) 24:00 (KST)
-3. Affected Users : HQ(T100) Users only</value>
+1. Work Purpose : Salesforce Maintenance
+2. Service restriction date: &apos;24.5.19(Sun) 00:00 ~ 5.19(Sun) 05:00 (KST)</value>
     </labels>
     <labels>
         <fullName>MAIN_NOTICE_STARTDATE</fullName>
@@ -9177,7 +9174,7 @@ Please enter the Analysis of reason for Drop/Lost tab.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Sandbox Knox Bearer</shortDescription>
-        <value>&apos;Bearer  5729957d-5e08-3054-b1ee-f7fbfd6b8609&apos;</value>
+        <value>Bearer  5729957d-5e08-3054-b1ee-f7fbfd6b8609</value>
     </labels>
     <labels>
         <fullName>Sandbox_Knox_System_Id</fullName>
@@ -9338,7 +9335,7 @@ Please enter the Analysis of reason for Drop/Lost tab.</value>
         <fullName>Sandbox_Knox_Bearer_IF_073</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Sandbox_Knox_Bearer_IF_073</shortDescription>
+        <shortDescription>Sandbox_Knox_Bearer</shortDescription>
         <value>Bearer 5729957d-5e08-3054-b1ee-f7fbfd6b8609</value>
     </labels>
     <labels>
@@ -10035,10 +10032,11 @@ Window will be refreshed.</value>
     </labels>
     <labels>
         <fullName>WEEKLY_ISSUE_REPORT_COL_ISSUECHECK</fullName>
+        <categories>WEEKLYREPORT</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>WEEKLY_ISSUE_REPORT_COL_ISSUECHECK</shortDescription>
-        <value>Issue Description New</value>
+        <value>Issue Description</value>
     </labels>
     <labels>
         <fullName>WEEKLY_ISSUE_REPORT_COL_OWNER</fullName>
@@ -10054,5 +10052,376 @@ Window will be refreshed.</value>
         <protected>false</protected>
         <shortDescription>WEEKLY_ISSUE_REPORT_DATE_EMPTY</shortDescription>
         <value>Please enter the date for searching.</value>
+    </labels>
+    <labels>
+        <fullName>AccountPhone_weeklyReport</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AccountPhone_weeklyReport</shortDescription>
+        <value>PHONE</value>
+    </labels>
+    <labels>
+        <fullName>AccountSource_weeklyReport</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AccountSource_weeklyReport</shortDescription>
+        <value>ACCOUNT SOURCE</value>
+    </labels>
+    <labels>
+        <fullName>AccountType_weeklyReport</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AccountType_weeklyReport</shortDescription>
+        <value>TYPE</value>
+    </labels>
+    <labels>
+        <fullName>Account_Name_Review_Session</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Account Name Review Session</shortDescription>
+        <value>Account Number</value>
+    </labels>
+    <labels>
+        <fullName>Account_weeklyReport</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Account_weeklyReport</shortDescription>
+        <value>Account</value>
+    </labels>
+    <labels>
+        <fullName>Accountowner_weeklyReport</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Accountowner_weeklyReport</shortDescription>
+        <value>ACCOUNT OWNER ALIAS</value>
+    </labels>
+    <labels>
+        <fullName>Accounts_weeklyReport</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Accounts_weeklyReport</shortDescription>
+        <value>Accounts</value>
+    </labels>
+    <labels>
+        <fullName>BOSEARCH_LAB_ACCOUNTNUMBER</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BOSEARCH_LAB_ACCOUNTNUMBER</shortDescription>
+        <value>Account Number</value>
+    </labels>
+    <labels>
+        <fullName>BO_Review_Confirmation_Body</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BO Review Confirmation Body</shortDescription>
+        <value>Opportunity review type confirmed.&lt;br/&gt;
+Would you like to create a business priorities checklist?</value>
+    </labels>
+    <labels>
+        <fullName>BO_Review_Confirmation_No</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BO Review Confirmation No</shortDescription>
+        <value>No</value>
+    </labels>
+    <labels>
+        <fullName>BO_Review_Confirmation_Yes</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BO Review Confirmation Yes</shortDescription>
+        <value>Yes</value>
+    </labels>
+    <labels>
+        <fullName>CONVERT_LAB_SALES_LEAD_TARGET_PROFILE</fullName>
+        <categories>CONVERT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CONVERT_LAB_SALES_LEAD_TARGET_PROFILE</shortDescription>
+        <value>Name, CurrencyIsoCode, AccountId__c, Amount__c, CampaignId__c, CloseDate__c, Description__c, SalesDepartment__c, SalesOrganization__c,OwnerId</value>
+    </labels>
+    <labels>
+        <fullName>CancelButton</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CancelButton</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>CharacterLimitError</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CharacterLimitError</shortDescription>
+        <value>Issue Description - Character limit Exceeded, Maximum Character = 131,072</value>
+    </labels>
+    <labels>
+        <fullName>Created_By_Review_Session</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Created By Review Session</shortDescription>
+        <value>Created By</value>
+    </labels>
+    <labels>
+        <fullName>Description</fullName>
+        <categories>Weekly editor</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>Edit</fullName>
+        <categories>Weekly editor</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>Edit_Opportunity_Review_Session</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit Opportunity Review Session</shortDescription>
+        <value>Edit Opportunity Review Session</value>
+    </labels>
+    <labels>
+        <fullName>FullCalender_MSG_01</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FullCalender_MSG_01</shortDescription>
+        <value>Please select the one option</value>
+    </labels>
+    <labels>
+        <fullName>FullCalender_MSG_02</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FullCalender_MSG_02</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>FullCalender_MSG_03</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FullCalender_MSG_03</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>Information</fullName>
+        <categories>Weekly editor</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Information</shortDescription>
+        <value>Information</value>
+    </labels>
+    <labels>
+        <fullName>LastModifiedByReviewSession</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LastModifiedByReviewSession</shortDescription>
+        <value>Last Modified By</value>
+    </labels>
+    <labels>
+        <fullName>New_Weekly_Report</fullName>
+        <categories>Weekly editor</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New_Weekly_Report</shortDescription>
+        <value>New Weekly Report</value>
+    </labels>
+    <labels>
+        <fullName>No_Opportunity_Create_Access</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No Opportunity Create Access</shortDescription>
+        <value>Converting Lead&apos;s owner must have Opportunity create access</value>
+    </labels>
+    <labels>
+        <fullName>Opportunities_weeklyReport</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Opportunities_weeklyReport</shortDescription>
+        <value>Opportunities</value>
+    </labels>
+    <labels>
+        <fullName>OpportunityName_weeklyReport</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OpportunityName_weeklyReport</shortDescription>
+        <value>OPPORTUNITY NAME</value>
+    </labels>
+    <labels>
+        <fullName>OpportunityOwner_weeklyReport</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OpportunityOwner_weeklyReport</shortDescription>
+        <value>OPPORTUNITY OWNER ALIAS</value>
+    </labels>
+    <labels>
+        <fullName>Opportunity_weeklyReport</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Opportunity_weeklyReport</shortDescription>
+        <value>Opportunity</value>
+    </labels>
+    <labels>
+        <fullName>Origin_account_Number_Weekly_Report</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Origin account Number Review Session</shortDescription>
+        <value>Origin Account Number</value>
+    </labels>
+    <labels>
+        <fullName>OwnerLabel</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OwnerLabel</shortDescription>
+        <value>Owner</value>
+    </labels>
+    <labels>
+        <fullName>Record_Success_Message</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Success Message</shortDescription>
+        <value>Records has been created</value>
+    </labels>
+    <labels>
+        <fullName>Required_Information</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required Information</shortDescription>
+        <value>Required Information</value>
+    </labels>
+    <labels>
+        <fullName>Required_Message_Review_session</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Required Message Review session</shortDescription>
+        <value>Please Fill all the required fields.</value>
+    </labels>
+    <labels>
+        <fullName>SL_OWNER_FED_NULL_CHK</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SL_OWNER_FED_NULL_CHK</shortDescription>
+        <value>Cannot find employee information. Please contact System Administrator</value>
+    </labels>
+    <labels>
+        <fullName>SalesLead_weeklyReport</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SalesLead_weeklyReport</shortDescription>
+        <value>Sales Lead</value>
+    </labels>
+    <labels>
+        <fullName>SalesLeads_weeklyReport</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SalesLeads_weeklyReport</shortDescription>
+        <value>Sales Leads</value>
+    </labels>
+    <labels>
+        <fullName>System_Information</fullName>
+        <categories>Weekly editor</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>System_Information</shortDescription>
+        <value>System Information</value>
+    </labels>
+    <labels>
+        <fullName>System_Information_ReviewSession</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>System Information Review Session</shortDescription>
+        <value>System Information</value>
+    </labels>
+    <labels>
+        <fullName>TARGET_BO_CANCEL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TARGET BO CANCEL</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>TARGET_BO_SELECT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TARGET BO SELECT</shortDescription>
+        <value>Select</value>
+    </labels>
+    <labels>
+        <fullName>TargetBO_Origin_Account_Number</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TargetBO Origin Account Number</shortDescription>
+        <value>Origin Account Number</value>
+    </labels>
+    <labels>
+        <fullName>Target_Opportunity_Select_Label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Target Opportunity Select Label</shortDescription>
+        <value>Target Opportunity Select</value>
+    </labels>
+    <labels>
+        <fullName>Updated_Message_Reciew_Session</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Updated Message Reciew Session</shortDescription>
+        <value>Records has been saved</value>
+    </labels>
+    <labels>
+        <fullName>Weekly_ReportSearch</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Weekly_ReportSearch</shortDescription>
+        <value>Search Results</value>
+    </labels>
+    <labels>
+        <fullName>cancel_review</fullName>
+        <categories>Review Session</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>cancel review</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>reporting_date_error</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>reporting date error</shortDescription>
+        <value>reporting date is required</value>
+    </labels>
+    <labels>
+        <fullName>reporting_name_error</fullName>
+        <categories>WEEKLYREPORT</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>reporting namee rror</shortDescription>
+        <value>reporting name is required</value>
     </labels>
 </CustomLabels>

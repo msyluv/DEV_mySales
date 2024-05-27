@@ -13,20 +13,30 @@ import getuserdetail from '@salesforce/apex/customFullCalendarcontroller.getuser
 import synctaskuserrec from '@salesforce/apex/customFullCalendarcontroller.synctaskuserrec';
 import getAllTaskData from '@salesforce/apex/customFullCalendarcontroller.gettaskdata';
 import synctaskcaltoknox from '@salesforce/apex/customFullCalendarcontroller.synctaskcaltoknox';
+import getknoxscheduledata from '@salesforce/apex/EventknoxscheduleCont.getknoxscheduledata';
 import { encodeDefaultFieldValues } from "lightning/pageReferenceUtils";
 import LightningConfirm from 'lightning/confirm';
 import { deleteRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import {subscribe} from 'lightning/empApi';
+import {RefreshEvent} from 'lightning/refresh';
 import TasksyncMessage from '@salesforce/label/c.TasksyncMessage';
 import SyncEventSuccessMsg from '@salesforce/label/c.SyncEventSuccessMsg';
 import MysalesErrorMsg from '@salesforce/label/c.MysalesErrorMsg';
 import Knoxtomysalesnodata from '@salesforce/label/c.Knoxtomysalesnodata';
 import Noknoxuserpresent from '@salesforce/label/c.Noknoxuserpresent';
-
+import deleteEventData from '@salesforce/apex/recordpopupcontroller.deleteEventData'; //Added by Waris
+import deleteTaskData from '@salesforce/apex/recordpopupcontroller.deleteTaskData';   //Added by Waris
+import FullCalender_MSG_01 from '@salesforce/label/c.FullCalender_MSG_01'; // Added by Waris 
+import FullCalender_MSG_02 from '@salesforce/label/c.FullCalender_MSG_02'; //Added by Waris
+import FullCalender_MSG_03 from '@salesforce/label/c.FullCalender_MSG_03'; //Added by Waris
 
 export default class CustomCalendar extends NavigationMixin(LightningElement) {
-
+    label={
+        FullCalender_MSG_01,
+        FullCalender_MSG_02,
+        FullCalender_MSG_03,
+    };
     calendar;
     calendarTitle;
     objectLabel = '';
@@ -45,6 +55,10 @@ export default class CustomCalendar extends NavigationMixin(LightningElement) {
     @api calendarWidth;
     @api CalendarHeight;
     @track windowwidth = 0;
+    popupClass = 'popup-hide';
+    isshowmodal = false;
+    showEditdeletemodal = false;
+    eventtaskRecordid;
     /*
    @track latestPayload ='';
     subscription = null;
@@ -308,7 +322,7 @@ export default class CustomCalendar extends NavigationMixin(LightningElement) {
             this.windowwidth = window.innerWidth;
 
             this.refreshHandler();
-        
+            this.dispatchEvent(new RefreshEvent());
 
     }
    
@@ -400,7 +414,9 @@ export default class CustomCalendar extends NavigationMixin(LightningElement) {
            
             eventClick: function(info) {
                 console.log('infoevent',info.event._def);
-                copyOfOuterThis.navigatetoEditpage(copyOfOuterThis.objectApiName,info.event);
+              //copyOfOuterThis.navigatetoEditpage(copyOfOuterThis.objectApiName,info.event);
+                copyOfOuterThis.navigatetoEditpage1(copyOfOuterThis.objectApiName,info.event);
+
             } 
              
         });
@@ -409,20 +425,192 @@ export default class CustomCalendar extends NavigationMixin(LightningElement) {
         this.calendarTitle = calendar.view.title;
         this.calendar = calendar;
     }
-     navigatetoEditpage(objectName,event){
+    showPopup() {
+        this.popupClass = 'popup-show'; // Show the popup
+    }
+
+    closePopup() {
+        this.popupClass = 'popup-hide'; // Hide the popup
+    }
+ async   navigatetoEditpage1(objectName,event){
+        const recrdid = event._def.publicId;
+         //Waris changes Start
+         if(recrdid.includes('00U')){
+   
+    
+            await  getknoxscheduledata({eventid : recrdid
+              }).then( res => {
+                  console.log('response => ', res);
+                  
+              }).catch(err => {
+                  console.log('err ', err);
+                  
+              })
+          
+              
+           }
+           //Waris Changes Ends
+        this.eventtaskRecordid = recrdid;
+        var recordtype;
+        this.showEditdeletemodal = true;
+       
+    }
+    handleEditnavigate() {
+     this.showEditdeletemodal =false;
+      /*Waris changes Start
+      if(this.eventtaskRecordid.includes('00U')){
+   
+    
+        await  getknoxscheduledata({eventid : this.eventtaskRecordid
+          }).then( res => {
+              console.log('response 1 => ', res);
+              
+          }).catch(err => {
+              console.log('err 1', err);
+              
+          })
+      
+          
+       }
+       */ // Waris Changes Ends
+     console.log('Enter into edit');
+            this[NavigationMixin.Navigate]({
+             type: "standard__recordPage",
+             attributes: {
+              //   objectApiName: objectName,
+               recordId: this.eventtaskRecordid,
+               actionName: "edit"
+             }
+            
+           });
+           
+           console.log('Edit before refresh');
+         setTimeout(()=>{
+             this.refreshHandler();
+         },15000);
+         setTimeout(()=>{
+            this.refreshHandler();
+        },30000);
+         console.log('Edit after refresh final');
+    }
+    closeModal(){
+        this.showEditdeletemodal =false;
+
+    }
+     
+     //Added by Waris Start
+    handleDelete(event){
+  //   this.evtrecordId=event.detail.recordid
+  console.log('evtrecordId'+this.eventtaskRecordid);
+  const recrdid = this.eventtaskRecordid;
+   
+     console.log('recrdid'+recrdid);
+  
+       if(recrdid.includes('00U')){ 
+           console.log('inside event Delete');
+  
+           deleteEventData({eventrecdid: this.eventtaskRecordid}).then(res => {
+              console.log('eventdatacoming',res);
+              this.showEditdeletemodal =false;
+  
+              const sucmessage = 'Deleted Successfully';
+            const event = new CustomEvent('sendata',{
+                  detail: 'Deleted Successfully' 
+              });
+              this.dispatchEvent(event);
+              this.showEventMsg(sucmessage);
+              this.refreshHandler();
+          }).catch(err => {
+              console.log('err ', err);
+      
+          })
+         }  
+         else{
+          console.log('inside Task Delete');
+  
+           deleteTaskData({taskrecdid: this.eventtaskRecordid}).then(res => {
+            console.log('eventdatacoming',res);
+            this.showEditdeletemodal =false;
+  
+              const sucmessage = 'Deleted Successfully';
+            const event = new CustomEvent('sendata',{
+                  detail: 'Deleted Successfully' 
+              });
+              this.dispatchEvent(event);
+              this.showEventMsg(sucmessage);
+              this.refreshHandler();
+          }).catch(err => {
+              console.log('err ', err);
+      
+          })
+  
+         }
+        
+        
+           
+      }
+      //Added by Waris Ends
+
+    async navigatetoEditpage(objectName,event){
 
          console.log('idval',event._def.publicId);
          const recrdid = event._def.publicId;
+         var recordtype;
+         if(recrdid.includes('00U')){
+            recordtype = 'Event';
+            console.log('inside event if');
+            //Added by waris start
+          await  getknoxscheduledata({eventid : recrdid
+            }).then( res => {
+                console.log('response => ', res);
+                
+            }).catch(err => {
+                console.log('err ', err);
+                
+            })
+
+             //Added by waris Ends
+            
+         }
+         else {
+            recordtype = 'Task';
+
+         }
+
          console.log('recordoid',recrdid);
-        this[NavigationMixin.Navigate]({
+       //  this.showPopup();
+         
+          this[NavigationMixin.GenerateUrl]({
+       //     this[NavigationMixin.Navigate]({
             type: "standard__recordPage",
             attributes: {
              //   objectApiName: objectName,
               recordId: recrdid,
-              actionName: "view",
+              actionName: "view"
             }
            
-          });
+          }).then((url) =>{
+           //  window.open(url);
+             console.log('popup function');
+             // const popup = this.template.querySelector('c-record-popup');
+             // console.log('popupval',popup);
+             // popup.openPopup(url);
+             const event = new CustomEvent('openpopup',{
+                 detail: {recordid : recrdid,recordtype : recordtype }
+             });
+             this.isshowmodal =true;
+             const childComponent = this.template.querySelector('c-record-popup');
+            childComponent.dispatchEvent(event);
+             console.log('popup function1',url);
+          }).catch(error =>{
+              console.log('Error coming in opening the page',error);
+          }); 
+    }
+    handleReceiveData(event){
+        const datareceived = event.detail;
+        console.log('datareceived',datareceived);
+        this.refreshHandler();
+
     }
 
     calendarknoxHandler(event){

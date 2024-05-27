@@ -2,8 +2,8 @@
  * @description       : 
  * @author            : ghkil@partner.samsung.com
  * @group             : 
- * @last modified on  : 2024-03-12
- * @last modified by  : sarthak.j1@samsung.com 
+ * @last modified on  : 2024-05-17
+ * @last modified by  : Vipul.k1@samsung.com 
  * Modifications Log 
  * Ver   Date         Author                            Modification
  * 1.0   2021-01-26   ghkil@partner.samsung.com         Initial Version (Batch_EccOpportunityController와 같은 기능을 하는 Callout)
@@ -43,6 +43,7 @@
  * 2.6   2024-02-19   anish.jain@partner.samsung.com    MYSALES-453
  * 2.7   2024-02-26   divyam.gupta@samsung.com          Mysales-449 (IT) Contract Approval Logic Change.
  * 2.8	 2024-03-12	  sarthak.j1@samsung.com            Apply new Probability Field to Logistics -> MYSALES-470
+ * 2.9	 2024-05-17	  vipul.k1@samsung.com              MYSALES-504 Opportunity - Issue Analyze
 **/
 global class IF_EccOpportunityController implements Queueable , DataBase.AllowsCallouts{
 
@@ -218,6 +219,7 @@ global class IF_EccOpportunityController implements Queueable , DataBase.AllowsC
     }
 
     public static void calloutOpportunityInfo2(List<String> selectIdList){        
+        
         System.debug('selectIdList : ' + selectIdList);
         Map<String, Object> result = new Map<String, Object>();
 
@@ -231,6 +233,9 @@ global class IF_EccOpportunityController implements Queueable , DataBase.AllowsC
         // Opportunity 기본정보 조회
         // *************************************
         String queryString = QUERY_STRING + ' And    Id IN :selectIdList ';
+        List<Opportunity> scopeList; // V2.9 Added By vipul
+        MigOppCode__c errorOppty = new MigOppCode__c();// V2.9 Added By vipul
+        try {// V2.9 Added By vipul
         Organization org = [ SELECT Id, isSandBox FROM Organization];
         if( org.IsSandbox && org.Id != '00D1s0000008pnsEAA'){       // Dev Id 제외 (00D1s0000008pnsEAA)
             // 10, 50, 100, 200, 300, 400, 500
@@ -239,8 +244,7 @@ global class IF_EccOpportunityController implements Queueable , DataBase.AllowsC
         }            
         queryString = queryString + 'ALL ROWS ';
         System.debug( 'queryString::::' + queryString);
-
-        List<Opportunity> scopeList = Database.query(queryString);
+        scopeList = Database.query(queryString);
 
         if (DEBUG_FLAG) ifLog.addLog('scopeList.size() : ' + scopeList.size());
         system.debug('처리 대상 : ' + scopeList.size());
@@ -250,12 +254,12 @@ global class IF_EccOpportunityController implements Queueable , DataBase.AllowsC
         // *************************************
         OutputHeader outHeader = getOpportunityDetailInfo(scopeList);
 
-        MigOppCode__c errorOppty = new MigOppCode__c();
+       
 
         // *************************************
         // Interface 통신
         // *************************************        
-        try {            
+                    
             IF_Callout ifCallout = new IF_Callout(INTERFACE_ID);
 
             // Client에서 전달받은 데이터를 callout 규격에 맞게 변환하여 requestbody 만들기
@@ -293,8 +297,10 @@ global class IF_EccOpportunityController implements Queueable , DataBase.AllowsC
                     errorOppty.Send_Check__c = false;
                     errorOppty.InterfaceId__c = 'IF-125ERROR';
                 }
-            }            
+            } 
+            System.debug('SJ-504-d'); //SJOSHI
         } catch(Exception e){
+            System.debug('SJ-504-e'); //SJOSHI
             ifLog.addLog('Exception : ' + String.valueOf(e.getMessage()));
             errorMsgList.add('Exception : ' + String.valueOf(e.getMessage()));
 
@@ -311,7 +317,9 @@ global class IF_EccOpportunityController implements Queueable , DataBase.AllowsC
 
             ifLog.createLog(interfaceLog);
 
-            if(errorOppty.InterfaceId__c == 'IF-125ERROR') insert errorOppty;
+            if(errorOppty.InterfaceId__c == 'IF-125ERROR'){
+                insert errorOppty;
+            }
         }
 
         // return result;

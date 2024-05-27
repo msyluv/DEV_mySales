@@ -85,11 +85,12 @@ public without sharing class CollaborationOpportunityController {
             
                 
             Opportunity originOppty = Database.query('SELECT ' + fieldString + ' FROM Opportunity WHERE Id=\'' + opptyId + '\'');
+            System.debug('originOppty: '+originOppty);
             String keyword = originOppty.CompanyCode__c + '-00';
 
             Account acc = [SELECT Id, Name, AccountNumber FROM Account WHERE AccountNumber =: keyword];
             Opportunity cloneOppty = originOppty.clone(false,true);
-
+			System.debug('cloneOppty: '+cloneOppty);
             cloneOppty.OwnerId = userId;
             cloneOppty.AccountId = acc.Id;
             cloneOppty.CollaborationBOId__c = originOppty.Id;

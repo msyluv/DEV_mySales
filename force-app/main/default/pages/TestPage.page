@@ -1,0 +1,42 @@
+<apex:page applyBodyTag="false" docType="html-5.0" showHeader="true" sidebar="false" standardStylesheets="false">
+  <html xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+    <head>
+      <title>Example Lookup</title>
+      <apex:includeScript value="/lightning/lightning.out.js"/>
+      <!--<apex:stylesheet value="{!URLFOR($Resource.SLDS0110, 'assets/styles/salesforce-lightning-design-system-vf.css')}"/>-->
+      </head>
+    <body >
+      <div id="lookup"/>
+    </body>
+
+
+    <script>
+   
+          function initializeLookup(id) {
+   
+            var element = document.getElementById('lookup');
+            element.innerHTML = 'test it bro';
+           
+            $Lightning.use("c:customLookupApp", function () {
+              $Lightning.createComponent("c:LookupSObject", {
+                recordId: id,
+                label: label,
+                pluralLabel: "Accounts",
+                sObjectAPIName: "Account",
+                listIconSVGPath: "/resource/SLDS0110/assets/icons/standard-sprite/svg/symbols.svg#account",
+                listIconClass: "slds-icon-standard-account",
+                callback: function (data) {}),
+                filter: filter,
+                required: required
+              }, elementid,
+              function (cmp) {}
+              );
+            });
+          }
+   
+          initializeLookup('a0w1s000002fLpAAAU');
+   
+    </script>
+      Test html
+  </html>
+</apex:page>

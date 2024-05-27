@@ -2,15 +2,16 @@
   @author            : younghoon.kim@dkbmc.com
   @group             : 
   @description       : 
-  @last modified on  : 2023-12-21
-  @last modified by  : sarthak.j1@samsung.com
+  @last modified on  : 2024-05-26
+  @last modified by  : akash.g@samsung.com
   Modifications Log 
   Ver   Date         Author                    Modification
   1.0   2020-11-05   younghoon.kim@dkbmc.com   Initial Version
   1.1   2021-04-08   seonju.jin@dkbmc.com      excel export 추가
   1.2   2023-02-22   anish.jain@partner.samsung.com	   Changes Added for new Search box 'Intensive BO' regarding (My Sales - 141)
   1.3   2023-03-13   anish.jain@partner.samsung.com	   Changes Added for Strategic Account regarding (My Sales - 149)
-  1.4   2023-12-20   sarthak.j1@samsung.com			   Changes added for MYSALES-385.		
+  1.4   2023-12-20   sarthak.j1@samsung.com			   Changes added for MYSALES-385.	
+  1.5   2024-05-26   akash.g@samsung.com               Changes added for MYSALES-534
 -->
 <aura:component implements="force:appHostable" controller="OpportunitySearchController" access="global" >
 	<!-- [Handler] -->
@@ -27,7 +28,9 @@
     <aura:attribute name="MSPCheck" type="Boolean" default="false"/>
     <aura:attribute name="SCPCheck" type="Boolean" default="false"/>
     <aura:attribute name="ERPCheck" type="Boolean" default="false"/>
-    <aura:attribute name="MESCheck" type="Boolean" default="false"/>
+    <!--V1.5. Akash change start-->
+    <aura:attribute name="SaasCheck" type="Boolean" default="false"/>
+   <!--V1.5. akash change end-->
     <!-- End Anish - v 1.2-->
     <aura:attribute name="solution" type="List" default="[]"/>
     <aura:attribute name="collaboration" type="List" default="[]"/>
@@ -142,19 +145,16 @@
                     
                     <div class = "slds_black">
                         
-                        
-                        <input type="checkbox" name="options" id="checkbox-unique-id-82" value="checkbox-unique-id-82" checked="{!v.MSPCheck}" onchange = "{!c.CBCheck}" />
-                        <label class="slds-checkbox__label" for="checkbox-unique-id-82">
-                            <span class="slds-checkbox_faux"></span>
-                            <span class="slds-form-element__label">&nbsp;MSP</span>
-                        </label>
-                        
                         <input type="checkbox" name="options" id="checkbox-unique-id-81" value="checkbox-unique-id-81" checked="{!v.CSPCheck}" onchange = "{!c.CBCheck}" />
                         <label class="slds-checkbox__label" for="checkbox-unique-id-81">
                             <span class="slds-checkbox_faux"></span>
                             <span class="slds-form-element__label">&nbsp;CSP</span>
                         </label>
-                        
+                        <input type="checkbox" name="options" id="checkbox-unique-id-82" value="checkbox-unique-id-82" checked="{!v.MSPCheck}" onchange = "{!c.CBCheck}" />
+                        <label class="slds-checkbox__label" for="checkbox-unique-id-82">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label">&nbsp;MSP</span>
+                        </label>
                         <input type="checkbox" name="options" id="checkbox-unique-id-83" value="checkbox-unique-id-83" checked="{!v.SCPCheck}" onchange = "{!c.CBCheck}" />
                         <label class="slds-checkbox__label" for="checkbox-unique-id-83">
                             <span class="slds-checkbox_faux"></span>
@@ -166,12 +166,14 @@
                             <span class="slds-checkbox_faux"></span>
                             <span class="slds-form-element__label">&nbsp;ERP</span>
                         </label>
-                        
-                        <input type="checkbox" name="options" id="checkbox-unique-id-85" value="checkbox-unique-id-85" checked="{!v.MESCheck}" onchange = "{!c.CBCheck}" />
-                        <label class="slds-checkbox__label" for="checkbox-unique-id-85">
+                        <!--V1.5 Akash change Start-->
+                        <input type="checkbox" name="options" id="checkbox-unique-id-86" value="checkbox-unique-id-86" checked="{!v.SaasCheck}" onchange = "{!c.CBCheck}" />
+                        <label class="slds-checkbox__label" for="checkbox-unique-id-86">
                             <span class="slds-checkbox_faux"></span>
-                            <span class="slds-form-element__label">&nbsp;MES</span>
+                            <span class="slds-form-element__label">&nbsp;Saas</span>
                         </label>
+                        
+                        <!--V1.5 Akash change END-->
                         
                     </div>   
                 </div>
@@ -440,16 +442,9 @@
                                                 <td data-label="CompName">
                                                     <div class="slds-truncate" title="{!data.CompName}">{!data.CompName}</div>
                                                 </td>
-                                                <th data-label="Opportunity Code" scope="row">
-                                                    <aura:if isTrue="{!data.Permission}">
-                                                        <div class="slds-truncate" title="{!data.OpptyCode}">
-                                                            <a href="{!'/' + data.Id}" tabindex="-1" target="_blank">{!data.OpptyCode}</a>
-                                                        </div>
-                                                        <aura:set attribute="else">
-                                                            <div class="slds-truncate" title="{!data.OpptyCode}">{!data.OpptyCode}</div>
-                                                        </aura:set>
-                                                    </aura:if>
-                                                </th>
+                                                <td data-label="Opportunity Code">
+                                                    <div class="slds-truncate" title="{!data.OpptyCode}">{!data.OpptyCode}</div>
+                                                                </td>
                                                 <th data-label="Opportunity Name" scope="row">
                                                     <aura:if isTrue="{!data.Permission}">
                                                         <div class="slds-truncate" title="{!data.Name}">
@@ -470,15 +465,29 @@
                                                 <td data-label="AccNumber">
                                                     <div class="slds-truncate" title="{!data.AccNumber}">{!data.AccNumber}</div>
                                                 </td>
-                                                <td data-label="AccName">
-                                                    <div class="slds-truncate" title="{!data.AccName}">{!data.AccName}</div>
-                                                </td>
+                                                <th data-label="AccName" scope="row">
+                                                    <aura:if isTrue="{!data.Permission}">
+                                                        <div class="slds-truncate" title="{!data.AccName}">
+                                                           <a href="{!'/' + data.AccId}" tabindex="-1" target="_blank">{!data.AccName}</a>
+                                                        </div>
+                                                       <aura:set attribute="else">
+                                                         <div class="slds-truncate" title="{!data.AccName}">{!data.AccName}</div>
+                                                       </aura:set>
+                                                     </aura:if>
+                                               </th>
                                                 <td data-label="OriginAccNum">
                                                     <div class="slds-truncate" title="{!data.OriginAccNum}">{!data.OriginAccNum}</div>
                                                 </td>
-                                                <td data-label="OriginAcctName">
-                                                    <div class="slds-truncate" title="{!data.OriginAcctName}">{!data.OriginAcctName}</div>
-                                                </td>
+                                                <th data-label="OriginAcctName" scope="row">
+                                                    <aura:if isTrue="{!data.Permission}">
+                                                        <div class="slds-truncate" title="{!data.OriginAcctName}">
+                                                           <a href="{!'/' + data.ContractAccId}" tabindex="-1" target="_blank">{!data.OriginAcctName}</a>
+                                                        </div>
+                                                       <aura:set attribute="else">
+                                                         <div class="slds-truncate" title="{!data.OriginAcctName}">{!data.OriginAcctName}</div>
+                                                       </aura:set>
+                                                     </aura:if>
+                                               </th>
                                                 <td data-label="BizLevel" style="text-align: center;">
                                                     <div class="slds-truncate" title="{!data.BizLevel}">{!data.BizLevel}</div>
                                                 </td>
@@ -547,6 +556,7 @@
             <!-- [E] Datatable -->
             <hr></hr>
             <!-- [S] Pagination -->
+            
             <lightning:layoutItem size='12' class='item_paging'>
                 <lightning:layout verticalAlign="center" horizontalAlign='center' class="x-large">
                     <!-- [S] Total Number -->
@@ -567,6 +577,7 @@
                     <!-- [E] Button -->
                 </lightning:layout>
             </lightning:layoutItem>
+        
             <!-- [E] Pagination -->
         </lightning:layout>
         <!-- [E] Body -->

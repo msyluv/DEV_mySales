@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : hj.lee@dkbmc.com
  * @group             : 
- * @last modified on  : 11-05-2023
+ * @last modified on  : 2024-04-25
  * @last modified by  : anish.jain@partner.samsung.com 
  * Modifications Log 
  * Ver   Date         Author             Modification
@@ -18,6 +18,7 @@
  * 1.9   2023-09-13   divyam.gupta@samsung.com   New Condition added for MySales 256 - Lost data is automatically deleted when Drop/Lost activity is deleted
  * 2.0   2023-12-10   anish.jain@partner.samsung.com  Create IF-159(send drop/lost info to legacy) scheduled batch job (MS-373)
  * 2.1   11-05-2023   anish.jain@partner.samsung.com   MySales - 216
+ * 2.2   2024-04-25   anish.jain@partner.samsung.com   Analysis the cause of 'Review Opportunity' issue -> [MYSALES-495]
 **/
 trigger OpportunityActivityTrigger on Opportunity_Activity__c (before insert,after insert, before update, after update,after delete) {
 
@@ -571,6 +572,7 @@ trigger OpportunityActivityTrigger on Opportunity_Activity__c (before insert,aft
                     }
                 }
             }
+          createInterfaceLog3('sendToSAP', 'Old Activity Status : '+oldMap.get(oppty.Id).Status__c + ', New Activity Status : ' + oppty.Status__c + ', Opportunity Activity Name : ' + oppty.Name + ', Opportunity Code : ' + oppty.WhatId__r.OpportunityCode__c + ', Opportunity Id : ' + oppty.WhatId__c +  '\n' + 'Opportunity Activity Status Updated : Success' , 'S'); //v 2.2
         }
         Boolean isBatch = System.isBatch();
         Boolean isQueueable = System.isQueueable();
@@ -867,4 +869,25 @@ trigger OpportunityActivityTrigger on Opportunity_Activity__c (before insert,aft
         // END V 1.8
     
 }
+    
+     public static void createInterfaceLog3(String apexMethod,String logMessage,String statusCode ){ // v 2.2
+
+        try{
+        System.debug( 'LOGIC_REVIEWOPP entry');
+            IF_Log__c log = new IF_Log__c();
+                log.ApexName__c = 'OpportunityActivityTrigger';
+                log.ApexMethod__c =  apexMethod;
+                log.InterfaceId__c = 'Callout_IF093';
+                log.LogText__c = logMessage;
+                log.StatusCode__c = statusCode;
+                log.LogType__c = 'Interface';
+                log.EndDatetime__c  = System.now();
+                log.StartDatetime__c = System.now();
+                System.debug( 'LOGIC_REVIEWOPP creation'+ log);
+                insert log;
+        }catch(Exception e){
+            System.debug( 'LOGIC_REVIEWOPP msg'+ e.getMessage());
+        }
+    }
+
 }

@@ -2,12 +2,13 @@
  * @description       : 
  * @author            : seonju.jin@dkbmc.com
  * @group             : 
- * @last modified on  : 2023-12-08
- * @last modified by  : vikrant.ks@samsung.com
+ * @last modified on  : 05-08-2024
+ * @last modified by  : chae_ho.yang@samsung.com
  * Modifications Log 
  * Ver   Date         Author                 	Modification
  * 1.0   2021-07-16   seonju.jin@dkbmc.com   	Initial Version
  * 1.1   2023-12-08   vikrant.ks@samsung.com 	Changed the value assignment logic of "GUBUN" field(MySales-378)
+ * 1.2   2024-05-08   chae_ho.yang@samsung.com  MYSALES-523 Miracom getGubun modification
 **/
 public class WBSHelper {
     //WBS Code Level
@@ -186,7 +187,7 @@ public class WBSHelper {
 
         Integer createdGubun1 = 0;
         Boolean hasLimit = false;
-        String sol_gubun = getGubun(sol.sSolutionType__c, companyCode);   //솔루션 타입 구분 (1,2,4)
+        String sol_gubun = getGubun(sol.sSolutionType__c, companyCode, sol);   //솔루션 타입 구분 (1,2,4)
         Integer createdWbsLimit = 0;                //WBSCode 생성 limit
 
         if(sol_gubun == '2'){ createdWbsLimit = 29;}
@@ -282,10 +283,17 @@ public class WBSHelper {
         return returnMap;
     }
 
-    public static String getGubun(String solutionType, String companyCode){
+    public static String getGubun(String solutionType, String companyCode, Solution__c solution){ //v1.2 solution added
         if(String.isBlank(solutionType)) return '';
 
         String gubun = '';
+        List<String> miracomExceptionalSol = new List<String>{'32000004', '32000005'};
+        system.debug('CHLOG ::: solcode : ' + solution.sSolution__r.Code__c);
+        Boolean isMiracom = false;
+        for (String s : miracomExceptionalSol) {
+            if (solution.sSolution__r.Code__c.equals(s)) isMiracom = true;
+        }
+        system.debug('CHLOG ::: isMiracom : ' + isMiracom);
         switch on solutionType {
             when '10' { //Professinal Service
                 gubun = '1';
@@ -294,18 +302,25 @@ public class WBSHelper {
                 gubun = '2';
             }
             when '30' { //S/W
-                if(companyCode == 'T100' || companyCode == 'T170') gubun = '4'; //V1.1 Added T170 condition
-                else gubun = '3';
+                if(companyCode == 'T140' && isMiracom) { gubun = '4'; } //V1.2 Added miracom condition
+                else {
+                    if(companyCode == 'T100' || companyCode == 'T170') gubun = '4'; //V1.1 Added T170 condition
+                    else gubun = '3';
+                }
             }
             when '60' { //Saas
-                if(companyCode == 'T100' || companyCode == 'T170') gubun = '4'; //V1.1 Added T170 condition
-                else gubun = '3';
+                if(companyCode == 'T140' && isMiracom) { gubun = '4'; } //V1.2 Added miracom condition
+                else {
+                    if(companyCode == 'T100' || companyCode == 'T170') gubun = '4'; //V1.1 Added T170 condition
+                    else gubun = '3';
+                }
             }
             when else{
                 gubun ='4';
             }
         }
 
+        system.debug('CHLOG ::: getGubun : ' + gubun);
         return gubun;
     }
 }

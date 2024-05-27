@@ -6,7 +6,10 @@
   @last modified by  : chae_ho.yang@samsung.com
 -->
 <apex:page standardController="WeeklyReport__c" extensions="WeeklyReportVFController" action="{!WeeklyReportVFController}" showQuickActionVfHeader="false" docType="html-5.0" lightningStylesheets="true"  contentType="text/html;charset=UTF-8">
-    <apex:includeScript value="{!URLFOR($Resource.cafe + '/2.3.27/cafe_2.3.27.min.js')}"/>
+  <!--  <apex:includeScript value="{!URLFOR($Resource.cafe + '/2.3.27/cafe_2.3.27.min.js')}"/> -->
+      <!--apex:includeScript value="{!URLFOR($Resource.cafeNote + '/Demo/cafe/2.3.28.1/cafe_2.3.28.1.min.js')}"/-->
+    <apex:includeScript value="{!URLFOR($Resource.cafeNote + '/cafe/2.3.28.2/cafe_2.3.28.2.min.js')}"/>
+
 	<apex:includeScript value="{!URLFOR($Resource.jquery)}"/>
     <script type="text/javascript" language="javascript">
     	var imageUpload;
@@ -84,7 +87,7 @@
         var arg = {'format':'html'};
         
     	cafe.create("cafeDemo", 
-                    "{!URLFOR($Resource.cafe + '/2.3.27/config.json')}", 
+                    "{!URLFOR($Resource.cafeNote + '/cafe/2.3.28.2/config.json')}", 
                     "GET", 
                     function (){cafe.setContent( "cafeDemo", '{!JSENCODE(issueDescriptionCheck)}', arg);
                                 if(isReadOnly == "Y"){

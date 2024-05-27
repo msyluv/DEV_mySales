@@ -15,5 +15,10 @@
     <columns>InterestSubject1__c</columns>
     <columns>OwnerEmail__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>LeadChannel__c</field>
+        <operation>equals</operation>
+        <value>Marketing Lead Converted</value>
+    </filters>
     <label>All Sales Leads</label>
 </ListView>

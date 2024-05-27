@@ -1,12 +1,28 @@
+/**
+        * @description       : Test Class for EventknoxscheduleCont
+        * @author            : waris.m@samsung.com
+        * @group             : 
+        * @last modified on  : 2024-05-24
+        * @last modified by  : waris.m@samsung.com
+        * Modifications Log 
+        * Ver   Date         Author                      Modification
+        * 1.0   2024-05-24   waris.m@samsung.com   Initial Version for MYSALES-264
+        **/
 @IsTest
 public class EventknoxscheduleCont_Test {
+
     @isTest(SeeAllData=true)
-    public static void EventknoxscheduleCont_Test_1(){     
+    public static void testEventknoxscheduleCont(){     
         Test.startTest();
         Test.setMock(HttpCalloutMock.class, new EventknoxscheduleCont_TestMock(200));
-        List<Event> listofEvents =[SELECT Id,Subject,ActivityDate,StartDateTime,EndDateTime,OwnerId,Owner.Email,Knox_Schedule_ID__c,Location,Description,IsAllDayEvent FROM Event LIMIT 1];
-        String evId = listofEvents[0].Id;
-        String result = EventknoxscheduleCont.getknoxscheduledata(evId);
+        Event eventObj =[SELECT Id
+                           FROM Event 
+                          WHERE ownerid =: UserInfo.getUserId()
+                            
+                          LIMIT 1];
+        String evId = eventObj.Id;
+
+        EventknoxscheduleCont.getknoxscheduledata(evId);
         Test.stopTest();
     } 
     
@@ -65,7 +81,7 @@ public class EventknoxscheduleCont_Test {
         }
 
         public String getResponseData( String val){
-            String jsonData = '{"data":{"invitedYn":"","subject":"Email","attendees":[{"sourceType":"EMPLOYEE","replyStatus":"ACCEPTED","type":"CHAIR","userId":"M220809055237C6N6079","seq":0}],"startTime":{"dateTime_SFDC":"2023-11-28T17:00:00+09:00","timeZone":"Asia/Seoul"},"endTime":{"dateTime_SFDC":"2023-11-28T18:00:00+09:00","timeZone":"Asia/Seoul"},"originalScheduleId":"","priority":"5","userId":"M220809055237C6N6079","calendarId":"CAL202311220820157525381580","contents":"abc","authority":"ALL","contentsCharset":"UTF-8","allDayYn":"N","class_SFDC":"PUBLIC","scheduleId":"SCH202311280744480635404428","recurrence":{"condition":"c1","endType":"a","count":"3","freqInterval":"6","freq":"8","until":"a"}},"result":"success","statusCode":200}'; 
+            String jsonData = '[{"invitedYn":"","subject":"Email","attendees":[{"sourceType":"EMPLOYEE","replyStatus":"ACCEPTED","type":"CHAIR","userId":"M220809055237C6N6079","seq":0}],"startTime":{"dateTime_SFDC":"2023-11-28T17:00:00+09:00","timeZone":"Asia/Seoul"},"endTime":{"dateTime_SFDC":"2023-11-28T18:00:00+09:00","timeZone":"Asia/Seoul"},"originalScheduleId":"","priority":"5","userId":"M220809055237C6N6079","calendarId":"CAL202311220820157525381580","contents":"abc","authority":"ALL","contentsCharset":"UTF-8","allDayYn":"N","class_SFDC":"PUBLIC","scheduleId":"SCH202311280744480635404428","recurrence":{"condition":"c1","endType":"a","count":"3","freqInterval":"6","freq":"8","until":"a"}}]'; 
         	return jsonData;
         }
     }

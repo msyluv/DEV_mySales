@@ -1,92 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Translations xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Translations xmlns="http://soap.sforce.com/2006/04/metadata">
     <customApplications>
-        <description xsi:nil="true"/>
         <label>CxO</label>
         <name>CxO</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>CxO Mobile</label>
         <name>CxOMobile</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- File --></label>
         <name>File</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>마케팅리드 생성</label>
         <name>Lead_Generation</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- MSP Admin --></label>
         <name>MSP_Admin</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>Marketing</label>
         <name>Marketing</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>관계 관리</label>
         <name>Relationship_Management</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>Sales Representative</label>
         <name>Sales</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>Sales Executive</label>
         <name>SalesExecutive</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>Sales Executive Mobile</label>
         <name>SalesExecutiveMobile</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>Sales Manager</label>
         <name>SalesManager</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>Sales Team Manager</label>
         <name>SalesTeamManager</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>Sales Team Manager Mobile</label>
         <name>SalesTeamManagerMobile</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>영업 리더</label>
         <name>Sales_Leadership</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>Sales Manager Mobile</label>
         <name>Sales_Manager_Mobile</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>Sales Mobile</label>
         <name>Sales_Mobile</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>영업 업무</label>
         <name>Sales_Operations</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
+        <label><!-- Sales Rep. Console --></label>
+        <name>Sales_Rep_Console</name>
+    </customApplications>
+    <customApplications>
         <label>Strategy Committee</label>
         <name>Strategy_Committee</name>
     </customApplications>
@@ -543,6 +529,18 @@
         <name>ASLTM_Salesleadteammember</name>
     </customLabels>
     <customLabels>
+        <label>전화</label>
+        <name>AccountPhone_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label>고객 소스</label>
+        <name>AccountSource_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label>유형</label>
+        <name>AccountType_weeklyReport</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Account Information --></label>
         <name>Account_Information</name>
     </customLabels>
@@ -551,12 +549,28 @@
         <name>Account_Name</name>
     </customLabels>
     <customLabels>
+        <label>고객 번호</label>
+        <name>Account_Name_Review_Session</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Account Number --></label>
         <name>Account_Number</name>
     </customLabels>
     <customLabels>
         <label>고객 소유자</label>
         <name>Account_Owner_Name</name>
+    </customLabels>
+    <customLabels>
+        <label>고객사</label>
+        <name>Account_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label>고객 소유자 별칭</label>
+        <name>Accountowner_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label>고객사</label>
+        <name>Accounts_weeklyReport</name>
     </customLabels>
     <customLabels>
         <label>이 사업리드에 대한 팀 구성원의 액세스 레벨이 조직의 기본 사업리드 액세스 설정보다 클 수 있습니다.</label>
@@ -649,6 +663,10 @@
     <customLabels>
         <label>고객 번호</label>
         <name>BOSEARCH_LAB_ACCOUNTCODE</name>
+    </customLabels>
+    <customLabels>
+        <label>고객 번호</label>
+        <name>BOSEARCH_LAB_ACCOUNTNUMBER</name>
     </customLabels>
     <customLabels>
         <label>모두</label>
@@ -981,6 +999,19 @@
     <customLabels>
         <label><!-- BO Report table C UrlSDSZA --></label>
         <name>BO_Report_table_C_UrlSDSZA</name>
+    </customLabels>
+    <customLabels>
+        <label>사업심의유형이 확정되었습니다.&lt;br/&gt;
+사업우선순위 체크리스트를 작성하시겠습니까?</label>
+        <name>BO_Review_Confirmation_Body</name>
+    </customLabels>
+    <customLabels>
+        <label>아니오</label>
+        <name>BO_Review_Confirmation_No</name>
+    </customLabels>
+    <customLabels>
+        <label>예</label>
+        <name>BO_Review_Confirmation_Yes</name>
     </customLabels>
     <customLabels>
         <label>청구 담당자는 사업기회의 법인코드와 동일한 법인 소속이어야 합니다.</label>
@@ -1574,6 +1605,10 @@
         <name>CONVERT_LAB_SALES_LEAD_API</name>
     </customLabels>
     <customLabels>
+        <label><!-- CONVERT_LAB_SALES_LEAD_TARGET_PROFILE --></label>
+        <name>CONVERT_LAB_SALES_LEAD_TARGET_PROFILE</name>
+    </customLabels>
+    <customLabels>
         <label>변환 성공</label>
         <name>CONVERT_LAB_SUCCESSCONVERT</name>
     </customLabels>
@@ -1590,8 +1625,12 @@
         <name>CPReviewConfirmMessage</name>
     </customLabels>
     <customLabels>
-        <label><!-- Cancel --></label>
+        <label>취소하다</label>
         <name>Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label>취소</label>
+        <name>CancelButton</name>
     </customLabels>
     <customLabels>
         <label>취급 화물 상세 입력 정보를 저장 해 주세요</label>
@@ -1632,6 +1671,10 @@
     <customLabels>
         <label><!-- Change_OwnerBtn --></label>
         <name>Change_OwnerBtn</name>
+    </customLabels>
+    <customLabels>
+        <label>현안 보고 내용 - 문자 제한 초과, 최대 문자 = 131,072</label>
+        <name>CharacterLimitError</name>
     </customLabels>
     <customLabels>
         <label>완료예정일에 오늘 이후 날짜를 입력하세요.</label>
@@ -1742,6 +1785,10 @@
         <name>CreateUser</name>
     </customLabels>
     <customLabels>
+        <label>작성자</label>
+        <name>Created_By_Review_Session</name>
+    </customLabels>
+    <customLabels>
         <label>Critical Lost Reason</label>
         <name>Critical_LOST_003</name>
     </customLabels>
@@ -1780,6 +1827,10 @@
     <customLabels>
         <label>담당부서</label>
         <name>Dept_in_Charge</name>
+    </customLabels>
+    <customLabels>
+        <label>설명</label>
+        <name>Description</name>
     </customLabels>
     <customLabels>
         <label>Description</label>
@@ -2031,6 +2082,14 @@
         <name>EXINFO_MSG_0004</name>
     </customLabels>
     <customLabels>
+        <label>편집</label>
+        <name>Edit</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 점검 세션 편집</label>
+        <name>Edit_Opportunity_Review_Session</name>
+    </customLabels>
+    <customLabels>
         <label>이메일 주소를 입력하세요.</label>
         <name>EmailAddressMandate</name>
     </customLabels>
@@ -2113,6 +2172,18 @@
     <customLabels>
         <label>※ 위 Check 항목 중 ‘Yes’ 또는 ‘Need To Review’ 가 있는 경우 물류 CP 사업 심의 대상입니다.</label>
         <name>FooterMessage</name>
+    </customLabels>
+    <customLabels>
+        <label>수행하려는 옵션을 선택하세요.</label>
+        <name>FullCalender_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label>편집</label>
+        <name>FullCalender_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label>삭제</label>
+        <name>FullCalender_MSG_03</name>
     </customLabels>
     <customLabels>
         <label><!-- GOOGLENEWS_KEYWORD --></label>
@@ -2210,6 +2281,10 @@
     <customLabels>
         <label>개선방안</label>
         <name>Improvement</name>
+    </customLabels>
+    <customLabels>
+        <label>정보</label>
+        <name>Information</name>
     </customLabels>
     <customLabels>
         <label>정보</label>
@@ -2328,6 +2403,10 @@
         <name>LOGISTICS_CP_BTN_YES</name>
     </customLabels>
     <customLabels>
+        <label>최종 수정자</label>
+        <name>LastModifiedByReviewSession</name>
+    </customLabels>
+    <customLabels>
         <label>[실주 사유]</label>
         <name>Lost_Formula_label</name>
     </customLabels>
@@ -2356,14 +2435,13 @@
         <name>MAIN_NOTICE_FLAG</name>
     </customLabels>
     <customLabels>
-        <label>□ 본사 조직개편 작업 안내
+        <label>□ 시스템 점검 작업 안내
 
-본사 조직개편 작업으로 인해 mySales 서비스가 아래와 같이 제한되오니 
-본사 임직원 께서는 업무에 참고하시기 바랍니다.
-mySales는 데이터 조회만 가능합니다.
+Salesforce의 시스템 점검 작업으로 인해 mySales 서비스가 아래와 같이 제한되오니 이용에 참고해주시기 바랍니다.
+이 기간 동안 모든 데이터는 조회만 가능합니다.
 
-1. 작업 내용 : 본사 조직개편
-2. 서비스 제한 일시 : &apos;23.12.4(월) 20시 ~ 12.13(수) 24시 (한국 시간 기준)</label>
+1. 작업 내용 : Salesforce 점검 작업
+2. 서비스 제한 일시 : &apos;24.5.19(일) 00:00 ~ 5.19(일) 05:00 (한국 시간 기준)</label>
         <name>MAIN_NOTICE_MSG</name>
     </customLabels>
     <customLabels>
@@ -2623,6 +2701,10 @@ mySales는 데이터 조회만 가능합니다.
         <name>New_Review_Session</name>
     </customLabels>
     <customLabels>
+        <label>새 주간보고</label>
+        <name>New_Weekly_Report</name>
+    </customLabels>
+    <customLabels>
         <label>기본 팀을 추가할 수 없습니다. 기본 사업리드 팀을 설정 후 다시 시도하십시오.</label>
         <name>NoDefaultSalesLeadTeam</name>
     </customLabels>
@@ -2639,11 +2721,15 @@ mySales는 데이터 조회만 가능합니다.
         <name>No_Data_Saved_Countermeasure</name>
     </customLabels>
     <customLabels>
+        <label>Convert하려는 리드의 소유자는 Opportunity 생성 권한이 있어야 합니다</label>
+        <name>No_Opportunity_Create_Access</name>
+    </customLabels>
+    <customLabels>
         <label>임직원 정보가 없습니다. 관리자에게 문의해주세요.</label>
         <name>Noknoxuserpresent</name>
     </customLabels>
     <customLabels>
-        <label><!-- Note Review session --></label>
+        <label>메모</label>
         <name>Note_Review_session</name>
     </customLabels>
     <customLabels>
@@ -3560,6 +3646,18 @@ mySales는 데이터 조회만 가능합니다.
         <name>Opp_Close_Date_Warning_Msg</name>
     </customLabels>
     <customLabels>
+        <label>사업기회</label>
+        <name>Opportunities_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회명</label>
+        <name>OpportunityName_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 소유자 별칭</label>
+        <name>OpportunityOwner_weeklyReport</name>
+    </customLabels>
+    <customLabels>
         <label>데이터 수정 권한이 없습니다.</label>
         <name>OpportunityRegisError</name>
     </customLabels>
@@ -3572,6 +3670,10 @@ mySales는 데이터 조회만 가능합니다.
         <name>Opportunity_Code_label</name>
     </customLabels>
     <customLabels>
+        <label>사업기회</label>
+        <name>Opportunity_weeklyReport</name>
+    </customLabels>
+    <customLabels>
         <label>사업기회명</label>
         <name>Oppportunity_Name_label</name>
     </customLabels>
@@ -3580,8 +3682,16 @@ mySales는 데이터 조회만 가능합니다.
         <name>Oppty_Analysis_Temp_Success_Msg</name>
     </customLabels>
     <customLabels>
+        <label>원청사 번호</label>
+        <name>Origin_account_Number_Weekly_Report</name>
+    </customLabels>
+    <customLabels>
         <label>입력하신 고객이 존재하지 않습니다</label>
         <name>OwnerAccErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label>소유자</label>
+        <name>OwnerLabel</name>
     </customLabels>
     <customLabels>
         <label>입력하신 BO가 존재하지 않습니다</label>
@@ -3833,6 +3943,10 @@ mySales는 데이터 조회만 가능합니다.
         <name>Reason_for_drop_lost</name>
     </customLabels>
     <customLabels>
+        <label>새로운 사업기회 점검 세션이 생성되었습니다</label>
+        <name>Record_Success_Message</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Ref Refresh --></label>
         <name>Ref_Refresh</name>
     </customLabels>
@@ -3899,6 +4013,14 @@ mySales는 데이터 조회만 가능합니다.
     <customLabels>
         <label><!-- Report_URL_Qa --></label>
         <name>Report_URL_Qa</name>
+    </customLabels>
+    <customLabels>
+        <label>필수 정보</label>
+        <name>Required_Information</name>
+    </customLabels>
+    <customLabels>
+        <label>필수값이 필요합니다</label>
+        <name>Required_Message_Review_session</name>
     </customLabels>
     <customLabels>
         <label>암호 다시 설정</label>
@@ -4107,6 +4229,10 @@ mySales는 데이터 조회만 가능합니다.
     <customLabels>
         <label>해당 필드의 값을 입력하십시오. &apos;영업 부서 (L3)&apos;</label>
         <name>SL_ERR_NULL_CHK_SD</name>
+    </customLabels>
+    <customLabels>
+        <label>Employee 정보를 찾을 수 없습니다. 관리자에게 문의 바랍니다</label>
+        <name>SL_OWNER_FED_NULL_CHK</name>
     </customLabels>
     <customLabels>
         <label>동일한 PS Type으로만 변경 가능합니다. PS Type이 변경될 경우 기존 솔루션을 삭제하시고 새로운 서비스를 추가하여 생성해주세요</label>
@@ -4619,6 +4745,14 @@ Create/Change Project Code 버튼을 눌러야 변경된 내용이 SAP시스템�
         <name>SalesLeadWrongOwner</name>
     </customLabels>
     <customLabels>
+        <label>사업리드</label>
+        <name>SalesLead_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label>사업리드</label>
+        <name>SalesLeads_weeklyReport</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Sales Rep.(HQ) Profile ID --></label>
         <name>Sales_Rep_HQ_Profile_ID</name>
     </customLabels>
@@ -4639,7 +4773,7 @@ Create/Change Project Code 버튼을 눌러야 변경된 내용이 SAP시스템�
         <name>Sandbox_Knox_Bearer</name>
     </customLabels>
     <customLabels>
-        <label><!-- Sandbox_Knox_Bearer_IF_073 --></label>
+        <label><!-- Sandbox_Knox_Bearer --></label>
         <name>Sandbox_Knox_Bearer_IF_073</name>
     </customLabels>
     <customLabels>
@@ -4671,7 +4805,7 @@ Create/Change Project Code 버튼을 눌러야 변경된 내용이 SAP시스템�
         <name>SecondPopupMainHeading</name>
     </customLabels>
     <customLabels>
-        <label><!-- Select --></label>
+        <label>선택</label>
         <name>Select_Review</name>
     </customLabels>
     <customLabels>
@@ -4715,6 +4849,14 @@ Create/Change Project Code 버튼을 눌러야 변경된 내용이 SAP시스템�
         <name>System_Administrator_Profile_ID</name>
     </customLabels>
     <customLabels>
+        <label>시스템 정보</label>
+        <name>System_Information</name>
+    </customLabels>
+    <customLabels>
+        <label>시스템 정보</label>
+        <name>System_Information_ReviewSession</name>
+    </customLabels>
+    <customLabels>
         <label>수주 예상일</label>
         <name>TARGET_BOSEARCH_CLOSEDATE</name>
     </customLabels>
@@ -4725,6 +4867,14 @@ Create/Change Project Code 버튼을 눌러야 변경된 내용이 SAP시스템�
     <customLabels>
         <label>금액</label>
         <name>TARGET_BO_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label>취소</label>
+        <name>TARGET_BO_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label>선택</label>
+        <name>TARGET_BO_SELECT</name>
     </customLabels>
     <customLabels>
         <label>금일 점검 BO</label>
@@ -4751,8 +4901,16 @@ Create/Change Project Code 버튼을 눌러야 변경된 내용이 SAP시스템�
         <name>TableSubHeading</name>
     </customLabels>
     <customLabels>
+        <label>원청사 번호</label>
+        <name>TargetBO_Origin_Account_Number</name>
+    </customLabels>
+    <customLabels>
         <label>대상 사업기회</label>
         <name>Target_BO_Review</name>
+    </customLabels>
+    <customLabels>
+        <label>대상 사업기회 선택</label>
+        <name>Target_Opportunity_Select_Label</name>
     </customLabels>
     <customLabels>
         <label>태스크가 저장되었으나, Knox와 동기화 중 에러가 발생하였습니다. 관리자에게 문의해주세요.</label>
@@ -4794,6 +4952,10 @@ update가 완료되면 화면이 새로고침 됩니다.</label>
     <customLabels>
         <label>유형</label>
         <name>Type</name>
+    </customLabels>
+    <customLabels>
+        <label>사업기회 점검 세션 정보가 저장되었습니다.</label>
+        <name>Updated_Message_Reciew_Session</name>
     </customLabels>
     <customLabels>
         <label><!-- Used Licences --></label>
@@ -4957,7 +5119,7 @@ update가 완료되면 화면이 새로고침 됩니다.</label>
         <name>WEEKLY_ISSUE_REPORT_COL_ISSUE</name>
     </customLabels>
     <customLabels>
-        <label><!-- WEEKLY_ISSUE_REPORT_COL_ISSUECHECK --></label>
+        <label>현안 보고 내용</label>
         <name>WEEKLY_ISSUE_REPORT_COL_ISSUECHECK</name>
     </customLabels>
     <customLabels>
@@ -5121,6 +5283,10 @@ update가 완료되면 화면이 새로고침 됩니다.</label>
         <name>Weekly_Manager_Report_User</name>
     </customLabels>
     <customLabels>
+        <label>개의 검색 결과</label>
+        <name>Weekly_ReportSearch</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Weekly Report Strategy Committee Type --></label>
         <name>Weekly_Report_Strategy_Committee_Type</name>
     </customLabels>
@@ -5139,6 +5305,10 @@ update가 완료되면 화면이 새로고침 됩니다.</label>
     <customLabels>
         <label><!-- YearlyRevenueScheduleNote2 --></label>
         <name>YearlyRevenueScheduleNote2</name>
+    </customLabels>
+    <customLabels>
+        <label>취소</label>
+        <name>cancel_review</name>
     </customLabels>
     <customLabels>
         <label>이름을 입력하세요</label>
@@ -5235,6 +5405,14 @@ update가 완료되면 화면이 새로고침 됩니다.</label>
     <customLabels>
         <label>회원 정보 입력,개인정보 수집∙이용 및 서비스 약관 동의,서비스 약관이 변경되었으며 다시 동의해야 합니다. &lt;br&gt;변경된 서비스 약관에 동의하지 않을 수 있습니다.&lt;br&gt;동의하지 않으면 SAMSUNG SDS Cloud Partner Network을 사용할 수 없습니다.</label>
         <name>partner_signup_request_title</name>
+    </customLabels>
+    <customLabels>
+        <label>보고 날짜가 필요합니다.</label>
+        <name>reporting_date_error</name>
+    </customLabels>
+    <customLabels>
+        <label>보고 이름이 필요합니다.</label>
+        <name>reporting_name_error</name>
     </customLabels>
     <customLabels>
         <label>파일 업로드</label>

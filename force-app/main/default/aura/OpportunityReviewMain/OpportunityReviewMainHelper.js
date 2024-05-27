@@ -147,15 +147,17 @@
                 component.set("v.isAmtDisabled", result.isAmtChange);
                 result.opptyData.Opportunity_Review_Consortium__c ? component.set("v.consortiumYn", "Y") : component.set("v.consortiumYn", "N");
 
-                console.log('result** pendingKnox' + result.pendingKnox);
+                console.log('result** pendingKnox new' + result.pendingKnox);
                 console.log('result** implementation' + result.implementation);
                 if ($A.util.isUndefinedOrNull(result.project)){ // 1. Project Code 없으면 Readonly
+                    console.log('result** CD project' + result.project);
                     self.showToast('error', $A.get('$Label.c.OPPTYACT_BO_REVIEW_NO_PROJECT_CODE'));
                     return;
                 }
                 
                 
                 if(result.approved){// 2. 수주품의 결재완결 이력있으면 Readonly
+                    console.log('result** CD New approved' + result.approved);
                     return;
                 }
                 
@@ -303,7 +305,7 @@
                         updatedOppData: result.opptyData,
                         updatedVrb: result.opptyData.VRB_Account_Change__c    //Added by Anish-v 1.5
                 });
-                   if((result.opptyData.Collaboration__c == false && result.opptyData.CompanyCode__c == 'T100')){
+                   if((result.opptyData.Collaboration__c == false && result.opptyData.CompanyCode__c == 'T100') && !(result.opptyData.cOriginAcc__r.AccountGroup__c == 'ZIC2' || result.opptyData.cOriginAcc__r.AccountGroup__c == 'ZIC')){
                        appEvent.fire();
                    }
                     //debugger;
@@ -562,7 +564,7 @@
                         knxStatus : result.knxStatus //Added by Anish-v 1.5
                 });
                     console.log('KAnish2Test');
-                    if((result.opptyData.Collaboration__c == false && result.opptyData.CompanyCode__c == 'T100')){
+                    if((result.opptyData.Collaboration__c == false && result.opptyData.CompanyCode__c == 'T100' && !(result.opptyData.cOriginAcc__r.AccountGroup__c == 'ZIC2' || result.opptyData.cOriginAcc__r.AccountGroup__c == 'ZIC'))){ //531
                         appEvent.fire();    
                     }
                 }
@@ -582,6 +584,9 @@
                 //for Anish-v 1.4 end
                 self.showToast('success', result.MESSAGE);
                 console.log('Kajal1');
+                if(result.opptyData.CompanyCode__c == 'T100'){ // Added By Vipul v1.4 
+                    component.set('v.isModalOpenBOReviewConfirmation',true);
+                }
             }else{
                 self.showToast('error', result.MESSAGE);
                 console.log('Kajal123');

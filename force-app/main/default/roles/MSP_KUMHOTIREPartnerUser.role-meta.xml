@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>Read</caseAccessLevel>
     <contactAccessLevel>None</contactAccessLevel>
-    <description>MSP_KUMHO TIRE Partner User</description>
+    <description>MSP_KUMHO TIRE2 Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>MSP_KUMHO TIRE Partner User</name>
+    <name>MSP_KUMHO TIRE2 Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>MSP_Admin</parentRole>
 </Role>

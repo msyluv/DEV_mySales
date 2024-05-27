@@ -1,3 +1,13 @@
+/**
+ * @description       : 
+ * @author            : akash.g@samsung.com
+ * @group             : 
+ * @last modified on  : 2024-05-09
+ * @last modified by  : akash.g@samsung.com
+ * Modifications Log 
+ * Ver   Date         Author                           Modification
+ * 1.0   2024-05-09   akash.g@samsung.com              Initial Version(MYSALES -499)
+**/
 ({
     doInit: function(component,event) {
         var action = component.get("c.defaultSetting");
@@ -14,7 +24,7 @@
     },
     
     getOpportunityList: function(component, pageNumber, pageSize,selectedValue) {
-        if(selectedValue.BOName != '' || selectedValue.Status != '' || selectedValue.OpptyCode != '' || Object.keys(selectedValue.SalesDept).length != 0 || Object.keys(selectedValue.SalesDept).length != 0 || Object.keys(selectedValue.PrimarySalesDept).length != 0 ){
+        if(selectedValue.BOName != '' || selectedValue.Status != '' || selectedValue.OpptyCode != '' || Object.keys(selectedValue.Owner).length != 0 || Object.keys(selectedValue.SalesDept).length != 0 || Object.keys(selectedValue.PrimarySalesDept).length != 0 ){
             component.set("v.showSpinner", true);
             var selectedopp = component.get("v.SelectedOpportunityMap");
             var action = component.get("c.getOpportunityData");
@@ -67,7 +77,5 @@
             });
             toastEvent.fire();
         }
-        //var spinner = component.get("v.showSpinner");
-        //if(spinner == true){component.set("v.showSpinner", false);}
     }
 })

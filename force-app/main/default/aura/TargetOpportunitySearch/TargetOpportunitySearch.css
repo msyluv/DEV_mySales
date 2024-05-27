@@ -9,11 +9,21 @@
 .THIS .datatable{
     min-height:19rem;
     overflow-x: scroll;
+    min-height:25rem;
 }
-.THIS .search_layout{
+.THIS label{
     font-weight:bold;
+    font-size: var(--lwc-formLabelFontSize, 0.75rem);
 }
-.THIS .spinner{
-    position: relative;   
-    display: inline-block;
+.THIS .layout_Item{
+    width:30%;
+}
+.THIS .NotopPadding{
+     padding-top: 0px !important;       
+}
+.THIS .inputpadding{
+     padding: 0.25rem 1rem !important;  
+}
+.THIS .slds-button__icon_left{
+     margin: 0px 0.25rem;   
 }

@@ -189,7 +189,6 @@
         <searchResultsAdditionalFields>Contents__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CheckedforIssue__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>DisplayOrder__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>IssueDescription__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>

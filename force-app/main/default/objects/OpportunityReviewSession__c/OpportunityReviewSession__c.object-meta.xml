@@ -168,13 +168,27 @@
         <label>Session Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Opportunity Review Sessions</pluralLabel>
+    <pluralLabel>Opportunity Review Session</pluralLabel>
+    <profileSearchLayouts>
+        <fields>NAME</fields>
+        <fields>Session_Date__c</fields>
+        <fields>Note__c</fields>
+        <fields>Session_Result__c</fields>
+        <profileName>PI (Biz. Owner)</profileName>
+    </profileSearchLayouts>
     <profileSearchLayouts>
         <fields>NAME</fields>
         <fields>Session_Date__c</fields>
         <fields>Note__c</fields>
         <fields>Session_Result__c</fields>
         <profileName>System Administrator</profileName>
+    </profileSearchLayouts>
+    <profileSearchLayouts>
+        <fields>NAME</fields>
+        <fields>Session_Date__c</fields>
+        <fields>Note__c</fields>
+        <fields>Session_Result__c</fields>
+        <profileName>Delivery Manager(HQ)</profileName>
     </profileSearchLayouts>
     <searchLayouts>
         <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>

@@ -2,14 +2,15 @@
  * @author            : younghoon.kim@dkbmc.com
  * @group             : 
  * @description       : 
- * @last modified on  : 2024-01-04
- * @last modified by  : sarthak.j1@samsung.com
+ * @last modified on  : 2024-05-26
+ * @last modified by  : akash.g@samsung.com
  * Modifications Log 
  * Ver   Date         Author                    Modification
  * 1.0   2020-11-02   younghoon.kim@dkbmc.com   Initial Version
  * 1.1   2023--02-10  anish.jain@partner.samsung.com Modification for 'TA' checkbox (My Sales -125)
  * 1.2   2023-02-22   anish.jain@partner.samsung.com   Changes Added for new Search box 'Intensive BO' regarding (My Sales - 141)
  * 1.3   2024-01-04   sarthak.j1@samsung.com		   Changes added for MYSALES-385.
+ * 1.4   2024-05-26   akash.g@samsung.com              Changes added for MYSALES-534
 **/
 ({
 	doInit : function(component, event) {
@@ -57,15 +58,17 @@
 		var selectedValue = component.get('v.selectedValue');
         console.log('MSP Ani',component.get('v.selectedValue.MSP'));
         console.log('CSP Ani',component.get('v.selectedValue.CSP'));
-        console.log('SCP Ani',component.get('v.selectedValue.SCP'));
-        console.log('ERP Ani',component.get('v.selectedValue.ERP'));
-        console.log('MES Ani',component.get('v.selectedValue.MES'));
+        console.log('SaaS Ani',component.get('v.selectedValue.SaaS'));
+        //console.log('ERP Ani',component.get('v.selectedValue.ERP'));
+        //console.log('MES Ani',component.get('v.selectedValue.MES'));
         var bTechAttribute = component.get('v.techAttribute'); //Anish by Anish - v 1.1
         var CSPCheck = component.get('v.CSPCheck'); //Added by Anish - v 1.2
         var MSPCheck = component.get('v.MSPCheck'); //Added by Anish - v 1.2
         var SCPCheck = component.get('v.SCPCheck'); //Added by Anish - v 1.2
         var ERPCheck = component.get('v.ERPCheck'); //Added by Anish - v 1.2
-        var MESCheck = component.get('v.MESCheck'); //Added by Anish - v 1.2
+        //Change by akash-V1.4
+        var SaaSCheck = component.get('v.SaasCheck'); //Added by Anish - v 1.2
+        
 		
 		var self = this;
 
@@ -104,9 +107,9 @@
             CSPCheck : CSPCheck, //Added by Anish - v 1.2
             MSPCheck : MSPCheck, //Added by Anish - v 1.2
             SCPCheck : SCPCheck, //Added by Anish - v 1.2 
-            ERPCheck : ERPCheck, //Added by Anish - v 1.2 
-            MESCheck : MESCheck  //Added by Anish - v 1.2
-			}).then(function(result){
+            ERPCheck : ERPCheck, //Added by Anish - v 1.2
+            SaaSCheck : SaaSCheck //Added by Anish - v 1.2 
+            }).then(function(result){
             	var opptyList = JSON.parse(result.LIST);
 				if(searchType == 'Prev') opptyList = JSON.parse(result.LIST).reverse();
 

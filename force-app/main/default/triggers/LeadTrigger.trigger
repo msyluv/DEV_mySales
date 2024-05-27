@@ -23,6 +23,7 @@ trigger LeadTrigger on Lead (before insert, before update, after update) {
             if(!MigSwitch) cancelClose(Trigger.new, Trigger.oldMap);
             if(!MigSwitch) descriptionSetting(Trigger.new);
             if(!MigSwitch) afterConvertedCheck(Trigger.new, Trigger.oldMap);
+            if(!MigSwitch) cancelConvert(Trigger.new, Trigger.oldMap);
             // if(!MigSwitch) costCenterSetting(Trigger.new);
         }
         when AFTER_UPDATE{
@@ -37,6 +38,9 @@ trigger LeadTrigger on Lead (before insert, before update, after update) {
     // 1. Stage는 역행할 수 없음 (Stage 순서 : Cold -> Warm -> Converted)
     // 2. 소유자가 변경되는경우 Stage를 Warm으로 자동 변경(Type이 'Spam인 경우는 제외)
     private static void stageSetting(List<Lead> newList, Map<Id, Lead> oldMap){
+        
+        User u = [Select Id,Profile.Name from User where Id =: UserInfo.getUserId()];
+        
         for(Lead lead : newList){
             if(lead.LeadStage__c != null){
                 Integer afterStage = 0;
@@ -51,7 +55,9 @@ trigger LeadTrigger on Lead (before insert, before update, after update) {
                 if(oldLead.LeadStage__c == 'Converted') beforeStage = 3;
                 
                 if(beforeStage > afterStage){
+                if(!(u.Profile.Name == 'CxO-Overseas Corp' || u.Profile.Name == 'Sales Manager(Overseas Corp)' || u.Profile.Name == 'Sales Rep.(Overseas Corp)')){
                     lead.addError(System.Label.CONVERT_LAB_MSG21); // The Lead Stage cannot be retrograde.
+                }
                 }
                 
                 if(lead.LeadType__c != null && lead.LeadType__c != '04' && (lead.OwnerId != oldLead.OwnerId)){
@@ -105,6 +111,23 @@ trigger LeadTrigger on Lead (before insert, before update, after update) {
             }
         }
     }
+    
+    private static void cancelConvert(List<Lead> newList, Map<Id, Lead> oldMap){
+        //User u = [Select Id,Profile.Name from User where Id =: UserInfo.getUserId()];
+        for(Lead lead : newList){
+            Lead oldLead = oldMap.get(lead.Id);
+            if(lead.SalesLeadID__c == null && (oldLead.SalesLeadID__c != lead.SalesLeadID__c) ){
+                
+                
+                lead.CloseReason__c = '';
+                lead.Status = 'In Process';
+                lead.LeadStage__c = 'Warm';
+                   
+                
+            }
+        }
+    }
+    
     
     // CostCenter Setting
     // 1. 마케팅리드의 소유자가 속한 Cost Center를 자동으로 세팅

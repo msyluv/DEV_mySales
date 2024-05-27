@@ -2,12 +2,13 @@
  * @description       : 
  * @author            : seonju.jin@dkbmc.com
  * @group             : 
- * @last modified on  : 2023-12-12 
- * @last modified by  : vikrant.ks@samsung.com
+ * @last modified on  : 05-08-2024
+ * @last modified by  : chae_ho.yang@samsung.com
  * Modifications Log 
  * Ver   Date         Author                 Modification
  * 1.0   2021-07-20   seonju.jin@dkbmc.com   Initial Version
  * 1.1   2023-12-12   vikrant.ks@samsung.com Increase code coverage
+ * 1.2   2024-05-08   chae_ho.yang@samsung.com  MYSALES-523 Miracom getGubun modification
 **/
 @isTest
 public class WBSHelper_Test {
@@ -289,9 +290,11 @@ public class WBSHelper_Test {
     Public static void testMethod02(){
         List<String> stype= new List<String>{'10','20','30','40','50','60'};
         List<String> companyCode= new List<String>{'T100','T170','T631','T711','T140'};
+        List<Solution__c> solList = [SELECT Id, Name, sWBSClass__c, sBusinessType__c, BusinessType__c, sBizAttribute__r.Code__c,  Service__r.sService__r.Code__c
+        , sSolution__r.Code__c, sSolutionType__c, ItemNumber__c , PSType__c , sPSType__c, SendSAP__c FROM Solution__c WHERE Opportunity__c = :oppty.Id];
         for(String a:stype){
             for(String b:companyCode){
-                String s= WBSHelper.getGubun(a,b);
+                String s= WBSHelper.getGubun(a,b, solList[0]); // 1.2 modification added sol
                 System.debug(a+' '+b+' '+s);
             }
 		}

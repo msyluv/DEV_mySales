@@ -2,15 +2,16 @@
  * @author            : younghoon.kim@dkbmc.com
  * @group             : 
  * @description       : 
- * @last modified on  : 2023-09-18
- * @last modified by  : vikrant.ks@samsung.com
+ * @last modified on  : 2024-05-26
+ * @last modified by  : akash.g@samsung.com
  * Modifications Log 
  * Ver   Date         Author                    Modification
  * 1.0   2020-11-05   younghoon.kim@dkbmc.com   Initial Version
  * 1.1   2023-02-22   anish.jain@partner.samsung.com   Changes Added for new Search box 'Intensive BO' regarding (My Sales - 141)
  * 1.2   2023-03-10   anish.jain@partner.samsung.com   Changes Added for Excel download regarding (My Sales - 148)
  * 1.3   2023-03-13   anish.jain@partner.samsung.com   Changes Added for Strategic Account regarding (My Sales - 149)
- * 1.4   2023-09-18   vikrant.ks@samsung.com    	Result should be ordered by BO1stRegistrationDate desc (My Sales - 301)
+ * 1.4   2023-09-18   vikrant.ks@samsung.com    	   Result should be ordered by BO1stRegistrationDate desc (My Sales - 301)
+ * 1.5   2024-05-26   akash.g@samsung.com              Changes added for MYSALES-534
 **/
 ({
 	init : function(component, event, helper) {
@@ -26,9 +27,8 @@
 			'GroupInternal' : '',		// 대내/대외
             'CSP' : '',               //Added by Anish- v 1.2
             'MSP' : '',               //Added by Anish- v 1.2
-            'SCP' : '',               //Added by Anish- v 1.2
-            'ERP' : '',               //Added by Anish- v 1.2
-            'MES' : '',               //Added by Anish- v 1.2
+            'SCP' : '',
+            'SaaS' : '',               //Added by Akash-V1.5
             'TechAttribute' : '',     //Added by Anish- v 1.2
 			'Service' : '',				// 서비스
 			'Solution' : '',			// 솔루션
@@ -103,7 +103,7 @@
         component.set("v.MSPCheck",document.getElementById("checkbox-unique-id-82").checked);
         component.set("v.SCPCheck",document.getElementById("checkbox-unique-id-83").checked);
         component.set("v.ERPCheck",document.getElementById("checkbox-unique-id-84").checked);
-        component.set("v.MESCheck",document.getElementById("checkbox-unique-id-85").checked);
+        component.set("v.SaasCheck",document.getElementById("checkbox-unique-id-86").checked);
         
         //Start- Added by Anish - v 1.2
         if(document.getElementById("checkbox-unique-id-81").checked == true){
@@ -130,12 +130,14 @@
         else{
         component.set("v.selectedValue.ERP","false");    
         }
-        if(document.getElementById("checkbox-unique-id-85").checked == true){
-        component.set("v.selectedValue.MES","true");
+        //V1.5.Akash Chanage start
+        if(document.getElementById("checkbox-unique-id-86").checked == true){
+        component.set("v.selectedValue.SaaS","true");
         }
         else{
-        component.set("v.selectedValue.MES","false");    
+        component.set("v.selectedValue.SaaS","false");    
         }
+        //V1.5.Akash Change END
         //End- Added by Anish - v 1.2
         
 	},

@@ -324,7 +324,7 @@ trigger KnoxApprovalTrigger on KnoxApproval__c (after insert, after update) {
                     
                     //Added by Anish - v 2.8
                     if(targetOpptyAct.TransactionName__c == 'ZP21'){
-                        System.debug('ZP21 Entry');
+                        System.debug('ZP21 Entry New');
                         // [사업등급 변경 결재] Opportunity Activity
                         if(opptyUpdateMap.containsKey(targetOpptyAct.WhatId__c)) {
                             opp = opptyUpdateMap.get(targetOpptyAct.WhatId__c);
@@ -334,6 +334,7 @@ trigger KnoxApprovalTrigger on KnoxApproval__c (after insert, after update) {
                         opp.Id = targetOpptyAct.WhatId__c;
                         System.debug('ZP21 finale :'+ targetOpptyAct.WhatId__r.VRB_Account_Change__c);
                         if(targetOpptyAct.WhatId__r.VRB_Account_Change__c == true){
+                        System.debug('ZP21 Entry New');
                         opp.VRB_Account_Change__c = false; 
                         opptyUpdateMap.put(opp.Id,opp);
                         }

@@ -87,7 +87,7 @@
             return self.FormXHR(component, file, result);
         })
         .then(function(result){
-            console.log('FormXHR : ', result);
+            console.log('FormXHR new : ', result);
             var vault = JSON.parse(result);
             /**
              * For using saveVaultId2Content, you must create 'External Data Source' 
@@ -131,15 +131,19 @@
             var url = $A.get("$Label.c.EFSS_VAULT_FILEURL") + '/vault/sds/sfdc/files?secKey='+authInfo.secKey;
             console.log('Form data',formData);
             console.log('urlis',url);
+         //   console.log('statusval-->',req.status);
+
             req.open('POST', url);
+              console.log('reqmain',req);
             req.timeout = 120000;
 
             req.onload = function(){
+                console.log('onload');
                 if(req.status === 200){
                     //console.log('it responded');
                     resolve(req.response);
                 } else {
-                    //console.log('request error ', req.response);
+                   // console.log('request error ', req.response);
                     var msg = $A.get("$Label.c.EFSS_COMP_ERR_MSG_XHR_ERROR");
                     reject({
                         exceptionType: msg,

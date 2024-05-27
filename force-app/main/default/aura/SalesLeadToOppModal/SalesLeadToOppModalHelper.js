@@ -34,7 +34,7 @@
             //V1.1 ->  Add new condition when converting sales lead to opportunity in case of lead channel is demand
             if(result.check_LeadTypeDemand) message += $A.get("$Label.c.CONVERT_LAB_MSG29") + '\n'; //If channel type is Demand then you can convert to Opportunity only if your Sales Lead Type is System Enhancement ,New System , Solution/Service or Consulting.
             if(result.check_Close) message += $A.get("$Label.c.CONVERT_LAB_MSG23") + '\n'; // Closed sales leads cannot be converted.
-            if(result.check_Contact) message += $A.get("$Label.c.CONVERT_LAB_MSG26") + '\n'; // Please enter your Customer Contact Date. You cannot enter a date later than the current one.
+            //if(result.check_Contact) message += $A.get("$Label.c.CONVERT_LAB_MSG26") + '\n'; // Please enter your Customer Contact Date. You cannot enter a date later than the current one.
             if(result.check_OpportunityCreateAccess) message += $A.get("$Label.c.No_Opportunity_Create_Access") + '\n';//V1.2
             console.log('check_OpportunityCreateAccess: '+result.check_OpportunityCreateAccess);
             if(message != ''){

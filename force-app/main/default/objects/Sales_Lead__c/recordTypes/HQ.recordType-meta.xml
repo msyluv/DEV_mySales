@@ -40,19 +40,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>EBC Inquiry</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Exhibition%2FTradeshow</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MyTrial Members</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MyTrial User</fullName>
             <default>false</default>
         </values>
         <values>
@@ -60,19 +48,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Offline Event</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Partner apply</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Targeted Landingpage</fullName>
             <default>false</default>
         </values>
         <values>
@@ -81,10 +57,6 @@
         </values>
         <values>
             <fullName>Webinar</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>global network</fullName>
             <default>false</default>
         </values>
     </picklistValues>

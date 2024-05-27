@@ -76,3 +76,28 @@
     height : 100%;
     overflow:auto;
 }
+
+.popup-hide {
+    display: none;
+}
+
+.popup-show {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 9999; /* Ensure popup is on top of other content */
+}
+
+.popup-content {
+    text-align: center;
+}
+.modal {
+    width:30%;
+}
+.THIS .slds-modal__footer{
+    background-color: white;
+}

@@ -10,7 +10,7 @@
                 bizDevelopment = result.bizDevelopment,
                 lbsExceptionType = result.lbsExceptionType,
 				opportunityType = result.opportunityType,
- //TODO Start   rcdType = result.RecordType,
+                rcdType = result.RecordType,
 				service = result.Service,
 				solution = result.Solution,
 				collaboration = result.Collaboration,
@@ -29,9 +29,10 @@
 				component.set('v.opportunityType', opportunityType);
 				component.set('v.selectedValue.opportunityType', opportunityType[0].value);
 				//todo start
-				/*
+				
 				component.set('v.rcdType', rcdType);
-				component.set('v.selectedValue.RecordType', rcdType[0].value);
+				component.set('v.selectedValue.RecordType', rcdType[2].value);
+				/*
 				component.set('v.service', service);
 				component.set('v.selectedValue.Service', service[0].value);
 				component.set('v.solution', solution);

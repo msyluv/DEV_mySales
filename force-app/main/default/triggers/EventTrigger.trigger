@@ -61,7 +61,7 @@ trigger EventTrigger on Event (before update, after insert, after update, after 
                 if(!system.isBatch()){					                  
                     for(Event eve :Trigger.New){
                        	
-                        if((Trigger.OldMap.get(eve.Id).Subject != eve.Subject) || (Trigger.OldMap.get(eve.Id).ActivityDate != eve.ActivityDate) || (Trigger.OldMap.get(eve.Id).StartDateTime != eve.StartDateTime) || (Trigger.OldMap.get(eve.Id).EndDateTime != eve.EndDateTime) || (Trigger.OldMap.get(eve.Id).Location != eve.Location) || (Trigger.OldMap.get(eve.Id).Description != eve.Description) || (Trigger.OldMap.get(eve.Id).IsAllDayEvent != eve.IsAllDayEvent)){
+                        if((Trigger.OldMap.get(eve.Id).Subject != eve.Subject) || (Trigger.OldMap.get(eve.Id).ActivityDate != eve.ActivityDate) || (Trigger.OldMap.get(eve.Id).StartDateTime != eve.StartDateTime) || (Trigger.OldMap.get(eve.Id).EndDateTime != eve.EndDateTime) || (Trigger.OldMap.get(eve.Id).Location != eve.Location) || (Trigger.OldMap.get(eve.Id).Description != eve.Description) || (Trigger.OldMap.get(eve.Id).IsAllDayEvent != eve.IsAllDayEvent) ||(Trigger.OldMap.get(eve.Id).IsPrivate != eve.IsPrivate)){
                            system.debug('hi');
                             if(eve.IsIF_152__c == false){
                             IF_KnoxUpdateTaskController.doCalloutSendingUpdatedTaskInfo(eve.Id); 

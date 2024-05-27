@@ -94,7 +94,7 @@
             if(resultObj.opportunity.Opportunity_Review_VRB_Type__c == '30' && resultObj.isNotHQ == false){
             console.log(' transactionName--2> ', component.get('v.MasterAct_TransactionName'));
             component.set('v.isBoReviewTab' , true);
-            if(resultObj.opportunity.CompanyCode__c == 'T100' && resultObj.opportunity.Collaboration__c == false){
+            if(resultObj.opportunity.CompanyCode__c == 'T100' && resultObj.opportunity.Collaboration__c == false && !(resultObj.opportunity.cOriginAcc__r.AccountGroup__c == 'ZIC2' || resultObj.opportunity.cOriginAcc__r.AccountGroup__c == 'ZIC') ){ //531
             console.log(' transactionName--1> ', component.get('v.MasterAct_TransactionName'));
             component.set('v.MasterAct_IsRequiredKnoxApproval',true);
         }

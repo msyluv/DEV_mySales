@@ -1,77 +1,76 @@
+/**
+        * @description       :  Class for FullCalender  LWC 
+        * @author            : divyam.gupta@samsung.com
+        * @group             : 
+        * @last modified on  : 2024-05-24
+        * @last modified by  : divyam.gupta@samsung.com
+        * Modifications Log 
+        * Ver   Date         Author                      Modification
+        * 1.0   2024-05-24   divyam.gupta@samsung.com   Initial Version for MYSALES-264
+        **/
 public class if_KnoxSingletaskCallController {
     private static final String INTERFACE_ID = 'IF-194';
     private static final String APEX_CLASS   = 'if_KnoxSingletaskCallController';
     private static final String METHOD_NAME  = 'getSingleknoxSchedule';
     private static String guId = IF_Util.generateGuid();
-    private static Integer errorCount = 0;
     public static Map<String,Object> resMap = new Map<String,Object>();
-    public static List<Object> getSingleknoxSchedule(String newrecordID){
+
+    public static List<IF_KnoxCalendar> getSingleknoxSchedule(String newrecordID){
         IF_Log ifLog = new IF_Log();
-         List<Object> jsonMap = new List<Object>();
         IF_Log.InterfaceLog interfaceLog;
+
+        List<IF_KnoxCalendar> scheduleList = new List<IF_KnoxCalendar>();
+
         try{
-            String UserEmail = UserINfo.getUserEmail();
-            List<String> parts = UserEmail.split('@');
-            String userName = parts[0]; 
-            User loginUser = [Select Id,CalendarID__c from User Where Id=:UserINfo.getUserId()];
-            Event ev = [Select Id,Knox_Schedule_ID__c,Knox_Calendar_Id__c,Description,Isrecurrence__c from Event WHERE Id =: newrecordID];
-            InputHeader input = New InputHeader();
-            if(ev.Knox_Schedule_ID__c != Null){
-                if(ev.Description == '' || ev.Description == Null){
-                    String knoxschid = ev.Knox_Schedule_ID__c; 
-                    
-              String knoxorgid = knoxschid.substring(0,27);
-              input.knoxSchedulId = knoxorgid;
-              input.knoxcalendarId = ev.Knox_Calendar_Id__c;
+            List<String> userEmail = UserInfo.getUserEmail().split('@');
+            String userId = userEmail[0]; 
 
-                }
-                else {
-               
-              input.knoxSchedulId = ev.Knox_Schedule_ID__c;
+            Event ev = [SELECT Id,
+                               Knox_Schedule_ID__c,
+                               Knox_Calendar_Id__c,
+                               Description,
+                               Isrecurrence__c 
+                          FROM Event 
+                         WHERE Id =: newrecordID];
 
+            String knoxScheduleId = '';
+            String knoxCalendarId = '';
+
+            if(ev.Knox_Schedule_ID__c != null){
+                if(ev.Description == '' || ev.Description == null){
+                    knoxScheduleId = ev.Knox_Schedule_ID__c.substring(0,27);
+                    knoxCalendarId = ev.Knox_Calendar_Id__c;
+                } else {
+                    knoxScheduleId = ev.Knox_Schedule_ID__c;
                 }
             }
+
             IF_Callout call = new IF_Callout(INTERFACE_ID);
-            OutputHeader output  = new OutputHeader();              
-            //need to store calendar id first in org and use on the basis of current user             
-            String jsonBody = JSON.serialize(output);
-            String urlParam = '?userId='+ userName + '&'+'calendarId='+input.knoxcalendarId+'&'+'scheduleId='+input.knoxSchedulId;                        
-            InputHeader inputHeader = new InputHeader();        
+            String urlParam = '/' + knoxCalendarId + '/schedules/'+ knoxScheduleId + '?userId='+ userId ;                        
+            
             resMap = call.httpKnoxCallout('', urlParam);
-            System.debug('request : '+resMap.get('Request')); 
-            System.debug('response : '+resMap.get('Response'));
-            HttpResponse response = (HttpResponse)resMap.get('HttpResponse');
-            System.debug('responseIF194 : '+resMap.get('Response'));  
-            if(response.getStatusCode() == 200){
-               String jsonResponse =  response.getBody();  
-               // inputHeader = (InputHeader)JSON.deserialize(response.getBody(),InputHeader.class);  
-             Map<String,Object> deserailse = (Map<String,Object>)JSON.deserializeUntyped(jsonResponse);  
-              object inst = (object)deserailse.get('data');
-                jsonMap.add((Map<String,object>)inst);
-                system.debug('deserailse'+deserailse);
-                 interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID, guId, APEX_CLASS, METHOD_NAME, String.valueOf(resMap.get('Request')), String.valueOf(resMap.get('Response')));          
+            System.debug('request : ' + resMap.get('Request')); 
+            System.debug('response : ' + resMap.get('Response'));
+            HttpResponse response = (HttpResponse) resMap.get('HttpResponse');
 
+            if(response.getStatusCode() == 200){
+                String jsonResponse = '['+ response.getBody() +']';  // Added [ Bracket by Waris to resolve Malformed Json Error
+                system.debug('jsonResponse______' +jsonResponse);
+                scheduleList = (List<IF_KnoxCalendar>) JSON.deserialize(jsonResponse, List<IF_KnoxCalendar>.class);
+
+                system.debug('scheduleList______' + scheduleList);
+                interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID, guId, APEX_CLASS, METHOD_NAME, String.valueOf(resMap.get('Request')), String.valueOf(resMap.get('Response')));          
             }
-        }
-        catch(Exception e){               
-            ifLog.addLog('Exception : ' + e.getMessage());
-            // errorMsgList.add('Exception : ' + e.getMessage());           
+        } catch (Exception e) {               
+            ifLog.addLog('Exception : ' + e.getMessage());    
             interfaceLog = new IF_Log.InterfaceLog(INTERFACE_ID, guId, APEX_CLASS, METHOD_NAME, String.valueOf(resMap.get('Request')), String.valueOf(resMap.get('Response')), e);          
         }
+
         //SJOSHI Start // Added ifLog.createLog(interfaceLog); inside !Test.isRunningTest() to avoid test class error
         if(!Test.isRunningTest()){
            ifLog.createLog(interfaceLog); 
         }
         //SJOSHI End
-        return jsonMap;
-    }
-    public class OutputHeader{        
-        public String userId;
-        public String calendarId;
-        public String scheduleId;        
-    }
-    public class InputHeader{
-        Public String knoxSchedulId;
-        Public String knoxcalendarId;
+        return scheduleList;
     }
 }

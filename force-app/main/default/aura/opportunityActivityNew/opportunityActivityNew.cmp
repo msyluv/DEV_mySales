@@ -2,7 +2,7 @@
   @description       : 
   @author            : wonjune.oh@partner.samsung.com
   @group             : 
-  @last modified on  : 11-05-2023
+  @last modified on  : 2024-04-25
   @last modified by  : anish.jain@partner.samsung.com
   Modifications Log 
   Ver   Date         Author                           Modification
@@ -16,6 +16,7 @@
   1.6   2023-05-12   divyam.gupta@samsung.com         Add new tab Analysis of Reason for Drop Lost and Postmortem Result.
   1.7   11-05-2023   anish.jain@partner.samsung.com   MySales - 216
   1.8   2024-02-19   anish.jain@partner.samsung.com   BO Review Approval Issue Check (MS-418)
+  1.9   2024-04-25   anish.jain@partner.samsung.com   Analysis the cause of 'Review Opportunity' issue -> [MYSALES-495]
   -->
 <aura:component 
                 controller="OpportunityActivityNewController"
@@ -168,6 +169,8 @@
     
     <!-- [HANDLER] v Anish-v 1.7 -->
     <aura:handler event="c:RefreshActivityTabs" action="{!c.tempTest}" description="this event is handled when search review type is clicked on BO review Tab and value comes to be 30" />
+    <aura:handler event="c:RefreshKnoxTabsOnBizType" action="{!c.tabTest}" description="this event is handled when service/solution is changed to non TI" /> <!--v 1.9-->
+    
     <!-- [Style] -->
     <aura:html tag="style">
         /* Standard Style Padding 제거 */

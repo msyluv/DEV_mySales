@@ -9,7 +9,9 @@
  * 1.0   2024-03-26   aditya.r2@samsung.com		Initial Version (MySales-471)
 -->
 <apex:page standardController="WeeklyReport__c" extensions="WeeklyReportVFController" action="{!WeeklyReportVFController}" showQuickActionVfHeader="false" docType="html-5.0" lightningStylesheets="true"  contentType="text/html;charset=UTF-8">
-    <apex:includeScript value="{!URLFOR($Resource.cafe + '/2.3.27/cafe_2.3.27.min.js')}"/>
+   <!-- <apex:includeScript value="{!URLFOR($Resource.cafe + '/2.3.27/cafe_2.3.27.min.js')}"/> -->
+      <!--apex:includeScript value="{!URLFOR($Resource.cafeNote + '/Demo/cafe/2.3.28.1/cafe_2.3.28.1.min.js')}"/-->
+    <apex:includeScript value="{!URLFOR($Resource.cafeNote + '/cafe/2.3.28.2/cafe_2.3.28.2.min.js')}"/>
 	<apex:includeScript value="{!URLFOR($Resource.jquery)}"/>
     <script type="text/javascript" language="javascript">
     	var imageUpload;
@@ -85,24 +87,49 @@
     	var isReadOnly = "{!$CurrentPage.parameters.isReadOnly}";
         var recordId = "{!$CurrentPage.parameters.id}";
         var arg = {'format':'html'};
-    	var objConfigJSON = {
-			"height": 255,
-			"plugins": "autolink dragdrop emoticon exmhtmlloader expaste findreplace image lineheight link lists listsstyle lock media mhtmlloader pagebreak paragraphformat readonly superscript subscript table typo2kr customapi",
-			"default_font_size": "10",
-			"default_font_family": "'맑은 고딕', Gulim, Arial",
-			"default_line_height": "1.2",
-			"font_formats": [ "굴림", "굴림체", "궁서", "궁서체", "돋움", "돋움체", "맑은 고딕", "바탕", "바탕체", "Arial", "Courier", "sans-serif", "Verdana" ],
-			"font_size_style_values": [ "8pt", "9pt", "10pt", "11pt", "12pt", "14pt", "16pt", "20pt", "36pt", "48pt" ],
-			"line_heights": [ "0.5", "1", "1.2", "1.5", "1.9", "2", "3", "4", "5" ],
-			"invalid_elements": "script",
-			"codeview_indent": true,
-			"menubar": false,
-			"panel": "edit",
+    var cafejson = "{!URLFOR($Resource.cafeNote + '/cafe/2.3.28.2/config.json')}";
+        jQuery.getJSON(cafejson,function(data){
+    console.log('JSON STRING ::'+data);
+     var lan= '{!TEXT($User.LanguageLocaleKey)}'
+    console.log('lan'+lan);
+            data.height = 600;
+            if(lan !== 'ko'){data.language = lan;
+    console.log('JSON STRING language::'+data.language);}
+     cafe.create("cafeDemo", 
+                data, 
+                "GET", 
+                function (){cafe.setContent( "cafeDemo", '{!JSENCODE(issueDescriptionCheck)}', arg);
+                            if(isReadOnly == "Y"){
+                                cafe.setReadOnly("cafeDemo", true);
+                                $("body .pbBottomButtons").css("display", "none");
+                            }
+                           }
+               );
+            
+    });
+  
+    /*var objConfigJSON = {
+            
+        "height": 600,
+        "plugins": "autolink dragdrop emoticon exmhtmlloader expaste findreplace image lineheight link lists listsstyle lock media mhtmlloader pagebreak paragraphformat readonly superscript subscript table typo2kr customapi",
+        "default_font_size": "10",
+        "default_font_family": "'맑은 고딕', Gulim, Arial",
+        "default_line_height": "1.2",
+        "font_formats": [ "맑은 고딕", "Arial", "Courier", "sans-serif", "Verdana" ],
+        "font_size_style_values": [ "8pt", "9pt", "10pt", "11pt", "12pt", "14pt", "16pt", "20pt", "36pt", "48pt" ],
+        "line_heights": [ "0.5", "1", "1.2", "1.5", "1.9", "2", "3", "4", "5" ],
+        "invalid_elements": "script",
+        "codeview_indent": true,
+        "toolbar": "undo redo | findreplace fontfamily fontsize | bold italic underline strikethrough superscript subscript | fontcolor fontbgcolor | alignment.left alignment.center alignment.right alignment.justify | indent outdent | image emoticon media link table"
+        
+        // "menubar": false,
             //"toolbar":"fontfamily fontsize | bold italic underline | fontcolor fontbgcolor | alignment.left alignment.center alignment.right alignment.ju stify | indent outdent"
 		};
         
     	cafe.create("cafeDemo", 
-                    objConfigJSON, 
+                       objConfigJSON, 
+                    //   "{!URLFOR($Resource.cafeNote + '/cafe/2.3.28.2/config.json')}", 
+
                     "GET", 
                     function (){cafe.setContent( "cafeDemo", '{!JSENCODE(issueDescriptionCheck)}', arg);
                                 if(isReadOnly == "Y"){
@@ -112,7 +139,7 @@
                                 
                     		   }
                    );
-    
+    */
     
         function closeQuickActionPopUp(){
             sforce.one.back(true);

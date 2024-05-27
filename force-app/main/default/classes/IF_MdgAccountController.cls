@@ -2,14 +2,16 @@
  * @description       : 
  * @author            : ghkil@partner.samsung.com
  * @group             : 
- * @last modified on  : 2024-04-05
- * @last modified by  : vikrant.ks@samsung.com
+ * @last modified on  : 2024-04-30
+ * @last modified by  : waris.m@samsung.com
  * Modifications Log 
  * Ver   Date         Author                      Modification
  * 1.0   2020-11-10   ghkil@partner.samsung.com   Initial Version
  * 1.1   2021-02-15   kilhwan.an@partner.samsung.com   신용 등급 신규 필드 추가
  * 1.2   2022-12-28   anish.jain@partner.samsung.com   Changes made for scheduled batch run regarding the Account Information update after IF-111
  * 1.3   2024-04-05   vikrant.ks@samsung.com      Replaced condition for updating TEL_NUMBER__c field (obj3.CONSNUMBER == '001' condition with obj3.R3_USER == '1').(MySales-494)
+ * 1.4   2024-04-30   waris.m@samsung.com              Changes added for  MYSALES-515 - Added a new Field 
+ * 1.5   2024-05-20   d.ashish@samsung.com              Changes added for  MYSALES-533 - Added a new Field 
 **/
 @RestResource(urlMapping = '/IF111/*')
 global class IF_MdgAccountController {
@@ -117,6 +119,8 @@ global class IF_MdgAccountController {
                     acc.ZZCREDL_C__c = knaObj.ZZCREDL_C;    // 2021.02.15 => 필드 추가 ( 신용 평가 등급 신규)
                     acc.ZZTOBUSL1__c = knaObj.ZZTOBUSL1;
                     acc.ZZTOBUSL2__c = knaObj.ZZTOBUSL2;
+                    acc.ZZCHPAT__c   = knaObj.ZZCHPAT;     //Changes added for  MYSALES-515
+                    acc.KTOKD__c = knaObj.KTOKD; //Changes for MYSALES-533 
                     acc.ExternalId__c = 'A_'+accNumber;
                     acc.Type__c = 'A'; // dummy object에 account 와 account sales area 데이터를 구분하기 위한 필드, A : Account, S : Account Sales Area
                     acc.mLOEVM__c = knaObj.LOEVM;
@@ -324,6 +328,7 @@ global class IF_MdgAccountController {
         public String ZZTOBUSL2_EN;
         public String ZZTOBUSL1;
         public String ZZTOBUSL2;
+        public String ZZCHPAT; //New field 240425 for  MYSALES-515
         public String ZZNSTKUNL1;
         public String ZZNSTKUNL1_T;
         public String ZZNSTKUNL2;

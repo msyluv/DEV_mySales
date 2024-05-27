@@ -1,9 +1,10 @@
 .THIS .slds-modal__container { 
     width: 60% !important;
     max-width: 60% !important;
+    height : 100% !important;
 }
 .THIS .slds-modal__content{
-    height : 650px !important;
+    height : 100% !important;
     overflow-x : hidden!important;
 
 }

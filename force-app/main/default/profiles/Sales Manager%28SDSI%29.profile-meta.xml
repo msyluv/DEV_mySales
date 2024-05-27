@@ -86,6 +86,11 @@
         <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
+        <application>Sales_Rep_Console</application>
+        <default>false</default>
+        <visible>false</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
         <application>Strategy_Committee</application>
         <default>false</default>
         <visible>false</visible>
@@ -112,6 +117,11 @@
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__DataManager</application>
+        <default>false</default>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
+        <application>standard__FlowsApp</application>
         <default>false</default>
         <visible>true</visible>
     </applicationVisibilities>
@@ -1058,6 +1068,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CustomLookupControllerNew</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CustomLookupControllerNew_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CustomLookupController_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1358,7 +1376,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>IF_DeleteKnoxCalendarCallout_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>IF_DeleteKnoxScheduleCalloutController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IF_DeleteKnoxScheduleCallout_Test</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1650,6 +1676,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>IF_KnoxCalendar</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>IF_KnoxCalendarCreation</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1706,6 +1736,14 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>IF_KnoxTaskCallOutAPIController_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IF_KnoxTaskListCallInController_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>IF_KnoxTeamsBOShareController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1730,7 +1768,15 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>IF_KnoxUpdateTaskCallout_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>IF_KnoxUpdateTaskController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>IF_KnoxUpdateTaskController_Test</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -2098,7 +2144,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>If_KnoxTaskCallInControllerTest</apexClass>
+        <apexClass>If_KnoxTaskCallInController_Test</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -2258,6 +2304,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>LexForceDemoPageController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>LightningForgotPasswordController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -2299,6 +2349,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>LogisticsCPReviewComp_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LookupSObjectController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -2498,6 +2552,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>OpportunityReviewSessionOverride_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>OpportunityReviewSyncController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -2520,6 +2578,10 @@
     <classAccesses>
         <apexClass>OpportunitySearchControllerLogi</apexClass>
         <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OpportunitySearchControllerLogiTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>OpportunitySearchControllerTest</apexClass>
@@ -2978,6 +3040,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TargetOpportunitySearchController_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TaskTrigger_Test</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -3218,6 +3284,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>if_KnoxSingletaskCallController_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>if_KnoxTaskListCallInController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -3243,6 +3313,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>knoxCreateScheduleTask</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>knoxCreateScheduleTask_Test</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -3332,6 +3406,10 @@
     <classAccesses>
         <apexClass>ossDataWrapper</apexClass>
         <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>recordpopupcontroller</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>reportDasboardReference</apexClass>
@@ -7180,6 +7258,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>MDGAccount__c.KTOKD__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>MDGAccount__c.KUNNR__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7316,6 +7399,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>MDGAccount__c.ZTERM__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MDGAccount__c.ZZCHPAT__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8130,6 +8218,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Master_Solution__c.intensivetype__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>MenuAccessLowData__c.AccessLocale__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8424,14 +8517,14 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>OpportunityReviewSession__c.Note__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>OpportunityReviewSession__c.Session_Result__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -10972,6 +11065,11 @@
         <editable>true</editable>
         <field>Sales_Lead__c.Company__c</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Sales_Lead__c.Converted_by_user_setting__c</field>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -14195,6 +14293,14 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>Lookup</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>LookupPopup</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>MicrobatchSelfReg</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -14264,6 +14370,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>TestCustomEditorVF</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>TestPage</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>

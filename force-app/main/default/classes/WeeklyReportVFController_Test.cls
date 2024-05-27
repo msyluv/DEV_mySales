@@ -55,8 +55,10 @@ private class WeeklyReportVFController_Test {
         ApexPages.currentPage().getParameters().put('issueDescription', RichTextValue);
         ApexPages.currentPage().getParameters().put('uploadedImgSrcList', cv.Id);
         ApexPages.currentPage().getParameters().put('deleteSrc', delCont);
-        
-        WeeklyReportVFController controller = new WeeklyReportVFController();
+        ApexPages.StandardController std = new ApexPages.StandardController(weeklyReport);
+     //   WeeklyReportVFController controller1 = new WeeklyReportVFController(std);
+
+        WeeklyReportVFController controller = new WeeklyReportVFController(std);
         controller.recordID = weeklyReport.Id;
         controller.issueDescriptionCheck = RichTextValue;
 

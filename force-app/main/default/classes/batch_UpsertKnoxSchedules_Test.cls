@@ -1,8 +1,8 @@
 @isTest
 public class batch_UpsertKnoxSchedules_Test {
-    
-    @isTest
-    static void testBatch1(){
+
+    @TestSetup
+    static void setData(){
         
         Event e = new Event();
         e.Subject = 'Meeting01';
@@ -16,118 +16,202 @@ public class batch_UpsertKnoxSchedules_Test {
         e.DurationInMinutes = 0;
         e.IsAllDayEvent = false;
         
-        Event e1 = new Event();
-        e1.Subject = 'Meeting01';
-        e1.StartDateTime = Date.valueOf('2023-12-19T10:00:00+09:00'); //SJOSHI: changed '2023-12-20T00' to '2023-12-19T10'
-        e1.EndDateTime = Date.valueOf('2023-12-20T00:00:00+09:00'); 
-        e1.Location = 'Korea';
-        e1.Description ='Test1';
-      //  e1.ActivityDateTime = Date.valueof('2023-12-20');
-        e1.Type = 'CHAIR';
-        e1.Knox_Schedule_ID__c = 'SCH202312180702227266826041';
-        e1.IsAllDayEvent = true;
-        insert e1;
-        Map<String,String> newknoxMapDateStart = new Map<String,String>();
-        newknoxMapDateStart.put(e.Knox_Schedule_ID__c,'2023-12-19T16:30:00+09:00');
-        newknoxMapDateStart.put('SCH202312180702227266826211','2023-12-20T16:30:00+09:00');
-
-        List<String> listofknox = new List<String>();
-        listofknox.add('SCH202312180702227266826011');
-
-        Map<String,String> newknoxMapDateSingle = new  Map<String,String>{'SCH202312180702227266826011' => '2023-12-19',
-                                                                              'SCH202312180702227266826211'=> '2023-12-20',
-                                                                             'SCH202312180702227266826311'=> '2023-12-21',
-                                                                                  'SCH202312180702227266826041' => '2023-12-19'};//SJOSHI: changed '2023-12-20' to '2023-12-19'
-        Map<String,String> newknoxMapDate = new Map<String,String>{'SCH202312180702227266826011' => '2023-12-19T16:30:00+09:00',
-            													   'SCH202312180702227266826211' => '2023-12-20T16:50:00+09:00'}; // SJOSHI: changed T16:30 to T16:50
-            														//'SCH202312180702227266826041' => '2023-12-19T10:00:00+09:00'}; //SJOSHI: added
-
-        Map<String, Object> result = new Map<String, Object>{
-
-            'allDayYn'    => 'N',
-            'attachs'  => '[]',
-            'attendees'=> '[{"sourceType":"EMPLOYEE","displayName":"Divyam Gupta/Engineer/Global Solution Part/SDSI","replyStatus":"ACCEPTED","type":"CHAIR","userId":"M220809055237C6N6079","email":"divyam.gupta@stage.samsung.com","seq":0}]',
-            'authority'=> 'ALL',
-            'calendarId'     => 'CAL202312141037198851625229',
-            'class_SFDC'  => 'PUBLIC',
-            'contents'       => 'test1',
-            'contentsType'      => 'MIME',
-            'endTime'	=> '{"dateTime_SFDC":"2023-12-19T17:00:00+09:00","timeZone":"Asia/Seoul"}',
-            'invitedYn' => 'N',
-            'scheduleId' => 'SCH202312180702227266826011'
-
-        };
-                 Map<String, Object> result1 = new Map<String, Object>{
-
-            'allDayYn'    => 'N',
-            'attachs'  => '[]',
-            'attendees'=> '[{"sourceType":"EMPLOYEE","displayName":"Divyam Gupta/Engineer/Global Solution Part/SDSI","replyStatus":"ACCEPTED","type":"CHAIR","userId":"M220809055237C6N6079","email":"divyam.gupta@stage.samsung.com","seq":0}]',
-            'authority'=> 'ALL',
-            'calendarId'     => 'CAL202312141037198851625229',
-            'class_SFDC'  => 'PUBLIC',
-            'contents'       => 'test1',
-            'contentsType'      => 'MIME',
-            'endTime'	=> '{"dateTime_SFDC":"2023-12-20T17:00:00+09:00","timeZone":"Asia/Seoul"}',
-            'invitedYn' => 'N',
-            'scheduleId' => 'SCH202312180702227266826211'
-
-        };
-              Map<String, Object> result2 = new Map<String, Object>{
-
-            'allDayYn'    => 'Y',
-            'attachs'  => '[]',
-            'attendees'=> '[{"sourceType":"EMPLOYEE","displayName":"Divyam Gupta/Engineer/Global Solution Part/SDSI","replyStatus":"ACCEPTED","type":"CHAIR","userId":"M220809055237C6N6079","email":"divyam.gupta@stage.samsung.com","seq":0}]',
-            'authority'=> 'ALL',
-            'calendarId'     => 'CAL202312141037198851625229',
-            'class_SFDC'  => 'PUBLIC',
-            'contents'       => 'test1',
-            'contentsType'      => 'MIME',
-            'endTime'	=> '{"dateTime_SFDC":"2023-12-20T17:00:00+09:00","timeZone":"Asia/Seoul"}',
-            'invitedYn' => 'N',
-            'scheduleId' => 'SCH202312180702227266826311'
-
-        };
-                Map<String, Object> result3 = new Map<String, Object>{
-
-            'allDayYn'    => 'Y',
-            'attachs'  => '[]',
-            'attendees'=> '[{"sourceType":"EMPLOYEE","displayName":"Divyam Gupta/Engineer/Global Solution Part/SDSI","replyStatus":"ACCEPTED","type":"CHAIR","userId":"M220809055237C6N6079","email":"divyam.gupta@stage.samsung.com","seq":0}]',
-            'authority'=> 'ALL',
-            'calendarId'     => 'CAL202312141037198851625229',
-            'class_SFDC'  => 'PUBLIC',
-            'contents'       => 'test1',
-            'contentsType'      => 'MIME',
-            'endTime'	=> '{"dateTime_SFDC":"2023-12-20T17:00:00+09:00","timeZone":"Asia/Seoul"}',
-            'invitedYn' => 'N',
-            'scheduleId' => 'SCH202312180702227266826041'
-
-        };
-            
-        Map<String,Map<String,Object>> newknoxMap = new Map<String,Map<String,Object>>();
-        newknoxMap.put('SCH202312180702227266826011', result);
-         newknoxMap.put('SCH202312180702227266826211', result1);
-         newknoxMap.put('SCH202312180702227266826311', result2);
-         newknoxMap.put('SCH202312180702227266826041', result3);
-        
-
-        //Test.setMock(HttpCalloutMock.class, new IF_Callout_TestMock(200));
         insert e;
+
+        Event indiaEvent = new Event();
+        indiaEvent.Subject = 'Meeting01';
+        indiaEvent.Location = 'India';
+        indiaEvent.Description ='Test1';
+        indiaEvent.ActivityDateTime = Date.valueof('2023-12-19T17:00:00+07:00');
+        indiaEvent.Type = 'CHAIR';
+        indiaEvent.DurationInMinutes = 0;
+        indiaEvent.IsAllDayEvent = false;
+        indiaEvent.Knox_Schedule_ID__c = 'SCH202312180702227266826013';
+        indiaEvent.StartDateTime = Date.valueOf('2023-12-19T16:30:00+07:00');
+        indiaEvent.EndDateTime = Date.valueOf('2023-12-19T17:00:00+07:00');
+
+        insert indiaEvent;
+
+        Event allDayEvent = new Event();
+        allDayEvent.Subject = 'Meeting01';
+        allDayEvent.StartDateTime = Date.valueOf('2024-05-22T00:00:00+00:00');
+        allDayEvent.EndDateTime = Date.valueOf('2024-05-22T00:00:00+00:00');
+        allDayEvent.Location = 'Korea';
+        allDayEvent.Description ='Test1';
+        allDayEvent.ActivityDateTime = Date.valueof('2024-05-22T00:00:00+00:00');
+        allDayEvent.Type = 'CHAIR';
+        allDayEvent.Knox_Schedule_ID__c = 'SCH202312180702227266826014';
+        allDayEvent.DurationInMinutes = 1440;
+        allDayEvent.IsAllDayEvent = true;
+
+        insert allDayEvent;
+
+        Task taskObj = new Task();
+
+        taskObj.Knox_Schedule_ID__c = 'SCH202312180702227266826011';
+        taskObj.Subject = 'test';
+        taskObj.Description = 'test';
+        taskObj.PrivateTask__c = false;
+        taskObj.ActivityDate = Date.valueof('2024-04-25');
+
+        insert taskObj;
+    }
+
+    @isTest
+    static void testBatchUpsertSchedule(){
         
-         // SJOSHI: Start
-        Profile p = [SELECT Id FROM Profile WHERE Name = 'System Administrator' OR Name = '시스템 관리자'];
-        User u = new User(Alias = 'testUser', Email = 'testUser@abc.com', EmailEncodingKey = 'UTF-8', 
-                          LastName = 'testing', LanguageLocaleKey = 'en_US', LocaleSidKey = 'en_US', 
-                          ProfileId = p.Id, TimeZoneSidKey = 'America/Los_Angeles', UserName = 'tu@abc.com');
-        //User myTestUser = UserFactory.createTestUser();
-        // SJOSHI: End
+        Map<String,String> startDateTimeMap = new Map<String,String>();
+        startDateTimeMap.put('SCH202312180702227266826011','2023-12-19T16:30:00+09:00');
+        startDateTimeMap.put('SCH202312180702227266826012','2023-12-19T16:30:00+09:00');
+
+
+        List<String> knoxScheduleIdList = new List<String>();
+        knoxScheduleIdList.add('SCH202312180702227266826011');
+        knoxScheduleIdList.add('SCH202312180702227266826012');
+
+        Map<String,String> startDateMap = new Map<String,String>{'SCH202312180702227266826011' => '2023-12-19',
+                                                                 'SCH202312180702227266826012' => '2023-12-19'};
+
+        Map<String,String> endDateMap = new  Map<String,String>{'SCH202312180702227266826011' => '2023-12-19', 
+                                                                'SCH202312180702227266826012' => '2023-12-19'};
+
+        Map<String,String> endDateTimeMap = new Map<String,String>{'SCH202312180702227266826011' => '2023-12-19T16:30:00+09:00', 
+                                                                   'SCH202312180702227266826012' => '2023-12-19T16:30:00+09:00'};
+
+
+        IF_KnoxCalendar tempObj = new IF_KnoxCalendar();
+        
+        tempObj.allDayYn = 'N';
+        tempObj.authority = 'ALL';
+        tempObj.calendarId = 'CAL202312141037198851625229';
+        tempObj.outclass = 'PUBLIC';
+        tempObj.contents = 'test1';
+        tempObj.contentsType = 'MIME';
+        tempObj.invitedYn = 'N';
+        tempObj.scheduleId = 'SCH202312180702227266826011';
+
+        User userObj = [SELECT id,
+                               Synchronize_task__c,
+                               Task_CalendarId__c,
+                               FederationIdentifier 
+                          FROM user 
+                         WHERE id =: UserInfo.getUserId()];
+
+        tempObj.userId = userObj.FederationIdentifier;
+
+
+        IF_KnoxCalendar.KnoxTime timeObj = new IF_KnoxCalendar.KnoxTime();
+        timeObj.knoxDateTime = '2023-12-19T17:00:00+09:00';
+        timeObj.timeZone = 'Asia/Seoul';
+
+        tempObj.endTime = timeObj;
+
+        tempObj.startTime = timeObj;
+
+        IF_KnoxCalendar.TaskAttendees attendee = new IF_KnoxCalendar.TaskAttendees();
+
+        attendee.sourceType = 'EMPLOYEE';
+        attendee.displayName = 'Divyam Gupta/Engineer/Global Solution Part/SDSI';
+        attendee.replyStatus = 'ACCEPTED';
+        attendee.type = 'CHAIR';
+        
+
+        attendee.userId = userObj.FederationIdentifier;
+        attendee.email = 'divyam.gupta@stage.samsung.com';
+        attendee.seq = 0;
+
+        tempObj.attendees.add(attendee);
+
+
+        Map<String, IF_KnoxCalendar> knoxScheduleMap = new Map<String, IF_KnoxCalendar>();
+        knoxScheduleMap.put('SCH202312180702227266826011', tempObj);
+
+        tempObj.scheduleId = 'SCH202312180702227266826012';
+        knoxScheduleMap.put('SCH202312180702227266826012', tempObj);
         
         Test.startTest();
-        // SJOSHI: Start
-        System.runAs(u){
-            Id batchJobId = Database.executeBatch(new batch_UpsertKnoxSchedules('SCH202312180702227266826011', 'Meeting01', 'MIME', 'test1', '2023-12-19', '2023-12-19T17:00:00+09:00', newknoxMap, newknoxMapDate, newknoxMapDateSingle, listofknox, newknoxMapDateStart), 201);
-        }
-        // SJOSHI: End
+        
+        batch_UpsertKnoxSchedules upsertObject = new batch_UpsertKnoxSchedules(knoxScheduleMap, endDateTimeMap, endDateMap, knoxScheduleIdList, startDateTimeMap, startDateMap);
+        Id batchJobId = Database.executeBatch(upsertObject);
+        
         Test.stopTest();
     }
 
+    @isTest
+    static void testDifferentTimeZoneSchedule(){
+        
+        Map<String,String> startDateTimeMap = new Map<String,String>();
+        startDateTimeMap.put('SCH202312180702227266826013','2023-12-19T16:30:00+07:00');
+
+
+        List<String> knoxScheduleIdList = new List<String>();
+        knoxScheduleIdList.add('SCH202312180702227266826013');
+
+        Map<String,String> startDateMap = new Map<String,String>{'SCH202312180702227266826013' => '2023-12-19'};
+
+        Map<String,String> endDateMap = new  Map<String,String>{'SCH202312180702227266826013' => '2023-12-19'};
+
+        Map<String,String> endDateTimeMap = new Map<String,String>{'SCH202312180702227266826013' => '2023-12-19T17:00:00+07:00'};
+
+
+        IF_KnoxCalendar tempObj = new IF_KnoxCalendar();
+        
+        tempObj.allDayYn = 'N';
+        tempObj.authority = 'ALL';
+        tempObj.calendarId = 'CAL202312141037198851625229';
+        tempObj.outclass = 'PRIVATE';
+        tempObj.contents = 'test1';
+        tempObj.contentsType = 'MIME';
+        tempObj.invitedYn = 'N';
+        tempObj.scheduleId = 'SCH202312180702227266826013';
+
+        User userObj = [SELECT id,
+                               Synchronize_task__c,
+                               Task_CalendarId__c,
+                               FederationIdentifier 
+                          FROM user 
+                         WHERE id =: UserInfo.getUserId()];
+
+        tempObj.userId = userObj.FederationIdentifier;
+
+
+        IF_KnoxCalendar.KnoxTime startTimeObj = new IF_KnoxCalendar.KnoxTime();
+        startTimeObj.knoxDateTime = '2023-12-19T16:30:00+07:00';
+        startTimeObj.timeZone = 'Asia/Kolkata"';
+
+    
+        tempObj.startTime = startTimeObj;
+
+        IF_KnoxCalendar.KnoxTime endTimeObj = new IF_KnoxCalendar.KnoxTime();
+        endTimeObj.knoxDateTime = '2023-12-19T17:00:00+07:00';
+        endTimeObj.timeZone = 'Asia/Kolkata"';
+        tempObj.endTime = endTimeObj;
+
+        IF_KnoxCalendar.TaskAttendees attendee = new IF_KnoxCalendar.TaskAttendees();
+
+        attendee.sourceType = 'EMPLOYEE';
+        attendee.displayName = 'Divyam Gupta/Engineer/Global Solution Part/SDSI';
+        attendee.replyStatus = 'ACCEPTED';
+        attendee.type = 'CHAIR';
+        
+
+        attendee.userId = userObj.FederationIdentifier;
+        attendee.email = 'divyam.gupta@stage.samsung.com';
+        attendee.seq = 0;
+
+        tempObj.attendees.add(attendee);
+
+        tempObj.recurrence = null;
+
+        Map<String, IF_KnoxCalendar> knoxScheduleMap = new Map<String, IF_KnoxCalendar>();
+        knoxScheduleMap.put('SCH202312180702227266826013', tempObj);
+
+        
+        Test.startTest();
+        
+        batch_UpsertKnoxSchedules upsertObject = new batch_UpsertKnoxSchedules(knoxScheduleMap, endDateTimeMap, endDateMap, knoxScheduleIdList, startDateTimeMap, startDateMap);
+        Id batchJobId = Database.executeBatch(upsertObject);
+        
+        Test.stopTest();
+    }
 }

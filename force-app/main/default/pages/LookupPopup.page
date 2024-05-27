@@ -1,0 +1,166 @@
+<!--
+ * @author            : Divyam.gupta@samsung.com
+ * @group             : 
+ * @description       : VF page calls from VF page newWeeklyReportVF,editWeeklyReportVF.  
+ * @last modified on  : 2024-04-26
+ * @last modified by  : Divyam.gupta@samsung.com
+ * Modifications Log 
+ * Ver   Date         Author                    Modification
+ * 1.0   2024-04-26   Divyam.gupta@samsung.com	Initial Version (MySales-519)
+-->
+<apex:page controller="CustomLookupControllerNew" sidebar="false" showheader="false" standardstylesheets="true" lightningStylesheets="true">
+<style type="text/css">
+    body .bPageBlock.bDetailBlock{
+    	padding:0;
+    }
+    body .pbSubsection {
+    	padding-top: 0;
+    }
+    body .bPageBlock .detailList .data2Col{
+    	padding:0;
+    }
+    body .slds-vf-data-table thead th{
+    	font-weight:500;
+    }
+</style>
+<head>
+    <title>Custom Lookup</title>
+</head>
+  <apex:messages />
+  <apex:form id="form" > 
+      <apex:actionfunction name="Query" action="{!runQuery}" reRender="frm"/>
+     <div style="width 90%; margin-left:10px">
+        <div style='text-align:center; font-size:20px'>{!objname} </div>
+        <hr/>
+         
+         <label>{!objname}</label>
+         <br/>
+         <div style="display:inline;position:relative;">
+             <apex:inputText value="{!query}" id="query" label="{!objname}" title="Account" style="width:25rem;margin-bottom: 0.75rem;"/>
+             	<!--<Button onclick="" style="vertical-align:middle;border: none;background-color: transparent;position: absolute;top: 0.0rem;right: -1.25rem;"> <img src="/apexpages/slds/latest/assets/icons/utility/search_60.png" style="width:4rem;padding:0 1.5rem;"/></Button>-->
+             <apex:commandButton image="/apexpages/slds/latest/assets/icons/utility/search_60.png" action="{!runQuery}" style="scale: 0.3;position: absolute;top: -1rem; right: -0.75rem;border: 0;margin: 0;padding: 0;background-color: transparent;" />
+         </div> 
+        <apex:pageBlock mode="mainDetail" rendered="{!doneLookup}">
+          <!--<apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Close Window" onclick="CloseWindow(); return false;" />
+          </apex:pageBlockButtons>-->
+          <div>
+              <table style="background-color: rgb(243, 243, 243);width:100%;display:table;">
+                  <tr>
+                      <th>
+                      	<p style="font-size:1rem;font-weight:500;padding:0.5rem 0.5rem 0.25rem 0.5rem;margin:0;">{!objnames}</p>
+                      </th>
+                  </tr>
+                  <tr><td style="padding:0 0 0.75rem 0.5rem;">{!listSize} {!$Label.Weekly_ReportSearch}</td></tr>
+              </table>
+          </div>
+          <apex:pageBlockSection columns="1" >
+              <apex:pageBlockTable value="{!accounts}" var="account" style="padding:0;">
+                <apex:column headerValue="{!$ObjectType.Account.Fields.Name.Label}">
+                  <apex:outputLink value="#" onclick="fillIn('{!account.Name}', '{!account.id}')">{!account.Name}</apex:outputLink>       
+                </apex:column>
+                <apex:column headerValue="{!$ObjectType.Account.Fields.AccountNumber.Label}" value="{!account.AccountNumber}" />
+                <apex:column headerValue="{!$Label.Accountowner_weeklyReport}" value="{!account.Owner.Alias}"/>
+                <apex:column headerValue="{!$Label.AccountSource_weeklyReport}" value="{!account.AccountSource}"/>
+                <apex:column headerValue="{!$ObjectType.Account.Fields.Active__c.Label}" value="{!account.Active__c}"/>
+                <apex:column headerValue="{!$Label.AccountPhone_weeklyReport}" value="{!account.Phone}"/>
+                <apex:column headerValue="{!$Label.AccountType_weeklyReport}" value="{!account.Type}"/>
+                <apex:column headerValue="{!$ObjectType.Account.Fields.mLoevm__c.Label}" value="{!account.mLoevm__c}"/>
+              </apex:pageBlockTable>    
+          </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock mode="mainDetail" rendered="{!doneLookuplead}">
+          <!--<apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Close Window" onclick="CloseWindow(); return false;" />
+          </apex:pageBlockButtons>-->
+          <div>
+              <table style="background-color: rgb(243, 243, 243);width:100%;display:table;">
+                  <tr>
+                      <th>
+                      	<p style="font-size:1rem;font-weight:500;padding:0.5rem 0.5rem 0.25rem 0.5rem;margin:0;">{!objnames}</p>
+                      </th>
+                  </tr>
+                  <tr><td style="padding:0 0 0.75rem 0.5rem;">{!listSize} {!$Label.Weekly_ReportSearch}</td></tr>
+              </table>
+          </div>
+          <apex:pageBlockSection columns="1" >
+              <apex:pageBlockTable value="{!salesleads}" var="saleslead" style="padding:0;">
+                <apex:column headerValue="{!$ObjectType.Sales_Lead__c.Fields.Name.Label}">
+                  <apex:outputLink value="#" onclick="fillIn('{!saleslead.Name}', '{!saleslead.id}')">{!saleslead.Name}</apex:outputLink>       
+                </apex:column>
+                  <apex:column headerValue="{!$ObjectType.Sales_Lead__c.Fields.AccountId__c.Label}" value="{!saleslead.AccountId__r.name}"/>
+                <apex:column headerValue="{!$ObjectType.Sales_Lead__c.Fields.LeadStage__c.Label}" value="{!saleslead.LeadStage__c}"/>
+                <apex:column headerValue="{!$ObjectType.Sales_Lead__c.Fields.Amount__c.Label}" value="{!saleslead.Amount__c}"/>
+                <apex:column headerValue="{!$ObjectType.Sales_Lead__c.Fields.CloseDate__c.Label}" value="{!saleslead.CloseDate__c}"/>
+                <apex:column headerValue="{!$ObjectType.Sales_Lead__c.Fields.RevenueStartDate__c.Label}" value="{!saleslead.RevenueStartDate__c}"/>
+                <apex:column headerValue="{!$ObjectType.Sales_Lead__c.Fields.RevenueEndDate__c.Label}" value="{!saleslead.RevenueEndDate__c}"/>
+              </apex:pageBlockTable>    
+          </apex:pageBlockSection>
+        </apex:pageBlock>
+           <apex:pageBlock mode="mainDetail" rendered="{!doneLookupopp}">
+          <!--<apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Close Window" onclick="CloseWindow(); return false;" />
+          </apex:pageBlockButtons>-->
+          <div>
+              <table style="background-color: rgb(243, 243, 243);width:100%;display:table;">
+                  <tr>
+                      <th>
+                      	<p style="font-size:1rem;font-weight:500;padding:0.5rem 0.5rem 0.25rem 0.5rem;margin:0;">{!objnames}</p>
+                      </th>
+                  </tr>
+                  <tr><td style="padding:0 0 0.75rem 0.5rem;">{!listSize} {!$Label.Weekly_ReportSearch}</td></tr>
+              </table>
+          </div>
+          <apex:pageBlockSection columns="1" >
+              <apex:pageBlockTable value="{!opps}" var="opp" style="padding:0;">
+                <apex:column headerValue="{!$Label.OpportunityName_weeklyReport}">
+                  <apex:outputLink value="#" onclick="fillIn('{!opp.Name}', '{!opp.id}')">{!opp.Name}</apex:outputLink>       
+                </apex:column>
+                <apex:column headerValue="{!$ObjectType.opportunity.Fields.OpportunityCode__c.Label}" value="{!opp.OpportunityCode__c}"/>
+                  <apex:column headerValue="{!$ObjectType.opportunity.Fields.AccountId.Label}" value="{!opp.Account.Name}"/>
+                <apex:column headerValue="{!$ObjectType.opportunity.Fields.StageName.Label}" value="{!opp.StageName}"/>
+                <apex:column headerValue="{!$ObjectType.opportunity.Fields.CloseDate.Label}" value="{!opp.CloseDate}"/>
+                <apex:column headerValue="{!$Label.OpportunityOwner_weeklyReport}" value="{!opp.Owner.Alias}"/>
+              </apex:pageBlockTable>    
+          </apex:pageBlockSection>
+        </apex:pageBlock>
+ 
+     </div>
+   </apex:form>
+   <script language="javascript">
+   window.onload = new function() 
+   { 
+      // bring popup window to front
+      window.focus(); 
+      var ele=document.getElementById('{!$Component.form.block.section.query}');
+      console.log('ele: '+ele);
+      if (ele)
+      {
+         ele.focus();
+      }
+   }   
+   function fillIn(name, id)
+   {
+              console.log('coming in fillin');
+
+      var winMain=window.opener;
+      if (null==winMain)
+      {
+         winMain=window.parent.opener;
+      }
+       console.log('coming in fillin');
+      var ele=winMain.document.getElementById('{!$CurrentPage.parameters.namefield}');
+      ele.value=name;
+      ele=winMain.document.getElementById('{!$CurrentPage.parameters.idfield}');
+      ele.value=id;
+       console.log('ele'+ele);
+       console.log('eleval'+ele.value);
+ 
+      winMain.closeLookupPopup();
+   }
+   function Query()
+   {
+      runQuery();
+   }
+   </script> 
+</apex:page>

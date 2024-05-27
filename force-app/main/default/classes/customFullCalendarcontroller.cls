@@ -1,3 +1,13 @@
+/**
+        * @description       : Controller Class for customFullCalendar LWC 
+        * @author            : divyam.gupta@samsung.com
+        * @group             : 
+        * @last modified on  : 2024-05-24
+        * @last modified by  : divyam.gupta@samsung.com
+        * Modifications Log 
+        * Ver   Date         Author                      Modification
+        * 1.0   2024-05-24   divyam.gupta@samsung.com   Initial Version for MYSALES-264
+        **/
 public with sharing class customFullCalendarcontroller {
      @AuraEnabled(cacheable=true)
 public static Map<String,List<object>> getAllEvendata() {
@@ -77,79 +87,61 @@ public static Map<String,List<object>> getAllEvendata() {
        String knoxcalendarid = If_KnoxTaskCallInController.getknoxcalendarList();
        return 'success';
     }
+
 	@auraEnabled
-    public Static String getKnoxSchedules(){
+    public static String getKnoxSchedules(){
         system.debug('hello'); 
         String jobid ='';
-         User loginUser = [Select Id,CalendarID__c,FederationIdentifier,KnoxDataError__c from User Where Id=:UserINfo.getUserId() Limit 1];
+        User loginUser = [Select Id,CalendarID__c,FederationIdentifier,KnoxDataError__c from User Where Id=:UserINfo.getUserId() Limit 1];
         
-        //String knoxcalendarid = If_KnoxTaskCallInController.getknoxcalendarList();
-     //   if(loginUser != '' && loginUser != null){
-     	List<Object> knoxData = if_KnoxTaskListCallInController.getknoxScheduleList();
-        system.debug('knoxData_______' + knoxData);  
-        String KnoxSchedulId;
-        String subject;
-        String contentsType;
-        String contents;
-        String dateTimeing;
-        String datetotime;		        
-        system.debug('recordSize' + knoxData.Size());
-        Map<String,Map<String,Object>> newknoxMap = New Map<String,Map<String,Object>>();
-        Map<String,String> newknoxMapDate = New Map<String,String>();
-        Map<String,String> newknoxMapDateSingle = New Map<String,String>();
-        Map<String,String> newknoxMapDateStart = New Map<String,String>();
-        Map<String,String> newknoxMapStartdate = New Map<String,String>();
-        
-		List<String> listofknox = New List<String>();        
-         if(knoxData.Size() > 0){
-        for(Object record : knoxData){            	
-                Map<String,Object> objMap = (Map<String,Object>)record;            	
-                Map<String,Object> objMap1 = (Map<String,Object>) objMap.get('endTime');
-            	Map<String,Object> startobjMap = (Map<String,Object>) objMap.get('startTime');
-                
-                  system.debug('objMap________' + objMap);
-                system.debug('objMap1________' + objMap1);
-                 system.debug('startobjMap' + startobjMap);
-            //    if(objMap.containsKey('calendarId') && objMap.get('calendarId') == loginUser){  
-             if(objMap.containsKey('calendarId')){                   
-                 
-                  KnoxSchedulId =  String.valueof(objMap.get('scheduleId'));
-                   listofknox.add(KnoxSchedulId);
-                  newknoxMap.put(KnoxSchedulId,objMap);                 
-                   subject =  String.valueof(objMap.get('subject'));
-                    contentsType =  String.valueof(objMap.get('contentsType'));
-                    contents =  String.valueof(objMap.get('contents'));
-                    dateTimeing =  (String)objMap1.get('date_SFDC');
-                    datetotime = (String)objMap1.get('dateTime_SFDC');
-                    newknoxMapDate.put(KnoxSchedulId,datetotime);
-                    newknoxMapDateSingle.put(KnoxSchedulId,dateTimeing);
-                    newknoxMapDateStart.put(KnoxSchedulId,(String)startobjMap.get('dateTime_SFDC'));
-                    newknoxMapStartdate.put(KnoxSchedulId,(String)startobjMap.get('date_SFDC'));
-                }
-            }
-        system.debug('newknoxMap' + newknoxMap.Size());
-        system.debug('KnoxSchedulId_______' + KnoxSchedulId);
-            system.debug('KnoxdateTimeing _______' +dateTimeing );
-        system.debug('datetotime_________________' +datetotime );
-        system.debug('startdatetotime_________________' +(String)newknoxMapDateStart.get(KnoxSchedulId));
-        List<Event> listofEvent = [Select Id,Knox_Schedule_ID__c from Event Where Knox_Schedule_ID__c =:KnoxSchedulId];
-        batch_UpsertKnoxSchedules batchInstance = new batch_UpsertKnoxSchedules(KnoxSchedulId,subject,contentsType,contents,dateTimeing,datetotime,newknoxMap,newknoxMapDate,newknoxMapDateSingle,listofknox,newknoxMapDateStart,newknoxMapStartdate);
-		Id batchjobid = Database.executeBatch(batchInstance, 200);
-        AsyncApexJob aaj = [Select Id, Status,JobItemsProcessed, TotalJobItems, NumberOfErrors From AsyncApexJob Where Id =: batchjobid];
-        System.debug('JobId--> '+batchjobid + 'Status: '+ aaj.Status);
-        
-        jobid = aaj.Id;
-        }
-        else if(knoxData.Size() == 0 && loginUser.KnoxDataError__c == 'success'){
-            jobid ='noSchedulepresent';
-        }
-        else {
-            if(loginUser.KnoxDataError__c == 'noknoxuser'){
-            jobid ='noemprecord';
-            }
-            if(loginUser.KnoxDataError__c == 'errorcoming'){
-             jobid ='unknownerror';
+     	List<IF_KnoxCalendar> knoxData = if_KnoxTaskListCallInController.getknoxScheduleList();
 
+        system.debug('knoxData_______' + knoxData);  
+        system.debug('recordSize' + knoxData.Size());
+        
+        Map<String, IF_KnoxCalendar> knoxScheduleMap = New Map<String, IF_KnoxCalendar>();
+        Map<String,String> endDateTimeMap = New Map<String,String>();
+        Map<String,String> endDateMap = New Map<String,String>();
+        Map<String,String> startDateTimeMap = New Map<String,String>();
+        Map<String,String> startDateMap = New Map<String,String>();
+        
+		List<String> knoxScheduleIdList = New List<String>();     
+
+        String knoxScheduleId;
+
+        if(knoxData.Size() > 0){
+            for(IF_KnoxCalendar record : knoxData){            	
+                
+                knoxScheduleId = record.scheduleId;
+                system.debug('KnoxSchedulId_______' + knoxScheduleId);
+
+                knoxScheduleIdList.add(knoxScheduleId);
+                knoxScheduleMap.put(knoxScheduleId, record);                                 
+
+
+                endDateTimeMap.put(knoxScheduleId, record.endTime.knoxDateTime);
+                endDateMap.put(knoxScheduleId, record.endTime.xdate);
+                startDateTimeMap.put(knoxScheduleId, record.startTime.knoxDateTime);
+                startDateMap.put(knoxScheduleId, record.startTime.xdate);
+            }
+
+            system.debug('newknoxMap' + knoxScheduleMap.Size());
+            
+
+            batch_UpsertKnoxSchedules batchInstance = new batch_UpsertKnoxSchedules(knoxScheduleMap, endDateTimeMap, endDateMap, knoxScheduleIdList, startDateTimeMap, startDateMap);
+
+		    Id batchjobid = Database.executeBatch(batchInstance, 200);
+            AsyncApexJob aaj = [Select Id, Status,JobItemsProcessed, TotalJobItems, NumberOfErrors From AsyncApexJob Where Id =: batchjobid];
+            System.debug('JobId--> '+batchjobid + 'Status: '+ aaj.Status);
+        
+            jobid = aaj.Id;
+        } else if(knoxData.Size() == 0 && loginUser.KnoxDataError__c == 'success'){
+            jobid ='noSchedulepresent';
+        } else {
+            if(loginUser.KnoxDataError__c == 'noknoxuser'){
+                jobid = 'noemprecord';
+            } else if(loginUser.KnoxDataError__c == 'errorcoming'){
+                jobid = 'unknownerror';
             }
         }
         return jobid;
@@ -237,4 +229,37 @@ public static Map<String,List<object>> getAllEvendata() {
         return knoxtaskcalid;
 
      }
+
+      @auraEnabled
+    public Static String deleteEventData(String eventrecdid){
+        String message= '';
+        try{
+          Event evt = [select id from Event where id=:eventrecdid];
+            delete evt;
+            message = 'success';
+        
+        }
+        catch(exception e){
+            message= 'error';
+        }
+        return message;
+    }
+
+
+    @auraEnabled
+    public Static String deleteTaskData(String taskrecdid){
+        String message= '';
+        try{
+          Task tsk = [select id from Task where id=:taskrecdid];
+          System.debug('task '+tsk);
+            delete tsk;
+            message = 'success';
+        
+        }
+        catch(exception e){
+            message= 'error';
+            System.debug('error message'+e);
+        }
+        return message;
+    }
 }

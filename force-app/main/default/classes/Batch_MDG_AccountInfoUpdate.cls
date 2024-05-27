@@ -2,13 +2,15 @@
  * @description       : 
  * @author            : anish.jain@partner.samsung.com
  * @group             : 
- * @last modified on  : 11-28-2022
- * @last modified by  : atul.k1@partner.samsung.com 
+ * @last modified on  : 04-30-2024
+ * @last modified by  : waris.m@samsung.com 
  * Modifications Log 
  * Ver   Date         Author                   Modification
  * 1.0   12-30-2022   anish.jain@partner.samsung.com   Initial Version
  * 1.1   11-28-2022   atul.k1@partner.samsung.com      Accounts - Address Information Modification MYSALES-357
  * 1.2   12-04-2023   anish.jain@partner.samsung.com      Change Billing Address Update MYSALES-372
+ * 1.3   04-30-2024   waris.m@samsung.com              Changes added for  MYSALES-515 - Added a new Field ZZCHPAT
+ * 1.3   05-20-2024   d.ashish@samsung.com              Changes added for  MYSALES-533 - Added a new Field KTOKD
 **/
 
 global class Batch_MDG_AccountInfoUpdate implements Database.StateFul, Database.Batchable<sobject>, Database.AllowsCallouts, schedulable {
@@ -30,7 +32,7 @@ global class Batch_MDG_AccountInfoUpdate implements Database.StateFul, Database.
         ifStartLog.addLog('#################### ' + INTERFACE_ID + ' | ' + APEX_CLASS + ' | ' + METHOD_NAME + '(Start:' + BC.getJobId() + ') 시작' + ' ####################');
         String queryString;
         Database.QueryLocator returnScope;
-        queryString = 'select Id, Name,BP_HEADER__c, CITY1__c, CITY2__c, STREET__c, POST_CODE1__c, COUNTRY__c, REGION__c, NAME1__c,NAME2__c,TEL_NUMBER__c,FAX_NUMBER__c,URI_ADDR__c,STCD1__c,STCD2__c,STCD3__c,STCD4__c,ZZJ_1KFRE__c,ZZKDGRP_C__c,ZZSHIPPER__c,ZZTOBUSL1__c,ZZTOBUSL2__c,ZZNSTKUNL1__c,ZZNSTKUNL1_T__c,ZZNSTKUNL2__c,ZZNSTKUNL2_T__c,ZZNSTKUNL3__c,ZZNSTKUNL3_T__c,mLOEVM__c,ZZCREDL_C__c from MDGAccount__c';
+        queryString = 'select Id, Name,BP_HEADER__c, CITY1__c, CITY2__c, STREET__c, POST_CODE1__c, COUNTRY__c, REGION__c, NAME1__c,NAME2__c,TEL_NUMBER__c,FAX_NUMBER__c,URI_ADDR__c,STCD1__c,STCD2__c,STCD3__c,STCD4__c,ZZJ_1KFRE__c,ZZKDGRP_C__c,ZZSHIPPER__c,ZZTOBUSL1__c,ZZTOBUSL2__c,ZZCHPAT__c,ZZNSTKUNL1__c,ZZNSTKUNL1_T__c,ZZNSTKUNL2__c,ZZNSTKUNL2_T__c,ZZNSTKUNL3__c,ZZNSTKUNL3_T__c,mLOEVM__c,ZZCREDL_C__c,KTOKD__c from MDGAccount__c';
         System.debug('Anish Test 0 :'+queryString);
         if(Test.isRunningTest()){
         queryString +=' where Type__c = \'A\' ';   
@@ -40,6 +42,7 @@ global class Batch_MDG_AccountInfoUpdate implements Database.StateFul, Database.
         queryString +=' where Type__c = \'A\' AND (CreatedDate >= :deadline OR LastModifiedDate >= :deadline)';
         }
         System.debug('Anish Test 1 :'+queryString);
+        System.debug('Deadline :'+deadline);
         returnScope = DataBase.getQueryLocator( queryString);
         System.debug('Anish Test 2 :'+returnScope);
         ifStartLog.addLog('#################### ' + INTERFACE_ID + ' | ' + APEX_CLASS + ' | ' + METHOD_NAME + '(Start:' + BC.getJobId() + ') 종료' + ' ####################');
@@ -55,7 +58,7 @@ global class Batch_MDG_AccountInfoUpdate implements Database.StateFul, Database.
            List<Account> upsertList = new List<Account>();
            List<MDGAccount__c> updateList = new List<MDGAccount__c>();
            SavePoint sp = DataBase.setSavePoint();
-        
+            System.debug('Scoope list ######################'+scopeList);
         try{
            Id rdType = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('MDG').getRecordTypeId();
         
@@ -86,6 +89,8 @@ global class Batch_MDG_AccountInfoUpdate implements Database.StateFul, Database.
                 acc.mShipper__c         = obj.ZZSHIPPER__c;
                 acc.mBizTypeL1Code__c   = obj.ZZTOBUSL1__c;
                 acc.mBizTypeL2Code__c   = obj.ZZTOBUSL2__c;
+                acc.isMDGPartner__c     = obj.ZZCHPAT__c;  // Changes added for  MYSALES-515
+             	acc.AccountGroup__c 	= obj.KTOKD__c;	//Changes for MYSALES-533
                 acc.mGroupAccL1__c      = obj.ZZNSTKUNL1__c;
                 acc.mGroupAccNameL1__c  = obj.ZZNSTKUNL1_T__c;
                 acc.mGroupAccL2__c      = obj.ZZNSTKUNL2__c;

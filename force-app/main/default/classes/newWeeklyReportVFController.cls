@@ -13,7 +13,8 @@ public class newWeeklyReportVFController {
     public Id recordId { get; set; }
     public String issueDescriptionCheck {get; set;}
     public WeeklyReport__c wr { get; set; }
-    
+     public static Boolean isSandbox = Utils.getIsSandbox();
+
     public newWeeklyReportVFController(ApexPages.StandardController std){
         
     }
@@ -70,29 +71,46 @@ public class newWeeklyReportVFController {
 			String Opportunity   = Apexpages.currentPage().getParameters().get('Opportunity');
             String SalesLead   = Apexpages.currentPage().getParameters().get('SalesLead');
             String IssueReport = Apexpages.currentPage().getParameters().get('IssueReport');
-			String Flag   = Apexpages.currentPage().getParameters().get('Flag');
+			//String Flag   = Apexpages.currentPage().getParameters().get('Flag');
             String ComplianceGuide   = Apexpages.currentPage().getParameters().get('ComplianceGuide');
+            system.debug('ComplianceGuide val:'+ComplianceGuide);
             String ReportContent   = Apexpages.currentPage().getParameters().get('ReportContent');
             system.debug('parameters value : '+ ReportContent);
-            String IssueDescription1 = Apexpages.currentPage().getParameters().get('IssueDescription1');
-			system.debug('parameters value : '+ IssueDescription1);
-            String DisplayOrder   = Apexpages.currentPage().getParameters().get('DisplayOrder');
-            system.debug('DoSave name: ' + ReportingName + 'date: ' + ReportingDate + 'critical: ' + Critical + 'Account: ' + Account + 'Opp ' + Opportunity + 'SalesLead: ' + SalesLead + 'IssueReport: ' + IssueReport + 'Flag: ' + Flag);
-            
-            String encodedContent = EncodingUtil.urlEncode(issueDesc, 'UTF-8');
+           // String IssueDescription1 = Apexpages.currentPage().getParameters().get('IssueDescription1');
+			//system.debug('parameters value : '+ IssueDescription1);
+            //String DisplayOrder   = Apexpages.currentPage().getParameters().get('DisplayOrder');
+            //system.debug('DoSave name: ' + ReportingName + 'date: ' + ReportingDate + 'critical: ' + Critical + 'Account: ' + Account + 'Opp ' + Opportunity + 'SalesLead: ' + SalesLead + 'IssueReport: ' + IssueReport + 'Flag: ' + Flag);
+               String oldimgurl = 'img src="/sfc/servlet.shepherd/version/download/';
+             String newimgurl;
+            if(isSandbox) {
+             newimgurl = 'img src="https://sdssfa--qa.sandbox.my.salesforce.com/sfc/servlet.shepherd/version/download/';
+            }
+            else {
+               newimgurl =  'img src="https://sdssfa.lightning.force.com/sfc/servlet.shepherd/version/download/';
+            }
+            String imgsrc;
+            if(issueDesc.contains(oldimgurl)){
+            imgsrc = issueDesc.replace(oldimgurl,newimgurl);
+            }
+            else {
+                imgsrc = issueDesc;
+            }
+//            String encodedContent = EncodingUtil.urlEncode(issueDesc, 'UTF-8');
+            String encodedContent = EncodingUtil.urlEncode(imgsrc, 'UTF-8');
             Integer stringCount = encodedContent.length(); 
             
             Schema.DescribeFieldResult fieldResult = WeeklyReport__c.Issue_Description_Check__c.getDescribe();
-            Integer lengthOfField =fieldResult.getLength(); 
-            
-            if(stringCount > lengthOfField){
+            Integer lengthOfField = fieldResult.getLength(); 
+               System.debug('stringCount : ' +stringCount ); 
+             
+            /*if(stringCount > lengthOfField){
                 System.debug('stringCount : ' +stringCount ); 
                 System.debug('lengthOfField : ' +lengthOfField ); 
                 System.debug('size초과');
                 
                 ApexPages.addmessage(new ApexPages.message(ApexPages.severity.WARNING,lengthOfField+'자 Size 초과입니다. 현재('+stringCount+'자)'));                    
                 return null;
-            }
+            }*/
             
             System.debug('Delete List : ' + DeleteSrc);
             if(deleteSrc.length()>0) deleteImage(deleteSrc); 
@@ -115,20 +133,52 @@ public class newWeeklyReportVFController {
             system.debug('Present8');
             newWR.CheckedforIssue__c = Boolean.valueOf(IssueReport);
             system.debug('Present9');
-            newWR.Flag__c = Flag;
+            //newWR.Flag__c = Flag;
             system.debug('Present10');
             //if(encodedContent != null) newWR.Issue_Description_Check__c = encodedContent;
-            if(issueDesc != null) newWR.Issue_Description_Check__c = issueDesc;
+           // if(issueDesc != null) newWR.Issue_Description_Check__c = issueDesc;
+             if(issueDesc != null) newWR.Issue_Description_Check__c = imgsrc;
+
             if(ComplianceGuide != null) newWR.ComplianceGuide__c = ComplianceGuide;
             if(ReportContent != null) newWR.Contents__c = ReportContent;
-            if(IssueDescription1 != null) newWR.IssueDescription__c = IssueDescription1;
-            if(DisplayOrder != null) newWR.DisplayOrder__c = decimal.valueOf(DisplayOrder);
+          //  if(IssueDescription1 != null) newWR.IssueDescription__c = IssueDescription1;
+            //if(DisplayOrder != null) newWR.DisplayOrder__c = decimal.valueOf(DisplayOrder);
             system.debug('Before insert Apex Class '+ newWR);
-        	insert newWR;
+        	//insert newWR;
+             Database.SaveResult lsr = Database.insert(newWR,false); 
+                       PageReference redirectUrl;
+
             system.debug('After insert Apex Class '+ newWR.Id);
-            
-            PageReference redirectUrl = new PageReference('https://sdssfa--qa.sandbox.my.salesforce.com/' + newWR.Id);
+             if(lsr.isSuccess()){
+                            if(isSandbox){
+               redirectUrl = new PageReference('https://sdssfa--qa.sandbox.my.salesforce.com/' + newWR.Id);
+            }
+            else {
+            redirectUrl = new PageReference('https://sdssfa.lightning.force.com/' + newWR.Id);
+            }
             redirectUrl.setRedirect(true);
+		
+                    }
+                    else{
+                        for(Database.Error err : lsr.getErrors()){
+                            if(String.valueOF(err).contains('Issue Description: data value too large'))
+                                Apexpages.addMessage(new Apexpages.Message(ApexPages.Severity.ERROR, System.Label.CharacterLimitError));
+                            else
+                                Apexpages.addMessage(new Apexpages.Message(ApexPages.Severity.ERROR, '' + err));
+                                
+                            return null;
+                        }
+                    }
+           
+           /* PageReference redirectUrl;
+             if(isSandbox){
+            redirectUrl = new PageReference('https://sdssfa--qa.sandbox.my.salesforce.com/' + newWR.Id);
+             }
+            else {
+              redirectUrl = new PageReference('https://sdssfa.lightning.force.com/' + newWR.Id);
+
+            }
+            redirectUrl.setRedirect(true);*/
 			return redirectUrl;
         }
         catch(Exception e){

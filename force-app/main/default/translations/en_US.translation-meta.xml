@@ -1,92 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Translations xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Translations xmlns="http://soap.sforce.com/2006/04/metadata">
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- CxO --></label>
         <name>CxO</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- CxO Mobile --></label>
         <name>CxOMobile</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- File --></label>
         <name>File</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- Lead Generation --></label>
         <name>Lead_Generation</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- MSP Admin --></label>
         <name>MSP_Admin</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- Marketing --></label>
         <name>Marketing</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- Relationship Management --></label>
         <name>Relationship_Management</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label>Sales Representative</label>
         <name>Sales</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- Sales Executive --></label>
         <name>SalesExecutive</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- Sales Executive Mobile --></label>
         <name>SalesExecutiveMobile</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- Sales Manager --></label>
         <name>SalesManager</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- Sales Team Manager --></label>
         <name>SalesTeamManager</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- Sales Team Manager Mobile --></label>
         <name>SalesTeamManagerMobile</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- Sales Leadership --></label>
         <name>Sales_Leadership</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- Sales Manager Mobile --></label>
         <name>Sales_Manager_Mobile</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- Sales Mobile --></label>
         <name>Sales_Mobile</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
         <label><!-- Sales Operations --></label>
         <name>Sales_Operations</name>
     </customApplications>
     <customApplications>
-        <description xsi:nil="true"/>
+        <label><!-- Sales Rep. Console --></label>
+        <name>Sales_Rep_Console</name>
+    </customApplications>
+    <customApplications>
         <label><!-- Strategy Committee --></label>
         <name>Strategy_Committee</name>
     </customApplications>
@@ -545,6 +531,18 @@ Would you like to return to the Business Opportunity-Details screen for the chan
         <name>ASLTM_Salesleadteammember</name>
     </customLabels>
     <customLabels>
+        <label><!-- AccountPhone_weeklyReport --></label>
+        <name>AccountPhone_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- AccountSource_weeklyReport --></label>
+        <name>AccountSource_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- AccountType_weeklyReport --></label>
+        <name>AccountType_weeklyReport</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Account Information --></label>
         <name>Account_Information</name>
     </customLabels>
@@ -553,12 +551,28 @@ Would you like to return to the Business Opportunity-Details screen for the chan
         <name>Account_Name</name>
     </customLabels>
     <customLabels>
+        <label><!-- Account Name Review Session --></label>
+        <name>Account_Name_Review_Session</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Account Number --></label>
         <name>Account_Number</name>
     </customLabels>
     <customLabels>
         <label><!-- Account Owner Name --></label>
         <name>Account_Owner_Name</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Account_weeklyReport --></label>
+        <name>Account_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Accountowner_weeklyReport --></label>
+        <name>Accountowner_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Accounts_weeklyReport --></label>
+        <name>Accounts_weeklyReport</name>
     </customLabels>
     <customLabels>
         <label><!-- AddSalesTeamMemberCmp Message --></label>
@@ -651,6 +665,10 @@ Would you like to return to the Business Opportunity-Details screen for the chan
     <customLabels>
         <label><!-- BOSEARCH_LAB_ACCOUNTCODE --></label>
         <name>BOSEARCH_LAB_ACCOUNTCODE</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BOSEARCH_LAB_ACCOUNTNUMBER --></label>
+        <name>BOSEARCH_LAB_ACCOUNTNUMBER</name>
     </customLabels>
     <customLabels>
         <label><!-- BOSEARCH_LAB_ALL --></label>
@@ -983,6 +1001,18 @@ Would you like to return to the Business Opportunity-Details screen for the chan
     <customLabels>
         <label><!-- BO Report table C UrlSDSZA --></label>
         <name>BO_Report_table_C_UrlSDSZA</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Review Confirmation Body --></label>
+        <name>BO_Review_Confirmation_Body</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Review Confirmation No --></label>
+        <name>BO_Review_Confirmation_No</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- BO Review Confirmation Yes --></label>
+        <name>BO_Review_Confirmation_Yes</name>
     </customLabels>
     <customLabels>
         <label><!-- BO Team Mamber Billing Manager Msg --></label>
@@ -1576,6 +1606,10 @@ Please note that the information acquired when reporting weekly reports should b
         <name>CONVERT_LAB_SALES_LEAD_API</name>
     </customLabels>
     <customLabels>
+        <label><!-- CONVERT_LAB_SALES_LEAD_TARGET_PROFILE --></label>
+        <name>CONVERT_LAB_SALES_LEAD_TARGET_PROFILE</name>
+    </customLabels>
+    <customLabels>
         <label><!-- CONVERT_LAB_SUCCESSCONVERT --></label>
         <name>CONVERT_LAB_SUCCESSCONVERT</name>
     </customLabels>
@@ -1594,6 +1628,10 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- Cancel --></label>
         <name>Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CancelButton --></label>
+        <name>CancelButton</name>
     </customLabels>
     <customLabels>
         <label><!-- CargoesErrormessage --></label>
@@ -1634,6 +1672,10 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- Change_OwnerBtn --></label>
         <name>Change_OwnerBtn</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- CharacterLimitError --></label>
+        <name>CharacterLimitError</name>
     </customLabels>
     <customLabels>
         <label><!-- CheckCompletionDate --></label>
@@ -1744,6 +1786,10 @@ Please note that the information acquired when reporting weekly reports should b
         <name>CreateUser</name>
     </customLabels>
     <customLabels>
+        <label><!-- Created By Review Session --></label>
+        <name>Created_By_Review_Session</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Critical_LOST_003 --></label>
         <name>Critical_LOST_003</name>
     </customLabels>
@@ -1782,6 +1828,10 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- Dept. in Charge --></label>
         <name>Dept_in_Charge</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Description --></label>
+        <name>Description</name>
     </customLabels>
     <customLabels>
         <label><!-- Description_LOST_003 --></label>
@@ -2032,6 +2082,14 @@ Please note that the information acquired when reporting weekly reports should b
         <name>EXINFO_MSG_0004</name>
     </customLabels>
     <customLabels>
+        <label><!-- Edit --></label>
+        <name>Edit</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Edit Opportunity Review Session --></label>
+        <name>Edit_Opportunity_Review_Session</name>
+    </customLabels>
+    <customLabels>
         <label><!-- EmailAddressMandate --></label>
         <name>EmailAddressMandate</name>
     </customLabels>
@@ -2114,6 +2172,18 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- FooterMessage --></label>
         <name>FooterMessage</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FullCalender_MSG_01 --></label>
+        <name>FullCalender_MSG_01</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FullCalender_MSG_02 --></label>
+        <name>FullCalender_MSG_02</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- FullCalender_MSG_03 --></label>
+        <name>FullCalender_MSG_03</name>
     </customLabels>
     <customLabels>
         <label><!-- GOOGLENEWS_KEYWORD --></label>
@@ -2210,6 +2280,10 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- Improvement --></label>
         <name>Improvement</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Information --></label>
+        <name>Information</name>
     </customLabels>
     <customLabels>
         <label><!-- Information_Review --></label>
@@ -2326,6 +2400,10 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- LOGISTICS_CP_BTN_YES --></label>
         <name>LOGISTICS_CP_BTN_YES</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- LastModifiedByReviewSession --></label>
+        <name>LastModifiedByReviewSession</name>
     </customLabels>
     <customLabels>
         <label><!-- Lost_Formula_label --></label>
@@ -2616,6 +2694,10 @@ Please note that the information acquired when reporting weekly reports should b
         <name>New_Review_Session</name>
     </customLabels>
     <customLabels>
+        <label><!-- New_Weekly_Report --></label>
+        <name>New_Weekly_Report</name>
+    </customLabels>
+    <customLabels>
         <label><!-- No Default Sales Lead Team --></label>
         <name>NoDefaultSalesLeadTeam</name>
     </customLabels>
@@ -2630,6 +2712,10 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- No Data Saved Countermeasure --></label>
         <name>No_Data_Saved_Countermeasure</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- No Opportunity Create Access --></label>
+        <name>No_Opportunity_Create_Access</name>
     </customLabels>
     <customLabels>
         <label><!-- Noknoxuserpresent --></label>
@@ -3536,6 +3622,18 @@ Please note that the information acquired when reporting weekly reports should b
         <name>Opp_Close_Date_Warning_Msg</name>
     </customLabels>
     <customLabels>
+        <label><!-- Opportunities_weeklyReport --></label>
+        <name>Opportunities_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OpportunityName_weeklyReport --></label>
+        <name>OpportunityName_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OpportunityOwner_weeklyReport --></label>
+        <name>OpportunityOwner_weeklyReport</name>
+    </customLabels>
+    <customLabels>
         <label><!-- OpportunityRegisError --></label>
         <name>OpportunityRegisError</name>
     </customLabels>
@@ -3548,6 +3646,10 @@ Please note that the information acquired when reporting weekly reports should b
         <name>Opportunity_Code_label</name>
     </customLabels>
     <customLabels>
+        <label><!-- Opportunity_weeklyReport --></label>
+        <name>Opportunity_weeklyReport</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Oppportunity Name label --></label>
         <name>Oppportunity_Name_label</name>
     </customLabels>
@@ -3556,8 +3658,16 @@ Please note that the information acquired when reporting weekly reports should b
         <name>Oppty_Analysis_Temp_Success_Msg</name>
     </customLabels>
     <customLabels>
+        <label><!-- Origin account Number Review Session --></label>
+        <name>Origin_account_Number_Weekly_Report</name>
+    </customLabels>
+    <customLabels>
         <label><!-- OwnerAccErrorMsg --></label>
         <name>OwnerAccErrorMsg</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- OwnerLabel --></label>
+        <name>OwnerLabel</name>
     </customLabels>
     <customLabels>
         <label><!-- OwnerOppErrorMsg --></label>
@@ -3808,6 +3918,10 @@ Please note that the information acquired when reporting weekly reports should b
         <name>Reason_for_drop_lost</name>
     </customLabels>
     <customLabels>
+        <label><!-- Record Success Message --></label>
+        <name>Record_Success_Message</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Ref Refresh --></label>
         <name>Ref_Refresh</name>
     </customLabels>
@@ -3874,6 +3988,14 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- Report_URL_Qa --></label>
         <name>Report_URL_Qa</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Required Information --></label>
+        <name>Required_Information</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Required Message Review session --></label>
+        <name>Required_Message_Review_session</name>
     </customLabels>
     <customLabels>
         <label><!-- Reset Passoword --></label>
@@ -4082,6 +4204,10 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- SL_ERR_NULL_CHK_SD --></label>
         <name>SL_ERR_NULL_CHK_SD</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SL_OWNER_FED_NULL_CHK --></label>
+        <name>SL_OWNER_FED_NULL_CHK</name>
     </customLabels>
     <customLabels>
         <label><!-- SOL_CHANGE_MSG --></label>
@@ -4592,6 +4718,14 @@ Please note that the information acquired when reporting weekly reports should b
         <name>SalesLeadWrongOwner</name>
     </customLabels>
     <customLabels>
+        <label><!-- SalesLead_weeklyReport --></label>
+        <name>SalesLead_weeklyReport</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- SalesLeads_weeklyReport --></label>
+        <name>SalesLeads_weeklyReport</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Sales Rep.(HQ) Profile ID --></label>
         <name>Sales_Rep_HQ_Profile_ID</name>
     </customLabels>
@@ -4612,7 +4746,7 @@ Please note that the information acquired when reporting weekly reports should b
         <name>Sandbox_Knox_Bearer</name>
     </customLabels>
     <customLabels>
-        <label><!-- Sandbox_Knox_Bearer_IF_073 --></label>
+        <label><!-- Sandbox_Knox_Bearer --></label>
         <name>Sandbox_Knox_Bearer_IF_073</name>
     </customLabels>
     <customLabels>
@@ -4688,6 +4822,14 @@ Please note that the information acquired when reporting weekly reports should b
         <name>System_Administrator_Profile_ID</name>
     </customLabels>
     <customLabels>
+        <label><!-- System_Information --></label>
+        <name>System_Information</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- System Information Review Session --></label>
+        <name>System_Information_ReviewSession</name>
+    </customLabels>
+    <customLabels>
         <label><!-- TARGET BOSEARCH CLOSEDATE --></label>
         <name>TARGET_BOSEARCH_CLOSEDATE</name>
     </customLabels>
@@ -4698,6 +4840,14 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- TARGET BO AMOUNT --></label>
         <name>TARGET_BO_AMOUNT</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TARGET BO CANCEL --></label>
+        <name>TARGET_BO_CANCEL</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- TARGET BO SELECT --></label>
+        <name>TARGET_BO_SELECT</name>
     </customLabels>
     <customLabels>
         <label><!-- TARGET BO TARGET_BO --></label>
@@ -4724,8 +4874,16 @@ Please note that the information acquired when reporting weekly reports should b
         <name>TableSubHeading</name>
     </customLabels>
     <customLabels>
+        <label><!-- TargetBO Origin Account Number --></label>
+        <name>TargetBO_Origin_Account_Number</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Target BO Review --></label>
         <name>Target_BO_Review</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Target Opportunity Select Label --></label>
+        <name>Target_Opportunity_Select_Label</name>
     </customLabels>
     <customLabels>
         <label><!-- Task Alert Message --></label>
@@ -4766,6 +4924,10 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- Type --></label>
         <name>Type</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Updated Message Reciew Session --></label>
+        <name>Updated_Message_Reciew_Session</name>
     </customLabels>
     <customLabels>
         <label><!-- Used Licences --></label>
@@ -5092,6 +5254,10 @@ Please note that the information acquired when reporting weekly reports should b
         <name>Weekly_Manager_Report_User</name>
     </customLabels>
     <customLabels>
+        <label><!-- Weekly_ReportSearch --></label>
+        <name>Weekly_ReportSearch</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Weekly Report Strategy Committee Type --></label>
         <name>Weekly_Report_Strategy_Committee_Type</name>
     </customLabels>
@@ -5110,6 +5276,10 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- YearlyRevenueScheduleNote2 --></label>
         <name>YearlyRevenueScheduleNote2</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- cancel review --></label>
+        <name>cancel_review</name>
     </customLabels>
     <customLabels>
         <label><!-- firstNamePlaceholder --></label>
@@ -5206,6 +5376,14 @@ Please note that the information acquired when reporting weekly reports should b
     <customLabels>
         <label><!-- partner_signup_request_title --></label>
         <name>partner_signup_request_title</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- reporting date error --></label>
+        <name>reporting_date_error</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- reporting namee rror --></label>
+        <name>reporting_name_error</name>
     </customLabels>
     <customLabels>
         <label><!-- upload button label --></label>

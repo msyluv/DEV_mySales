@@ -100,7 +100,7 @@ public without sharing class OpportunityActivityNewController {
              /**
              * Oppty 정보, 프로젝트 정보 반환
              */
-            String opptySOQL = Utils.getQueryAddSelect('Opportunity', 'Account.AccountNumber, RecordType.DeveloperName, toLabel(XP63_VRB_APPROVAL_TYPE__c) xp63_VRB, toLabel(XP73_VRB_APPROVAL_TYPE__c) xp73_VRB', ' WHERE  Id = \'' + opptyId + '\'', false);
+            String opptySOQL = Utils.getQueryAddSelect('Opportunity', 'Account.AccountNumber, cOriginAcc__r.AccountGroup__c, RecordType.DeveloperName, toLabel(XP63_VRB_APPROVAL_TYPE__c) xp63_VRB, toLabel(XP73_VRB_APPROVAL_TYPE__c) xp73_VRB', ' WHERE  Id = \'' + opptyId + '\'', false); //531
             oppty = (Opportunity)System.Database.query(opptySOQL)[0];
             projectList = [ SELECT  Id, ProjectCode__c 
                             FROM    Project__c 

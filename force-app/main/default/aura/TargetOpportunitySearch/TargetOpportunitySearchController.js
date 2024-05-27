@@ -1,3 +1,13 @@
+/**
+ * @description       : 
+ * @author            : akash.g@samsung.com
+ * @group             : 
+ * @last modified on  : 2024-05-09
+ * @last modified by  : akash.g@samsung.com
+ * Modifications Log 
+ * Ver   Date         Author                           Modification
+ * 1.0   2024-05-09   akash.g@samsung.com              Initial Version(MYSALES -499)
+**/
 ({
     doInit: function(component, event, helper) {
         component.set('v.selectedValue', {
@@ -8,20 +18,20 @@
 			'SalesDept' : {},
 			'PrimarySalesDept' : {}
 		});
-        //var opMap = new Map();
-        //component.set('v.SelectedOpportunityMap', opMap);
+        var opMap = new Map(component.get("v.SelectedOpportunityMap"));
+        component.set('v.TempOpportunityMap', opMap);
         helper.doInit(component, event);
     },
     search: function(component, event, helper) {
-        var pageNumber = component.get("v.PageNumber"); 
-        var pageSize = 10; 
+        //var pageNumber = component.get("v.PageNumber"); 
+        var pageSize = 20; 
         var selectedValue = component.get("v.selectedValue");  
-        helper.getOpportunityList(component, pageNumber, pageSize,selectedValue);
+        helper.getOpportunityList(component, 1, pageSize,selectedValue);
     },
      
     handleNext: function(component, event, helper) {
         var pageNumber = component.get("v.PageNumber");  
-        var pageSize = 10;
+        var pageSize = 20;
         pageNumber++;
         var selectedValue = component.get("v.selectedValue"); 
         helper.getOpportunityList(component, pageNumber, pageSize,selectedValue);
@@ -29,7 +39,7 @@
      
     handlePrev: function(component, event, helper) {
         var pageNumber = component.get("v.PageNumber");  
-        var pageSize = 10;
+        var pageSize = 20;
         pageNumber--;
         var selectedValue = component.get("v.selectedValue"); 
         helper.getOpportunityList(component, pageNumber, pageSize,selectedValue);
@@ -37,7 +47,7 @@
      
     onSelectChange: function(component, event, helper) {
         var page = 1
-        var pageSize = 10;
+        var pageSize = 20;
         var selectedValue = component.get("v.selectedValue"); 
         helper.getOpportunityList(component, page, pageSize,selectedValue);
     },
@@ -49,17 +59,14 @@
         }else{
             selectedopp.set(event.target.name,oppMap.get(event.target.name));
         }
-        var selectedopp = component.get("v.SelectedOpportunityMap");
-        console.log(event.target.name);
+        component.set("v.SelectedOpportunityMap",selectedopp);
     },
     clickSelect: function(component,event){
-        var selectedopp = component.get("v.SelectedOpportunityMap");
-        /*for(var [key,value] of selectedopp){
-            console.log('Key: '+key+' and Value: '+JSON.stringify(value));
-        }*/
-        var cmpEvent = component.getEvent("selectedOppEvent"); 
-        cmpEvent.setParams({"SelectedOpportunityMap": selectedopp}); 
-        cmpEvent.fire();
+		component.find('overlayLib').notifyClose();
+    },
+    clickCancel: function(component,event){
+        var temp = component.get("v.TempOpportunityMap");
+        component.set('v.SelectedOpportunityMap', temp);
 		component.find('overlayLib').notifyClose();
     }
 })

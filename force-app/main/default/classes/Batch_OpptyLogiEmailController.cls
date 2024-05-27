@@ -4,6 +4,9 @@
  * @group             : 
  * @last modified on  : 09-19-2023
  * @last modified by  : chae_ho.yang@samsung.com
+ * * Modifications Log 
+* Ver   Date         Author                   Modification
+* 1.0   2024-05-01   vipul.k1@samsung.com    Initial Version (Added Error Handling in execute method.)
 **/
 global class Batch_OpptyLogiEmailController implements DataBase.Batchable<String>, DataBase.AllowsCallouts, Schedulable {
     private static Boolean isSandbox = Utils.getIsSandbox();
@@ -107,7 +110,7 @@ global class Batch_OpptyLogiEmailController implements DataBase.Batchable<String
     }
     //Batch_SalesLeadEmail
     public void execute(Database.BatchableContext BC, List<String> listScope){
-        
+        try{
         System.debug('### Batch_OpptyLogiEmailController :: execute :: listScope = ' + listScope);
         
         Set<String> setFederIds = new Set<String>();	//BO의 Owner Set
@@ -328,6 +331,12 @@ global class Batch_OpptyLogiEmailController implements DataBase.Batchable<String
         
         System.debug('### Batch_OpptyLogiEmailController :: execute :: ifLog.size() : ' + ifLog.size());
         System.debug('### Batch_OpptyLogiEmailController :: execute :: KnoxEmailList.size() : ' + KnoxEmailList.size());
+        }
+        catch(Exception e){ // Added By Vipul Start v-1.0
+             List<IF_Log.InterfaceLog> ifLogList = new  List<IF_Log.InterfaceLog>();
+             ifLogList.add(new IF_Log.InterfaceLog('Batch_OpptyLogiEmailController', IF_Util.generateGuid(), 'Batch_OpptyLogiEmailController', 'Execute', '', '',e));
+             new IF_Log().createLog(ifLogList); // Added By Vipul End v-1.0
+        }
     }
     
     public void finish(Database.BatchableContext BC){

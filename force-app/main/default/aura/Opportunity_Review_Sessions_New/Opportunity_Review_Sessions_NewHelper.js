@@ -1,5 +1,15 @@
+/**
+ * @description       : 
+ * @author            : akash.g@samsung.com
+ * @group             : 
+ * @last modified on  : 2024-05-09
+ * @last modified by  : akash.g@samsung.com
+ * Modifications Log 
+ * Ver   Date         Author                           Modification
+ * 1.0   2024-05-09   akash.g@samsung.com              Initial Version(MYSALES -499)
+**/
 ({
-	showMyToast : function(type, msg) {
+    showMyToast : function(type, msg) {
         var toastEvent = $A.get("e.force:showToast");
         toastEvent.setParams({
             type: type,
@@ -10,38 +20,40 @@
         toastEvent.fire();
     },
     redirectToList :  function(component, event) {
-        console.log('Akash test 1');
         var action = component.get("c.getListViews");
         action.setCallback(this, function(response){
-                          
-        var state = response.getState();
-            console.log('State='+ state);
-        if(state === "SUCCESS"){
-            console.log('Akash test 2');
-            var listviews = response.getReturnValue();
-            var navEvent = $A.get("e.force:navigateToList");
-            navEvent.setParams({
-                "listViewId": listviews.Id,
-                "listViewName": null,
-                "scope": "OpportunityReviewSession__c"
-            });
-            console.log('Akash test 3');
-            navEvent.fire();
-            console.log('Akash test 4');
-        }
-    });
-    $A.enqueueAction(action);
+            
+            var state = response.getState();
+            if(state === "SUCCESS"){
+                var listviews = response.getReturnValue();
+                var navEvent = $A.get("e.force:navigateToList");
+                navEvent.setParams({
+                    "listViewId": listviews.Id,
+                    "listViewName": null,
+                    "scope": "OpportunityReviewSession__c"
+                });
+                navEvent.fire();
+            }
+        });
+        $A.enqueueAction(action);
         
     },
+    redirectToViewRecord :  function(component, event) {
+        var sessionRecordId = component.get("v.sessionRecordId");
+        var navEvent = $A.get("e.force:navigateToSObject");
+        navEvent.setParams({
+            "recordId": sessionRecordId,
+            "slideDevName": "detail"
+        });
+        navEvent.fire();
+    },
     onSave :  function(component, event){
-        console.log('hello');
         var self = this;
         var targetBoList = [];
         var selectedopp = component.get("v.targetOpportunity");
         for(var i=0 ; i <selectedopp.length; i++){
             targetBoList.push({BoId : selectedopp[i].Id,Checked : selectedopp[i].Checked});
         }
-        console.log('akash 00' + JSON.stringify(targetBoList));
         if(component.find('selectName').get('v.value') && component.find('selectDate').get('v.value')){
             var action = component.get('c.createOpportunityReviewSessionRecord');
             action.setParams({
@@ -54,10 +66,10 @@
             var resultValue;
             action.setCallback(this, function(response){
                 var state = response.getState();   
-                console.log('akash testing' + state);
                 if(state == "SUCCESS"){
-                    this.showMyToast('SUCCESS', 'Records has been created');
-                    this.redirectToList(component, event);
+                    component.set("v.sessionRecordId", response.getReturnValue());
+                    this.showMyToast('SUCCESS',  $A.get("$Label.c.Record_Success_Message"));
+                    this.redirectToViewRecord(component, event);
                 }
                 else{
                     this.showMyToast('error', 'Error');
@@ -67,7 +79,7 @@
             
         }
         else{
-            this.showMyToast('error', 'Please Fill all the required fields.');
+            this.showMyToast('error', $A.get("$Label.c.Required_Message_Review_session"));
         }
     },
 })

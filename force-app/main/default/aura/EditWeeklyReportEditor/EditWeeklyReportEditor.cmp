@@ -2,8 +2,8 @@
   @description       : 
   @author            : aditya.r2@samsung.com
   @group             : 
-  @last modified on  : 2024-03-26
-  @last modified by  : aditya.r2@samsung.com
+  @last modified on  : 04-29-2024
+  @last modified by  : chae_ho.yang@samsung.com
   Modifications Log 
   Ver   Date         Author                 	Modification
   1.0   2024-03-26   aditya.r2@samsung.com      Initial Version (MySales-471)
@@ -11,24 +11,28 @@
 <aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,force:lightningQuickAction,lightning:actionOverride" access="global" >
     
     <aura:attribute name="isOpen" type="Boolean" default="true"/>
+    <aura:attribute name="simpleRecord" type="Object"/>
      <aura:if isTrue="{!v.isOpen}">
+         <force:recorddata aura:id="NameField" fields= "Name" recordId="{!v.recordId}" targetFields="{!v.simpleRecord}">
+         </force:recorddata>
     <div role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open">
-        <div class="slds-modal__container">
-            <header class="slds-modal__header">
+        <div class="slds-modal__container"> 
+            <header class="slds-modal__header"> 
                 <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeModal}">
                     <lightning:icon iconName="utility:close" size="small" variant="inverse"/>
                     <span class="slds-assistive-text">Close</span>
                 </button>
                 <h1 class='fontSize'>
-                Edit Weekly Report
+                    {!v.simpleRecord.Name} {!$Label.c.Edit}
                 </h1>
             </header>
-            <div class="slds-modal__content slds-p-around_medium">
+            <div class="slds-modal__content slds-p-around_medium" > 
                 <!-- Embed your Visualforce page here -->
                         <iframe src="{!'/apex/editWeeklyReportVF?id='+v.recordId}" height="100%" width="100%" frameBorder="0" scrolling="yes" style="text-align:center;"/>
             </div>
-         </div>
-    </div>
+         </div> 
+    </div> 
     </aura:if>
     <div class="slds-backdrop slds-backdrop_open"></div>
+
 </aura:component>
